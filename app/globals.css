@@ -1,0 +1,111 @@
+@import "tailwindcss";
+@import "pretendard/dist/web/static/pretendard.css";
+
+@theme {
+    --font-sans: Pretendard, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+
+    --color-accent: #3465de;
+    --color-ink: #212121;
+    --color-body: #363636;
+    --color-muted: #959595;
+    --color-line: #e5e7eb;
+    --color-soft: #f7f7f7;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    color: var(--color-body);
+    background: #fff;
+    word-break: keep-all;
+}
+
+/* crawled rich-text widgets (imweb fr-view fragments with inline styles) */
+.rich-text {
+    line-height: 1.6;
+}
+.rich-text p {
+    margin: 0;
+}
+.rich-text img {
+    max-width: 100%;
+    height: auto;
+}
+.rich-text table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.rich-text td,
+.rich-text th {
+    border: 1px solid #ddd;
+    padding: 8px 10px;
+}
+
+/* vertical spacers extracted from imweb padding widgets; scale down on mobile */
+.spacer {
+    height: calc(var(--h) * 1px);
+}
+@media (max-width: 1023px) {
+    .spacer {
+        height: calc(var(--h) * 0.55px);
+    }
+}
+
+/* rich-HTML board content rendering (post detail pages) */
+.board-content {
+    line-height: 1.75;
+}
+.board-content img {
+    max-width: 100%;
+    height: auto;
+}
+.board-content p {
+    margin: 0.9em 0;
+    line-height: 1.8;
+}
+.board-content h1,
+.board-content h2,
+.board-content h3,
+.board-content h4 {
+    font-weight: 700;
+    margin: 1.4em 0 0.6em;
+    line-height: 1.4;
+}
+.board-content h1 {
+    font-size: 1.9em;
+}
+.board-content h2 {
+    font-size: 1.6em;
+}
+.board-content h3 {
+    font-size: 1.35em;
+}
+.board-content h4 {
+    font-size: 1.2em;
+}
+.board-content ul,
+.board-content ol {
+    margin: 0.9em 0;
+    padding-left: 1.4em;
+}
+.board-content ul {
+    list-style: disc;
+}
+.board-content ol {
+    list-style: decimal;
+}
+.board-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.2em 0;
+}
+.board-content td,
+.board-content th {
+    border: 1px solid #ddd;
+    padding: 8px 10px;
+}
+.board-content iframe {
+    max-width: 100%;
+}
