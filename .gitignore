@@ -1,0 +1,19 @@
+# dependencies
+node_modules
+
+# build output
+.next
+out
+tsconfig.tsbuildinfo
+*.log
+server.log
+
+# env
+.env*
+
+# local tooling artifacts
+.playwright-mcp
+.DS_Store
+
+# regenerable design references (scripts/crawl/measure.mjs + shoot-rebuilt.mjs)
+design/
