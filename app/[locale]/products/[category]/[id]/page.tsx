@@ -1,0 +1,48 @@
+import { notFound } from "next/navigation";
+import PageHero from "@/components/ui/PageHero";
+import { PostDetail } from "@/components/ui/Boards";
+import { getBoard, getBoardPost, PRODUCT_BOARDS } from "@/lib/content";
+import { defaultLocale, isLocale, localeHref, type Locale } from "@/lib/i18n";
+import { heroFor } from "@/lib/page-hero";
+import { ui } from "@/lib/ui-strings";
+
+/** Product detail page. */
+export async function generateStaticParams() {
+  const cats = ["eco-wave", "clean-b", "flowell"];
+  const out: { locale: string; category: string; id: string }[] = [];
+  for (const category of cats) {
+    const slug = `products/${category}`;
+    for (const locale of ["ko", "en"] as const) {
+      try {
+        const board = getBoard(locale, slug);
+        for (const p of board.posts) out.push({ locale, category, id: p.idx });
+      } catch {}
+    }
+  }
+  return out;
+}
+
+export default async function ProductDetailPage({
+  params,
+}: {
+  params: Promise<{ locale: string; category: string; id: string }>;
+}) {
+  const { locale, category, id } = await params;
+  const l = isLocale(locale) ? locale : defaultLocale;
+  if (!PRODUCT_BOARDS.includes(`products/${category}` as never)) notFound();
+  const slug = `products/${category}`;
+  const post = getBoardPost(l, slug, id);
+  if (!post) notFound();
+  const hero = heroFor(`/products/${category}`, l);
+  const t = ui(l);
+  return (
+    <main>
+      <PageHero title={hero.title} tabs={hero.tabs} big />
+      <section className="mx-auto max-w-[1440px] px-5 pb-24 lg:px-10">
+        <div className="mx-auto max-w-[1000px]">
+          <PostDetail post={post} boardHref={localeHref(l, `/products/${category}`)} listLabel={t.board.list} />
+        </div>
+      </section>
+    </main>
+  );
+}
