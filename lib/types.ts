@@ -9,8 +9,11 @@ export type WidgetNode = {
   style?: string;
   src?: string | null;
   alt?: string;
+  href?: string;
+  hoverBg?: string | null;
   boxStyle?: string;
   imgStyle?: string;
+  anim?: string;
   layout?: "slide" | "grid";
   items?: {
     org: string | null;
@@ -18,13 +21,18 @@ export type WidgetNode = {
     title: string;
     desc: string;
   }[];
-  href?: string;
   ref?: string;
   listCls?: string;
 };
 
 export type ColNode = { kind: "col"; grid: string; children: Node[] };
-export type RowNode = { kind: "row"; grid: string; cols: ColNode[] };
+export type RowNode = {
+  kind: "row";
+  grid: string;
+  /** measured desktop content width (px) */
+  w?: number;
+  cols: ColNode[];
+};
 export type Node = WidgetNode | ColNode | RowNode;
 
 export type HeroSlide = {

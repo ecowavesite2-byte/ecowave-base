@@ -114,20 +114,40 @@ function EXTRACT_PAGE() {
         const fr =
           meta.querySelector(".fr-view") ||
           meta.querySelector('[doz_type="text"]');
-        return { type: "text", html: (fr || cleanClone(meta)).innerHTML };
+        return {
+          type: "text",
+          html: (fr || cleanClone(meta)).innerHTML,
+          anim: meta.getAttribute("data-widget-anim") || "none",
+        };
       }
       case "image": {
         const img = meta.querySelector("img");
         const box = meta.querySelector("._img_box");
+        const hoverEl = meta.querySelector("._hover_image");
+        const linkEl = meta.querySelector("a[href]");
+        const hoverMatch = hoverEl
+          ? hoverEl.style.backgroundImage.match(
+              /url\(["']?([^"')]+)["']?\)/,
+            )
+          : null;
         return {
           type: "image",
           src: img
             ? img.getAttribute("data-src") || img.getAttribute("src")
             : null,
           alt: img ? img.getAttribute("alt") || "" : "",
+          href: linkEl ? linkEl.getAttribute("href") : undefined,
+          hoverBg: hoverEl ? hoverMatchSafe(hoverEl) : null,
           boxStyle: box ? box.getAttribute("style") || "" : "",
           imgStyle: img ? img.getAttribute("style") || "" : "",
+          anim: meta.getAttribute("data-widget-anim") || "none",
         };
+        function hoverMatchSafe(el) {
+          const m = el.style.backgroundImage.match(
+            /url\(["']?([^"')]+)["']?\)/,
+          );
+          return m ? m[1] : null;
+        }
       }
       case "gallery2": {
         const cont = meta.querySelector(
@@ -162,10 +182,10 @@ function EXTRACT_PAGE() {
               desc: capP ? capP.textContent.replace(/\s+/g, " ").trim() : "",
             });
           });
-        return { type: "gallery2", layout, items };
+        return { type: "gallery2", layout, anim: meta.getAttribute("data-widget-anim") || "none", items };
       }
       case "code": {
-        return { type: "code", html: cleanClone(meta).innerHTML };
+        return { type: "code", html: cleanClone(meta).innerHTML, anim: meta.getAttribute("data-widget-anim") || "none" };
       }
       case "video": {
         const ifr = meta.querySelector("iframe");
@@ -178,6 +198,7 @@ function EXTRACT_PAGE() {
               ? src.getAttribute("src") || src.src
               : null,
           html: cleanClone(meta).innerHTML,
+          anim: meta.getAttribute("data-widget-anim") || "none",
         };
       }
       case "button": {
@@ -188,6 +209,7 @@ function EXTRACT_PAGE() {
           text: label ? label.textContent.replace(/\s+/g, " ").trim() : "",
           href: a ? a.getAttribute("href") || "" : "",
           html: cleanClone(meta).innerHTML,
+          anim: meta.getAttribute("data-widget-anim") || "none",
         };
       }
       case "board": {
@@ -222,9 +244,12 @@ function EXTRACT_PAGE() {
               "12",
             children: walkRows(c),
           }));
+        // measured desktop width drives the row's max-width in the rebuild
+        const rowW = Math.round(el.getBoundingClientRect().width);
         out.push({
           kind: "row",
           grid: (el.getAttribute && el.getAttribute("doz_grid")) || "12",
+          w: rowW >= 600 ? rowW : undefined,
           cols,
         });
       } else if (t === "widget" || (el.id && /^w20/.test(el.id))) {

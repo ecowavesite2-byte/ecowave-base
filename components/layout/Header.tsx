@@ -17,25 +17,23 @@ type Props = {
   langLabelEn: string;
 };
 
+/** Strip the locale prefix so middleware-rewritten paths behave like canonical ones. */
+function normalizePath(pathname: string): string {
+  return pathname.replace(/^\/(ko|en)(?=\/|$)/, "") || "/";
+}
+
 /**
  * Site header — transparent over the homepage hero, solid after scroll.
  * Dropdowns on desktop, drawer + accordion on mobile. The language selector
- * sits at the end (right side) of the header.
+ * sits at the end (right side) of the header; both entries are links.
  */
-export default function Header({
-  locale,
-  nav,
-  logo,
-  logoScrolled,
-  langLabelKo,
-  langLabelEn,
-}: Props) {
-  const pathname = usePathname() || "/";
+export default function Header({ locale, nav, logo, logoScrolled, langLabelKo, langLabelEn }: Props) {
+  const rawPathname = usePathname() || "/";
+  const pathname = normalizePath(rawPathname);
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false); // mobile drawer
   const [expanded, setExpanded] = useState<string | null>(null); // mobile accordion
-  const overlay =
-    pathname === "/" || pathname === "/en" || pathname.startsWith("/en/");
+  const overlay = pathname === "/" && !scrolled;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -47,16 +45,14 @@ export default function Header({
   useEffect(() => {
     setOpen(false);
     setExpanded(null);
-  }, [pathname]);
+  }, [rawPathname]);
 
-  const solid = scrolled || !overlay;
+  const solid = !overlay;
 
   const langTarget = (target: Locale) => {
     if (target === locale) return pathname;
     if (target === "en") {
-      return pathname.startsWith("/en")
-        ? pathname
-        : "/en" + (pathname === "/" ? "" : pathname);
+      return pathname.startsWith("/en") ? pathname : "/en" + (pathname === "/" ? "" : pathname);
     }
     return pathname.startsWith("/en") ? pathname.slice(3) || "/" : pathname;
   };
@@ -64,41 +60,36 @@ export default function Header({
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
-        solid ? "bg-white shadow-[0_1px_0_rgba(0,0,0,0.06)]" : "bg-transparent"
+        overlay ? "bg-transparent" : "bg-white shadow-[0_1px_0_rgba(0,0,0,0.06)]"
       }`}
     >
-      <div className="mx-auto flex h-[72px] max-w-[1440px] items-center justify-between px-5 lg:h-[105px] lg:px-10">
+      <div className="relative flex h-[72px] items-center px-[15px] lg:h-[105px] lg:px-[30px]">
         <Link href={localeHref(locale, "/")} className="relative z-10 shrink-0">
           <Image
-            src={solid ? logoScrolled : logo}
+            src={overlay ? logo : logoScrolled}
             alt="ECOWAVE"
-            width={190}
-            height={44}
+            width={266}
+            height={72}
             priority
-            className="h-9 w-auto lg:h-11"
+            className="h-10 w-auto lg:h-[72px]"
           />
         </Link>
 
-        {/* desktop nav */}
-        <nav
-          className="hidden flex-1 items-center justify-center lg:flex"
-          aria-label="주 메뉴"
-        >
+        {/* desktop nav — right-aligned, language selector at the very end */}
+        <nav className="ml-auto hidden items-stretch lg:flex" aria-label="주 메뉴">
           <ul className="flex items-stretch">
             {nav.map((item) => {
               const href = localeHref(locale, routeForSource(item.url));
               const active =
                 pathname === href ||
                 (href !== "/" && pathname.startsWith(href)) ||
-                item.children.some(
-                  (c) => pathname === localeHref(locale, routeForSource(c.url)),
-                );
+                item.children.some((c) => pathname === normalizePath(localeHref(locale, routeForSource(c.url))));
               return (
                 <li key={item.url} className="group relative">
                   <Link
                     href={localeHref(locale, routeForSource(item.url))}
-                    className={`block px-[30px] py-9 text-[17px] xl:text-[19px] font-normal leading-[30px] transition-colors ${
-                      solid ? "text-ink" : "text-white"
+                    className={`block px-[30px] py-[20px] text-[19px] font-normal leading-[30px] transition-colors ${
+                      overlay ? "text-white" : "text-ink"
                     } ${active ? "font-semibold" : ""} group-hover:!text-accent`}
                   >
                     {item.name}
@@ -123,47 +114,42 @@ export default function Header({
               );
             })}
           </ul>
-        </nav>
 
-        {/* language selector — end of header */}
-        <div
-          className={`relative z-10 hidden items-center gap-1 text-[14px] lg:flex ${
-            solid ? "text-muted" : "text-white/80"
-          }`}
-        >
-          <span className={locale === "ko" ? "font-semibold text-current" : ""}>
-            {langLabelKo}
-          </span>
-          <span className="mx-1.5 opacity-40">|</span>
-          <Link
-            href={langTarget("en")}
-            className={locale === "en" ? "font-semibold" : "hover:text-accent"}
-          >
-            {langLabelEn}
-          </Link>
-        </div>
+          {/* language selector */}
+          <div className={`ml-3 flex items-center gap-2 self-center text-[14px] ${overlay ? "text-white/80" : "text-muted"}`}>
+            <Link
+              href={langTarget("ko")}
+              aria-current={locale === "ko" ? "true" : undefined}
+              className={`transition-colors hover:text-accent ${locale === "ko" ? "font-semibold text-current" : ""}`}
+            >
+              {langLabelKo}
+            </Link>
+            <span className="opacity-40">|</span>
+            <Link
+              href={langTarget("en")}
+              aria-current={locale === "en" ? "true" : undefined}
+              className={`transition-colors hover:text-accent ${locale === "en" ? "font-semibold text-current" : ""}`}
+            >
+              {langLabelEn}
+            </Link>
+          </div>
+        </nav>
 
         {/* mobile hamburger */}
         <button
           type="button"
           onClick={() => setOpen(true)}
           aria-label="메뉴 열기"
-          className="relative z-10 flex h-10 w-10 flex-col items-center justify-center gap-[5px] lg:hidden"
+          className="relative z-10 ml-auto flex h-10 w-10 flex-col items-center justify-center gap-[5px] lg:hidden"
         >
           {[0, 1, 2].map((i) => (
-            <span
-              key={i}
-              className={`h-[2px] w-6 ${solid ? "bg-ink" : "bg-white"}`}
-            />
+            <span key={i} className={`h-[2px] w-6 ${overlay ? "bg-white" : "bg-ink"}`} />
           ))}
         </button>
       </div>
 
       {/* mobile drawer */}
-      <div
-        className={`fixed inset-0 z-40 lg:hidden ${open ? "" : "pointer-events-none"}`}
-        aria-hidden={!open}
-      >
+      <div className={`fixed inset-0 z-40 lg:hidden ${open ? "" : "pointer-events-none"}`} aria-hidden={!open}>
         <div
           className={`absolute inset-0 bg-black/50 transition-opacity duration-300 ${open ? "opacity-100" : "opacity-0"}`}
           onClick={() => setOpen(false)}
@@ -174,35 +160,14 @@ export default function Header({
           }`}
         >
           <div className="flex h-[72px] items-center justify-between border-b border-line px-5">
-            <Image
-              src={logo}
-              alt="ECOWAVE"
-              width={150}
-              height={36}
-              className="h-8 w-auto"
-            />
-            <button
-              type="button"
-              onClick={() => setOpen(false)}
-              aria-label="메뉴 닫기"
-              className="p-2"
-            >
-              <svg
-                width="22"
-                height="22"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#212121"
-                strokeWidth="2"
-              >
+            <Image src={logoScrolled} alt="ECOWAVE" width={150} height={40} className="h-9 w-auto" />
+            <button type="button" onClick={() => setOpen(false)} aria-label="메뉴 닫기" className="p-2">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#212121" strokeWidth="2">
                 <path d="M18 6L6 18M6 6l12 12" />
               </svg>
             </button>
           </div>
-          <nav
-            className="flex-1 overflow-y-auto px-5 py-4"
-            aria-label="모바일 메뉴"
-          >
+          <nav className="flex-1 overflow-y-auto px-5 py-4" aria-label="모바일 메뉴">
             <ul className="divide-y divide-line">
               {nav.map((item) => {
                 const isOpen = expanded === item.url;
@@ -243,15 +208,12 @@ export default function Header({
               })}
             </ul>
           </nav>
-          <div className="border-t border-line px-5 py-4 text-[14px] text-muted">
-            <span className={locale === "ko" ? "font-semibold text-ink" : ""}>
+          <div className="flex items-center gap-2 border-t border-line px-5 py-4 text-[14px] text-muted">
+            <Link href={langTarget("ko")} className={`transition-colors hover:text-accent ${locale === "ko" ? "font-semibold text-ink" : ""}`}>
               {langLabelKo}
-            </span>
-            <span className="mx-2 opacity-40">|</span>
-            <Link
-              href={langTarget("en")}
-              className={locale === "en" ? "font-semibold text-ink" : ""}
-            >
+            </Link>
+            <span className="opacity-40">|</span>
+            <Link href={langTarget("en")} className={`transition-colors hover:text-accent ${locale === "en" ? "font-semibold text-ink" : ""}`}>
               {langLabelEn}
             </Link>
           </div>

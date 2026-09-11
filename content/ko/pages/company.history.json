@@ -14,6 +14,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -33,6 +34,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -54,6 +56,7 @@
                 {
                   "kind": "row",
                   "grid": "6",
+                  "w": 640,
                   "cols": [
                     {
                       "kind": "col",
@@ -73,6 +76,7 @@
                 {
                   "kind": "row",
                   "grid": "6",
+                  "w": 640,
                   "cols": [
                     {
                       "kind": "col",
@@ -88,6 +92,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -214,6 +219,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -233,6 +239,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -242,7 +249,8 @@
                   "kind": "widget",
                   "id": "w2025081119c3906474684",
                   "type": "text",
-                  "html": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">더 건강하고 깨끗한 물을 만드는 고객과의 약속</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">에코웨이브를 소개합니다.</span></strong></h6></div></div>\n\t"
+                  "html": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">더 건강하고 깨끗한 물을 만드는 고객과의 약속</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">에코웨이브를 소개합니다.</span></strong></h6></div></div>\n\t",
+                  "anim": "none"
                 }
               ]
             }
@@ -251,6 +259,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -310,8 +319,10 @@
                   "type": "image",
                   "src": "/images/thumbnail/20250911/8a464767025fa.jpg",
                   "alt": "",
+                  "hoverBg": "/images/thumbnail/20250911/8a464767025fa.jpg",
                   "boxStyle": "",
-                  "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 0px; height: 0px; margin-left: auto; margin-right: auto;"
+                  "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 0px; height: 0px; margin-left: auto; margin-right: auto;",
+                  "anim": "fadeIn"
                 }
               ]
             }
@@ -330,6 +341,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 640,
           "cols": [
             {
               "kind": "col",
@@ -349,6 +361,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 640,
           "cols": [
             {
               "kind": "col",
@@ -358,7 +371,8 @@
                   "kind": "widget",
                   "id": "w2025082800cb79b620e9f",
                   "type": "text",
-                  "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"line-height: 2;\"><span style=\"font-size: 24px;\"><strong><span style=\"color: rgb(52, 101, 222);\">2020 - 2023</span></strong></span></h6><p style=\"line-height: 2;\"><span style=\"font-size: 48px;\"><strong><span style=\"letter-spacing: 0;\">에코웨이브의</span></strong></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 48px;\"><span style=\"letter-spacing: 0;\"><strong><span style=\"color: rgb(57, 112, 235);\">지속적<span class=\"fr-marker\" data-id=\"0\" data-type=\"true\" style=\"display: none; line-height: 0;\">​</span>인 혁<span class=\"fr-marker\" data-id=\"0\" data-type=\"false\" style=\"display: none; line-height: 0;\">​</span>신</span>과&nbsp;</strong></span><span style=\"color: rgb(57, 112, 235); letter-spacing: 0px;\"><strong>성장</strong></span></span></p></div></div>\n\t"
+                  "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"line-height: 2;\"><span style=\"font-size: 24px;\"><strong><span style=\"color: rgb(52, 101, 222);\">2020 - 2023</span></strong></span></h6><p style=\"line-height: 2;\"><span style=\"font-size: 48px;\"><strong><span style=\"letter-spacing: 0;\">에코웨이브의</span></strong></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 48px;\"><span style=\"letter-spacing: 0;\"><strong><span style=\"color: rgb(57, 112, 235);\">지속적<span class=\"fr-marker\" data-id=\"0\" data-type=\"true\" style=\"display: none; line-height: 0;\">​</span>인 혁<span class=\"fr-marker\" data-id=\"0\" data-type=\"false\" style=\"display: none; line-height: 0;\">​</span>신</span>과&nbsp;</strong></span><span style=\"color: rgb(57, 112, 235); letter-spacing: 0px;\"><strong>성장</strong></span></span></p></div></div>\n\t",
+                  "anim": "fadeInUp"
                 }
               ]
             }
@@ -367,6 +381,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 640,
           "cols": [
             {
               "kind": "col",
@@ -376,7 +391,8 @@
                   "kind": "widget",
                   "id": "w202508283581492aaba5b",
                   "type": "text",
-                  "html": "\n\t\t<div class=\"text-table \"><div><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2025</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· LS대원 비데 필터 및 아답터 공급</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· 쿠쿠 홈시스 마그네틱 5종 공급</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2024</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· LS대원 비데 필터 및 아답터 공급</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· 쿠쿠 홈시스 마그네틱 5종 공급</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2023</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· 캄보디아 판매회사 설립</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2021</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· 에코웨이브 2공장 설립</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· LG전자 서비스 점검키트 개발</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2020</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· 쿠쿠 홈시스 정수기 설치 아답터 개발</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· 쿠쿠 홈시스 POE정수 필터 개발</span></p></div></div>\n\t"
+                  "html": "\n\t\t<div class=\"text-table \"><div><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2025</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· LS대원 비데 필터 및 아답터 공급</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· 쿠쿠 홈시스 마그네틱 5종 공급</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2024</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· LS대원 비데 필터 및 아답터 공급</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· 쿠쿠 홈시스 마그네틱 5종 공급</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2023</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· 캄보디아 판매회사 설립</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2021</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· 에코웨이브 2공장 설립</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· LG전자 서비스 점검키트 개발</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2020</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· 쿠쿠 홈시스 정수기 설치 아답터 개발</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· 쿠쿠 홈시스 POE정수 필터 개발</span></p></div></div>\n\t",
+                  "anim": "none"
                 }
               ]
             }
@@ -395,6 +411,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -435,8 +452,10 @@
                   "type": "image",
                   "src": "/images/thumbnail/20250911/3a403d278f3ca.jpg",
                   "alt": "",
+                  "hoverBg": "/images/thumbnail/20250911/3a403d278f3ca.jpg",
                   "boxStyle": "",
-                  "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 0px; height: 0px; margin-left: auto; margin-right: auto;"
+                  "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 0px; height: 0px; margin-left: auto; margin-right: auto;",
+                  "anim": "fadeIn"
                 }
               ]
             }
@@ -455,6 +474,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 640,
           "cols": [
             {
               "kind": "col",
@@ -474,6 +494,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 640,
           "cols": [
             {
               "kind": "col",
@@ -483,7 +504,8 @@
                   "kind": "widget",
                   "id": "w20250828e83ff2674ace5",
                   "type": "text",
-                  "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"line-height: 2;\"><span style=\"font-size: 24px;\"><strong><span style=\"color: rgb(52, 101, 222);\">2015 - 2019</span></strong></span></h6><p style=\"line-height: 2;\"><span style=\"font-size: 48px;\"><strong><span style=\"letter-spacing: 0;\">에코웨이브의</span></strong></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 48px;\"><span style=\"letter-spacing: 0px; color: rgb(54, 54, 54);\"><strong>기술</strong></span><span style=\"letter-spacing: 0;\"><strong>과 서비스의 융합 &nbsp;</strong></span></span></p></div></div>\n\t"
+                  "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"line-height: 2;\"><span style=\"font-size: 24px;\"><strong><span style=\"color: rgb(52, 101, 222);\">2015 - 2019</span></strong></span></h6><p style=\"line-height: 2;\"><span style=\"font-size: 48px;\"><strong><span style=\"letter-spacing: 0;\">에코웨이브의</span></strong></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 48px;\"><span style=\"letter-spacing: 0px; color: rgb(54, 54, 54);\"><strong>기술</strong></span><span style=\"letter-spacing: 0;\"><strong>과 서비스의 융합 &nbsp;</strong></span></span></p></div></div>\n\t",
+                  "anim": "fadeInUp"
                 }
               ]
             }
@@ -492,6 +514,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 640,
           "cols": [
             {
               "kind": "col",
@@ -501,7 +524,8 @@
                   "kind": "widget",
                   "id": "w2025082812223844d5d61",
                   "type": "text",
-                  "html": "\n\t\t<div class=\"text-table \"><div><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2019</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· LG전자 정수기 아답터 개발&nbsp;</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2018</span></strong></h6><p><span style=\"font-size: 18px;\">· 쿠쿠 홈시스 정수기 필터 개발</span></p><p><span style=\"font-size: 18px;\">· SK Magic 신규 비데 필터 개발</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2017</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· 자사 비타민 샤워기 모듈 및 필터 개발&nbsp;</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2016</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· SK Magic 비데 필터 공급&nbsp;</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2015</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· 나노 필터 개발&nbsp;</span></p></div></div>\n\t"
+                  "html": "\n\t\t<div class=\"text-table \"><div><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2019</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· LG전자 정수기 아답터 개발&nbsp;</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2018</span></strong></h6><p><span style=\"font-size: 18px;\">· 쿠쿠 홈시스 정수기 필터 개발</span></p><p><span style=\"font-size: 18px;\">· SK Magic 신규 비데 필터 개발</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2017</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· 자사 비타민 샤워기 모듈 및 필터 개발&nbsp;</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2016</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· SK Magic 비데 필터 공급&nbsp;</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2015</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· 나노 필터 개발&nbsp;</span></p></div></div>\n\t",
+                  "anim": "none"
                 }
               ]
             }
@@ -520,6 +544,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -560,8 +585,10 @@
                   "type": "image",
                   "src": "/images/thumbnail/20250911/f4ac0f6dcab6e.jpg",
                   "alt": "",
+                  "hoverBg": "/images/thumbnail/20250911/f4ac0f6dcab6e.jpg",
                   "boxStyle": "",
-                  "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 0px; height: 0px; margin-left: auto; margin-right: auto;"
+                  "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 0px; height: 0px; margin-left: auto; margin-right: auto;",
+                  "anim": "fadeIn"
                 }
               ]
             }
@@ -580,6 +607,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 640,
           "cols": [
             {
               "kind": "col",
@@ -599,6 +627,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 640,
           "cols": [
             {
               "kind": "col",
@@ -608,7 +637,8 @@
                   "kind": "widget",
                   "id": "w20250828ed4c25cde1fa0",
                   "type": "text",
-                  "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"line-height: 2;\"><span style=\"font-size: 24px;\"><strong><span style=\"color: rgb(52, 101, 222);\">2010 - 2014</span></strong></span></h6><p style=\"line-height: 2;\"><span style=\"font-size: 48px;\"><strong><span style=\"letter-spacing: 0;\">에코웨이브의</span></strong></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 48px;\"><span style=\"letter-spacing: 0;\"><strong>고객과 함께한 신뢰의 역사 </strong></span></span></p></div></div>\n\t"
+                  "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"line-height: 2;\"><span style=\"font-size: 24px;\"><strong><span style=\"color: rgb(52, 101, 222);\">2010 - 2014</span></strong></span></h6><p style=\"line-height: 2;\"><span style=\"font-size: 48px;\"><strong><span style=\"letter-spacing: 0;\">에코웨이브의</span></strong></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 48px;\"><span style=\"letter-spacing: 0;\"><strong>고객과 함께한 신뢰의 역사 </strong></span></span></p></div></div>\n\t",
+                  "anim": "fadeInUp"
                 }
               ]
             }
@@ -617,6 +647,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 640,
           "cols": [
             {
               "kind": "col",
@@ -626,7 +657,8 @@
                   "kind": "widget",
                   "id": "w202508288b50dcc1f5d69",
                   "type": "text",
-                  "html": "\n\t\t<div class=\"text-table \"><div><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2014</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· 기업 부설 연구소 설립&nbsp;</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2013</span></strong></h6><p><span style=\"font-size: 18px;\">· 자사 언더 싱크 정수기 개발</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2012</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· LG 살균 모듈 개발(ESD)개발</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· LG전자 스위치 아세이(LPS)개발</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2011</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· 에코웨이브 설립</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· LG 정수기 필터 공급</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2010</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px;\">· 정수기 필터 개발(LG)</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px;\">· RO 시스템 및 UF 시스템</span></p></div></div>\n\t"
+                  "html": "\n\t\t<div class=\"text-table \"><div><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2014</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· 기업 부설 연구소 설립&nbsp;</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2013</span></strong></h6><p><span style=\"font-size: 18px;\">· 자사 언더 싱크 정수기 개발</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2012</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· LG 살균 모듈 개발(ESD)개발</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· LG전자 스위치 아세이(LPS)개발</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2011</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· 에코웨이브 설립</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· LG 정수기 필터 공급</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2010</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px;\">· 정수기 필터 개발(LG)</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px;\">· RO 시스템 및 UF 시스템</span></p></div></div>\n\t",
+                  "anim": "none"
                 }
               ]
             }
@@ -645,6 +677,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -685,8 +718,11 @@
                   "type": "image",
                   "src": "/images/thumbnail/20250911/68ffc55b3ed20.png",
                   "alt": "",
+                  "href": "#doz_header",
+                  "hoverBg": "/images/thumbnail/20250911/68ffc55b3ed20.png",
                   "boxStyle": "",
-                  "imgStyle": "visibility: visible; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 0px; height: 0px; margin: 21px auto;"
+                  "imgStyle": "visibility: visible; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 0px; height: 0px; margin: 21px auto;",
+                  "anim": "none"
                 }
               ]
             }
@@ -704,7 +740,8 @@
                   "kind": "widget",
                   "id": "w20250911712afbc03dd48",
                   "type": "code",
-                  "html": "\n"
+                  "html": "\n",
+                  "anim": "none"
                 }
               ]
             }
@@ -723,6 +760,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -732,7 +770,8 @@
                   "kind": "widget",
                   "id": "w2025082575878708b2b14",
                   "type": "code",
-                  "html": ""
+                  "html": "",
+                  "anim": "none"
                 }
               ]
             }
@@ -751,6 +790,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -770,6 +810,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -778,6 +819,7 @@
                 {
                   "kind": "row",
                   "grid": "7",
+                  "w": 747,
                   "cols": [
                     {
                       "kind": "col",
@@ -787,7 +829,8 @@
                           "kind": "widget",
                           "id": "w20250811379e3dc61aa7f",
                           "type": "text",
-                          "html": "\n\t\t<div class=\"text-table \"><div><p><img src=\"/images/upload/S20250811e0bd2f7c414df/f04049636b82b.png\" class=\"fr-fin fr-dib fr-fil\" style=\"width: 238px;\"></p></div></div>\n\t"
+                          "html": "\n\t\t<div class=\"text-table \"><div><p><img src=\"/images/upload/S20250811e0bd2f7c414df/f04049636b82b.png\" class=\"fr-fin fr-dib fr-fil\" style=\"width: 238px;\"></p></div></div>\n\t",
+                          "anim": "none"
                         }
                       ]
                     }
@@ -796,6 +839,7 @@
                 {
                   "kind": "row",
                   "grid": "7",
+                  "w": 747,
                   "cols": [
                     {
                       "kind": "col",
@@ -805,7 +849,8 @@
                           "kind": "widget",
                           "id": "w20250811c8ba21c61f272",
                           "type": "text",
-                          "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2;\"><span style=\"color: rgb(149, 149, 149); font-size: 14px;\">대표 : 김나연 &nbsp;</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">개인정보관리책임자 : 김나연 &nbsp;ㅣ &nbsp;문의 : ecowave_1800@naver.com</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">주소 : 인천광역시 남동구 은봉로 14 영도빌딩 2동</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">전화 : +82-32-812-1800 &nbsp;ㅣ &nbsp;팩스 : +82-32-812-1804</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><br></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Copyright ⓒ ECOWAVE. All Rights Reserved</span></span></p></div></div>\n\t"
+                          "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2;\"><span style=\"color: rgb(149, 149, 149); font-size: 14px;\">대표 : 김나연 &nbsp;</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">개인정보관리책임자 : 김나연 &nbsp;ㅣ &nbsp;문의 : ecowave_1800@naver.com</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">주소 : 인천광역시 남동구 은봉로 14 영도빌딩 2동</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">전화 : +82-32-812-1800 &nbsp;ㅣ &nbsp;팩스 : +82-32-812-1804</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><br></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Copyright ⓒ ECOWAVE. All Rights Reserved</span></span></p></div></div>\n\t",
+                          "anim": "none"
                         }
                       ]
                     }
@@ -831,7 +876,8 @@
                           "type": "button",
                           "text": "",
                           "href": "#doz_header",
-                          "html": "<div class=\"widget button txt_r\">\n\t<div class=\"button_wrap \">\n\t\t<div class=\"inline-blocked \"><a class=\" btn btn_82610ee2a0658   btn-default  \" href=\"#doz_header\" style=\"line-height: 1; border-radius:9999px\"><i aria-hidden=\"true\" style=\"line-height: 1;\" class=\"simple icon-arrow-up\"></i></a></div>\t</div>\n</div>\n\n"
+                          "html": "<div class=\"widget button txt_r\">\n\t<div class=\"button_wrap \">\n\t\t<div class=\"inline-blocked \"><a class=\" btn btn_82610ee2a0658   btn-default  \" href=\"#doz_header\" style=\"line-height: 1; border-radius:9999px\"><i aria-hidden=\"true\" style=\"line-height: 1;\" class=\"simple icon-arrow-up\"></i></a></div>\t</div>\n</div>\n\n",
+                          "anim": "none"
                         }
                       ]
                     }
@@ -857,7 +903,8 @@
                                   "kind": "widget",
                                   "id": "w20250919b68d158c2925e",
                                   "type": "text",
-                                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>에코</strong><strong>웨이</strong><strong>브</strong></span></p></div></div>\n\t"
+                                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>에코</strong><strong>웨이</strong><strong>브</strong></span></p></div></div>\n\t",
+                                  "anim": "none"
                                 }
                               ]
                             }
@@ -892,7 +939,8 @@
                                   "kind": "widget",
                                   "id": "w202509198aeb3bd046ac9",
                                   "type": "text",
-                                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216);\"><strong>연구개발</strong></span></p></div></div>\n\t"
+                                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216);\"><strong>연구개발</strong></span></p></div></div>\n\t",
+                                  "anim": "none"
                                 }
                               ]
                             }
@@ -927,7 +975,8 @@
                                   "kind": "widget",
                                   "id": "w2025091955cb4ab654cac",
                                   "type": "text",
-                                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>제품소개</strong></span></p></div></div>\n\t"
+                                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>제품소개</strong></span></p></div></div>\n\t",
+                                  "anim": "none"
                                 }
                               ]
                             }
@@ -962,7 +1011,8 @@
                                   "kind": "widget",
                                   "id": "w2025091988816c09014e4",
                                   "type": "text",
-                                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>뉴스룸</strong></span></p></div></div>\n\t"
+                                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>뉴스룸</strong></span></p></div></div>\n\t",
+                                  "anim": "none"
                                 }
                               ]
                             }
@@ -997,7 +1047,8 @@
                                   "kind": "widget",
                                   "id": "w20250919e76996cca8992",
                                   "type": "text",
-                                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>고객지원</strong></span></p></div></div>\n\t"
+                                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>고객지원</strong></span></p></div></div>\n\t",
+                                  "anim": "none"
                                 }
                               ]
                             }
@@ -1025,6 +1076,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",

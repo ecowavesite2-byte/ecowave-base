@@ -14,6 +14,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -33,6 +34,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -54,6 +56,7 @@
                 {
                   "kind": "row",
                   "grid": "6",
+                  "w": 640,
                   "cols": [
                     {
                       "kind": "col",
@@ -73,6 +76,7 @@
                 {
                   "kind": "row",
                   "grid": "6",
+                  "w": 640,
                   "cols": [
                     {
                       "kind": "col",
@@ -88,6 +92,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -214,6 +219,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -233,6 +239,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -242,7 +249,8 @@
                   "kind": "widget",
                   "id": "w20250820f45ae1e9a7239",
                   "type": "text",
-                  "html": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">첨단 설비와 철저한 관리로</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">더 깨끗하고 안전한 물을 만듭니다.</span></strong></h6></div></div>\n\t"
+                  "html": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">첨단 설비와 철저한 관리로</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">더 깨끗하고 안전한 물을 만듭니다.</span></strong></h6></div></div>\n\t",
+                  "anim": "none"
                 }
               ]
             }
@@ -251,6 +259,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -280,6 +289,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -299,6 +309,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -308,7 +319,8 @@
                   "kind": "widget",
                   "id": "w20250820275c6573162a6",
                   "type": "text",
-                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: left;\"><span style=\"font-size: 48px;\"><strong><span style=\"color: rgb(18, 18, 18);\">인증 현황</span></strong></span></p></div></div>\n\t"
+                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: left;\"><span style=\"font-size: 48px;\"><strong><span style=\"color: rgb(18, 18, 18);\">인증 현황</span></strong></span></p></div></div>\n\t",
+                  "anim": "fadeInUp"
                 }
               ]
             }
@@ -317,6 +329,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -327,6 +340,7 @@
                   "id": "w20250820eeffb853be62c",
                   "type": "gallery2",
                   "layout": "grid",
+                  "anim": "none",
                   "items": [
                     {
                       "org": "/images/upload/S20250811e0bd2f7c414df/c8d5190e41b1f.jpg",
@@ -421,6 +435,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -440,6 +455,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -449,7 +465,8 @@
                   "kind": "widget",
                   "id": "w2025082061b08b8c142c7",
                   "type": "text",
-                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: left;\"><span style=\"font-size: 48px;\"><strong><span style=\"color: rgb(18, 18, 18);\">기업 인증 및 특허 현황 </span></strong></span></p></div></div>\n\t"
+                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: left;\"><span style=\"font-size: 48px;\"><strong><span style=\"color: rgb(18, 18, 18);\">기업 인증 및 특허 현황 </span></strong></span></p></div></div>\n\t",
+                  "anim": "fadeInUp"
                 }
               ]
             }
@@ -458,6 +475,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -468,6 +486,7 @@
                   "id": "w20250820d0424c97beb80",
                   "type": "gallery2",
                   "layout": "grid",
+                  "anim": "none",
                   "items": [
                     {
                       "org": "/images/upload/S20250811e0bd2f7c414df/c088725141cb2.jpg",
@@ -502,6 +521,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -521,6 +541,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -530,7 +551,8 @@
                   "kind": "widget",
                   "id": "w202508201caaa295b789a",
                   "type": "text",
-                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: left;\"><span style=\"font-size: 48px;\"><strong><span style=\"color: rgb(18, 18, 18);\">국제 인증 및 위촉 현황&nbsp;</span></strong></span></p></div></div>\n\t"
+                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: left;\"><span style=\"font-size: 48px;\"><strong><span style=\"color: rgb(18, 18, 18);\">국제 인증 및 위촉 현황&nbsp;</span></strong></span></p></div></div>\n\t",
+                  "anim": "fadeInUp"
                 }
               ]
             }
@@ -539,6 +561,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -549,6 +572,7 @@
                   "id": "w2025082013eb8cbe71ecd",
                   "type": "gallery2",
                   "layout": "grid",
+                  "anim": "none",
                   "items": [
                     {
                       "org": "/images/upload/S20250811e0bd2f7c414df/d2f2ee4d98587.jpg",
@@ -583,6 +607,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -623,8 +648,11 @@
                   "type": "image",
                   "src": "/images/thumbnail/20250911/68ffc55b3ed20.png",
                   "alt": "",
+                  "href": "#doz_header",
+                  "hoverBg": "/images/thumbnail/20250911/68ffc55b3ed20.png",
                   "boxStyle": "",
-                  "imgStyle": "visibility: visible; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 0px; height: 0px; margin: 21px auto;"
+                  "imgStyle": "visibility: visible; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 0px; height: 0px; margin: 21px auto;",
+                  "anim": "none"
                 }
               ]
             }
@@ -642,7 +670,8 @@
                   "kind": "widget",
                   "id": "w20250911712afbc03dd48",
                   "type": "code",
-                  "html": "\n"
+                  "html": "\n",
+                  "anim": "none"
                 }
               ]
             }
@@ -661,6 +690,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -670,7 +700,8 @@
                   "kind": "widget",
                   "id": "w2025082575878708b2b14",
                   "type": "code",
-                  "html": ""
+                  "html": "",
+                  "anim": "none"
                 }
               ]
             }
@@ -689,6 +720,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -708,6 +740,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -716,6 +749,7 @@
                 {
                   "kind": "row",
                   "grid": "7",
+                  "w": 747,
                   "cols": [
                     {
                       "kind": "col",
@@ -725,7 +759,8 @@
                           "kind": "widget",
                           "id": "w20250811379e3dc61aa7f",
                           "type": "text",
-                          "html": "\n\t\t<div class=\"text-table \"><div><p><img src=\"/images/upload/S20250811e0bd2f7c414df/f04049636b82b.png\" class=\"fr-fin fr-dib fr-fil\" style=\"width: 238px;\"></p></div></div>\n\t"
+                          "html": "\n\t\t<div class=\"text-table \"><div><p><img src=\"/images/upload/S20250811e0bd2f7c414df/f04049636b82b.png\" class=\"fr-fin fr-dib fr-fil\" style=\"width: 238px;\"></p></div></div>\n\t",
+                          "anim": "none"
                         }
                       ]
                     }
@@ -734,6 +769,7 @@
                 {
                   "kind": "row",
                   "grid": "7",
+                  "w": 747,
                   "cols": [
                     {
                       "kind": "col",
@@ -743,7 +779,8 @@
                           "kind": "widget",
                           "id": "w20250811c8ba21c61f272",
                           "type": "text",
-                          "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2;\"><span style=\"color: rgb(149, 149, 149); font-size: 14px;\">대표 : 김나연 &nbsp;</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">개인정보관리책임자 : 김나연 &nbsp;ㅣ &nbsp;문의 : ecowave_1800@naver.com</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">주소 : 인천광역시 남동구 은봉로 14 영도빌딩 2동</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">전화 : +82-32-812-1800 &nbsp;ㅣ &nbsp;팩스 : +82-32-812-1804</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><br></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Copyright ⓒ ECOWAVE. All Rights Reserved</span></span></p></div></div>\n\t"
+                          "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2;\"><span style=\"color: rgb(149, 149, 149); font-size: 14px;\">대표 : 김나연 &nbsp;</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">개인정보관리책임자 : 김나연 &nbsp;ㅣ &nbsp;문의 : ecowave_1800@naver.com</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">주소 : 인천광역시 남동구 은봉로 14 영도빌딩 2동</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">전화 : +82-32-812-1800 &nbsp;ㅣ &nbsp;팩스 : +82-32-812-1804</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><br></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Copyright ⓒ ECOWAVE. All Rights Reserved</span></span></p></div></div>\n\t",
+                          "anim": "none"
                         }
                       ]
                     }
@@ -769,7 +806,8 @@
                           "type": "button",
                           "text": "",
                           "href": "#doz_header",
-                          "html": "<div class=\"widget button txt_r\">\n\t<div class=\"button_wrap \">\n\t\t<div class=\"inline-blocked \"><a class=\" btn btn_82610ee2a0658   btn-default  \" href=\"#doz_header\" style=\"line-height: 1; border-radius:9999px\"><i aria-hidden=\"true\" style=\"line-height: 1;\" class=\"simple icon-arrow-up\"></i></a></div>\t</div>\n</div>\n\n"
+                          "html": "<div class=\"widget button txt_r\">\n\t<div class=\"button_wrap \">\n\t\t<div class=\"inline-blocked \"><a class=\" btn btn_82610ee2a0658   btn-default  \" href=\"#doz_header\" style=\"line-height: 1; border-radius:9999px\"><i aria-hidden=\"true\" style=\"line-height: 1;\" class=\"simple icon-arrow-up\"></i></a></div>\t</div>\n</div>\n\n",
+                          "anim": "none"
                         }
                       ]
                     }
@@ -795,7 +833,8 @@
                                   "kind": "widget",
                                   "id": "w20250919b68d158c2925e",
                                   "type": "text",
-                                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>에코</strong><strong>웨이</strong><strong>브</strong></span></p></div></div>\n\t"
+                                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>에코</strong><strong>웨이</strong><strong>브</strong></span></p></div></div>\n\t",
+                                  "anim": "none"
                                 }
                               ]
                             }
@@ -830,7 +869,8 @@
                                   "kind": "widget",
                                   "id": "w202509198aeb3bd046ac9",
                                   "type": "text",
-                                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216);\"><strong>연구개발</strong></span></p></div></div>\n\t"
+                                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216);\"><strong>연구개발</strong></span></p></div></div>\n\t",
+                                  "anim": "none"
                                 }
                               ]
                             }
@@ -865,7 +905,8 @@
                                   "kind": "widget",
                                   "id": "w2025091955cb4ab654cac",
                                   "type": "text",
-                                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>제품소개</strong></span></p></div></div>\n\t"
+                                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>제품소개</strong></span></p></div></div>\n\t",
+                                  "anim": "none"
                                 }
                               ]
                             }
@@ -900,7 +941,8 @@
                                   "kind": "widget",
                                   "id": "w2025091988816c09014e4",
                                   "type": "text",
-                                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>뉴스룸</strong></span></p></div></div>\n\t"
+                                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>뉴스룸</strong></span></p></div></div>\n\t",
+                                  "anim": "none"
                                 }
                               ]
                             }
@@ -935,7 +977,8 @@
                                   "kind": "widget",
                                   "id": "w20250919e76996cca8992",
                                   "type": "text",
-                                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>고객지원</strong></span></p></div></div>\n\t"
+                                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>고객지원</strong></span></p></div></div>\n\t",
+                                  "anim": "none"
                                 }
                               ]
                             }
@@ -963,6 +1006,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",

@@ -84,7 +84,8 @@
                   "kind": "widget",
                   "id": "w2025091161bea948f6bee",
                   "type": "text",
-                  "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"line-height: 2;\"><strong><span style=\"color: rgb(0, 0, 0); font-size: 26px; letter-spacing: 0px;\">건강하고 깨끗한 물,</span></strong></h6><h6 style=\"line-height: 2;\"><span style=\"font-size: 26px;\"><strong><span style=\"color: rgb(0, 0, 0); letter-spacing: 0px;\">에코웨이브가&nbsp;</span></strong><strong><span style=\"letter-spacing: 0;\"><span style=\"color: rgb(0, 0, 0);\">고객과 함께</span></span></strong></span></h6><h6 style=\"line-height: 2;\"><span style=\"font-size: 26px;\"><strong><span style=\"color: rgb(52, 101, 222); letter-spacing: 0px;\">더 나은 미래를&nbsp;</span></strong></span><strong><span style=\"color: rgb(52, 101, 222); font-size: 26px; letter-spacing: 0px;\">만들어갑니다. </span></strong></h6></div></div>\n\t"
+                  "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"line-height: 2;\"><strong><span style=\"color: rgb(0, 0, 0); font-size: 26px; letter-spacing: 0px;\">건강하고 깨끗한 물,</span></strong></h6><h6 style=\"line-height: 2;\"><span style=\"font-size: 26px;\"><strong><span style=\"color: rgb(0, 0, 0); letter-spacing: 0px;\">에코웨이브가&nbsp;</span></strong><strong><span style=\"letter-spacing: 0;\"><span style=\"color: rgb(0, 0, 0);\">고객과 함께</span></span></strong></span></h6><h6 style=\"line-height: 2;\"><span style=\"font-size: 26px;\"><strong><span style=\"color: rgb(52, 101, 222); letter-spacing: 0px;\">더 나은 미래를&nbsp;</span></strong></span><strong><span style=\"color: rgb(52, 101, 222); font-size: 26px; letter-spacing: 0px;\">만들어갑니다. </span></strong></h6></div></div>\n\t",
+                  "anim": "none"
                 }
               ]
             }
@@ -114,8 +115,11 @@
                   "type": "image",
                   "src": "/images/thumbnail/20250911/55a9cffce4f94.jpg",
                   "alt": "<h5>회사소개</h5><span>Company</span>",
+                  "href": "/17",
+                  "hoverBg": "/images/thumbnail/20250911/55a9cffce4f94.jpg",
                   "boxStyle": "height: 179px;",
-                  "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: block; width: auto; height: 100%; margin-top: 0px; margin-left: -66.7081px;"
+                  "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: block; width: auto; height: 100%; margin-top: 0px; margin-left: -66.7081px;",
+                  "anim": "fadeInUp"
                 }
               ]
             }
@@ -135,8 +139,11 @@
                   "type": "image",
                   "src": "/images/thumbnail/20250911/aabafe51067b6.jpg",
                   "alt": "<h5>연구개발</h5><span>R&D</span>",
+                  "href": "/21",
+                  "hoverBg": "/images/thumbnail/20250911/aabafe51067b6.jpg",
                   "boxStyle": "height: 179px;",
-                  "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: block; width: auto; height: 100%; margin-top: 0px; margin-left: -66.7081px;"
+                  "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: block; width: auto; height: 100%; margin-top: 0px; margin-left: -66.7081px;",
+                  "anim": "fadeInUp"
                 }
               ]
             }
@@ -156,8 +163,11 @@
                   "type": "image",
                   "src": "/images/thumbnail/20250911/84fff7d77ffff.jpg",
                   "alt": "<h5>제품소개</h5><span>Products</span>",
+                  "href": "/32",
+                  "hoverBg": "/images/thumbnail/20250911/84fff7d77ffff.jpg",
                   "boxStyle": "height: 179px;",
-                  "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: block; width: auto; height: 100%; margin-top: 0px; margin-left: -66.7081px;"
+                  "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: block; width: auto; height: 100%; margin-top: 0px; margin-left: -66.7081px;",
+                  "anim": "fadeInUp"
                 }
               ]
             }
@@ -177,8 +187,11 @@
                   "type": "image",
                   "src": "/images/thumbnail/20250911/41c848eb0d74e.jpg",
                   "alt": "<h5>홍보센터</h5><span>PR Center</span>",
+                  "href": "/27",
+                  "hoverBg": "/images/thumbnail/20250911/41c848eb0d74e.jpg",
                   "boxStyle": "height: 179px;",
-                  "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: block; width: auto; height: 100%; margin-top: 0px; margin-left: -66.7081px;"
+                  "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: block; width: auto; height: 100%; margin-top: 0px; margin-left: -66.7081px;",
+                  "anim": "fadeInUp"
                 }
               ]
             }
@@ -196,7 +209,8 @@
                   "kind": "widget",
                   "id": "w2025091106eb6f453ead4",
                   "type": "code",
-                  "html": ""
+                  "html": "",
+                  "anim": "none"
                 }
               ]
             }
@@ -234,6 +248,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -243,7 +258,8 @@
                   "kind": "widget",
                   "id": "w202508113d84762227376",
                   "type": "code",
-                  "html": ""
+                  "html": "",
+                  "anim": "none"
                 }
               ]
             }
@@ -290,7 +306,8 @@
                   "kind": "widget",
                   "id": "w20250911f6299fc147ec0",
                   "type": "text",
-                  "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: center;\"><img src=\"/images/upload/S20250811e0bd2f7c414df/48fbd16b3a070.png\" class=\"fr-fin fr-dib\" style=\"width: 266px;\"></h6><p style=\"text-align: center; line-height: 2;\"><br></p><p style=\"text-align: center; line-height: 2;\"><span style=\"color: rgb(255, 255, 255); font-size: 14px; letter-spacing: 0px;\">에코웨이브는 깨끗한 물을 위한 기술 혁신과 친환경 가치 실현을 통해&nbsp;</span><span style=\"font-size: 14px;\"><span style=\"color: rgb(255, 255, 255); letter-spacing: 0px;\">보다 건강하고 지속 가능한 삶을 제안합니다.</span></span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(255, 255, 255); letter-spacing: 0px;\">고객의 라이프스타일에 최적화된 고품질 정수 솔루션으로&nbsp;</span></span><span style=\"color: rgb(255, 255, 255); font-size: 14px; letter-spacing: 0px;\">사람과 환경이 공존하는 미래를 만들어 갑니다.</span></p></div></div>\n\t"
+                  "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: center;\"><img src=\"/images/upload/S20250811e0bd2f7c414df/48fbd16b3a070.png\" class=\"fr-fin fr-dib\" style=\"width: 266px;\"></h6><p style=\"text-align: center; line-height: 2;\"><br></p><p style=\"text-align: center; line-height: 2;\"><span style=\"color: rgb(255, 255, 255); font-size: 14px; letter-spacing: 0px;\">에코웨이브는 깨끗한 물을 위한 기술 혁신과 친환경 가치 실현을 통해&nbsp;</span><span style=\"font-size: 14px;\"><span style=\"color: rgb(255, 255, 255); letter-spacing: 0px;\">보다 건강하고 지속 가능한 삶을 제안합니다.</span></span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(255, 255, 255); letter-spacing: 0px;\">고객의 라이프스타일에 최적화된 고품질 정수 솔루션으로&nbsp;</span></span><span style=\"color: rgb(255, 255, 255); font-size: 14px; letter-spacing: 0px;\">사람과 환경이 공존하는 미래를 만들어 갑니다.</span></p></div></div>\n\t",
+                  "anim": "none"
                 }
               ]
             }
@@ -310,8 +327,10 @@
                   "type": "image",
                   "src": "/images/thumbnail/20250911/69966451ca00b.png",
                   "alt": "",
+                  "hoverBg": "/images/thumbnail/20250911/69966451ca00b.png",
                   "boxStyle": "",
-                  "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 0px; height: 0px; margin-left: auto; margin-right: auto;"
+                  "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 0px; height: 0px; margin-left: auto; margin-right: auto;",
+                  "anim": "fadeInUp"
                 }
               ]
             }
@@ -349,6 +368,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1040,
           "cols": [
             {
               "kind": "col",
@@ -368,6 +388,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1040,
           "cols": [
             {
               "kind": "col",
@@ -397,6 +418,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1070,
           "cols": [
             {
               "kind": "col",
@@ -406,7 +428,8 @@
                   "kind": "widget",
                   "id": "w202508116077d50475951",
                   "type": "text",
-                  "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"line-height: 2;\"><strong><span style=\"color: rgb(0, 0, 0); font-size: 48px; letter-spacing: 0px;\">건강하고 깨끗한 물, 에코웨이브가</span></strong></h6><p><strong><span style=\"letter-spacing: 0;\"><span style=\"color: rgb(0, 0, 0); font-size: 48px;\">고객과 함께&nbsp;</span></span><span style=\"color: rgb(52, 101, 222); font-size: 48px; letter-spacing: 0px;\">더 나은 미래를 만들어갑니다.&nbsp;</span></strong></p></div></div>\n\t"
+                  "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"line-height: 2;\"><strong><span style=\"color: rgb(0, 0, 0); font-size: 48px; letter-spacing: 0px;\">건강하고 깨끗한 물, 에코웨이브가</span></strong></h6><p><strong><span style=\"letter-spacing: 0;\"><span style=\"color: rgb(0, 0, 0); font-size: 48px;\">고객과 함께&nbsp;</span></span><span style=\"color: rgb(52, 101, 222); font-size: 48px; letter-spacing: 0px;\">더 나은 미래를 만들어갑니다.&nbsp;</span></strong></p></div></div>\n\t",
+                  "anim": "fadeInUp"
                 }
               ]
             }
@@ -415,6 +438,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1070,
           "cols": [
             {
               "kind": "col",
@@ -434,6 +458,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1070,
           "cols": [
             {
               "kind": "col",
@@ -445,8 +470,11 @@
                   "type": "image",
                   "src": "/images/thumbnail/20250811/c3512c9a0cd58.jpg",
                   "alt": "<div class=\"img-title\"><div class=\"t-wrap\"><div class=\"top-t\"><P>Company</P></div><h5>회사소개</h5></div><span class=\"material-symbols-outlined\">add</span></div>",
+                  "href": "/17",
+                  "hoverBg": "/images/thumbnail/20250811/074daf03cf1c9.jpg",
                   "boxStyle": "height: 319px;",
-                  "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: block; width: 100%; height: auto; margin-top: 0px; margin-left: 0px;"
+                  "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: block; width: 100%; height: auto; margin-top: 0px; margin-left: 0px;",
+                  "anim": "fadeInUp"
                 }
               ]
             },
@@ -460,8 +488,11 @@
                   "type": "image",
                   "src": "/images/thumbnail/20250811/e67827527be17.jpg",
                   "alt": "<div class=\"img-title\"><div class=\"t-wrap\"><div class=\"top-t\"><P>R&D</P></div><h5>연구개발</h5></div><span class=\"material-symbols-outlined\">add</span></div>",
+                  "href": "/21",
+                  "hoverBg": "/images/thumbnail/20250811/675fc2a209376.jpg",
                   "boxStyle": "height: 319px;",
-                  "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: block; width: 100%; height: auto; margin-top: 0px; margin-left: 0px;"
+                  "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: block; width: 100%; height: auto; margin-top: 0px; margin-left: 0px;",
+                  "anim": "fadeInUp"
                 }
               ]
             },
@@ -475,8 +506,11 @@
                   "type": "image",
                   "src": "/images/thumbnail/20250811/49a097a7d0ffc.jpg",
                   "alt": "<div class=\"img-title\"><div class=\"t-wrap\"><div class=\"top-t\"><P>Products</P></div><h5>제품소개</h5></div><span class=\"material-symbols-outlined\">add</span></div>",
+                  "href": "/32",
+                  "hoverBg": "/images/thumbnail/20250811/7d889b9d7c83b.jpg",
                   "boxStyle": "height: 319px;",
-                  "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: block; width: 100%; height: auto; margin-top: 0px; margin-left: 0px;"
+                  "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: block; width: 100%; height: auto; margin-top: 0px; margin-left: 0px;",
+                  "anim": "fadeInUp"
                 }
               ]
             },
@@ -490,8 +524,11 @@
                   "type": "image",
                   "src": "/images/thumbnail/20250811/bd400cb7e2ba9.jpg",
                   "alt": "<div class=\"img-title\"><div class=\"t-wrap\"><div class=\"top-t\"><P>PR Center</P></div><h5>홍보센터</h5></div><span class=\"material-symbols-outlined\">add</span></div>",
+                  "href": "/26",
+                  "hoverBg": "/images/thumbnail/20250811/b20b0e111f10b.jpg",
                   "boxStyle": "height: 319px;",
-                  "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: block; width: 100%; height: auto; margin-top: 0px; margin-left: 0px;"
+                  "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: block; width: 100%; height: auto; margin-top: 0px; margin-left: 0px;",
+                  "anim": "fadeInUp"
                 }
               ]
             }
@@ -500,6 +537,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1070,
           "cols": [
             {
               "kind": "col",
@@ -509,7 +547,8 @@
                   "kind": "widget",
                   "id": "w2025081108d44efc92e85",
                   "type": "code",
-                  "html": "\n\n  <link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200\">\n\n\n"
+                  "html": "\n\n  <link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200\">\n\n\n",
+                  "anim": "none"
                 }
               ]
             }
@@ -518,6 +557,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1070,
           "cols": [
             {
               "kind": "col",
@@ -547,6 +587,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -566,6 +607,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -575,7 +617,8 @@
                   "kind": "widget",
                   "id": "w20250811b716fff52cc61",
                   "type": "text",
-                  "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: center;\"><img src=\"/images/upload/S20250811e0bd2f7c414df/48fbd16b3a070.png\" class=\"fr-fin fr-dib\" style=\"width: 296px;\"></h6><p style=\"text-align: center; line-height: 2;\"><br></p><p style=\"text-align: center; line-height: 2;\"><span style=\"color: rgb(255, 255, 255); font-size: 18px; letter-spacing: 0px;\">에코웨이브는 깨끗한 물을 위한 기술 혁신과 친환경 가치 실현을 통해&nbsp;</span><span style=\"color: rgb(255, 255, 255); font-size: 18px; letter-spacing: 0px;\">보다 건강하고 지속 가능한 삶을 제안합니다.</span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"color: rgb(255, 255, 255); font-size: 18px; letter-spacing: 0px;\">고객의 라이프스타일에 최적화된 고품질 정수 솔루션으로&nbsp;</span><span style=\"color: rgb(255, 255, 255); font-size: 18px; letter-spacing: 0px;\">사람과 환경이 공존하는 미래를 만들어 갑니다.</span></p></div></div>\n\t"
+                  "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: center;\"><img src=\"/images/upload/S20250811e0bd2f7c414df/48fbd16b3a070.png\" class=\"fr-fin fr-dib\" style=\"width: 296px;\"></h6><p style=\"text-align: center; line-height: 2;\"><br></p><p style=\"text-align: center; line-height: 2;\"><span style=\"color: rgb(255, 255, 255); font-size: 18px; letter-spacing: 0px;\">에코웨이브는 깨끗한 물을 위한 기술 혁신과 친환경 가치 실현을 통해&nbsp;</span><span style=\"color: rgb(255, 255, 255); font-size: 18px; letter-spacing: 0px;\">보다 건강하고 지속 가능한 삶을 제안합니다.</span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"color: rgb(255, 255, 255); font-size: 18px; letter-spacing: 0px;\">고객의 라이프스타일에 최적화된 고품질 정수 솔루션으로&nbsp;</span><span style=\"color: rgb(255, 255, 255); font-size: 18px; letter-spacing: 0px;\">사람과 환경이 공존하는 미래를 만들어 갑니다.</span></p></div></div>\n\t",
+                  "anim": "none"
                 }
               ]
             }
@@ -584,6 +627,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -595,8 +639,10 @@
                   "type": "image",
                   "src": "/images/thumbnail/20250828/a8abb36b1d18f.png",
                   "alt": "",
+                  "hoverBg": "/images/thumbnail/20250828/a8abb36b1d18f.png",
                   "boxStyle": "",
-                  "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 1250px; height: 348px; margin-left: auto; margin-right: auto;"
+                  "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 1250px; height: 348px; margin-left: auto; margin-right: auto;",
+                  "anim": "fadeInUp"
                 }
               ]
             }
@@ -605,6 +651,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -634,6 +681,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1040,
           "cols": [
             {
               "kind": "col",
@@ -653,6 +701,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1040,
           "cols": [
             {
               "kind": "col",
@@ -662,7 +711,8 @@
                   "kind": "widget",
                   "id": "w202508119108a47b15e11",
                   "type": "text",
-                  "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"line-height: 2;\"><strong><span style=\"color: rgb(52, 101, 222); font-size: 48px; letter-spacing: 0px;\">친환경 기술혁신</span><span style=\"letter-spacing: 0;\"><span style=\"color: rgb(0, 0, 0); font-size: 48px;\">을 통한</span></span></strong></h6><h6 style=\"line-height: 2;\"><strong><span style=\"color: rgb(0, 0, 0); font-size: 48px; letter-spacing: 0px;\">에코웨이브의 지속 가능한 미래</span></strong></h6></div></div>\n\t"
+                  "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"line-height: 2;\"><strong><span style=\"color: rgb(52, 101, 222); font-size: 48px; letter-spacing: 0px;\">친환경 기술혁신</span><span style=\"letter-spacing: 0;\"><span style=\"color: rgb(0, 0, 0); font-size: 48px;\">을 통한</span></span></strong></h6><h6 style=\"line-height: 2;\"><strong><span style=\"color: rgb(0, 0, 0); font-size: 48px; letter-spacing: 0px;\">에코웨이브의 지속 가능한 미래</span></strong></h6></div></div>\n\t",
+                  "anim": "fadeInUp"
                 }
               ]
             }
@@ -671,6 +721,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1040,
           "cols": [
             {
               "kind": "col",
@@ -700,6 +751,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1070,
           "cols": [
             {
               "kind": "col",
@@ -719,8 +771,10 @@
                           "type": "image",
                           "src": "/images/thumbnail/20250811/b2bfd0819b1e7.jpg",
                           "alt": "",
+                          "hoverBg": "/images/thumbnail/20250811/b2bfd0819b1e7.jpg",
                           "boxStyle": "height: 548px;",
-                          "imgStyle": "visibility: visible; image-rendering: -webkit-optimize-contrast; display: block; width: auto; height: 100%; margin-top: 0px; margin-left: -74.8178px;"
+                          "imgStyle": "visibility: visible; image-rendering: -webkit-optimize-contrast; display: block; width: auto; height: 100%; margin-top: 0px; margin-left: -74.8178px;",
+                          "anim": "none"
                         }
                       ]
                     }
@@ -757,7 +811,8 @@
                           "kind": "widget",
                           "id": "w2025081155a9d991c8dc5",
                           "type": "text",
-                          "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: center;\"><span style=\"font-size: 30px;\"><strong><span style=\"color: rgb(0, 0, 0);\">생활환경 솔루션</span></strong></span></h6><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(93, 93, 93);\">첨단 정수 필터 기술과 살균 모듈, 위생 솔루션을 기반으로</span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px;\"><span style=\"color: rgb(93, 93, 93);\">일상 속 물의 질을 향상시키는 친환경 제품을 개발하여</span></span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(93, 93, 93);\">깨끗하고 건강한 생활환경 구축에 앞장서겠습니다.</span></p></div></div>\n\t"
+                          "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: center;\"><span style=\"font-size: 30px;\"><strong><span style=\"color: rgb(0, 0, 0);\">생활환경 솔루션</span></strong></span></h6><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(93, 93, 93);\">첨단 정수 필터 기술과 살균 모듈, 위생 솔루션을 기반으로</span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px;\"><span style=\"color: rgb(93, 93, 93);\">일상 속 물의 질을 향상시키는 친환경 제품을 개발하여</span></span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(93, 93, 93);\">깨끗하고 건강한 생활환경 구축에 앞장서겠습니다.</span></p></div></div>\n\t",
+                          "anim": "fadeInUp"
                         }
                       ]
                     }
@@ -783,8 +838,10 @@
                           "type": "image",
                           "src": "/images/thumbnail/20250811/482b1d289f2ef.jpg",
                           "alt": "",
+                          "hoverBg": "/images/thumbnail/20250811/482b1d289f2ef.jpg",
                           "boxStyle": "height: 548px;",
-                          "imgStyle": "visibility: visible; image-rendering: -webkit-optimize-contrast; display: block; width: auto; height: 100%; margin-top: 0px; margin-left: -74.8178px;"
+                          "imgStyle": "visibility: visible; image-rendering: -webkit-optimize-contrast; display: block; width: auto; height: 100%; margin-top: 0px; margin-left: -74.8178px;",
+                          "anim": "none"
                         }
                       ]
                     }
@@ -821,7 +878,8 @@
                           "kind": "widget",
                           "id": "w20250811c5fb5f0d8fafd",
                           "type": "text",
-                          "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: center;\"><span style=\"font-size: 30px;\"><strong><span style=\"color: rgb(0, 0, 0);\">정수 소재 &amp; 스마트 부품</span></strong></span></h6><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(93, 93, 93);\">정수기 필터, 비데 필터, 샤워기 필터 등</span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px;\"><span style=\"color: rgb(93, 93, 93);\">고성능 정수 소재와 스마트 모듈 기반 부품을 통해</span></span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(93, 93, 93);\">지속 가능한 수처리 기술 솔루션을 제공하겠습니다.</span></p></div></div>\n\t"
+                          "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: center;\"><span style=\"font-size: 30px;\"><strong><span style=\"color: rgb(0, 0, 0);\">정수 소재 &amp; 스마트 부품</span></strong></span></h6><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(93, 93, 93);\">정수기 필터, 비데 필터, 샤워기 필터 등</span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px;\"><span style=\"color: rgb(93, 93, 93);\">고성능 정수 소재와 스마트 모듈 기반 부품을 통해</span></span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(93, 93, 93);\">지속 가능한 수처리 기술 솔루션을 제공하겠습니다.</span></p></div></div>\n\t",
+                          "anim": "fadeInUp"
                         }
                       ]
                     }
@@ -847,8 +905,10 @@
                           "type": "image",
                           "src": "/images/thumbnail/20250812/b3ac0bbe894b9.jpg",
                           "alt": "",
+                          "hoverBg": "/images/thumbnail/20250812/b3ac0bbe894b9.jpg",
                           "boxStyle": "",
-                          "imgStyle": "visibility: visible; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 327px; height: 376px; margin: 86px auto;"
+                          "imgStyle": "visibility: visible; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 327px; height: 376px; margin: 86px auto;",
+                          "anim": "none"
                         }
                       ]
                     }
@@ -885,7 +945,8 @@
                           "kind": "widget",
                           "id": "w202508119d8af42ac2987",
                           "type": "text",
-                          "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: center;\"><span style=\"font-size: 30px;\"><strong><span style=\"color: rgb(0, 0, 0);\">헬스 &amp; 워터케어</span></strong></span></h6><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(93, 93, 93);\">물이 곧 건강이라는 철학 아래,</span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px;\"><span style=\"color: rgb(93, 93, 93);\">에코웨이브는 인류의 건강한 삶을 위한 차세대 워터케어 제품과</span></span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(93, 93, 93);\">살균·위생 관리 기술을 지속적으로 개발해 나가겠습니다.</span></p></div></div>\n\t"
+                          "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: center;\"><span style=\"font-size: 30px;\"><strong><span style=\"color: rgb(0, 0, 0);\">헬스 &amp; 워터케어</span></strong></span></h6><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(93, 93, 93);\">물이 곧 건강이라는 철학 아래,</span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px;\"><span style=\"color: rgb(93, 93, 93);\">에코웨이브는 인류의 건강한 삶을 위한 차세대 워터케어 제품과</span></span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(93, 93, 93);\">살균·위생 관리 기술을 지속적으로 개발해 나가겠습니다.</span></p></div></div>\n\t",
+                          "anim": "fadeInUp"
                         }
                       ]
                     }
@@ -898,6 +959,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1070,
           "cols": [
             {
               "kind": "col",
@@ -937,6 +999,7 @@
                   "id": "w20250911b19e5033093cd",
                   "type": "gallery2",
                   "layout": "slide",
+                  "anim": "none",
                   "items": [
                     {
                       "org": "/images/upload/S20250811e0bd2f7c414df/4d2e3e220d22d.jpg",
@@ -1022,7 +1085,8 @@
                   "kind": "widget",
                   "id": "w2025091171a83a2df2488",
                   "type": "text",
-                  "html": "\n\t\t<div class=\"text-table \"><div><p><span style=\"font-size: 26px;\"><strong><span style=\"color: rgb(255, 255, 255);\">물을 깨끗하게, 사람을 건강하게</span></strong></span></p><p><span style=\"font-size: 26px;\"><em><span style=\"color: rgb(255, 255, 255);\">Clean Water, Healthy People.</span></em></span></p></div></div>\n\t"
+                  "html": "\n\t\t<div class=\"text-table \"><div><p><span style=\"font-size: 26px;\"><strong><span style=\"color: rgb(255, 255, 255);\">물을 깨끗하게, 사람을 건강하게</span></strong></span></p><p><span style=\"font-size: 26px;\"><em><span style=\"color: rgb(255, 255, 255);\">Clean Water, Healthy People.</span></em></span></p></div></div>\n\t",
+                  "anim": "none"
                 }
               ]
             }
@@ -1041,7 +1105,8 @@
                   "id": "w20250911e68c83742f745",
                   "type": "video",
                   "src": "https://www.youtube.com/embed/p1wiw6f1Twg?loop=1&rel=0&playlist=p1wiw6f1Twg&showinfo=0&controls=0&mute=1&autoplay=1&enablejsapi=1&origin=https%3A%2F%2Fimweb8701032505.imweb.me&widgetid=1&forigin=https%3A%2F%2Fimweb8701032505.imweb.me%2F&aoriginsup=1&vf=1",
-                  "html": "\t<div id=\"video_w20250911e68c83742f745\" class=\"widget movie _video_wrap \" style=\"position: relative\">\n\t\t<div style=\"overflow: hidden; text-align: center; height: 0px;\" id=\"img_box_w20250911e68c83742f745\" class=\"img_box _img_box holder\" data-vimeo-id=\"p1wiw6f1Twg\" data-vimeo-defer=\"\"><div class=\"play-icon _cover_layer\" style=\"display: none; \" onmouseover=\";\"><span class=\"show_btn\" onclick=\"site_video_list['w20250911e68c83742f745'].play()\"><i></i></span></div><iframe class=\"_img\" id=\"img_w20250911e68c83742f745\" src=\"https://www.youtube.com/embed/p1wiw6f1Twg?loop=1&amp;rel=0&amp;playlist=p1wiw6f1Twg&amp;showinfo=0&amp;controls=0&amp;mute=1&amp;autoplay=1&amp;enablejsapi=1&amp;origin=https%3A%2F%2Fimweb8701032505.imweb.me&amp;widgetid=1&amp;forigin=https%3A%2F%2Fimweb8701032505.imweb.me%2F&amp;aoriginsup=1&amp;vf=1\" style=\"display: block; width: 100%; margin: 0px; height: 100%;\" frameborder=\"0\" allowfullscreen=\"\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" title=\"main\" width=\"640\" height=\"360\"></iframe></div>\t</div>\n\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t"
+                  "html": "\t<div id=\"video_w20250911e68c83742f745\" class=\"widget movie _video_wrap \" style=\"position: relative\">\n\t\t<div style=\"overflow: hidden; text-align: center; height: 0px;\" id=\"img_box_w20250911e68c83742f745\" class=\"img_box _img_box holder\" data-vimeo-id=\"p1wiw6f1Twg\" data-vimeo-defer=\"\"><div class=\"play-icon _cover_layer\" style=\"display: none; \" onmouseover=\";\"><span class=\"show_btn\" onclick=\"site_video_list['w20250911e68c83742f745'].play()\"><i></i></span></div><iframe class=\"_img\" id=\"img_w20250911e68c83742f745\" src=\"https://www.youtube.com/embed/p1wiw6f1Twg?loop=1&amp;rel=0&amp;playlist=p1wiw6f1Twg&amp;showinfo=0&amp;controls=0&amp;mute=1&amp;autoplay=1&amp;enablejsapi=1&amp;origin=https%3A%2F%2Fimweb8701032505.imweb.me&amp;widgetid=1&amp;forigin=https%3A%2F%2Fimweb8701032505.imweb.me%2F&amp;aoriginsup=1&amp;vf=1\" style=\"display: block; width: 100%; margin: 0px; height: 100%;\" frameborder=\"0\" allowfullscreen=\"\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" title=\"main\" width=\"640\" height=\"360\"></iframe></div>\t</div>\n\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t",
+                  "anim": "none"
                 }
               ]
             }
@@ -1079,6 +1144,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -1098,6 +1164,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -1107,7 +1174,8 @@
                   "kind": "widget",
                   "id": "w202508127679af0442416",
                   "type": "text",
-                  "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: left;\"><strong><span style=\"color: rgb(255, 255, 255); font-size: 52px; letter-spacing: 0px;\">물을 깨끗하게, 사람을 건강하게</span></strong></h6><p style=\"text-align: left;\"><span style=\"color: rgb(255, 255, 255); font-size: 60px; letter-spacing: 0px;\"><em>Clean Water, Healthy People.</em></span></p></div></div>\n\t"
+                  "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: left;\"><strong><span style=\"color: rgb(255, 255, 255); font-size: 52px; letter-spacing: 0px;\">물을 깨끗하게, 사람을 건강하게</span></strong></h6><p style=\"text-align: left;\"><span style=\"color: rgb(255, 255, 255); font-size: 60px; letter-spacing: 0px;\"><em>Clean Water, Healthy People.</em></span></p></div></div>\n\t",
+                  "anim": "fadeInUp"
                 }
               ]
             }
@@ -1116,6 +1184,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -1135,6 +1204,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -1145,7 +1215,8 @@
                   "id": "w20250811ac1efba6e8535",
                   "type": "video",
                   "src": "https://www.youtube.com/embed/p1wiw6f1Twg?loop=1&rel=0&playlist=p1wiw6f1Twg&showinfo=0&controls=0&mute=1&autoplay=1&enablejsapi=1&origin=https%3A%2F%2Fimweb8701032505.imweb.me&widgetid=2&forigin=https%3A%2F%2Fimweb8701032505.imweb.me%2F&aoriginsup=1&vf=1",
-                  "html": "\t<div id=\"video_w20250811ac1efba6e8535\" class=\"widget movie _video_wrap \" style=\"position: relative\">\n\t\t<div style=\"overflow: hidden; text-align: center; height: 703.125px;\" id=\"img_box_w20250811ac1efba6e8535\" class=\"img_box _img_box holder\" data-vimeo-id=\"p1wiw6f1Twg\" data-vimeo-defer=\"\"><div class=\"play-icon _cover_layer\" style=\"display: none; \" onmouseover=\";\"><span class=\"show_btn\" onclick=\"site_video_list['w20250811ac1efba6e8535'].play()\"><i></i></span></div><iframe class=\"_img\" id=\"img_w20250811ac1efba6e8535\" src=\"https://www.youtube.com/embed/p1wiw6f1Twg?loop=1&amp;rel=0&amp;playlist=p1wiw6f1Twg&amp;showinfo=0&amp;controls=0&amp;mute=1&amp;autoplay=1&amp;enablejsapi=1&amp;origin=https%3A%2F%2Fimweb8701032505.imweb.me&amp;widgetid=2&amp;forigin=https%3A%2F%2Fimweb8701032505.imweb.me%2F&amp;aoriginsup=1&amp;vf=1\" style=\"display: block; width: 100%; margin: 0px; height: 100%;\" frameborder=\"0\" allowfullscreen=\"\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" title=\"main\" width=\"640\" height=\"360\"></iframe></div>\t</div>\n\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t"
+                  "html": "\t<div id=\"video_w20250811ac1efba6e8535\" class=\"widget movie _video_wrap \" style=\"position: relative\">\n\t\t<div style=\"overflow: hidden; text-align: center; height: 703.125px;\" id=\"img_box_w20250811ac1efba6e8535\" class=\"img_box _img_box holder\" data-vimeo-id=\"p1wiw6f1Twg\" data-vimeo-defer=\"\"><div class=\"play-icon _cover_layer\" style=\"display: none; \" onmouseover=\";\"><span class=\"show_btn\" onclick=\"site_video_list['w20250811ac1efba6e8535'].play()\"><i></i></span></div><iframe class=\"_img\" id=\"img_w20250811ac1efba6e8535\" src=\"https://www.youtube.com/embed/p1wiw6f1Twg?loop=1&amp;rel=0&amp;playlist=p1wiw6f1Twg&amp;showinfo=0&amp;controls=0&amp;mute=1&amp;autoplay=1&amp;enablejsapi=1&amp;origin=https%3A%2F%2Fimweb8701032505.imweb.me&amp;widgetid=2&amp;forigin=https%3A%2F%2Fimweb8701032505.imweb.me%2F&amp;aoriginsup=1&amp;vf=1\" style=\"display: block; width: 100%; margin: 0px; height: 100%;\" frameborder=\"0\" allowfullscreen=\"\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" title=\"main\" width=\"640\" height=\"360\"></iframe></div>\t</div>\n\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t",
+                  "anim": "none"
                 }
               ]
             }
@@ -1154,6 +1225,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -1183,6 +1255,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1160,
           "cols": [
             {
               "kind": "col",
@@ -1192,7 +1265,8 @@
                   "kind": "widget",
                   "id": "w2025081255820418f5e3f",
                   "type": "text",
-                  "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: center;\"><strong><span style=\"color: rgb(52, 101, 222); font-size: 20px;\">Headquarters &amp; Factory Locations&nbsp;</span></strong></h6><h6 style=\"line-height: 2; text-align: center;\"><strong><span style=\"color: rgb(0, 0, 0); font-size: 48px; letter-spacing: -1px;\">세계 속의 에코웨이브&nbsp;</span></strong></h6></div></div>\n\t"
+                  "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: center;\"><strong><span style=\"color: rgb(52, 101, 222); font-size: 20px;\">Headquarters &amp; Factory Locations&nbsp;</span></strong></h6><h6 style=\"line-height: 2; text-align: center;\"><strong><span style=\"color: rgb(0, 0, 0); font-size: 48px; letter-spacing: -1px;\">세계 속의 에코웨이브&nbsp;</span></strong></h6></div></div>\n\t",
+                  "anim": "none"
                 }
               ]
             }
@@ -1201,6 +1275,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1160,
           "cols": [
             {
               "kind": "col",
@@ -1212,8 +1287,10 @@
                   "type": "image",
                   "src": "/images/thumbnail/20250828/9bc64982daf80.jpg",
                   "alt": "",
+                  "hoverBg": "/images/thumbnail/20250828/9bc64982daf80.jpg",
                   "boxStyle": "",
-                  "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 773px; height: 427px; margin-left: auto; margin-right: auto;"
+                  "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 773px; height: 427px; margin-left: auto; margin-right: auto;",
+                  "anim": "fadeIn"
                 }
               ]
             },
@@ -1233,7 +1310,8 @@
                           "kind": "widget",
                           "id": "w202508128d2c07927c2ff",
                           "type": "text",
-                          "html": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: #ffffff\"></div><div class=\"text-table holder\"><div><h6 style=\"line-height: 1.5;\"><strong><span style=\"color: rgb(52, 101, 222); font-size: 36px;\">KOR</span><span style=\"color: rgb(52, 101, 222); font-size: 30px;\">&nbsp;</span></strong><span style=\"font-size: 20px;\">[KOREA]<br data-start=\"13\" data-end=\"16\" data-is-only-node=\"\">인천광역시 남동구 은봉로 14 영도빌딩 2동<br data-start=\"40\" data-end=\"43\">TEL: +82-32-812-1800 / Fax: +82-32-812-1804</span></h6></div></div>\n\t"
+                          "html": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: #ffffff\"></div><div class=\"text-table holder\"><div><h6 style=\"line-height: 1.5;\"><strong><span style=\"color: rgb(52, 101, 222); font-size: 36px;\">KOR</span><span style=\"color: rgb(52, 101, 222); font-size: 30px;\">&nbsp;</span></strong><span style=\"font-size: 20px;\">[KOREA]<br data-start=\"13\" data-end=\"16\" data-is-only-node=\"\">인천광역시 남동구 은봉로 14 영도빌딩 2동<br data-start=\"40\" data-end=\"43\">TEL: +82-32-812-1800 / Fax: +82-32-812-1804</span></h6></div></div>\n\t",
+                          "anim": "fadeInUp"
                         }
                       ]
                     }
@@ -1270,7 +1348,8 @@
                           "kind": "widget",
                           "id": "w2025081223442f1bcc005",
                           "type": "text",
-                          "html": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: #ffffff\"></div><div class=\"text-table holder\"><div><h6 style=\"line-height: 2;\"><strong><span style=\"color: rgb(52, 101, 222); font-size: 36px;\">CHN</span><span style=\"color: rgb(52, 101, 222); font-size: 30px;\">&nbsp;</span></strong><span style=\"font-size: 20px;\">[CHINA]</span><span style=\"font-size: 16px;\"><br data-start=\"13\" data-end=\"16\" data-is-only-node=\"\"></span><span style=\"font-size: 20px;\">Hongfuiie NO.90 Yantai, Shandong, PR. China</span></h6></div></div>\n\t"
+                          "html": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: #ffffff\"></div><div class=\"text-table holder\"><div><h6 style=\"line-height: 2;\"><strong><span style=\"color: rgb(52, 101, 222); font-size: 36px;\">CHN</span><span style=\"color: rgb(52, 101, 222); font-size: 30px;\">&nbsp;</span></strong><span style=\"font-size: 20px;\">[CHINA]</span><span style=\"font-size: 16px;\"><br data-start=\"13\" data-end=\"16\" data-is-only-node=\"\"></span><span style=\"font-size: 20px;\">Hongfuiie NO.90 Yantai, Shandong, PR. China</span></h6></div></div>\n\t",
+                          "anim": "fadeInUp"
                         }
                       ]
                     }
@@ -1307,7 +1386,8 @@
                           "kind": "widget",
                           "id": "w20250812061e68ea9a22d",
                           "type": "text",
-                          "html": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: #ffffff\"></div><div class=\"text-table holder\"><div><h6 style=\"line-height: 2;\"><strong><span style=\"color: rgb(52, 101, 222); font-size: 36px;\">KHM</span><span style=\"color: rgb(52, 101, 222); font-size: 30px;\">&nbsp;</span></strong><span style=\"font-size: 20px;\">[CAMBODIA] <br data-start=\"13\" data-end=\"16\" data-is-only-node=\"\">Tuol Kork Phnom Penh City</span></h6></div></div>\n\t"
+                          "html": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: #ffffff\"></div><div class=\"text-table holder\"><div><h6 style=\"line-height: 2;\"><strong><span style=\"color: rgb(52, 101, 222); font-size: 36px;\">KHM</span><span style=\"color: rgb(52, 101, 222); font-size: 30px;\">&nbsp;</span></strong><span style=\"font-size: 20px;\">[CAMBODIA] <br data-start=\"13\" data-end=\"16\" data-is-only-node=\"\">Tuol Kork Phnom Penh City</span></h6></div></div>\n\t",
+                          "anim": "fadeInUp"
                         }
                       ]
                     }
@@ -1320,6 +1400,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1160,
           "cols": [
             {
               "kind": "col",
@@ -1329,7 +1410,8 @@
                   "kind": "widget",
                   "id": "w20250812b9c8cf9de62d9",
                   "type": "code",
-                  "html": ""
+                  "html": "",
+                  "anim": "none"
                 }
               ]
             }
@@ -1338,6 +1420,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1160,
           "cols": [
             {
               "kind": "col",
@@ -1367,6 +1450,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1040,
           "cols": [
             {
               "kind": "col",
@@ -1386,6 +1470,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1040,
           "cols": [
             {
               "kind": "col",
@@ -1395,7 +1480,8 @@
                   "kind": "widget",
                   "id": "w202508119c5dc9cae67eb",
                   "type": "text",
-                  "html": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(52, 101, 222); font-size: 20px;\">Notice</span></strong></h6><h6 style=\"line-height: 2;\"><strong><span style=\"color: rgb(0, 0, 0); font-size: 48px; letter-spacing: -1px;\">에코웨이브 이야기&nbsp;</span></strong></h6></div></div>\n\t"
+                  "html": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(52, 101, 222); font-size: 20px;\">Notice</span></strong></h6><h6 style=\"line-height: 2;\"><strong><span style=\"color: rgb(0, 0, 0); font-size: 48px; letter-spacing: -1px;\">에코웨이브 이야기&nbsp;</span></strong></h6></div></div>\n\t",
+                  "anim": "none"
                 }
               ]
             },
@@ -1436,7 +1522,8 @@
                           "type": "button",
                           "text": "",
                           "href": "/29",
-                          "html": "<div class=\"widget button txt_r\">\n\t<div class=\"button_wrap \">\n\t\t<div class=\"inline-blocked animated wg_animated Left\" style=\"visibility: hidden;\"><a class=\" btn btn_ea4e6bf7346e7   btn-default _fade_link  \" href=\"/29\" style=\"line-height: 1; border-radius:9999px\"><i aria-hidden=\"true\" style=\"line-height: 1;\" class=\"btm bt-plus\"></i></a></div>\t</div>\n</div>\n\n"
+                          "html": "<div class=\"widget button txt_r\">\n\t<div class=\"button_wrap \">\n\t\t<div class=\"inline-blocked animated wg_animated Left\" style=\"visibility: hidden;\"><a class=\" btn btn_ea4e6bf7346e7   btn-default _fade_link  \" href=\"/29\" style=\"line-height: 1; border-radius:9999px\"><i aria-hidden=\"true\" style=\"line-height: 1;\" class=\"btm bt-plus\"></i></a></div>\t</div>\n</div>\n\n",
+                          "anim": "fadeInUp"
                         }
                       ]
                     }
@@ -1449,6 +1536,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1040,
           "cols": [
             {
               "kind": "col",
@@ -1468,6 +1556,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1040,
           "cols": [
             {
               "kind": "col",
@@ -1486,6 +1575,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1040,
           "cols": [
             {
               "kind": "col",
@@ -1526,8 +1616,11 @@
                   "type": "image",
                   "src": "/images/thumbnail/20250911/68ffc55b3ed20.png",
                   "alt": "",
+                  "href": "#doz_header",
+                  "hoverBg": "/images/thumbnail/20250911/68ffc55b3ed20.png",
                   "boxStyle": "",
-                  "imgStyle": "visibility: visible; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 0px; height: 0px; margin: 21px auto;"
+                  "imgStyle": "visibility: visible; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 0px; height: 0px; margin: 21px auto;",
+                  "anim": "none"
                 }
               ]
             }
@@ -1545,7 +1638,8 @@
                   "kind": "widget",
                   "id": "w20250911712afbc03dd48",
                   "type": "code",
-                  "html": "\n"
+                  "html": "\n",
+                  "anim": "none"
                 }
               ]
             }
@@ -1564,6 +1658,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -1573,7 +1668,8 @@
                   "kind": "widget",
                   "id": "w2025082575878708b2b14",
                   "type": "code",
-                  "html": ""
+                  "html": "",
+                  "anim": "none"
                 }
               ]
             }
@@ -1592,6 +1688,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -1611,6 +1708,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -1619,6 +1717,7 @@
                 {
                   "kind": "row",
                   "grid": "7",
+                  "w": 747,
                   "cols": [
                     {
                       "kind": "col",
@@ -1628,7 +1727,8 @@
                           "kind": "widget",
                           "id": "w20250811379e3dc61aa7f",
                           "type": "text",
-                          "html": "\n\t\t<div class=\"text-table \"><div><p><img src=\"/images/upload/S20250811e0bd2f7c414df/f04049636b82b.png\" class=\"fr-fin fr-dib fr-fil\" style=\"width: 238px;\"></p></div></div>\n\t"
+                          "html": "\n\t\t<div class=\"text-table \"><div><p><img src=\"/images/upload/S20250811e0bd2f7c414df/f04049636b82b.png\" class=\"fr-fin fr-dib fr-fil\" style=\"width: 238px;\"></p></div></div>\n\t",
+                          "anim": "none"
                         }
                       ]
                     }
@@ -1637,6 +1737,7 @@
                 {
                   "kind": "row",
                   "grid": "7",
+                  "w": 747,
                   "cols": [
                     {
                       "kind": "col",
@@ -1646,7 +1747,8 @@
                           "kind": "widget",
                           "id": "w20250811c8ba21c61f272",
                           "type": "text",
-                          "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2;\"><span style=\"color: rgb(149, 149, 149); font-size: 14px;\">대표 : 김나연 &nbsp;</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">개인정보관리책임자 : 김나연 &nbsp;ㅣ &nbsp;문의 : ecowave_1800@naver.com</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">주소 : 인천광역시 남동구 은봉로 14 영도빌딩 2동</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">전화 : +82-32-812-1800 &nbsp;ㅣ &nbsp;팩스 : +82-32-812-1804</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><br></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Copyright ⓒ ECOWAVE. All Rights Reserved</span></span></p></div></div>\n\t"
+                          "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2;\"><span style=\"color: rgb(149, 149, 149); font-size: 14px;\">대표 : 김나연 &nbsp;</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">개인정보관리책임자 : 김나연 &nbsp;ㅣ &nbsp;문의 : ecowave_1800@naver.com</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">주소 : 인천광역시 남동구 은봉로 14 영도빌딩 2동</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">전화 : +82-32-812-1800 &nbsp;ㅣ &nbsp;팩스 : +82-32-812-1804</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><br></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Copyright ⓒ ECOWAVE. All Rights Reserved</span></span></p></div></div>\n\t",
+                          "anim": "none"
                         }
                       ]
                     }
@@ -1672,7 +1774,8 @@
                           "type": "button",
                           "text": "",
                           "href": "#doz_header",
-                          "html": "<div class=\"widget button txt_r\">\n\t<div class=\"button_wrap \">\n\t\t<div class=\"inline-blocked \"><a class=\" btn btn_82610ee2a0658   btn-default  \" href=\"#doz_header\" style=\"line-height: 1; border-radius:9999px\"><i aria-hidden=\"true\" style=\"line-height: 1;\" class=\"simple icon-arrow-up\"></i></a></div>\t</div>\n</div>\n\n"
+                          "html": "<div class=\"widget button txt_r\">\n\t<div class=\"button_wrap \">\n\t\t<div class=\"inline-blocked \"><a class=\" btn btn_82610ee2a0658   btn-default  \" href=\"#doz_header\" style=\"line-height: 1; border-radius:9999px\"><i aria-hidden=\"true\" style=\"line-height: 1;\" class=\"simple icon-arrow-up\"></i></a></div>\t</div>\n</div>\n\n",
+                          "anim": "none"
                         }
                       ]
                     }
@@ -1698,7 +1801,8 @@
                                   "kind": "widget",
                                   "id": "w20250919b68d158c2925e",
                                   "type": "text",
-                                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>에코</strong><strong>웨이</strong><strong>브</strong></span></p></div></div>\n\t"
+                                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>에코</strong><strong>웨이</strong><strong>브</strong></span></p></div></div>\n\t",
+                                  "anim": "none"
                                 }
                               ]
                             }
@@ -1733,7 +1837,8 @@
                                   "kind": "widget",
                                   "id": "w202509198aeb3bd046ac9",
                                   "type": "text",
-                                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216);\"><strong>연구개발</strong></span></p></div></div>\n\t"
+                                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216);\"><strong>연구개발</strong></span></p></div></div>\n\t",
+                                  "anim": "none"
                                 }
                               ]
                             }
@@ -1768,7 +1873,8 @@
                                   "kind": "widget",
                                   "id": "w2025091955cb4ab654cac",
                                   "type": "text",
-                                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>제품소개</strong></span></p></div></div>\n\t"
+                                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>제품소개</strong></span></p></div></div>\n\t",
+                                  "anim": "none"
                                 }
                               ]
                             }
@@ -1803,7 +1909,8 @@
                                   "kind": "widget",
                                   "id": "w2025091988816c09014e4",
                                   "type": "text",
-                                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>뉴스룸</strong></span></p></div></div>\n\t"
+                                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>뉴스룸</strong></span></p></div></div>\n\t",
+                                  "anim": "none"
                                 }
                               ]
                             }
@@ -1838,7 +1945,8 @@
                                   "kind": "widget",
                                   "id": "w20250919e76996cca8992",
                                   "type": "text",
-                                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>고객지원</strong></span></p></div></div>\n\t"
+                                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>고객지원</strong></span></p></div></div>\n\t",
+                                  "anim": "none"
                                 }
                               ]
                             }
@@ -1866,6 +1974,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",

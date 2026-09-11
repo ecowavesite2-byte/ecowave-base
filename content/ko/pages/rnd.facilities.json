@@ -14,6 +14,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -33,6 +34,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -54,6 +56,7 @@
                 {
                   "kind": "row",
                   "grid": "6",
+                  "w": 640,
                   "cols": [
                     {
                       "kind": "col",
@@ -73,6 +76,7 @@
                 {
                   "kind": "row",
                   "grid": "6",
+                  "w": 640,
                   "cols": [
                     {
                       "kind": "col",
@@ -88,6 +92,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -214,6 +219,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -233,6 +239,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -242,7 +249,8 @@
                   "kind": "widget",
                   "id": "w20250820e4cafbac3320e",
                   "type": "text",
-                  "html": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">첨단 설비와 철저한 관리로</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">더 깨끗하고 안전한 물을 만듭니다.</span></strong></h6></div></div>\n\t"
+                  "html": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">첨단 설비와 철저한 관리로</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">더 깨끗하고 안전한 물을 만듭니다.</span></strong></h6></div></div>\n\t",
+                  "anim": "none"
                 }
               ]
             }
@@ -251,6 +259,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -280,6 +289,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -299,6 +309,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -308,7 +319,8 @@
                   "kind": "widget",
                   "id": "w2025082017159663bed3c",
                   "type": "text",
-                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center;\"><span style=\"font-size: 48px;\"><strong><span style=\"color: rgb(18, 18, 18);\">생산설비</span></strong></span></p></div></div>\n\t"
+                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center;\"><span style=\"font-size: 48px;\"><strong><span style=\"color: rgb(18, 18, 18);\">생산설비</span></strong></span></p></div></div>\n\t",
+                  "anim": "fadeInUp"
                 }
               ]
             }
@@ -317,6 +329,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -326,7 +339,8 @@
                   "kind": "widget",
                   "id": "w202508207cdb6535abb7d",
                   "type": "text",
-                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(81, 81, 81);\">건강하기 위해서 중요한 물, 소홀히 할 수 없습니다.</span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(81, 81, 81);\">여러분들이 안심하고 마실 수 있도록 깨끗하고 건강한 물만 만들겠다 약속합니다.</span></p></div></div>\n\t"
+                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(81, 81, 81);\">건강하기 위해서 중요한 물, 소홀히 할 수 없습니다.</span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(81, 81, 81);\">여러분들이 안심하고 마실 수 있도록 깨끗하고 건강한 물만 만들겠다 약속합니다.</span></p></div></div>\n\t",
+                  "anim": "none"
                 }
               ]
             }
@@ -335,6 +349,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -354,6 +369,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -363,7 +379,8 @@
                   "kind": "widget",
                   "id": "w202508206a03498027ef7",
                   "type": "code",
-                  "html": "\n<div class=\"tab-menu\">\n  <div class=\"tab active\" onclick=\"openTab('tab1')\">생산설비</div>\n  <div class=\"tab\" onclick=\"openTab('tab2')\">검사설비</div>\n  <div class=\"tab\" onclick=\"openTab('tab3')\">생산설비(점검키트)</div>\n\n\n</div>"
+                  "html": "\n<div class=\"tab-menu\">\n  <div class=\"tab active\" onclick=\"openTab('tab1')\">생산설비</div>\n  <div class=\"tab\" onclick=\"openTab('tab2')\">검사설비</div>\n  <div class=\"tab\" onclick=\"openTab('tab3')\">생산설비(점검키트)</div>\n\n\n</div>",
+                  "anim": "none"
                 }
               ]
             }
@@ -372,6 +389,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -381,7 +399,8 @@
                   "kind": "widget",
                   "id": "w2025082058bcb327d98fa",
                   "type": "code",
-                  "html": "\n\n\n\n<div id=\"tab1\" class=\"tab-content active\" style=\"display: block;\">\n  <div id=\"widgetbox1\"><div doz_type=\"widget\" id=\"w20250820304967e88a603\"><div class=\"_widget_data \" data-widget-name=\"갤러리\" data-widget-type=\"gallery2\" data-widget-anim=\"none\" data-widget-anim-duration=\"0.7\" data-widget-anim-delay=\"0\" data-widget-parent-is-mobile=\"N\">    <div class=\"widget _gallery_wrap \">\n                <div id=\"container_w20250820304967e88a603\" class=\"img_rendering grid_01 type_grid overlay_text hover_show_overlay container_border gallery2  \" style=\"padding-bottom: 0px; height: auto; margin: 0px -10px;\">\n            \n                \n                \n                \n                \n                \n                \n                \n                \n                \n                \n                \n                \n                \n                \n                \n                \n                \n                \n                \n                        <div class=\"_gallery_row gallery_row tabled\"><div class=\"_item item_gallary\" style=\"position: relative; padding: 10px;\" data-org=\"S20250811e0bd2f7c414df/92dae45b36478.jpg\">\n                    <div id=\"caption_28673399\" style=\"display:none\">\n                        <h4></h4><p></p>\n                    </div>\n\n                    <div class=\"item_container _item_container\"><div class=\"img_wrap _img_wrap  no_content\" id=\"gal_item_28673399_img\" style=\"background-image: url(&quot;/images/thumbnail/20250820/d30f62f69c0aa.jpg&quot;); min-height: 347px;\" data-bg=\"url(/images/thumbnail/20250820/d30f62f69c0aa.jpg)\" data-src=\"/images/thumbnail/20250820/490f192bca249.jpg\" data-sub-html=\"#caption_28673399\" data-no=\"0\"></div><div class=\"text_wrap _text_wrap  _lightbox_item cursor_pointer\" id=\"gal_item_28673399\" data-src=\"/images/thumbnail/20250820/490f192bca249.jpg\" data-sub-html=\"#caption_28673399\" style=\"height: 347px;\"><p class=\"title\"></p></div><div class=\"slide_overlay\"></div></div>                </div><div class=\"_item item_gallary\" style=\"position: relative; padding: 10px;\" data-org=\"S20250811e0bd2f7c414df/730be4aab6ec0.jpg\">\n                    <div id=\"caption_28673401\" style=\"display:none\">\n                        <h4></h4><p></p>\n                    </div>\n\n                    <div class=\"item_container _item_container\"><div class=\"img_wrap _img_wrap  no_content\" id=\"gal_item_28673401_img\" style=\"background-image: url(&quot;/images/thumbnail/20250820/dc7fa16116dc9.jpg&quot;); min-height: 347px;\" data-bg=\"url(/images/thumbnail/20250820/dc7fa16116dc9.jpg)\" data-src=\"/images/thumbnail/20250820/59bcba0f3572b.jpg\" data-sub-html=\"#caption_28673401\" data-no=\"1\"></div><div class=\"text_wrap _text_wrap  _lightbox_item cursor_pointer\" id=\"gal_item_28673401\" data-src=\"/images/thumbnail/20250820/59bcba0f3572b.jpg\" data-sub-html=\"#caption_28673401\" style=\"height: 347px;\"><p class=\"title\"></p></div><div class=\"slide_overlay\"></div></div>                </div><div class=\"_item item_gallary\" style=\"position: relative; padding: 10px;\" data-org=\"S20250811e0bd2f7c414df/6a5e382a8a583.jpg\">\n                    <div id=\"caption_28673400\" style=\"display:none\">\n                        <h4></h4><p></p>\n                    </div>\n\n                    <div class=\"item_container _item_container\"><div class=\"img_wrap _img_wrap  no_content\" id=\"gal_item_28673400_img\" style=\"background-image: url(&quot;/images/thumbnail/20250820/f3c1df8dc46a8.jpg&quot;); min-height: 347px;\" data-bg=\"url(/images/thumbnail/20250820/f3c1df8dc46a8.jpg)\" data-src=\"/images/thumbnail/20250820/a537c17ee6d37.jpg\" data-sub-html=\"#caption_28673400\" data-no=\"2\"></div><div class=\"text_wrap _text_wrap  _lightbox_item cursor_pointer\" id=\"gal_item_28673400\" data-src=\"/images/thumbnail/20250820/a537c17ee6d37.jpg\" data-sub-html=\"#caption_28673400\" style=\"height: 347px;\"><p class=\"title\"></p></div><div class=\"slide_overlay\"></div></div>                </div><div class=\"_item item_gallary\" style=\"position: relative; padding: 10px;\" data-org=\"S20250811e0bd2f7c414df/a8c6963adafaf.jpg\">\n                    <div id=\"caption_28673402\" style=\"display:none\">\n                        <h4></h4><p></p>\n                    </div>\n\n                    <div class=\"item_container _item_container\"><div class=\"img_wrap _img_wrap  no_content\" id=\"gal_item_28673402_img\" style=\"background-image: url(&quot;/images/thumbnail/20250820/062eb63731482.jpg&quot;); min-height: 347px;\" data-bg=\"url(/images/thumbnail/20250820/062eb63731482.jpg)\" data-src=\"/images/thumbnail/20250820/173c32b99d21e.jpg\" data-sub-html=\"#caption_28673402\" data-no=\"3\"></div><div class=\"text_wrap _text_wrap  _lightbox_item cursor_pointer\" id=\"gal_item_28673402\" data-src=\"/images/thumbnail/20250820/173c32b99d21e.jpg\" data-sub-html=\"#caption_28673402\" style=\"height: 347px;\"><p class=\"title\"></p></div><div class=\"slide_overlay\"></div></div>                </div><div class=\"_item item_gallary\" style=\"position: relative; padding: 10px;\" data-org=\"S20250811e0bd2f7c414df/c756524947ca5.jpg\">\n                    <div id=\"caption_28673403\" style=\"display:none\">\n                        <h4></h4><p></p>\n                    </div>\n\n                    <div class=\"item_container _item_container\"><div class=\"img_wrap _img_wrap  no_content\" id=\"gal_item_28673403_img\" style=\"background-image: url(&quot;/images/thumbnail/20250820/4b4f5cd2fbde3.jpg&quot;); min-height: 347px;\" data-bg=\"url(/images/thumbnail/20250820/4b4f5cd2fbde3.jpg)\" data-src=\"/images/thumbnail/20250820/d1fb5bdd03725.jpg\" data-sub-html=\"#caption_28673403\" data-no=\"4\"></div><div class=\"text_wrap _text_wrap  _lightbox_item cursor_pointer\" id=\"gal_item_28673403\" data-src=\"/images/thumbnail/20250820/d1fb5bdd03725.jpg\" data-sub-html=\"#caption_28673403\" style=\"height: 347px;\"><p class=\"title\"></p></div><div class=\"slide_overlay\"></div></div>                </div></div><div class=\"_gallery_row gallery_row tabled\"><div class=\"_item item_gallary\" style=\"position: relative; padding: 10px;\" data-org=\"S20250811e0bd2f7c414df/deddcda90631a.jpg\">\n                    <div id=\"caption_28673404\" style=\"display:none\">\n                        <h4></h4><p></p>\n                    </div>\n\n                    <div class=\"item_container _item_container\"><div class=\"img_wrap _img_wrap  no_content\" id=\"gal_item_28673404_img\" style=\"background-image: url(&quot;/images/thumbnail/20250820/50ac6e5a2e2bb.jpg&quot;); min-height: 347px;\" data-bg=\"url(/images/thumbnail/20250820/50ac6e5a2e2bb.jpg)\" data-src=\"/images/thumbnail/20250820/0108beba1ba9c.jpg\" data-sub-html=\"#caption_28673404\" data-no=\"5\"></div><div class=\"text_wrap _text_wrap  _lightbox_item cursor_pointer\" id=\"gal_item_28673404\" data-src=\"/images/thumbnail/20250820/0108beba1ba9c.jpg\" data-sub-html=\"#caption_28673404\" style=\"height: 347px;\"><p class=\"title\"></p></div><div class=\"slide_overlay\"></div></div>                </div><div class=\"_item item_gallary\" style=\"position: relative; padding: 10px;\" data-org=\"S20250811e0bd2f7c414df/426937e8568ea.jpg\">\n                    <div id=\"caption_28673405\" style=\"display:none\">\n                        <h4></h4><p></p>\n                    </div>\n\n                    <div class=\"item_container _item_container\"><div class=\"img_wrap _img_wrap  no_content\" id=\"gal_item_28673405_img\" style=\"background-image: url(&quot;/images/thumbnail/20250820/02f666b8472e4.jpg&quot;); min-height: 347px;\" data-bg=\"url(/images/thumbnail/20250820/02f666b8472e4.jpg)\" data-src=\"/images/thumbnail/20250820/e1a762f163466.jpg\" data-sub-html=\"#caption_28673405\" data-no=\"6\"></div><div class=\"text_wrap _text_wrap  _lightbox_item cursor_pointer\" id=\"gal_item_28673405\" data-src=\"/images/thumbnail/20250820/e1a762f163466.jpg\" data-sub-html=\"#caption_28673405\" style=\"height: 347px;\"><p class=\"title\"></p></div><div class=\"slide_overlay\"></div></div>                </div><div class=\"_item item_gallary\" style=\"position: relative; padding: 10px;\" data-org=\"S20250811e0bd2f7c414df/2f24a0d2c2ebc.jpg\">\n                    <div id=\"caption_28673408\" style=\"display:none\">\n                        <h4></h4><p></p>\n                    </div>\n\n                    <div class=\"item_container _item_container\"><div class=\"img_wrap _img_wrap  no_content\" id=\"gal_item_28673408_img\" style=\"background-image: url(&quot;/images/thumbnail/20250820/e8fa904f97918.jpg&quot;); min-height: 347px;\" data-bg=\"url(/images/thumbnail/20250820/e8fa904f97918.jpg)\" data-src=\"/images/thumbnail/20250820/b6840b39ba329.jpg\" data-sub-html=\"#caption_28673408\" data-no=\"7\"></div><div class=\"text_wrap _text_wrap  _lightbox_item cursor_pointer\" id=\"gal_item_28673408\" data-src=\"/images/thumbnail/20250820/b6840b39ba329.jpg\" data-sub-html=\"#caption_28673408\" style=\"height: 347px;\"><p class=\"title\"></p></div><div class=\"slide_overlay\"></div></div>                </div><div class=\"_item item_gallary\" style=\"position: relative; padding: 10px;\" data-org=\"S20250811e0bd2f7c414df/08bda980a4f5e.jpg\">\n                    <div id=\"caption_28673410\" style=\"display:none\">\n                        <h4></h4><p></p>\n                    </div>\n\n                    <div class=\"item_container _item_container\"><div class=\"img_wrap _img_wrap  no_content\" id=\"gal_item_28673410_img\" style=\"background-image: url(&quot;/images/thumbnail/20250820/08bac9d6e8bc1.jpg&quot;); min-height: 347px;\" data-bg=\"url(/images/thumbnail/20250820/08bac9d6e8bc1.jpg)\" data-src=\"/images/thumbnail/20250820/65d7785c5d467.jpg\" data-sub-html=\"#caption_28673410\" data-no=\"8\"></div><div class=\"text_wrap _text_wrap  _lightbox_item cursor_pointer\" id=\"gal_item_28673410\" data-src=\"/images/thumbnail/20250820/65d7785c5d467.jpg\" data-sub-html=\"#caption_28673410\" style=\"height: 347px;\"><p class=\"title\"></p></div><div class=\"slide_overlay\"></div></div>                </div><div class=\"_item item_gallary\" style=\"position: relative; padding: 10px;\" data-org=\"S20250811e0bd2f7c414df/8bcb2124a6d53.jpg\">\n                    <div id=\"caption_28673412\" style=\"display:none\">\n                        <h4></h4><p></p>\n                    </div>\n\n                    <div class=\"item_container _item_container\"><div class=\"img_wrap _img_wrap  no_content\" id=\"gal_item_28673412_img\" style=\"background-image: url(&quot;/images/thumbnail/20250820/f6304f436bb27.jpg&quot;); min-height: 347px;\" data-bg=\"url(/images/thumbnail/20250820/f6304f436bb27.jpg)\" data-src=\"/images/thumbnail/20250820/2796bd24ec473.jpg\" data-sub-html=\"#caption_28673412\" data-no=\"9\"></div><div class=\"text_wrap _text_wrap  _lightbox_item cursor_pointer\" id=\"gal_item_28673412\" data-src=\"/images/thumbnail/20250820/2796bd24ec473.jpg\" data-sub-html=\"#caption_28673412\" style=\"height: 347px;\"><p class=\"title\"></p></div><div class=\"slide_overlay\"></div></div>                </div></div></div>\n        \n                    <div class=\"text-center\"><a href=\"javascript:;\" class=\"btn btn-primary _more_btn more_btn margin-top-xl\" style=\"display: none;\">더보기</a></div>\n            \n    </div>\n\n    \n\n            \n</div></div></div>\n</div>\n\n<div id=\"tab2\" class=\"tab-content\">\n  <div id=\"widgetbox2\"><div doz_type=\"widget\" id=\"w20250820669c5f941deb3\"><div class=\"_widget_data \" data-widget-name=\"갤러리\" data-widget-type=\"gallery2\" data-widget-anim=\"none\" data-widget-anim-duration=\"0.7\" data-widget-anim-delay=\"0\" data-widget-parent-is-mobile=\"N\">    <div class=\"widget _gallery_wrap \">\n                <div id=\"container_w20250820669c5f941deb3\" class=\"img_rendering grid_01 type_grid overlay_text hover_show_overlay container_border gallery2  \" style=\"padding-bottom: 0px; height: auto; margin: 0px -10px;\">\n            \n                \n                \n                \n                \n                \n                \n                \n                        <div class=\"_gallery_row gallery_row tabled\"><div class=\"_item item_gallary\" style=\"position: relative; padding: 10px;\" data-org=\"S20250811e0bd2f7c414df/9baf4348bb9b9.jpg\">\n                    <div id=\"caption_28673439\" style=\"display:none\">\n                        <h4></h4><p></p>\n                    </div>\n\n                    <div class=\"item_container _item_container\"><div class=\"img_wrap _img_wrap  no_content\" id=\"gal_item_28673439_img\" style=\"background-image: url(&quot;/images/thumbnail/20250820/54af95d13217e.jpg&quot;); min-height: 442px;\" data-bg=\"url(/images/thumbnail/20250820/54af95d13217e.jpg)\" data-src=\"/images/thumbnail/20250820/0ee8f429013aa.jpg\" data-sub-html=\"#caption_28673439\" data-no=\"0\"></div><div class=\"text_wrap _text_wrap  _lightbox_item cursor_pointer\" id=\"gal_item_28673439\" data-src=\"/images/thumbnail/20250820/0ee8f429013aa.jpg\" data-sub-html=\"#caption_28673439\" style=\"height: 442px;\"><p class=\"title\"></p></div><div class=\"slide_overlay\"></div></div>                </div><div class=\"_item item_gallary\" style=\"position: relative; padding: 10px;\" data-org=\"S20250811e0bd2f7c414df/16f8aebd7cdb9.jpg\">\n                    <div id=\"caption_28673441\" style=\"display:none\">\n                        <h4></h4><p></p>\n                    </div>\n\n                    <div class=\"item_container _item_container\"><div class=\"img_wrap _img_wrap  no_content\" id=\"gal_item_28673441_img\" style=\"background-image: url(&quot;/images/thumbnail/20250820/6735f08bf8213.jpg&quot;); min-height: 442px;\" data-bg=\"url(/images/thumbnail/20250820/6735f08bf8213.jpg)\" data-src=\"/images/thumbnail/20250820/5b2abbf6749b0.jpg\" data-sub-html=\"#caption_28673441\" data-no=\"1\"></div><div class=\"text_wrap _text_wrap  _lightbox_item cursor_pointer\" id=\"gal_item_28673441\" data-src=\"/images/thumbnail/20250820/5b2abbf6749b0.jpg\" data-sub-html=\"#caption_28673441\" style=\"height: 442px;\"><p class=\"title\"></p></div><div class=\"slide_overlay\"></div></div>                </div><div class=\"_item item_gallary\" style=\"position: relative; padding: 10px;\" data-org=\"S20250811e0bd2f7c414df/43cb401b670fd.jpg\">\n                    <div id=\"caption_28673442\" style=\"display:none\">\n                        <h4></h4><p></p>\n                    </div>\n\n                    <div class=\"item_container _item_container\"><div class=\"img_wrap _img_wrap  no_content\" id=\"gal_item_28673442_img\" style=\"background-image: url(&quot;/images/thumbnail/20250820/78e668f55e43e.jpg&quot;); min-height: 442px;\" data-bg=\"url(/images/thumbnail/20250820/78e668f55e43e.jpg)\" data-src=\"/images/thumbnail/20250820/a70ace1cfa50c.jpg\" data-sub-html=\"#caption_28673442\" data-no=\"2\"></div><div class=\"text_wrap _text_wrap  _lightbox_item cursor_pointer\" id=\"gal_item_28673442\" data-src=\"/images/thumbnail/20250820/a70ace1cfa50c.jpg\" data-sub-html=\"#caption_28673442\" style=\"height: 442px;\"><p class=\"title\"></p></div><div class=\"slide_overlay\"></div></div>                </div><div class=\"_item item_gallary\" style=\"position: relative; padding: 10px;\" data-org=\"S20250811e0bd2f7c414df/8d27fabf0918c.jpg\">\n                    <div id=\"caption_28673444\" style=\"display:none\">\n                        <h4></h4><p></p>\n                    </div>\n\n                    <div class=\"item_container _item_container\"><div class=\"img_wrap _img_wrap  no_content\" id=\"gal_item_28673444_img\" style=\"background-image: url(&quot;/images/thumbnail/20250820/90495192ada6a.jpg&quot;); min-height: 442px;\" data-bg=\"url(/images/thumbnail/20250820/90495192ada6a.jpg)\" data-src=\"/images/thumbnail/20250820/c7fb2411a64f0.jpg\" data-sub-html=\"#caption_28673444\" data-no=\"3\"></div><div class=\"text_wrap _text_wrap  _lightbox_item cursor_pointer\" id=\"gal_item_28673444\" data-src=\"/images/thumbnail/20250820/c7fb2411a64f0.jpg\" data-sub-html=\"#caption_28673444\" style=\"height: 442px;\"><p class=\"title\"></p></div><div class=\"slide_overlay\"></div></div>                </div></div></div>\n        \n                    <div class=\"text-center\"><a href=\"javascript:;\" class=\"btn btn-primary _more_btn more_btn margin-top-xl\" style=\"display: none;\">더보기</a></div>\n            \n    </div>\n\n    \n\n            \n</div></div></div>\n</div>\n\n<div id=\"tab3\" class=\"tab-content\">\n  <div id=\"widgetbox3\"><div doz_type=\"widget\" id=\"w20250820d7d095b97d0fa\"><div class=\"_widget_data \" data-widget-name=\"갤러리\" data-widget-type=\"gallery2\" data-widget-anim=\"none\" data-widget-anim-duration=\"0.7\" data-widget-anim-delay=\"0\" data-widget-parent-is-mobile=\"N\">    <div class=\"widget _gallery_wrap \">\n                <div id=\"container_w20250820d7d095b97d0fa\" class=\"img_rendering grid_01 type_grid overlay_text hover_show_overlay container_border gallery2  \" style=\"padding-bottom: 0px; height: auto; margin: 0px -5px;\">\n            \n                \n                \n                \n                \n                \n                \n                \n                \n                \n                        <div class=\"_gallery_row gallery_row tabled\"><div class=\"_item item_gallary\" style=\"position: relative; padding: 5px;\" data-org=\"S20250811e0bd2f7c414df/3c177a47c0cc3.jpg\">\n                    <div id=\"caption_28673530\" style=\"display:none\">\n                        <h4></h4><p></p>\n                    </div>\n\n                    <div class=\"item_container _item_container\"><div class=\"img_wrap _img_wrap  no_content\" id=\"gal_item_28673530_img\" style=\"background-image: url(&quot;/images/thumbnail/20250828/4c47338d8f677.jpg&quot;); min-height: 252px;\" data-bg=\"url(/images/thumbnail/20250828/4c47338d8f677.jpg)\" data-src=\"/images/thumbnail/20250820/81bf0bd7552d9.jpg\" data-sub-html=\"#caption_28673530\" data-no=\"0\"></div><div class=\"text_wrap _text_wrap  _lightbox_item cursor_pointer\" id=\"gal_item_28673530\" data-src=\"/images/thumbnail/20250820/81bf0bd7552d9.jpg\" data-sub-html=\"#caption_28673530\" style=\"height: 252px;\"><p class=\"title\"></p></div><div class=\"slide_overlay\"></div></div>                </div><div class=\"_item item_gallary\" style=\"position: relative; padding: 5px;\" data-org=\"S20250811e0bd2f7c414df/bad85ff8debc2.jpg\">\n                    <div id=\"caption_28673532\" style=\"display:none\">\n                        <h4></h4><p></p>\n                    </div>\n\n                    <div class=\"item_container _item_container\"><div class=\"img_wrap _img_wrap  no_content\" id=\"gal_item_28673532_img\" style=\"background-image: url(&quot;/images/thumbnail/20250828/023f29194d203.jpg&quot;); min-height: 252px;\" data-bg=\"url(/images/thumbnail/20250828/023f29194d203.jpg)\" data-src=\"/images/thumbnail/20250820/f46c479c3e141.jpg\" data-sub-html=\"#caption_28673532\" data-no=\"1\"></div><div class=\"text_wrap _text_wrap  _lightbox_item cursor_pointer\" id=\"gal_item_28673532\" data-src=\"/images/thumbnail/20250820/f46c479c3e141.jpg\" data-sub-html=\"#caption_28673532\" style=\"height: 252px;\"><p class=\"title\"></p></div><div class=\"slide_overlay\"></div></div>                </div><div class=\"_item item_gallary\" style=\"position: relative; padding: 5px;\" data-org=\"S20250811e0bd2f7c414df/150657635339e.jpg\">\n                    <div id=\"caption_28673534\" style=\"display:none\">\n                        <h4></h4><p></p>\n                    </div>\n\n                    <div class=\"item_container _item_container\"><div class=\"img_wrap _img_wrap  no_content\" id=\"gal_item_28673534_img\" style=\"background-image: url(&quot;/images/thumbnail/20250828/0b06d3d692fbe.jpg&quot;); min-height: 252px;\" data-bg=\"url(/images/thumbnail/20250828/0b06d3d692fbe.jpg)\" data-src=\"/images/thumbnail/20250820/a2c13bdbd15f3.jpg\" data-sub-html=\"#caption_28673534\" data-no=\"2\"></div><div class=\"text_wrap _text_wrap  _lightbox_item cursor_pointer\" id=\"gal_item_28673534\" data-src=\"/images/thumbnail/20250820/a2c13bdbd15f3.jpg\" data-sub-html=\"#caption_28673534\" style=\"height: 252px;\"><p class=\"title\"></p></div><div class=\"slide_overlay\"></div></div>                </div></div><div class=\"_gallery_row gallery_row tabled\"><div class=\"_item item_gallary\" style=\"position: relative; padding: 5px;\" data-org=\"S20250811e0bd2f7c414df/0e1c458b84719.jpg\">\n                    <div id=\"caption_28673535\" style=\"display:none\">\n                        <h4></h4><p></p>\n                    </div>\n\n                    <div class=\"item_container _item_container\"><div class=\"img_wrap _img_wrap  no_content\" id=\"gal_item_28673535_img\" style=\"background-image: url(&quot;/images/thumbnail/20250828/a26de2972b3d7.jpg&quot;); min-height: 252px;\" data-bg=\"url(/images/thumbnail/20250828/a26de2972b3d7.jpg)\" data-src=\"/images/thumbnail/20250820/ee2564caeaef4.jpg\" data-sub-html=\"#caption_28673535\" data-no=\"3\"></div><div class=\"text_wrap _text_wrap  _lightbox_item cursor_pointer\" id=\"gal_item_28673535\" data-src=\"/images/thumbnail/20250820/ee2564caeaef4.jpg\" data-sub-html=\"#caption_28673535\" style=\"height: 252px;\"><p class=\"title\"></p></div><div class=\"slide_overlay\"></div></div>                </div><div class=\"_item item_gallary\" style=\"position: relative; padding: 5px;\" data-org=\"S20250811e0bd2f7c414df/3026585faef79.jpg\">\n                    <div id=\"caption_28673536\" style=\"display:none\">\n                        <h4></h4><p></p>\n                    </div>\n\n                    <div class=\"item_container _item_container\"><div class=\"img_wrap _img_wrap  no_content\" id=\"gal_item_28673536_img\" style=\"background-image: url(&quot;/images/thumbnail/20250828/26364cba8dd76.jpg&quot;); min-height: 252px;\" data-bg=\"url(/images/thumbnail/20250828/26364cba8dd76.jpg)\" data-src=\"/images/thumbnail/20250820/04f442b1b2eb8.jpg\" data-sub-html=\"#caption_28673536\" data-no=\"4\"></div><div class=\"text_wrap _text_wrap  _lightbox_item cursor_pointer\" id=\"gal_item_28673536\" data-src=\"/images/thumbnail/20250820/04f442b1b2eb8.jpg\" data-sub-html=\"#caption_28673536\" style=\"height: 252px;\"><p class=\"title\"></p></div><div class=\"slide_overlay\"></div></div>                </div><div class=\"dummy_col item_gallary _item _dummy_item\"></div></div></div>\n        \n                    <div class=\"text-center\"><a href=\"javascript:;\" class=\"btn btn-primary _more_btn more_btn margin-top-xl\" style=\"display: none;\">더보기</a></div>\n            \n    </div>\n\n    \n\n            \n</div></div></div>\n</div>\n\n\n\n\n"
+                  "html": "\n\n\n\n<div id=\"tab1\" class=\"tab-content active\" style=\"display: block;\">\n  <div id=\"widgetbox1\"><div doz_type=\"widget\" id=\"w20250820304967e88a603\"><div class=\"_widget_data \" data-widget-name=\"갤러리\" data-widget-type=\"gallery2\" data-widget-anim=\"none\" data-widget-anim-duration=\"0.7\" data-widget-anim-delay=\"0\" data-widget-parent-is-mobile=\"N\">    <div class=\"widget _gallery_wrap \">\n                <div id=\"container_w20250820304967e88a603\" class=\"img_rendering grid_01 type_grid overlay_text hover_show_overlay container_border gallery2  \" style=\"padding-bottom: 0px; height: auto; margin: 0px -10px;\">\n            \n                \n                \n                \n                \n                \n                \n                \n                \n                \n                \n                \n                \n                \n                \n                \n                \n                \n                \n                \n                        <div class=\"_gallery_row gallery_row tabled\"><div class=\"_item item_gallary\" style=\"position: relative; padding: 10px;\" data-org=\"S20250811e0bd2f7c414df/92dae45b36478.jpg\">\n                    <div id=\"caption_28673399\" style=\"display:none\">\n                        <h4></h4><p></p>\n                    </div>\n\n                    <div class=\"item_container _item_container\"><div class=\"img_wrap _img_wrap  no_content\" id=\"gal_item_28673399_img\" style=\"background-image: url(&quot;/images/thumbnail/20250820/d30f62f69c0aa.jpg&quot;); min-height: 347px;\" data-bg=\"url(/images/thumbnail/20250820/d30f62f69c0aa.jpg)\" data-src=\"/images/thumbnail/20250820/490f192bca249.jpg\" data-sub-html=\"#caption_28673399\" data-no=\"0\"></div><div class=\"text_wrap _text_wrap  _lightbox_item cursor_pointer\" id=\"gal_item_28673399\" data-src=\"/images/thumbnail/20250820/490f192bca249.jpg\" data-sub-html=\"#caption_28673399\" style=\"height: 347px;\"><p class=\"title\"></p></div><div class=\"slide_overlay\"></div></div>                </div><div class=\"_item item_gallary\" style=\"position: relative; padding: 10px;\" data-org=\"S20250811e0bd2f7c414df/730be4aab6ec0.jpg\">\n                    <div id=\"caption_28673401\" style=\"display:none\">\n                        <h4></h4><p></p>\n                    </div>\n\n                    <div class=\"item_container _item_container\"><div class=\"img_wrap _img_wrap  no_content\" id=\"gal_item_28673401_img\" style=\"background-image: url(&quot;/images/thumbnail/20250820/dc7fa16116dc9.jpg&quot;); min-height: 347px;\" data-bg=\"url(/images/thumbnail/20250820/dc7fa16116dc9.jpg)\" data-src=\"/images/thumbnail/20250820/59bcba0f3572b.jpg\" data-sub-html=\"#caption_28673401\" data-no=\"1\"></div><div class=\"text_wrap _text_wrap  _lightbox_item cursor_pointer\" id=\"gal_item_28673401\" data-src=\"/images/thumbnail/20250820/59bcba0f3572b.jpg\" data-sub-html=\"#caption_28673401\" style=\"height: 347px;\"><p class=\"title\"></p></div><div class=\"slide_overlay\"></div></div>                </div><div class=\"_item item_gallary\" style=\"position: relative; padding: 10px;\" data-org=\"S20250811e0bd2f7c414df/6a5e382a8a583.jpg\">\n                    <div id=\"caption_28673400\" style=\"display:none\">\n                        <h4></h4><p></p>\n                    </div>\n\n                    <div class=\"item_container _item_container\"><div class=\"img_wrap _img_wrap  no_content\" id=\"gal_item_28673400_img\" style=\"background-image: url(&quot;/images/thumbnail/20250820/f3c1df8dc46a8.jpg&quot;); min-height: 347px;\" data-bg=\"url(/images/thumbnail/20250820/f3c1df8dc46a8.jpg)\" data-src=\"/images/thumbnail/20250820/a537c17ee6d37.jpg\" data-sub-html=\"#caption_28673400\" data-no=\"2\"></div><div class=\"text_wrap _text_wrap  _lightbox_item cursor_pointer\" id=\"gal_item_28673400\" data-src=\"/images/thumbnail/20250820/a537c17ee6d37.jpg\" data-sub-html=\"#caption_28673400\" style=\"height: 347px;\"><p class=\"title\"></p></div><div class=\"slide_overlay\"></div></div>                </div><div class=\"_item item_gallary\" style=\"position: relative; padding: 10px;\" data-org=\"S20250811e0bd2f7c414df/a8c6963adafaf.jpg\">\n                    <div id=\"caption_28673402\" style=\"display:none\">\n                        <h4></h4><p></p>\n                    </div>\n\n                    <div class=\"item_container _item_container\"><div class=\"img_wrap _img_wrap  no_content\" id=\"gal_item_28673402_img\" style=\"background-image: url(&quot;/images/thumbnail/20250820/062eb63731482.jpg&quot;); min-height: 347px;\" data-bg=\"url(/images/thumbnail/20250820/062eb63731482.jpg)\" data-src=\"/images/thumbnail/20250820/173c32b99d21e.jpg\" data-sub-html=\"#caption_28673402\" data-no=\"3\"></div><div class=\"text_wrap _text_wrap  _lightbox_item cursor_pointer\" id=\"gal_item_28673402\" data-src=\"/images/thumbnail/20250820/173c32b99d21e.jpg\" data-sub-html=\"#caption_28673402\" style=\"height: 347px;\"><p class=\"title\"></p></div><div class=\"slide_overlay\"></div></div>                </div><div class=\"_item item_gallary\" style=\"position: relative; padding: 10px;\" data-org=\"S20250811e0bd2f7c414df/c756524947ca5.jpg\">\n                    <div id=\"caption_28673403\" style=\"display:none\">\n                        <h4></h4><p></p>\n                    </div>\n\n                    <div class=\"item_container _item_container\"><div class=\"img_wrap _img_wrap  no_content\" id=\"gal_item_28673403_img\" style=\"background-image: url(&quot;/images/thumbnail/20250820/4b4f5cd2fbde3.jpg&quot;); min-height: 347px;\" data-bg=\"url(/images/thumbnail/20250820/4b4f5cd2fbde3.jpg)\" data-src=\"/images/thumbnail/20250820/d1fb5bdd03725.jpg\" data-sub-html=\"#caption_28673403\" data-no=\"4\"></div><div class=\"text_wrap _text_wrap  _lightbox_item cursor_pointer\" id=\"gal_item_28673403\" data-src=\"/images/thumbnail/20250820/d1fb5bdd03725.jpg\" data-sub-html=\"#caption_28673403\" style=\"height: 347px;\"><p class=\"title\"></p></div><div class=\"slide_overlay\"></div></div>                </div></div><div class=\"_gallery_row gallery_row tabled\"><div class=\"_item item_gallary\" style=\"position: relative; padding: 10px;\" data-org=\"S20250811e0bd2f7c414df/deddcda90631a.jpg\">\n                    <div id=\"caption_28673404\" style=\"display:none\">\n                        <h4></h4><p></p>\n                    </div>\n\n                    <div class=\"item_container _item_container\"><div class=\"img_wrap _img_wrap  no_content\" id=\"gal_item_28673404_img\" style=\"background-image: url(&quot;/images/thumbnail/20250820/50ac6e5a2e2bb.jpg&quot;); min-height: 347px;\" data-bg=\"url(/images/thumbnail/20250820/50ac6e5a2e2bb.jpg)\" data-src=\"/images/thumbnail/20250820/0108beba1ba9c.jpg\" data-sub-html=\"#caption_28673404\" data-no=\"5\"></div><div class=\"text_wrap _text_wrap  _lightbox_item cursor_pointer\" id=\"gal_item_28673404\" data-src=\"/images/thumbnail/20250820/0108beba1ba9c.jpg\" data-sub-html=\"#caption_28673404\" style=\"height: 347px;\"><p class=\"title\"></p></div><div class=\"slide_overlay\"></div></div>                </div><div class=\"_item item_gallary\" style=\"position: relative; padding: 10px;\" data-org=\"S20250811e0bd2f7c414df/426937e8568ea.jpg\">\n                    <div id=\"caption_28673405\" style=\"display:none\">\n                        <h4></h4><p></p>\n                    </div>\n\n                    <div class=\"item_container _item_container\"><div class=\"img_wrap _img_wrap  no_content\" id=\"gal_item_28673405_img\" style=\"background-image: url(&quot;/images/thumbnail/20250820/02f666b8472e4.jpg&quot;); min-height: 347px;\" data-bg=\"url(/images/thumbnail/20250820/02f666b8472e4.jpg)\" data-src=\"/images/thumbnail/20250820/e1a762f163466.jpg\" data-sub-html=\"#caption_28673405\" data-no=\"6\"></div><div class=\"text_wrap _text_wrap  _lightbox_item cursor_pointer\" id=\"gal_item_28673405\" data-src=\"/images/thumbnail/20250820/e1a762f163466.jpg\" data-sub-html=\"#caption_28673405\" style=\"height: 347px;\"><p class=\"title\"></p></div><div class=\"slide_overlay\"></div></div>                </div><div class=\"_item item_gallary\" style=\"position: relative; padding: 10px;\" data-org=\"S20250811e0bd2f7c414df/2f24a0d2c2ebc.jpg\">\n                    <div id=\"caption_28673408\" style=\"display:none\">\n                        <h4></h4><p></p>\n                    </div>\n\n                    <div class=\"item_container _item_container\"><div class=\"img_wrap _img_wrap  no_content\" id=\"gal_item_28673408_img\" style=\"background-image: url(&quot;/images/thumbnail/20250820/e8fa904f97918.jpg&quot;); min-height: 347px;\" data-bg=\"url(/images/thumbnail/20250820/e8fa904f97918.jpg)\" data-src=\"/images/thumbnail/20250820/b6840b39ba329.jpg\" data-sub-html=\"#caption_28673408\" data-no=\"7\"></div><div class=\"text_wrap _text_wrap  _lightbox_item cursor_pointer\" id=\"gal_item_28673408\" data-src=\"/images/thumbnail/20250820/b6840b39ba329.jpg\" data-sub-html=\"#caption_28673408\" style=\"height: 347px;\"><p class=\"title\"></p></div><div class=\"slide_overlay\"></div></div>                </div><div class=\"_item item_gallary\" style=\"position: relative; padding: 10px;\" data-org=\"S20250811e0bd2f7c414df/08bda980a4f5e.jpg\">\n                    <div id=\"caption_28673410\" style=\"display:none\">\n                        <h4></h4><p></p>\n                    </div>\n\n                    <div class=\"item_container _item_container\"><div class=\"img_wrap _img_wrap  no_content\" id=\"gal_item_28673410_img\" style=\"background-image: url(&quot;/images/thumbnail/20250820/08bac9d6e8bc1.jpg&quot;); min-height: 347px;\" data-bg=\"url(/images/thumbnail/20250820/08bac9d6e8bc1.jpg)\" data-src=\"/images/thumbnail/20250820/65d7785c5d467.jpg\" data-sub-html=\"#caption_28673410\" data-no=\"8\"></div><div class=\"text_wrap _text_wrap  _lightbox_item cursor_pointer\" id=\"gal_item_28673410\" data-src=\"/images/thumbnail/20250820/65d7785c5d467.jpg\" data-sub-html=\"#caption_28673410\" style=\"height: 347px;\"><p class=\"title\"></p></div><div class=\"slide_overlay\"></div></div>                </div><div class=\"_item item_gallary\" style=\"position: relative; padding: 10px;\" data-org=\"S20250811e0bd2f7c414df/8bcb2124a6d53.jpg\">\n                    <div id=\"caption_28673412\" style=\"display:none\">\n                        <h4></h4><p></p>\n                    </div>\n\n                    <div class=\"item_container _item_container\"><div class=\"img_wrap _img_wrap  no_content\" id=\"gal_item_28673412_img\" style=\"background-image: url(&quot;/images/thumbnail/20250820/f6304f436bb27.jpg&quot;); min-height: 347px;\" data-bg=\"url(/images/thumbnail/20250820/f6304f436bb27.jpg)\" data-src=\"/images/thumbnail/20250820/2796bd24ec473.jpg\" data-sub-html=\"#caption_28673412\" data-no=\"9\"></div><div class=\"text_wrap _text_wrap  _lightbox_item cursor_pointer\" id=\"gal_item_28673412\" data-src=\"/images/thumbnail/20250820/2796bd24ec473.jpg\" data-sub-html=\"#caption_28673412\" style=\"height: 347px;\"><p class=\"title\"></p></div><div class=\"slide_overlay\"></div></div>                </div></div></div>\n        \n                    <div class=\"text-center\"><a href=\"javascript:;\" class=\"btn btn-primary _more_btn more_btn margin-top-xl\" style=\"display: none;\">더보기</a></div>\n            \n    </div>\n\n    \n\n            \n</div></div></div>\n</div>\n\n<div id=\"tab2\" class=\"tab-content\">\n  <div id=\"widgetbox2\"><div doz_type=\"widget\" id=\"w20250820669c5f941deb3\"><div class=\"_widget_data \" data-widget-name=\"갤러리\" data-widget-type=\"gallery2\" data-widget-anim=\"none\" data-widget-anim-duration=\"0.7\" data-widget-anim-delay=\"0\" data-widget-parent-is-mobile=\"N\">    <div class=\"widget _gallery_wrap \">\n                <div id=\"container_w20250820669c5f941deb3\" class=\"img_rendering grid_01 type_grid overlay_text hover_show_overlay container_border gallery2  \" style=\"padding-bottom: 0px; height: auto; margin: 0px -10px;\">\n            \n                \n                \n                \n                \n                \n                \n                \n                        <div class=\"_gallery_row gallery_row tabled\"><div class=\"_item item_gallary\" style=\"position: relative; padding: 10px;\" data-org=\"S20250811e0bd2f7c414df/9baf4348bb9b9.jpg\">\n                    <div id=\"caption_28673439\" style=\"display:none\">\n                        <h4></h4><p></p>\n                    </div>\n\n                    <div class=\"item_container _item_container\"><div class=\"img_wrap _img_wrap  no_content\" id=\"gal_item_28673439_img\" style=\"background-image: url(&quot;/images/thumbnail/20250820/54af95d13217e.jpg&quot;); min-height: 442px;\" data-bg=\"url(/images/thumbnail/20250820/54af95d13217e.jpg)\" data-src=\"/images/thumbnail/20250820/0ee8f429013aa.jpg\" data-sub-html=\"#caption_28673439\" data-no=\"0\"></div><div class=\"text_wrap _text_wrap  _lightbox_item cursor_pointer\" id=\"gal_item_28673439\" data-src=\"/images/thumbnail/20250820/0ee8f429013aa.jpg\" data-sub-html=\"#caption_28673439\" style=\"height: 442px;\"><p class=\"title\"></p></div><div class=\"slide_overlay\"></div></div>                </div><div class=\"_item item_gallary\" style=\"position: relative; padding: 10px;\" data-org=\"S20250811e0bd2f7c414df/16f8aebd7cdb9.jpg\">\n                    <div id=\"caption_28673441\" style=\"display:none\">\n                        <h4></h4><p></p>\n                    </div>\n\n                    <div class=\"item_container _item_container\"><div class=\"img_wrap _img_wrap  no_content\" id=\"gal_item_28673441_img\" style=\"background-image: url(&quot;/images/thumbnail/20250820/6735f08bf8213.jpg&quot;); min-height: 442px;\" data-bg=\"url(/images/thumbnail/20250820/6735f08bf8213.jpg)\" data-src=\"/images/thumbnail/20250820/5b2abbf6749b0.jpg\" data-sub-html=\"#caption_28673441\" data-no=\"1\"></div><div class=\"text_wrap _text_wrap  _lightbox_item cursor_pointer\" id=\"gal_item_28673441\" data-src=\"/images/thumbnail/20250820/5b2abbf6749b0.jpg\" data-sub-html=\"#caption_28673441\" style=\"height: 442px;\"><p class=\"title\"></p></div><div class=\"slide_overlay\"></div></div>                </div><div class=\"_item item_gallary\" style=\"position: relative; padding: 10px;\" data-org=\"S20250811e0bd2f7c414df/43cb401b670fd.jpg\">\n                    <div id=\"caption_28673442\" style=\"display:none\">\n                        <h4></h4><p></p>\n                    </div>\n\n                    <div class=\"item_container _item_container\"><div class=\"img_wrap _img_wrap  no_content\" id=\"gal_item_28673442_img\" style=\"background-image: url(&quot;/images/thumbnail/20250820/78e668f55e43e.jpg&quot;); min-height: 442px;\" data-bg=\"url(/images/thumbnail/20250820/78e668f55e43e.jpg)\" data-src=\"/images/thumbnail/20250820/a70ace1cfa50c.jpg\" data-sub-html=\"#caption_28673442\" data-no=\"2\"></div><div class=\"text_wrap _text_wrap  _lightbox_item cursor_pointer\" id=\"gal_item_28673442\" data-src=\"/images/thumbnail/20250820/a70ace1cfa50c.jpg\" data-sub-html=\"#caption_28673442\" style=\"height: 442px;\"><p class=\"title\"></p></div><div class=\"slide_overlay\"></div></div>                </div><div class=\"_item item_gallary\" style=\"position: relative; padding: 10px;\" data-org=\"S20250811e0bd2f7c414df/8d27fabf0918c.jpg\">\n                    <div id=\"caption_28673444\" style=\"display:none\">\n                        <h4></h4><p></p>\n                    </div>\n\n                    <div class=\"item_container _item_container\"><div class=\"img_wrap _img_wrap  no_content\" id=\"gal_item_28673444_img\" style=\"background-image: url(&quot;/images/thumbnail/20250820/90495192ada6a.jpg&quot;); min-height: 442px;\" data-bg=\"url(/images/thumbnail/20250820/90495192ada6a.jpg)\" data-src=\"/images/thumbnail/20250820/c7fb2411a64f0.jpg\" data-sub-html=\"#caption_28673444\" data-no=\"3\"></div><div class=\"text_wrap _text_wrap  _lightbox_item cursor_pointer\" id=\"gal_item_28673444\" data-src=\"/images/thumbnail/20250820/c7fb2411a64f0.jpg\" data-sub-html=\"#caption_28673444\" style=\"height: 442px;\"><p class=\"title\"></p></div><div class=\"slide_overlay\"></div></div>                </div></div></div>\n        \n                    <div class=\"text-center\"><a href=\"javascript:;\" class=\"btn btn-primary _more_btn more_btn margin-top-xl\" style=\"display: none;\">더보기</a></div>\n            \n    </div>\n\n    \n\n            \n</div></div></div>\n</div>\n\n<div id=\"tab3\" class=\"tab-content\">\n  <div id=\"widgetbox3\"><div doz_type=\"widget\" id=\"w20250820d7d095b97d0fa\"><div class=\"_widget_data \" data-widget-name=\"갤러리\" data-widget-type=\"gallery2\" data-widget-anim=\"none\" data-widget-anim-duration=\"0.7\" data-widget-anim-delay=\"0\" data-widget-parent-is-mobile=\"N\">    <div class=\"widget _gallery_wrap \">\n                <div id=\"container_w20250820d7d095b97d0fa\" class=\"img_rendering grid_01 type_grid overlay_text hover_show_overlay container_border gallery2  \" style=\"padding-bottom: 0px; height: auto; margin: 0px -5px;\">\n            \n                \n                \n                \n                \n                \n                \n                \n                \n                \n                        <div class=\"_gallery_row gallery_row tabled\"><div class=\"_item item_gallary\" style=\"position: relative; padding: 5px;\" data-org=\"S20250811e0bd2f7c414df/3c177a47c0cc3.jpg\">\n                    <div id=\"caption_28673530\" style=\"display:none\">\n                        <h4></h4><p></p>\n                    </div>\n\n                    <div class=\"item_container _item_container\"><div class=\"img_wrap _img_wrap  no_content\" id=\"gal_item_28673530_img\" style=\"background-image: url(&quot;/images/thumbnail/20250828/4c47338d8f677.jpg&quot;); min-height: 252px;\" data-bg=\"url(/images/thumbnail/20250828/4c47338d8f677.jpg)\" data-src=\"/images/thumbnail/20250820/81bf0bd7552d9.jpg\" data-sub-html=\"#caption_28673530\" data-no=\"0\"></div><div class=\"text_wrap _text_wrap  _lightbox_item cursor_pointer\" id=\"gal_item_28673530\" data-src=\"/images/thumbnail/20250820/81bf0bd7552d9.jpg\" data-sub-html=\"#caption_28673530\" style=\"height: 252px;\"><p class=\"title\"></p></div><div class=\"slide_overlay\"></div></div>                </div><div class=\"_item item_gallary\" style=\"position: relative; padding: 5px;\" data-org=\"S20250811e0bd2f7c414df/bad85ff8debc2.jpg\">\n                    <div id=\"caption_28673532\" style=\"display:none\">\n                        <h4></h4><p></p>\n                    </div>\n\n                    <div class=\"item_container _item_container\"><div class=\"img_wrap _img_wrap  no_content\" id=\"gal_item_28673532_img\" style=\"background-image: url(&quot;/images/thumbnail/20250828/023f29194d203.jpg&quot;); min-height: 252px;\" data-bg=\"url(/images/thumbnail/20250828/023f29194d203.jpg)\" data-src=\"/images/thumbnail/20250820/f46c479c3e141.jpg\" data-sub-html=\"#caption_28673532\" data-no=\"1\"></div><div class=\"text_wrap _text_wrap  _lightbox_item cursor_pointer\" id=\"gal_item_28673532\" data-src=\"/images/thumbnail/20250820/f46c479c3e141.jpg\" data-sub-html=\"#caption_28673532\" style=\"height: 252px;\"><p class=\"title\"></p></div><div class=\"slide_overlay\"></div></div>                </div><div class=\"_item item_gallary\" style=\"position: relative; padding: 5px;\" data-org=\"S20250811e0bd2f7c414df/150657635339e.jpg\">\n                    <div id=\"caption_28673534\" style=\"display:none\">\n                        <h4></h4><p></p>\n                    </div>\n\n                    <div class=\"item_container _item_container\"><div class=\"img_wrap _img_wrap  no_content\" id=\"gal_item_28673534_img\" style=\"background-image: url(&quot;/images/thumbnail/20250828/0b06d3d692fbe.jpg&quot;); min-height: 252px;\" data-bg=\"url(/images/thumbnail/20250828/0b06d3d692fbe.jpg)\" data-src=\"/images/thumbnail/20250820/a2c13bdbd15f3.jpg\" data-sub-html=\"#caption_28673534\" data-no=\"2\"></div><div class=\"text_wrap _text_wrap  _lightbox_item cursor_pointer\" id=\"gal_item_28673534\" data-src=\"/images/thumbnail/20250820/a2c13bdbd15f3.jpg\" data-sub-html=\"#caption_28673534\" style=\"height: 252px;\"><p class=\"title\"></p></div><div class=\"slide_overlay\"></div></div>                </div></div><div class=\"_gallery_row gallery_row tabled\"><div class=\"_item item_gallary\" style=\"position: relative; padding: 5px;\" data-org=\"S20250811e0bd2f7c414df/0e1c458b84719.jpg\">\n                    <div id=\"caption_28673535\" style=\"display:none\">\n                        <h4></h4><p></p>\n                    </div>\n\n                    <div class=\"item_container _item_container\"><div class=\"img_wrap _img_wrap  no_content\" id=\"gal_item_28673535_img\" style=\"background-image: url(&quot;/images/thumbnail/20250828/a26de2972b3d7.jpg&quot;); min-height: 252px;\" data-bg=\"url(/images/thumbnail/20250828/a26de2972b3d7.jpg)\" data-src=\"/images/thumbnail/20250820/ee2564caeaef4.jpg\" data-sub-html=\"#caption_28673535\" data-no=\"3\"></div><div class=\"text_wrap _text_wrap  _lightbox_item cursor_pointer\" id=\"gal_item_28673535\" data-src=\"/images/thumbnail/20250820/ee2564caeaef4.jpg\" data-sub-html=\"#caption_28673535\" style=\"height: 252px;\"><p class=\"title\"></p></div><div class=\"slide_overlay\"></div></div>                </div><div class=\"_item item_gallary\" style=\"position: relative; padding: 5px;\" data-org=\"S20250811e0bd2f7c414df/3026585faef79.jpg\">\n                    <div id=\"caption_28673536\" style=\"display:none\">\n                        <h4></h4><p></p>\n                    </div>\n\n                    <div class=\"item_container _item_container\"><div class=\"img_wrap _img_wrap  no_content\" id=\"gal_item_28673536_img\" style=\"background-image: url(&quot;/images/thumbnail/20250828/26364cba8dd76.jpg&quot;); min-height: 252px;\" data-bg=\"url(/images/thumbnail/20250828/26364cba8dd76.jpg)\" data-src=\"/images/thumbnail/20250820/04f442b1b2eb8.jpg\" data-sub-html=\"#caption_28673536\" data-no=\"4\"></div><div class=\"text_wrap _text_wrap  _lightbox_item cursor_pointer\" id=\"gal_item_28673536\" data-src=\"/images/thumbnail/20250820/04f442b1b2eb8.jpg\" data-sub-html=\"#caption_28673536\" style=\"height: 252px;\"><p class=\"title\"></p></div><div class=\"slide_overlay\"></div></div>                </div><div class=\"dummy_col item_gallary _item _dummy_item\"></div></div></div>\n        \n                    <div class=\"text-center\"><a href=\"javascript:;\" class=\"btn btn-primary _more_btn more_btn margin-top-xl\" style=\"display: none;\">더보기</a></div>\n            \n    </div>\n\n    \n\n            \n</div></div></div>\n</div>\n\n\n\n\n",
+                  "anim": "none"
                 }
               ]
             }
@@ -390,6 +409,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -401,6 +421,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -412,6 +433,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -423,6 +445,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -452,6 +475,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -471,6 +495,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -480,7 +505,8 @@
                   "kind": "widget",
                   "id": "w2025082935a39e86acbcc",
                   "type": "text",
-                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center;\"><span style=\"font-size: 48px;\"><strong><span style=\"color: rgb(18, 18, 18);\">생산능력</span></strong></span></p></div></div>\n\t"
+                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center;\"><span style=\"font-size: 48px;\"><strong><span style=\"color: rgb(18, 18, 18);\">생산능력</span></strong></span></p></div></div>\n\t",
+                  "anim": "fadeInUp"
                 }
               ]
             }
@@ -489,6 +515,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -508,6 +535,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -525,7 +553,8 @@
                           "kind": "widget",
                           "id": "w20250829cd9176971c728",
                           "type": "text",
-                          "html": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center;\"><span style=\"font-size: 20px;\"><strong><span style=\"color: rgb(18, 18, 18);\">생산설비 </span></strong></span></p></div></div>\n\t"
+                          "html": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center;\"><span style=\"font-size: 20px;\"><strong><span style=\"color: rgb(18, 18, 18);\">생산설비 </span></strong></span></p></div></div>\n\t",
+                          "anim": "fadeInUp"
                         }
                       ]
                     }
@@ -543,7 +572,8 @@
                           "kind": "widget",
                           "id": "w20250829bb21466f4e0f1",
                           "type": "text",
-                          "html": "\n\t\t<div class=\"text-table \"><div><table class=\"tableHover tableHorizontal\" style=\"width: 100%;\"><tbody><tr><td style=\"width: 54.6758%; background-color: rgb(52, 101, 222);\"><div style=\"text-align: center; line-height: 1.5;\"><span style=\"font-size: 16px;\"><span style=\"line-height: 1.5; color: rgb(255, 255, 255);\">설비명</span></span></div></td><td style=\"width: 45.3242%; background-color: rgb(52, 101, 222);\"><div style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\"><span style=\"color: rgb(255, 255, 255);\">대 수</span></span></span></div></td></tr><tr><td style=\"width: 54.6758%; background-color: rgb(249, 249, 249);\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">회전융착기</span></span></h6></td><td style=\"width: 45.3242%;\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">3</span></span></h6></td></tr><tr><td class=\"fr-cell-fixed \" style=\"width: 54.6758%; background-color: rgb(249, 249, 249);\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">공압검사기</span></span></h6></td><td style=\"width: 45.3242%;\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">2</span></span></h6></td></tr><tr><td style=\"width: 54.6758%; background-color: rgb(249, 249, 249);\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">라벨부착기</span></span></h6></td><td style=\"width: 45.3242%;\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">3</span></span></h6></td></tr><tr><td style=\"width: 54.6758%; background-color: rgb(249, 249, 249);\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">수축포장기</span></span></h6></td><td style=\"width: 45.3242%;\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">2</span></span></h6></td></tr><tr><td style=\"width: 54.6758%; background-color: rgb(249, 249, 249);\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">잉크젯 인쇄기</span></span></h6></td><td style=\"width: 45.3242%;\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">2</span></span></h6></td></tr><tr><td class=\"fr-cell-handler \" style=\"width: 54.6758%; background-color: rgb(249, 249, 249);\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\"><strong><span style=\"color: rgb(52, 101, 222);\">Total</span></strong></span></span></h6></td><td style=\"width: 45.3242%;\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\"><strong><span style=\"color: rgb(52, 101, 222);\">12</span></strong></span></span></h6></td></tr></tbody></table></div></div>\n\t"
+                          "html": "\n\t\t<div class=\"text-table \"><div><table class=\"tableHover tableHorizontal\" style=\"width: 100%;\"><tbody><tr><td style=\"width: 54.6758%; background-color: rgb(52, 101, 222);\"><div style=\"text-align: center; line-height: 1.5;\"><span style=\"font-size: 16px;\"><span style=\"line-height: 1.5; color: rgb(255, 255, 255);\">설비명</span></span></div></td><td style=\"width: 45.3242%; background-color: rgb(52, 101, 222);\"><div style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\"><span style=\"color: rgb(255, 255, 255);\">대 수</span></span></span></div></td></tr><tr><td style=\"width: 54.6758%; background-color: rgb(249, 249, 249);\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">회전융착기</span></span></h6></td><td style=\"width: 45.3242%;\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">3</span></span></h6></td></tr><tr><td class=\"fr-cell-fixed \" style=\"width: 54.6758%; background-color: rgb(249, 249, 249);\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">공압검사기</span></span></h6></td><td style=\"width: 45.3242%;\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">2</span></span></h6></td></tr><tr><td style=\"width: 54.6758%; background-color: rgb(249, 249, 249);\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">라벨부착기</span></span></h6></td><td style=\"width: 45.3242%;\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">3</span></span></h6></td></tr><tr><td style=\"width: 54.6758%; background-color: rgb(249, 249, 249);\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">수축포장기</span></span></h6></td><td style=\"width: 45.3242%;\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">2</span></span></h6></td></tr><tr><td style=\"width: 54.6758%; background-color: rgb(249, 249, 249);\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">잉크젯 인쇄기</span></span></h6></td><td style=\"width: 45.3242%;\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">2</span></span></h6></td></tr><tr><td class=\"fr-cell-handler \" style=\"width: 54.6758%; background-color: rgb(249, 249, 249);\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\"><strong><span style=\"color: rgb(52, 101, 222);\">Total</span></strong></span></span></h6></td><td style=\"width: 45.3242%;\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\"><strong><span style=\"color: rgb(52, 101, 222);\">12</span></strong></span></span></h6></td></tr></tbody></table></div></div>\n\t",
+                          "anim": "none"
                         }
                       ]
                     }
@@ -567,7 +597,8 @@
                           "kind": "widget",
                           "id": "w20250829dc320d96d4f7e",
                           "type": "text",
-                          "html": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center;\"><span style=\"font-size: 20px;\"><strong><span style=\"color: rgb(18, 18, 18);\">측정 장비</span></strong></span></p></div></div>\n\t"
+                          "html": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center;\"><span style=\"font-size: 20px;\"><strong><span style=\"color: rgb(18, 18, 18);\">측정 장비</span></strong></span></p></div></div>\n\t",
+                          "anim": "fadeInUp"
                         }
                       ]
                     }
@@ -585,7 +616,8 @@
                           "kind": "widget",
                           "id": "w20250829370d74ba50fab",
                           "type": "text",
-                          "html": "\n\t\t<div class=\"text-table \"><div><table class=\"tableHover tableHorizontal\" style=\"width: 100%;\"><tbody><tr><td style=\"width: 43.9469%; background-color: rgb(52, 101, 222);\"><div style=\"text-align: center;\"><span style=\"font-size: 16px;\"><span style=\"color: rgb(255, 255, 255);\">설비명</span></span></div></td><td style=\"width: 55.8012%; background-color: rgb(52, 101, 222);\"><div style=\"text-align: center;\"><span style=\"font-size: 16px;\"><span style=\"color: rgb(255, 255, 255);\">대 수</span></span></div></td></tr><tr><td class=\"fr-cell-fixed \" style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">잔류염소측정기</span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">탁도 측정기</span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">경도 측정기</span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">ORP 측정기</span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">TDS 측정기</span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">pH 측정기<br></span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">가우스 측정기 <br></span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td class=\"fr-cell-handler \" style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\"><strong><span style=\"color: rgb(52, 101, 222);\">Total</span></strong></span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\"><strong><span style=\"color: rgb(52, 101, 222);\">7</span></strong></span></span></div></td></tr></tbody></table></div></div>\n\t"
+                          "html": "\n\t\t<div class=\"text-table \"><div><table class=\"tableHover tableHorizontal\" style=\"width: 100%;\"><tbody><tr><td style=\"width: 43.9469%; background-color: rgb(52, 101, 222);\"><div style=\"text-align: center;\"><span style=\"font-size: 16px;\"><span style=\"color: rgb(255, 255, 255);\">설비명</span></span></div></td><td style=\"width: 55.8012%; background-color: rgb(52, 101, 222);\"><div style=\"text-align: center;\"><span style=\"font-size: 16px;\"><span style=\"color: rgb(255, 255, 255);\">대 수</span></span></div></td></tr><tr><td class=\"fr-cell-fixed \" style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">잔류염소측정기</span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">탁도 측정기</span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">경도 측정기</span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">ORP 측정기</span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">TDS 측정기</span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">pH 측정기<br></span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">가우스 측정기 <br></span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td class=\"fr-cell-handler \" style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\"><strong><span style=\"color: rgb(52, 101, 222);\">Total</span></strong></span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\"><strong><span style=\"color: rgb(52, 101, 222);\">7</span></strong></span></span></div></td></tr></tbody></table></div></div>\n\t",
+                          "anim": "none"
                         }
                       ]
                     }
@@ -609,7 +641,8 @@
                           "kind": "widget",
                           "id": "w20250829336d480a01019",
                           "type": "text",
-                          "html": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center;\"><span style=\"font-size: 20px;\"><strong><span style=\"color: rgb(18, 18, 18);\">테스트 장비 </span></strong></span></p></div></div>\n\t"
+                          "html": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center;\"><span style=\"font-size: 20px;\"><strong><span style=\"color: rgb(18, 18, 18);\">테스트 장비 </span></strong></span></p></div></div>\n\t",
+                          "anim": "fadeInUp"
                         }
                       ]
                     }
@@ -627,7 +660,8 @@
                           "kind": "widget",
                           "id": "w202508298781405b23d22",
                           "type": "text",
-                          "html": "\n\t\t<div class=\"text-table \"><div><table class=\"tableHorizontal tableHover\" style=\"width: 100%;\"><tbody><tr><td style=\"width: 43.9469%; background-color: rgb(52, 101, 222);\"><div style=\"text-align: center;\"><span style=\"font-size: 16px;\"><span style=\"color: rgb(255, 255, 255);\">설비명</span></span></div></td><td style=\"width: 55.8012%; background-color: rgb(52, 101, 222);\"><div style=\"text-align: center;\"><span style=\"font-size: 16px;\"><span style=\"color: rgb(255, 255, 255);\">대 수</span></span></div></td></tr><tr><td class=\"fr-cell-fixed \" style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">수압시험기&nbsp;</span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">공압시험기</span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">항온항습기</span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td class=\"fr-cell-handler \" style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\"><strong><span style=\"color: rgb(52, 101, 222);\">Total</span></strong></span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\"><strong><span style=\"color: rgb(52, 101, 222);\">3</span></strong></span></span></div></td></tr></tbody></table></div></div>\n\t"
+                          "html": "\n\t\t<div class=\"text-table \"><div><table class=\"tableHorizontal tableHover\" style=\"width: 100%;\"><tbody><tr><td style=\"width: 43.9469%; background-color: rgb(52, 101, 222);\"><div style=\"text-align: center;\"><span style=\"font-size: 16px;\"><span style=\"color: rgb(255, 255, 255);\">설비명</span></span></div></td><td style=\"width: 55.8012%; background-color: rgb(52, 101, 222);\"><div style=\"text-align: center;\"><span style=\"font-size: 16px;\"><span style=\"color: rgb(255, 255, 255);\">대 수</span></span></div></td></tr><tr><td class=\"fr-cell-fixed \" style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">수압시험기&nbsp;</span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">공압시험기</span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">항온항습기</span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td class=\"fr-cell-handler \" style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\"><strong><span style=\"color: rgb(52, 101, 222);\">Total</span></strong></span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\"><strong><span style=\"color: rgb(52, 101, 222);\">3</span></strong></span></span></div></td></tr></tbody></table></div></div>\n\t",
+                          "anim": "none"
                         }
                       ]
                     }
@@ -651,7 +685,8 @@
                           "kind": "widget",
                           "id": "w202508292eb257f4075b4",
                           "type": "text",
-                          "html": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center;\"><span style=\"font-size: 20px;\"><strong><span style=\"color: rgb(18, 18, 18);\">테스트 장비 </span></strong></span></p></div></div>\n\t"
+                          "html": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center;\"><span style=\"font-size: 20px;\"><strong><span style=\"color: rgb(18, 18, 18);\">테스트 장비 </span></strong></span></p></div></div>\n\t",
+                          "anim": "fadeInUp"
                         }
                       ]
                     }
@@ -669,7 +704,8 @@
                           "kind": "widget",
                           "id": "w202508293b8acaf6df97a",
                           "type": "text",
-                          "html": "\n\t\t<div class=\"text-table \"><div><table class=\"tableHorizontal tableHover\" style=\"width: 100%;\"><tbody><tr><td style=\"width: 42.2414%; background-color: rgb(52, 101, 222);\"><div style=\"text-align: center; line-height: 1.5;\"><span style=\"font-size: 16px;\"><span style=\"line-height: 1.5; color: rgb(255, 255, 255);\">생산능력</span></span></div></td><td style=\"width: 58.1034%; background-color: rgb(52, 101, 222);\"><div style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\"><span style=\"color: rgb(255, 255, 255);\">수 량</span></span></span></div></td></tr><tr><td class=\"fr-cell-fixed \" style=\"width: 42.2414%; background-color: rgb(249, 249, 249);\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">Units / hr</span></span></h6></td><td style=\"width: 58.1034%;\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">1,250 ea</span></span></h6></td></tr><tr><td style=\"width: 42.2414%; background-color: rgb(249, 249, 249);\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">Units / day / ( 8hr )&nbsp;</span></span></h6></td><td style=\"width: 58.1034%;\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">10,000 ea&nbsp;</span></span></h6></td></tr><tr><td class=\"fr-cell-handler \" style=\"width: 42.2414%; background-color: rgb(249, 249, 249);\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">Units / Month /\n( 25 day )</span></span></h6></td><td style=\"width: 58.1034%;\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">250,000 ea</span></span></h6></td></tr></tbody></table></div></div>\n\t"
+                          "html": "\n\t\t<div class=\"text-table \"><div><table class=\"tableHorizontal tableHover\" style=\"width: 100%;\"><tbody><tr><td style=\"width: 42.2414%; background-color: rgb(52, 101, 222);\"><div style=\"text-align: center; line-height: 1.5;\"><span style=\"font-size: 16px;\"><span style=\"line-height: 1.5; color: rgb(255, 255, 255);\">생산능력</span></span></div></td><td style=\"width: 58.1034%; background-color: rgb(52, 101, 222);\"><div style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\"><span style=\"color: rgb(255, 255, 255);\">수 량</span></span></span></div></td></tr><tr><td class=\"fr-cell-fixed \" style=\"width: 42.2414%; background-color: rgb(249, 249, 249);\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">Units / hr</span></span></h6></td><td style=\"width: 58.1034%;\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">1,250 ea</span></span></h6></td></tr><tr><td style=\"width: 42.2414%; background-color: rgb(249, 249, 249);\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">Units / day / ( 8hr )&nbsp;</span></span></h6></td><td style=\"width: 58.1034%;\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">10,000 ea&nbsp;</span></span></h6></td></tr><tr><td class=\"fr-cell-handler \" style=\"width: 42.2414%; background-color: rgb(249, 249, 249);\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">Units / Month /\n( 25 day )</span></span></h6></td><td style=\"width: 58.1034%;\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">250,000 ea</span></span></h6></td></tr></tbody></table></div></div>\n\t",
+                          "anim": "none"
                         }
                       ]
                     }
@@ -682,6 +718,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -722,8 +759,11 @@
                   "type": "image",
                   "src": "/images/thumbnail/20250911/68ffc55b3ed20.png",
                   "alt": "",
+                  "href": "#doz_header",
+                  "hoverBg": "/images/thumbnail/20250911/68ffc55b3ed20.png",
                   "boxStyle": "",
-                  "imgStyle": "visibility: visible; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 0px; height: 0px; margin: 21px auto;"
+                  "imgStyle": "visibility: visible; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 0px; height: 0px; margin: 21px auto;",
+                  "anim": "none"
                 }
               ]
             }
@@ -741,7 +781,8 @@
                   "kind": "widget",
                   "id": "w20250911712afbc03dd48",
                   "type": "code",
-                  "html": "\n"
+                  "html": "\n",
+                  "anim": "none"
                 }
               ]
             }
@@ -760,6 +801,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -769,7 +811,8 @@
                   "kind": "widget",
                   "id": "w2025082575878708b2b14",
                   "type": "code",
-                  "html": ""
+                  "html": "",
+                  "anim": "none"
                 }
               ]
             }
@@ -788,6 +831,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -807,6 +851,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -815,6 +860,7 @@
                 {
                   "kind": "row",
                   "grid": "7",
+                  "w": 747,
                   "cols": [
                     {
                       "kind": "col",
@@ -824,7 +870,8 @@
                           "kind": "widget",
                           "id": "w20250811379e3dc61aa7f",
                           "type": "text",
-                          "html": "\n\t\t<div class=\"text-table \"><div><p><img src=\"/images/upload/S20250811e0bd2f7c414df/f04049636b82b.png\" class=\"fr-fin fr-dib fr-fil\" style=\"width: 238px;\"></p></div></div>\n\t"
+                          "html": "\n\t\t<div class=\"text-table \"><div><p><img src=\"/images/upload/S20250811e0bd2f7c414df/f04049636b82b.png\" class=\"fr-fin fr-dib fr-fil\" style=\"width: 238px;\"></p></div></div>\n\t",
+                          "anim": "none"
                         }
                       ]
                     }
@@ -833,6 +880,7 @@
                 {
                   "kind": "row",
                   "grid": "7",
+                  "w": 747,
                   "cols": [
                     {
                       "kind": "col",
@@ -842,7 +890,8 @@
                           "kind": "widget",
                           "id": "w20250811c8ba21c61f272",
                           "type": "text",
-                          "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2;\"><span style=\"color: rgb(149, 149, 149); font-size: 14px;\">대표 : 김나연 &nbsp;</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">개인정보관리책임자 : 김나연 &nbsp;ㅣ &nbsp;문의 : ecowave_1800@naver.com</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">주소 : 인천광역시 남동구 은봉로 14 영도빌딩 2동</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">전화 : +82-32-812-1800 &nbsp;ㅣ &nbsp;팩스 : +82-32-812-1804</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><br></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Copyright ⓒ ECOWAVE. All Rights Reserved</span></span></p></div></div>\n\t"
+                          "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2;\"><span style=\"color: rgb(149, 149, 149); font-size: 14px;\">대표 : 김나연 &nbsp;</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">개인정보관리책임자 : 김나연 &nbsp;ㅣ &nbsp;문의 : ecowave_1800@naver.com</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">주소 : 인천광역시 남동구 은봉로 14 영도빌딩 2동</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">전화 : +82-32-812-1800 &nbsp;ㅣ &nbsp;팩스 : +82-32-812-1804</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><br></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Copyright ⓒ ECOWAVE. All Rights Reserved</span></span></p></div></div>\n\t",
+                          "anim": "none"
                         }
                       ]
                     }
@@ -868,7 +917,8 @@
                           "type": "button",
                           "text": "",
                           "href": "#doz_header",
-                          "html": "<div class=\"widget button txt_r\">\n\t<div class=\"button_wrap \">\n\t\t<div class=\"inline-blocked \"><a class=\" btn btn_82610ee2a0658   btn-default  \" href=\"#doz_header\" style=\"line-height: 1; border-radius:9999px\"><i aria-hidden=\"true\" style=\"line-height: 1;\" class=\"simple icon-arrow-up\"></i></a></div>\t</div>\n</div>\n\n"
+                          "html": "<div class=\"widget button txt_r\">\n\t<div class=\"button_wrap \">\n\t\t<div class=\"inline-blocked \"><a class=\" btn btn_82610ee2a0658   btn-default  \" href=\"#doz_header\" style=\"line-height: 1; border-radius:9999px\"><i aria-hidden=\"true\" style=\"line-height: 1;\" class=\"simple icon-arrow-up\"></i></a></div>\t</div>\n</div>\n\n",
+                          "anim": "none"
                         }
                       ]
                     }
@@ -894,7 +944,8 @@
                                   "kind": "widget",
                                   "id": "w20250919b68d158c2925e",
                                   "type": "text",
-                                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>에코</strong><strong>웨이</strong><strong>브</strong></span></p></div></div>\n\t"
+                                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>에코</strong><strong>웨이</strong><strong>브</strong></span></p></div></div>\n\t",
+                                  "anim": "none"
                                 }
                               ]
                             }
@@ -929,7 +980,8 @@
                                   "kind": "widget",
                                   "id": "w202509198aeb3bd046ac9",
                                   "type": "text",
-                                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216);\"><strong>연구개발</strong></span></p></div></div>\n\t"
+                                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216);\"><strong>연구개발</strong></span></p></div></div>\n\t",
+                                  "anim": "none"
                                 }
                               ]
                             }
@@ -964,7 +1016,8 @@
                                   "kind": "widget",
                                   "id": "w2025091955cb4ab654cac",
                                   "type": "text",
-                                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>제품소개</strong></span></p></div></div>\n\t"
+                                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>제품소개</strong></span></p></div></div>\n\t",
+                                  "anim": "none"
                                 }
                               ]
                             }
@@ -999,7 +1052,8 @@
                                   "kind": "widget",
                                   "id": "w2025091988816c09014e4",
                                   "type": "text",
-                                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>뉴스룸</strong></span></p></div></div>\n\t"
+                                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>뉴스룸</strong></span></p></div></div>\n\t",
+                                  "anim": "none"
                                 }
                               ]
                             }
@@ -1034,7 +1088,8 @@
                                   "kind": "widget",
                                   "id": "w20250919e76996cca8992",
                                   "type": "text",
-                                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>고객지원</strong></span></p></div></div>\n\t"
+                                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>고객지원</strong></span></p></div></div>\n\t",
+                                  "anim": "none"
                                 }
                               ]
                             }
@@ -1062,6 +1117,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",

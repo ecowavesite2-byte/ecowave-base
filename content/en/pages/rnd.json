@@ -14,6 +14,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -33,6 +34,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -88,6 +90,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -214,6 +217,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -233,6 +237,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -242,7 +247,8 @@
                   "kind": "widget",
                   "id": "w20250911f6c17121cf0cf",
                   "type": "text",
-                  "html": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">Advanced facilities&nbsp;</span></strong><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">and strict management</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">create cleaner, safer water.</span></strong></h6></div></div>\n\t"
+                  "html": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">Advanced facilities&nbsp;</span></strong><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">and strict management</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">create cleaner, safer water.</span></strong></h6></div></div>\n\t",
+                  "anim": "none"
                 }
               ]
             }
@@ -251,6 +257,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -280,6 +287,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -299,6 +307,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -310,8 +319,10 @@
                   "type": "image",
                   "src": "/images/thumbnail/20250911/cacef61fc2561.jpg",
                   "alt": "",
+                  "hoverBg": "/images/thumbnail/20250911/cacef61fc2561.jpg",
                   "boxStyle": "",
-                  "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 1250px; height: 409px; margin: -1px auto;"
+                  "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 1250px; height: 409px; margin: -1px auto;",
+                  "anim": "fadeIn"
                 }
               ]
             }
@@ -320,6 +331,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -329,7 +341,8 @@
                   "kind": "widget",
                   "id": "w2025091144fc7efe3d9d0",
                   "type": "text",
-                  "html": "\n\t\t<div class=\"text-table \"><div><div class=\"table-responsive\"><table class=\"tableHorizontal _table_responsive table\" style=\"width: 100%; border-top:2px solid #3465de;\"><tbody><tr><td rowspan=\"3\" style=\"width: 19.8388%; vertical-align: top;\"><p style=\"text-align: left; line-height: 2;\"><span style=\"font-size: 22px; color: rgb(36, 36, 36);\"><strong><span style=\"line-height: 2;\">Eco-friendly</span></strong></span></p><p style=\"text-align: left; line-height: 2;\"><span style=\"font-size: 22px; color: rgb(36, 36, 36);\"><strong><span style=\"line-height: 2;\">premium water</span></strong></span></p><p style=\"text-align: left; line-height: 2;\"><span style=\"font-size: 22px; color: rgb(36, 36, 36);\"><strong><span style=\"line-height: 2;\">technology</span></strong></span></p></td><td style=\"width: 20.56%;\"><h6 style=\"text-align: left; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong><span style=\"line-height: 2;\">multi-level water purification system</span></strong><strong><span style=\"line-height: 2;\">&nbsp;</span></strong></span></h6></td><td style=\"width: 59.6%;\"><span style=\"line-height: 1; font-size: 16px;\">Custom filters optimized for local water quality using segment,</span><span style=\"line-height: 1;\"><span style=\"font-size: 16px;\"><br></span></span><span style=\"line-height: 1; font-size: 16px;\">pre-carbon, UF/RO/NF membranes, and post-carbon.</span><span style=\"line-height: 2; font-size: 16px;\">&nbsp;&nbsp;</span></td></tr><tr><td style=\"width: 20.56%;\"><h6 style=\"text-align: left; line-height: 1;\"><span style=\"line-height: 1;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>Mineral/alkali</strong></span></span></h6><h6 style=\"text-align: left; line-height: 1;\"><span style=\"line-height: 1;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>functional filters</strong></span></span><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>&nbsp;&nbsp;</strong></span></span></h6></td><td style=\"width: 59.6%;\"><span style=\"line-height: 2; font-size: 16px;\">Beyond simple water purification, mineral balancing and alkalization enhance health value&nbsp;</span></td></tr><tr><td style=\"width: 20.56%;\"><h6 style=\"text-align: left; line-height: 1;\"><span style=\"line-height: 1;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>Bidet,</strong><strong>shower,</strong></span></span></h6><h6 style=\"text-align: left; line-height: 1;\"><span style=\"line-height: 1;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>appliances filters</strong></span></span><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>&nbsp;&nbsp;</strong></span></span></h6></td><td style=\"width: 59.6%;\"><span style=\"line-height: 1; font-size: 16px;\">Have an application suite (vide filters, vitamin shower filters, sterilization modules, etc.)</span><br><span style=\"line-height: 1; font-size: 16px;\">that enhance water hygiene and quality of life.</span><span style=\"line-height: 2; font-size: 16px;\">&nbsp;</span></td></tr></tbody></table></div></div></div>\n\t"
+                  "html": "\n\t\t<div class=\"text-table \"><div><div class=\"table-responsive\"><table class=\"tableHorizontal _table_responsive table\" style=\"width: 100%; border-top:2px solid #3465de;\"><tbody><tr><td rowspan=\"3\" style=\"width: 19.8388%; vertical-align: top;\"><p style=\"text-align: left; line-height: 2;\"><span style=\"font-size: 22px; color: rgb(36, 36, 36);\"><strong><span style=\"line-height: 2;\">Eco-friendly</span></strong></span></p><p style=\"text-align: left; line-height: 2;\"><span style=\"font-size: 22px; color: rgb(36, 36, 36);\"><strong><span style=\"line-height: 2;\">premium water</span></strong></span></p><p style=\"text-align: left; line-height: 2;\"><span style=\"font-size: 22px; color: rgb(36, 36, 36);\"><strong><span style=\"line-height: 2;\">technology</span></strong></span></p></td><td style=\"width: 20.56%;\"><h6 style=\"text-align: left; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong><span style=\"line-height: 2;\">multi-level water purification system</span></strong><strong><span style=\"line-height: 2;\">&nbsp;</span></strong></span></h6></td><td style=\"width: 59.6%;\"><span style=\"line-height: 1; font-size: 16px;\">Custom filters optimized for local water quality using segment,</span><span style=\"line-height: 1;\"><span style=\"font-size: 16px;\"><br></span></span><span style=\"line-height: 1; font-size: 16px;\">pre-carbon, UF/RO/NF membranes, and post-carbon.</span><span style=\"line-height: 2; font-size: 16px;\">&nbsp;&nbsp;</span></td></tr><tr><td style=\"width: 20.56%;\"><h6 style=\"text-align: left; line-height: 1;\"><span style=\"line-height: 1;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>Mineral/alkali</strong></span></span></h6><h6 style=\"text-align: left; line-height: 1;\"><span style=\"line-height: 1;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>functional filters</strong></span></span><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>&nbsp;&nbsp;</strong></span></span></h6></td><td style=\"width: 59.6%;\"><span style=\"line-height: 2; font-size: 16px;\">Beyond simple water purification, mineral balancing and alkalization enhance health value&nbsp;</span></td></tr><tr><td style=\"width: 20.56%;\"><h6 style=\"text-align: left; line-height: 1;\"><span style=\"line-height: 1;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>Bidet,</strong><strong>shower,</strong></span></span></h6><h6 style=\"text-align: left; line-height: 1;\"><span style=\"line-height: 1;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>appliances filters</strong></span></span><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>&nbsp;&nbsp;</strong></span></span></h6></td><td style=\"width: 59.6%;\"><span style=\"line-height: 1; font-size: 16px;\">Have an application suite (vide filters, vitamin shower filters, sterilization modules, etc.)</span><br><span style=\"line-height: 1; font-size: 16px;\">that enhance water hygiene and quality of life.</span><span style=\"line-height: 2; font-size: 16px;\">&nbsp;</span></td></tr></tbody></table></div></div></div>\n\t",
+                  "anim": "none"
                 }
               ]
             }
@@ -338,6 +351,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -347,7 +361,8 @@
                   "kind": "widget",
                   "id": "w2025091130e2730bf448f",
                   "type": "code",
-                  "html": "\n"
+                  "html": "\n",
+                  "anim": "none"
                 }
               ]
             }
@@ -356,6 +371,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -385,6 +401,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -393,6 +410,7 @@
                 {
                   "kind": "row",
                   "grid": "6",
+                  "w": 640,
                   "cols": [
                     {
                       "kind": "col",
@@ -404,8 +422,10 @@
                           "type": "image",
                           "src": "/images/thumbnail/20250909/a354e4d098fc6.jpg",
                           "alt": "",
+                          "hoverBg": "/images/thumbnail/20250909/a354e4d098fc6.jpg",
                           "boxStyle": "",
-                          "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 610px; height: 408px; margin: 1px auto;"
+                          "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 610px; height: 408px; margin: 1px auto;",
+                          "anim": "fadeIn"
                         }
                       ]
                     }
@@ -414,6 +434,7 @@
                 {
                   "kind": "row",
                   "grid": "6",
+                  "w": 640,
                   "cols": [
                     {
                       "kind": "col",
@@ -423,7 +444,8 @@
                           "kind": "widget",
                           "id": "w20250911e085b5b02161b",
                           "type": "text",
-                          "html": "\n\t\t<div class=\"text-table \"><div><table class=\"tableHorizontal\" style=\"width: 100%; border-top:2px solid #3465de;\"><tbody><tr><td colspan=\"2\" style=\"width: 19.9927%; vertical-align: top;\"><span style=\"line-height: 2;\"><span style=\"font-size: 22px; color: rgb(36, 36, 36);\"><strong>OEM/Global Collaboration Capabilities&nbsp;</strong></span></span></td></tr><tr><td style=\"width: 36.2602%;\"><h6 style=\"text-align: left; line-height: 1;\"><span style=\"line-height: 1;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>Global conglomerate supply performance</strong></span></span><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>&nbsp;</strong></span></span></h6></td><td style=\"width: 63.7398%;\"><span style=\"line-height: 1; font-size: 16px;\">OEM/ODM experience with LG, Cuckoo and other major brands ensures verified quality.</span><span style=\"line-height: 2; font-size: 16px;\">&nbsp;</span></td></tr><tr><td style=\"width: 36.2602%;\"><h6 style=\"text-align: left; line-height: 1;\"><span style=\"line-height: 1;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>Broad portfolio of products</strong></span></span><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>&nbsp;</strong></span></span></h6></td><td style=\"width: 63.7398%;\"><span style=\"line-height: 1; font-size: 16px;\">Over 30 products, from water purifiers to sterilizers, secure B2B scalability.</span><span style=\"line-height: 2; font-size: 16px;\">&nbsp;</span></td></tr></tbody></table></div></div>\n\t"
+                          "html": "\n\t\t<div class=\"text-table \"><div><table class=\"tableHorizontal\" style=\"width: 100%; border-top:2px solid #3465de;\"><tbody><tr><td colspan=\"2\" style=\"width: 19.9927%; vertical-align: top;\"><span style=\"line-height: 2;\"><span style=\"font-size: 22px; color: rgb(36, 36, 36);\"><strong>OEM/Global Collaboration Capabilities&nbsp;</strong></span></span></td></tr><tr><td style=\"width: 36.2602%;\"><h6 style=\"text-align: left; line-height: 1;\"><span style=\"line-height: 1;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>Global conglomerate supply performance</strong></span></span><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>&nbsp;</strong></span></span></h6></td><td style=\"width: 63.7398%;\"><span style=\"line-height: 1; font-size: 16px;\">OEM/ODM experience with LG, Cuckoo and other major brands ensures verified quality.</span><span style=\"line-height: 2; font-size: 16px;\">&nbsp;</span></td></tr><tr><td style=\"width: 36.2602%;\"><h6 style=\"text-align: left; line-height: 1;\"><span style=\"line-height: 1;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>Broad portfolio of products</strong></span></span><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>&nbsp;</strong></span></span></h6></td><td style=\"width: 63.7398%;\"><span style=\"line-height: 1; font-size: 16px;\">Over 30 products, from water purifiers to sterilizers, secure B2B scalability.</span><span style=\"line-height: 2; font-size: 16px;\">&nbsp;</span></td></tr></tbody></table></div></div>\n\t",
+                          "anim": "none"
                         }
                       ]
                     }
@@ -438,6 +460,7 @@
                 {
                   "kind": "row",
                   "grid": "6",
+                  "w": 640,
                   "cols": [
                     {
                       "kind": "col",
@@ -449,8 +472,10 @@
                           "type": "image",
                           "src": "/images/thumbnail/20250909/368735646c29f.jpg",
                           "alt": "",
+                          "hoverBg": "/images/thumbnail/20250909/368735646c29f.jpg",
                           "boxStyle": "",
-                          "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 610px; height: 408px; margin: 1px auto;"
+                          "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 610px; height: 408px; margin: 1px auto;",
+                          "anim": "fadeIn"
                         }
                       ]
                     }
@@ -459,6 +484,7 @@
                 {
                   "kind": "row",
                   "grid": "6",
+                  "w": 640,
                   "cols": [
                     {
                       "kind": "col",
@@ -468,7 +494,8 @@
                           "kind": "widget",
                           "id": "w2025091146e74dfd265d0",
                           "type": "text",
-                          "html": "\n\t\t<div class=\"text-table \"><div><table class=\"tableHorizontal\" style=\"width: 100%; border-top:2px solid #3465de;\"><tbody><tr><td colspan=\"2\" style=\"width: 19.9927%; vertical-align: top;\"><span style=\"line-height: 2;\"><span style=\"font-size: 22px; color: rgb(36, 36, 36);\"><strong>Advanced inspection and quality control systems&nbsp;</strong></span></span></td></tr><tr><td style=\"width: 36.0838%;\"><h6 style=\"text-align: left; line-height: 1;\"><span style=\"line-height: 1;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>Precision inspection equipment</strong></span></span><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>&nbsp;</strong></span></span></h6></td><td style=\"width: 63.9162%;\"><span style=\"line-height: 1; font-size: 16px;\">Water quality analysis (chlorine, turbidity, hardness, ORP, TDS, pH) and durability testers.</span><span style=\"line-height: 2; font-size: 16px;\">&nbsp;&nbsp;</span></td></tr><tr><td style=\"width: 36.0838%;\"><h6 style=\"text-align: left; line-height: 1;\"><span style=\"line-height: 1;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>Systematic quality management</strong></span></span><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>&nbsp;&nbsp;</strong></span></span></h6></td><td style=\"width: 63.9162%;\"><span style=\"line-height: 1; font-size: 16px;\">Production, delivery, and full inspection (IQC–LQC–OQC) systems.&nbsp;</span></td></tr><tr><td style=\"width: 36.0838%;\"><h6 style=\"text-align: left; line-height: 1;\"><span style=\"line-height: 1;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>Global audit&nbsp;</strong></span><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>response</strong></span></span><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>&nbsp;</strong></span></span></h6></td><td style=\"width: 63.9162%;\"><span style=\"font-size: 16px;\">Get the level of management capability to pass demanding global partner quality audits.&nbsp;</span></td></tr></tbody></table></div></div>\n\t"
+                          "html": "\n\t\t<div class=\"text-table \"><div><table class=\"tableHorizontal\" style=\"width: 100%; border-top:2px solid #3465de;\"><tbody><tr><td colspan=\"2\" style=\"width: 19.9927%; vertical-align: top;\"><span style=\"line-height: 2;\"><span style=\"font-size: 22px; color: rgb(36, 36, 36);\"><strong>Advanced inspection and quality control systems&nbsp;</strong></span></span></td></tr><tr><td style=\"width: 36.0838%;\"><h6 style=\"text-align: left; line-height: 1;\"><span style=\"line-height: 1;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>Precision inspection equipment</strong></span></span><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>&nbsp;</strong></span></span></h6></td><td style=\"width: 63.9162%;\"><span style=\"line-height: 1; font-size: 16px;\">Water quality analysis (chlorine, turbidity, hardness, ORP, TDS, pH) and durability testers.</span><span style=\"line-height: 2; font-size: 16px;\">&nbsp;&nbsp;</span></td></tr><tr><td style=\"width: 36.0838%;\"><h6 style=\"text-align: left; line-height: 1;\"><span style=\"line-height: 1;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>Systematic quality management</strong></span></span><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>&nbsp;&nbsp;</strong></span></span></h6></td><td style=\"width: 63.9162%;\"><span style=\"line-height: 1; font-size: 16px;\">Production, delivery, and full inspection (IQC–LQC–OQC) systems.&nbsp;</span></td></tr><tr><td style=\"width: 36.0838%;\"><h6 style=\"text-align: left; line-height: 1;\"><span style=\"line-height: 1;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>Global audit&nbsp;</strong></span><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>response</strong></span></span><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>&nbsp;</strong></span></span></h6></td><td style=\"width: 63.9162%;\"><span style=\"font-size: 16px;\">Get the level of management capability to pass demanding global partner quality audits.&nbsp;</span></td></tr></tbody></table></div></div>\n\t",
+                          "anim": "none"
                         }
                       ]
                     }
@@ -481,6 +508,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -490,7 +518,8 @@
                   "kind": "widget",
                   "id": "w2025091132d7c8f31489a",
                   "type": "code",
-                  "html": "\n"
+                  "html": "\n",
+                  "anim": "none"
                 }
               ]
             }
@@ -499,6 +528,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -528,6 +558,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -536,6 +567,7 @@
                 {
                   "kind": "row",
                   "grid": "6",
+                  "w": 640,
                   "cols": [
                     {
                       "kind": "col",
@@ -547,8 +579,10 @@
                           "type": "image",
                           "src": "/images/thumbnail/20250909/d7de0a7f09580.jpg",
                           "alt": "",
+                          "hoverBg": "/images/thumbnail/20250909/d7de0a7f09580.jpg",
                           "boxStyle": "",
-                          "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 610px; height: 408px; margin: 1px auto;"
+                          "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 610px; height: 408px; margin: 1px auto;",
+                          "anim": "fadeIn"
                         }
                       ]
                     }
@@ -557,6 +591,7 @@
                 {
                   "kind": "row",
                   "grid": "6",
+                  "w": 640,
                   "cols": [
                     {
                       "kind": "col",
@@ -566,7 +601,8 @@
                           "kind": "widget",
                           "id": "w202509111daa9e7b7fdc4",
                           "type": "text",
-                          "html": "\n\t\t<div class=\"text-table \"><div><table class=\"tableHorizontal\" style=\"width: 100%; border-top:2px solid #3465de;\"><tbody><tr><td colspan=\"2\" style=\"width: 19.9927%; vertical-align: top;\"><span style=\"line-height: 2;\"><span style=\"font-size: 22px; color: rgb(36, 36, 36);\"><strong>Smart/sterilizing technology&nbsp;</strong></span></span></td></tr><tr><td style=\"width: 36.2602%; vertical-align: top;\"><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>Electrode</strong></span></span><br><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>sterilization module&nbsp;</strong></span></span></td><td style=\"width: 63.7398%;\"><span style=\"line-height: 1; font-size: 16px;\">Electrolyzes water to generate chlorine, sterilizing purifiers, bidets, and tanks.</span></td></tr><tr><td style=\"width: 36.2602%; vertical-align: top;\"><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>Sensor/IoT scalability</strong></span></span></td><td style=\"width: 63.7398%;\"><span style=\"line-height: 1; font-size: 16px;\">LPS and IoT tech enable real-time monitoring and smart home connectivity.&nbsp;</span></td></tr></tbody></table></div></div>\n\t"
+                          "html": "\n\t\t<div class=\"text-table \"><div><table class=\"tableHorizontal\" style=\"width: 100%; border-top:2px solid #3465de;\"><tbody><tr><td colspan=\"2\" style=\"width: 19.9927%; vertical-align: top;\"><span style=\"line-height: 2;\"><span style=\"font-size: 22px; color: rgb(36, 36, 36);\"><strong>Smart/sterilizing technology&nbsp;</strong></span></span></td></tr><tr><td style=\"width: 36.2602%; vertical-align: top;\"><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>Electrode</strong></span></span><br><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>sterilization module&nbsp;</strong></span></span></td><td style=\"width: 63.7398%;\"><span style=\"line-height: 1; font-size: 16px;\">Electrolyzes water to generate chlorine, sterilizing purifiers, bidets, and tanks.</span></td></tr><tr><td style=\"width: 36.2602%; vertical-align: top;\"><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>Sensor/IoT scalability</strong></span></span></td><td style=\"width: 63.7398%;\"><span style=\"line-height: 1; font-size: 16px;\">LPS and IoT tech enable real-time monitoring and smart home connectivity.&nbsp;</span></td></tr></tbody></table></div></div>\n\t",
+                          "anim": "none"
                         }
                       ]
                     }
@@ -581,6 +617,7 @@
                 {
                   "kind": "row",
                   "grid": "6",
+                  "w": 640,
                   "cols": [
                     {
                       "kind": "col",
@@ -592,8 +629,10 @@
                           "type": "image",
                           "src": "/images/thumbnail/20250909/98102c9df6b48.jpg",
                           "alt": "",
+                          "hoverBg": "/images/thumbnail/20250909/98102c9df6b48.jpg",
                           "boxStyle": "",
-                          "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 610px; height: 408px; margin: 1px auto;"
+                          "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 610px; height: 408px; margin: 1px auto;",
+                          "anim": "fadeIn"
                         }
                       ]
                     }
@@ -602,6 +641,7 @@
                 {
                   "kind": "row",
                   "grid": "6",
+                  "w": 640,
                   "cols": [
                     {
                       "kind": "col",
@@ -611,7 +651,8 @@
                           "kind": "widget",
                           "id": "w20250911c267957623937",
                           "type": "text",
-                          "html": "\n\t\t<div class=\"text-table \"><div><table class=\"tableHorizontal\" style=\"width: 100%; border-top:2px solid #3465de;\"><tbody style=\"line-height: 1.15;\"><tr><td colspan=\"2\" style=\"width: 19.9927%; vertical-align: top;\"><span style=\"line-height: 2;\"><span style=\"font-size: 22px; color: rgb(36, 36, 36);\"><strong>Mass production and global supply chain&nbsp;</strong></span></span></td></tr><tr><td style=\"width: 36.2296%; vertical-align: middle;\"><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>Mass production capacity&nbsp;</strong></span></span></td><td style=\"width: 63.7704%;\"><span style=\"font-size: 16px; line-height: 1.5;\">250,000 units/month with automation and experts for large-scale OEM demand.</span><span style=\"font-size: 16px; line-height: 1;\">&nbsp;</span></td></tr><tr><td style=\"width: 36.2296%; vertical-align: top;\"><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>Global</strong></span></span><br><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>Network</strong></span></span></td><td style=\"width: 63.7704%;\"><span style=\"line-height: 1.5;\">Headquarters in Korea with offices in China and Cambodia for supply optimization.&nbsp;</span></td></tr></tbody></table></div></div>\n\t"
+                          "html": "\n\t\t<div class=\"text-table \"><div><table class=\"tableHorizontal\" style=\"width: 100%; border-top:2px solid #3465de;\"><tbody style=\"line-height: 1.15;\"><tr><td colspan=\"2\" style=\"width: 19.9927%; vertical-align: top;\"><span style=\"line-height: 2;\"><span style=\"font-size: 22px; color: rgb(36, 36, 36);\"><strong>Mass production and global supply chain&nbsp;</strong></span></span></td></tr><tr><td style=\"width: 36.2296%; vertical-align: middle;\"><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>Mass production capacity&nbsp;</strong></span></span></td><td style=\"width: 63.7704%;\"><span style=\"font-size: 16px; line-height: 1.5;\">250,000 units/month with automation and experts for large-scale OEM demand.</span><span style=\"font-size: 16px; line-height: 1;\">&nbsp;</span></td></tr><tr><td style=\"width: 36.2296%; vertical-align: top;\"><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>Global</strong></span></span><br><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>Network</strong></span></span></td><td style=\"width: 63.7704%;\"><span style=\"line-height: 1.5;\">Headquarters in Korea with offices in China and Cambodia for supply optimization.&nbsp;</span></td></tr></tbody></table></div></div>\n\t",
+                          "anim": "none"
                         }
                       ]
                     }
@@ -624,6 +665,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -633,7 +675,8 @@
                   "kind": "widget",
                   "id": "w2025091194fe9ae56a2be",
                   "type": "code",
-                  "html": "\n"
+                  "html": "\n",
+                  "anim": "none"
                 }
               ]
             }
@@ -642,6 +685,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -671,6 +715,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -690,6 +735,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -699,7 +745,8 @@
                   "kind": "widget",
                   "id": "w20250911e31c8f0b35a19",
                   "type": "text",
-                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center;\"><span style=\"font-size: 48px;\"><strong><span style=\"color: rgb(18, 18, 18);\">Investor Core USP Summary&nbsp;</span></strong></span></p></div></div>\n\t"
+                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center;\"><span style=\"font-size: 48px;\"><strong><span style=\"color: rgb(18, 18, 18);\">Investor Core USP Summary&nbsp;</span></strong></span></p></div></div>\n\t",
+                  "anim": "none"
                 }
               ]
             }
@@ -708,6 +755,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -717,7 +765,8 @@
                   "kind": "widget",
                   "id": "w20250911744123d3d284d",
                   "type": "text",
-                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(81, 81, 81);\">Water is vital to health and must not be neglected.<br data-start=\"130\" data-end=\"133\">&nbsp;We promise clean, healthy water you can drink with confidence.</span></p></div></div>\n\t"
+                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(81, 81, 81);\">Water is vital to health and must not be neglected.<br data-start=\"130\" data-end=\"133\">&nbsp;We promise clean, healthy water you can drink with confidence.</span></p></div></div>\n\t",
+                  "anim": "none"
                 }
               ]
             }
@@ -726,6 +775,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -736,6 +786,7 @@
                   "id": "w20250911a562d6f6910ec",
                   "type": "gallery2",
                   "layout": "grid",
+                  "anim": "fadeInUp",
                   "items": [
                     {
                       "org": "/images/upload/S20250811e0bd2f7c414df/cdb1e24f6ebe1.png",
@@ -776,6 +827,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -816,8 +868,11 @@
                   "type": "image",
                   "src": "/images/thumbnail/20250911/68ffc55b3ed20.png",
                   "alt": "",
+                  "href": "#doz_header",
+                  "hoverBg": "/images/thumbnail/20250911/68ffc55b3ed20.png",
                   "boxStyle": "",
-                  "imgStyle": "visibility: visible; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 0px; height: 0px; margin: 21px auto;"
+                  "imgStyle": "visibility: visible; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 0px; height: 0px; margin: 21px auto;",
+                  "anim": "none"
                 }
               ]
             }
@@ -835,7 +890,8 @@
                   "kind": "widget",
                   "id": "w20250911c4eaf7ad81a4d",
                   "type": "code",
-                  "html": "\n"
+                  "html": "\n",
+                  "anim": "none"
                 }
               ]
             }
@@ -854,6 +910,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -863,7 +920,8 @@
                   "kind": "widget",
                   "id": "w202509117a7c740cda500",
                   "type": "code",
-                  "html": ""
+                  "html": "",
+                  "anim": "none"
                 }
               ]
             }
@@ -882,6 +940,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -901,6 +960,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",
@@ -918,7 +978,8 @@
                           "kind": "widget",
                           "id": "w202509118ce1bc8a9b0d2",
                           "type": "text",
-                          "html": "\n\t\t<div class=\"text-table \"><div><p><img src=\"/images/upload/S20250811e0bd2f7c414df/f04049636b82b.png\" class=\"fr-fin fr-dib fr-fil\" style=\"width: 238px;\"></p></div></div>\n\t"
+                          "html": "\n\t\t<div class=\"text-table \"><div><p><img src=\"/images/upload/S20250811e0bd2f7c414df/f04049636b82b.png\" class=\"fr-fin fr-dib fr-fil\" style=\"width: 238px;\"></p></div></div>\n\t",
+                          "anim": "none"
                         }
                       ]
                     }
@@ -936,7 +997,8 @@
                           "kind": "widget",
                           "id": "w202509119dbc665c67dac",
                           "type": "text",
-                          "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2;\"><span style=\"color: rgb(149, 149, 149); font-size: 14px;\">CEO : Choi Taeguk&nbsp;</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Personal Information Management Officer : Kim nacyeon</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Inquiry : ecowave_1800@naver.com</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">ADDRESS : 2-dong, Yeongdo Building, 14, Eunbong-ro, Namdong-gu, Incheon, Republic of Korea</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">TEL : +82-32-812-1800 &nbsp;ㅣ &nbsp;FAX : +82-32-812-1804</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><br></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Copyright ⓒ ECOWAVE. All Rights Reserved</span></span></p></div></div>\n\t"
+                          "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2;\"><span style=\"color: rgb(149, 149, 149); font-size: 14px;\">CEO : Choi Taeguk&nbsp;</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Personal Information Management Officer : Kim nacyeon</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Inquiry : ecowave_1800@naver.com</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">ADDRESS : 2-dong, Yeongdo Building, 14, Eunbong-ro, Namdong-gu, Incheon, Republic of Korea</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">TEL : +82-32-812-1800 &nbsp;ㅣ &nbsp;FAX : +82-32-812-1804</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><br></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Copyright ⓒ ECOWAVE. All Rights Reserved</span></span></p></div></div>\n\t",
+                          "anim": "none"
                         }
                       ]
                     }
@@ -951,6 +1013,7 @@
                 {
                   "kind": "row",
                   "grid": "7",
+                  "w": 747,
                   "cols": [
                     {
                       "kind": "col",
@@ -962,7 +1025,8 @@
                           "type": "button",
                           "text": "",
                           "href": "#doz_header",
-                          "html": "<div class=\"widget button txt_r\">\n\t<div class=\"button_wrap \">\n\t\t<div class=\"inline-blocked \"><a class=\" btn btn_82610ee2a0658   btn-default  \" href=\"#doz_header\" style=\"line-height: 1; border-radius:9999px\"><i aria-hidden=\"true\" style=\"line-height: 1;\" class=\"simple icon-arrow-up\"></i></a></div>\t</div>\n</div>\n\n"
+                          "html": "<div class=\"widget button txt_r\">\n\t<div class=\"button_wrap \">\n\t\t<div class=\"inline-blocked \"><a class=\" btn btn_82610ee2a0658   btn-default  \" href=\"#doz_header\" style=\"line-height: 1; border-radius:9999px\"><i aria-hidden=\"true\" style=\"line-height: 1;\" class=\"simple icon-arrow-up\"></i></a></div>\t</div>\n</div>\n\n",
+                          "anim": "none"
                         }
                       ]
                     }
@@ -971,6 +1035,7 @@
                 {
                   "kind": "row",
                   "grid": "7",
+                  "w": 747,
                   "cols": [
                     {
                       "kind": "col",
@@ -988,7 +1053,8 @@
                                   "kind": "widget",
                                   "id": "w2025091927502632b6fed",
                                   "type": "text",
-                                  "html": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Ecowave</strong></span></p></div></div>\n\t"
+                                  "html": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Ecowave</strong></span></p></div></div>\n\t",
+                                  "anim": "none"
                                 }
                               ]
                             }
@@ -1023,7 +1089,8 @@
                                   "kind": "widget",
                                   "id": "w20250919d2cfeb08d555f",
                                   "type": "text",
-                                  "html": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>R&amp;D</strong></span></p></div></div>\n\t"
+                                  "html": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>R&amp;D</strong></span></p></div></div>\n\t",
+                                  "anim": "none"
                                 }
                               ]
                             }
@@ -1058,7 +1125,8 @@
                                   "kind": "widget",
                                   "id": "w20250919603eb2866e1fe",
                                   "type": "text",
-                                  "html": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Product</strong></span></p></div></div>\n\t"
+                                  "html": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Product</strong></span></p></div></div>\n\t",
+                                  "anim": "none"
                                 }
                               ]
                             }
@@ -1093,7 +1161,8 @@
                                   "kind": "widget",
                                   "id": "w20250919afe2c48fcf119",
                                   "type": "text",
-                                  "html": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>News</strong></span></p></div></div>\n\t"
+                                  "html": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>News</strong></span></p></div></div>\n\t",
+                                  "anim": "none"
                                 }
                               ]
                             }
@@ -1128,7 +1197,8 @@
                                   "kind": "widget",
                                   "id": "w20250919822d35f1c69bf",
                                   "type": "text",
-                                  "html": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Customer</strong></span></p></div></div>\n\t"
+                                  "html": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Customer</strong></span></p></div></div>\n\t",
+                                  "anim": "none"
                                 }
                               ]
                             }
@@ -1156,6 +1226,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "w": 1280,
           "cols": [
             {
               "kind": "col",

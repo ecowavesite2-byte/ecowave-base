@@ -22,6 +22,17 @@ body {
     word-break: keep-all;
 }
 
+.imweb-row {
+  width: 100%;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 1024px) {
+  .imweb-row {
+    max-width: var(--row-w, none);
+  }
+}
+
 /* crawled rich-text widgets (imweb fr-view fragments with inline styles) */
 .rich-text {
     line-height: 1.6;
