@@ -1,0 +1,60 @@
+{
+  "name": "공지사항",
+  "count": 4,
+  "listCls": "list-style  hide_writer  hide_time  hide_hit_cnt  hide_comment_cnt  grid_03 type_grid container_border",
+  "posts": [
+    {
+      "idx": "167290728",
+      "href": null,
+      "title": "에코웨이브 공지사항",
+      "category": "",
+      "excerpt": "에코웨이브 공지사항 테스트글입니다.",
+      "thumb": "/images/thumbnail/20250820/d63aad8a257d6.jpg",
+      "isNotice": false,
+      "date": null,
+      "views": null,
+      "content": "\n\t\t\t\t\t<div class=\"margin-top-xxl _comment_body_m2025081186c2ad15ac58b\"><p style=\"text-align:left;\"><img class=\"fr-dii _img_light_gallery cursor_pointer\" src=\"/images/upload/S20250811e0bd2f7c414df/27d13f2beea36.jpg\" alt=\"27d13f2beea36.jpg\" data-src=\"/images/upload/S20250811e0bd2f7c414df/27d13f2beea36.jpg\"></p><p><br>에코웨이브 공지사항 테스트글입니다.</p></div>\n\t\t\t\t\t<div class=\"file_area\"></div>\n\t\t\t\t",
+      "files": []
+    },
+    {
+      "idx": "167282557",
+      "href": null,
+      "title": "에코웨이브 공지사항",
+      "category": "",
+      "excerpt": "에코웨이브 공지사항 테스트 글입니다.",
+      "thumb": "/images/thumbnail/20250811/8332241868e22.jpg",
+      "isNotice": false,
+      "date": null,
+      "views": null,
+      "content": "\n\t\t\t\t\t<div class=\"margin-top-xxl _comment_body_m2025081186c2ad15ac58b\"><p style=\"text-align:left;\"><img class=\"fr-dii _img_light_gallery cursor_pointer\" src=\"/images/upload/S20250811e0bd2f7c414df/cd9c1804de1e4.jpg\" alt=\"cd9c1804de1e4.jpg\" data-src=\"/images/upload/S20250811e0bd2f7c414df/cd9c1804de1e4.jpg\"></p><p>에코웨이브 공지사항 테스트 글입니다.</p></div>\n\t\t\t\t\t<div class=\"file_area\"></div>\n\t\t\t\t",
+      "files": []
+    },
+    {
+      "idx": "167282542",
+      "href": null,
+      "title": "에코웨이브 공지사항",
+      "category": "",
+      "excerpt": "에코웨이브 공지사항 테스트 글입니다.",
+      "thumb": "/images/thumbnail/20250811/ae55e314f7a9b.jpg",
+      "isNotice": false,
+      "date": null,
+      "views": null,
+      "content": "\n\t\t\t\t\t<div class=\"margin-top-xxl _comment_body_m2025081186c2ad15ac58b\"><p style=\"text-align:left;\"><img class=\"fr-dii _img_light_gallery cursor_pointer\" src=\"/images/upload/S20250811e0bd2f7c414df/a6d2e769d620c.jpg\" alt=\"a6d2e769d620c.jpg\" data-src=\"/images/upload/S20250811e0bd2f7c414df/a6d2e769d620c.jpg\"></p><p>에코웨이브 공지사항 테스트 글입니다.</p></div>\n\t\t\t\t\t<div class=\"file_area\"></div>\n\t\t\t\t",
+      "files": []
+    },
+    {
+      "idx": "167282536",
+      "href": null,
+      "title": "에코웨이브 공지사항",
+      "category": "",
+      "excerpt": "에코웨이브 공지사항 테스트 글입니다.",
+      "thumb": "/images/thumbnail/20250811/ee22bddfd2254.jpg",
+      "isNotice": false,
+      "date": null,
+      "views": null,
+      "content": "\n\t\t\t\t\t<div class=\"margin-top-xxl _comment_body_m2025081186c2ad15ac58b\"><p style=\"text-align:left;\"><img class=\"fr-dii _img_light_gallery cursor_pointer\" src=\"/images/upload/S20250811e0bd2f7c414df/4ede58ddc245d.jpg\" alt=\"4ede58ddc245d.jpg\" data-src=\"/images/upload/S20250811e0bd2f7c414df/4ede58ddc245d.jpg\"></p><p>에코웨이브 공지사항 테스트 글입니다.</p></div>\n\t\t\t\t\t<div class=\"file_area\"></div>\n\t\t\t\t",
+      "files": []
+    }
+  ],
+  "pagLinks": []
+}

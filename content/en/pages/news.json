@@ -1,0 +1,690 @@
+{
+  "key": "news",
+  "sourceUrl": "https://en.ecowavekorea.co.kr/29",
+  "title": "ecowave",
+  "sections": [
+    {
+      "id": "s202509112049777e76664",
+      "cls": "section_wrap  pc_section   mobile_hide   section_first _section_first     side_     ",
+      "bg": null,
+      "bgStyle": "   background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
+      "bgColor": null,
+      "secStyle": "; ; ;",
+      "rows": [
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w20250911acc016d7e9573",
+                  "type": "padding",
+                  "html": "<div class=\"widget padding\" data-height=\"109\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w20250911acc016d7e9573\" style=\"width:100%; min-height:1px; height:109px; \"></div>\n</div>\n",
+                  "_h": 109
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "6",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w2025091191c78de98d8ae",
+                  "type": "menu_title",
+                  "text": "News",
+                  "style": "color : #000;font-size : 65px;letter-spacing : px;text-align : left;font-weight : bold;font-style : normal;"
+                }
+              ]
+            },
+            {
+              "kind": "col",
+              "grid": "6",
+              "children": [
+                {
+                  "kind": "row",
+                  "grid": "6",
+                  "cols": [
+                    {
+                      "kind": "col",
+                      "grid": "6",
+                      "children": [
+                        {
+                          "kind": "widget",
+                          "id": "w2025091121f8380687e59",
+                          "type": "padding",
+                          "html": "<div class=\"widget padding\" data-height=\"20\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w2025091121f8380687e59\" style=\"width:100%; min-height:1px; height:20px; \"></div>\n</div>\n",
+                          "_h": 20
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "row",
+                  "grid": "6",
+                  "cols": [
+                    {
+                      "kind": "col",
+                      "grid": "6",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w20250911d178bc3234b05",
+                  "type": "padding",
+                  "html": "<div class=\"widget padding\" data-height=\"30\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w20250911d178bc3234b05\" style=\"width:100%; min-height:1px; height:30px; \"></div>\n</div>\n",
+                  "_h": 30
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s202509112520780b7a073",
+      "cls": "section_wrap  mobile_section     mobile_section_first    side_basic     ",
+      "bg": null,
+      "bgStyle": "   background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
+      "bgColor": null,
+      "secStyle": "; ; ;",
+      "rows": [
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w20250911a2e4a5a453235",
+                  "type": "padding",
+                  "html": "<div class=\"widget padding\" data-height=\"30\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w20250911a2e4a5a453235\" style=\"width:100%; min-height:1px; height:30px; \"></div>\n</div>\n",
+                  "_h": 30
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w20250911f863a0157f612",
+                  "type": "menu_title",
+                  "text": "News",
+                  "style": "color : #000;font-size : 30px;letter-spacing : px;text-align : left;font-weight : bold;font-style : normal;"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w20250911853d8e15c90aa",
+                  "type": "padding",
+                  "html": "<div class=\"widget padding\" data-height=\"0\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w20250911853d8e15c90aa\" style=\"width:100%; min-height:1px; height:0px; \"></div>\n</div>\n",
+                  "_h": 0
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s202509113709d2408aae1",
+      "cls": "section_wrap  pc_section       side_basic     ",
+      "bg": "/images/thumbnail/20250820/113e5c85da4f1.jpg",
+      "bgStyle": "background-image:url('/images/thumbnail/20250820/113e5c85da4f1.jpg'); background-position:50% 50%;  background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
+      "bgColor": "rgba(0, 0, 0, 0.55)",
+      "secStyle": "; ; background-color:rgba(0, 0, 0, 0.55);;",
+      "rows": [
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w20250911f8eda67298615",
+                  "type": "padding",
+                  "html": "<div class=\"widget padding\" data-height=\"94\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w20250911f8eda67298615\" style=\"width:100%; min-height:1px; height:94px; \"></div>\n</div>\n",
+                  "_h": 94
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w2025091185be51ba0a7e6",
+                  "type": "text",
+                  "html": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">Promise of cleaner, healthier water.<br data-start=\"81\" data-end=\"84\">EcoWave update for customers.</span></strong></h6></div></div>\n\t"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w202509118aeaf52c4b824",
+                  "type": "padding",
+                  "html": "<div class=\"widget padding\" data-height=\"94\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w202509118aeaf52c4b824\" style=\"width:100%; min-height:1px; height:94px; \"></div>\n</div>\n",
+                  "_h": 94
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s20250911d0d3d01e3bc6c",
+      "cls": "section_wrap  pc_section       side_basic     ",
+      "bg": null,
+      "bgStyle": "   background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
+      "bgColor": null,
+      "secStyle": "; ; ;",
+      "rows": [
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w20250911046d3c0465cf8",
+                  "type": "padding",
+                  "html": "<div class=\"widget padding\" data-height=\"80\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w20250911046d3c0465cf8\" style=\"width:100%; min-height:1px; height:80px; \"></div>\n</div>\n",
+                  "_h": 80
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w2025091111e76c420ec34",
+                  "type": "board",
+                  "ref": "w2025091111e76c420ec34",
+                  "listCls": "list-style  hide_writer  hide_time  hide_hit_cnt  hide_comment_cnt  grid_03 type_grid container_border"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w202509119a7ed7097bc31",
+                  "type": "padding",
+                  "html": "<div class=\"widget padding\" data-height=\"80\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w202509119a7ed7097bc31\" style=\"width:100%; min-height:1px; height:80px; \"></div>\n</div>\n",
+                  "_h": 80
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s202509110ccd6753c2ddf",
+      "cls": "section_wrap  mobile_section       side_basic     ",
+      "bg": null,
+      "bgStyle": "   background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
+      "bgColor": null,
+      "secStyle": "; ; ;",
+      "rows": [
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w202509117c2f3bfaab20a",
+                  "type": "image",
+                  "src": "/images/thumbnail/20250911/68ffc55b3ed20.png",
+                  "alt": "",
+                  "boxStyle": "",
+                  "imgStyle": "visibility: visible; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 0px; height: 0px; margin: 21px auto;"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w20250911c4eaf7ad81a4d",
+                  "type": "code",
+                  "html": "\n"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s2025091132303d739ffb8",
+      "cls": "section_wrap  pc_section       side_basic     ",
+      "bg": null,
+      "bgStyle": "   background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
+      "bgColor": null,
+      "secStyle": "; ; ;",
+      "rows": [
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w202509117a7c740cda500",
+                  "type": "code",
+                  "html": ""
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s2025091197b647495016e",
+      "cls": "section_wrap  pc_section       side_basic     ",
+      "bg": null,
+      "bgStyle": "   background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
+      "bgColor": "#000",
+      "secStyle": "; ; background-color:#000;;",
+      "rows": [
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w20250911174ffd295b099",
+                  "type": "padding",
+                  "html": "<div class=\"widget padding\" data-height=\"0\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w20250911174ffd295b099\" style=\"width:100%; min-height:1px; height:0px; \"></div>\n</div>\n",
+                  "_h": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "5",
+              "children": [
+                {
+                  "kind": "row",
+                  "grid": "5",
+                  "cols": [
+                    {
+                      "kind": "col",
+                      "grid": "5",
+                      "children": [
+                        {
+                          "kind": "widget",
+                          "id": "w202509118ce1bc8a9b0d2",
+                          "type": "text",
+                          "html": "\n\t\t<div class=\"text-table \"><div><p><img src=\"/images/upload/S20250811e0bd2f7c414df/f04049636b82b.png\" class=\"fr-fin fr-dib fr-fil\" style=\"width: 238px;\"></p></div></div>\n\t"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "row",
+                  "grid": "5",
+                  "cols": [
+                    {
+                      "kind": "col",
+                      "grid": "5",
+                      "children": [
+                        {
+                          "kind": "widget",
+                          "id": "w202509119dbc665c67dac",
+                          "type": "text",
+                          "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2;\"><span style=\"color: rgb(149, 149, 149); font-size: 14px;\">CEO : Choi Taeguk&nbsp;</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Personal Information Management Officer : Kim nacyeon</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Inquiry : ecowave_1800@naver.com</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">ADDRESS : 2-dong, Yeongdo Building, 14, Eunbong-ro, Namdong-gu, Incheon, Republic of Korea</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">TEL : +82-32-812-1800 &nbsp;ㅣ &nbsp;FAX : +82-32-812-1804</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><br></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Copyright ⓒ ECOWAVE. All Rights Reserved</span></span></p></div></div>\n\t"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "col",
+              "grid": "7",
+              "children": [
+                {
+                  "kind": "row",
+                  "grid": "7",
+                  "cols": [
+                    {
+                      "kind": "col",
+                      "grid": "7",
+                      "children": [
+                        {
+                          "kind": "widget",
+                          "id": "w202509115ea1384555492",
+                          "type": "button",
+                          "text": "",
+                          "href": "#doz_header",
+                          "html": "<div class=\"widget button txt_r\">\n\t<div class=\"button_wrap \">\n\t\t<div class=\"inline-blocked \"><a class=\" btn btn_82610ee2a0658   btn-default  \" href=\"#doz_header\" style=\"line-height: 1; border-radius:9999px\"><i aria-hidden=\"true\" style=\"line-height: 1;\" class=\"simple icon-arrow-up\"></i></a></div>\t</div>\n</div>\n\n"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "row",
+                  "grid": "7",
+                  "cols": [
+                    {
+                      "kind": "col",
+                      "grid": "2",
+                      "children": [
+                        {
+                          "kind": "row",
+                          "grid": "2",
+                          "cols": [
+                            {
+                              "kind": "col",
+                              "grid": "2",
+                              "children": [
+                                {
+                                  "kind": "widget",
+                                  "id": "w2025091927502632b6fed",
+                                  "type": "text",
+                                  "html": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Ecowave</strong></span></p></div></div>\n\t"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "row",
+                          "grid": "2",
+                          "cols": [
+                            {
+                              "kind": "col",
+                              "grid": "2",
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "col",
+                      "grid": "2",
+                      "children": [
+                        {
+                          "kind": "row",
+                          "grid": "2",
+                          "cols": [
+                            {
+                              "kind": "col",
+                              "grid": "2",
+                              "children": [
+                                {
+                                  "kind": "widget",
+                                  "id": "w20250919d2cfeb08d555f",
+                                  "type": "text",
+                                  "html": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>R&amp;D</strong></span></p></div></div>\n\t"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "row",
+                          "grid": "2",
+                          "cols": [
+                            {
+                              "kind": "col",
+                              "grid": "2",
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "col",
+                      "grid": "1",
+                      "children": [
+                        {
+                          "kind": "row",
+                          "grid": "1",
+                          "cols": [
+                            {
+                              "kind": "col",
+                              "grid": "1",
+                              "children": [
+                                {
+                                  "kind": "widget",
+                                  "id": "w20250919603eb2866e1fe",
+                                  "type": "text",
+                                  "html": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Product</strong></span></p></div></div>\n\t"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "row",
+                          "grid": "1",
+                          "cols": [
+                            {
+                              "kind": "col",
+                              "grid": "1",
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "col",
+                      "grid": "1",
+                      "children": [
+                        {
+                          "kind": "row",
+                          "grid": "1",
+                          "cols": [
+                            {
+                              "kind": "col",
+                              "grid": "1",
+                              "children": [
+                                {
+                                  "kind": "widget",
+                                  "id": "w20250919afe2c48fcf119",
+                                  "type": "text",
+                                  "html": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>News</strong></span></p></div></div>\n\t"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "row",
+                          "grid": "1",
+                          "cols": [
+                            {
+                              "kind": "col",
+                              "grid": "1",
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "col",
+                      "grid": "1",
+                      "children": [
+                        {
+                          "kind": "row",
+                          "grid": "1",
+                          "cols": [
+                            {
+                              "kind": "col",
+                              "grid": "1",
+                              "children": [
+                                {
+                                  "kind": "widget",
+                                  "id": "w20250919822d35f1c69bf",
+                                  "type": "text",
+                                  "html": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Customer</strong></span></p></div></div>\n\t"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "row",
+                          "grid": "1",
+                          "cols": [
+                            {
+                              "kind": "col",
+                              "grid": "1",
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w20250911113179fff17b8",
+                  "type": "padding",
+                  "html": "<div class=\"widget padding\" data-height=\"0\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w20250911113179fff17b8\" style=\"width:100%; min-height:1px; height:0px; \"></div>\n</div>\n",
+                  "_h": 0
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

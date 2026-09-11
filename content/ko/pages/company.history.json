@@ -1,0 +1,1047 @@
+{
+  "key": "company/history",
+  "sourceUrl": "https://imweb8701032505.imweb.me/19",
+  "title": "에코웨이브",
+  "sections": [
+    {
+      "id": "s20250811f1ff0a790f814",
+      "cls": "section_wrap  pc_section   mobile_hide   section_first _section_first     side_     ",
+      "bg": null,
+      "bgStyle": "   background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
+      "bgColor": null,
+      "secStyle": "; ; ;",
+      "rows": [
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w202508112b1e700e0b1c3",
+                  "type": "padding",
+                  "html": "<div class=\"widget padding\" data-height=\"109\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w202508112b1e700e0b1c3\" style=\"width:100%; min-height:1px; height:109px; \"></div>\n</div>\n",
+                  "_h": 109
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "6",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w202508113473b9473e149",
+                  "type": "menu_title",
+                  "text": "회사연혁",
+                  "style": "color : #000;font-size : 65px;letter-spacing : px;text-align : left;font-weight : bold;font-style : normal;"
+                }
+              ]
+            },
+            {
+              "kind": "col",
+              "grid": "6",
+              "children": [
+                {
+                  "kind": "row",
+                  "grid": "6",
+                  "cols": [
+                    {
+                      "kind": "col",
+                      "grid": "6",
+                      "children": [
+                        {
+                          "kind": "widget",
+                          "id": "w20250811ba939d08bfa6e",
+                          "type": "padding",
+                          "html": "<div class=\"widget padding\" data-height=\"20\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w20250811ba939d08bfa6e\" style=\"width:100%; min-height:1px; height:20px; \"></div>\n</div>\n",
+                          "_h": 20
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "row",
+                  "grid": "6",
+                  "cols": [
+                    {
+                      "kind": "col",
+                      "grid": "6",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w20250811063ff9cdc5553",
+                  "type": "padding",
+                  "html": "<div class=\"widget padding\" data-height=\"30\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w20250811063ff9cdc5553\" style=\"width:100%; min-height:1px; height:30px; \"></div>\n</div>\n",
+                  "_h": 30
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s2025091135b7d4b0aaf20",
+      "cls": "section_wrap  mobile_section     mobile_section_first    side_basic     ",
+      "bg": null,
+      "bgStyle": "   background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
+      "bgColor": null,
+      "secStyle": "; ; ;",
+      "rows": [
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w202509114ed69e3a9c547",
+                  "type": "padding",
+                  "html": "<div class=\"widget padding\" data-height=\"30\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w202509114ed69e3a9c547\" style=\"width:100%; min-height:1px; height:30px; \"></div>\n</div>\n",
+                  "_h": 30
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w2025091130d303492b7a3",
+                  "type": "menu_title",
+                  "text": "회사연혁",
+                  "style": "color : #000;font-size : 30px;letter-spacing : px;text-align : left;font-weight : bold;font-style : normal;"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w20250911ea31ba33a8762",
+                  "type": "padding",
+                  "html": "<div class=\"widget padding\" data-height=\"0\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w20250911ea31ba33a8762\" style=\"width:100%; min-height:1px; height:0px; \"></div>\n</div>\n",
+                  "_h": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": []
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w202509112406c1e8603fa",
+                  "type": "padding",
+                  "html": "<div class=\"widget padding\" data-height=\"30\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w202509112406c1e8603fa\" style=\"width:100%; min-height:1px; height:30px; \"></div>\n</div>\n",
+                  "_h": 30
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s2025081109284c6634db6",
+      "cls": "section_wrap  pc_section       side_basic     ",
+      "bg": "/images/thumbnail/20250811/269ab684758f0.jpg",
+      "bgStyle": "background-image:url('/images/thumbnail/20250811/269ab684758f0.jpg'); background-position:50% 50%;  background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
+      "bgColor": null,
+      "secStyle": "; ; ;",
+      "rows": [
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w20250811bd55cc09809b5",
+                  "type": "padding",
+                  "html": "<div class=\"widget padding\" data-height=\"94\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w20250811bd55cc09809b5\" style=\"width:100%; min-height:1px; height:94px; \"></div>\n</div>\n",
+                  "_h": 94
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w2025081119c3906474684",
+                  "type": "text",
+                  "html": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">더 건강하고 깨끗한 물을 만드는 고객과의 약속</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">에코웨이브를 소개합니다.</span></strong></h6></div></div>\n\t"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w2025081199c688d890eff",
+                  "type": "padding",
+                  "html": "<div class=\"widget padding\" data-height=\"94\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w2025081199c688d890eff\" style=\"width:100%; min-height:1px; height:94px; \"></div>\n</div>\n",
+                  "_h": 94
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s20250911d986b4b4130eb",
+      "cls": "section_wrap  mobile_section       side_basic     ",
+      "bg": null,
+      "bgStyle": "   background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
+      "bgColor": null,
+      "secStyle": "; ; ;",
+      "rows": [
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w2025091128c770f9b19ac",
+                  "type": "padding",
+                  "html": "<div class=\"widget padding\" data-height=\"43\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w2025091128c770f9b19ac\" style=\"width:100%; min-height:1px; height:43px; \"></div>\n</div>\n",
+                  "_h": 43
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w202509117601025aae8ff",
+                  "type": "image",
+                  "src": "/images/thumbnail/20250911/8a464767025fa.jpg",
+                  "alt": "",
+                  "boxStyle": "",
+                  "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 0px; height: 0px; margin-left: auto; margin-right: auto;"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s20250811d0a0980d730fb",
+      "cls": "section_wrap  pc_section       side_left     ",
+      "bg": null,
+      "bgStyle": "   background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
+      "bgColor": null,
+      "secStyle": "; ; ;",
+      "rows": [
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w20250811ea661f8e6c1dd",
+                  "type": "padding",
+                  "html": "<div class=\"widget padding\" data-height=\"59\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w20250811ea661f8e6c1dd\" style=\"width:100%; min-height:1px; height:59px; \"></div>\n</div>\n",
+                  "_h": 59
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w2025082800cb79b620e9f",
+                  "type": "text",
+                  "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"line-height: 2;\"><span style=\"font-size: 24px;\"><strong><span style=\"color: rgb(52, 101, 222);\">2020 - 2023</span></strong></span></h6><p style=\"line-height: 2;\"><span style=\"font-size: 48px;\"><strong><span style=\"letter-spacing: 0;\">에코웨이브의</span></strong></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 48px;\"><span style=\"letter-spacing: 0;\"><strong><span style=\"color: rgb(57, 112, 235);\">지속적<span class=\"fr-marker\" data-id=\"0\" data-type=\"true\" style=\"display: none; line-height: 0;\">​</span>인 혁<span class=\"fr-marker\" data-id=\"0\" data-type=\"false\" style=\"display: none; line-height: 0;\">​</span>신</span>과&nbsp;</strong></span><span style=\"color: rgb(57, 112, 235); letter-spacing: 0px;\"><strong>성장</strong></span></span></p></div></div>\n\t"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w202508283581492aaba5b",
+                  "type": "text",
+                  "html": "\n\t\t<div class=\"text-table \"><div><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2025</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· LS대원 비데 필터 및 아답터 공급</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· 쿠쿠 홈시스 마그네틱 5종 공급</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2024</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· LS대원 비데 필터 및 아답터 공급</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· 쿠쿠 홈시스 마그네틱 5종 공급</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2023</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· 캄보디아 판매회사 설립</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2021</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· 에코웨이브 2공장 설립</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· LG전자 서비스 점검키트 개발</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2020</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· 쿠쿠 홈시스 정수기 설치 아답터 개발</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· 쿠쿠 홈시스 POE정수 필터 개발</span></p></div></div>\n\t"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s202508284303ea2fe8a22",
+      "cls": "section_wrap  pc_section       side_basic     ",
+      "bg": null,
+      "bgStyle": "   background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
+      "bgColor": null,
+      "secStyle": "; ; ;",
+      "rows": [
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w2025082810c699804e459",
+                  "type": "padding",
+                  "html": "<div class=\"widget padding\" data-height=\"74\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w2025082810c699804e459\" style=\"width:100%; min-height:1px; height:74px; \"></div>\n</div>\n",
+                  "_h": 74
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s202509113e3a9a552b0c7",
+      "cls": "section_wrap  mobile_section       side_basic     ",
+      "bg": null,
+      "bgStyle": "   background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
+      "bgColor": null,
+      "secStyle": "; ; ;",
+      "rows": [
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w202509111eabf738e9f9f",
+                  "type": "image",
+                  "src": "/images/thumbnail/20250911/3a403d278f3ca.jpg",
+                  "alt": "",
+                  "boxStyle": "",
+                  "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 0px; height: 0px; margin-left: auto; margin-right: auto;"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s20250828fe85691f33b65",
+      "cls": "section_wrap  pc_section       side_left     ",
+      "bg": null,
+      "bgStyle": "   background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
+      "bgColor": "#fcfcfc",
+      "secStyle": "; ; background-color:#fcfcfc;;",
+      "rows": [
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w20250828ba960b323e196",
+                  "type": "padding",
+                  "html": "<div class=\"widget padding\" data-height=\"59\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w20250828ba960b323e196\" style=\"width:100%; min-height:1px; height:59px; \"></div>\n</div>\n",
+                  "_h": 59
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w20250828e83ff2674ace5",
+                  "type": "text",
+                  "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"line-height: 2;\"><span style=\"font-size: 24px;\"><strong><span style=\"color: rgb(52, 101, 222);\">2015 - 2019</span></strong></span></h6><p style=\"line-height: 2;\"><span style=\"font-size: 48px;\"><strong><span style=\"letter-spacing: 0;\">에코웨이브의</span></strong></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 48px;\"><span style=\"letter-spacing: 0px; color: rgb(54, 54, 54);\"><strong>기술</strong></span><span style=\"letter-spacing: 0;\"><strong>과 서비스의 융합 &nbsp;</strong></span></span></p></div></div>\n\t"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w2025082812223844d5d61",
+                  "type": "text",
+                  "html": "\n\t\t<div class=\"text-table \"><div><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2019</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· LG전자 정수기 아답터 개발&nbsp;</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2018</span></strong></h6><p><span style=\"font-size: 18px;\">· 쿠쿠 홈시스 정수기 필터 개발</span></p><p><span style=\"font-size: 18px;\">· SK Magic 신규 비데 필터 개발</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2017</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· 자사 비타민 샤워기 모듈 및 필터 개발&nbsp;</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2016</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· SK Magic 비데 필터 공급&nbsp;</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2015</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· 나노 필터 개발&nbsp;</span></p></div></div>\n\t"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s202508280f40f66fc0a36",
+      "cls": "section_wrap  pc_section       side_basic     ",
+      "bg": null,
+      "bgStyle": "   background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
+      "bgColor": "#fcfcfc",
+      "secStyle": "; ; background-color:#fcfcfc;;",
+      "rows": [
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w20250828fc7c193824892",
+                  "type": "padding",
+                  "html": "<div class=\"widget padding\" data-height=\"74\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w20250828fc7c193824892\" style=\"width:100%; min-height:1px; height:74px; \"></div>\n</div>\n",
+                  "_h": 74
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s2025091169f925490d127",
+      "cls": "section_wrap  mobile_section       side_basic     ",
+      "bg": null,
+      "bgStyle": "   background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
+      "bgColor": null,
+      "secStyle": "; ; ;",
+      "rows": [
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w2025091118beac108f780",
+                  "type": "image",
+                  "src": "/images/thumbnail/20250911/f4ac0f6dcab6e.jpg",
+                  "alt": "",
+                  "boxStyle": "",
+                  "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 0px; height: 0px; margin-left: auto; margin-right: auto;"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s2025082848202431448dd",
+      "cls": "section_wrap  pc_section       side_left     ",
+      "bg": null,
+      "bgStyle": "   background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
+      "bgColor": null,
+      "secStyle": "; ; ;",
+      "rows": [
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w202508280e6492bf01380",
+                  "type": "padding",
+                  "html": "<div class=\"widget padding\" data-height=\"59\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w202508280e6492bf01380\" style=\"width:100%; min-height:1px; height:59px; \"></div>\n</div>\n",
+                  "_h": 59
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w20250828ed4c25cde1fa0",
+                  "type": "text",
+                  "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"line-height: 2;\"><span style=\"font-size: 24px;\"><strong><span style=\"color: rgb(52, 101, 222);\">2010 - 2014</span></strong></span></h6><p style=\"line-height: 2;\"><span style=\"font-size: 48px;\"><strong><span style=\"letter-spacing: 0;\">에코웨이브의</span></strong></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 48px;\"><span style=\"letter-spacing: 0;\"><strong>고객과 함께한 신뢰의 역사 </strong></span></span></p></div></div>\n\t"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w202508288b50dcc1f5d69",
+                  "type": "text",
+                  "html": "\n\t\t<div class=\"text-table \"><div><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2014</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· 기업 부설 연구소 설립&nbsp;</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2013</span></strong></h6><p><span style=\"font-size: 18px;\">· 자사 언더 싱크 정수기 개발</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2012</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· LG 살균 모듈 개발(ESD)개발</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· LG전자 스위치 아세이(LPS)개발</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2011</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· 에코웨이브 설립</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· LG 정수기 필터 공급</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2010</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px;\">· 정수기 필터 개발(LG)</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px;\">· RO 시스템 및 UF 시스템</span></p></div></div>\n\t"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s20250828b98b252ae9ae3",
+      "cls": "section_wrap  pc_section       side_basic     ",
+      "bg": null,
+      "bgStyle": "   background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
+      "bgColor": null,
+      "secStyle": "; ; ;",
+      "rows": [
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w20250828adf74692c5c15",
+                  "type": "padding",
+                  "html": "<div class=\"widget padding\" data-height=\"112\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w20250828adf74692c5c15\" style=\"width:100%; min-height:1px; height:112px; \"></div>\n</div>\n",
+                  "_h": 112
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s2025091161e916b59099f",
+      "cls": "section_wrap  mobile_section       side_basic     ",
+      "bg": null,
+      "bgStyle": "   background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
+      "bgColor": null,
+      "secStyle": "; ; ;",
+      "rows": [
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w202509110e7da42eec27c",
+                  "type": "image",
+                  "src": "/images/thumbnail/20250911/68ffc55b3ed20.png",
+                  "alt": "",
+                  "boxStyle": "",
+                  "imgStyle": "visibility: visible; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 0px; height: 0px; margin: 21px auto;"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w20250911712afbc03dd48",
+                  "type": "code",
+                  "html": "\n"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s202508251581659561ee1",
+      "cls": "section_wrap  pc_section       side_basic     ",
+      "bg": null,
+      "bgStyle": "   background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
+      "bgColor": null,
+      "secStyle": "; ; ;",
+      "rows": [
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w2025082575878708b2b14",
+                  "type": "code",
+                  "html": ""
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s20250811f489e3443bdbe",
+      "cls": "section_wrap  pc_section       side_basic     ",
+      "bg": null,
+      "bgStyle": "   background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
+      "bgColor": "#000",
+      "secStyle": "; ; background-color:#000;;",
+      "rows": [
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w20250811566fb1a74c1db",
+                  "type": "padding",
+                  "html": "<div class=\"widget padding\" data-height=\"0\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w20250811566fb1a74c1db\" style=\"width:100%; min-height:1px; height:0px; \"></div>\n</div>\n",
+                  "_h": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "7",
+              "children": [
+                {
+                  "kind": "row",
+                  "grid": "7",
+                  "cols": [
+                    {
+                      "kind": "col",
+                      "grid": "7",
+                      "children": [
+                        {
+                          "kind": "widget",
+                          "id": "w20250811379e3dc61aa7f",
+                          "type": "text",
+                          "html": "\n\t\t<div class=\"text-table \"><div><p><img src=\"/images/upload/S20250811e0bd2f7c414df/f04049636b82b.png\" class=\"fr-fin fr-dib fr-fil\" style=\"width: 238px;\"></p></div></div>\n\t"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "row",
+                  "grid": "7",
+                  "cols": [
+                    {
+                      "kind": "col",
+                      "grid": "7",
+                      "children": [
+                        {
+                          "kind": "widget",
+                          "id": "w20250811c8ba21c61f272",
+                          "type": "text",
+                          "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2;\"><span style=\"color: rgb(149, 149, 149); font-size: 14px;\">대표 : 김나연 &nbsp;</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">개인정보관리책임자 : 김나연 &nbsp;ㅣ &nbsp;문의 : ecowave_1800@naver.com</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">주소 : 인천광역시 남동구 은봉로 14 영도빌딩 2동</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">전화 : +82-32-812-1800 &nbsp;ㅣ &nbsp;팩스 : +82-32-812-1804</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><br></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Copyright ⓒ ECOWAVE. All Rights Reserved</span></span></p></div></div>\n\t"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "col",
+              "grid": "5",
+              "children": [
+                {
+                  "kind": "row",
+                  "grid": "5",
+                  "cols": [
+                    {
+                      "kind": "col",
+                      "grid": "5",
+                      "children": [
+                        {
+                          "kind": "widget",
+                          "id": "w202508114039c43732879",
+                          "type": "button",
+                          "text": "",
+                          "href": "#doz_header",
+                          "html": "<div class=\"widget button txt_r\">\n\t<div class=\"button_wrap \">\n\t\t<div class=\"inline-blocked \"><a class=\" btn btn_82610ee2a0658   btn-default  \" href=\"#doz_header\" style=\"line-height: 1; border-radius:9999px\"><i aria-hidden=\"true\" style=\"line-height: 1;\" class=\"simple icon-arrow-up\"></i></a></div>\t</div>\n</div>\n\n"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "row",
+                  "grid": "5",
+                  "cols": [
+                    {
+                      "kind": "col",
+                      "grid": "1",
+                      "children": [
+                        {
+                          "kind": "row",
+                          "grid": "1",
+                          "cols": [
+                            {
+                              "kind": "col",
+                              "grid": "1",
+                              "children": [
+                                {
+                                  "kind": "widget",
+                                  "id": "w20250919b68d158c2925e",
+                                  "type": "text",
+                                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>에코</strong><strong>웨이</strong><strong>브</strong></span></p></div></div>\n\t"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "row",
+                          "grid": "1",
+                          "cols": [
+                            {
+                              "kind": "col",
+                              "grid": "1",
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "col",
+                      "grid": "1",
+                      "children": [
+                        {
+                          "kind": "row",
+                          "grid": "1",
+                          "cols": [
+                            {
+                              "kind": "col",
+                              "grid": "1",
+                              "children": [
+                                {
+                                  "kind": "widget",
+                                  "id": "w202509198aeb3bd046ac9",
+                                  "type": "text",
+                                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216);\"><strong>연구개발</strong></span></p></div></div>\n\t"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "row",
+                          "grid": "1",
+                          "cols": [
+                            {
+                              "kind": "col",
+                              "grid": "1",
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "col",
+                      "grid": "1",
+                      "children": [
+                        {
+                          "kind": "row",
+                          "grid": "1",
+                          "cols": [
+                            {
+                              "kind": "col",
+                              "grid": "1",
+                              "children": [
+                                {
+                                  "kind": "widget",
+                                  "id": "w2025091955cb4ab654cac",
+                                  "type": "text",
+                                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>제품소개</strong></span></p></div></div>\n\t"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "row",
+                          "grid": "1",
+                          "cols": [
+                            {
+                              "kind": "col",
+                              "grid": "1",
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "col",
+                      "grid": "1",
+                      "children": [
+                        {
+                          "kind": "row",
+                          "grid": "1",
+                          "cols": [
+                            {
+                              "kind": "col",
+                              "grid": "1",
+                              "children": [
+                                {
+                                  "kind": "widget",
+                                  "id": "w2025091988816c09014e4",
+                                  "type": "text",
+                                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>뉴스룸</strong></span></p></div></div>\n\t"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "row",
+                          "grid": "1",
+                          "cols": [
+                            {
+                              "kind": "col",
+                              "grid": "1",
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "col",
+                      "grid": "1",
+                      "children": [
+                        {
+                          "kind": "row",
+                          "grid": "1",
+                          "cols": [
+                            {
+                              "kind": "col",
+                              "grid": "1",
+                              "children": [
+                                {
+                                  "kind": "widget",
+                                  "id": "w20250919e76996cca8992",
+                                  "type": "text",
+                                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>고객지원</strong></span></p></div></div>\n\t"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "row",
+                          "grid": "1",
+                          "cols": [
+                            {
+                              "kind": "col",
+                              "grid": "1",
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w20250811e54a10ca72c5b",
+                  "type": "padding",
+                  "html": "<div class=\"widget padding\" data-height=\"0\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w20250811e54a10ca72c5b\" style=\"width:100%; min-height:1px; height:0px; \"></div>\n</div>\n",
+                  "_h": 0
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

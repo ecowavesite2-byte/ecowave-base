@@ -1,0 +1,164 @@
+{
+  "bodyFont": "Pretendard, \"Apple SD Gothic Neo\", \"Malgun Gothic\", \"Nanum Gothic\", \"Noto Sans\", \"sans-serif\"",
+  "bodyColor": "rgb(54, 54, 54)",
+  "bodyBg": "rgb(255, 255, 255)",
+  "fontFamilies": [
+    "Pretendard, \"Apple SD Gothic Neo\", \"Malgun Gothic\", \"Nanum Gothic\", \"Noto Sans\", \"sans-serif\"",
+    "Poppins, Pretendard, sans-serif",
+    "\"Black Tie\"",
+    "\"Material Symbols Outlined\""
+  ],
+  "fontsLoaded": [
+    "Glyphicons Halflings|normal",
+    "lg|400",
+    "Material-Design-Iconic-Font|400",
+    "Plipop-Social-Icons|400",
+    "FontAwesome|400",
+    "Font Awesome 5 Brands|400",
+    "Font Awesome 5 Free|400",
+    "Font Awesome 5 Free|900",
+    "Black Tie|900",
+    "Black Tie|700",
+    "Black Tie|400",
+    "Black Tie|200",
+    "Font Awesome Brands|400",
+    "simple-line-icons|400",
+    "im-icon|normal",
+    "psi|normal",
+    "Plipop-Social-Icons|normal",
+    "Pretendard Variable|45 920",
+    "Pretendard|900",
+    "Pretendard|800",
+    "Pretendard|700",
+    "Pretendard|600",
+    "Pretendard|500",
+    "Pretendard|400",
+    "Pretendard|300",
+    "Pretendard|200",
+    "Pretendard|100",
+    "froala-emoji-tap|normal",
+    "Pretendard English|900",
+    "Pretendard English|800"
+  ],
+  "nav": [
+    {
+      "name": "Ecowave",
+      "url": "15",
+      "children": [
+        {
+          "name": "Ceo greeting",
+          "url": "16"
+        },
+        {
+          "name": "Company introduction",
+          "url": "17"
+        },
+        {
+          "name": "Management philosophy",
+          "url": "18"
+        },
+        {
+          "name": "History",
+          "url": "19"
+        },
+        {
+          "name": "Organization chart",
+          "url": "31"
+        },
+        {
+          "name": "Global branch office",
+          "url": "20"
+        }
+      ]
+    },
+    {
+      "name": "R&D",
+      "url": "21",
+      "children": [
+        {
+          "name": "Retained technology",
+          "url": "22"
+        },
+        {
+          "name": "Patents home & abroad",
+          "url": "23"
+        },
+        {
+          "name": "Production facilities",
+          "url": "24"
+        }
+      ]
+    },
+    {
+      "name": "Product descriptions",
+      "url": "32",
+      "children": [
+        {
+          "name": "Eco wave",
+          "url": "36"
+        },
+        {
+          "name": "clean B",
+          "url": "37"
+        },
+        {
+          "name": "Flowell",
+          "url": "38"
+        }
+      ]
+    },
+    {
+      "name": "Newsroom",
+      "url": "26",
+      "children": [
+        {
+          "name": "News",
+          "url": "29"
+        }
+      ]
+    },
+    {
+      "name": "Customer Support",
+      "url": "28",
+      "children": [
+        {
+          "name": "Notic",
+          "url": "27"
+        }
+      ]
+    }
+  ],
+  "logos": [
+    {
+      "src": "/images/thumbnail/20250912/171b4db34c99a.png",
+      "cls": "normal_logo _front_img",
+      "parentCls": ""
+    },
+    {
+      "src": "/images/thumbnail/20250912/171b4db34c99a.png",
+      "cls": "scroll_logo fixed_transform",
+      "parentCls": ""
+    },
+    {
+      "src": "/images/thumbnail/20260625/b6042ee776fd7.png",
+      "cls": "normal_logo _front_img",
+      "parentCls": ""
+    },
+    {
+      "src": "/images/thumbnail/20260625/b6042ee776fd7.png",
+      "cls": "scroll_logo fixed_transform",
+      "parentCls": ""
+    }
+  ],
+  "footer": {
+    "logo": "/images/upload/S20250811e0bd2f7c414df/f04049636b82b.png",
+    "lines": [
+      "CEO : Choi Taeguk",
+      "Personal Information Management Officer : Kim nacyeon",
+      "Inquiry : ecowave_1800@naver.com",
+      "ADDRESS : 2-dong, Yeongdo Building, 14, Eunbong-ro, Namdong-gu, Incheon, Republic of Korea",
+      "TEL : +82-32-812-1800 ㅣ FAX : +82-32-812-1804"
+    ],
+    "copyright": "Copyright ⓒ ECOWAVE. All Rights Reserved"
+  }
+}

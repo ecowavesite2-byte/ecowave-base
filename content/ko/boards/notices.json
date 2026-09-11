@@ -1,0 +1,34 @@
+{
+  "name": "뉴스",
+  "count": 2,
+  "listCls": "",
+  "posts": [
+    {
+      "idx": "167377300",
+      "href": null,
+      "title": "EU의 음식물 쓰레기 절감 노력과 국내 상황",
+      "category": "",
+      "excerpt": "",
+      "thumb": null,
+      "isNotice": false,
+      "date": null,
+      "views": null,
+      "content": "\n\t\t\t\t\t<div class=\"margin-top-xxl _comment_body_m2025081186c2ad15ac58b\"><p>에코웨이브 Test 글 입니다.</p></div>\n\t\t\t\t\t<div class=\"file_area\"></div>\n\t\t\t\t",
+      "files": []
+    },
+    {
+      "idx": "167377296",
+      "href": null,
+      "title": "국내 물자원 현황",
+      "category": "",
+      "excerpt": "",
+      "thumb": null,
+      "isNotice": false,
+      "date": null,
+      "views": null,
+      "content": "\n\t\t\t\t\t<div class=\"margin-top-xxl _comment_body_m2025081186c2ad15ac58b\"><p>에코웨이브 Test 글 입니다.</p></div>\n\t\t\t\t\t<div class=\"file_area\"></div>\n\t\t\t\t",
+      "files": []
+    }
+  ],
+  "pagLinks": []
+}

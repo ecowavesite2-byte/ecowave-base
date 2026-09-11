@@ -1,0 +1,163 @@
+{
+  "bodyFont": "Pretendard, \"Apple SD Gothic Neo\", \"Malgun Gothic\", \"Nanum Gothic\", \"Noto Sans\", \"sans-serif\"",
+  "bodyColor": "rgb(54, 54, 54)",
+  "bodyBg": "rgb(255, 255, 255)",
+  "fontFamilies": [
+    "Pretendard, \"Apple SD Gothic Neo\", \"Malgun Gothic\", \"Nanum Gothic\", \"Noto Sans\", \"sans-serif\"",
+    "Poppins, Pretendard, sans-serif",
+    "\"Black Tie\"",
+    "\"Material Symbols Outlined\""
+  ],
+  "fontsLoaded": [
+    "Glyphicons Halflings|normal",
+    "lg|400",
+    "Material-Design-Iconic-Font|400",
+    "Plipop-Social-Icons|400",
+    "FontAwesome|400",
+    "Font Awesome 5 Brands|400",
+    "Font Awesome 5 Free|400",
+    "Font Awesome 5 Free|900",
+    "Black Tie|900",
+    "Black Tie|700",
+    "Black Tie|400",
+    "Black Tie|200",
+    "Font Awesome Brands|400",
+    "simple-line-icons|400",
+    "im-icon|normal",
+    "psi|normal",
+    "Plipop-Social-Icons|normal",
+    "Pretendard Variable|45 920",
+    "Pretendard|900",
+    "Pretendard|800",
+    "Pretendard|700",
+    "Pretendard|600",
+    "Pretendard|500",
+    "Pretendard|400",
+    "Pretendard|300",
+    "Pretendard|200",
+    "Pretendard|100",
+    "froala-emoji-tap|normal",
+    "Pretendard English|900",
+    "Pretendard English|800"
+  ],
+  "nav": [
+    {
+      "name": "에코웨이브",
+      "url": "15",
+      "children": [
+        {
+          "name": "ceo인사말",
+          "url": "16"
+        },
+        {
+          "name": "회사소개",
+          "url": "17"
+        },
+        {
+          "name": "경영철학",
+          "url": "18"
+        },
+        {
+          "name": "회사연혁",
+          "url": "19"
+        },
+        {
+          "name": "조직도",
+          "url": "31"
+        },
+        {
+          "name": "글로벌지사",
+          "url": "20"
+        }
+      ]
+    },
+    {
+      "name": "연구개발",
+      "url": "21",
+      "children": [
+        {
+          "name": "보유기술",
+          "url": "22"
+        },
+        {
+          "name": "국내외 특허",
+          "url": "23"
+        },
+        {
+          "name": "생산설비",
+          "url": "24"
+        }
+      ]
+    },
+    {
+      "name": "제품소개",
+      "url": "32",
+      "children": [
+        {
+          "name": "에코웨이브(Eco wave)",
+          "url": "37"
+        },
+        {
+          "name": "크린비(clean B)",
+          "url": "38"
+        },
+        {
+          "name": "플로웰(Flowell)",
+          "url": "36"
+        }
+      ]
+    },
+    {
+      "name": "뉴스룸",
+      "url": "26",
+      "children": [
+        {
+          "name": "뉴스",
+          "url": "29"
+        }
+      ]
+    },
+    {
+      "name": "고객지원",
+      "url": "28",
+      "children": [
+        {
+          "name": "공지사항",
+          "url": "27"
+        }
+      ]
+    }
+  ],
+  "logos": [
+    {
+      "src": "/images/thumbnail/20260625/6ebf44d9edd70.png",
+      "cls": "normal_logo _front_img",
+      "parentCls": ""
+    },
+    {
+      "src": "/images/thumbnail/20260625/25c89a1539a2d.png",
+      "cls": "scroll_logo fixed_transform",
+      "parentCls": ""
+    },
+    {
+      "src": "/images/thumbnail/20260625/cedb8f472d193.png",
+      "cls": "normal_logo _front_img",
+      "parentCls": ""
+    },
+    {
+      "src": "/images/thumbnail/20260625/cedb8f472d193.png",
+      "cls": "scroll_logo fixed_transform",
+      "parentCls": ""
+    }
+  ],
+  "footer": {
+    "logo": "/images/upload/S20250811e0bd2f7c414df/f04049636b82b.png",
+    "lines": [
+      "대표 : 김나연",
+      "개인정보관리책임자 : 김나연 ㅣ 문의 : ecowave_1800@naver.com",
+      "주소 : 인천광역시 남동구 은봉로 14 영도빌딩 2동",
+      "전화 : +82-32-812-1800 ㅣ 팩스 : +82-32-812-1804"
+    ],
+    "copyright": "Copyright ⓒ ECOWAVE. All Rights Reserved"
+  }
+}

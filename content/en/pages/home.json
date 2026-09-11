@@ -1,0 +1,1888 @@
+{
+  "key": "home",
+  "sourceUrl": "https://en.ecowavekorea.co.kr/",
+  "title": "ecowave",
+  "sections": [
+    {
+      "id": "s202509115997a7e89fe06",
+      "cls": "section_wrap visual_section  pc_section   mobile_hide   section_first _section_first   ",
+      "visual": [
+        {
+          "bg": "/images/thumbnail/20250811/50e595a379834.jpg",
+          "bgColor": "#dddddd",
+          "html": "<p class=\"font1\" style=\"text-align: center; line-height: 1.5;\"><span style=\"font-size: 72px;\"><strong><span style=\"color: rgb(255, 255, 255);\">EcoWave,</span></strong></span></p><p class=\"font1\" style=\"text-align: center; line-height: 1.5;\"><span style=\"font-size: 72px;\"><strong><span style=\"color: rgb(255, 255, 255);\">for a better future and richer life.</span></strong></span></p><p style=\"line-height: 2; text-align: center;\"><br></p><h6 class=\"font2\" style=\"line-height: 1.5; text-align: center;\"><span style=\"font-size: 24px;\">Our vision fosters harmony with nature and human prosperity,</span></h6><h6 class=\"font2\" style=\"line-height: 1.5; text-align: center;\"><span style=\"font-size: 24px;\">creating a sustainable world.</span></h6>"
+        },
+        {
+          "bg": "/images/thumbnail/20250811/b8cb7e0cebd15.jpg",
+          "bgColor": "#dddddd",
+          "html": "<p style=\"text-align: center; line-height: 1.5;\"><span style=\"font-size: 72px;\"><strong><span style=\"color: rgb(255, 255, 255);\">EcoWave,</span></strong></span></p><p style=\"text-align: center; line-height: 1.5;\"><span style=\"font-size: 72px;\"><strong><span style=\"color: rgb(255, 255, 255);\">for a better future and richer life.</span></strong></span></p><p style=\"line-height: 2; text-align: center;\"><br></p><h6 style=\"line-height: 1.5; text-align: center;\"><span style=\"font-size: 24px;\">Our vision fosters harmony with nature and human prosperity,</span></h6><h6 style=\"line-height: 1.5; text-align: center;\"><span style=\"font-size: 24px;\">creating a sustainable world.</span></h6><p style=\"text-align: center;\"><br></p>"
+        }
+      ],
+      "bg": null,
+      "bgStyle": "",
+      "bgColor": null,
+      "secStyle": "",
+      "rows": []
+    },
+    {
+      "id": "s202509118c6a48284a23c",
+      "cls": "section_wrap visual_section  mobile_section     mobile_section_first  ",
+      "visual": [
+        {
+          "bg": "/images/thumbnail/20250911/970dcddcb1e4b.jpg",
+          "bgColor": "#dddddd",
+          "html": "<p class=\"font1\" style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 24px;\"><strong><span style=\"letter-spacing: -1px;\">EcoWave,</span></strong></span></p><p class=\"font1\" style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 24px;\"><strong><span style=\"letter-spacing: -1px;\">for a better future and rich life.</span></strong></span></p><h6 style=\"line-height: 1; text-align: center;\"><span style=\"font-size: 12px;\">Our vision fosters harmony with nature and human prosperity,</span></h6><h6 style=\"line-height: 1; text-align: center;\"><span style=\"font-size: 12px;\">creating a sustainable world.</span></h6>"
+        },
+        {
+          "bg": "/images/thumbnail/20250911/9e7f05e2844fc.jpg",
+          "bgColor": "#dddddd",
+          "html": "<p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 24px;\"><strong><span style=\"letter-spacing: -1px;\">EcoWave,</span></strong></span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 24px;\"><strong><span style=\"letter-spacing: -1px;\">for a better future and rich life.</span></strong></span></p><h6 style=\"line-height: 1; text-align: center;\"><span style=\"font-size: 12px;\">Our vision fosters harmony with nature and human prosperity,</span></h6><h6 style=\"line-height: 1; text-align: center;\"><span style=\"font-size: 12px;\">creating a sustainable world.</span></h6>"
+        }
+      ],
+      "bg": null,
+      "bgStyle": "",
+      "bgColor": null,
+      "secStyle": "",
+      "rows": []
+    },
+    {
+      "id": "s202509118da9e2feb7b5b",
+      "cls": "section_wrap  mobile_section       side_basic     ",
+      "bg": null,
+      "bgStyle": "   background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
+      "bgColor": null,
+      "secStyle": "; ; ;",
+      "rows": [
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w20250911d3165aaf27e9f",
+                  "type": "padding",
+                  "html": "<div class=\"widget padding\" data-height=\"77\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w20250911d3165aaf27e9f\" style=\"width:100%; min-height:1px; height:77px; \"></div>\n</div>\n",
+                  "_h": 77
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w20250911711c8c42fda94",
+                  "type": "text",
+                  "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"line-height: 1;\"><strong><span style=\"color: rgb(0, 0, 0); font-size: 20px; letter-spacing: 0px;\">Healthywater, Eco-wave</span></strong></h6><h6 style=\"line-height: 1;\"><span style=\"font-size: 20px;\"><strong><span style=\"color: rgb(0, 0, 0); letter-spacing: 0px;\">Together we create a&nbsp;</span></strong></span><strong><span style=\"color: rgb(52, 101, 222); font-size: 20px; letter-spacing: 0px;\">better future</span></strong></h6></div></div>\n\t"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s20250911bd1f57a2fd4aa",
+      "cls": "section_wrap  mobile_section       side_basic     ",
+      "bg": null,
+      "bgStyle": "   background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
+      "bgColor": null,
+      "secStyle": "; ; ;",
+      "rows": [
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w202509112bd587319e0f0",
+                  "type": "image",
+                  "src": "/images/thumbnail/20250911/55a9cffce4f94.jpg",
+                  "alt": "<h5>Company</h5>",
+                  "boxStyle": "height: 179px;",
+                  "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: block; width: auto; height: 100%; margin-top: 0px; margin-left: -66.7081px;"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w2025091149870a537b197",
+                  "type": "image",
+                  "src": "/images/thumbnail/20250911/aabafe51067b6.jpg",
+                  "alt": "<h5>R&D</h5>",
+                  "boxStyle": "height: 179px;",
+                  "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: block; width: auto; height: 100%; margin-top: 0px; margin-left: -66.7081px;"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w202509114c666d6072220",
+                  "type": "image",
+                  "src": "/images/thumbnail/20250911/84fff7d77ffff.jpg",
+                  "alt": "<h5>Products</h5>",
+                  "boxStyle": "height: 179px;",
+                  "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: block; width: auto; height: 100%; margin-top: 0px; margin-left: -66.7081px;"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w202509116de389c4b19ab",
+                  "type": "image",
+                  "src": "/images/thumbnail/20250911/41c848eb0d74e.jpg",
+                  "alt": "<h5>News</h5>",
+                  "boxStyle": "height: 179px;",
+                  "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: block; width: auto; height: 100%; margin-top: 0px; margin-left: -66.7081px;"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w2025091139067cfce30f8",
+                  "type": "code",
+                  "html": ""
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w20250911f4e408372c208",
+                  "type": "padding",
+                  "html": "<div class=\"widget padding\" data-height=\"91\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w20250911f4e408372c208\" style=\"width:100%; min-height:1px; height:91px; \"></div>\n</div>\n",
+                  "_h": 91
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s202509111a0fd1dfa2ce4",
+      "cls": "section_wrap  pc_section   mobile_hide      side_     ",
+      "bg": null,
+      "bgStyle": "   background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
+      "bgColor": null,
+      "secStyle": "; ; ;",
+      "rows": [
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w20250911735f09dfd14fb",
+                  "type": "code",
+                  "html": ""
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s2025091177693a7caff1f",
+      "cls": "section_wrap  mobile_section       side_basic     ",
+      "bg": "/images/thumbnail/20250911/c1299fb1a30d8.jpg",
+      "bgStyle": "background-image:url('/images/thumbnail/20250911/c1299fb1a30d8.jpg'); background-position:50% 50%;  background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
+      "bgColor": "rgba(0, 0, 0, 0.3)",
+      "secStyle": "; ; background-color:rgba(0, 0, 0, 0.3);;",
+      "rows": [
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w2025091174e7021a0d4ad",
+                  "type": "padding",
+                  "html": "<div class=\"widget padding\" data-height=\"44\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w2025091174e7021a0d4ad\" style=\"width:100%; min-height:1px; height:44px; \"></div>\n</div>\n",
+                  "_h": 44
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w2025091174e9aad453df2",
+                  "type": "text",
+                  "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: center;\"><img src=\"/images/upload/S20250811e0bd2f7c414df/48fbd16b3a070.png\" class=\"fr-fin fr-dib\" style=\"width: 266px;\"></h6><p style=\"text-align: center;\"><br></p><p style=\"text-align: center;\"><span style=\"color: rgb(255, 255, 255);\">EcoWave promotes a healthy,</span></p><p style=\"text-align: center;\"><span style=\"color: rgb(255, 255, 255);\">sustainable life with innovative water purification technology,&nbsp;</span><span style=\"color: rgb(255, 255, 255);\">realizing eco-friendly values where people and nature coexist.</span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(255, 255, 255); letter-spacing: 0px;\">&nbsp;</span></span></p></div></div>\n\t"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w202509114a42374f80246",
+                  "type": "image",
+                  "src": "/images/thumbnail/20250918/22698d11a0ae4.png",
+                  "alt": "",
+                  "boxStyle": "",
+                  "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 0px; height: 0px; margin: 335px auto;"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w20250911b7976f41c173b",
+                  "type": "padding",
+                  "html": "<div class=\"widget padding\" data-height=\"30\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w20250911b7976f41c173b\" style=\"width:100%; min-height:1px; height:30px; \"></div>\n</div>\n",
+                  "_h": 30
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s20250911b3944a526f957",
+      "cls": "section_wrap  pc_section   mobile_hide      side_basic grid_gutter_0 grid_v_gutter_0 extend_section   ",
+      "bg": null,
+      "bgStyle": "   background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
+      "bgColor": null,
+      "secStyle": "; ; ;",
+      "rows": [
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w2025091139f3021e54832",
+                  "type": "padding",
+                  "html": "<div class=\"widget padding\" data-height=\"115\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w2025091139f3021e54832\" style=\"width:100%; min-height:1px; height:115px; \"></div>\n</div>\n",
+                  "_h": 115
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w20250911740bde0b3069f",
+                  "type": "padding",
+                  "html": "<div class=\"widget padding\" data-height=\"40\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w20250911740bde0b3069f\" style=\"width:100%; min-height:1px; height:40px; \"></div>\n</div>\n",
+                  "_h": 40
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s2025091164c3a6af77cff",
+      "cls": "section_wrap  pc_section   mobile_hide      side_basic grid_gutter_15 grid_v_gutter_0 extend_section   ",
+      "bg": null,
+      "bgStyle": "   background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
+      "bgColor": null,
+      "secStyle": "; ; ;",
+      "rows": [
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w202509118ed9a62bd38d1",
+                  "type": "text",
+                  "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"line-height: 2;\"><strong><span style=\"color: rgb(0, 0, 0); font-size: 48px; letter-spacing: 0px;\">Healthy water, Eco-wave &nbsp;</span></strong></h6><p><strong><span style=\"letter-spacing: 0;\"><span style=\"color: rgb(0, 0, 0); font-size: 48px;\">Together we create a&nbsp;</span></span><span style=\"color: rgb(52, 101, 222); font-size: 48px; letter-spacing: 0px;\">better future &nbsp;</span></strong></p></div></div>\n\t"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w20250911f3274d9e9c0e4",
+                  "type": "padding",
+                  "html": "<div class=\"widget padding\" data-height=\"82\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w20250911f3274d9e9c0e4\" style=\"width:100%; min-height:1px; height:82px; \"></div>\n</div>\n",
+                  "_h": 82
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "3",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w20250911bf7c2442bf380",
+                  "type": "image",
+                  "src": "/images/thumbnail/20250811/c3512c9a0cd58.jpg",
+                  "alt": "<div class=\"img-title\"><div class=\"t-wrap\"><div class=\"top-t\"></div><h5>Company</h5></div><span class=\"material-symbols-outlined\">add</span></div>",
+                  "boxStyle": "height: 319px;",
+                  "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: block; width: 100%; height: auto; margin-top: 0px; margin-left: 0px;"
+                }
+              ]
+            },
+            {
+              "kind": "col",
+              "grid": "3",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w20250911cd728a1e85003",
+                  "type": "image",
+                  "src": "/images/thumbnail/20250811/e67827527be17.jpg",
+                  "alt": "<div class=\"img-title\"><div class=\"t-wrap\"><div class=\"top-t\"></div><h5>R&D</h5></div><span class=\"material-symbols-outlined\">add</span></div>",
+                  "boxStyle": "height: 319px;",
+                  "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: block; width: 100%; height: auto; margin-top: 0px; margin-left: 0px;"
+                }
+              ]
+            },
+            {
+              "kind": "col",
+              "grid": "3",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w20250911fc2bd89200cd0",
+                  "type": "image",
+                  "src": "/images/thumbnail/20250811/49a097a7d0ffc.jpg",
+                  "alt": "<div class=\"img-title\"><div class=\"t-wrap\"><div class=\"top-t\"></div><h5>Products</h5></div><span class=\"material-symbols-outlined\">add</span></div>",
+                  "boxStyle": "height: 319px;",
+                  "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: block; width: 100%; height: auto; margin-top: 0px; margin-left: 0px;"
+                }
+              ]
+            },
+            {
+              "kind": "col",
+              "grid": "3",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w202509110d5ee06cb6b53",
+                  "type": "image",
+                  "src": "/images/thumbnail/20250811/bd400cb7e2ba9.jpg",
+                  "alt": "<div class=\"img-title\"><div class=\"t-wrap\"><div class=\"top-t\"></div><h5>News</h5></div><span class=\"material-symbols-outlined\">add</span></div>",
+                  "boxStyle": "height: 319px;",
+                  "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: block; width: 100%; height: auto; margin-top: 0px; margin-left: 0px;"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w20250911ecaf1c6f0a524",
+                  "type": "code",
+                  "html": "\n\n  <link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200\">\n\n\n"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w20250911c909eaed1fa18",
+                  "type": "padding",
+                  "html": "<div class=\"widget padding\" data-height=\"168\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w20250911c909eaed1fa18\" style=\"width:100%; min-height:1px; height:168px; \"></div>\n</div>\n",
+                  "_h": 168
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s20250911c5a2da998fd0e",
+      "cls": "section_wrap  pc_section   mobile_hide      side_basic     ",
+      "bg": "/images/thumbnail/20250811/4caae6f166af6.jpg",
+      "bgStyle": "background-image:url('/images/thumbnail/20250811/4caae6f166af6.jpg'); background-position:50% 50%;  background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
+      "bgColor": "rgba(0, 0, 0, 0.35)",
+      "secStyle": "; ; background-color:rgba(0, 0, 0, 0.35);;",
+      "rows": [
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w20250911f0fd3633a20c6",
+                  "type": "padding",
+                  "html": "<div class=\"widget padding\" data-height=\"120\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w20250911f0fd3633a20c6\" style=\"width:100%; min-height:1px; height:120px; \"></div>\n</div>\n",
+                  "_h": 120
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w2025091155849fca36783",
+                  "type": "text",
+                  "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: center;\"><img src=\"/images/upload/S20250811e0bd2f7c414df/48fbd16b3a070.png\" class=\"fr-fin fr-dib\" style=\"width: 296px;\"></h6><p style=\"text-align: center; line-height: 2;\"><br><span style=\"color: rgb(255, 255, 255); font-size: 18px; letter-spacing: 0px;\">EcoWave promotes a healthy, sustainable life with innovative water purification technology,</span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"color: rgb(255, 255, 255); font-size: 18px; letter-spacing: 0px;\">realizing eco-friendly values where people and nature coexist.</span></p><p style=\"text-align: center; line-height: 2;\"><br></p></div></div>\n\t"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w20250911fbd73e60e36d9",
+                  "type": "image",
+                  "src": "/images/thumbnail/20250917/e1931484261b8.png",
+                  "alt": "",
+                  "boxStyle": "",
+                  "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 1250px; height: 348px; margin: 14px auto;"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w20250911b3aa848ff0140",
+                  "type": "padding",
+                  "html": "<div class=\"widget padding\" data-height=\"120\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w20250911b3aa848ff0140\" style=\"width:100%; min-height:1px; height:120px; \"></div>\n</div>\n",
+                  "_h": 120
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s20250911c58d227149171",
+      "cls": "section_wrap  pc_section       side_basic grid_gutter_0 grid_v_gutter_0 extend_section   ",
+      "bg": null,
+      "bgStyle": "   background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
+      "bgColor": null,
+      "secStyle": "; ; ;",
+      "rows": [
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w202509116f5aedbce2c98",
+                  "type": "padding",
+                  "html": "<div class=\"widget padding\" data-height=\"120\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w202509116f5aedbce2c98\" style=\"width:100%; min-height:1px; height:120px; \"></div>\n</div>\n",
+                  "_h": 120
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w2025091130fc2cd68d88b",
+                  "type": "text",
+                  "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"line-height: 2;\"><strong><span style=\"color: rgb(52, 101, 222); font-size: 48px; letter-spacing: 0px;\">Through eco-friendly technological innovation</span></strong></h6><h6 style=\"line-height: 2;\"><strong><span style=\"color: rgb(0, 0, 0); font-size: 48px; letter-spacing: 0px;\">The Sustainable Future of EcoWaves&nbsp;</span></strong></h6></div></div>\n\t"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w20250911d2cbb61553fb2",
+                  "type": "padding",
+                  "html": "<div class=\"widget padding\" data-height=\"82\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w20250911d2cbb61553fb2\" style=\"width:100%; min-height:1px; height:82px; \"></div>\n</div>\n",
+                  "_h": 82
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s20250911384d83602d212",
+      "cls": "section_wrap  pc_section   mobile_hide      side_basic grid_gutter_15 grid_v_gutter_0 extend_section   ",
+      "bg": null,
+      "bgStyle": "   background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
+      "bgColor": null,
+      "secStyle": "; ; ;",
+      "rows": [
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "4",
+              "children": [
+                {
+                  "kind": "row",
+                  "grid": "4",
+                  "cols": [
+                    {
+                      "kind": "col",
+                      "grid": "4",
+                      "children": [
+                        {
+                          "kind": "widget",
+                          "id": "w2025091104fe925608dd7",
+                          "type": "image",
+                          "src": "/images/thumbnail/20250811/b2bfd0819b1e7.jpg",
+                          "alt": "",
+                          "boxStyle": "height: 548px;",
+                          "imgStyle": "visibility: visible; image-rendering: -webkit-optimize-contrast; display: block; width: auto; height: 100%; margin-top: 0px; margin-left: -74.8178px;"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "row",
+                  "grid": "4",
+                  "cols": [
+                    {
+                      "kind": "col",
+                      "grid": "4",
+                      "children": [
+                        {
+                          "kind": "widget",
+                          "id": "w20250911ba44f11feb8f9",
+                          "type": "padding",
+                          "html": "<div class=\"widget padding\" data-height=\"30\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w20250911ba44f11feb8f9\" style=\"width:100%; min-height:1px; height:30px; \"></div>\n</div>\n",
+                          "_h": 30
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "row",
+                  "grid": "4",
+                  "cols": [
+                    {
+                      "kind": "col",
+                      "grid": "4",
+                      "children": [
+                        {
+                          "kind": "widget",
+                          "id": "w20250911b77c92fa17542",
+                          "type": "text",
+                          "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: center;\"><span style=\"font-size: 30px;\"><strong><span style=\"color: rgb(0, 0, 0);\">Living Solution&nbsp;</span></strong></span></h6><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(93, 93, 93);\">Advanced filters &amp; eco-products<br data-start=\"119\" data-end=\"122\">&nbsp;for cleaner, healthier water.</span></p></div></div>\n\t"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "col",
+              "grid": "4",
+              "children": [
+                {
+                  "kind": "row",
+                  "grid": "4",
+                  "cols": [
+                    {
+                      "kind": "col",
+                      "grid": "4",
+                      "children": [
+                        {
+                          "kind": "widget",
+                          "id": "w20250911159dea4c214d7",
+                          "type": "image",
+                          "src": "/images/thumbnail/20250811/482b1d289f2ef.jpg",
+                          "alt": "",
+                          "boxStyle": "height: 548px;",
+                          "imgStyle": "visibility: visible; image-rendering: -webkit-optimize-contrast; display: block; width: auto; height: 100%; margin-top: 0px; margin-left: -74.8178px;"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "row",
+                  "grid": "4",
+                  "cols": [
+                    {
+                      "kind": "col",
+                      "grid": "4",
+                      "children": [
+                        {
+                          "kind": "widget",
+                          "id": "w20250911c6f214b9ddf9f",
+                          "type": "padding",
+                          "html": "<div class=\"widget padding\" data-height=\"30\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w20250911c6f214b9ddf9f\" style=\"width:100%; min-height:1px; height:30px; \"></div>\n</div>\n",
+                          "_h": 30
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "row",
+                  "grid": "4",
+                  "cols": [
+                    {
+                      "kind": "col",
+                      "grid": "4",
+                      "children": [
+                        {
+                          "kind": "widget",
+                          "id": "w20250911d1e19a54f0dc6",
+                          "type": "text",
+                          "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: center;\"><span style=\"font-size: 30px;\"><strong><span style=\"color: rgb(0, 0, 0);\">Water &amp; Smart Parts</span></strong></span></h6><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(93, 93, 93);\">High-performance filters &amp; smart modules<br data-start=\"204\" data-end=\"207\">&nbsp;for sustainable solutions.</span></p></div></div>\n\t"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "col",
+              "grid": "4",
+              "children": [
+                {
+                  "kind": "row",
+                  "grid": "4",
+                  "cols": [
+                    {
+                      "kind": "col",
+                      "grid": "4",
+                      "children": [
+                        {
+                          "kind": "widget",
+                          "id": "w20250911f580662be2ff1",
+                          "type": "image",
+                          "src": "/images/thumbnail/20250812/b3ac0bbe894b9.jpg",
+                          "alt": "",
+                          "boxStyle": "height: 548px;",
+                          "imgStyle": "visibility: visible; image-rendering: -webkit-optimize-contrast; display: block; width: auto; height: 100%; margin-top: 0px; margin-left: -74.8178px;"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "row",
+                  "grid": "4",
+                  "cols": [
+                    {
+                      "kind": "col",
+                      "grid": "4",
+                      "children": [
+                        {
+                          "kind": "widget",
+                          "id": "w20250911bb4a01215d8c3",
+                          "type": "padding",
+                          "html": "<div class=\"widget padding\" data-height=\"30\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w20250911bb4a01215d8c3\" style=\"width:100%; min-height:1px; height:30px; \"></div>\n</div>\n",
+                          "_h": 30
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "row",
+                  "grid": "4",
+                  "cols": [
+                    {
+                      "kind": "col",
+                      "grid": "4",
+                      "children": [
+                        {
+                          "kind": "widget",
+                          "id": "w20250911e95963b409926",
+                          "type": "text",
+                          "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: center;\"><span style=\"font-size: 30px;\"><strong><span style=\"color: rgb(0, 0, 0);\">Health &amp; Care&nbsp;</span></strong></span></h6><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(93, 93, 93);\">EcoWave develops next-gen water care<br data-start=\"282\" data-end=\"285\">&nbsp;and hygiene technologies.</span></p></div></div>\n\t"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w20250911a5cf87afef1fc",
+                  "type": "padding",
+                  "html": "<div class=\"widget padding\" data-height=\"164\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w20250911a5cf87afef1fc\" style=\"width:100%; min-height:1px; height:164px; \"></div>\n</div>\n",
+                  "_h": 164
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s2025091101bd763c3afe6",
+      "cls": "section_wrap  mobile_section       side_basic     ",
+      "bg": null,
+      "bgStyle": "   background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
+      "bgColor": null,
+      "secStyle": "; ; ;",
+      "rows": [
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w20250911c51b0304dd3cc",
+                  "type": "gallery2",
+                  "layout": "slide",
+                  "items": [
+                    {
+                      "org": "/images/upload/S20250811e0bd2f7c414df/103b4117866d1.jpg",
+                      "thumb": "/images/thumbnail/20250912/c7c22113f7320.jpg",
+                      "title": "Living environment solution",
+                      "desc": "Based on advanced water filter technology, sterilization modules, and hygiene solutions By developing eco-friendly products that improve the quality of water in everyday life We will take the lead in building a clean and healthy living environment."
+                    },
+                    {
+                      "org": "/images/upload/S20250811e0bd2f7c414df/9591f79fa906c.jpg",
+                      "thumb": "/images/thumbnail/20250912/6daa021a1175d.jpg",
+                      "title": "Water Purification Material & Smart Parts",
+                      "desc": "Water purifier filter, bidet filter, shower filter, etc High-performance water-based materials and smart module-based components We will provide you with a sustainable water treatment technology solution."
+                    },
+                    {
+                      "org": "/images/upload/S20250811e0bd2f7c414df/d91a8367993e4.jpg",
+                      "thumb": "/images/thumbnail/20250912/41f1f0b290d36.jpg",
+                      "title": "Health & Water Care",
+                      "desc": "Under the philosophy that water is health, EcoWave is a new generation of water care products for the healthy life of mankind We will continue to develop sterilization and hygiene management technologies."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w20250911742f56e998b59",
+                  "type": "padding",
+                  "html": "<div class=\"widget padding\" data-height=\"30\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w20250911742f56e998b59\" style=\"width:100%; min-height:1px; height:30px; \"></div>\n</div>\n",
+                  "_h": 30
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s20250911ef4ffe8abcbfd",
+      "cls": "section_wrap  mobile_section       side_basic     ",
+      "bg": "/images/thumbnail/20250911/8aed4b00b9978.jpg",
+      "bgStyle": "background-image:url('/images/thumbnail/20250911/8aed4b00b9978.jpg'); background-position:50% 50%;  background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
+      "bgColor": null,
+      "secStyle": "; ; ;",
+      "rows": [
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w2025091187ab93bdff764",
+                  "type": "padding",
+                  "html": "<div class=\"widget padding\" data-height=\"45\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w2025091187ab93bdff764\" style=\"width:100%; min-height:1px; height:45px; \"></div>\n</div>\n",
+                  "_h": 45
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w202509110d82f4812def7",
+                  "type": "text",
+                  "html": "\n\t\t<div class=\"text-table \"><div><p><span style=\"font-size: 30px;\"><span style=\"color: rgb(255, 255, 255);\">Ecowave</span></span></p><p><span style=\"font-size: 26px;\"><em><span style=\"color: rgb(255, 255, 255);\">Clean Water, Healthy People.</span></em></span></p></div></div>\n\t"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w202509111d1a9f486fd94",
+                  "type": "video",
+                  "src": "https://www.youtube.com/embed/p1wiw6f1Twg?loop=1&rel=0&playlist=p1wiw6f1Twg&showinfo=0&controls=0&mute=1&autoplay=1&enablejsapi=1&origin=https%3A%2F%2Fen.ecowavekorea.co.kr&widgetid=1&forigin=https%3A%2F%2Fen.ecowavekorea.co.kr%2F&aoriginsup=1&vf=1",
+                  "html": "\t<div id=\"video_w202509111d1a9f486fd94\" class=\"widget movie _video_wrap \" style=\"position: relative\">\n\t\t<div style=\"overflow: hidden; text-align: center; height: 0px;\" id=\"img_box_w202509111d1a9f486fd94\" class=\"img_box _img_box holder\" data-vimeo-id=\"p1wiw6f1Twg\" data-vimeo-defer=\"\"><div class=\"play-icon _cover_layer\" style=\"display: none; \" onmouseover=\";\"><span class=\"show_btn\" onclick=\"site_video_list['w202509111d1a9f486fd94'].play()\"><i></i></span></div><iframe class=\"_img\" id=\"img_w202509111d1a9f486fd94\" src=\"https://www.youtube.com/embed/p1wiw6f1Twg?loop=1&amp;rel=0&amp;playlist=p1wiw6f1Twg&amp;showinfo=0&amp;controls=0&amp;mute=1&amp;autoplay=1&amp;enablejsapi=1&amp;origin=https%3A%2F%2Fen.ecowavekorea.co.kr&amp;widgetid=1&amp;forigin=https%3A%2F%2Fen.ecowavekorea.co.kr%2F&amp;aoriginsup=1&amp;vf=1\" style=\"display: block; width: 100%; margin: 0px; height: 100%;\" frameborder=\"0\" allowfullscreen=\"\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" title=\"main\" width=\"640\" height=\"360\"></iframe></div>\t</div>\n\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w202509117dec8eb641ebf",
+                  "type": "padding",
+                  "html": "<div class=\"widget padding\" data-height=\"101\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w202509117dec8eb641ebf\" style=\"width:100%; min-height:1px; height:101px; \"></div>\n</div>\n",
+                  "_h": 101
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s20250911f1b271a6a41b6",
+      "cls": "section_wrap  pc_section   mobile_hide      side_basic     ",
+      "bg": "/images/thumbnail/20250811/dc0347431277a.jpg",
+      "bgStyle": "background-image:url('/images/thumbnail/20250811/dc0347431277a.jpg'); background-position:50% 50%;  background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
+      "bgColor": null,
+      "secStyle": "; ; ;",
+      "rows": [
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w2025091178b60112eb377",
+                  "type": "padding",
+                  "html": "<div class=\"widget padding\" data-height=\"57\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w2025091178b60112eb377\" style=\"width:100%; min-height:1px; height:57px; \"></div>\n</div>\n",
+                  "_h": 57
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w20250911f3e8bfbc5bd27",
+                  "type": "text",
+                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: left;\"><span style=\"color: rgb(255, 255, 255); font-size: 60px; letter-spacing: 0px;\"><strong>Eco wave</strong></span></p><p style=\"text-align: left;\"><span style=\"color: rgb(255, 255, 255); font-size: 60px; letter-spacing: 0px;\"><em>Clean Water, Healthy People.</em></span></p></div></div>\n\t"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w20250911ad422df2f0a26",
+                  "type": "padding",
+                  "html": "<div class=\"widget padding\" data-height=\"7\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w20250911ad422df2f0a26\" style=\"width:100%; min-height:1px; height:7px; \"></div>\n</div>\n",
+                  "_h": 7
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w2025091151d7ad2cd1780",
+                  "type": "video",
+                  "src": "https://www.youtube.com/embed/p1wiw6f1Twg?loop=1&rel=0&playlist=p1wiw6f1Twg&showinfo=0&controls=0&mute=1&autoplay=1&enablejsapi=1&origin=https%3A%2F%2Fen.ecowavekorea.co.kr&widgetid=2&forigin=https%3A%2F%2Fen.ecowavekorea.co.kr%2F&aoriginsup=1&vf=1",
+                  "html": "\t<div id=\"video_w2025091151d7ad2cd1780\" class=\"widget movie _video_wrap \" style=\"position: relative\">\n\t\t<div style=\"overflow: hidden; text-align: center; height: 703.125px;\" id=\"img_box_w2025091151d7ad2cd1780\" class=\"img_box _img_box holder\" data-vimeo-id=\"p1wiw6f1Twg\" data-vimeo-defer=\"\"><div class=\"play-icon _cover_layer\" style=\"display: none; \" onmouseover=\";\"><span class=\"show_btn\" onclick=\"site_video_list['w2025091151d7ad2cd1780'].play()\"><i></i></span></div><iframe class=\"_img\" id=\"img_w2025091151d7ad2cd1780\" src=\"https://www.youtube.com/embed/p1wiw6f1Twg?loop=1&amp;rel=0&amp;playlist=p1wiw6f1Twg&amp;showinfo=0&amp;controls=0&amp;mute=1&amp;autoplay=1&amp;enablejsapi=1&amp;origin=https%3A%2F%2Fen.ecowavekorea.co.kr&amp;widgetid=2&amp;forigin=https%3A%2F%2Fen.ecowavekorea.co.kr%2F&amp;aoriginsup=1&amp;vf=1\" style=\"display: block; width: 100%; margin: 0px; height: 100%;\" frameborder=\"0\" allowfullscreen=\"\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" title=\"main\" width=\"640\" height=\"360\"></iframe></div>\t</div>\n\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w202509119f35d64deede2",
+                  "type": "padding",
+                  "html": "<div class=\"widget padding\" data-height=\"172\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w202509119f35d64deede2\" style=\"width:100%; min-height:1px; height:172px; \"></div>\n</div>\n",
+                  "_h": 172
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s20250911049658b2b95c4",
+      "cls": "section_wrap  pc_section       side_basic grid_gutter_0 grid_v_gutter_0 extend_section   ",
+      "bg": null,
+      "bgStyle": " background-position:50% 50%;  background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
+      "bgColor": "rgba(247, 247, 247, 0)",
+      "secStyle": "; ; background-color:rgba(247, 247, 247, 0);;",
+      "rows": [
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w20250911277055db3f882",
+                  "type": "text",
+                  "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: center;\"><strong><span style=\"color: rgb(52, 101, 222); font-size: 20px;\">Headquarters &amp; Factory Locations&nbsp;</span></strong></h6><h6 style=\"line-height: 2; text-align: center;\"><strong><span style=\"color: rgb(0, 0, 0); font-size: 48px; letter-spacing: -1px;\">Eco Wave in the World&nbsp;</span></strong></h6></div></div>\n\t"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "8",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w202509117e134e0facf8b",
+                  "type": "image",
+                  "src": "/images/thumbnail/20250912/bc018ecaa7de6.png",
+                  "alt": "",
+                  "boxStyle": "",
+                  "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 773px; height: 427px; margin-left: auto; margin-right: auto;"
+                }
+              ]
+            },
+            {
+              "kind": "col",
+              "grid": "4",
+              "children": [
+                {
+                  "kind": "row",
+                  "grid": "4",
+                  "cols": [
+                    {
+                      "kind": "col",
+                      "grid": "4",
+                      "children": [
+                        {
+                          "kind": "widget",
+                          "id": "w20250911aac3a7a86e6c7",
+                          "type": "text",
+                          "html": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: #ffffff\"></div><div class=\"text-table holder\"><div><h6 style=\"line-height: 1.5;\"><strong><span style=\"color: rgb(52, 101, 222); font-size: 36px;\">KOR</span><span style=\"color: rgb(52, 101, 222); font-size: 30px;\">&nbsp;</span></strong><span style=\"font-size: 20px;\">[KOREA]<br data-start=\"13\" data-end=\"16\" data-is-only-node=\"\">2-dong, Yeongdo Building, 14, Eunbong-ro, Namdong-gu, Incheon, Republic of Korea<br data-start=\"40\" data-end=\"43\">TEL: +82-32-812-1800 / Fax: +82-32-812-1804</span></h6></div></div>\n\t"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "row",
+                  "grid": "4",
+                  "cols": [
+                    {
+                      "kind": "col",
+                      "grid": "4",
+                      "children": [
+                        {
+                          "kind": "widget",
+                          "id": "w2025091132de63da68a9d",
+                          "type": "padding",
+                          "html": "<div class=\"widget padding\" data-height=\"30\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w2025091132de63da68a9d\" style=\"width:100%; min-height:1px; height:30px; \"></div>\n</div>\n",
+                          "_h": 30
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "row",
+                  "grid": "4",
+                  "cols": [
+                    {
+                      "kind": "col",
+                      "grid": "4",
+                      "children": [
+                        {
+                          "kind": "widget",
+                          "id": "w20250911151a9167a2d61",
+                          "type": "text",
+                          "html": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: #ffffff\"></div><div class=\"text-table holder\"><div><h6 style=\"line-height: 2;\"><strong><span style=\"color: rgb(52, 101, 222); font-size: 36px;\">CHN</span><span style=\"color: rgb(52, 101, 222); font-size: 30px;\">&nbsp;</span></strong><span style=\"font-size: 20px;\">[CHINA]</span><span style=\"font-size: 16px;\"><br data-start=\"13\" data-end=\"16\" data-is-only-node=\"\"></span><span style=\"font-size: 20px;\">Hongfuiie NO.90 Yantai, Shandong, PR. China</span></h6></div></div>\n\t"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "row",
+                  "grid": "4",
+                  "cols": [
+                    {
+                      "kind": "col",
+                      "grid": "4",
+                      "children": [
+                        {
+                          "kind": "widget",
+                          "id": "w20250911d87db9bde2b10",
+                          "type": "padding",
+                          "html": "<div class=\"widget padding\" data-height=\"30\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w20250911d87db9bde2b10\" style=\"width:100%; min-height:1px; height:30px; \"></div>\n</div>\n",
+                          "_h": 30
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "row",
+                  "grid": "4",
+                  "cols": [
+                    {
+                      "kind": "col",
+                      "grid": "4",
+                      "children": [
+                        {
+                          "kind": "widget",
+                          "id": "w20250911b8cb2d96530e1",
+                          "type": "text",
+                          "html": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: #ffffff\"></div><div class=\"text-table holder\"><div><h6 style=\"line-height: 2;\"><strong><span style=\"color: rgb(52, 101, 222); font-size: 36px;\">KHM</span><span style=\"color: rgb(52, 101, 222); font-size: 30px;\">&nbsp;</span></strong><span style=\"font-size: 20px;\">[CAMBODIA] <br data-start=\"13\" data-end=\"16\" data-is-only-node=\"\">Tuol Kork Phnom Penh City</span></h6></div></div>\n\t"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w202509117c914b408c3b4",
+                  "type": "code",
+                  "html": ""
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w2025091181fa7dc11f7de",
+                  "type": "padding",
+                  "html": "<div class=\"widget padding\" data-height=\"172\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w2025091181fa7dc11f7de\" style=\"width:100%; min-height:1px; height:172px; \"></div>\n</div>\n",
+                  "_h": 172
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s2025091179ab5c168be2c",
+      "cls": "section_wrap  pc_section       side_basic grid_gutter_0 grid_v_gutter_0 extend_section   ",
+      "bg": null,
+      "bgStyle": "   background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
+      "bgColor": "#f7f7f7",
+      "secStyle": "; ; background-color:#f7f7f7;;",
+      "rows": [
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w20250911332e0e34751e0",
+                  "type": "padding",
+                  "html": "<div class=\"widget padding\" data-height=\"126\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w20250911332e0e34751e0\" style=\"width:100%; min-height:1px; height:126px; \"></div>\n</div>\n",
+                  "_h": 126
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "9",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w20250911b383670c04fca",
+                  "type": "text",
+                  "html": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(52, 101, 222); font-size: 20px;\">News</span></strong></h6><h6 style=\"line-height: 2;\"><strong><span style=\"color: rgb(0, 0, 0); font-size: 48px; letter-spacing: -1px;\">The New Story of Ecowave &nbsp;</span></strong></h6></div></div>\n\t"
+                }
+              ]
+            },
+            {
+              "kind": "col",
+              "grid": "3",
+              "children": [
+                {
+                  "kind": "row",
+                  "grid": "3",
+                  "cols": [
+                    {
+                      "kind": "col",
+                      "grid": "3",
+                      "children": [
+                        {
+                          "kind": "widget",
+                          "id": "w2025091170b0ea9c74dab",
+                          "type": "padding",
+                          "html": "<div class=\"widget padding\" data-height=\"57\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w2025091170b0ea9c74dab\" style=\"width:100%; min-height:1px; height:57px; \"></div>\n</div>\n",
+                          "_h": 57
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "row",
+                  "grid": "3",
+                  "cols": [
+                    {
+                      "kind": "col",
+                      "grid": "3",
+                      "children": [
+                        {
+                          "kind": "widget",
+                          "id": "w202509116ec51187e8ca2",
+                          "type": "button",
+                          "text": "",
+                          "href": "/29",
+                          "html": "<div class=\"widget button txt_r\">\n\t<div class=\"button_wrap \">\n\t\t<div class=\"inline-blocked animated wg_animated Left\" style=\"visibility: hidden;\"><a class=\" btn btn_ea4e6bf7346e7   btn-default _fade_link  \" href=\"/29\" style=\"line-height: 1; border-radius:9999px\"><i aria-hidden=\"true\" style=\"line-height: 1;\" class=\"btm bt-plus\"></i></a></div>\t</div>\n</div>\n\n"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w20250911954bbfa26a88d",
+                  "type": "padding",
+                  "html": "<div class=\"widget padding\" data-height=\"39\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w20250911954bbfa26a88d\" style=\"width:100%; min-height:1px; height:39px; \"></div>\n</div>\n",
+                  "_h": 39
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w202509116e104ecb7b0ae",
+                  "type": "newest",
+                  "html": "<div class=\"widget\">\n\t\t<div class=\"list-style-gallery grid_03 type_grid container_border\" id=\"newest_w202509116e104ecb7b0ae\" style=\"margin: -15px -15px 0px; visibility: visible;\">\n\t\t\n<!-- 카드형  -->\n\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\n\n\n<!-- //카드형  -->\n\n\n\t<div class=\"_post_row post_row\"><div class=\"list-style-card _card_wrap\">\n\t\t\t\t<div class=\"ma-item _post_item_wrap\" style=\"padding: 15px;\">\n\t\t\t\t\t<div class=\"card  _card\" style=\"  background-size: cover; background-position: 50% 50%;\">\n\t\t\t\t\t\t\t\t\t\t\t\t<a class=\"holder blocked _fade_link\" href=\"/29/?idx=167703628&amp;bmode=view\">\n\t\t\t\t\t\t\t<div class=\"card_wrapper \" style=\"background-image: url(&quot;/images/thumbnail/20250929/e11df6cf930f1.jpg&quot;);  background-size: cover; background-position: 50% 50%;\">\n\t\t\t\t\t\t\t\t<div class=\"card-head _card_head _img_wrap\" style=\"height: 179px;\">\n\t\t\t\t\t\t\t\t\t<span>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"card-body _card_body list-group\">\n\t\t\t\t\t\t\t\t<div class=\"title title-block\">\n\t\t\t\t\t\t\t\t\tLG Wins ERA Certification\t\t\t\t\t\t\t\t\t<!--\t\t\t\t\t\t\t\t\t--><!--\t\t\t\t\t\t\t\t\t\t<span class=\"icons text-20\"><i aria-hidden=\"true\" class=\"icon-picture\"></i></span>-->\n<!--\t\t\t\t\t\t\t\t\t--><!--\t\t\t\t\t\t\t\t\t--><!--\t\t\t\t\t\t\t\t\t\t<span class=\"icons text-20\"><i aria-hidden=\"true\" class=\"icon-folder\"></i></span>-->\n<!--\t\t\t\t\t\t\t\t\t--><!--\t\t\t\t\t\t\t\t\t--><!--\t\t\t\t\t\t\t\t\t\t<span class=\"icons text-20\"><i aria-hidden=\"true\" class=\"icon-camrecorder\"></i></span>-->\n<!--\t\t\t\t\t\t\t\t\t-->\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"text text-block show_body\">\n\t\t\t\t\t\t\t\t\t<span> LG Electronics Water Science Research Center Earns “Laboratory of Excellence” Certifica</span>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div><div class=\"list-style-card _card_wrap\">\n\t\t\t\t<div class=\"ma-item _post_item_wrap\" style=\"padding: 15px;\">\n\t\t\t\t\t<div class=\"card  _card\" style=\"  background-size: cover; background-position: 50% 50%;\">\n\t\t\t\t\t\t\t\t\t\t\t\t<a class=\"holder blocked _fade_link\" href=\"/29/?idx=167703620&amp;bmode=view\">\n\t\t\t\t\t\t\t<div class=\"card_wrapper \" style=\"background-image: url(&quot;/images/thumbnail/20250929/7d0550e8fb375.png&quot;);  background-size: cover; background-position: 50% 50%;\">\n\t\t\t\t\t\t\t\t<div class=\"card-head _card_head _img_wrap\" style=\"height: 179px;\">\n\t\t\t\t\t\t\t\t\t<span>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"card-body _card_body list-group\">\n\t\t\t\t\t\t\t\t<div class=\"title title-block\">\n\t\t\t\t\t\t\t\t\tLG Purifier Blocks Microplastics\t\t\t\t\t\t\t\t\t<!--\t\t\t\t\t\t\t\t\t--><!--\t\t\t\t\t\t\t\t\t\t<span class=\"icons text-20\"><i aria-hidden=\"true\" class=\"icon-picture\"></i></span>-->\n<!--\t\t\t\t\t\t\t\t\t--><!--\t\t\t\t\t\t\t\t\t--><!--\t\t\t\t\t\t\t\t\t\t<span class=\"icons text-20\"><i aria-hidden=\"true\" class=\"icon-folder\"></i></span>-->\n<!--\t\t\t\t\t\t\t\t\t--><!--\t\t\t\t\t\t\t\t\t--><!--\t\t\t\t\t\t\t\t\t\t<span class=\"icons text-20\"><i aria-hidden=\"true\" class=\"icon-camrecorder\"></i></span>-->\n<!--\t\t\t\t\t\t\t\t\t-->\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"text text-block show_body\">\n\t\t\t\t\t\t\t\t\t<span> Worried About Microplastics in Your Water? LG Has the Answer  LG Electronics has introduced a new i</span>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div><div class=\"list-style-card _card_wrap\">\n\t\t\t\t<div class=\"ma-item _post_item_wrap\" style=\"padding: 15px;\">\n\t\t\t\t\t<div class=\"card  _card\" style=\"  background-size: cover; background-position: 50% 50%;\">\n\t\t\t\t\t\t\t\t\t\t\t\t<a class=\"holder blocked _fade_link\" href=\"/29/?idx=167703612&amp;bmode=view\">\n\t\t\t\t\t\t\t<div class=\"card_wrapper \" style=\"background-image: url(&quot;/images/thumbnail/20250929/47a345be3152e.png&quot;);  background-size: cover; background-position: 50% 50%;\">\n\t\t\t\t\t\t\t\t<div class=\"card-head _card_head _img_wrap\" style=\"height: 179px;\">\n\t\t\t\t\t\t\t\t\t<span>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"card-body _card_body list-group\">\n\t\t\t\t\t\t\t\t<div class=\"title title-block\">\n\t\t\t\t\t\t\t\t\tLG Expands Appliance Subscription Business\t\t\t\t\t\t\t\t\t<!--\t\t\t\t\t\t\t\t\t--><!--\t\t\t\t\t\t\t\t\t\t<span class=\"icons text-20\"><i aria-hidden=\"true\" class=\"icon-picture\"></i></span>-->\n<!--\t\t\t\t\t\t\t\t\t--><!--\t\t\t\t\t\t\t\t\t--><!--\t\t\t\t\t\t\t\t\t\t<span class=\"icons text-20\"><i aria-hidden=\"true\" class=\"icon-folder\"></i></span>-->\n<!--\t\t\t\t\t\t\t\t\t--><!--\t\t\t\t\t\t\t\t\t--><!--\t\t\t\t\t\t\t\t\t\t<span class=\"icons text-20\"><i aria-hidden=\"true\" class=\"icon-camrecorder\"></i></span>-->\n<!--\t\t\t\t\t\t\t\t\t-->\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"text text-block show_body\">\n\t\t\t\t\t\t\t\t\t<span> LG Electronics’ Subscription Business Gains Momentum, Eyes ₩2 Trillion in Revenue  LG Electro</span>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div><div class=\"list-style-card _card_wrap\">\n\t\t\t\t<div class=\"ma-item _post_item_wrap\" style=\"padding: 15px;\">\n\t\t\t\t\t<div class=\"card  _card\" style=\"  background-size: cover; background-position: 50% 50%;\">\n\t\t\t\t\t\t\t\t\t\t\t\t<a class=\"holder blocked _fade_link\" href=\"/29/?idx=167703604&amp;bmode=view\">\n\t\t\t\t\t\t\t<div class=\"card_wrapper \" style=\"background-image: url(&quot;/images/thumbnail/20250929/da43ca6f1f08b.png&quot;);  background-size: cover; background-position: 50% 50%;\">\n\t\t\t\t\t\t\t\t<div class=\"card-head _card_head _img_wrap\" style=\"height: 179px;\">\n\t\t\t\t\t\t\t\t\t<span>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"card-body _card_body list-group\">\n\t\t\t\t\t\t\t\t<div class=\"title title-block\">\n\t\t\t\t\t\t\t\t\tLG Subscription Business Surges\t\t\t\t\t\t\t\t\t<!--\t\t\t\t\t\t\t\t\t--><!--\t\t\t\t\t\t\t\t\t\t<span class=\"icons text-20\"><i aria-hidden=\"true\" class=\"icon-picture\"></i></span>-->\n<!--\t\t\t\t\t\t\t\t\t--><!--\t\t\t\t\t\t\t\t\t--><!--\t\t\t\t\t\t\t\t\t\t<span class=\"icons text-20\"><i aria-hidden=\"true\" class=\"icon-folder\"></i></span>-->\n<!--\t\t\t\t\t\t\t\t\t--><!--\t\t\t\t\t\t\t\t\t--><!--\t\t\t\t\t\t\t\t\t\t<span class=\"icons text-20\"><i aria-hidden=\"true\" class=\"icon-camrecorder\"></i></span>-->\n<!--\t\t\t\t\t\t\t\t\t-->\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"text text-block show_body\">\n\t\t\t\t\t\t\t\t\t<span> LG Electronics’ Subscription Business Posts Record Q1 Growth  LG Electronics’ home appl</span>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div></div></div>\n</div>\n\n\t\n\n"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w20250911137dc55383ef4",
+                  "type": "padding",
+                  "html": "<div class=\"widget padding\" data-height=\"114\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w20250911137dc55383ef4\" style=\"width:100%; min-height:1px; height:114px; \"></div>\n</div>\n",
+                  "_h": 114
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s202509110ccd6753c2ddf",
+      "cls": "section_wrap  mobile_section       side_basic     ",
+      "bg": null,
+      "bgStyle": "   background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
+      "bgColor": null,
+      "secStyle": "; ; ;",
+      "rows": [
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w202509117c2f3bfaab20a",
+                  "type": "image",
+                  "src": "/images/thumbnail/20250911/68ffc55b3ed20.png",
+                  "alt": "",
+                  "boxStyle": "",
+                  "imgStyle": "visibility: visible; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 0px; height: 0px; margin: 21px auto;"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w20250911c4eaf7ad81a4d",
+                  "type": "code",
+                  "html": "\n"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s2025091132303d739ffb8",
+      "cls": "section_wrap  pc_section       side_basic     ",
+      "bg": null,
+      "bgStyle": "   background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
+      "bgColor": null,
+      "secStyle": "; ; ;",
+      "rows": [
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w202509117a7c740cda500",
+                  "type": "code",
+                  "html": ""
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s2025091197b647495016e",
+      "cls": "section_wrap  pc_section       side_basic     ",
+      "bg": null,
+      "bgStyle": "   background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
+      "bgColor": "#000",
+      "secStyle": "; ; background-color:#000;;",
+      "rows": [
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w20250911174ffd295b099",
+                  "type": "padding",
+                  "html": "<div class=\"widget padding\" data-height=\"0\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w20250911174ffd295b099\" style=\"width:100%; min-height:1px; height:0px; \"></div>\n</div>\n",
+                  "_h": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "5",
+              "children": [
+                {
+                  "kind": "row",
+                  "grid": "5",
+                  "cols": [
+                    {
+                      "kind": "col",
+                      "grid": "5",
+                      "children": [
+                        {
+                          "kind": "widget",
+                          "id": "w202509118ce1bc8a9b0d2",
+                          "type": "text",
+                          "html": "\n\t\t<div class=\"text-table \"><div><p><img src=\"/images/upload/S20250811e0bd2f7c414df/f04049636b82b.png\" class=\"fr-fin fr-dib fr-fil\" style=\"width: 238px;\"></p></div></div>\n\t"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "row",
+                  "grid": "5",
+                  "cols": [
+                    {
+                      "kind": "col",
+                      "grid": "5",
+                      "children": [
+                        {
+                          "kind": "widget",
+                          "id": "w202509119dbc665c67dac",
+                          "type": "text",
+                          "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2;\"><span style=\"color: rgb(149, 149, 149); font-size: 14px;\">CEO : Choi Taeguk&nbsp;</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Personal Information Management Officer : Kim nacyeon</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Inquiry : ecowave_1800@naver.com</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">ADDRESS : 2-dong, Yeongdo Building, 14, Eunbong-ro, Namdong-gu, Incheon, Republic of Korea</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">TEL : +82-32-812-1800 &nbsp;ㅣ &nbsp;FAX : +82-32-812-1804</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><br></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Copyright ⓒ ECOWAVE. All Rights Reserved</span></span></p></div></div>\n\t"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "col",
+              "grid": "7",
+              "children": [
+                {
+                  "kind": "row",
+                  "grid": "7",
+                  "cols": [
+                    {
+                      "kind": "col",
+                      "grid": "7",
+                      "children": [
+                        {
+                          "kind": "widget",
+                          "id": "w202509115ea1384555492",
+                          "type": "button",
+                          "text": "",
+                          "href": "#doz_header",
+                          "html": "<div class=\"widget button txt_r\">\n\t<div class=\"button_wrap \">\n\t\t<div class=\"inline-blocked \"><a class=\" btn btn_82610ee2a0658   btn-default  \" href=\"#doz_header\" style=\"line-height: 1; border-radius:9999px\"><i aria-hidden=\"true\" style=\"line-height: 1;\" class=\"simple icon-arrow-up\"></i></a></div>\t</div>\n</div>\n\n"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "row",
+                  "grid": "7",
+                  "cols": [
+                    {
+                      "kind": "col",
+                      "grid": "2",
+                      "children": [
+                        {
+                          "kind": "row",
+                          "grid": "2",
+                          "cols": [
+                            {
+                              "kind": "col",
+                              "grid": "2",
+                              "children": [
+                                {
+                                  "kind": "widget",
+                                  "id": "w2025091927502632b6fed",
+                                  "type": "text",
+                                  "html": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Ecowave</strong></span></p></div></div>\n\t"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "row",
+                          "grid": "2",
+                          "cols": [
+                            {
+                              "kind": "col",
+                              "grid": "2",
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "col",
+                      "grid": "2",
+                      "children": [
+                        {
+                          "kind": "row",
+                          "grid": "2",
+                          "cols": [
+                            {
+                              "kind": "col",
+                              "grid": "2",
+                              "children": [
+                                {
+                                  "kind": "widget",
+                                  "id": "w20250919d2cfeb08d555f",
+                                  "type": "text",
+                                  "html": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>R&amp;D</strong></span></p></div></div>\n\t"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "row",
+                          "grid": "2",
+                          "cols": [
+                            {
+                              "kind": "col",
+                              "grid": "2",
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "col",
+                      "grid": "1",
+                      "children": [
+                        {
+                          "kind": "row",
+                          "grid": "1",
+                          "cols": [
+                            {
+                              "kind": "col",
+                              "grid": "1",
+                              "children": [
+                                {
+                                  "kind": "widget",
+                                  "id": "w20250919603eb2866e1fe",
+                                  "type": "text",
+                                  "html": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Product</strong></span></p></div></div>\n\t"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "row",
+                          "grid": "1",
+                          "cols": [
+                            {
+                              "kind": "col",
+                              "grid": "1",
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "col",
+                      "grid": "1",
+                      "children": [
+                        {
+                          "kind": "row",
+                          "grid": "1",
+                          "cols": [
+                            {
+                              "kind": "col",
+                              "grid": "1",
+                              "children": [
+                                {
+                                  "kind": "widget",
+                                  "id": "w20250919afe2c48fcf119",
+                                  "type": "text",
+                                  "html": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>News</strong></span></p></div></div>\n\t"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "row",
+                          "grid": "1",
+                          "cols": [
+                            {
+                              "kind": "col",
+                              "grid": "1",
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "col",
+                      "grid": "1",
+                      "children": [
+                        {
+                          "kind": "row",
+                          "grid": "1",
+                          "cols": [
+                            {
+                              "kind": "col",
+                              "grid": "1",
+                              "children": [
+                                {
+                                  "kind": "widget",
+                                  "id": "w20250919822d35f1c69bf",
+                                  "type": "text",
+                                  "html": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Customer</strong></span></p></div></div>\n\t"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "row",
+                          "grid": "1",
+                          "cols": [
+                            {
+                              "kind": "col",
+                              "grid": "1",
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w20250911113179fff17b8",
+                  "type": "padding",
+                  "html": "<div class=\"widget padding\" data-height=\"0\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w20250911113179fff17b8\" style=\"width:100%; min-height:1px; height:0px; \"></div>\n</div>\n",
+                  "_h": 0
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
