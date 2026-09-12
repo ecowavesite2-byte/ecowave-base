@@ -261,14 +261,22 @@ function EXTRACT_PAGE() {
               "12",
             children: walkRows(c),
           }));
-        // measured desktop width/height drive exact row sizing in the rebuild
+        // measured desktop width/height drive exact row sizing in the rebuild;
+        // pad = content inset (imweb gutter config: 15px or 0 per section)
         const rowRect = el.getBoundingClientRect();
         const rowW = Math.round(rowRect.width);
+        const firstWidget = el.querySelector("[data-widget-type]");
+        let pad;
+        if (firstWidget) {
+          const holder = firstWidget.closest('[doz_type="widget"]') || firstWidget;
+          pad = Math.max(0, Math.min(30, Math.round(holder.getBoundingClientRect().x - rowRect.x)));
+        }
         out.push({
           kind: "row",
           grid: (el.getAttribute && el.getAttribute("doz_grid")) || "12",
           w: rowW >= 600 ? rowW : undefined,
           h: Math.round(rowRect.height) || undefined,
+          pad,
           cols,
         });
       } else if (t === "widget" || (el.id && /^w20/.test(el.id))) {

@@ -16,6 +16,7 @@
           "grid": "12",
           "w": 1280,
           "h": 290,
+          "pad": 15,
           "cols": [
             {
               "kind": "col",
@@ -47,6 +48,7 @@
           "grid": "12",
           "w": 1280,
           "h": 290,
+          "pad": 15,
           "cols": [
             {
               "kind": "col",
@@ -76,6 +78,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "pad": 0,
           "cols": [
             {
               "kind": "col",
@@ -100,6 +103,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "pad": 0,
           "cols": [
             {
               "kind": "col",
@@ -130,6 +134,7 @@
           "kind": "row",
           "grid": "12",
           "w": 1280,
+          "pad": 15,
           "cols": [
             {
               "kind": "col",
@@ -161,6 +166,7 @@
           "grid": "12",
           "w": 1280,
           "h": 31,
+          "pad": 15,
           "cols": [
             {
               "kind": "col",
@@ -182,6 +188,7 @@
           "grid": "12",
           "w": 1280,
           "h": 350,
+          "pad": 15,
           "cols": [
             {
               "kind": "col",
@@ -192,6 +199,7 @@
                   "grid": "7",
                   "w": 747,
                   "h": 104,
+                  "pad": 15,
                   "cols": [
                     {
                       "kind": "col",
@@ -213,6 +221,7 @@
                   "grid": "7",
                   "w": 747,
                   "h": 210,
+                  "pad": 15,
                   "cols": [
                     {
                       "kind": "col",
@@ -239,6 +248,7 @@
                   "kind": "row",
                   "grid": "5",
                   "h": 66,
+                  "pad": 15,
                   "cols": [
                     {
                       "kind": "col",
@@ -261,6 +271,7 @@
                   "kind": "row",
                   "grid": "5",
                   "h": 284,
+                  "pad": 15,
                   "cols": [
                     {
                       "kind": "col",
@@ -270,6 +281,7 @@
                           "kind": "row",
                           "grid": "1",
                           "h": 60,
+                          "pad": 15,
                           "cols": [
                             {
                               "kind": "col",
@@ -290,6 +302,7 @@
                           "kind": "row",
                           "grid": "1",
                           "h": 224,
+                          "pad": 15,
                           "cols": [
                             {
                               "kind": "col",
@@ -308,6 +321,7 @@
                           "kind": "row",
                           "grid": "1",
                           "h": 60,
+                          "pad": 15,
                           "cols": [
                             {
                               "kind": "col",
@@ -328,6 +342,7 @@
                           "kind": "row",
                           "grid": "1",
                           "h": 127,
+                          "pad": 15,
                           "cols": [
                             {
                               "kind": "col",
@@ -346,6 +361,7 @@
                           "kind": "row",
                           "grid": "1",
                           "h": 60,
+                          "pad": 15,
                           "cols": [
                             {
                               "kind": "col",
@@ -366,6 +382,7 @@
                           "kind": "row",
                           "grid": "1",
                           "h": 194,
+                          "pad": 15,
                           "cols": [
                             {
                               "kind": "col",
@@ -384,6 +401,7 @@
                           "kind": "row",
                           "grid": "1",
                           "h": 60,
+                          "pad": 15,
                           "cols": [
                             {
                               "kind": "col",
@@ -404,6 +422,7 @@
                           "kind": "row",
                           "grid": "1",
                           "h": 62,
+                          "pad": 15,
                           "cols": [
                             {
                               "kind": "col",
@@ -422,6 +441,7 @@
                           "kind": "row",
                           "grid": "1",
                           "h": 60,
+                          "pad": 15,
                           "cols": [
                             {
                               "kind": "col",
@@ -442,6 +462,7 @@
                           "kind": "row",
                           "grid": "1",
                           "h": 62,
+                          "pad": 15,
                           "cols": [
                             {
                               "kind": "col",
@@ -463,6 +484,7 @@
           "grid": "12",
           "w": 1280,
           "h": 31,
+          "pad": 15,
           "cols": [
             {
               "kind": "col",

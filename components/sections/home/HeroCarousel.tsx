@@ -21,6 +21,7 @@ export default function HeroCarousel({ slides }: { slides: { bg: string | null; 
           key={i}
           className={`absolute inset-0 transition-opacity duration-1000 ${i === idx ? "opacity-100" : "pointer-events-none opacity-0"}`}
         >
+          {s.bgColor && <div className="absolute inset-0" style={{ backgroundColor: s.bgColor }} aria-hidden />}
           {s.bg && (
             <div
               className="absolute inset-0 bg-cover bg-center"
@@ -28,7 +29,6 @@ export default function HeroCarousel({ slides }: { slides: { bg: string | null; 
               aria-hidden
             />
           )}
-          {s.bgColor && <div className="absolute inset-0" style={{ backgroundColor: s.bgColor }} aria-hidden />}
           <div className="relative flex h-full items-center justify-center px-6">
             <RichText html={s.html} className="max-w-[1200px] text-center [&_p]:text-center [&_span]:text-white [&_strong]:text-white [&_h6_span]:!text-white [&_h6]:text-white" />
           </div>

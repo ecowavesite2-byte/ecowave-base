@@ -32,6 +32,8 @@ export type RowNode = {
   /** measured desktop size (px); w only for top-level rows */
   w?: number;
   h?: number;
+  /** measured content inset (imweb gutter: 15px or 0) */
+  pad?: number;
   cols: ColNode[];
 };
 export type Node = WidgetNode | ColNode | RowNode;

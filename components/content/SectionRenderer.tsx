@@ -102,7 +102,8 @@ function ImageWidget({ w, locale }: { w: WidgetNode; locale: Locale }) {
   const h = num(w.boxStyle, "height");
   const { label, title, hasOverlay } = parseImageAlt(w.alt);
 
-  // apply the original img inline styles verbatim (crop margins, sizes)
+  // apply the original img inline styles verbatim (crop margins, sizes);
+  // neutralize Tailwind preflight's img{max-width:100%} when the source crops
   const inlineStyle: Record<string, string> = {};
   (w.imgStyle || "").split(";").forEach((part) => {
     const [k, v] = part.split(":");
@@ -120,6 +121,9 @@ function ImageWidget({ w, locale }: { w: WidgetNode; locale: Locale }) {
   });
   if (!inlineStyle.width) inlineStyle.width = "100%";
   if (hasOverlay) inlineStyle.width = "100%";
+  if (w.imgStyle && /(width|height)\s*:\s*(?!100%)/.test(w.imgStyle)) {
+    inlineStyle["max-width"] = "none";
+  }
 
   const img = (
     // eslint-disable-next-line @next/next/no-img-element
@@ -179,14 +183,15 @@ function ImageWidget({ w, locale }: { w: WidgetNode; locale: Locale }) {
 export function Widget({ w, locale = defaultLocale }: { w: WidgetNode; locale?: Locale }) {
   const content = w.type === "padding" ? renderPadding(w) : WidgetContent({ w, locale });
   if (!content) return null;
+  const tagged = (
+    <div data-widget-type={w.type}>
+      {content}
+    </div>
+  );
   if (w.anim && w.anim !== "none") {
-    return (
-      <Reveal anim={w.anim}>
-        {content}
-      </Reveal>
-    );
+    return <Reveal anim={w.anim}>{tagged}</Reveal>;
   }
-  return content;
+  return tagged;
 }
 
 function renderPadding(w: WidgetNode) {
@@ -304,16 +309,18 @@ export function Row({ r, locale = defaultLocale, nested = false }: { r: RowNode;
   const rowVars: React.CSSProperties = {};
   if (!nested && r.w) (rowVars as Record<string, string>)["--row-w"] = `${r.w}px`;
   if (r.h) (rowVars as Record<string, string>)["--row-h"] = `${r.h}px`;
+  // only top-level rows add the gutter inset — nested rows sit inside an
+  // already-padded ancestor col, so re-applying would double the inset
+  (rowVars as Record<string, string>)["--row-pad"] = nested ? "0px" : `${r.pad ?? 0}px`;
   // nested imweb rows scale to their parent col's grid (doz_grid), not 12
-  const effectiveGrid = nested ? r.grid : "12";
   const cols = r.cols.map((c) => ({
     ...c,
-    span: Math.max(1, Math.min(12, Math.round((parseInt(c.grid, 10) || 12) / (parseInt(r.grid, 10) || 12) * 12))),
+    span: Math.max(1, Math.min(12, Math.round(((parseInt(c.grid, 10) || 12) / (parseInt(r.grid, 10) || 12)) * 12))),
   }));
   return (
-    <div className={`imweb-row${nested ? " imweb-row-nested" : ""} grid grid-cols-1 lg:grid-cols-12`} style={rowVars}>
+    <div className="imweb-row grid grid-cols-1 lg:grid-cols-12" style={rowVars}>
       {cols.map((c, i) => (
-        <div key={i} className={SPAN_CLASS[c.span] || colClass(c.grid)}>
+        <div key={i} className={`imweb-col ${SPAN_CLASS[c.span] || colClass(c.grid)}`}>
           <Rows rows={c.children} locale={locale} nested />
         </div>
       ))}

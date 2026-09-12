@@ -16,6 +16,7 @@
           "grid": "12",
           "w": 1280,
           "h": 139,
+          "pad": 15,
           "cols": [
             {
               "kind": "col",
@@ -37,6 +38,7 @@
           "grid": "12",
           "w": 1280,
           "h": 111,
+          "pad": 15,
           "cols": [
             {
               "kind": "col",
@@ -59,6 +61,7 @@
                   "kind": "row",
                   "grid": "5",
                   "h": 50,
+                  "pad": 15,
                   "cols": [
                     {
                       "kind": "col",
@@ -79,6 +82,7 @@
                   "kind": "row",
                   "grid": "5",
                   "h": 61,
+                  "pad": 15,
                   "cols": [
                     {
                       "kind": "col",
@@ -96,6 +100,7 @@
           "grid": "12",
           "w": 1280,
           "h": 60,
+          "pad": 15,
           "cols": [
             {
               "kind": "col",
@@ -125,6 +130,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "pad": 0,
           "cols": [
             {
               "kind": "col",
@@ -144,6 +150,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "pad": 0,
           "cols": [
             {
               "kind": "col",
@@ -163,6 +170,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "pad": 0,
           "cols": [
             {
               "kind": "col",
@@ -182,6 +190,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "pad": 0,
           "cols": [
             {
               "kind": "col",
@@ -193,6 +202,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "pad": 0,
           "cols": [
             {
               "kind": "col",
@@ -224,6 +234,7 @@
           "grid": "12",
           "w": 1280,
           "h": 124,
+          "pad": 15,
           "cols": [
             {
               "kind": "col",
@@ -245,6 +256,7 @@
           "grid": "12",
           "w": 1280,
           "h": 175,
+          "pad": 15,
           "cols": [
             {
               "kind": "col",
@@ -266,6 +278,7 @@
           "grid": "12",
           "w": 1280,
           "h": 124,
+          "pad": 15,
           "cols": [
             {
               "kind": "col",
@@ -297,6 +310,7 @@
           "grid": "12",
           "w": 1280,
           "h": 121,
+          "pad": 15,
           "cols": [
             {
               "kind": "col",
@@ -318,6 +332,7 @@
           "grid": "12",
           "w": 1280,
           "h": 630,
+          "pad": 15,
           "cols": [
             {
               "kind": "col",
@@ -341,6 +356,7 @@
                   "grid": "6",
                   "w": 640,
                   "h": 570,
+                  "pad": 15,
                   "cols": [
                     {
                       "kind": "col",
@@ -362,6 +378,7 @@
                   "grid": "6",
                   "w": 640,
                   "h": 60,
+                  "pad": 15,
                   "cols": [
                     {
                       "kind": "col",
@@ -387,6 +404,7 @@
           "grid": "12",
           "w": 1280,
           "h": 94,
+          "pad": 15,
           "cols": [
             {
               "kind": "col",
@@ -416,6 +434,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "pad": 0,
           "cols": [
             {
               "kind": "col",
@@ -440,6 +459,7 @@
         {
           "kind": "row",
           "grid": "12",
+          "pad": 0,
           "cols": [
             {
               "kind": "col",
@@ -470,6 +490,7 @@
           "kind": "row",
           "grid": "12",
           "w": 1280,
+          "pad": 15,
           "cols": [
             {
               "kind": "col",
@@ -501,6 +522,7 @@
           "grid": "12",
           "w": 1280,
           "h": 31,
+          "pad": 15,
           "cols": [
             {
               "kind": "col",
@@ -522,6 +544,7 @@
           "grid": "12",
           "w": 1280,
           "h": 374,
+          "pad": 15,
           "cols": [
             {
               "kind": "col",
@@ -531,6 +554,7 @@
                   "kind": "row",
                   "grid": "5",
                   "h": 104,
+                  "pad": 15,
                   "cols": [
                     {
                       "kind": "col",
@@ -551,6 +575,7 @@
                   "kind": "row",
                   "grid": "5",
                   "h": 270,
+                  "pad": 15,
                   "cols": [
                     {
                       "kind": "col",
@@ -578,6 +603,7 @@
                   "grid": "7",
                   "w": 747,
                   "h": 66,
+                  "pad": 15,
                   "cols": [
                     {
                       "kind": "col",
@@ -601,6 +627,7 @@
                   "grid": "7",
                   "w": 747,
                   "h": 269,
+                  "pad": 15,
                   "cols": [
                     {
                       "kind": "col",
@@ -610,6 +637,7 @@
                           "kind": "row",
                           "grid": "2",
                           "h": 54,
+                          "pad": 15,
                           "cols": [
                             {
                               "kind": "col",
@@ -630,6 +658,7 @@
                           "kind": "row",
                           "grid": "2",
                           "h": 215,
+                          "pad": 15,
                           "cols": [
                             {
                               "kind": "col",
@@ -648,6 +677,7 @@
                           "kind": "row",
                           "grid": "2",
                           "h": 54,
+                          "pad": 15,
                           "cols": [
                             {
                               "kind": "col",
@@ -668,6 +698,7 @@
                           "kind": "row",
                           "grid": "2",
                           "h": 122,
+                          "pad": 15,
                           "cols": [
                             {
                               "kind": "col",
@@ -686,6 +717,7 @@
                           "kind": "row",
                           "grid": "1",
                           "h": 54,
+                          "pad": 15,
                           "cols": [
                             {
                               "kind": "col",
@@ -706,6 +738,7 @@
                           "kind": "row",
                           "grid": "1",
                           "h": 122,
+                          "pad": 15,
                           "cols": [
                             {
                               "kind": "col",
@@ -724,6 +757,7 @@
                           "kind": "row",
                           "grid": "1",
                           "h": 54,
+                          "pad": 15,
                           "cols": [
                             {
                               "kind": "col",
@@ -744,6 +778,7 @@
                           "kind": "row",
                           "grid": "1",
                           "h": 61,
+                          "pad": 15,
                           "cols": [
                             {
                               "kind": "col",
@@ -762,6 +797,7 @@
                           "kind": "row",
                           "grid": "1",
                           "h": 54,
+                          "pad": 15,
                           "cols": [
                             {
                               "kind": "col",
@@ -782,6 +818,7 @@
                           "kind": "row",
                           "grid": "1",
                           "h": 61,
+                          "pad": 15,
                           "cols": [
                             {
                               "kind": "col",
@@ -803,6 +840,7 @@
           "grid": "12",
           "w": 1280,
           "h": 31,
+          "pad": 15,
           "cols": [
             {
               "kind": "col",

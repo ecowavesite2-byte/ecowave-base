@@ -35,8 +35,8 @@ async function sample(file) {
   }, { b64 });
 }
 
-const orig = await sample("design/ko/home.jpg");
-const rebuilt = await sample("design/rebuilt/home.jpg");
+const orig = await sample("design/orig-home-fresh.jpg");
+const rebuilt = await sample("design/rebuilt-home.jpg");
 console.log("ORIGINAL (h=" + orig.h + "): rows with high spread = imagery");
 orig.rows.forEach((r) => console.log(` y=${r.y} avg=${r.avg} spread=${r.spread}${r.spread > 60 ? "  <-- imagery" : ""}`));
 console.log("\nREBUILT (h=" + rebuilt.h + "):");
