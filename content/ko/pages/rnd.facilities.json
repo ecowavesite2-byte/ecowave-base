@@ -269,7 +269,9 @@
                   "id": "w20250820e4cafbac3320e",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">첨단 설비와 철저한 관리로</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">더 깨끗하고 안전한 물을 만듭니다.</span></strong></h6></div></div>\n\t",
-                  "anim": "none"
+                  "anim": "none",
+                  "animDur": "0.7",
+                  "animDelay": "0"
                 }
               ]
             }
@@ -345,7 +347,9 @@
                   "id": "w2025082017159663bed3c",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center;\"><span style=\"font-size: 48px;\"><strong><span style=\"color: rgb(18, 18, 18);\">생산설비</span></strong></span></p></div></div>\n\t",
-                  "anim": "fadeInUp"
+                  "anim": "fadeInUp",
+                  "animDur": "1.2",
+                  "animDelay": "0.3"
                 }
               ]
             }
@@ -367,7 +371,9 @@
                   "id": "w202508207cdb6535abb7d",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(81, 81, 81);\">건강하기 위해서 중요한 물, 소홀히 할 수 없습니다.</span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(81, 81, 81);\">여러분들이 안심하고 마실 수 있도록 깨끗하고 건강한 물만 만들겠다 약속합니다.</span></p></div></div>\n\t",
-                  "anim": "none"
+                  "anim": "none",
+                  "animDur": "0.7",
+                  "animDelay": "0"
                 }
               ]
             }
@@ -545,7 +551,9 @@
                   "id": "w2025082935a39e86acbcc",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center;\"><span style=\"font-size: 48px;\"><strong><span style=\"color: rgb(18, 18, 18);\">생산능력</span></strong></span></p></div></div>\n\t",
-                  "anim": "fadeInUp"
+                  "anim": "fadeInUp",
+                  "animDur": "1.2",
+                  "animDelay": "0.3"
                 }
               ]
             }
@@ -599,7 +607,9 @@
                           "id": "w20250829cd9176971c728",
                           "type": "text",
                           "html": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center;\"><span style=\"font-size: 20px;\"><strong><span style=\"color: rgb(18, 18, 18);\">생산설비 </span></strong></span></p></div></div>\n\t",
-                          "anim": "fadeInUp"
+                          "anim": "fadeInUp",
+                          "animDur": "1.2",
+                          "animDelay": "0.3"
                         }
                       ]
                     }
@@ -620,7 +630,9 @@
                           "id": "w20250829bb21466f4e0f1",
                           "type": "text",
                           "html": "\n\t\t<div class=\"text-table \"><div><table class=\"tableHover tableHorizontal\" style=\"width: 100%;\"><tbody><tr><td style=\"width: 54.6758%; background-color: rgb(52, 101, 222);\"><div style=\"text-align: center; line-height: 1.5;\"><span style=\"font-size: 16px;\"><span style=\"line-height: 1.5; color: rgb(255, 255, 255);\">설비명</span></span></div></td><td style=\"width: 45.3242%; background-color: rgb(52, 101, 222);\"><div style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\"><span style=\"color: rgb(255, 255, 255);\">대 수</span></span></span></div></td></tr><tr><td style=\"width: 54.6758%; background-color: rgb(249, 249, 249);\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">회전융착기</span></span></h6></td><td style=\"width: 45.3242%;\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">3</span></span></h6></td></tr><tr><td class=\"fr-cell-fixed \" style=\"width: 54.6758%; background-color: rgb(249, 249, 249);\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">공압검사기</span></span></h6></td><td style=\"width: 45.3242%;\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">2</span></span></h6></td></tr><tr><td style=\"width: 54.6758%; background-color: rgb(249, 249, 249);\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">라벨부착기</span></span></h6></td><td style=\"width: 45.3242%;\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">3</span></span></h6></td></tr><tr><td style=\"width: 54.6758%; background-color: rgb(249, 249, 249);\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">수축포장기</span></span></h6></td><td style=\"width: 45.3242%;\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">2</span></span></h6></td></tr><tr><td style=\"width: 54.6758%; background-color: rgb(249, 249, 249);\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">잉크젯 인쇄기</span></span></h6></td><td style=\"width: 45.3242%;\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">2</span></span></h6></td></tr><tr><td class=\"fr-cell-handler \" style=\"width: 54.6758%; background-color: rgb(249, 249, 249);\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\"><strong><span style=\"color: rgb(52, 101, 222);\">Total</span></strong></span></span></h6></td><td style=\"width: 45.3242%;\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\"><strong><span style=\"color: rgb(52, 101, 222);\">12</span></strong></span></span></h6></td></tr></tbody></table></div></div>\n\t",
-                          "anim": "none"
+                          "anim": "none",
+                          "animDur": "0.7",
+                          "animDelay": "0"
                         }
                       ]
                     }
@@ -647,7 +659,9 @@
                           "id": "w20250829dc320d96d4f7e",
                           "type": "text",
                           "html": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center;\"><span style=\"font-size: 20px;\"><strong><span style=\"color: rgb(18, 18, 18);\">측정 장비</span></strong></span></p></div></div>\n\t",
-                          "anim": "fadeInUp"
+                          "anim": "fadeInUp",
+                          "animDur": "1.2",
+                          "animDelay": "0.3"
                         }
                       ]
                     }
@@ -668,7 +682,9 @@
                           "id": "w20250829370d74ba50fab",
                           "type": "text",
                           "html": "\n\t\t<div class=\"text-table \"><div><table class=\"tableHover tableHorizontal\" style=\"width: 100%;\"><tbody><tr><td style=\"width: 43.9469%; background-color: rgb(52, 101, 222);\"><div style=\"text-align: center;\"><span style=\"font-size: 16px;\"><span style=\"color: rgb(255, 255, 255);\">설비명</span></span></div></td><td style=\"width: 55.8012%; background-color: rgb(52, 101, 222);\"><div style=\"text-align: center;\"><span style=\"font-size: 16px;\"><span style=\"color: rgb(255, 255, 255);\">대 수</span></span></div></td></tr><tr><td class=\"fr-cell-fixed \" style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">잔류염소측정기</span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">탁도 측정기</span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">경도 측정기</span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">ORP 측정기</span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">TDS 측정기</span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">pH 측정기<br></span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">가우스 측정기 <br></span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td class=\"fr-cell-handler \" style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\"><strong><span style=\"color: rgb(52, 101, 222);\">Total</span></strong></span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\"><strong><span style=\"color: rgb(52, 101, 222);\">7</span></strong></span></span></div></td></tr></tbody></table></div></div>\n\t",
-                          "anim": "none"
+                          "anim": "none",
+                          "animDur": "0.7",
+                          "animDelay": "0"
                         }
                       ]
                     }
@@ -695,7 +711,9 @@
                           "id": "w20250829336d480a01019",
                           "type": "text",
                           "html": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center;\"><span style=\"font-size: 20px;\"><strong><span style=\"color: rgb(18, 18, 18);\">테스트 장비 </span></strong></span></p></div></div>\n\t",
-                          "anim": "fadeInUp"
+                          "anim": "fadeInUp",
+                          "animDur": "1.2",
+                          "animDelay": "0.3"
                         }
                       ]
                     }
@@ -716,7 +734,9 @@
                           "id": "w202508298781405b23d22",
                           "type": "text",
                           "html": "\n\t\t<div class=\"text-table \"><div><table class=\"tableHorizontal tableHover\" style=\"width: 100%;\"><tbody><tr><td style=\"width: 43.9469%; background-color: rgb(52, 101, 222);\"><div style=\"text-align: center;\"><span style=\"font-size: 16px;\"><span style=\"color: rgb(255, 255, 255);\">설비명</span></span></div></td><td style=\"width: 55.8012%; background-color: rgb(52, 101, 222);\"><div style=\"text-align: center;\"><span style=\"font-size: 16px;\"><span style=\"color: rgb(255, 255, 255);\">대 수</span></span></div></td></tr><tr><td class=\"fr-cell-fixed \" style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">수압시험기&nbsp;</span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">공압시험기</span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">항온항습기</span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td class=\"fr-cell-handler \" style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\"><strong><span style=\"color: rgb(52, 101, 222);\">Total</span></strong></span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\"><strong><span style=\"color: rgb(52, 101, 222);\">3</span></strong></span></span></div></td></tr></tbody></table></div></div>\n\t",
-                          "anim": "none"
+                          "anim": "none",
+                          "animDur": "0.7",
+                          "animDelay": "0"
                         }
                       ]
                     }
@@ -743,7 +763,9 @@
                           "id": "w202508292eb257f4075b4",
                           "type": "text",
                           "html": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center;\"><span style=\"font-size: 20px;\"><strong><span style=\"color: rgb(18, 18, 18);\">테스트 장비 </span></strong></span></p></div></div>\n\t",
-                          "anim": "fadeInUp"
+                          "anim": "fadeInUp",
+                          "animDur": "1.2",
+                          "animDelay": "0.3"
                         }
                       ]
                     }
@@ -764,7 +786,9 @@
                           "id": "w202508293b8acaf6df97a",
                           "type": "text",
                           "html": "\n\t\t<div class=\"text-table \"><div><table class=\"tableHorizontal tableHover\" style=\"width: 100%;\"><tbody><tr><td style=\"width: 42.2414%; background-color: rgb(52, 101, 222);\"><div style=\"text-align: center; line-height: 1.5;\"><span style=\"font-size: 16px;\"><span style=\"line-height: 1.5; color: rgb(255, 255, 255);\">생산능력</span></span></div></td><td style=\"width: 58.1034%; background-color: rgb(52, 101, 222);\"><div style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\"><span style=\"color: rgb(255, 255, 255);\">수 량</span></span></span></div></td></tr><tr><td class=\"fr-cell-fixed \" style=\"width: 42.2414%; background-color: rgb(249, 249, 249);\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">Units / hr</span></span></h6></td><td style=\"width: 58.1034%;\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">1,250 ea</span></span></h6></td></tr><tr><td style=\"width: 42.2414%; background-color: rgb(249, 249, 249);\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">Units / day / ( 8hr )&nbsp;</span></span></h6></td><td style=\"width: 58.1034%;\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">10,000 ea&nbsp;</span></span></h6></td></tr><tr><td class=\"fr-cell-handler \" style=\"width: 42.2414%; background-color: rgb(249, 249, 249);\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">Units / Month /\n( 25 day )</span></span></h6></td><td style=\"width: 58.1034%;\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">250,000 ea</span></span></h6></td></tr></tbody></table></div></div>\n\t",
-                          "anim": "none"
+                          "anim": "none",
+                          "animDur": "0.7",
+                          "animDelay": "0"
                         }
                       ]
                     }
@@ -825,7 +849,9 @@
                   "hoverBg": "/images/thumbnail/20250911/68ffc55b3ed20.png",
                   "boxStyle": "",
                   "imgStyle": "visibility: visible; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 0px; height: 0px; margin: 21px auto;",
-                  "anim": "none"
+                  "anim": "none",
+                  "animDur": "0.7",
+                  "animDelay": "0"
                 }
               ]
             }
@@ -941,7 +967,9 @@
                           "id": "w20250811379e3dc61aa7f",
                           "type": "text",
                           "html": "\n\t\t<div class=\"text-table \"><div><p><img src=\"/images/upload/S20250811e0bd2f7c414df/f04049636b82b.png\" class=\"fr-fin fr-dib fr-fil\" style=\"width: 238px;\"></p></div></div>\n\t",
-                          "anim": "none"
+                          "anim": "none",
+                          "animDur": "0.7",
+                          "animDelay": "0"
                         }
                       ]
                     }
@@ -963,7 +991,9 @@
                           "id": "w20250811c8ba21c61f272",
                           "type": "text",
                           "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2;\"><span style=\"color: rgb(149, 149, 149); font-size: 14px;\">대표 : 김나연 &nbsp;</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">개인정보관리책임자 : 김나연 &nbsp;ㅣ &nbsp;문의 : ecowave_1800@naver.com</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">주소 : 인천광역시 남동구 은봉로 14 영도빌딩 2동</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">전화 : +82-32-812-1800 &nbsp;ㅣ &nbsp;팩스 : +82-32-812-1804</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><br></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Copyright ⓒ ECOWAVE. All Rights Reserved</span></span></p></div></div>\n\t",
-                          "anim": "none"
+                          "anim": "none",
+                          "animDur": "0.7",
+                          "animDelay": "0"
                         }
                       ]
                     }
@@ -992,7 +1022,9 @@
                           "text": "",
                           "href": "#doz_header",
                           "html": "<div class=\"widget button txt_r\">\n\t<div class=\"button_wrap \">\n\t\t<div class=\"inline-blocked \"><a class=\" btn btn_82610ee2a0658   btn-default  \" href=\"#doz_header\" style=\"line-height: 1; border-radius:9999px\"><i aria-hidden=\"true\" style=\"line-height: 1;\" class=\"simple icon-arrow-up\"></i></a></div>\t</div>\n</div>\n\n",
-                          "anim": "none"
+                          "anim": "none",
+                          "animDur": "0.7",
+                          "animDelay": "0"
                         }
                       ]
                     }
@@ -1023,7 +1055,9 @@
                                   "id": "w20250919b68d158c2925e",
                                   "type": "text",
                                   "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>에코</strong><strong>웨이</strong><strong>브</strong></span></p></div></div>\n\t",
-                                  "anim": "none"
+                                  "anim": "none",
+                                  "animDur": "0.7",
+                                  "animDelay": "0"
                                 }
                               ]
                             }
@@ -1063,7 +1097,9 @@
                                   "id": "w202509198aeb3bd046ac9",
                                   "type": "text",
                                   "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216);\"><strong>연구개발</strong></span></p></div></div>\n\t",
-                                  "anim": "none"
+                                  "anim": "none",
+                                  "animDur": "0.7",
+                                  "animDelay": "0"
                                 }
                               ]
                             }
@@ -1103,7 +1139,9 @@
                                   "id": "w2025091955cb4ab654cac",
                                   "type": "text",
                                   "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>제품소개</strong></span></p></div></div>\n\t",
-                                  "anim": "none"
+                                  "anim": "none",
+                                  "animDur": "0.7",
+                                  "animDelay": "0"
                                 }
                               ]
                             }
@@ -1143,7 +1181,9 @@
                                   "id": "w2025091988816c09014e4",
                                   "type": "text",
                                   "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>뉴스룸</strong></span></p></div></div>\n\t",
-                                  "anim": "none"
+                                  "anim": "none",
+                                  "animDur": "0.7",
+                                  "animDelay": "0"
                                 }
                               ]
                             }
@@ -1183,7 +1223,9 @@
                                   "id": "w20250919e76996cca8992",
                                   "type": "text",
                                   "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>고객지원</strong></span></p></div></div>\n\t",
-                                  "anim": "none"
+                                  "anim": "none",
+                                  "animDur": "0.7",
+                                  "animDelay": "0"
                                 }
                               ]
                             }

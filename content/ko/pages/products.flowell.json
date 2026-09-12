@@ -49,7 +49,9 @@
                   "id": "w20250912fcf5e56cd0688",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2;\"><span style=\"font-size: 72px;\"><strong><span style=\"color: rgb(9, 9, 9);\">Flowell</span></strong></span></p><p style=\"line-height: 3;\"><span style=\"font-size: 22px;\">플로웰</span></p></div></div>\n\t",
-                  "anim": "none"
+                  "anim": "none",
+                  "animDur": "0.7",
+                  "animDelay": "0"
                 }
               ]
             },
@@ -320,7 +322,9 @@
                   "hoverBg": "/images/thumbnail/20250911/68ffc55b3ed20.png",
                   "boxStyle": "",
                   "imgStyle": "visibility: visible; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 0px; height: 0px; margin: 21px auto;",
-                  "anim": "none"
+                  "anim": "none",
+                  "animDur": "0.7",
+                  "animDelay": "0"
                 }
               ]
             }
@@ -436,7 +440,9 @@
                           "id": "w20250811379e3dc61aa7f",
                           "type": "text",
                           "html": "\n\t\t<div class=\"text-table \"><div><p><img src=\"/images/upload/S20250811e0bd2f7c414df/f04049636b82b.png\" class=\"fr-fin fr-dib fr-fil\" style=\"width: 238px;\"></p></div></div>\n\t",
-                          "anim": "none"
+                          "anim": "none",
+                          "animDur": "0.7",
+                          "animDelay": "0"
                         }
                       ]
                     }
@@ -458,7 +464,9 @@
                           "id": "w20250811c8ba21c61f272",
                           "type": "text",
                           "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2;\"><span style=\"color: rgb(149, 149, 149); font-size: 14px;\">대표 : 김나연 &nbsp;</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">개인정보관리책임자 : 김나연 &nbsp;ㅣ &nbsp;문의 : ecowave_1800@naver.com</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">주소 : 인천광역시 남동구 은봉로 14 영도빌딩 2동</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">전화 : +82-32-812-1800 &nbsp;ㅣ &nbsp;팩스 : +82-32-812-1804</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><br></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Copyright ⓒ ECOWAVE. All Rights Reserved</span></span></p></div></div>\n\t",
-                          "anim": "none"
+                          "anim": "none",
+                          "animDur": "0.7",
+                          "animDelay": "0"
                         }
                       ]
                     }
@@ -487,7 +495,9 @@
                           "text": "",
                           "href": "#doz_header",
                           "html": "<div class=\"widget button txt_r\">\n\t<div class=\"button_wrap \">\n\t\t<div class=\"inline-blocked \"><a class=\" btn btn_82610ee2a0658   btn-default  \" href=\"#doz_header\" style=\"line-height: 1; border-radius:9999px\"><i aria-hidden=\"true\" style=\"line-height: 1;\" class=\"simple icon-arrow-up\"></i></a></div>\t</div>\n</div>\n\n",
-                          "anim": "none"
+                          "anim": "none",
+                          "animDur": "0.7",
+                          "animDelay": "0"
                         }
                       ]
                     }
@@ -518,7 +528,9 @@
                                   "id": "w20250919b68d158c2925e",
                                   "type": "text",
                                   "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>에코</strong><strong>웨이</strong><strong>브</strong></span></p></div></div>\n\t",
-                                  "anim": "none"
+                                  "anim": "none",
+                                  "animDur": "0.7",
+                                  "animDelay": "0"
                                 }
                               ]
                             }
@@ -558,7 +570,9 @@
                                   "id": "w202509198aeb3bd046ac9",
                                   "type": "text",
                                   "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216);\"><strong>연구개발</strong></span></p></div></div>\n\t",
-                                  "anim": "none"
+                                  "anim": "none",
+                                  "animDur": "0.7",
+                                  "animDelay": "0"
                                 }
                               ]
                             }
@@ -598,7 +612,9 @@
                                   "id": "w2025091955cb4ab654cac",
                                   "type": "text",
                                   "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>제품소개</strong></span></p></div></div>\n\t",
-                                  "anim": "none"
+                                  "anim": "none",
+                                  "animDur": "0.7",
+                                  "animDelay": "0"
                                 }
                               ]
                             }
@@ -638,7 +654,9 @@
                                   "id": "w2025091988816c09014e4",
                                   "type": "text",
                                   "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>뉴스룸</strong></span></p></div></div>\n\t",
-                                  "anim": "none"
+                                  "anim": "none",
+                                  "animDur": "0.7",
+                                  "animDelay": "0"
                                 }
                               ]
                             }
@@ -678,7 +696,9 @@
                                   "id": "w20250919e76996cca8992",
                                   "type": "text",
                                   "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>고객지원</strong></span></p></div></div>\n\t",
-                                  "anim": "none"
+                                  "anim": "none",
+                                  "animDur": "0.7",
+                                  "animDelay": "0"
                                 }
                               ]
                             }

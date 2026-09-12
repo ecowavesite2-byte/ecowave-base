@@ -267,7 +267,9 @@
                   "id": "w20250911288ac41c8d8f4",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">EcoWave promises healthier,</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">cleaner water for customers.</span></strong></h6></div></div>\n\t",
-                  "anim": "none"
+                  "anim": "none",
+                  "animDur": "0.7",
+                  "animDelay": "0"
                 }
               ]
             }
@@ -343,7 +345,9 @@
                   "hoverBg": "/images/thumbnail/20250919/67a21a7c80b5f.jpg",
                   "boxStyle": "height: 272px;",
                   "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: block; width: auto; height: 100%; margin-top: 0px; margin-left: -113.106px;",
-                  "anim": "fadeInUp"
+                  "anim": "fadeInUp",
+                  "animDur": "1.2",
+                  "animDelay": "0.3"
                 }
               ]
             }
@@ -363,7 +367,9 @@
                   "id": "w20250919c0ff9e7f45aaa",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: left; line-height: 2;\"><span style=\"font-size: 24px;\"><strong><span style=\"color: rgb(18, 18, 18);\">Clean water,&nbsp;</span></strong></span></h6><h6 style=\"text-align: left; line-height: 2;\"><span style=\"font-size: 24px;\"><strong><span style=\"color: rgb(18, 18, 18);\">making a healthy life&nbsp;</span></strong></span></h6><h6 style=\"text-align: left; line-height: 2;\"><span style=\"font-size: 24px;\"><strong><span style=\"color: rgb(57, 112, 235);\">Eco-wave </span></strong></span></h6></div></div>\n\t",
-                  "anim": "none"
+                  "anim": "none",
+                  "animDur": "0.7",
+                  "animDelay": "0"
                 }
               ]
             }
@@ -383,7 +389,9 @@
                   "id": "w20250919f0d5db92e5526",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"line-height: 2;\"><span style=\"font-size: 16px;\">Based on the belief that clear and clean water is the basis of life and the source of health,<br style=\"color: rgb(68, 68, 71); font-family: -apple-system, BlinkMacSystemFont, &quot;Malgun Gothic&quot;, &quot;맑은 고딕&quot;, helvetica, &quot;Apple SD Gothic Neo&quot;, helvetica, &quot;나눔바른고딕 옛한글&quot;, &quot;NanumBarunGothic YetHangul&quot;, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: -0.1px; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;\">We research and develop innovative water purifiers and high-performance filter solutions and supply them to homes and businesses.&nbsp;</span></h6><h6 style=\"line-height: 2;\"><span style=\"font-size: 16px;\">Based on technology and sustainable eco-friendly philosophy that keeps even a tiny drop of water safe, We strive to improve the quality of life of our customers and pass on a cleaner environment to future generations.</span></h6></div></div>\n\t",
-                  "anim": "none"
+                  "anim": "none",
+                  "animDur": "0.7",
+                  "animDelay": "0"
                 }
               ]
             }
@@ -461,7 +469,9 @@
                   "hoverBg": "/images/thumbnail/20250919/4b6a298c59f93.jpg",
                   "boxStyle": "height: 515px;",
                   "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: block; width: auto; height: 100%; margin-top: 0px; margin-left: -15.652px;",
-                  "anim": "fadeInUp"
+                  "anim": "fadeInUp",
+                  "animDur": "2",
+                  "animDelay": "0"
                 }
               ]
             },
@@ -485,7 +495,9 @@
                           "id": "w20250919259f74fce9615",
                           "type": "text",
                           "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: left; line-height: 2;\"><span style=\"font-size: 60px;\"><strong><span style=\"color: rgb(18, 18, 18);\">Clean water,&nbsp;</span></strong></span></h6><h6 style=\"text-align: left; line-height: 2;\"><span style=\"font-size: 60px;\"><strong><span style=\"color: rgb(18, 18, 18);\">making a healthy life&nbsp;</span></strong></span></h6><h6 style=\"text-align: left; line-height: 2;\"><span style=\"font-size: 60px;\"><strong><span style=\"color: rgb(57, 112, 235);\">Eco-wave&nbsp;</span></strong></span></h6></div></div>\n\t",
-                          "anim": "fadeInUp"
+                          "anim": "fadeInUp",
+                          "animDur": "2",
+                          "animDelay": "0"
                         }
                       ]
                     }
@@ -507,7 +519,9 @@
                           "id": "w20250919bf8df36886b3f",
                           "type": "text",
                           "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"line-height: 2;\"><span style=\"font-size: 18px;\">Based on the belief that clear and clean water is the basis of life and the source of health,<br style=\"color: rgb(68, 68, 71); font-family: -apple-system, BlinkMacSystemFont, &quot;Malgun Gothic&quot;, &quot;맑은 고딕&quot;, helvetica, &quot;Apple SD Gothic Neo&quot;, helvetica, &quot;나눔바른고딕 옛한글&quot;, &quot;NanumBarunGothic YetHangul&quot;, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: -0.1px; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;\">We research and develop innovative water purifiers and high-performance filter solutions and supply them to homes and businesses.&nbsp;</span></h6><h6 style=\"line-height: 2;\"><span style=\"font-size: 18px;\">Based on technology and sustainable eco-friendly philosophy that keeps even a tiny drop of water safe, We strive to improve the quality of life of our customers and pass on a cleaner environment to future generations.</span></h6></div></div>\n\t",
-                          "anim": "fadeInUp"
+                          "anim": "fadeInUp",
+                          "animDur": "1.2",
+                          "animDelay": "0.3"
                         }
                       ]
                     }
@@ -587,7 +601,9 @@
                   "id": "w2025091995b54ce4cb501",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: left; line-height: 2;\"><span style=\"font-size: 36px;\"><strong><span style=\"color: rgb(18, 18, 18);\">Eco-wave technology&nbsp;</span></strong></span></p></div></div>\n\t",
-                  "anim": "fadeInUp"
+                  "anim": "fadeInUp",
+                  "animDur": "1.2",
+                  "animDelay": "0.3"
                 }
               ]
             }
@@ -609,7 +625,9 @@
                   "id": "w2025091908e41c20a4c06",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: #ffffff\"></div><div class=\"text-table holder\"><div><h6 style=\"text-align: center;\"><strong><span style=\"color: rgb(57, 112, 235); font-size: 16px;\">POINT 01</span></strong></h6><h6 style=\"text-align: center;\"><span style=\"font-size: 20px;\"><strong>Eco-friendly and premium water treatment technology&nbsp;</strong></span></h6><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px;\">High-performance filters and microfiltration technology remove even fine impurities, It provides clearer and safer water.&nbsp;</span></p></div></div>\n\t",
-                  "anim": "none"
+                  "anim": "none",
+                  "animDur": "0.7",
+                  "animDelay": "0"
                 }
               ]
             },
@@ -622,7 +640,9 @@
                   "id": "w20250919d290a8000e810",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: #ffffff\"></div><div class=\"text-table holder\"><div><h6 style=\"text-align: center;\"><strong><span style=\"color: rgb(57, 112, 235); font-size: 16px;\">POINT 02</span></strong></h6><h6 style=\"text-align: center;\"><span style=\"font-size: 20px;\"><strong>OEM/Global Collaboration Capabilities&nbsp;</strong></span></h6><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px;\">Based on our experience in supplying large domestic and foreign companies and our diverse product portfolio, we work with global partners in more than 30 countries.&nbsp;</span></p></div></div>\n\t",
-                  "anim": "none"
+                  "anim": "none",
+                  "animDur": "0.7",
+                  "animDelay": "0"
                 }
               ]
             }
@@ -644,7 +664,9 @@
                   "id": "w20250919604114ba3e8ef",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: #ffffff\"></div><div class=\"text-table holder\"><div><h6 style=\"text-align: center;\"><strong><span style=\"color: rgb(57, 112, 235); font-size: 16px;\">POINT 03</span></strong></h6><h6 style=\"text-align: center;\"><span style=\"font-size: 20px;\"><strong>Advanced inspection and quality control systems&nbsp;</strong></span></h6><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px;\">Establish a system that closely inspects multiple items such as heavy metals and bacteria and operates a quality management system that can respond to global audits.&nbsp;</span></p></div></div>\n\t",
-                  "anim": "none"
+                  "anim": "none",
+                  "animDur": "0.7",
+                  "animDelay": "0"
                 }
               ]
             },
@@ -657,7 +679,9 @@
                   "id": "w20250919ca26643c90b01",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: #ffffff\"></div><div class=\"text-table holder\"><div><h6 style=\"text-align: center;\"><strong><span style=\"color: rgb(57, 112, 235); font-size: 16px;\">POINT 04</span></strong></h6><h6 style=\"text-align: center;\"><span style=\"font-size: 20px;\"><strong>Smart sterilization technology&nbsp;</strong></span></h6><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px;\">It monitors in real time using eco-friendly construction</span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px;\">methods and IoT sensors, and provides a safe sterilization solution without residues.&nbsp;</span></p></div></div>\n\t",
-                  "anim": "none"
+                  "anim": "none",
+                  "animDur": "0.7",
+                  "animDelay": "0"
                 }
               ]
             }
@@ -679,7 +703,9 @@
                   "id": "w202509198eec2733c6e54",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: #ffffff\"></div><div class=\"text-table holder\"><div><h6 style=\"text-align: center;\"><strong><span style=\"color: rgb(57, 112, 235); font-size: 16px;\">POINT 05</span></strong></h6><h6 style=\"text-align: center;\"><span style=\"font-size: 20px;\"><strong>Mass production and global supply chain&nbsp;</strong></span></h6><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px;\">.With a yearly filter production capacity of more than 2.5 billion filters and a logistics network,</span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px;\">it supplies reliably to more than 60 countries around the world.&nbsp;</span></p></div></div>\n\t",
-                  "anim": "none"
+                  "anim": "none",
+                  "animDur": "0.7",
+                  "animDelay": "0"
                 }
               ]
             }
@@ -755,7 +781,9 @@
                   "id": "w202509197b5269859e76d",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 36px;\"><strong><span style=\"color: rgb(18, 18, 18);\">EcoWave's Healthy Living Solution</span></strong></span></p></div></div>\n\t",
-                  "anim": "fadeInUp"
+                  "anim": "fadeInUp",
+                  "animDur": "1.2",
+                  "animDelay": "0.3"
                 }
               ]
             }
@@ -777,7 +805,9 @@
                   "id": "w202509199e25269420942",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(81, 81, 81);\">Based on clean water and a safe environment, EcoWave provides a variety of living technologies,</span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(81, 81, 81);\">including innovative water purifiers and filter solutions, to help you enjoy a healthier and more convenient life in your daily life.&nbsp;</span></p></div></div>\n\t",
-                  "anim": "none"
+                  "anim": "none",
+                  "animDur": "0.7",
+                  "animDelay": "0"
                 }
               ]
             }
@@ -800,6 +830,8 @@
                   "type": "gallery2",
                   "layout": "slide",
                   "anim": "fadeInUp",
+                  "animDur": "1.2",
+                  "animDelay": "0.3",
                   "gridN": null,
                   "itemW": 315,
                   "itemH": 282,
@@ -922,7 +954,9 @@
                   "id": "w20250919a3e3979b81282",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 36px;\"><strong><span style=\"color: rgb(57, 112, 235);\">EcoWave's Total Solution for Clean Water</span></strong></span></p></div></div>\n\t",
-                  "anim": "none"
+                  "anim": "none",
+                  "animDur": "0.7",
+                  "animDelay": "0"
                 }
               ]
             }
@@ -944,7 +978,9 @@
                   "id": "w20250919001730b0d37ba",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(81, 81, 81);\">From water purifiers to filters to sterilization technologies and parts,</span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(81, 81, 81);\">EcoWave provides a comprehensive water management solution for a healthy and safe life.&nbsp;</span></p></div></div>\n\t",
-                  "anim": "none"
+                  "anim": "none",
+                  "animDur": "0.7",
+                  "animDelay": "0"
                 }
               ]
             }
@@ -967,6 +1003,8 @@
                   "type": "gallery2",
                   "layout": "grid",
                   "anim": "fadeInUp",
+                  "animDur": "1.2",
+                  "animDelay": "0.3",
                   "gridN": "01",
                   "itemW": 251,
                   "itemH": 251,
@@ -1077,7 +1115,9 @@
                   "id": "w20250919de79e75e068a1",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: left; line-height: 2;\"><span style=\"font-size: 36px;\"><strong><span style=\"color: rgb(18, 18, 18);\">Eco wave that we meet in our daily lives&nbsp;</span></strong></span></p></div></div>\n\t",
-                  "anim": "none"
+                  "anim": "none",
+                  "animDur": "0.7",
+                  "animDelay": "0"
                 }
               ]
             }
@@ -1099,7 +1139,9 @@
                   "id": "w20250919083835ac90253",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text-table \"><div><div style=\"border-radius:20px; background:#f8f8f8; overflow:hidden;     padding: 20px 20px;\"><table class=\"noBorder\" style=\"width: 100%; padding:10px;\"><tbody><tr style=\"border-radius:50px 50px 0 0;\"><td style=\"width: 100%; text-align: center; background-color: rgb(248, 248, 248);\"><img src=\"/images/upload/S20250811e0bd2f7c414df/1b9f9b2c85d9a.jpg\" class=\"fr-fin fr-dib\" style=\"width: 800px;\"></td></tr><tr><td style=\"width: 100%; text-align: center; background-color: rgb(248, 248, 248);\"><h6 style=\"text-align: left;\"><span style=\"font-size: 22px;\"><strong><span style=\"color: rgb(57, 112, 235);\"><strong>Water purifier&nbsp;</strong></span></strong></span></h6><div style=\"text-align: left;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(57, 112, 235);\"><span style=\"font-size: 20px; color: rgb(54, 54, 54);\"><span style=\"font-size: 18px; line-height: 2;\">EcoWave's water purifier, which consists of various product lines such as undersink and slim type, is a basic solution to life that always supplies clean and reliable water at home, in offices and commercial facilities. &nbsp;</span></span></span></span></div><p><br></p></td></tr></tbody></table></div></div></div>\n\t",
-                  "anim": "fadeInUp"
+                  "anim": "fadeInUp",
+                  "animDur": "1.2",
+                  "animDelay": "0.3"
                 }
               ]
             },
@@ -1112,7 +1154,9 @@
                   "id": "w2025091975e9f8f963307",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text-table \"><div><div style=\"border-radius:20px; background:#f8f8f8; overflow:hidden;     padding: 20px 20px;\"><table class=\"noBorder\" style=\"width: 100%; padding:10px;\"><tbody><tr style=\"border-radius:50px 50px 0 0;\"><td style=\"width: 100%; text-align: center; background-color: rgb(248, 248, 248);\"><img src=\"/images/upload/S20250811e0bd2f7c414df/e7b42395cc54b.jpg\" class=\"fr-fin fr-dib\" style=\"width: 800px;\"></td></tr><tr><td style=\"width: 100%; text-align: center; background-color: rgb(248, 248, 248);\"><h6 style=\"text-align: left;\"><span style=\"font-size: 22px;\"><strong><span style=\"color: rgb(57, 112, 235);\"><strong>Water filter&nbsp;</strong></span></strong></span></h6><div style=\"text-align: left;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(57, 112, 235);\"><span style=\"font-size: 20px; color: rgb(54, 54, 54);\"><span style=\"font-size: 18px; line-height: 2;\">Multistage water filters consisting of sediments, pre-carbon, UF/RO/nano membranes, and post-carbon effectively remove invisible fine impurities, heavy metals, residual chlorine and harmful substances, realizing the value of healthy water beyond just improving water quality.&nbsp;</span></span></span></span></div></td></tr></tbody></table></div></div></div>\n\t",
-                  "anim": "fadeInUp"
+                  "anim": "fadeInUp",
+                  "animDur": "1.2",
+                  "animDelay": "0.3"
                 }
               ]
             }
@@ -1134,7 +1178,9 @@
                   "id": "w2025091987df5a156fa78",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text-table \"><div><div style=\"border-radius:20px; background:#f8f8f8; overflow:hidden;     padding: 20px 20px;\"><table class=\"noBorder\" style=\"width: 100%; padding:10px;\"><tbody><tr style=\"border-radius:50px 50px 0 0;\"><td style=\"width: 100%; text-align: center; background-color: rgb(248, 248, 248);\"><img src=\"/images/upload/S20250811e0bd2f7c414df/115b10efe54e3.jpg\" class=\"fr-fin fr-dib\" style=\"width: 800px;\"></td></tr><tr><td style=\"width: 100%; text-align: center; background-color: rgb(248, 248, 248);\"><h6 style=\"text-align: left;\"><span style=\"font-size: 22px;\"><strong><span style=\"color: rgb(57, 112, 235);\"><strong>Bidet filter&nbsp;</strong></span></strong></span></h6><div style=\"text-align: left;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(57, 112, 235);\"><span style=\"font-size: 20px; color: rgb(54, 54, 54);\"><span style=\"font-size: 18px; line-height: 2;\">EcoWave's bidet filter with antibacterial balls and sediment filters provides soft and hygienic water that does not burden sensitive skin, setting a new standard for personal hygiene care and providing a safe living hygiene solution.</span></span></span></span></div></td></tr></tbody></table></div></div></div>\n\t",
-                  "anim": "fadeInUp"
+                  "anim": "fadeInUp",
+                  "animDur": "1.2",
+                  "animDelay": "0.3"
                 }
               ]
             },
@@ -1147,7 +1193,9 @@
                   "id": "w20250919754216b0f2111",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text-table \"><div><div style=\"border-radius:20px; background:#f8f8f8; overflow:hidden;     padding: 20px 20px;\"><table class=\"noBorder\" style=\"width: 100%; padding:10px;\"><tbody><tr style=\"border-radius:50px 50px 0 0;\"><td style=\"width: 100%; text-align: center; background-color: rgb(248, 248, 248);\"><img src=\"/images/upload/S20250811e0bd2f7c414df/f6a0015ce78bf.jpg\" class=\"fr-fin fr-dib\" style=\"width: 800px;\"></td></tr><tr><td style=\"width: 100%; text-align: center; background-color: rgb(248, 248, 248);\"><h6 style=\"text-align: left;\"><span style=\"font-size: 22px;\"><strong><span style=\"color: rgb(57, 112, 235);\"><strong>Shower/Vitamin Filter&nbsp;</strong></span></strong></span></h6><div style=\"text-align: left;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(57, 112, 235);\"><span style=\"font-size: 20px; color: rgb(54, 54, 54);\"><span style=\"font-size: 18px; line-height: 2;\">Based on residual chlorine removal, the shower and vitamin filter, which adds aroma and vitamin ingredients, turns everyday cleaning into a time of premium care to protect skin and hair health, helping all families enjoy a healthy and refreshing life.&nbsp;</span></span></span></span></div></td></tr></tbody></table></div></div></div>\n\t",
-                  "anim": "fadeInUp"
+                  "anim": "fadeInUp",
+                  "animDur": "1.2",
+                  "animDelay": "0.3"
                 }
               ]
             }
@@ -1169,7 +1217,9 @@
                   "id": "w202509191fc6c6dc8f583",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text-table \"><div><div style=\"border-radius:20px; background:#f8f8f8; overflow:hidden;     padding: 20px 20px;\"><table class=\"noBorder\" style=\"width: 100%; padding:10px;\"><tbody><tr style=\"border-radius:50px 50px 0 0;\"><td style=\"width: 100%; text-align: center; background-color: rgb(248, 248, 248);\"><img src=\"/images/upload/S20250811e0bd2f7c414df/1b9f9b2c85d9a.jpg\" class=\"fr-fin fr-dib\" style=\"width: 800px;\"></td></tr><tr><td style=\"width: 100%; text-align: center; background-color: rgb(248, 248, 248);\"><h6 style=\"text-align: left;\"><span style=\"font-size: 22px;\"><strong><span style=\"color: rgb(57, 112, 235);\"><strong>Sterilization module&nbsp;</strong></span></strong></span></h6><div style=\"text-align: left;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(57, 112, 235);\"><span style=\"font-size: 20px; color: rgb(54, 54, 54);\"><span style=\"font-size: 18px; line-height: 2;\">Sterilization modules, which generate sterilizing water by electrolyzing water through electrodes, are a key technology for next-generation water purifiers that always keeps water tanks and hoses inside water purifiers and bidets clean and ensures a safe environment from germs and contamination.&nbsp;</span></span></span></span></div><p><br></p></td></tr></tbody></table></div></div></div>\n\t",
-                  "anim": "fadeInUp"
+                  "anim": "fadeInUp",
+                  "animDur": "1.2",
+                  "animDelay": "0.3"
                 }
               ]
             },
@@ -1182,7 +1232,9 @@
                   "id": "w202509197ff15a94c42be",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text-table \"><div><div style=\"border-radius:20px; background:#f8f8f8; overflow:hidden;     padding: 20px 20px;\"><table class=\"noBorder\" style=\"width: 100%; padding:10px;\"><tbody><tr style=\"border-radius:50px 50px 0 0;\"><td style=\"width: 100%; text-align: center; background-color: rgb(248, 248, 248);\"><img src=\"/images/upload/S20250811e0bd2f7c414df/938b9b68a8715.jpg\" class=\"fr-fin fr-dib\"></td></tr><tr><td style=\"width: 100%; text-align: center; background-color: rgb(248, 248, 248);\"><h6 style=\"text-align: left;\"><span style=\"font-size: 22px;\"><strong><span style=\"color: rgb(57, 112, 235);\"><strong>Parts &amp; Accessories&nbsp;</strong></span></strong></span></h6><div style=\"text-align: left;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(57, 112, 235);\"><span style=\"font-size: 20px; color: rgb(54, 54, 54);\"><span style=\"font-size: 18px; line-height: 2;\">Composed of low pressure switches (LPS), hand valves, various fittings, and more, the suite of components and accessories enables reliable and efficient operation of water purifiers and filter systems, providing customers with a high-quality experience based on global OEM-level precision and compatibility.&nbsp;</span></span></span></span></div><p><br></p></td></tr></tbody></table></div></div></div>\n\t",
-                  "anim": "fadeInUp"
+                  "anim": "fadeInUp",
+                  "animDur": "1.2",
+                  "animDelay": "0.3"
                 }
               ]
             }
@@ -1258,7 +1310,9 @@
                   "id": "w20250919af6067a0ad0b4",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 36px;\"><strong><span style=\"color: rgb(18, 18, 18);\">High standards, high quality</span></strong></span></p></div></div>\n\t",
-                  "anim": "fadeInUp"
+                  "anim": "fadeInUp",
+                  "animDur": "1.2",
+                  "animDelay": "0.3"
                 }
               ]
             }
@@ -1281,6 +1335,8 @@
                   "type": "gallery2",
                   "layout": "slide",
                   "anim": "none",
+                  "animDur": "0.7",
+                  "animDelay": "0",
                   "gridN": null,
                   "itemW": 252,
                   "itemH": 332,
@@ -1487,7 +1543,9 @@
                   "id": "w20250919e61880edd348f",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: center;\"><strong><span style=\"color: rgb(52, 101, 222); font-size: 18px;\">R&amp;D &amp; MANUFACTURING</span></strong></h6><h6 style=\"line-height: 2; text-align: center;\"><strong><span style=\"color: rgb(0, 0, 0); font-size: 36px; letter-spacing: -1px;\">From R&amp;D to global supply</span></strong></h6></div></div>\n\t",
-                  "anim": "none"
+                  "anim": "none",
+                  "animDur": "0.7",
+                  "animDelay": "0"
                 }
               ]
             }
@@ -1510,6 +1568,8 @@
                   "type": "gallery2",
                   "layout": "grid",
                   "anim": "fadeInUp",
+                  "animDur": "1.2",
+                  "animDelay": "0.3",
                   "gridN": "02",
                   "itemW": 210,
                   "itemH": 300,
@@ -1626,7 +1686,9 @@
                   "id": "w202509191bda255def4e5",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: center;\"><strong><span style=\"color: rgb(52, 101, 222); font-size: 18px;\">Headquarters &amp; Factory Locations&nbsp;</span></strong></h6><h6 style=\"line-height: 2; text-align: center;\"><strong><span style=\"color: rgb(0, 0, 0); font-size: 36px; letter-spacing: -1px;\">Eco Wave in the World</span></strong></h6></div></div>\n\t",
-                  "anim": "none"
+                  "anim": "none",
+                  "animDur": "0.7",
+                  "animDelay": "0"
                 }
               ]
             }
@@ -1652,7 +1714,9 @@
                   "hoverBg": "/images/thumbnail/20250919/51be646ff4140.png",
                   "boxStyle": "height: 522px;",
                   "imgStyle": "visibility: visible; image-rendering: -webkit-optimize-contrast; display: inline-block; width: auto; height: 522px; margin: 0px auto;",
-                  "anim": "none"
+                  "anim": "none",
+                  "animDur": "0.7",
+                  "animDelay": "0"
                 }
               ]
             }
@@ -1674,7 +1738,9 @@
                   "id": "w20250919acb2363841cb2",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: #ffffff\"></div><div class=\"text-table holder\"><div><h6 style=\"line-height: 1.5;\"><strong><span style=\"color: rgb(52, 101, 222); font-size: 36px;\"><img src=\"/images/upload/S20250811e0bd2f7c414df/780da2c850799.png\" class=\"fr-fin fr-dii\" style=\"width: 16px;\">&nbsp;</span><span style=\"color: rgb(52, 101, 222); font-size: 26px;\">Korean headquarters &nbsp;</span></strong><span style=\"font-size: 20px;\"><br data-start=\"13\" data-end=\"16\" data-is-only-node=\"\"></span><span style=\"font-size: 18px;\">2-dong, Yeongdo Building, 14, Eunbong-ro, Namdong-gu, Incheon, Republic of Korea</span><span style=\"font-size: 20px;\"><br data-start=\"40\" data-end=\"43\"></span><span style=\"font-size: 18px;\">TEL: +82-32-812-1800</span></h6></div></div>\n\t",
-                  "anim": "none"
+                  "anim": "none",
+                  "animDur": "0.7",
+                  "animDelay": "0"
                 }
               ]
             },
@@ -1687,7 +1753,9 @@
                   "id": "w2025091918fef070d2137",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: #ffffff\"></div><div class=\"text-table holder\"><div><h6 style=\"line-height: 1.5;\"><strong><span style=\"color: rgb(52, 101, 222); font-size: 36px;\"><img src=\"/images/upload/S20250811e0bd2f7c414df/780da2c850799.png\" class=\"fr-fin fr-dii\" style=\"width: 16px;\">&nbsp;</span><span style=\"color: rgb(52, 101, 222); font-size: 26px;\">Chinese manufacturing plant&nbsp;</span></strong><span style=\"font-size: 20px;\"><br data-start=\"13\" data-end=\"16\" data-is-only-node=\"\"></span><span style=\"font-size: 18px;\">Hongfuiie NO.90 Yantai, Shandong, PR. China</span></h6></div></div>\n\t",
-                  "anim": "none"
+                  "anim": "none",
+                  "animDur": "0.7",
+                  "animDelay": "0"
                 }
               ]
             },
@@ -1700,7 +1768,9 @@
                   "id": "w2025091967935ff9055c1",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: #ffffff\"></div><div class=\"text-table holder\"><div><h6 style=\"line-height: 1.5;\"><strong><span style=\"color: rgb(52, 101, 222); font-size: 36px;\"><img src=\"/images/upload/S20250811e0bd2f7c414df/780da2c850799.png\" class=\"fr-fin fr-dii\" style=\"width: 16px;\">&nbsp;</span><span style=\"color: rgb(52, 101, 222); font-size: 26px;\">Cambodian Office&nbsp;</span></strong><span style=\"font-size: 20px;\"><br data-start=\"13\" data-end=\"16\" data-is-only-node=\"\"></span><span style=\"font-size: 18px;\">Tuol Kork Phnom Penh City</span></h6><p><br></p></div></div>\n\t",
-                  "anim": "none"
+                  "anim": "none",
+                  "animDur": "0.7",
+                  "animDelay": "0"
                 }
               ]
             }
@@ -1778,7 +1848,9 @@
                   "hoverBg": "/images/thumbnail/20250911/68ffc55b3ed20.png",
                   "boxStyle": "",
                   "imgStyle": "visibility: visible; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 0px; height: 0px; margin: 21px auto;",
-                  "anim": "none"
+                  "anim": "none",
+                  "animDur": "0.7",
+                  "animDelay": "0"
                 }
               ]
             }
@@ -1893,7 +1965,9 @@
                           "id": "w202509118ce1bc8a9b0d2",
                           "type": "text",
                           "html": "\n\t\t<div class=\"text-table \"><div><p><img src=\"/images/upload/S20250811e0bd2f7c414df/f04049636b82b.png\" class=\"fr-fin fr-dib fr-fil\" style=\"width: 238px;\"></p></div></div>\n\t",
-                          "anim": "none"
+                          "anim": "none",
+                          "animDur": "0.7",
+                          "animDelay": "0"
                         }
                       ]
                     }
@@ -1914,7 +1988,9 @@
                           "id": "w202509119dbc665c67dac",
                           "type": "text",
                           "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2;\"><span style=\"color: rgb(149, 149, 149); font-size: 14px;\">CEO : Choi Taeguk&nbsp;</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Personal Information Management Officer : Kim nacyeon</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Inquiry : ecowave_1800@naver.com</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">ADDRESS : 2-dong, Yeongdo Building, 14, Eunbong-ro, Namdong-gu, Incheon, Republic of Korea</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">TEL : +82-32-812-1800 &nbsp;ㅣ &nbsp;FAX : +82-32-812-1804</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><br></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Copyright ⓒ ECOWAVE. All Rights Reserved</span></span></p></div></div>\n\t",
-                          "anim": "none"
+                          "anim": "none",
+                          "animDur": "0.7",
+                          "animDelay": "0"
                         }
                       ]
                     }
@@ -1944,7 +2020,9 @@
                           "text": "",
                           "href": "#doz_header",
                           "html": "<div class=\"widget button txt_r\">\n\t<div class=\"button_wrap \">\n\t\t<div class=\"inline-blocked \"><a class=\" btn btn_82610ee2a0658   btn-default  \" href=\"#doz_header\" style=\"line-height: 1; border-radius:9999px\"><i aria-hidden=\"true\" style=\"line-height: 1;\" class=\"simple icon-arrow-up\"></i></a></div>\t</div>\n</div>\n\n",
-                          "anim": "none"
+                          "anim": "none",
+                          "animDur": "0.7",
+                          "animDelay": "0"
                         }
                       ]
                     }
@@ -1976,7 +2054,9 @@
                                   "id": "w2025091927502632b6fed",
                                   "type": "text",
                                   "html": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Ecowave</strong></span></p></div></div>\n\t",
-                                  "anim": "none"
+                                  "anim": "none",
+                                  "animDur": "0.7",
+                                  "animDelay": "0"
                                 }
                               ]
                             }
@@ -2016,7 +2096,9 @@
                                   "id": "w20250919d2cfeb08d555f",
                                   "type": "text",
                                   "html": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>R&amp;D</strong></span></p></div></div>\n\t",
-                                  "anim": "none"
+                                  "anim": "none",
+                                  "animDur": "0.7",
+                                  "animDelay": "0"
                                 }
                               ]
                             }
@@ -2056,7 +2138,9 @@
                                   "id": "w20250919603eb2866e1fe",
                                   "type": "text",
                                   "html": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Product</strong></span></p></div></div>\n\t",
-                                  "anim": "none"
+                                  "anim": "none",
+                                  "animDur": "0.7",
+                                  "animDelay": "0"
                                 }
                               ]
                             }
@@ -2096,7 +2180,9 @@
                                   "id": "w20250919afe2c48fcf119",
                                   "type": "text",
                                   "html": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>News</strong></span></p></div></div>\n\t",
-                                  "anim": "none"
+                                  "anim": "none",
+                                  "animDur": "0.7",
+                                  "animDelay": "0"
                                 }
                               ]
                             }
@@ -2136,7 +2222,9 @@
                                   "id": "w20250919822d35f1c69bf",
                                   "type": "text",
                                   "html": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Customer</strong></span></p></div></div>\n\t",
-                                  "anim": "none"
+                                  "anim": "none",
+                                  "animDur": "0.7",
+                                  "animDelay": "0"
                                 }
                               ]
                             }

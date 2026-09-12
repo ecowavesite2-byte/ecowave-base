@@ -87,7 +87,9 @@
                   "id": "w20250911711c8c42fda94",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"line-height: 1;\"><strong><span style=\"color: rgb(0, 0, 0); font-size: 20px; letter-spacing: 0px;\">Healthywater, Eco-wave</span></strong></h6><h6 style=\"line-height: 1;\"><span style=\"font-size: 20px;\"><strong><span style=\"color: rgb(0, 0, 0); letter-spacing: 0px;\">Together we create a&nbsp;</span></strong></span><strong><span style=\"color: rgb(52, 101, 222); font-size: 20px; letter-spacing: 0px;\">better future</span></strong></h6></div></div>\n\t",
-                  "anim": "none"
+                  "anim": "none",
+                  "animDur": "0.7",
+                  "animDelay": "0"
                 }
               ]
             }
@@ -122,7 +124,9 @@
                   "hoverBg": "/images/thumbnail/20250911/55a9cffce4f94.jpg",
                   "boxStyle": "height: 179px;",
                   "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: block; width: auto; height: 100%; margin-top: 0px; margin-left: -66.7081px;",
-                  "anim": "fadeInUp"
+                  "anim": "fadeInUp",
+                  "animDur": "1.2",
+                  "animDelay": "0.3"
                 }
               ]
             }
@@ -147,7 +151,9 @@
                   "hoverBg": "/images/thumbnail/20250911/aabafe51067b6.jpg",
                   "boxStyle": "height: 179px;",
                   "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: block; width: auto; height: 100%; margin-top: 0px; margin-left: -66.7081px;",
-                  "anim": "fadeInUp"
+                  "anim": "fadeInUp",
+                  "animDur": "1.2",
+                  "animDelay": "0.3"
                 }
               ]
             }
@@ -172,7 +178,9 @@
                   "hoverBg": "/images/thumbnail/20250911/84fff7d77ffff.jpg",
                   "boxStyle": "height: 179px;",
                   "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: block; width: auto; height: 100%; margin-top: 0px; margin-left: -66.7081px;",
-                  "anim": "fadeInUp"
+                  "anim": "fadeInUp",
+                  "animDur": "1.2",
+                  "animDelay": "0.3"
                 }
               ]
             }
@@ -197,7 +205,9 @@
                   "hoverBg": "/images/thumbnail/20250911/41c848eb0d74e.jpg",
                   "boxStyle": "height: 179px;",
                   "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: block; width: auto; height: 100%; margin-top: 0px; margin-left: -66.7081px;",
-                  "anim": "fadeInUp"
+                  "anim": "fadeInUp",
+                  "animDur": "1.2",
+                  "animDelay": "0.3"
                 }
               ]
             }
@@ -318,7 +328,9 @@
                   "id": "w2025091174e9aad453df2",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: center;\"><img src=\"/images/upload/S20250811e0bd2f7c414df/48fbd16b3a070.png\" class=\"fr-fin fr-dib\" style=\"width: 266px;\"></h6><p style=\"text-align: center;\"><br></p><p style=\"text-align: center;\"><span style=\"color: rgb(255, 255, 255);\">EcoWave promotes a healthy,</span></p><p style=\"text-align: center;\"><span style=\"color: rgb(255, 255, 255);\">sustainable life with innovative water purification technology,&nbsp;</span><span style=\"color: rgb(255, 255, 255);\">realizing eco-friendly values where people and nature coexist.</span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(255, 255, 255); letter-spacing: 0px;\">&nbsp;</span></span></p></div></div>\n\t",
-                  "anim": "none"
+                  "anim": "none",
+                  "animDur": "0.7",
+                  "animDelay": "0"
                 }
               ]
             }
@@ -342,7 +354,9 @@
                   "hoverBg": "/images/thumbnail/20250918/22698d11a0ae4.png",
                   "boxStyle": "",
                   "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 0px; height: 0px; margin: 335px auto;",
-                  "anim": "fadeInUp"
+                  "anim": "fadeInUp",
+                  "animDur": "1.2",
+                  "animDelay": "0.3"
                 }
               ]
             }
@@ -448,7 +462,9 @@
                   "id": "w202509118ed9a62bd38d1",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"line-height: 2;\"><strong><span style=\"color: rgb(0, 0, 0); font-size: 48px; letter-spacing: 0px;\">Healthy water, Eco-wave &nbsp;</span></strong></h6><p><strong><span style=\"letter-spacing: 0;\"><span style=\"color: rgb(0, 0, 0); font-size: 48px;\">Together we create a&nbsp;</span></span><span style=\"color: rgb(52, 101, 222); font-size: 48px; letter-spacing: 0px;\">better future &nbsp;</span></strong></p></div></div>\n\t",
-                  "anim": "fadeInUp"
+                  "anim": "fadeInUp",
+                  "animDur": "0.7",
+                  "animDelay": "0.3"
                 }
               ]
             }
@@ -497,7 +513,9 @@
                   "hoverBg": "/images/thumbnail/20250811/074daf03cf1c9.jpg",
                   "boxStyle": "height: 319px;",
                   "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: block; width: 100%; height: auto; margin-top: 0px; margin-left: 0px;",
-                  "anim": "fadeInUp"
+                  "anim": "fadeInUp",
+                  "animDur": "1.2",
+                  "animDelay": "0.1"
                 }
               ]
             },
@@ -515,7 +533,9 @@
                   "hoverBg": "/images/thumbnail/20250811/675fc2a209376.jpg",
                   "boxStyle": "height: 319px;",
                   "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: block; width: 100%; height: auto; margin-top: 0px; margin-left: 0px;",
-                  "anim": "fadeInUp"
+                  "anim": "fadeInUp",
+                  "animDur": "1.2",
+                  "animDelay": "0.3"
                 }
               ]
             },
@@ -533,7 +553,9 @@
                   "hoverBg": "/images/thumbnail/20250811/7d889b9d7c83b.jpg",
                   "boxStyle": "height: 319px;",
                   "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: block; width: 100%; height: auto; margin-top: 0px; margin-left: 0px;",
-                  "anim": "fadeInUp"
+                  "anim": "fadeInUp",
+                  "animDur": "1.2",
+                  "animDelay": "0.5"
                 }
               ]
             },
@@ -551,7 +573,9 @@
                   "hoverBg": "/images/thumbnail/20250811/b20b0e111f10b.jpg",
                   "boxStyle": "height: 319px;",
                   "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: block; width: 100%; height: auto; margin-top: 0px; margin-left: 0px;",
-                  "anim": "fadeInUp"
+                  "anim": "fadeInUp",
+                  "animDur": "1.2",
+                  "animDelay": "0.6"
                 }
               ]
             }
@@ -648,7 +672,9 @@
                   "id": "w2025091155849fca36783",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: center;\"><img src=\"/images/upload/S20250811e0bd2f7c414df/48fbd16b3a070.png\" class=\"fr-fin fr-dib\" style=\"width: 296px;\"></h6><p style=\"text-align: center; line-height: 2;\"><br><span style=\"color: rgb(255, 255, 255); font-size: 18px; letter-spacing: 0px;\">EcoWave promotes a healthy, sustainable life with innovative water purification technology,</span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"color: rgb(255, 255, 255); font-size: 18px; letter-spacing: 0px;\">realizing eco-friendly values where people and nature coexist.</span></p><p style=\"text-align: center; line-height: 2;\"><br></p></div></div>\n\t",
-                  "anim": "none"
+                  "anim": "none",
+                  "animDur": "0.7",
+                  "animDelay": "0"
                 }
               ]
             }
@@ -674,7 +700,9 @@
                   "hoverBg": "/images/thumbnail/20250917/e1931484261b8.png",
                   "boxStyle": "",
                   "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 1250px; height: 348px; margin: 14px auto;",
-                  "anim": "fadeInUp"
+                  "anim": "fadeInUp",
+                  "animDur": "1.2",
+                  "animDelay": "0.3"
                 }
               ]
             }
@@ -750,7 +778,9 @@
                   "id": "w2025091130fc2cd68d88b",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"line-height: 2;\"><strong><span style=\"color: rgb(52, 101, 222); font-size: 48px; letter-spacing: 0px;\">Through eco-friendly technological innovation</span></strong></h6><h6 style=\"line-height: 2;\"><strong><span style=\"color: rgb(0, 0, 0); font-size: 48px; letter-spacing: 0px;\">The Sustainable Future of EcoWaves&nbsp;</span></strong></h6></div></div>\n\t",
-                  "anim": "fadeInUp"
+                  "anim": "fadeInUp",
+                  "animDur": "0.7",
+                  "animDelay": "0.3"
                 }
               ]
             }
@@ -818,7 +848,9 @@
                           "hoverBg": "/images/thumbnail/20250811/b2bfd0819b1e7.jpg",
                           "boxStyle": "height: 548px;",
                           "imgStyle": "visibility: visible; image-rendering: -webkit-optimize-contrast; display: block; width: auto; height: 100%; margin-top: 0px; margin-left: -74.8178px;",
-                          "anim": "none"
+                          "anim": "none",
+                          "animDur": "0.7",
+                          "animDelay": "0"
                         }
                       ]
                     }
@@ -860,7 +892,9 @@
                           "id": "w20250911b77c92fa17542",
                           "type": "text",
                           "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: center;\"><span style=\"font-size: 30px;\"><strong><span style=\"color: rgb(0, 0, 0);\">Living Solution&nbsp;</span></strong></span></h6><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(93, 93, 93);\">Advanced filters &amp; eco-products<br data-start=\"119\" data-end=\"122\">&nbsp;for cleaner, healthier water.</span></p></div></div>\n\t",
-                          "anim": "fadeInUp"
+                          "anim": "fadeInUp",
+                          "animDur": "1.2",
+                          "animDelay": "0.3"
                         }
                       ]
                     }
@@ -891,7 +925,9 @@
                           "hoverBg": "/images/thumbnail/20250811/482b1d289f2ef.jpg",
                           "boxStyle": "height: 548px;",
                           "imgStyle": "visibility: visible; image-rendering: -webkit-optimize-contrast; display: block; width: auto; height: 100%; margin-top: 0px; margin-left: -74.8178px;",
-                          "anim": "none"
+                          "anim": "none",
+                          "animDur": "0.7",
+                          "animDelay": "0"
                         }
                       ]
                     }
@@ -933,7 +969,9 @@
                           "id": "w20250911d1e19a54f0dc6",
                           "type": "text",
                           "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: center;\"><span style=\"font-size: 30px;\"><strong><span style=\"color: rgb(0, 0, 0);\">Water &amp; Smart Parts</span></strong></span></h6><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(93, 93, 93);\">High-performance filters &amp; smart modules<br data-start=\"204\" data-end=\"207\">&nbsp;for sustainable solutions.</span></p></div></div>\n\t",
-                          "anim": "fadeInUp"
+                          "anim": "fadeInUp",
+                          "animDur": "1.2",
+                          "animDelay": "0.4"
                         }
                       ]
                     }
@@ -964,7 +1002,9 @@
                           "hoverBg": "/images/thumbnail/20250812/b3ac0bbe894b9.jpg",
                           "boxStyle": "height: 548px;",
                           "imgStyle": "visibility: visible; image-rendering: -webkit-optimize-contrast; display: block; width: auto; height: 100%; margin-top: 0px; margin-left: -74.8178px;",
-                          "anim": "none"
+                          "anim": "none",
+                          "animDur": "0.7",
+                          "animDelay": "0"
                         }
                       ]
                     }
@@ -1006,7 +1046,9 @@
                           "id": "w20250911e95963b409926",
                           "type": "text",
                           "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: center;\"><span style=\"font-size: 30px;\"><strong><span style=\"color: rgb(0, 0, 0);\">Health &amp; Care&nbsp;</span></strong></span></h6><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(93, 93, 93);\">EcoWave develops next-gen water care<br data-start=\"282\" data-end=\"285\">&nbsp;and hygiene technologies.</span></p></div></div>\n\t",
-                          "anim": "fadeInUp"
+                          "anim": "fadeInUp",
+                          "animDur": "1.2",
+                          "animDelay": "0.5"
                         }
                       ]
                     }
@@ -1063,6 +1105,8 @@
                   "type": "gallery2",
                   "layout": "slide",
                   "anim": "none",
+                  "animDur": "0.7",
+                  "animDelay": "0",
                   "gridN": null,
                   "itemW": 0,
                   "itemH": 0,
@@ -1155,7 +1199,9 @@
                   "id": "w202509110d82f4812def7",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text-table \"><div><p><span style=\"font-size: 30px;\"><span style=\"color: rgb(255, 255, 255);\">Ecowave</span></span></p><p><span style=\"font-size: 26px;\"><em><span style=\"color: rgb(255, 255, 255);\">Clean Water, Healthy People.</span></em></span></p></div></div>\n\t",
-                  "anim": "none"
+                  "anim": "none",
+                  "animDur": "0.7",
+                  "animDelay": "0"
                 }
               ]
             }
@@ -1176,7 +1222,9 @@
                   "type": "video",
                   "src": "https://www.youtube.com/embed/p1wiw6f1Twg?loop=1&rel=0&playlist=p1wiw6f1Twg&showinfo=0&controls=0&mute=1&autoplay=1&enablejsapi=1&origin=https%3A%2F%2Fen.ecowavekorea.co.kr&widgetid=1&forigin=https%3A%2F%2Fen.ecowavekorea.co.kr%2F&aoriginsup=1&vf=1",
                   "html": "\t<div id=\"video_w202509111d1a9f486fd94\" class=\"widget movie _video_wrap \" style=\"position: relative\">\n\t\t<div style=\"overflow: hidden; text-align: center; height: 0px;\" id=\"img_box_w202509111d1a9f486fd94\" class=\"img_box _img_box holder\" data-vimeo-id=\"p1wiw6f1Twg\" data-vimeo-defer=\"\"><div class=\"play-icon _cover_layer\" style=\"display: none; \" onmouseover=\";\"><span class=\"show_btn\" onclick=\"site_video_list['w202509111d1a9f486fd94'].play()\"><i></i></span></div><iframe class=\"_img\" id=\"img_w202509111d1a9f486fd94\" src=\"https://www.youtube.com/embed/p1wiw6f1Twg?loop=1&amp;rel=0&amp;playlist=p1wiw6f1Twg&amp;showinfo=0&amp;controls=0&amp;mute=1&amp;autoplay=1&amp;enablejsapi=1&amp;origin=https%3A%2F%2Fen.ecowavekorea.co.kr&amp;widgetid=1&amp;forigin=https%3A%2F%2Fen.ecowavekorea.co.kr%2F&amp;aoriginsup=1&amp;vf=1\" style=\"display: block; width: 100%; margin: 0px; height: 100%;\" frameborder=\"0\" allowfullscreen=\"\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" title=\"main\" width=\"640\" height=\"360\"></iframe></div>\t</div>\n\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t",
-                  "anim": "none"
+                  "anim": "none",
+                  "animDur": "0.7",
+                  "animDelay": "0"
                 }
               ]
             }
@@ -1250,7 +1298,9 @@
                   "id": "w20250911f3e8bfbc5bd27",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: left;\"><span style=\"color: rgb(255, 255, 255); font-size: 60px; letter-spacing: 0px;\"><strong>Eco wave</strong></span></p><p style=\"text-align: left;\"><span style=\"color: rgb(255, 255, 255); font-size: 60px; letter-spacing: 0px;\"><em>Clean Water, Healthy People.</em></span></p></div></div>\n\t",
-                  "anim": "fadeInUp"
+                  "anim": "fadeInUp",
+                  "animDur": "1.2",
+                  "animDelay": "0.3"
                 }
               ]
             }
@@ -1295,7 +1345,9 @@
                   "type": "video",
                   "src": "https://www.youtube.com/embed/p1wiw6f1Twg?loop=1&rel=0&playlist=p1wiw6f1Twg&showinfo=0&controls=0&mute=1&autoplay=1&enablejsapi=1&origin=https%3A%2F%2Fen.ecowavekorea.co.kr&widgetid=2&forigin=https%3A%2F%2Fen.ecowavekorea.co.kr%2F&aoriginsup=1&vf=1",
                   "html": "\t<div id=\"video_w2025091151d7ad2cd1780\" class=\"widget movie _video_wrap \" style=\"position: relative\">\n\t\t<div style=\"overflow: hidden; text-align: center; height: 703.125px;\" id=\"img_box_w2025091151d7ad2cd1780\" class=\"img_box _img_box holder\" data-vimeo-id=\"p1wiw6f1Twg\" data-vimeo-defer=\"\"><div class=\"play-icon _cover_layer\" style=\"display: none; \" onmouseover=\";\"><span class=\"show_btn\" onclick=\"site_video_list['w2025091151d7ad2cd1780'].play()\"><i></i></span></div><iframe class=\"_img\" id=\"img_w2025091151d7ad2cd1780\" src=\"https://www.youtube.com/embed/p1wiw6f1Twg?loop=1&amp;rel=0&amp;playlist=p1wiw6f1Twg&amp;showinfo=0&amp;controls=0&amp;mute=1&amp;autoplay=1&amp;enablejsapi=1&amp;origin=https%3A%2F%2Fen.ecowavekorea.co.kr&amp;widgetid=2&amp;forigin=https%3A%2F%2Fen.ecowavekorea.co.kr%2F&amp;aoriginsup=1&amp;vf=1\" style=\"display: block; width: 100%; margin: 0px; height: 100%;\" frameborder=\"0\" allowfullscreen=\"\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" title=\"main\" width=\"640\" height=\"360\"></iframe></div>\t</div>\n\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t",
-                  "anim": "none"
+                  "anim": "none",
+                  "animDur": "0.7",
+                  "animDelay": "0"
                 }
               ]
             }
@@ -1349,7 +1401,9 @@
                   "id": "w20250911277055db3f882",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: center;\"><strong><span style=\"color: rgb(52, 101, 222); font-size: 20px;\">Headquarters &amp; Factory Locations&nbsp;</span></strong></h6><h6 style=\"line-height: 2; text-align: center;\"><strong><span style=\"color: rgb(0, 0, 0); font-size: 48px; letter-spacing: -1px;\">Eco Wave in the World&nbsp;</span></strong></h6></div></div>\n\t",
-                  "anim": "none"
+                  "anim": "none",
+                  "animDur": "0.7",
+                  "animDelay": "0"
                 }
               ]
             }
@@ -1375,7 +1429,9 @@
                   "hoverBg": "/images/thumbnail/20250912/bc018ecaa7de6.png",
                   "boxStyle": "",
                   "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 773px; height: 427px; margin-left: auto; margin-right: auto;",
-                  "anim": "fadeIn"
+                  "anim": "fadeIn",
+                  "animDur": "1.2",
+                  "animDelay": "0.3"
                 }
               ]
             },
@@ -1398,7 +1454,9 @@
                           "id": "w20250911aac3a7a86e6c7",
                           "type": "text",
                           "html": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: #ffffff\"></div><div class=\"text-table holder\"><div><h6 style=\"line-height: 1.5;\"><strong><span style=\"color: rgb(52, 101, 222); font-size: 36px;\">KOR</span><span style=\"color: rgb(52, 101, 222); font-size: 30px;\">&nbsp;</span></strong><span style=\"font-size: 20px;\">[KOREA]<br data-start=\"13\" data-end=\"16\" data-is-only-node=\"\">2-dong, Yeongdo Building, 14, Eunbong-ro, Namdong-gu, Incheon, Republic of Korea<br data-start=\"40\" data-end=\"43\">TEL: +82-32-812-1800 / Fax: +82-32-812-1804</span></h6></div></div>\n\t",
-                          "anim": "fadeInUp"
+                          "anim": "fadeInUp",
+                          "animDur": "1.2",
+                          "animDelay": "0.2"
                         }
                       ]
                     }
@@ -1440,7 +1498,9 @@
                           "id": "w20250911151a9167a2d61",
                           "type": "text",
                           "html": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: #ffffff\"></div><div class=\"text-table holder\"><div><h6 style=\"line-height: 2;\"><strong><span style=\"color: rgb(52, 101, 222); font-size: 36px;\">CHN</span><span style=\"color: rgb(52, 101, 222); font-size: 30px;\">&nbsp;</span></strong><span style=\"font-size: 20px;\">[CHINA]</span><span style=\"font-size: 16px;\"><br data-start=\"13\" data-end=\"16\" data-is-only-node=\"\"></span><span style=\"font-size: 20px;\">Hongfuiie NO.90 Yantai, Shandong, PR. China</span></h6></div></div>\n\t",
-                          "anim": "fadeInUp"
+                          "anim": "fadeInUp",
+                          "animDur": "1.2",
+                          "animDelay": "0.3"
                         }
                       ]
                     }
@@ -1482,7 +1542,9 @@
                           "id": "w20250911b8cb2d96530e1",
                           "type": "text",
                           "html": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: #ffffff\"></div><div class=\"text-table holder\"><div><h6 style=\"line-height: 2;\"><strong><span style=\"color: rgb(52, 101, 222); font-size: 36px;\">KHM</span><span style=\"color: rgb(52, 101, 222); font-size: 30px;\">&nbsp;</span></strong><span style=\"font-size: 20px;\">[CAMBODIA] <br data-start=\"13\" data-end=\"16\" data-is-only-node=\"\">Tuol Kork Phnom Penh City</span></h6></div></div>\n\t",
-                          "anim": "fadeInUp"
+                          "anim": "fadeInUp",
+                          "animDur": "1.2",
+                          "animDelay": "0.4"
                         }
                       ]
                     }
@@ -1583,7 +1645,9 @@
                   "id": "w20250911b383670c04fca",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(52, 101, 222); font-size: 20px;\">News</span></strong></h6><h6 style=\"line-height: 2;\"><strong><span style=\"color: rgb(0, 0, 0); font-size: 48px; letter-spacing: -1px;\">The New Story of Ecowave &nbsp;</span></strong></h6></div></div>\n\t",
-                  "anim": "none"
+                  "anim": "none",
+                  "animDur": "0.7",
+                  "animDelay": "0"
                 }
               ]
             },
@@ -1629,7 +1693,9 @@
                           "text": "",
                           "href": "/29",
                           "html": "<div class=\"widget button txt_r\">\n\t<div class=\"button_wrap \">\n\t\t<div class=\"inline-blocked animated wg_animated Left\" style=\"visibility: hidden;\"><a class=\" btn btn_ea4e6bf7346e7   btn-default _fade_link  \" href=\"/29\" style=\"line-height: 1; border-radius:9999px\"><i aria-hidden=\"true\" style=\"line-height: 1;\" class=\"btm bt-plus\"></i></a></div>\t</div>\n</div>\n\n",
-                          "anim": "fadeInUp"
+                          "anim": "fadeInUp",
+                          "animDur": "0.7",
+                          "animDelay": "0"
                         }
                       ]
                     }
@@ -1733,7 +1799,9 @@
                   "hoverBg": "/images/thumbnail/20250911/68ffc55b3ed20.png",
                   "boxStyle": "",
                   "imgStyle": "visibility: visible; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 0px; height: 0px; margin: 21px auto;",
-                  "anim": "none"
+                  "anim": "none",
+                  "animDur": "0.7",
+                  "animDelay": "0"
                 }
               ]
             }
@@ -1848,7 +1916,9 @@
                           "id": "w202509118ce1bc8a9b0d2",
                           "type": "text",
                           "html": "\n\t\t<div class=\"text-table \"><div><p><img src=\"/images/upload/S20250811e0bd2f7c414df/f04049636b82b.png\" class=\"fr-fin fr-dib fr-fil\" style=\"width: 238px;\"></p></div></div>\n\t",
-                          "anim": "none"
+                          "anim": "none",
+                          "animDur": "0.7",
+                          "animDelay": "0"
                         }
                       ]
                     }
@@ -1869,7 +1939,9 @@
                           "id": "w202509119dbc665c67dac",
                           "type": "text",
                           "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2;\"><span style=\"color: rgb(149, 149, 149); font-size: 14px;\">CEO : Choi Taeguk&nbsp;</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Personal Information Management Officer : Kim nacyeon</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Inquiry : ecowave_1800@naver.com</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">ADDRESS : 2-dong, Yeongdo Building, 14, Eunbong-ro, Namdong-gu, Incheon, Republic of Korea</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">TEL : +82-32-812-1800 &nbsp;ㅣ &nbsp;FAX : +82-32-812-1804</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><br></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Copyright ⓒ ECOWAVE. All Rights Reserved</span></span></p></div></div>\n\t",
-                          "anim": "none"
+                          "anim": "none",
+                          "animDur": "0.7",
+                          "animDelay": "0"
                         }
                       ]
                     }
@@ -1899,7 +1971,9 @@
                           "text": "",
                           "href": "#doz_header",
                           "html": "<div class=\"widget button txt_r\">\n\t<div class=\"button_wrap \">\n\t\t<div class=\"inline-blocked \"><a class=\" btn btn_82610ee2a0658   btn-default  \" href=\"#doz_header\" style=\"line-height: 1; border-radius:9999px\"><i aria-hidden=\"true\" style=\"line-height: 1;\" class=\"simple icon-arrow-up\"></i></a></div>\t</div>\n</div>\n\n",
-                          "anim": "none"
+                          "anim": "none",
+                          "animDur": "0.7",
+                          "animDelay": "0"
                         }
                       ]
                     }
@@ -1931,7 +2005,9 @@
                                   "id": "w2025091927502632b6fed",
                                   "type": "text",
                                   "html": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Ecowave</strong></span></p></div></div>\n\t",
-                                  "anim": "none"
+                                  "anim": "none",
+                                  "animDur": "0.7",
+                                  "animDelay": "0"
                                 }
                               ]
                             }
@@ -1971,7 +2047,9 @@
                                   "id": "w20250919d2cfeb08d555f",
                                   "type": "text",
                                   "html": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>R&amp;D</strong></span></p></div></div>\n\t",
-                                  "anim": "none"
+                                  "anim": "none",
+                                  "animDur": "0.7",
+                                  "animDelay": "0"
                                 }
                               ]
                             }
@@ -2011,7 +2089,9 @@
                                   "id": "w20250919603eb2866e1fe",
                                   "type": "text",
                                   "html": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Product</strong></span></p></div></div>\n\t",
-                                  "anim": "none"
+                                  "anim": "none",
+                                  "animDur": "0.7",
+                                  "animDelay": "0"
                                 }
                               ]
                             }
@@ -2051,7 +2131,9 @@
                                   "id": "w20250919afe2c48fcf119",
                                   "type": "text",
                                   "html": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>News</strong></span></p></div></div>\n\t",
-                                  "anim": "none"
+                                  "anim": "none",
+                                  "animDur": "0.7",
+                                  "animDelay": "0"
                                 }
                               ]
                             }
@@ -2091,7 +2173,9 @@
                                   "id": "w20250919822d35f1c69bf",
                                   "type": "text",
                                   "html": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Customer</strong></span></p></div></div>\n\t",
-                                  "anim": "none"
+                                  "anim": "none",
+                                  "animDur": "0.7",
+                                  "animDelay": "0"
                                 }
                               ]
                             }

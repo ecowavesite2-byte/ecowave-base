@@ -14,7 +14,12 @@ export type WidgetNode = {
   boxStyle?: string;
   imgStyle?: string;
   anim?: string;
+  animDur?: string | null;
+  animDelay?: string | null;
   layout?: "slide" | "grid";
+  gridN?: string | null;
+  itemW?: number | null;
+  itemH?: number | null;
   items?: {
     org: string | null;
     thumb: string | null;

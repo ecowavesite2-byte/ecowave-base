@@ -267,7 +267,9 @@
                   "id": "w20250911c3033f482e3eb",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">EcoWave promises healthier,</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">cleaner water for customers.</span></strong></h6></div></div>\n\t",
-                  "anim": "none"
+                  "anim": "none",
+                  "animDur": "0.7",
+                  "animDelay": "0"
                 }
               ]
             }
@@ -353,7 +355,9 @@
                           "id": "w20250911bd746703f1763",
                           "type": "text",
                           "html": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: rgba(57, 112, 235, 0)\"></div><div class=\"text-table holder\"><div><p style=\"text-align:center;\"><span style=\"display: inline-flex; justify-content: center; align-items: center; width: 250px; aspect-ratio: 1 / 1; background-color: rgb(57, 112, 235); color: rgb(255, 255, 255); font-size: 30px; font-weight: bold; border-radius: 50%;\">Mission</span></p></div></div>\n\t",
-                          "anim": "fadeInUp"
+                          "anim": "fadeInUp",
+                          "animDur": "1.2",
+                          "animDelay": "0.3"
                         }
                       ]
                     }
@@ -374,7 +378,9 @@
                           "id": "w20250911c86683f39d6eb",
                           "type": "text",
                           "html": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: rgba(247, 247, 247, 0)\"></div><div class=\"text-table holder\"><div><h6 style=\"text-align: center; line-height: 1;\"><span style=\"font-size: 20px;\">Clean water, healthy people.</span></h6><h6 style=\"text-align: center; line-height: 1;\"><span style=\"font-size: 18px;\"><span style=\"color: rgb(57, 112, 235);\"><strong>For happy lives, &nbsp;we create healthier filters.&nbsp;</strong></span></span><span style=\"font-size: 18px;\"><span style=\"color: rgb(57, 112, 235);\"><strong>&nbsp;</strong></span></span></h6></div></div>\n\t",
-                          "anim": "none"
+                          "anim": "none",
+                          "animDur": "0.7",
+                          "animDelay": "0"
                         }
                       ]
                     }
@@ -401,7 +407,9 @@
                           "id": "w20250911a64c6be4ed481",
                           "type": "text",
                           "html": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: rgba(57, 112, 235, 0)\"></div><div class=\"text-table holder\"><div><p style=\"text-align:center;\"><span style=\"display:inline-flex;justify-content:center;align-items:center;width:250px;aspect-ratio:1/1;background-color:#3970eb;color:#fff;font-size:24px;font-weight:bold;border-radius:50%;\">Healthy promise</span></p></div></div>\n\t",
-                          "anim": "fadeInUp"
+                          "anim": "fadeInUp",
+                          "animDur": "1.2",
+                          "animDelay": "0.4"
                         }
                       ]
                     }
@@ -422,7 +430,9 @@
                           "id": "w202509116bfe536641cd0",
                           "type": "text",
                           "html": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: rgba(247, 247, 247, 0)\"></div><div class=\"text-table holder\"><div><h6 style=\"text-align: center; line-height: 1;\"><span style=\"font-size: 20px;\">We promise cleaner water</span><span style=\"font-size: 20px;\">.</span></h6><h6 style=\"text-align: center; line-height: 1;\"><span style=\"font-size: 18px;\"><span style=\"color: rgb(57, 112, 235);\"><strong>Healthy life with clean, trusted water.&nbsp;</strong></span></span><span style=\"font-size: 18px;\"><span style=\"color: rgb(57, 112, 235);\"><strong>&nbsp;</strong></span></span></h6></div></div>\n\t",
-                          "anim": "none"
+                          "anim": "none",
+                          "animDur": "0.7",
+                          "animDelay": "0"
                         }
                       ]
                     }
@@ -480,7 +490,9 @@
                   "id": "w20250911371c4ee2faf44",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: #3970eb\"></div><div class=\"text-table holder\"><div><p style=\"text-align: center;\"><span style=\"font-size: 24px;\"><strong><span style=\"color: rgb(255, 255, 255);\">Environment\nDesign Management</span></strong></span></p></div></div>\n\t",
-                  "anim": "fadeInUp"
+                  "anim": "fadeInUp",
+                  "animDur": "1.2",
+                  "animDelay": "0.3"
                 }
               ]
             }
@@ -506,7 +518,9 @@
                   "hoverBg": "/images/thumbnail/20250911/3241669643c6e.jpg",
                   "boxStyle": "",
                   "imgStyle": "visibility: visible; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 920px; height: 329px;",
-                  "anim": "none"
+                  "anim": "none",
+                  "animDur": "0.7",
+                  "animDelay": "0"
                 }
               ]
             }
@@ -528,7 +542,9 @@
                   "id": "w20250911095d7d93cfedf",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: rgba(247, 247, 247, 0)\"></div><div class=\"text-table holder\"><div><h6 style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 20px;\">Environment Design Management</span></h6><h6 style=\"text-align: center; line-height: 1;\"><span style=\"font-size: 18px;\"><span style=\"color: rgb(57, 112, 235);\"><strong>EcoWave is an eco-friendly company creating new values and products</strong></span></span></h6><h6 style=\"text-align: center; line-height: 1;\"><span style=\"font-size: 18px;\"><span style=\"color: rgb(57, 112, 235);\"><strong>for a healthy environment, committed to corporate management that promotes human well-being.</strong></span></span></h6></div></div>\n\t",
-                  "anim": "none"
+                  "anim": "none",
+                  "animDur": "0.7",
+                  "animDelay": "0"
                 }
               ]
             }
@@ -604,7 +620,9 @@
                   "id": "w20250911c0ae63b7d6aca",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center;\"><span style=\"font-size: 36px;\"><strong><span style=\"color: rgb(18, 18, 18);\">Three-step service &nbsp;</span></strong></span></p></div></div>\n\t",
-                  "anim": "fadeInUp"
+                  "anim": "fadeInUp",
+                  "animDur": "1.2",
+                  "animDelay": "0.3"
                 }
               ]
             }
@@ -648,7 +666,9 @@
                   "id": "w20250911111ef4720deaf",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text_bg_img\" style=\"background: url(/images/thumbnail/20250829/a33c73512d479.jpg) no-repeat; background-size: cover;\"></div><div class=\"text_bg_color\" style=\"background-color: rgba(0, 0, 0, 0.7)\"></div><div class=\"text-table holder\"><div><h6 style=\"text-align: center;\"><br></h6><h6 style=\"text-align: center;\"><span style=\"color: rgb(255, 255, 255); font-size: 16px;\">Differentiated idea&nbsp;</span></h6><p style=\"text-align: center;\"><span style=\"color: rgb(57, 112, 235); font-size: 36px;\"><strong>IDEA</strong></span></p><p style=\"text-align: center;\"><span style=\"color: rgb(255, 255, 255);\"><img src=\"/images/upload/S20250811e0bd2f7c414df/879858cb2c258.png\" class=\"fr-fin fr-dib\" style=\"width: 88px;\"></span><br></p><p style=\"text-align: center; line-height: 2;\"><span style=\"color: rgb(255, 255, 255);\"><span style=\"font-size: 18px;\">Differentiated values</span></span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"color: rgb(255, 255, 255);\"><span style=\"font-size: 18px;\">are our starting point.</span></span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px;\"><br></span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px;\"><span style=\"color: rgb(255, 255, 255); font-weight: bold; background: linear-gradient(to top, rgba(0, 123, 255, 0.3) 50%, transparent 50%); padding: 0px 4px;\">Innovation beyond expectations,</span></span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(255, 255, 255); font-weight: bold; background: linear-gradient(to top, rgba(0, 123, 255, 0.3) 50%, transparent 50%); padding: 0px 4px;\">creating new values.</span></p><p style=\"text-align: center; line-height: 2;\"><br></p><p style=\"text-align: center; line-height: 2;\"><br></p><p style=\"text-align: center; line-height: 2;\"><br></p></div></div>\n\t",
-                  "anim": "fadeInUp"
+                  "anim": "fadeInUp",
+                  "animDur": "1.2",
+                  "animDelay": "0.3"
                 }
               ]
             },
@@ -661,7 +681,9 @@
                   "id": "w20250911e5cccd4cdcccc",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text_bg_img\" style=\"background: url(/images/thumbnail/20250829/ac35b37a40e78.jpg) no-repeat; background-size: cover;\"></div><div class=\"text_bg_color\" style=\"background-color: rgba(0, 0, 0, 0.7)\"></div><div class=\"text-table holder\"><div><h6 style=\"text-align: center;\"><br></h6><h6 style=\"text-align: center;\"><span style=\"color: rgb(255, 255, 255); font-size: 16px;\">Highest quality&nbsp;</span></h6><p style=\"text-align: center;\"><span style=\"color: rgb(57, 112, 235); font-size: 36px;\"><strong>Quality</strong></span></p><p style=\"text-align: center;\"><span style=\"color: rgb(255, 255, 255);\"><img src=\"/images/upload/S20250811e0bd2f7c414df/cd34a22b71f69.png\" class=\"fr-fin fr-dib\" style=\"width: 88px;\"></span><br></p><p style=\"text-align: center; line-height: 2;\"><span style=\"color: rgb(255, 255, 255);\"><span style=\"font-size: 18px;\">We deliver the highest quality</span></span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"color: rgb(255, 255, 255);\"><span style=\"font-size: 18px;\">and lead as a trusted partner.</span></span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px;\"><br></span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(255, 255, 255); font-weight: bold; background: linear-gradient(to top, rgba(0, 123, 255, 0.3) 50%, transparent 50%); padding: 0px 4px;\">We value customer satisfaction.</span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(255, 255, 255); font-weight: bold; background: linear-gradient(to top, rgba(0, 123, 255, 0.3) 50%, transparent 50%); padding: 0px 4px;\">We succeed and grow together.&nbsp;</span></p><p style=\"text-align: center; line-height: 2;\"><br></p><p style=\"text-align: center; line-height: 2;\"><br></p><p style=\"text-align: center; line-height: 2;\"><br></p></div></div>\n\t",
-                  "anim": "fadeInUp"
+                  "anim": "fadeInUp",
+                  "animDur": "1.2",
+                  "animDelay": "0.3"
                 }
               ]
             },
@@ -674,7 +696,9 @@
                   "id": "w20250911051cb8ec53ba9",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text_bg_img\" style=\"background: url(/images/thumbnail/20250829/2401fc601eefc.jpg) no-repeat; background-size: cover;\"></div><div class=\"text_bg_color\" style=\"background-color: rgba(0, 0, 0, 0.7)\"></div><div class=\"text-table holder\"><div><h6 style=\"text-align: center;\"><br></h6><h6 style=\"text-align: center;\"><span style=\"color: rgb(255, 255, 255); font-size: 16px;\">Preceded time management</span></h6><p style=\"text-align: center;\"><span style=\"color: rgb(57, 112, 235); font-size: 36px;\"><strong>TIME</strong></span></p><p style=\"text-align: center;\"><span style=\"color: rgb(255, 255, 255);\"><img src=\"/images/upload/S20250811e0bd2f7c414df/ca11148fc2918.png\" class=\"fr-fin fr-dib\" style=\"width: 88px;\"></span><br></p><p style=\"text-align: center; line-height: 2;\"><span style=\"color: rgb(255, 255, 255);\"><span style=\"font-size: 18px;\">Prior quality control, prior production control, Prior delivery management</span></span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px;\"><br></span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(255, 255, 255); font-weight: bold; background: linear-gradient(to top, rgba(0, 123, 255, 0.3) 50%, transparent 50%); padding: 0px 4px;\">Complete products, efficient and stable supply chains.</span></p><p style=\"text-align: center; line-height: 2;\"><br></p><p style=\"text-align: center; line-height: 2;\"><br></p><p style=\"text-align: center; line-height: 2;\"><br></p></div></div>\n\t",
-                  "anim": "fadeInUp"
+                  "anim": "fadeInUp",
+                  "animDur": "1.2",
+                  "animDelay": "0.3"
                 }
               ]
             }
@@ -731,7 +755,9 @@
                   "hoverBg": "/images/thumbnail/20250911/68ffc55b3ed20.png",
                   "boxStyle": "",
                   "imgStyle": "visibility: visible; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 0px; height: 0px; margin: 21px auto;",
-                  "anim": "none"
+                  "anim": "none",
+                  "animDur": "0.7",
+                  "animDelay": "0"
                 }
               ]
             }
@@ -846,7 +872,9 @@
                           "id": "w202509118ce1bc8a9b0d2",
                           "type": "text",
                           "html": "\n\t\t<div class=\"text-table \"><div><p><img src=\"/images/upload/S20250811e0bd2f7c414df/f04049636b82b.png\" class=\"fr-fin fr-dib fr-fil\" style=\"width: 238px;\"></p></div></div>\n\t",
-                          "anim": "none"
+                          "anim": "none",
+                          "animDur": "0.7",
+                          "animDelay": "0"
                         }
                       ]
                     }
@@ -867,7 +895,9 @@
                           "id": "w202509119dbc665c67dac",
                           "type": "text",
                           "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2;\"><span style=\"color: rgb(149, 149, 149); font-size: 14px;\">CEO : Choi Taeguk&nbsp;</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Personal Information Management Officer : Kim nacyeon</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Inquiry : ecowave_1800@naver.com</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">ADDRESS : 2-dong, Yeongdo Building, 14, Eunbong-ro, Namdong-gu, Incheon, Republic of Korea</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">TEL : +82-32-812-1800 &nbsp;ㅣ &nbsp;FAX : +82-32-812-1804</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><br></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Copyright ⓒ ECOWAVE. All Rights Reserved</span></span></p></div></div>\n\t",
-                          "anim": "none"
+                          "anim": "none",
+                          "animDur": "0.7",
+                          "animDelay": "0"
                         }
                       ]
                     }
@@ -897,7 +927,9 @@
                           "text": "",
                           "href": "#doz_header",
                           "html": "<div class=\"widget button txt_r\">\n\t<div class=\"button_wrap \">\n\t\t<div class=\"inline-blocked \"><a class=\" btn btn_82610ee2a0658   btn-default  \" href=\"#doz_header\" style=\"line-height: 1; border-radius:9999px\"><i aria-hidden=\"true\" style=\"line-height: 1;\" class=\"simple icon-arrow-up\"></i></a></div>\t</div>\n</div>\n\n",
-                          "anim": "none"
+                          "anim": "none",
+                          "animDur": "0.7",
+                          "animDelay": "0"
                         }
                       ]
                     }
@@ -929,7 +961,9 @@
                                   "id": "w2025091927502632b6fed",
                                   "type": "text",
                                   "html": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Ecowave</strong></span></p></div></div>\n\t",
-                                  "anim": "none"
+                                  "anim": "none",
+                                  "animDur": "0.7",
+                                  "animDelay": "0"
                                 }
                               ]
                             }
@@ -969,7 +1003,9 @@
                                   "id": "w20250919d2cfeb08d555f",
                                   "type": "text",
                                   "html": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>R&amp;D</strong></span></p></div></div>\n\t",
-                                  "anim": "none"
+                                  "anim": "none",
+                                  "animDur": "0.7",
+                                  "animDelay": "0"
                                 }
                               ]
                             }
@@ -1009,7 +1045,9 @@
                                   "id": "w20250919603eb2866e1fe",
                                   "type": "text",
                                   "html": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Product</strong></span></p></div></div>\n\t",
-                                  "anim": "none"
+                                  "anim": "none",
+                                  "animDur": "0.7",
+                                  "animDelay": "0"
                                 }
                               ]
                             }
@@ -1049,7 +1087,9 @@
                                   "id": "w20250919afe2c48fcf119",
                                   "type": "text",
                                   "html": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>News</strong></span></p></div></div>\n\t",
-                                  "anim": "none"
+                                  "anim": "none",
+                                  "animDur": "0.7",
+                                  "animDelay": "0"
                                 }
                               ]
                             }
@@ -1089,7 +1129,9 @@
                                   "id": "w20250919822d35f1c69bf",
                                   "type": "text",
                                   "html": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Customer</strong></span></p></div></div>\n\t",
-                                  "anim": "none"
+                                  "anim": "none",
+                                  "animDur": "0.7",
+                                  "animDelay": "0"
                                 }
                               ]
                             }

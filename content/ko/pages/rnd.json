@@ -269,7 +269,9 @@
                   "id": "w20250909b16e1f0580760",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">첨단 설비와 철저한 관리로</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">더 깨끗하고 안전한 물을 만듭니다.</span></strong></h6></div></div>\n\t",
-                  "anim": "none"
+                  "anim": "none",
+                  "animDur": "0.7",
+                  "animDelay": "0"
                 }
               ]
             }
@@ -349,7 +351,9 @@
                   "hoverBg": "/images/thumbnail/20250911/cacef61fc2561.jpg",
                   "boxStyle": "",
                   "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 1250px; height: 409px; margin: -1px auto;",
-                  "anim": "fadeIn"
+                  "anim": "fadeIn",
+                  "animDur": "1.2",
+                  "animDelay": "0.3"
                 }
               ]
             }
@@ -371,7 +375,9 @@
                   "id": "w20250909a6322fa870d46",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text-table \"><div><div class=\"table-responsive\"><table class=\"tableHorizontal _table_responsive table\" style=\"width: 100%; border-top:2px solid #3465de;\"><tbody><tr><td rowspan=\"3\" style=\"width: 19.8388%; vertical-align: top;\"><p style=\"text-align: left; line-height: 2;\"><span style=\"font-size: 22px; color: rgb(36, 36, 36);\"><strong><span style=\"line-height: 2;\">친환경·프리미엄</span></strong></span></p><p style=\"text-align: left; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 22px; color: rgb(36, 36, 36);\"><strong>수처리 기술력</strong></span></span></p></td><td style=\"width: 20.56%;\"><h6 style=\"text-align: left; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>다단계 정수 시스템</strong></span></span></h6></td><td style=\"width: 59.6%;\"><span style=\"line-height: 2; font-size: 16px;\">세디먼트, 프리카본, UF/RO/NF 멤브레인, 포스트카본 등 다양한 조합으로 현지 수질에 최적화된 맞춤형 필터 제공</span></td></tr><tr><td style=\"width: 20.56%;\"><h6 style=\"text-align: left; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>미네랄·알칼리 기능성 필터</strong></span></span></h6></td><td style=\"width: 59.6%;\"><span style=\"line-height: 2; font-size: 16px;\">단순 정수 기능을 넘어 미네랄 밸런싱과 알칼리화 기능으로 건강 가치를 강화</span></td></tr><tr><td style=\"width: 20.56%;\"><h6 style=\"text-align: left; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>비데·샤워·생활가전 필터</strong></span></span></h6></td><td style=\"width: 59.6%;\"><span style=\"line-height: 2; font-size: 16px;\">물 위생과 생활 품질을 높이는 응용 제품군(비데 필터, 비타민 샤워 필터, 살균 모듈 등) 보유.</span></td></tr></tbody></table></div></div></div>\n\t",
-                  "anim": "none"
+                  "anim": "none",
+                  "animDur": "0.7",
+                  "animDelay": "0"
                 }
               ]
             }
@@ -461,7 +467,9 @@
                           "hoverBg": "/images/thumbnail/20250909/a354e4d098fc6.jpg",
                           "boxStyle": "",
                           "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 610px; height: 408px; margin: 1px auto;",
-                          "anim": "fadeIn"
+                          "anim": "fadeIn",
+                          "animDur": "1.2",
+                          "animDelay": "0.3"
                         }
                       ]
                     }
@@ -483,7 +491,9 @@
                           "id": "w20250909f986ae33491f9",
                           "type": "text",
                           "html": "\n\t\t<div class=\"text-table \"><div><table class=\"tableHorizontal\" style=\"width: 100%; border-top:2px solid #3465de;\"><tbody><tr><td colspan=\"2\" style=\"width: 19.9927%; vertical-align: top;\"><span style=\"line-height: 2;\"><span style=\"font-size: 22px; color: rgb(36, 36, 36);\"><strong>OEM/글로벌 협업 역량</strong></span></span></td></tr><tr><td style=\"width: 36.2602%;\"><h6 style=\"text-align: left; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>글로벌 대기업 공급 실적</strong></span></span></h6></td><td style=\"width: 63.7398%;\"><span style=\"line-height: 2; font-size: 16px;\">LG, 쿠쿠 등 주요 가전 브랜드에 OEM/ODM 납품 경험으로 품질 검증 완료.&nbsp;</span></td></tr><tr><td style=\"width: 36.2602%;\"><h6 style=\"text-align: left; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>폭넓은 제품 포트폴리오</strong></span></span></h6></td><td style=\"width: 63.7398%;\"><span style=\"line-height: 2; font-size: 16px;\">언더싱크 정수기, 슬림 정수기, LPS 센서, 전극 살균기 등 30종 이상의 제품 라인업을 통해 B2B 확장성 확보.&nbsp;</span></td></tr></tbody></table></div></div>\n\t",
-                          "anim": "none"
+                          "anim": "none",
+                          "animDur": "0.7",
+                          "animDelay": "0"
                         }
                       ]
                     }
@@ -515,7 +525,9 @@
                           "hoverBg": "/images/thumbnail/20250909/368735646c29f.jpg",
                           "boxStyle": "",
                           "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 610px; height: 408px; margin: 1px auto;",
-                          "anim": "fadeIn"
+                          "anim": "fadeIn",
+                          "animDur": "1.2",
+                          "animDelay": "0.4"
                         }
                       ]
                     }
@@ -537,7 +549,9 @@
                           "id": "w20250909cabf29c2126d9",
                           "type": "text",
                           "html": "\n\t\t<div class=\"text-table \"><div><table class=\"tableHorizontal\" style=\"width: 100%; border-top:2px solid #3465de;\"><tbody><tr><td colspan=\"2\" style=\"width: 19.9927%; vertical-align: top;\"><span style=\"line-height: 2;\"><span style=\"font-size: 22px; color: rgb(36, 36, 36);\"><strong>첨단 검사 및 품질 관리 체계</strong></span></span></td></tr><tr><td style=\"width: 36.2602%;\"><h6 style=\"text-align: left; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>정밀 검사 장비 구축</strong></span></span></h6></td><td style=\"width: 63.7398%;\"><span style=\"line-height: 2; font-size: 16px;\">잔류염소, 탁도, 경도, ORP, TDS, pH 등 수질 분석 장비와 내수압·열충격·반복내구 시험기 보유</span></td></tr><tr><td style=\"width: 36.2602%;\"><h6 style=\"text-align: left; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>체계적 품질 관리 프로세스</strong></span></span></h6></td><td style=\"width: 63.7398%;\"><span style=\"line-height: 2; font-size: 16px;\">선행품질·생산·납기 관리 시스템, IQC-LQC-OQC 전수 검사 체계 운영.</span></td></tr><tr><td style=\"width: 36.2602%;\"><h6 style=\"text-align: left; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>글로벌 Audit 대응 경험</strong></span></span></h6></td><td style=\"width: 63.7398%;\"><span style=\"font-size: 16px;\">까다로운 글로벌 파트너 품질 감사에도 통과할 수 있는 수준의 관리 역량 확보.</span><br></td></tr></tbody></table></div></div>\n\t",
-                          "anim": "none"
+                          "anim": "none",
+                          "animDur": "0.7",
+                          "animDelay": "0"
                         }
                       ]
                     }
@@ -631,7 +645,9 @@
                           "hoverBg": "/images/thumbnail/20250909/d7de0a7f09580.jpg",
                           "boxStyle": "",
                           "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 610px; height: 408px; margin: 1px auto;",
-                          "anim": "fadeIn"
+                          "anim": "fadeIn",
+                          "animDur": "1.2",
+                          "animDelay": "0.3"
                         }
                       ]
                     }
@@ -653,7 +669,9 @@
                           "id": "w202509093403364594dce",
                           "type": "text",
                           "html": "\n\t\t<div class=\"text-table \"><div><table class=\"tableHorizontal\" style=\"width: 100%; border-top:2px solid #3465de;\"><tbody><tr><td colspan=\"2\" style=\"width: 19.9927%; vertical-align: top;\"><span style=\"line-height: 2;\"><span style=\"font-size: 22px; color: rgb(36, 36, 36);\"><strong>스마트·살균 기술</strong></span></span></td></tr><tr><td style=\"width: 36.2602%; vertical-align: top;\"><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>전극 기반 전기분해 살균 모듈</strong></span></span><br></td><td style=\"width: 63.7398%;\"><span style=\"line-height: 2; font-size: 16px;\">물을 전기분해해 염소를 발생시키고,</span><br><span style=\"line-height: 2; font-size: 16px;\">정수기·비데·탱크 내부를 살균 가능.</span></td></tr><tr><td style=\"width: 36.2602%; vertical-align: top;\"><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>센서·IoT 확장성</strong></span></span></td><td style=\"width: 63.7398%;\"><span style=\"line-height: 2; font-size: 16px;\">저압 스위치(LPS) 및 IoT 연동 기술을 통해</span><br><span style=\"line-height: 2; font-size: 16px;\">수압·수질 변화를 실시간 감지, 스마트홈 시장과</span><br><span style=\"line-height: 2; font-size: 16px;\">연결될 수 있는 성장 가능성 보유.</span></td></tr></tbody></table></div></div>\n\t",
-                          "anim": "none"
+                          "anim": "none",
+                          "animDur": "0.7",
+                          "animDelay": "0"
                         }
                       ]
                     }
@@ -685,7 +703,9 @@
                           "hoverBg": "/images/thumbnail/20250909/98102c9df6b48.jpg",
                           "boxStyle": "",
                           "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 610px; height: 408px; margin: 1px auto;",
-                          "anim": "fadeIn"
+                          "anim": "fadeIn",
+                          "animDur": "1.2",
+                          "animDelay": "0.4"
                         }
                       ]
                     }
@@ -707,7 +727,9 @@
                           "id": "w20250909aaff6976da0b4",
                           "type": "text",
                           "html": "\n\t\t<div class=\"text-table \"><div><table class=\"tableHorizontal\" style=\"width: 100%; border-top:2px solid #3465de;\"><tbody><tr><td colspan=\"2\" style=\"width: 19.9927%; vertical-align: top;\"><span style=\"line-height: 2;\"><span style=\"font-size: 22px; color: rgb(36, 36, 36);\"><strong>대량 생산 및 글로벌 공급망</strong></span></span></td></tr><tr><td style=\"width: 36.2602%; vertical-align: top;\"><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>대량 생산 능력</strong></span></span><p><br></p></td><td style=\"width: 63.7398%;\"><span style=\"font-size: 16px; line-height: 2;\">월 25만 개 생산 가능,<br>자동화 라인과 전문 인력으로<br>대규모 OEM 수요 대응 가능.</span></td></tr><tr><td style=\"width: 36.2602%; vertical-align: top;\"><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>글로벌 네트워크</strong></span></span><p><br></p></td><td style=\"width: 63.7398%;\"><span style=\"line-height: 2; font-size: 16px;\">한국 본사 외에도 중국·캄보디아 지사 운영으로</span><br><span style=\"line-height: 2; font-size: 16px;\">현지 시장 대응 및 공급망 최적화.</span></td></tr></tbody></table></div></div>\n\t",
-                          "anim": "none"
+                          "anim": "none",
+                          "animDur": "0.7",
+                          "animDelay": "0"
                         }
                       ]
                     }
@@ -808,7 +830,9 @@
                   "id": "w202509098378a31a7319e",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center;\"><span style=\"font-size: 48px;\"><strong><span style=\"color: rgb(18, 18, 18);\">투자자 핵심 USP 요약</span></strong></span></p></div></div>\n\t",
-                  "anim": "none"
+                  "anim": "none",
+                  "animDur": "0.7",
+                  "animDelay": "0"
                 }
               ]
             }
@@ -830,7 +854,9 @@
                   "id": "w20250909deb55b36523e5",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(81, 81, 81);\">건강하기 위해서 중요한 물, 소홀히 할 수 없습니다.</span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(81, 81, 81);\">여러분들이 안심하고 마실 수 있도록 깨끗하고 건강한 물만 만들겠다 약속합니다.</span></p></div></div>\n\t",
-                  "anim": "none"
+                  "anim": "none",
+                  "animDur": "0.7",
+                  "animDelay": "0"
                 }
               ]
             }
@@ -853,6 +879,8 @@
                   "type": "gallery2",
                   "layout": "grid",
                   "anim": "fadeInUp",
+                  "animDur": "1.2",
+                  "animDelay": "0.3",
                   "gridN": "01",
                   "itemW": 253,
                   "itemH": 253,
@@ -944,7 +972,9 @@
                   "hoverBg": "/images/thumbnail/20250911/68ffc55b3ed20.png",
                   "boxStyle": "",
                   "imgStyle": "visibility: visible; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 0px; height: 0px; margin: 21px auto;",
-                  "anim": "none"
+                  "anim": "none",
+                  "animDur": "0.7",
+                  "animDelay": "0"
                 }
               ]
             }
@@ -1060,7 +1090,9 @@
                           "id": "w20250811379e3dc61aa7f",
                           "type": "text",
                           "html": "\n\t\t<div class=\"text-table \"><div><p><img src=\"/images/upload/S20250811e0bd2f7c414df/f04049636b82b.png\" class=\"fr-fin fr-dib fr-fil\" style=\"width: 238px;\"></p></div></div>\n\t",
-                          "anim": "none"
+                          "anim": "none",
+                          "animDur": "0.7",
+                          "animDelay": "0"
                         }
                       ]
                     }
@@ -1082,7 +1114,9 @@
                           "id": "w20250811c8ba21c61f272",
                           "type": "text",
                           "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2;\"><span style=\"color: rgb(149, 149, 149); font-size: 14px;\">대표 : 김나연 &nbsp;</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">개인정보관리책임자 : 김나연 &nbsp;ㅣ &nbsp;문의 : ecowave_1800@naver.com</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">주소 : 인천광역시 남동구 은봉로 14 영도빌딩 2동</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">전화 : +82-32-812-1800 &nbsp;ㅣ &nbsp;팩스 : +82-32-812-1804</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><br></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Copyright ⓒ ECOWAVE. All Rights Reserved</span></span></p></div></div>\n\t",
-                          "anim": "none"
+                          "anim": "none",
+                          "animDur": "0.7",
+                          "animDelay": "0"
                         }
                       ]
                     }
@@ -1111,7 +1145,9 @@
                           "text": "",
                           "href": "#doz_header",
                           "html": "<div class=\"widget button txt_r\">\n\t<div class=\"button_wrap \">\n\t\t<div class=\"inline-blocked \"><a class=\" btn btn_82610ee2a0658   btn-default  \" href=\"#doz_header\" style=\"line-height: 1; border-radius:9999px\"><i aria-hidden=\"true\" style=\"line-height: 1;\" class=\"simple icon-arrow-up\"></i></a></div>\t</div>\n</div>\n\n",
-                          "anim": "none"
+                          "anim": "none",
+                          "animDur": "0.7",
+                          "animDelay": "0"
                         }
                       ]
                     }
@@ -1142,7 +1178,9 @@
                                   "id": "w20250919b68d158c2925e",
                                   "type": "text",
                                   "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>에코</strong><strong>웨이</strong><strong>브</strong></span></p></div></div>\n\t",
-                                  "anim": "none"
+                                  "anim": "none",
+                                  "animDur": "0.7",
+                                  "animDelay": "0"
                                 }
                               ]
                             }
@@ -1182,7 +1220,9 @@
                                   "id": "w202509198aeb3bd046ac9",
                                   "type": "text",
                                   "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216);\"><strong>연구개발</strong></span></p></div></div>\n\t",
-                                  "anim": "none"
+                                  "anim": "none",
+                                  "animDur": "0.7",
+                                  "animDelay": "0"
                                 }
                               ]
                             }
@@ -1222,7 +1262,9 @@
                                   "id": "w2025091955cb4ab654cac",
                                   "type": "text",
                                   "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>제품소개</strong></span></p></div></div>\n\t",
-                                  "anim": "none"
+                                  "anim": "none",
+                                  "animDur": "0.7",
+                                  "animDelay": "0"
                                 }
                               ]
                             }
@@ -1262,7 +1304,9 @@
                                   "id": "w2025091988816c09014e4",
                                   "type": "text",
                                   "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>뉴스룸</strong></span></p></div></div>\n\t",
-                                  "anim": "none"
+                                  "anim": "none",
+                                  "animDur": "0.7",
+                                  "animDelay": "0"
                                 }
                               ]
                             }
@@ -1302,7 +1346,9 @@
                                   "id": "w20250919e76996cca8992",
                                   "type": "text",
                                   "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>고객지원</strong></span></p></div></div>\n\t",
-                                  "anim": "none"
+                                  "anim": "none",
+                                  "animDur": "0.7",
+                                  "animDelay": "0"
                                 }
                               ]
                             }

@@ -269,7 +269,9 @@
                   "id": "w202509119262117e9e922",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">Advanced facilities&nbsp;</span></strong><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">and strict management</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">create cleaner, safer water.</span></strong></h6></div></div>\n\t",
-                  "anim": "none"
+                  "anim": "none",
+                  "animDur": "0.7",
+                  "animDelay": "0"
                 }
               ]
             }
@@ -345,7 +347,9 @@
                   "id": "w202509115e8793e79fb26",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center;\"><span style=\"font-size: 48px;\"><strong><span style=\"color: rgb(18, 18, 18);\">Production facilities</span></strong></span></p></div></div>\n\t",
-                  "anim": "fadeInUp"
+                  "anim": "fadeInUp",
+                  "animDur": "1.2",
+                  "animDelay": "0.3"
                 }
               ]
             }
@@ -367,7 +371,9 @@
                   "id": "w20250911a9ced07847a5e",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(81, 81, 81);\">Water, which is important to be healthy, cannot be neglected</span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(81, 81, 81);\">I'm going to make clean and healthy water so that you can drink with confidence I promise.</span></p></div></div>\n\t",
-                  "anim": "none"
+                  "anim": "none",
+                  "animDur": "0.7",
+                  "animDelay": "0"
                 }
               ]
             }
@@ -545,7 +551,9 @@
                   "id": "w20250911ed5a1134139e7",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center;\"><span style=\"font-size: 48px;\"><strong><span style=\"color: rgb(18, 18, 18);\">Production capacity&nbsp;</span></strong></span></p></div></div>\n\t",
-                  "anim": "fadeInUp"
+                  "anim": "fadeInUp",
+                  "animDur": "1.2",
+                  "animDelay": "0.3"
                 }
               ]
             }
@@ -599,7 +607,9 @@
                           "id": "w20250911b39d226a20db5",
                           "type": "text",
                           "html": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center;\"><span style=\"font-size: 20px;\"><strong><span style=\"color: rgb(18, 18, 18);\">Production facilities&nbsp;</span></strong></span></p></div></div>\n\t",
-                          "anim": "fadeInUp"
+                          "anim": "fadeInUp",
+                          "animDur": "1.2",
+                          "animDelay": "0.3"
                         }
                       ]
                     }
@@ -620,7 +630,9 @@
                           "id": "w20250911fa4a77d819fae",
                           "type": "text",
                           "html": "\n\t\t<div class=\"text-table \"><div><table class=\"tableHover tableHorizontal\" style=\"width: 100%;\"><tbody><tr><td style=\"width: 54.6758%; background-color: rgb(52, 101, 222);\"><div style=\"text-align: center; line-height: 1.5;\"><span style=\"font-size: 16px;\"><span style=\"line-height: 1.5; color: rgb(255, 255, 255);\">Facility name</span></span></div></td><td style=\"width: 45.3242%; background-color: rgb(52, 101, 222);\"><div style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\"><span style=\"color: rgb(255, 255, 255);\">Number </span></span></span></div></td></tr><tr><td style=\"width: 54.6758%; background-color: rgb(249, 249, 249);\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">Rotary fusion machine</span></span></h6></td><td style=\"width: 45.3242%;\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">3</span></span></h6></td></tr><tr><td style=\"width: 54.6758%; background-color: rgb(249, 249, 249);\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">Pneumatic tester&nbsp;</span></span></h6></td><td style=\"width: 45.3242%;\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">2</span></span></h6></td></tr><tr><td style=\"width: 54.6758%; background-color: rgb(249, 249, 249);\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">Labelling machine&nbsp;</span></span></h6></td><td style=\"width: 45.3242%;\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">3</span></span></h6></td></tr><tr><td style=\"width: 54.6758%; background-color: rgb(249, 249, 249);\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">Shrink-wrapping machine&nbsp;</span></span></h6></td><td style=\"width: 45.3242%;\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">2</span></span></h6></td></tr><tr><td style=\"width: 54.6758%; background-color: rgb(249, 249, 249);\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">Inkjet printing press&nbsp;</span></span></h6></td><td style=\"width: 45.3242%;\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">2</span></span></h6></td></tr><tr><td style=\"width: 54.6758%; background-color: rgb(249, 249, 249);\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\"><strong><span style=\"color: rgb(52, 101, 222);\">Total</span></strong></span></span></h6></td><td style=\"width: 45.3242%;\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\"><strong><span style=\"color: rgb(52, 101, 222);\">12</span></strong></span></span></h6></td></tr></tbody></table></div></div>\n\t",
-                          "anim": "none"
+                          "anim": "none",
+                          "animDur": "0.7",
+                          "animDelay": "0"
                         }
                       ]
                     }
@@ -647,7 +659,9 @@
                           "id": "w2025091122ec11cd0bc7e",
                           "type": "text",
                           "html": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center;\"><span style=\"font-size: 20px;\"><strong><span style=\"color: rgb(18, 18, 18);\">Measuring equipment</span></strong></span></p></div></div>\n\t",
-                          "anim": "fadeInUp"
+                          "anim": "fadeInUp",
+                          "animDur": "1.2",
+                          "animDelay": "0.3"
                         }
                       ]
                     }
@@ -668,7 +682,9 @@
                           "id": "w20250911bb62481acdf03",
                           "type": "text",
                           "html": "\n\t\t<div class=\"text-table \"><div><table class=\"tableHover tableHorizontal\" style=\"width: 100%;\"><tbody><tr><td style=\"width: 43.9469%; background-color: rgb(52, 101, 222);\"><div style=\"text-align: center;\"><span style=\"font-size: 16px;\"><span style=\"color: rgb(255, 255, 255);\">Facility name</span></span></div></td><td style=\"width: 55.8012%; background-color: rgb(52, 101, 222);\"><div style=\"text-align: center;\"><span style=\"font-size: 16px;\"><span style=\"color: rgb(255, 255, 255);\">Number</span></span></div></td></tr><tr><td style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">Residual chlorine meter&nbsp;</span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">Turbidity meter&nbsp;</span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">Hardness meter&nbsp;</span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">ORP measuring instrument&nbsp;</span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">TDS meter&nbsp;</span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">pH meter <br></span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">Gaussian measuring instrument &nbsp;<br></span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\"><strong><span style=\"color: rgb(52, 101, 222);\">Total</span></strong></span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\"><strong><span style=\"color: rgb(52, 101, 222);\">7</span></strong></span></span></div></td></tr></tbody></table></div></div>\n\t",
-                          "anim": "none"
+                          "anim": "none",
+                          "animDur": "0.7",
+                          "animDelay": "0"
                         }
                       ]
                     }
@@ -695,7 +711,9 @@
                           "id": "w20250911ba6b64e8dfe0f",
                           "type": "text",
                           "html": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center;\"><span style=\"font-size: 20px;\"><strong><span style=\"color: rgb(18, 18, 18);\">Test equipment</span></strong></span></p></div></div>\n\t",
-                          "anim": "fadeInUp"
+                          "anim": "fadeInUp",
+                          "animDur": "1.2",
+                          "animDelay": "0.3"
                         }
                       ]
                     }
@@ -716,7 +734,9 @@
                           "id": "w20250911ff951c7227710",
                           "type": "text",
                           "html": "\n\t\t<div class=\"text-table \"><div><table class=\"tableHorizontal tableHover\" style=\"width: 100%;\"><tbody><tr><td style=\"width: 43.9469%; background-color: rgb(52, 101, 222);\"><div style=\"text-align: center;\"><span style=\"font-size: 16px;\"><span style=\"color: rgb(255, 255, 255);\">Facility name</span></span></div></td><td style=\"width: 55.8012%; background-color: rgb(52, 101, 222);\"><div style=\"text-align: center;\"><span style=\"font-size: 16px;\"><span style=\"color: rgb(255, 255, 255);\">Number</span></span></div></td></tr><tr><td style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">Hydraulic tester&nbsp;</span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">Pneumatic tester&nbsp;</span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">Constant temperature and humidity&nbsp;</span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\"><strong><span style=\"color: rgb(52, 101, 222);\">Total</span></strong></span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\"><strong><span style=\"color: rgb(52, 101, 222);\">3</span></strong></span></span></div></td></tr></tbody></table></div></div>\n\t",
-                          "anim": "none"
+                          "anim": "none",
+                          "animDur": "0.7",
+                          "animDelay": "0"
                         }
                       ]
                     }
@@ -743,7 +763,9 @@
                           "id": "w20250911cc5c83727d04c",
                           "type": "text",
                           "html": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center;\"><span style=\"font-size: 20px;\"><strong><span style=\"color: rgb(18, 18, 18);\">Test equipment</span></strong></span></p></div></div>\n\t",
-                          "anim": "fadeInUp"
+                          "anim": "fadeInUp",
+                          "animDur": "1.2",
+                          "animDelay": "0.3"
                         }
                       ]
                     }
@@ -764,7 +786,9 @@
                           "id": "w202509110dbe814fb2598",
                           "type": "text",
                           "html": "\n\t\t<div class=\"text-table \"><div><table class=\"tableHorizontal tableHover\" style=\"width: 100%;\"><tbody><tr><td style=\"width: 42.2414%; background-color: rgb(52, 101, 222);\"><div style=\"text-align: center; line-height: 1.5;\"><span style=\"font-size: 16px;\"><span style=\"line-height: 1.5; color: rgb(255, 255, 255);\">Production capacity</span></span></div></td><td style=\"width: 58.1034%; background-color: rgb(52, 101, 222);\"><div style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\"><span style=\"color: rgb(255, 255, 255);\">Number</span></span></span></div></td></tr><tr><td style=\"width: 42.2414%; background-color: rgb(249, 249, 249);\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">Units / hr</span></span></h6></td><td style=\"width: 58.1034%;\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">1,250 ea</span></span></h6></td></tr><tr><td style=\"width: 42.2414%; background-color: rgb(249, 249, 249);\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">Units / day / ( 8hr )&nbsp;</span></span></h6></td><td style=\"width: 58.1034%;\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">10,000 ea&nbsp;</span></span></h6></td></tr><tr><td style=\"width: 42.2414%; background-color: rgb(249, 249, 249);\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">Units / Month /\n( 25 day )</span></span></h6></td><td style=\"width: 58.1034%;\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">250,000 ea</span></span></h6></td></tr></tbody></table></div></div>\n\t",
-                          "anim": "none"
+                          "anim": "none",
+                          "animDur": "0.7",
+                          "animDelay": "0"
                         }
                       ]
                     }
@@ -825,7 +849,9 @@
                   "hoverBg": "/images/thumbnail/20250911/68ffc55b3ed20.png",
                   "boxStyle": "",
                   "imgStyle": "visibility: visible; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 0px; height: 0px; margin: 21px auto;",
-                  "anim": "none"
+                  "anim": "none",
+                  "animDur": "0.7",
+                  "animDelay": "0"
                 }
               ]
             }
@@ -940,7 +966,9 @@
                           "id": "w202509118ce1bc8a9b0d2",
                           "type": "text",
                           "html": "\n\t\t<div class=\"text-table \"><div><p><img src=\"/images/upload/S20250811e0bd2f7c414df/f04049636b82b.png\" class=\"fr-fin fr-dib fr-fil\" style=\"width: 238px;\"></p></div></div>\n\t",
-                          "anim": "none"
+                          "anim": "none",
+                          "animDur": "0.7",
+                          "animDelay": "0"
                         }
                       ]
                     }
@@ -961,7 +989,9 @@
                           "id": "w202509119dbc665c67dac",
                           "type": "text",
                           "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2;\"><span style=\"color: rgb(149, 149, 149); font-size: 14px;\">CEO : Choi Taeguk&nbsp;</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Personal Information Management Officer : Kim nacyeon</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Inquiry : ecowave_1800@naver.com</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">ADDRESS : 2-dong, Yeongdo Building, 14, Eunbong-ro, Namdong-gu, Incheon, Republic of Korea</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">TEL : +82-32-812-1800 &nbsp;ㅣ &nbsp;FAX : +82-32-812-1804</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><br></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Copyright ⓒ ECOWAVE. All Rights Reserved</span></span></p></div></div>\n\t",
-                          "anim": "none"
+                          "anim": "none",
+                          "animDur": "0.7",
+                          "animDelay": "0"
                         }
                       ]
                     }
@@ -991,7 +1021,9 @@
                           "text": "",
                           "href": "#doz_header",
                           "html": "<div class=\"widget button txt_r\">\n\t<div class=\"button_wrap \">\n\t\t<div class=\"inline-blocked \"><a class=\" btn btn_82610ee2a0658   btn-default  \" href=\"#doz_header\" style=\"line-height: 1; border-radius:9999px\"><i aria-hidden=\"true\" style=\"line-height: 1;\" class=\"simple icon-arrow-up\"></i></a></div>\t</div>\n</div>\n\n",
-                          "anim": "none"
+                          "anim": "none",
+                          "animDur": "0.7",
+                          "animDelay": "0"
                         }
                       ]
                     }
@@ -1023,7 +1055,9 @@
                                   "id": "w2025091927502632b6fed",
                                   "type": "text",
                                   "html": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Ecowave</strong></span></p></div></div>\n\t",
-                                  "anim": "none"
+                                  "anim": "none",
+                                  "animDur": "0.7",
+                                  "animDelay": "0"
                                 }
                               ]
                             }
@@ -1063,7 +1097,9 @@
                                   "id": "w20250919d2cfeb08d555f",
                                   "type": "text",
                                   "html": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>R&amp;D</strong></span></p></div></div>\n\t",
-                                  "anim": "none"
+                                  "anim": "none",
+                                  "animDur": "0.7",
+                                  "animDelay": "0"
                                 }
                               ]
                             }
@@ -1103,7 +1139,9 @@
                                   "id": "w20250919603eb2866e1fe",
                                   "type": "text",
                                   "html": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Product</strong></span></p></div></div>\n\t",
-                                  "anim": "none"
+                                  "anim": "none",
+                                  "animDur": "0.7",
+                                  "animDelay": "0"
                                 }
                               ]
                             }
@@ -1143,7 +1181,9 @@
                                   "id": "w20250919afe2c48fcf119",
                                   "type": "text",
                                   "html": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>News</strong></span></p></div></div>\n\t",
-                                  "anim": "none"
+                                  "anim": "none",
+                                  "animDur": "0.7",
+                                  "animDelay": "0"
                                 }
                               ]
                             }
@@ -1183,7 +1223,9 @@
                                   "id": "w20250919822d35f1c69bf",
                                   "type": "text",
                                   "html": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Customer</strong></span></p></div></div>\n\t",
-                                  "anim": "none"
+                                  "anim": "none",
+                                  "animDur": "0.7",
+                                  "animDelay": "0"
                                 }
                               ]
                             }

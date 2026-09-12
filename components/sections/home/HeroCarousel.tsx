@@ -29,21 +29,25 @@ export default function HeroCarousel({ slides }: { slides: { bg: string | null; 
               aria-hidden
             />
           )}
-          <div className="relative flex h-full items-center justify-center px-6">
+          <div className="relative flex h-full items-center justify-center px-6 pt-[88px]">
             <RichText html={s.html} className="max-w-[1200px] text-center [&_p]:text-center [&_span]:text-white [&_strong]:text-white [&_h6_span]:!text-white [&_h6]:text-white" />
           </div>
         </div>
       ))}
       {slides.length > 1 && (
-        <div className="absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 gap-2">
+        <div className="absolute bottom-[26px] left-1/2 z-10 flex -translate-x-1/2">
           {slides.map((_, i) => (
             <button
               key={i}
               type="button"
               onClick={() => setIdx(i)}
               aria-label={`슬라이드 ${i + 1}`}
-              className={`h-1 w-10 rounded-full transition-colors ${i === idx ? "bg-white" : "bg-white/40"}`}
-            />
+              className="flex h-[12px] w-[39px] items-center justify-center"
+            >
+              <span
+                className={`h-[2px] w-[25px] bg-white transition-opacity ${i === idx ? "opacity-100" : "opacity-50"}`}
+              />
+            </button>
           ))}
         </div>
       )}

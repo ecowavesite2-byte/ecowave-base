@@ -130,37 +130,40 @@ function ImageWidget({ w, locale }: { w: WidgetNode; locale: Locale }) {
     <img src={w.src || ""} alt={title || w.alt || ""} className="block" style={inlineStyle} loading="lazy" />
   );
 
-  const body = hasOverlay && (label || title) ? (
-    <div className="group relative w-full overflow-hidden bg-soft" style={h ? { height: h } : undefined}>
-      {w.src && (
-        <div
-          className="absolute inset-0 bg-cover bg-center transition-opacity duration-300 group-hover:opacity-0"
-          style={{ backgroundImage: `url(${w.src})` }}
-          aria-hidden
-        />
-      )}
-      {w.hoverBg && (
-        <div
-          className="absolute inset-0 bg-cover bg-center opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-          style={{ backgroundImage: `url(${w.hoverBg})` }}
-          aria-hidden
-        />
-      )}
-      <div className="absolute inset-0 flex flex-col items-start justify-end p-5">
-        {label && <p className="text-[13px] font-medium tracking-wide text-white/85 lg:text-[15px]">{label}</p>}
-        {title && <h3 className="mt-0.5 text-[20px] font-bold text-white lg:text-[25px]">{title}</h3>}
-        <span className="mt-2 inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/60 text-white transition-colors group-hover:bg-white group-hover:text-ink">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M12 5v14M5 12h14" />
-          </svg>
-        </span>
+  const body =
+    hasOverlay && (label || title) ? (
+      <div className="group relative w-full overflow-hidden bg-soft" style={h ? { height: h } : undefined}>
+        {w.src && (
+          <div
+            className="absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: `url(${w.src})` }}
+            aria-hidden
+          />
+        )}
+        {w.hoverBg && (
+          <div
+            className="absolute inset-0 bg-cover bg-center opacity-0 group-hover:opacity-100"
+            style={{ backgroundImage: `url(${w.hoverBg})` }}
+            aria-hidden
+          />
+        )}
+        <div className="absolute inset-0 flex flex-col items-start justify-end p-5 opacity-0 group-hover:opacity-100">
+          {label && <p className="text-[18px] text-white">{label}</p>}
+          {title && <h3 className="mt-1 text-[40px] font-bold leading-[1.2] text-white">{title}</h3>}
+          {hasOverlay && (
+            <span className="mt-2 text-[30px] leading-none text-white">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <path d="M12 5v14M5 12h14" />
+              </svg>
+            </span>
+          )}
+        </div>
       </div>
-    </div>
-  ) : (
-    <div className="relative w-full overflow-hidden" style={h ? { height: h } : undefined}>
-      {w.src && img}
-    </div>
-  );
+    ) : (
+      <div className="relative w-full overflow-hidden" style={h ? { height: h } : undefined}>
+        {w.src && img}
+      </div>
+    );
 
   const internalHref = w.href && !/^https?:/i.test(w.href) && !w.href.startsWith("#") ? routeForSource(w.href) : null;
   if (internalHref) {
@@ -189,7 +192,15 @@ export function Widget({ w, locale = defaultLocale }: { w: WidgetNode; locale?: 
     </div>
   );
   if (w.anim && w.anim !== "none") {
-    return <Reveal anim={w.anim}>{tagged}</Reveal>;
+    return (
+      <Reveal
+        anim={w.anim}
+        duration={w.animDur ? parseFloat(w.animDur) : undefined}
+        delay={w.animDelay ? parseFloat(w.animDelay) : undefined}
+      >
+        {tagged}
+      </Reveal>
+    );
   }
   return tagged;
 }

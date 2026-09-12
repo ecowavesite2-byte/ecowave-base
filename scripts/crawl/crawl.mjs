@@ -101,7 +101,13 @@ function EXTRACT_PAGE() {
       c.querySelectorAll("script,style,noscript").forEach((e) => e.remove());
       return c;
     };
-    switch (type) {
+          // imweb widget animation attrs: name + duration + delay
+          const animAttrs = () => ({
+            anim: meta.getAttribute("data-widget-anim") || "none",
+            animDur: meta.getAttribute("data-widget-anim-duration") || null,
+            animDelay: meta.getAttribute("data-widget-anim-delay") || null,
+          });
+          switch (type) {
       case "menu_title": {
         const h = meta.querySelector("h1,h2,h3,h4,.widget_menu_title");
         return {
@@ -117,7 +123,7 @@ function EXTRACT_PAGE() {
         return {
           type: "text",
           html: (fr || cleanClone(meta)).innerHTML,
-          anim: meta.getAttribute("data-widget-anim") || "none",
+          ...animAttrs(),
         };
       }
       case "image": {
@@ -140,7 +146,7 @@ function EXTRACT_PAGE() {
           hoverBg: hoverEl ? hoverMatchSafe(hoverEl) : null,
           boxStyle: box ? box.getAttribute("style") || "" : "",
           imgStyle: img ? img.getAttribute("style") || "" : "",
-          anim: meta.getAttribute("data-widget-anim") || "none",
+          ...animAttrs(),
         };
         function hoverMatchSafe(el) {
           const m = el.style.backgroundImage.match(
@@ -194,7 +200,7 @@ function EXTRACT_PAGE() {
         return {
           type: "gallery2",
           layout,
-          anim: meta.getAttribute("data-widget-anim") || "none",
+          ...animAttrs(),
           gridN,
           itemW,
           itemH,
@@ -215,7 +221,7 @@ function EXTRACT_PAGE() {
               ? src.getAttribute("src") || src.src
               : null,
           html: cleanClone(meta).innerHTML,
-          anim: meta.getAttribute("data-widget-anim") || "none",
+          ...animAttrs(),
         };
       }
       case "button": {
@@ -226,7 +232,7 @@ function EXTRACT_PAGE() {
           text: label ? label.textContent.replace(/\s+/g, " ").trim() : "",
           href: a ? a.getAttribute("href") || "" : "",
           html: cleanClone(meta).innerHTML,
-          anim: meta.getAttribute("data-widget-anim") || "none",
+          ...animAttrs(),
         };
       }
       case "board": {

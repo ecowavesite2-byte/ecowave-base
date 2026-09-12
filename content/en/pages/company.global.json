@@ -267,7 +267,9 @@
                   "id": "w20250911cde5285498da6",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">EcoWave promises healthier,</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">cleaner water for customers.</span></strong><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\"></span></strong></h6></div></div>\n\t",
-                  "anim": "none"
+                  "anim": "none",
+                  "animDur": "0.7",
+                  "animDelay": "0"
                 }
               ]
             }
@@ -343,7 +345,9 @@
                   "id": "w202509115d573c5ad86cf",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: left;\"><span style=\"font-size: 22px;\"><strong><span style=\"background-color: rgb(57, 112, 235); border-radius: 100px; padding: 15px 30px; color: rgb(255, 255, 255); position: relative; top: -5px;\">EcoWave Headquarters</span></strong></span></h6><p><br></p><p><span style=\"font-size: 30px;\"><strong>2-dong, Yeongdo Building, 14, Eunbong-ro, Namdong-gu, Incheon, Republic of Korea&nbsp;</strong></span></p></div></div>\n\t",
-                  "anim": "fadeInUp"
+                  "anim": "fadeInUp",
+                  "animDur": "1.2",
+                  "animDelay": "0.3"
                 }
               ]
             }
@@ -365,7 +369,9 @@
                   "id": "w20250911b53ce50ebb79b",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text-table \"><div><table class=\"noBorder\" style=\"width: 100%; text-align:center; border-collapse: collapse;\"><tbody><tr><td style=\"width:33.3%;\"><div style=\"text-align: left;\"><span style=\"border-left:3px solid #1a4c9a; padding-left:8px; font-size:18px;\">&nbsp;<strong>TEL</strong><span style=\"color: rgb(120, 120, 120);\">&nbsp; +82-32-812-1800&nbsp;</span></span></div></td><td style=\"width:33.3%;\"><div style=\"text-align: left;\"><span style=\"border-left:3px solid #1a4c9a; padding-left:8px; font-size:18px;\">&nbsp;<strong>FAX</strong> <span style=\"color: rgb(120, 120, 120);\">+82-32-812-1804&nbsp;</span></span></div></td><td style=\"width:33.3%;\"><div style=\"text-align: left;\"><span style=\"border-left:3px solid #1a4c9a; padding-left:8px; font-size:18px;\">&nbsp;<strong>EMAIL</strong> <span style=\"color: rgb(120, 120, 120);\">abc@naver.com&nbsp;</span></span></div></td></tr></tbody></table></div></div>\n\t",
-                  "anim": "none"
+                  "anim": "none",
+                  "animDur": "0.7",
+                  "animDelay": "0"
                 }
               ]
             }
@@ -387,7 +393,9 @@
                   "id": "w20250911e5c5ef4cbb848",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text-table \"><div><p><iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d792.2574458919692!2d126.69277282647334!3d37.412770917172814!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357b79f653a08a39%3A0xeb2783864a797da5!2z7J247LKc6rSR7Jet7IucIOuCqOuPmeq1rCDsnYDrtInroZwgMTQ!5e0!3m2!1sko!2skr!4v1756358491614!5m2!1sko!2skr\" width=\"100%\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\"></iframe></p></div></div>\n\t",
-                  "anim": "none"
+                  "anim": "none",
+                  "animDur": "0.7",
+                  "animDelay": "0"
                 }
               ]
             }
@@ -460,7 +468,9 @@
                   "id": "w2025091187e94d476477f",
                   "type": "text",
                   "html": "\n\t\t<div class=\"text-table \"><div><table class=\"noBorder\" style=\"width: 100%; text-align:center; border-collapse: collapse;\"><tbody><tr><td style=\"width: 100%;\"><div style=\"text-align: left;\"><span style=\"border-left:3px solid #1a4c9a; padding-left:8px; font-size:18px;\">&nbsp;<strong>TEL</strong><span style=\"color: rgb(120, 120, 120);\">&nbsp; +82-32-812-1800&nbsp;</span></span></div></td></tr><tr><td style=\"width: 100%;\"><div style=\"text-align: left;\"><span style=\"border-left:3px solid #1a4c9a; padding-left:8px; font-size:18px;\">&nbsp;<strong>FAX</strong><span style=\"color: rgb(120, 120, 120);\">&nbsp; +82-32-812-1804 &nbsp;</span></span></div></td></tr><tr><td style=\"width: 100%;\"><div style=\"text-align: left;\"><span style=\"border-left:3px solid #1a4c9a; padding-left:8px; font-size:18px;\">&nbsp;<strong>EMAIL</strong><span style=\"color: rgb(120, 120, 120);\">&nbsp; abc@naver.com&nbsp;</span></span></div></td></tr></tbody></table></div></div>\n\t",
-                  "anim": "none"
+                  "anim": "none",
+                  "animDur": "0.7",
+                  "animDelay": "0"
                 }
               ]
             }
@@ -545,7 +555,9 @@
                           "id": "w20250911888365eacfb2b",
                           "type": "text",
                           "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: left;\"><span style=\"\n    font-size: 22px;\n    font-weight: bold;\n    border: 2px solid rgb(57, 112, 235);\n    border-radius: 100px;\n    padding: 15px 30px;\n    color: rgb(57, 112, 235);\n    position: relative;\n    top: -5px;\"><span style=\"font-size: 20px;\">&nbsp;China branch</span>&nbsp;</span></h6><p><br></p><p style=\"line-height: 2;\"><span style=\"font-size: 30px;\"><strong>Yantai City, Shanghai&nbsp;</strong></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 20px;\">Hongfuiie NO.90 Yantai. Shandong. P.R.China</span></p></div></div>\n\t",
-                          "anim": "fadeInUp"
+                          "anim": "fadeInUp",
+                          "animDur": "1.2",
+                          "animDelay": "0.3"
                         }
                       ]
                     }
@@ -567,7 +579,9 @@
                           "id": "w202509117289deef26d40",
                           "type": "text",
                           "html": "\n\t\t<div class=\"text-table \"><div><p><iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3191.921646376016!2d120.51968507627214!3d36.86829426385741!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3596b8ab88fb5af1%3A0xa4ae422919dd9f02!2s90%20Yan%20Tai%20Lu%2C%20Lai%20Xi%20Shi%2C%20Qing%20Dao%20Shi%2C%20Shan%20Dong%20Sheng%2C%20%EC%A4%91%EA%B5%AD%20266600!5e0!3m2!1sko!2skr!4v1756359503622!5m2!1sko!2skr\" width=\"100%\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\"></iframe></p></div></div>\n\t",
-                          "anim": "none"
+                          "anim": "none",
+                          "animDur": "0.7",
+                          "animDelay": "0"
                         }
                       ]
                     }
@@ -595,7 +609,9 @@
                           "id": "w202509111cff299c3782f",
                           "type": "text",
                           "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: left;\"><span style=\"\n    font-size: 22px;\n    font-weight: bold;\n    border: 2px solid rgb(57, 112, 235);\n    border-radius: 100px;\n    padding: 15px 30px;\n    color: rgb(57, 112, 235);\n    position: relative;\n    top: -5px;\">&nbsp;<span style=\"font-size: 20px;\">Cambodian branch</span>&nbsp;</span></h6><p><br></p><p style=\"line-height: 2;\"><span style=\"font-size: 30px;\"><strong>Cambodia Phnom Penh&nbsp;</strong></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 20px;\">Tuol Kork Phnom Penh City&nbsp;</span></p></div></div>\n\t",
-                          "anim": "fadeInUp"
+                          "anim": "fadeInUp",
+                          "animDur": "1.2",
+                          "animDelay": "0.4"
                         }
                       ]
                     }
@@ -617,7 +633,9 @@
                           "id": "w202509118857878798c09",
                           "type": "text",
                           "html": "\n\t\t<div class=\"text-table \"><div><p><iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d18592.98576115093!2d104.88517323644685!3d11.573796848921877!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3109517485ad1295%3A0xb2bbda109bd51b1a!2zS2hhbiBUdW9sIEtvcmssIO2UhOuGiO2OnCDsuoTrs7TrlJTslYQ!5e0!3m2!1sko!2skr!4v1756358557816!5m2!1sko!2skr\" width=\"100%\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\"></iframe></p></div></div>\n\t",
-                          "anim": "none"
+                          "anim": "none",
+                          "animDur": "0.7",
+                          "animDelay": "0"
                         }
                       ]
                     }
@@ -678,7 +696,9 @@
                   "hoverBg": "/images/thumbnail/20250911/68ffc55b3ed20.png",
                   "boxStyle": "",
                   "imgStyle": "visibility: visible; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 0px; height: 0px; margin: 21px auto;",
-                  "anim": "none"
+                  "anim": "none",
+                  "animDur": "0.7",
+                  "animDelay": "0"
                 }
               ]
             }
@@ -793,7 +813,9 @@
                           "id": "w202509118ce1bc8a9b0d2",
                           "type": "text",
                           "html": "\n\t\t<div class=\"text-table \"><div><p><img src=\"/images/upload/S20250811e0bd2f7c414df/f04049636b82b.png\" class=\"fr-fin fr-dib fr-fil\" style=\"width: 238px;\"></p></div></div>\n\t",
-                          "anim": "none"
+                          "anim": "none",
+                          "animDur": "0.7",
+                          "animDelay": "0"
                         }
                       ]
                     }
@@ -814,7 +836,9 @@
                           "id": "w202509119dbc665c67dac",
                           "type": "text",
                           "html": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2;\"><span style=\"color: rgb(149, 149, 149); font-size: 14px;\">CEO : Choi Taeguk&nbsp;</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Personal Information Management Officer : Kim nacyeon</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Inquiry : ecowave_1800@naver.com</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">ADDRESS : 2-dong, Yeongdo Building, 14, Eunbong-ro, Namdong-gu, Incheon, Republic of Korea</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">TEL : +82-32-812-1800 &nbsp;ㅣ &nbsp;FAX : +82-32-812-1804</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><br></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Copyright ⓒ ECOWAVE. All Rights Reserved</span></span></p></div></div>\n\t",
-                          "anim": "none"
+                          "anim": "none",
+                          "animDur": "0.7",
+                          "animDelay": "0"
                         }
                       ]
                     }
@@ -844,7 +868,9 @@
                           "text": "",
                           "href": "#doz_header",
                           "html": "<div class=\"widget button txt_r\">\n\t<div class=\"button_wrap \">\n\t\t<div class=\"inline-blocked \"><a class=\" btn btn_82610ee2a0658   btn-default  \" href=\"#doz_header\" style=\"line-height: 1; border-radius:9999px\"><i aria-hidden=\"true\" style=\"line-height: 1;\" class=\"simple icon-arrow-up\"></i></a></div>\t</div>\n</div>\n\n",
-                          "anim": "none"
+                          "anim": "none",
+                          "animDur": "0.7",
+                          "animDelay": "0"
                         }
                       ]
                     }
@@ -876,7 +902,9 @@
                                   "id": "w2025091927502632b6fed",
                                   "type": "text",
                                   "html": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Ecowave</strong></span></p></div></div>\n\t",
-                                  "anim": "none"
+                                  "anim": "none",
+                                  "animDur": "0.7",
+                                  "animDelay": "0"
                                 }
                               ]
                             }
@@ -916,7 +944,9 @@
                                   "id": "w20250919d2cfeb08d555f",
                                   "type": "text",
                                   "html": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>R&amp;D</strong></span></p></div></div>\n\t",
-                                  "anim": "none"
+                                  "anim": "none",
+                                  "animDur": "0.7",
+                                  "animDelay": "0"
                                 }
                               ]
                             }
@@ -956,7 +986,9 @@
                                   "id": "w20250919603eb2866e1fe",
                                   "type": "text",
                                   "html": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Product</strong></span></p></div></div>\n\t",
-                                  "anim": "none"
+                                  "anim": "none",
+                                  "animDur": "0.7",
+                                  "animDelay": "0"
                                 }
                               ]
                             }
@@ -996,7 +1028,9 @@
                                   "id": "w20250919afe2c48fcf119",
                                   "type": "text",
                                   "html": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>News</strong></span></p></div></div>\n\t",
-                                  "anim": "none"
+                                  "anim": "none",
+                                  "animDur": "0.7",
+                                  "animDelay": "0"
                                 }
                               ]
                             }
@@ -1036,7 +1070,9 @@
                                   "id": "w20250919822d35f1c69bf",
                                   "type": "text",
                                   "html": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Customer</strong></span></p></div></div>\n\t",
-                                  "anim": "none"
+                                  "anim": "none",
+                                  "animDur": "0.7",
+                                  "animDelay": "0"
                                 }
                               ]
                             }
