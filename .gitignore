@@ -17,3 +17,4 @@ server.log
 
 # regenerable design references (scripts/crawl/measure.mjs + shoot-rebuilt.mjs)
 design/
+scripts/crawl/*.txt
