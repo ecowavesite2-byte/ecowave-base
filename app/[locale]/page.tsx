@@ -43,7 +43,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       {/* notice ticker */}
       {tickerSec && (
         <section className="relative bg-soft">
-          <div className="mx-auto max-w-[1070px] px-[15px] py-24 lg:py-28">
+          <div className="mx-auto max-w-[1070px] px-[15px] pt-[126px] pb-[98px]">
             <div className="flex items-end justify-between">
               <Reveal>
                 <div>
@@ -76,9 +76,9 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                         <img src={p.thumb} alt={p.title} className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy" />
                       )}
                     </div>
-                    <div className="bg-white p-4">
-                      <h3 className="truncate text-[15px] font-semibold text-ink transition-colors hover:text-accent">{p.title}</h3>
-                      {p.excerpt && <p className="mt-1.5 line-clamp-1 text-[13px] text-muted">{p.excerpt}</p>}
+                    <div className="min-h-[142px] bg-white p-[15px]">
+                      <h3 className="truncate text-[19px] font-normal text-ink transition-colors group-hover:text-accent">{p.title}</h3>
+                      {p.excerpt && <p className="mt-2 line-clamp-2 text-[16px] leading-[22.4px] text-ink">{p.excerpt}</p>}
                     </div>
                   </Link>
                 </Reveal>

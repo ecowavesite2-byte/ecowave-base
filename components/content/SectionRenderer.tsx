@@ -63,17 +63,31 @@ function parseImageAlt(alt?: string): { label: string; title: string; hasOverlay
 
 export function GalleryCard({
   item,
+  w,
+  h,
+  fill = false,
   className = "",
 }: {
   item: { org?: string | null; thumb?: string | null; title?: string; desc?: string };
+  /** measured slide-item box from the crawl (px) */
+  w?: number | null;
+  h?: number | null;
+  /** stretch to the grid cell (grid layout) */
+  fill?: boolean;
   className?: string;
 }) {
   const src = item.org || item.thumb;
   if (!src) return null;
+  const boxStyle = !fill && (w || h) ? { width: w ? `${w}px` : undefined, height: h ? `${h}px` : undefined } : undefined;
   return (
-    <figure className={`relative overflow-hidden bg-soft ${className}`}>
+    <figure className={`relative overflow-hidden bg-soft ${fill ? "h-full" : "shrink-0"} ${className}`} style={boxStyle}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={src} alt={item.title || ""} className="aspect-square w-full object-cover" loading="lazy" />
+      <img
+        src={src}
+        alt={item.title || ""}
+        className={fill || (w && h) ? "h-full w-full object-cover" : "aspect-square w-full object-cover"}
+        loading="lazy"
+      />
       {(item.title || item.desc) && (
         <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent p-3">
           {item.title && <h4 className="text-[14px] font-semibold text-white">{item.title}</h4>}
@@ -196,19 +210,32 @@ function WidgetContent({ w, locale }: { w: WidgetNode; locale: Locale }) {
     case "gallery2": {
       const items = (w.items || []).filter((it) => it.org || it.thumb);
       if (items.length === 0) return null;
+      const meta2 = w as unknown as { itemW?: number; itemH?: number; gridN?: string };
       if (w.layout === "slide") {
         return (
-          <div className="flex snap-x gap-2.5 overflow-x-auto pb-2">
+          <div className="flex snap-x gap-[5px] overflow-x-auto">
             {items.map((it, i) => (
-              <GalleryCard key={i} item={it} className="w-[238px] shrink-0 snap-start" />
+              <GalleryCard
+                key={i}
+                item={it}
+                w={meta2.itemW || 238}
+                h={meta2.itemH}
+                className="snap-start"
+              />
             ))}
           </div>
         );
       }
+      // grid layout: column count from the crawled grid_0N class;
+      // cells stretch to the row's measured min-height, images fill them
+      const cols = Math.max(1, Math.min(6, Number(meta2.gridN) || 4));
       return (
-        <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-4">
+        <div
+          className="gallery-grid"
+          style={{ ["--gcols" as string]: cols }}
+        >
           {items.map((it, i) => (
-            <GalleryCard key={i} item={it} />
+            <GalleryCard key={i} item={it} fill />
           ))}
         </div>
       );
@@ -251,11 +278,11 @@ function WidgetContent({ w, locale }: { w: WidgetNode; locale: Locale }) {
 
 /* ---------------- layout walker ---------------- */
 
-export function Rows({ rows, locale = defaultLocale }: { rows: Node[]; locale?: Locale }) {
+export function Rows({ rows, locale = defaultLocale, nested = false }: { rows: Node[]; locale?: Locale; nested?: boolean }) {
   const out: React.ReactNode[] = [];
   rows.forEach((n, i) => {
     if (isRow(n)) {
-      out.push(<Row key={i} r={n} locale={locale} />);
+      out.push(<Row key={i} r={n} locale={locale} nested={nested} />);
     } else if (isWidget(n)) {
       out.push(
         <div key={i}>
@@ -265,7 +292,7 @@ export function Rows({ rows, locale = defaultLocale }: { rows: Node[]; locale?: 
     } else if (n.kind === "col") {
       out.push(
         <div key={i} className={colClass(n.grid)}>
-          <Rows rows={n.children} locale={locale} />
+          <Rows rows={n.children} locale={locale} nested />
         </div>,
       );
     }
@@ -273,15 +300,21 @@ export function Rows({ rows, locale = defaultLocale }: { rows: Node[]; locale?: 
   return <>{out}</>;
 }
 
-export function Row({ r, locale = defaultLocale }: { r: RowNode; locale?: Locale }) {
+export function Row({ r, locale = defaultLocale, nested = false }: { r: RowNode; locale?: Locale; nested?: boolean }) {
+  const rowVars: React.CSSProperties = {};
+  if (!nested && r.w) (rowVars as Record<string, string>)["--row-w"] = `${r.w}px`;
+  if (r.h) (rowVars as Record<string, string>)["--row-h"] = `${r.h}px`;
+  // nested imweb rows scale to their parent col's grid (doz_grid), not 12
+  const effectiveGrid = nested ? r.grid : "12";
+  const cols = r.cols.map((c) => ({
+    ...c,
+    span: Math.max(1, Math.min(12, Math.round((parseInt(c.grid, 10) || 12) / (parseInt(r.grid, 10) || 12) * 12))),
+  }));
   return (
-    <div
-      className="imweb-row grid grid-cols-1 lg:grid-cols-12"
-      style={r.w ? ({ ["--row-w" as string]: `${r.w}px` } as React.CSSProperties) : undefined}
-    >
-      {r.cols.map((c, i) => (
-        <div key={i} className={colClass(c.grid)}>
-          <Rows rows={c.children} locale={locale} />
+    <div className={`imweb-row${nested ? " imweb-row-nested" : ""} grid grid-cols-1 lg:grid-cols-12`} style={rowVars}>
+      {cols.map((c, i) => (
+        <div key={i} className={SPAN_CLASS[c.span] || colClass(c.grid)}>
+          <Rows rows={c.children} locale={locale} nested />
         </div>
       ))}
     </div>
@@ -303,7 +336,18 @@ function sectionHasContent(sec: Section): boolean {
     rows.forEach((r) => {
       if (ok) return;
       if (r.kind === "widget") {
-        if (r.type === "padding" || r.type === "sub_menu" || r.type === "board") return;
+        if (r.type === "sub_menu" || r.type === "board") return;
+        if (r.type === "padding") {
+          const h =
+            typeof (r as unknown as { _h?: number })._h === "number"
+              ? (r as unknown as { _h: number })._h
+              : (() => {
+                  const m = (r.html || "").match(/data-height="(-?[\d.]+)"/) || (r.html || "").match(/[^-]height:\s*(-?[\d.]+)px/);
+                  return m ? parseFloat(m[1]) : 0;
+                })();
+          if (h > 1) ok = true; // spacer rhythm counts as content
+          return;
+        }
         if (r.type === "code") {
           const clean = (r.html || "")
             .replace(/<link[^>]*>/g, "")
@@ -359,7 +403,7 @@ export default function SectionRenderer({
             {sec.rows
               .filter((r) => r.kind === "row")
               .map((r, i) => (
-                <Row key={i} r={r as RowNode} locale={locale} />
+                <Row key={i} r={r as RowNode} locale={locale} nested={false} />
               ))}
           </div>
         </section>

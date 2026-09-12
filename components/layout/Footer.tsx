@@ -8,7 +8,7 @@ export default function Footer({ locale }: { locale: Locale }) {
   const site = getSite(locale);
   const f = site.footer;
   return (
-    <footer className="bg-black py-14 text-white">
+      <footer className="bg-black py-20 text-white">
       <div className="mx-auto max-w-[1440px] px-5 lg:px-10">
         <div className="flex flex-col gap-10 lg:flex-row lg:justify-between">
           <div>

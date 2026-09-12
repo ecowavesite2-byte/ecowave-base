@@ -29,8 +29,9 @@ export type ColNode = { kind: "col"; grid: string; children: Node[] };
 export type RowNode = {
   kind: "row";
   grid: string;
-  /** measured desktop content width (px) */
+  /** measured desktop size (px); w only for top-level rows */
   w?: number;
+  h?: number;
   cols: ColNode[];
 };
 export type Node = WidgetNode | ColNode | RowNode;

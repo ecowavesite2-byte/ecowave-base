@@ -155,6 +155,15 @@ function EXTRACT_PAGE() {
         );
         const cls = cont ? cont.className : "";
         const layout = /type_slide/.test(cls) ? "slide" : "grid";
+        // grid_0N = items per row; slide_0N = visible slides
+        const gridN = (cls.match(/grid_(\d+)/) || [])[1] || null;
+        // measured item box for faithful card sizing
+        const owlItem = meta.querySelector(".owl-item:not(.cloned)");
+        const itemBox = owlItem
+          ? owlItem.querySelector(".item_gallary, ._item") || owlItem
+          : meta.querySelector("._item, .item_gallary, .gallery_item");
+        const itemW = itemBox ? Math.round(itemBox.getBoundingClientRect().width) : null;
+        const itemH = itemBox ? Math.round(itemBox.getBoundingClientRect().height) : null;
         const items = [];
         const seen = new Set();
         meta
@@ -182,7 +191,15 @@ function EXTRACT_PAGE() {
               desc: capP ? capP.textContent.replace(/\s+/g, " ").trim() : "",
             });
           });
-        return { type: "gallery2", layout, anim: meta.getAttribute("data-widget-anim") || "none", items };
+        return {
+          type: "gallery2",
+          layout,
+          anim: meta.getAttribute("data-widget-anim") || "none",
+          gridN,
+          itemW,
+          itemH,
+          items,
+        };
       }
       case "code": {
         return { type: "code", html: cleanClone(meta).innerHTML, anim: meta.getAttribute("data-widget-anim") || "none" };
@@ -244,12 +261,14 @@ function EXTRACT_PAGE() {
               "12",
             children: walkRows(c),
           }));
-        // measured desktop width drives the row's max-width in the rebuild
-        const rowW = Math.round(el.getBoundingClientRect().width);
+        // measured desktop width/height drive exact row sizing in the rebuild
+        const rowRect = el.getBoundingClientRect();
+        const rowW = Math.round(rowRect.width);
         out.push({
           kind: "row",
           grid: (el.getAttribute && el.getAttribute("doz_grid")) || "12",
           w: rowW >= 600 ? rowW : undefined,
+          h: Math.round(rowRect.height) || undefined,
           cols,
         });
       } else if (t === "widget" || (el.id && /^w20/.test(el.id))) {
@@ -655,7 +674,12 @@ async function gotoReady(page, url) {
       timeout: 8000,
     });
   } catch {}
-  await page.waitForTimeout(500);
+  // owl carousels initialize after load and collapse to their slide height;
+  // measuring rows too early captures the un-initialized (stacked) height
+  try {
+    await page.waitForSelector(".owl-carousel.owl-loaded", { timeout: 5000 });
+  } catch {}
+  await page.waitForTimeout(900);
 }
 
 async function crawl() {

@@ -30,28 +30,58 @@ body {
 @media (min-width: 1024px) {
   .imweb-row {
     max-width: var(--row-w, none);
+    min-height: var(--row-h, none);
+  }
+}
+
+/* crawled galleries: grid_0N column count from the source */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+@media (min-width: 640px) {
+  .gallery-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1024px) {
+  .gallery-grid {
+    grid-template-columns: repeat(var(--gcols, 4), minmax(0, 1fr));
   }
 }
 
 /* crawled rich-text widgets (imweb fr-view fragments with inline styles) */
 .rich-text {
-    line-height: 1.6;
+  line-height: 1.2;
+}
+.rich-text h1,
+.rich-text h2,
+.rich-text h3,
+.rich-text h4,
+.rich-text h5,
+.rich-text h6 {
+  margin: 10px 0;
 }
 .rich-text p {
-    margin: 0;
+  margin: 0;
+}
+.rich-text span,
+.rich-text strong {
+  line-height: 1.2;
 }
 .rich-text img {
-    max-width: 100%;
-    height: auto;
+  max-width: 100%;
+  height: auto;
 }
 .rich-text table {
-    width: 100%;
-    border-collapse: collapse;
+  width: 100%;
+  border-collapse: collapse;
 }
 .rich-text td,
 .rich-text th {
-    border: 1px solid #ddd;
-    padding: 8px 10px;
+  border: 1px solid #ddd;
+  padding: 8px 10px;
 }
 
 /* vertical spacers extracted from imweb padding widgets; scale down on mobile */
