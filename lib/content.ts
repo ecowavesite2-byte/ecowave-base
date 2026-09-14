@@ -13,7 +13,6 @@ export function getSite(locale: Locale): SiteData {
   return readJson<SiteData>(path.join(CONTENT_DIR, locale, "site.json"));
 }
 
-/** static page content; EN falls back to KO until EN texts are ported */
 export function getPage(locale: Locale, key: string): PageContent {
   const enFile = path.join(
     CONTENT_DIR,
