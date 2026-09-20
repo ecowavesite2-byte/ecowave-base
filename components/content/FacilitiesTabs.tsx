@@ -53,7 +53,7 @@ export default function FacilitiesTabs({ tabs }: { tabs: FacilitiesTab[] }) {
             src={src}
             alt=""
             loading="lazy"
-            className="h-[347px] w-full object-cover min-[992px]:h-[349px]"
+            className="h-auto w-full object-cover min-[992px]:h-[349px]"
           />
         ))}
       </div>

@@ -191,7 +191,11 @@ function ImageWidget({ w, locale }: { w: WidgetNode; locale: Locale }) {
       ["width", "height", "margin-top", "margin-left", "margin-right", "margin-bottom", "display"].includes(key) &&
       val &&
       !val.includes("inherit") &&
-      !val.includes("visibility")
+      !val.includes("visibility") &&
+      // SC4: mobile_section crops carry `width: 0px; height: 0px` (imweb's
+      // mobile placeholder); keeping them pins the <img> to 0 locally. Drop a
+      // zero width/height so the image sizes from its natural aspect instead.
+      !((key === "width" || key === "height") && /^0(?:px|%)?$/i.test(val))
     ) {
       inlineStyle[key] = val;
     }
@@ -203,11 +207,13 @@ function ImageWidget({ w, locale }: { w: WidgetNode; locale: Locale }) {
   // Re-apply the desktop max-width/height only at >=992 and let the mobile
   // preflight (`img { max-width:100%; height:auto }`) scale them down. The fixed
   // height moves into a CSS var so it does not pin the mobile box.
-  const desktopSized = !!w.imgStyle && /(width|height)\s*:\s*(?!100%)/.test(w.imgStyle);
+  // SC4: a `width/height: 0px` pair must not count as a desktop crop either.
+  const desktopSized =
+    !!w.imgStyle && /(width|height)\s*:\s*(?!100%)(?!0(?:px|%)?\s*(?:;|$))/.test(w.imgStyle);
   let desktopHeight: string | null = null;
   if (desktopSized) {
     const hm = w.imgStyle?.match(/(?:^|;)\s*height\s*:\s*(-?[\d.]+)px/);
-    if (hm) {
+    if (hm && parseFloat(hm[1]) !== 0) {
       desktopHeight = `${parseFloat(hm[1])}px`;
       delete inlineStyle.height;
     }

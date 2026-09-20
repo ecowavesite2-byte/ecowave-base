@@ -156,13 +156,37 @@ a {
   padding: 8px 10px;
 }
 
+/* SC2 — imweb's mobile runtime reduces inline display font sizes inside rich
+   text (measured ORIG-mobile vs LOCAL-mobile on the same crawled spans):
+   48->28, 36->24, 30->20, 22->16, 20->15. 26px/24px and the 30px h1 are
+   unchanged. The crawl always writes the spaced form `font-size: NNpx` on a
+   <span> (verified across content/{ko,en}/pages). Desktop (>=992) untouched.
+   Font-size only — line-height is a separate item. */
+@media (max-width: 991px) {
+  .rich-text span[style*="font-size: 48px"] {
+    font-size: 28px !important;
+  }
+  .rich-text span[style*="font-size: 36px"] {
+    font-size: 24px !important;
+  }
+  .rich-text span[style*="font-size: 30px"] {
+    font-size: 20px !important;
+  }
+  .rich-text span[style*="font-size: 22px"] {
+    font-size: 16px !important;
+  }
+  .rich-text span[style*="font-size: 20px"] {
+    font-size: 15px !important;
+  }
+}
+
 /* vertical spacers extracted from imweb padding widgets; scale down on mobile */
 .spacer {
     height: calc(var(--h) * 1px);
 }
 @media (max-width: 1023px) {
     .spacer {
-        height: calc(var(--h) * 0.55px);
+        height: calc(var(--h) * 0.5px);
     }
 }
 

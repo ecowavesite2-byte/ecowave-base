@@ -31,17 +31,23 @@ function rowsHeight(rows: Node[]): number {
 }
 
 /**
- * imweb renders the board widget inside a section whose rows before/after it
- * are padding bands. Reproduce that vertical rhythm around the local board UI
- * (the widget height itself is replaced by our own markup).
+ * Desktop row heights of the padding bands before/after the board widget.
+ *
+ * SC6: these are DESKTOP measurements and must not be applied verbatim as
+ * inline padding on mobile — imweb halves the padding widgets at mobile
+ * (110 -> 55) and keeps the 15px row padding unscaled. Render the measured
+ * height through `.spacer` (which halves at mobile via CSS) plus a fixed
+ * BOARD_ROW_PAD strip, so desktop stays `row + 15` and mobile becomes
+ * `row/2 + 15`.
  */
-function boardSectionPadding(section: Section | undefined): { top: number; bottom: number } {
-  if (!section) return { top: 0, bottom: 0 };
+function boardSectionRows(section: Section | undefined): { found: boolean; top: number; bottom: number } {
+  if (!section) return { found: false, top: 0, bottom: 0 };
   const boardRow = section.rows.findIndex((r) => r.kind === "row" && hasBoardNode(r.cols));
-  if (boardRow < 0) return { top: 0, bottom: 0 };
+  if (boardRow < 0) return { found: false, top: 0, bottom: 0 };
   return {
-    top: rowsHeight(section.rows.slice(0, boardRow)) + BOARD_ROW_PAD,
-    bottom: rowsHeight(section.rows.slice(boardRow + 1)) + BOARD_ROW_PAD,
+    found: true,
+    top: rowsHeight(section.rows.slice(0, boardRow)),
+    bottom: rowsHeight(section.rows.slice(boardRow + 1)),
   };
 }
 
@@ -77,16 +83,29 @@ export default async function BoardPageShell({
   const boardIdx = content.findIndex(isBoardSection);
   const before = boardIdx === -1 ? content : content.slice(0, boardIdx);
   const after = boardIdx === -1 ? [] : content.slice(boardIdx + 1);
-  const boardPad = boardSectionPadding(boardIdx === -1 ? undefined : content[boardIdx]);
+  const boardPad = boardSectionRows(boardIdx === -1 ? undefined : content[boardIdx]);
   return (
     <main>
       <PageHero title={hero.title} tabs={hero.tabs} big={big} />
       <SectionRenderer sections={before} locale={locale} />
-      <section
-        className="mx-auto max-w-[1280px] px-[15px]"
-        style={{ paddingTop: boardPad.top, paddingBottom: boardPad.bottom }}
-      >
+      <section className="mx-auto max-w-[1280px] px-[15px]">
+        {boardPad.found && (
+          <>
+            {boardPad.top > 0 && (
+              <div className="spacer" style={{ ["--h" as string]: boardPad.top } as React.CSSProperties} />
+            )}
+            <div aria-hidden style={{ height: BOARD_ROW_PAD }} />
+          </>
+        )}
         {renderBoard()}
+        {boardPad.found && (
+          <>
+            <div aria-hidden style={{ height: BOARD_ROW_PAD }} />
+            {boardPad.bottom > 0 && (
+              <div className="spacer" style={{ ["--h" as string]: boardPad.bottom } as React.CSSProperties} />
+            )}
+          </>
+        )}
       </section>
       <SectionRenderer sections={after} locale={locale} />
     </main>
