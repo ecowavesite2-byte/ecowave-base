@@ -12,6 +12,7 @@
     "verify": "npm run typecheck && npm run lint && npm run content:validate && npm run build"
   },
   "dependencies": {
+    "iron-session": "^9.0.1",
     "next": "^15.5.4",
     "pretendard": "^1.3.9",
     "react": "^19.1.0",
