@@ -30,3 +30,34 @@ export function routeForSource(url: string | undefined | null): string {
   const clean = url.startsWith("/") ? url : "/" + url;
   return SOURCE_TO_ROUTE[clean] ?? clean;
 }
+
+/**
+ * Content file key → semantic route (admin revalidation mapping).
+ * `page` keys use dots (`company.ceo`); board slugs use dots too
+ * (`products.eco-wave`) and map to the same slash route.
+ */
+export const PAGE_KEY_TO_ROUTE: Record<string, string> = {
+  home: "/",
+  company: "/company",
+  "company.ceo": "/company/ceo",
+  "company.about": "/company/about",
+  "company.philosophy": "/company/philosophy",
+  "company.history": "/company/history",
+  "company.organization": "/company/organization",
+  "company.global": "/company/global",
+  rnd: "/rnd",
+  "rnd.technology": "/rnd/technology",
+  "rnd.patents": "/rnd/patents",
+  "rnd.facilities": "/rnd/facilities",
+  news: "/news",
+  notices: "/notices",
+  support: "/support",
+};
+
+export function routeForKey(key: string): string {
+  return PAGE_KEY_TO_ROUTE[key] ?? "/" + key.replace(/\./g, "/");
+}
+
+export function routeForBoard(slug: string): string {
+  return "/" + slug.replace(/\./g, "/");
+}

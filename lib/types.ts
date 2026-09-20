@@ -28,9 +28,17 @@ export type WidgetNode = {
   }[];
   ref?: string;
   listCls?: string;
+  /** measured widget height (padding widget source of truth) */
+  _h?: number;
+  /** grid gallery metrics (crawl-only) */
+  gridRowH?: number;
+  gridGap?: number;
+  gridCols?: number;
+  /** gallery renders its caption as a band */
+  captionBand?: boolean;
 };
 
-export type ColNode = { kind: "col"; grid: string; children: Node[] };
+export type ColNode = { kind: "col"; grid: string; children: Node[]; _h?: number };
 export type RowNode = {
   kind: "row";
   grid: string;
@@ -40,6 +48,8 @@ export type RowNode = {
   /** measured content inset (imweb gutter: 15px or 0) */
   pad?: number;
   cols: ColNode[];
+  /** measured row height (crawl-only) */
+  _h?: number;
 };
 export type Node = WidgetNode | ColNode | RowNode;
 
@@ -61,6 +71,8 @@ export type Section = {
   bgColor: string | null;
   secStyle: string;
   rows: Node[];
+  /** desktop/mobile authoring split (company.history): sticky side column */
+  aside?: { pt?: number; items: Node[] };
 };
 
 export type PageContent = {
@@ -90,6 +102,8 @@ export type BoardContent = {
   count: number;
   listCls: string;
   posts: BoardPost[];
+  /** legacy imweb pagination hrefs (crawl-only; unused by the rebuild) */
+  pagLinks?: string[];
 };
 
 export type NavItem = {
@@ -105,4 +119,8 @@ export type SiteData = {
   bodyFont: string;
   bodyColor: string;
   bodyBg: string;
+  /** crawled font stacks declared by the original stylesheet */
+  fontFamilies?: string[];
+  /** crawled icon/webfont families actually loaded */
+  fontsLoaded?: string[];
 };
