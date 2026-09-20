@@ -135,7 +135,7 @@ export default function PageHero({
                   )}
                   <Link
                     href={t.href}
-                    className={`inline-block pb-1.5 text-[16px] font-normal transition-colors lg:text-[18px] ${
+                    className={`inline-block pb-1.5 text-[16px] font-normal transition duration-300 lg:text-[18px] ${
                       i === crumbs.length - 1
                         ? hasSubtitle
                           ? "text-body"

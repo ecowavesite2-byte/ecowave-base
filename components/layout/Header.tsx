@@ -132,14 +132,14 @@ export default function Header({ locale, nav, logo, logoScrolled, langLabelKo, l
                 <li key={item.url} className="group relative">
                   <Link
                     href={localeHref(locale, routeForSource(item.url))}
-                    className={`block px-[30px] py-[20px] text-[19px] font-normal leading-[30px] transition-colors ${
+                    className={`block px-[30px] py-[20px] text-[19px] font-normal leading-[30px] transition duration-300 ${
                       overlay ? "text-white group-hover:text-white/50" : "text-ink group-hover:text-ink/50"
                     }`}
                   >
                     {item.name}
                   </Link>
                   {item.children.length > 0 && (
-                    <div className="invisible absolute left-1/2 top-full z-50 -translate-x-1/2 pt-1 opacity-0 transition-all duration-200 group-hover:visible group-hover:opacity-100">
+                    <div className="invisible absolute left-1/2 top-full z-50 -translate-x-1/2 pt-1 opacity-0 transition-opacity duration-500 ease-in-out group-hover:visible group-hover:opacity-100">
                       <ul className="imweb-dropdown py-2">
                         {item.children.map((c) => (
                           <li key={c.url}>
@@ -162,7 +162,7 @@ export default function Header({ locale, nav, logo, logoScrolled, langLabelKo, l
           <div className="flex items-center self-center">
             <Link
               href={langTarget(otherLocale)}
-              className={`text-[15px] transition-colors ${overlay ? "text-white hover:text-white/50" : "text-ink hover:text-ink/50"}`}
+              className={`text-[15px] transition duration-300 ${overlay ? "text-white hover:text-white/50" : "text-ink hover:text-ink/50"}`}
             >
               {otherLabel}
             </Link>
@@ -176,12 +176,12 @@ export default function Header({ locale, nav, logo, logoScrolled, langLabelKo, l
               <li key={item.url} className="group relative">
                 <Link
                   href={localeHref(locale, routeForSource(item.url))}
-                  className={`block px-[30px] py-[20px] text-[19px] font-normal leading-[30px] transition-colors ${linkCls}`}
+                  className={`block px-[30px] py-[20px] text-[19px] font-normal leading-[30px] transition duration-300 ${linkCls}`}
                 >
                   {item.name}
                 </Link>
                 {item.children.length > 0 && (
-                  <div className="invisible absolute left-1/2 top-full z-50 -translate-x-1/2 pt-1 opacity-0 transition-all duration-200 group-hover:visible group-hover:opacity-100">
+                  <div className="invisible absolute left-1/2 top-full z-50 -translate-x-1/2 pt-1 opacity-0 transition-opacity duration-500 ease-in-out group-hover:visible group-hover:opacity-100">
                     <DropList items={item.children} locale={locale} />
                   </div>
                 )}
@@ -220,7 +220,7 @@ export default function Header({ locale, nav, logo, logoScrolled, langLabelKo, l
           <div className="flex items-center self-center">
             <Link
               href={langTarget(otherLocale)}
-              className={`text-[15px] transition-colors ${overlay ? "text-white hover:text-white/50" : "text-ink hover:text-ink/50"}`}
+              className={`text-[15px] transition duration-300 ${overlay ? "text-white hover:text-white/50" : "text-ink hover:text-ink/50"}`}
             >
               {otherLabel}
             </Link>
@@ -238,7 +238,7 @@ export default function Header({ locale, nav, logo, logoScrolled, langLabelKo, l
                 key={item.url}
                 href={localeHref(locale, routeForSource(item.url))}
                 aria-current={isActive ? "page" : undefined}
-                className={`whitespace-nowrap text-[14px] leading-[45px] transition-colors ${
+                className={`whitespace-nowrap text-[14px] leading-[45px] transition duration-300 ${
                   isActive ? "font-bold text-accent" : "font-normal text-[#212121]"
                 }`}
               >
@@ -310,11 +310,11 @@ export default function Header({ locale, nav, logo, logoScrolled, langLabelKo, l
             </ul>
           </nav>
           <div className="flex items-center gap-2 border-t border-line px-5 py-4 text-[14px] text-muted">
-            <Link href={langTarget("ko")} className={`transition-colors hover:text-accent ${locale === "ko" ? "font-semibold text-ink" : ""}`}>
+            <Link href={langTarget("ko")} className={`transition duration-300 hover:text-accent ${locale === "ko" ? "font-semibold text-ink" : ""}`}>
               {langLabelKo}
             </Link>
             <span className="opacity-40">|</span>
-            <Link href={langTarget("en")} className={`transition-colors hover:text-accent ${locale === "en" ? "font-semibold text-ink" : ""}`}>
+            <Link href={langTarget("en")} className={`transition duration-300 hover:text-accent ${locale === "en" ? "font-semibold text-ink" : ""}`}>
               {langLabelEn}
             </Link>
           </div>

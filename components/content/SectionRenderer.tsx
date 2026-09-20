@@ -234,7 +234,7 @@ function ImageWidget({ w, locale }: { w: WidgetNode; locale: Locale }) {
         )}
         {w.hoverBg && (
           <div
-            className="absolute inset-0 bg-cover bg-center opacity-0 group-hover:opacity-100"
+            className="absolute inset-0 bg-cover bg-center opacity-0 transition-opacity duration-300 group-hover:opacity-100"
             style={{ backgroundImage: `url(${w.hoverBg})` }}
             aria-hidden
           />
@@ -419,7 +419,7 @@ function WidgetContent({ w, locale }: { w: WidgetNode; locale: Locale }) {
           <Link
             href={dest}
             aria-label={w.text || "button"}
-            className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-[#ddd] text-body transition-colors hover:border-accent hover:text-accent"
+            className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-[#ddd] text-body transition duration-300 hover:border-accent hover:text-accent"
           >
             {isTop && (
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -452,7 +452,7 @@ function WidgetContent({ w, locale }: { w: WidgetNode; locale: Locale }) {
             <li key={l.href}>
               <Link
                 href={l.href}
-                className="block text-[14px] leading-[2] text-[#959595] transition-colors hover:text-white"
+                className="block text-[14px] leading-[2] text-[#959595] transition duration-300 hover:text-white"
               >
                 {l.name}
               </Link>

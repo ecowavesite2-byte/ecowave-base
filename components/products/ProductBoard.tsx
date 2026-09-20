@@ -67,7 +67,7 @@ export function ProductTabs({ tabs }: { tabs: ProductTab[] }) {
             key={t.label}
             href={t.href}
             aria-current={t.active ? "page" : undefined}
-            className={`mr-[5px] inline-flex h-[37px] items-center rounded-full border px-[15px] text-[17px] font-normal leading-none transition-colors ${
+            className={`mr-[5px] inline-flex h-[37px] items-center rounded-full border px-[15px] text-[17px] font-normal leading-none transition duration-300 ${
               t.active
                 ? "border-accent bg-accent text-white"
                 : "border-transparent text-[rgba(54,54,54,0.7)] hover:text-ink"
@@ -111,7 +111,7 @@ export function ProductCardGrid({
                   alt={p.title}
                   fill
                   sizes="(max-width: 1024px) 50vw, 390px"
-                  className="object-cover object-center transition-transform duration-300 group-hover:scale-105"
+                  className="object-cover object-center"
                 />
               )}
             </div>
@@ -147,7 +147,7 @@ export function ProductPagination({
 }) {
   if (totalPages <= 1) return null;
   const item =
-    "flex h-6 min-w-6 items-center justify-center rounded-full px-[3px] text-[14px] transition-colors";
+    "flex h-6 min-w-6 items-center justify-center rounded-full px-[3px] text-[14px] transition duration-300";
   const dim = "text-[rgba(54,54,54,0.4)] hover:text-ink";
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
   const sep = basePath.includes("?") ? "&" : "?";

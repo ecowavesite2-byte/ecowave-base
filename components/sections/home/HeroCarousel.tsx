@@ -23,7 +23,7 @@ export default function HeroCarousel({
   const [idx, setIdx] = useState(0);
   useEffect(() => {
     if (slides.length <= 1) return;
-    const t = setInterval(() => setIdx((i) => (i + 1) % slides.length), 5600);
+    const t = setInterval(() => setIdx((i) => (i + 1) % slides.length), 6000);
     return () => clearInterval(t);
   }, [slides.length]);
 

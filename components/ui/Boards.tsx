@@ -85,7 +85,7 @@ export function BoardCardGrid({
                 alt={p.title}
                 fill
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 30vw"
-                className="object-cover transition-transform duration-300 group-hover:scale-105"
+                className="object-cover"
               />
             )}
           </div>
@@ -243,7 +243,7 @@ export function Pagination({
   if (totalPages <= 1) return null;
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
   const btn =
-    "flex h-[34px] min-w-[34px] items-center justify-center border border-[#ddd] bg-white px-2 text-[14px] transition-colors";
+    "flex h-[34px] min-w-[34px] items-center justify-center border border-[#ddd] bg-white px-2 text-[14px] transition duration-300";
   return (
     <nav className="mt-10 flex items-center justify-center gap-[5px]" aria-label="페이지네이션">
       {page > 1 && (
@@ -326,7 +326,7 @@ function BoardSummaryRow({
       <span className="w-[75px] shrink-0 text-[14px] text-black">{label}</span>
       <Link
         href={`${boardHref}/${post.idx}`}
-        className="min-w-0 flex-1 truncate text-[14px] text-black transition-colors hover:text-accent"
+        className="min-w-0 flex-1 truncate text-[14px] text-black transition duration-300 hover:text-accent"
       >
         {post.title}
       </Link>
@@ -382,7 +382,7 @@ export function PostDetail({
         <ul className="border-t border-line py-4 text-[13px] text-muted">
           {post.files.map((f) => (
             <li key={f.href}>
-              <a href={f.href} className="hover:text-accent" download>
+              <a href={f.href} className="transition duration-300 hover:text-accent" download>
                 {f.name}
               </a>
             </li>
@@ -398,7 +398,7 @@ export function PostDetail({
       <div className="mt-10 flex justify-center">
         <Link
           href={boardHref}
-          className="inline-flex h-11 items-center rounded border border-[#ddd] px-7 text-[14px] text-body transition-colors hover:border-accent hover:text-accent"
+          className="inline-flex h-11 items-center rounded border border-[#ddd] px-7 text-[14px] text-body transition duration-300 hover:border-accent hover:text-accent"
         >
           {listLabel}
         </Link>

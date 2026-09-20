@@ -51,7 +51,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                     <div className="relative h-[142px] w-full overflow-hidden lg:h-[179px]">
                       {p.thumb && (
                         // eslint-disable-next-line @next/next/no-img-element
-                        <img src={p.thumb} alt={p.title} className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy" />
+                        <img src={p.thumb} alt={p.title} className="h-full w-full object-cover" loading="lazy" />
                       )}
                     </div>
                     <div className="h-[141px] bg-white px-[15px] pt-[15px] pb-[23px] lg:h-auto">

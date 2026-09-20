@@ -22,6 +22,11 @@ body {
     word-break: keep-all;
 }
 
+/* original bundle-16-site.css: `a { transition: .3s }` (all props, 300ms ease) */
+a {
+    transition: .3s;
+}
+
 .imweb-row {
   width: 100%;
   margin-left: auto;

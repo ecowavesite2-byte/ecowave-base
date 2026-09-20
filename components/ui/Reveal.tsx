@@ -49,14 +49,18 @@ export default function Reveal({
     return () => io.disconnect();
   }, []);
 
+  // animate.css from-states: fadeInUp translate3d(0,60%,0) is the default;
+  // fadeIn is opacity-only; Left/Right slide a full viewport width.
   const from =
-    anim === "fadeIn" || anim === "fadeInDown"
+    anim === "fadeIn"
       ? "translateY(0)"
-      : anim === "Left" || anim === "fadeInLeft"
-        ? "translateX(-40px)"
-        : anim === "Right" || anim === "fadeInRight"
-          ? "translateX(40px)"
-          : "translateY(40px)";
+      : anim === "fadeInDown"
+        ? "translateY(-100%)"
+        : anim === "Left" || anim === "fadeInLeft"
+          ? "translateX(-100%)"
+          : anim === "Right" || anim === "fadeInRight"
+            ? "translateX(100%)"
+            : "translateY(60%)";
 
   return (
     <div
