@@ -166,7 +166,7 @@ export function GalleryCard({
   );
 }
 
-function ImageWidget({ w, locale }: { w: WidgetNode; locale: Locale }) {
+function ImageWidget({ w, locale, mobileBox = false }: { w: WidgetNode; locale: Locale; mobileBox?: boolean }) {
   const h = num(w.boxStyle, "height");
   const { label, title, hasOverlay } = parseImageAlt(w.alt);
 
@@ -287,7 +287,7 @@ function ImageWidget({ w, locale }: { w: WidgetNode; locale: Locale }) {
       </div>
     ) : (
       <div
-        className={`relative w-full overflow-hidden${h ? " " + BOX_DESKTOP_HEIGHT : ""}`}
+        className={`relative w-full overflow-hidden${h ? " " + (mobileBox ? BOX_MOBILE_HEIGHT : BOX_DESKTOP_HEIGHT) : ""}`}
         style={h ? ({ ["--box-h" as string]: `${h}px` } as React.CSSProperties) : undefined}
       >
         {w.src && img}
@@ -317,13 +317,16 @@ export function Widget({
   locale = defaultLocale,
   nested = false,
   vGutter = false,
+  mobileBox = false,
 }: {
   w: WidgetNode;
   locale?: Locale;
   nested?: boolean;
   vGutter?: boolean;
+  /** MB1: this widget lives in a `mobile_section`; apply its box height on mobile */
+  mobileBox?: boolean;
 }) {
-  const content = w.type === "padding" ? renderPadding(w) : WidgetContent({ w, locale });
+  const content = w.type === "padding" ? renderPadding(w) : WidgetContent({ w, locale, mobileBox });
   if (!content) return null;
   // imweb `.doz_sys .inside .widget { margin: 15px 0 }`, cancelled for sections
   // carrying `grid_v_gutter_0`. Scoped to nested image widgets only: applying
@@ -364,12 +367,12 @@ function renderPadding(w: WidgetNode) {
   return <div className="spacer" style={{ ["--h" as string]: fromData }} />;
 }
 
-function WidgetContent({ w, locale }: { w: WidgetNode; locale: Locale }) {
+function WidgetContent({ w, locale, mobileBox = false }: { w: WidgetNode; locale: Locale; mobileBox?: boolean }) {
   switch (w.type) {
     case "text":
       return <RichText html={w.html} />;
     case "image":
-      return <ImageWidget w={w} locale={locale} />;
+      return <ImageWidget w={w} locale={locale} mobileBox={mobileBox} />;
     case "gallery2": {
       const items = (w.items || []).filter((it) => it.org || it.thumb);
       if (items.length === 0) return null;
@@ -511,6 +514,7 @@ export function Rows({
   nested = false,
   wdepth = 0,
   vGutter = false,
+  mobileBox = false,
 }: {
   rows: Node[];
   locale?: Locale;
@@ -518,21 +522,23 @@ export function Rows({
   /** depth of the row that owns these direct widget children (0 = top level) */
   wdepth?: number;
   vGutter?: boolean;
+  /** MB1: propagate the mobile-authored box height from the owning section */
+  mobileBox?: boolean;
 }) {
   const out: React.ReactNode[] = [];
   rows.forEach((n, i) => {
     if (isRow(n)) {
-      out.push(<Row key={i} r={n} locale={locale} nested={nested} wdepth={wdepth + 1} vGutter={vGutter} />);
+      out.push(<Row key={i} r={n} locale={locale} nested={nested} wdepth={wdepth + 1} vGutter={vGutter} mobileBox={mobileBox} />);
     } else if (isWidget(n)) {
       out.push(
         <div key={i}>
-          <Widget w={n} locale={locale} nested={wdepth > 0} vGutter={vGutter} />
+          <Widget w={n} locale={locale} nested={wdepth > 0} vGutter={vGutter} mobileBox={mobileBox} />
         </div>,
       );
     } else if (n.kind === "col") {
       out.push(
         <div key={i} className={colClass(n.grid)}>
-          <Rows rows={n.children} locale={locale} nested={nested} wdepth={wdepth} vGutter={vGutter} />
+          <Rows rows={n.children} locale={locale} nested={nested} wdepth={wdepth} vGutter={vGutter} mobileBox={mobileBox} />
         </div>,
       );
     }
@@ -547,6 +553,7 @@ export function Row({
   wdepth = 0,
   vGutter = false,
   mobileInset = false,
+  mobileBox = false,
 }: {
   r: RowNode;
   locale?: Locale;
@@ -562,6 +569,8 @@ export function Row({
    * render at >=992, so this needs no breakpoint guard.
    */
   mobileInset?: boolean;
+  /** MB1: mobile-authored box heights apply at all widths for mobile sections */
+  mobileBox?: boolean;
 }) {
   const rowVars: React.CSSProperties = {};
   if (!nested && r.w) (rowVars as Record<string, string>)["--row-w"] = `${r.w}px`;
@@ -581,7 +590,7 @@ export function Row({
     <div className={`imweb-row grid grid-cols-1 ${fiveCol ? "lg:grid-cols-5" : "lg:grid-cols-12"}`} style={rowVars}>
       {cols.map((c, i) => (
         <div key={i} className={`imweb-col ${fiveCol ? "" : SPAN_CLASS[c.span] || colClass(c.grid)}`}>
-          <Rows rows={c.children} locale={locale} nested wdepth={wdepth} vGutter={vGutter} />
+          <Rows rows={c.children} locale={locale} nested wdepth={wdepth} vGutter={vGutter} mobileBox={mobileBox} />
         </div>
       ))}
     </div>
@@ -662,6 +671,18 @@ const IMG_DESKTOP_HEIGHT = "min-[992px]:h-[var(--img-h)]";
  * their desktop height.
  */
 const BOX_DESKTOP_HEIGHT = "min-[992px]:h-[var(--box-h)]";
+/**
+ * MB1: `mobile_section` widgets are authored for the 390px viewport, so their
+ * crawled `boxStyle` height IS the mobile measurement — the opposite of the RC5
+ * desktop-crop case above. Measured on home `s20250911281117781b494`: the four
+ * image widgets carry `height: 179px` and the original mobile screenshot paints
+ * each card as a 179px band (img element 360x483 clipped by the box); the
+ * section is 4x179 + margins + 91 padding = 882. Keep the box height at every
+ * width; the section itself never renders at >=992 (`mobile_section`), so
+ * desktop is untouched. Independently confirmed on company.about
+ * `s202509191b81eb54a6991` (`height: 318px` -> original band 694..1012 = 318).
+ */
+const BOX_MOBILE_HEIGHT = "h-[var(--box-h)]";
 
 /** imweb page-title hero markers: `_section_first` (desktop) / `mobile_section_first` (mobile) */
 const PAGE_HERO = /(^|\s)(_section_first|mobile_section_first)(\s|$)/;
@@ -813,6 +834,7 @@ export default function SectionRenderer({
                       wdepth={0}
                       vGutter={vGutter}
                       mobileInset={mobileOnly}
+                      mobileBox={mobileOnly}
                     />
                   ))}
               </div>

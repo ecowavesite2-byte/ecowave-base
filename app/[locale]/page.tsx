@@ -4,10 +4,19 @@ import Reveal from "@/components/ui/Reveal";
 import SectionRenderer, { Rows, MOBILE_SECTION } from "@/components/content/SectionRenderer";
 import { getPage, getBoard } from "@/lib/content";
 import { isLocale, defaultLocale, localeHref } from "@/lib/i18n";
-import type { PageContent } from "@/lib/types";
+import type { ColNode, Node, PageContent, RowNode } from "@/lib/types";
 
 const FOOTER_SECTION_ID = "s20250811f489e3443bdbe";
 const TICKER_SECTION_ID = "s2025081139ff276cae8d6";
+
+/** does this col contain the round "+" button (the ticker header's 3-col)? */
+function colHasButton(col: ColNode): boolean {
+  const walk = (nodes: Node[]): boolean =>
+    nodes.some((n) =>
+      n.kind === "widget" ? n.type === "button" : n.kind === "row" ? n.cols.some((c) => walk(c.children)) : walk(n.children),
+    );
+  return walk(col.children);
+}
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -21,7 +30,12 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   const heroSec = page.sections.find((s) => s.visual && !MOBILE_SECTION.test(s.cls || ""));
   const mobileHeroSec = page.sections.find((s) => s.visual && MOBILE_SECTION.test(s.cls || ""));
   const tickerSec = page.sections.find((s) => s.id === TICKER_SECTION_ID);
-  const tickerHeaderRows = tickerSec ? tickerSec.rows.filter((r) => r.kind === "row" && (r.h === 126 || r.h === 116 || r.h === 39)) : [];
+  const tickerHeaderRows: RowNode[] = tickerSec
+    ? tickerSec.rows.filter(
+        (r): r is RowNode => r.kind === "row" && (r.h === 126 || r.h === 116 || r.h === 39),
+      )
+    : [];
+  const tickerHeaderRow = tickerHeaderRows.find((r) => r.h === 116);
   const rest = page.sections.filter((s) => !s.visual && s.id !== TICKER_SECTION_ID && s.id !== FOOTER_SECTION_ID);
 
   return (
@@ -39,7 +53,33 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       {tickerSec && (
         <section className="relative overflow-x-clip" style={{ backgroundColor: tickerSec.bgColor || "#f7f7f7" }}>
           <div className="mx-auto max-w-[1040px] px-[15px] lg:px-0">
-            <Rows rows={tickerHeaderRows} locale={l} />
+            {tickerHeaderRows.map((r, i) =>
+              r === tickerHeaderRow ? (
+                // MB3: on mobile the header row is a single grid column, so the
+                // 3-col "+" button (a 57px spacer + 44px round button) stacks
+                // UNDER the title and adds ~95px (local 615 vs original 520).
+                // The original mobile screenshot shows a blank right side and
+                // the cards start ~26px below the title, so hide the whole
+                // button column below the `lg` (1024px) grid breakpoint.
+                // Desktop keeps the 9/3 grid (and the 116px min-height).
+                <div
+                  key={i}
+                  className="imweb-row grid grid-cols-1 min-[1024px]:min-h-[var(--row-h)] lg:grid-cols-12"
+                  style={{ ["--row-h" as string]: r.h ? `${r.h}px` : undefined } as React.CSSProperties}
+                >
+                  {r.cols.map((c, j) => (
+                    <div
+                      key={j}
+                      className={`imweb-col ${colHasButton(c) ? "hidden lg:col-span-3 lg:block" : "lg:col-span-9"}`}
+                    >
+                      <Rows rows={c.children} locale={l} nested wdepth={1} />
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <Rows key={i} rows={[r]} locale={l} />
+              ),
+            )}
             {/* newest row: measured min-height 310, cards overlap upward by 15.
                 Mobile (orig 390): full-bleed 405px track (margin -7.5), 2 columns,
                 card 188x283, thumb 186x142; desktop flex-1 row unchanged (lg:). */}

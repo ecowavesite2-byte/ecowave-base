@@ -54,10 +54,10 @@ export default function GallerySlider({ count, children }: { count: number; chil
   };
 
   const arrow =
-    "flex h-[34px] w-[34px] shrink-0 items-center justify-center rounded-full border border-[#ddd] text-body transition duration-300 hover:border-accent hover:text-accent";
+    "pointer-events-auto flex h-[34px] w-[34px] shrink-0 items-center justify-center rounded-full border border-[#ddd] text-body transition duration-300 hover:border-accent hover:text-accent";
 
   return (
-    <div>
+    <div className="relative">
       <div
         ref={track}
         onScroll={() => {
@@ -69,7 +69,14 @@ export default function GallerySlider({ count, children }: { count: number; chil
         {children}
       </div>
       {dotCount > 1 && (
-        <div className="mt-5 flex items-center justify-center gap-5">
+        // MB2/D13: the original owl nav (`.owl-nav`/`.owl-dots`) is an absolute
+        // overlay pinned to the bottom of the carousel, so it adds ZERO flow
+        // height. Anchor the pager inside the gallery container instead of
+        // `mt-5` in-flow (which was +54px desktop / +~40-130px mobile per
+        // gallery). The container is `relative`; the strip itself is not, so
+        // the pager is not clipped by the track's `overflow-x-auto`. Only the
+        // controls take pointer events so the strip keeps its swipe target.
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 flex items-center justify-center gap-5">
           <button type="button" aria-label="이전" onClick={() => nudge(-1)} className={arrow}>
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M15 18l-6-6 6-6" />
@@ -83,7 +90,7 @@ export default function GallerySlider({ count, children }: { count: number; chil
                 aria-label={`${i + 1}`}
                 aria-current={i === active ? "true" : undefined}
                 onClick={() => goTo(i)}
-                className={`flex h-[12px] w-[39px] items-center justify-center ${
+                className={`pointer-events-auto flex h-[12px] w-[39px] items-center justify-center ${
                   i === active ? "opacity-100" : "opacity-50"
                 }`}
               >
