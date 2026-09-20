@@ -113,13 +113,18 @@ export default function PageHero({
       <div className={`mx-auto flex max-w-[1280px] flex-col justify-start px-[15px] pb-0 pt-[65px] lg:flex-row lg:items-end lg:justify-between lg:pt-0 ${mobileHeightClass} ${heightClass} ${padBottom}`}>
         {!blank && title && hasSubtitle ? (
           <div>
-            <h1 className="font-bold leading-[1.2] tracking-[-0.02em] text-[#090909] text-[30px] lg:text-[72px]">
+            <h1 className="font-bold leading-[1.2] text-black text-[30px] lg:text-[72px]">
               {title}
             </h1>
-            <p className="mt-[3px] text-[22px] leading-[26px] text-body">{subtitle}</p>
+            {/* crawled product hero: the subtitle <p> is 15px with an inline
+                `line-height:3` (45px) and a 22px <span> inside — the probe
+                measures the <p> (15/45) and the <span> (22px). */}
+            <p className="mt-[3px] text-[15px] leading-[45px] text-body">
+              <span className="text-[22px]">{subtitle}</span>
+            </p>
           </div>
         ) : !blank && title ? (
-          <h1 className={`font-bold leading-[1.2] tracking-[-0.02em] text-ink ${big ? "text-[30px] lg:text-[72px]" : "text-[30px] lg:text-[65px]"}`}>
+          <h1 className={`font-bold leading-[1.2] text-black ${big ? "text-[30px] lg:text-[72px]" : "text-[30px] lg:text-[65px]"}`}>
             {title}
           </h1>
         ) : null}

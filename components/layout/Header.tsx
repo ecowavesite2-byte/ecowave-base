@@ -128,12 +128,20 @@ export default function Header({ locale, nav, logo, logoScrolled, langLabelKo, l
         <nav className="ml-auto hidden items-stretch min-[1500px]:flex [font-family:var(--font-poppins),Pretendard,'Apple_SD_Gothic_Neo',sans-serif]" aria-label="주 메뉴">
           <ul className="flex items-stretch">
             {nav.map((item) => {
+              const isActive = activeTop?.url === item.url;
               return (
                 <li key={item.url} className="group relative">
                   <Link
                     href={localeHref(locale, routeForSource(item.url))}
-                    className={`block px-[30px] py-[20px] text-[19px] font-normal leading-[30px] transition duration-300 ${
-                      overlay ? "text-white group-hover:text-white/50" : "text-ink group-hover:text-ink/50"
+                    aria-current={isActive ? "page" : undefined}
+                    className={`block px-[30px] py-[20px] text-[19px] leading-[30.4px] transition duration-300 ${
+                      isActive
+                        ? overlay
+                          ? "font-bold text-white"
+                          : "font-bold text-body"
+                        : overlay
+                          ? "font-normal text-white group-hover:text-white/50"
+                          : "font-normal text-ink group-hover:text-ink/50"
                     }`}
                   >
                     {item.name}
@@ -162,7 +170,7 @@ export default function Header({ locale, nav, logo, logoScrolled, langLabelKo, l
           <div className="flex items-center self-center">
             <Link
               href={langTarget(otherLocale)}
-              className={`text-[15px] transition duration-300 ${overlay ? "text-white hover:text-white/50" : "text-ink hover:text-ink/50"}`}
+              className={`font-sans text-[15px] leading-[24px] transition duration-300 ${overlay ? "text-white hover:text-white/50" : "text-ink hover:text-ink/50"}`}
             >
               {otherLabel}
             </Link>
@@ -172,21 +180,31 @@ export default function Header({ locale, nav, logo, logoScrolled, langLabelKo, l
         {/* condensed desktop nav — first 3 items + "..." overflow at 992–1499px */}
         <nav className="ml-auto hidden items-stretch min-[992px]:flex min-[1500px]:hidden [font-family:var(--font-poppins),Pretendard,'Apple_SD_Gothic_Neo',sans-serif]" aria-label="주 메뉴">
           <ul className="flex items-stretch">
-            {nav.slice(0, 3).map((item) => (
-              <li key={item.url} className="group relative">
-                <Link
-                  href={localeHref(locale, routeForSource(item.url))}
-                  className={`block px-[30px] py-[20px] text-[19px] font-normal leading-[30px] transition duration-300 ${linkCls}`}
-                >
-                  {item.name}
-                </Link>
-                {item.children.length > 0 && (
-                  <div className="invisible absolute left-1/2 top-full z-50 -translate-x-1/2 pt-1 opacity-0 transition-opacity duration-500 ease-in-out group-hover:visible group-hover:opacity-100">
-                    <DropList items={item.children} locale={locale} />
-                  </div>
-                )}
-              </li>
-            ))}
+            {nav.slice(0, 3).map((item) => {
+              const isActive = activeTop?.url === item.url;
+              return (
+                <li key={item.url} className="group relative">
+                  <Link
+                    href={localeHref(locale, routeForSource(item.url))}
+                    aria-current={isActive ? "page" : undefined}
+                    className={`block px-[30px] py-[20px] text-[19px] leading-[30.4px] transition duration-300 ${
+                      isActive
+                        ? overlay
+                          ? "font-bold text-white"
+                          : "font-bold text-body"
+                        : `font-normal ${linkCls}`
+                    }`}
+                  >
+                    {item.name}
+                  </Link>
+                  {item.children.length > 0 && (
+                    <div className="invisible absolute left-1/2 top-full z-50 -translate-x-1/2 pt-1 opacity-0 transition-opacity duration-500 ease-in-out group-hover:visible group-hover:opacity-100">
+                      <DropList items={item.children} locale={locale} />
+                    </div>
+                  )}
+                </li>
+              );
+            })}
             <li className="group/more relative">
               <button
                 type="button"
@@ -220,7 +238,7 @@ export default function Header({ locale, nav, logo, logoScrolled, langLabelKo, l
           <div className="flex items-center self-center">
             <Link
               href={langTarget(otherLocale)}
-              className={`text-[15px] transition duration-300 ${overlay ? "text-white hover:text-white/50" : "text-ink hover:text-ink/50"}`}
+              className={`font-sans text-[15px] leading-[24px] transition duration-300 ${overlay ? "text-white hover:text-white/50" : "text-ink hover:text-ink/50"}`}
             >
               {otherLabel}
             </Link>
