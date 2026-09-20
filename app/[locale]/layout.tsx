@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Header from "@/components/layout/Header";
 import SiteFooter from "@/components/layout/SiteFooter";
-import FloatingTop from "@/components/layout/FloatingTop";
 import HtmlLang from "@/components/layout/HtmlLang";
 import { getSite } from "@/lib/content";
 import { isLocale, defaultLocale, type Locale } from "@/lib/i18n";
@@ -54,7 +53,6 @@ export default async function LocaleLayout({
       />
       {children}
       <SiteFooter locale={l} />
-      <FloatingTop />
     </>
   );
 }
