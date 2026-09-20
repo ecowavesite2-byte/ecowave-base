@@ -13,7 +13,7 @@
 }
 
 html {
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
 }
 
 body {
@@ -57,11 +57,52 @@ body {
 
 /* crawled rich-text widgets (imweb fr-view fragments with inline styles) */
 .rich-text {
+  position: relative;
   display: flow-root;
   line-height: 1.2;
 }
+/* imweb renders every text widget's `.text-table` as a flex column
+   (`#text_w<id> .text-table{display:flex;flex-direction:column;justify-content:
+   flex-start}`), which keeps child margins inside the box instead of letting
+   them collapse out. Match that so measured holder boxes line up. */
+.rich-text .text-table {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
 .rich-text .text-table.holder {
   padding: 20px 0;
+}
+/* cover layers (`text_bg_img` + `text_bg_color`) are imweb-absolute inside
+   `.widget_text_wrap`; our equivalent wrapper is `.rich-text`. Without this the
+   layers are 0-height in flow and white text renders white-on-white. Lift the
+   text table above them. */
+.rich-text > .text_bg_img,
+.rich-text > .text_bg_color {
+  position: absolute;
+  inset: 0;
+}
+.rich-text > .text-table {
+  position: relative;
+  z-index: 1;
+}
+/* philosophy "3단계 서비스" cover cards: imweb stretches `.widget_text_wrap` to
+   the measured row (609px) minus its 15px vertical margins → card 579px; the
+   holder padding is 60px 50px for the outer widgets and 60px 40px for the
+   middle one (live-measured). */
+.rich-text:has(> .text_bg_img) {
+  margin: 15px 0;
+}
+.rich-text:has(> .text_bg_img) > .text-table.holder {
+  padding: 60px 50px;
+}
+.imweb-row > .imweb-col:nth-child(2) .rich-text:has(> .text_bg_img) > .text-table.holder {
+  padding: 60px 40px;
+}
+@media (min-width: 1024px) {
+  .rich-text:has(> .text_bg_img) {
+    min-height: calc(var(--row-h, 0px) - 30px);
+  }
 }
 .rich-text h1,
 .rich-text h2,
@@ -157,4 +198,40 @@ body {
 }
 .board-content iframe {
     max-width: 100%;
+}
+
+/* measured original header dropdown (white, radius 10, item hover = accent fill) */
+.imweb-dropdown {
+    min-width: 190px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+    white-space: nowrap;
+}
+.imweb-dropdown a {
+    display: block;
+    padding: 15px 20px;
+    font-size: 15px;
+    line-height: 21px;
+    color: #212121;
+}
+.imweb-dropdown a:hover {
+    background: #3465de;
+    color: #fff;
+}
+.imweb-dropdown li:first-child a:hover {
+    border-radius: 10px 10px 0 0;
+}
+.imweb-dropdown li:last-child a:hover {
+    border-radius: 0 0 10px 10px;
+}
+
+/* crawled TOP/plus circle buttons sitting on the black footer section */
+[data-footer] [data-widget-type="button"] a {
+    border-color: rgba(255, 255, 255, 0.4);
+    color: #fff;
+}
+[data-footer] [data-widget-type="button"] a:hover {
+    border-color: #fff;
+    color: #fff;
 }

@@ -1,0 +1,82 @@
+import { Rows } from "@/components/content/SectionRenderer";
+import { getPage, getSite } from "@/lib/content";
+import { localeHref, type Locale } from "@/lib/i18n";
+import { routeForSource } from "@/lib/routes";
+import type { Node, WidgetNode } from "@/lib/types";
+
+const FOOTER_SECTION_ID = "s20250811f489e3443bdbe";
+
+/**
+ * Site footer rendered from the crawled footer section rows (identical on
+ * every original page): black band, logo + company info left, TOP button +
+ * 5 sitemap columns right. The crawl missed the sitemap sub-links, so they
+ * are injected from the nav tree (identical set on the live original).
+ * Rendered at layout level so board detail pages keep the footer too.
+ */
+export default function SiteFooter({ locale }: { locale: Locale }) {
+  const page = getPage(locale, "home");
+  const sec = page.sections.find((s) => s.id === FOOTER_SECTION_ID);
+  if (!sec) return null;
+
+  const rows = structuredClone(sec.rows) as Node[];
+  const nav = getSite(locale).nav;
+  for (const n of rows) {
+    if (n.kind !== "row") continue;
+    for (const col of n.cols) {
+      if (col.grid !== "5") continue;
+      const sitemapRow = col.children.filter((c) => c.kind === "row")[1];
+      if (!sitemapRow || sitemapRow.kind !== "row") continue;
+      sitemapRow.cols.forEach((smcol, i) => {
+        const links = nav[i]?.children || [];
+        if (links.length === 0) return;
+        const w = {
+          kind: "widget",
+          id: `sitemap-links-${i}`,
+          type: "sitemap-links",
+          links: links.map((c) => ({
+            name: c.name,
+            href: localeHref(locale, routeForSource(c.url)),
+          })),
+        } as unknown as WidgetNode;
+        // replace the (empty on crawl) links row with the real sub-links
+        const headRow = smcol.children.find((c) => c.kind === "row");
+        smcol.children = [...(headRow ? [headRow] : []), w];
+      });
+    }
+  }
+
+  // imweb insets every row's content ~15px from the row's top; the shared
+  // footer's logo/info therefore starts 20px lower than our top-aligned rows
+  // render (live-measured: logo +51px below the band top on the original vs
+  // +31px local — identical on company/rnd/patents). Move that space from the
+  // trailing empty spacer row to the leading one so the footer stays 412px
+  // tall (matching the original) while its content aligns.
+  const topRow = rows.find((n) => n.kind === "row");
+  const bottomRow = [...rows].reverse().find((n) => n.kind === "row");
+  if (topRow?.kind === "row" && bottomRow?.kind === "row" && topRow !== bottomRow) {
+    topRow.h = (topRow.h ?? 31) + 20;
+    bottomRow.h = Math.max(0, (bottomRow.h ?? 31) - 20);
+  }
+
+  return (
+    <footer data-footer className="relative" style={{ backgroundColor: sec.bgColor || "#000" }}>
+      {/*
+       * Original mobile (390) footer is 300px: imweb renders the TOP button +
+       * 5-column sitemap column as `.col-dz-5` with w=0/h=0 (its rows carry
+       * `hidden-xs`, i.e. display:none below imweb's 992px breakpoint). The
+       * desktop footer keeps that column, so hide it only below 992px. The
+       * selector targets the one grid-5 col in the footer (nested sitemap
+       * columns are grid-1 and carry no `col-span-5` class).
+       */}
+      <style>{`
+        @media (max-width: 991.98px) {
+          [data-footer] .imweb-col.lg\\:col-span-5 { display: none; }
+        }
+      `}</style>
+      {/* imweb `.inside` insets the footer band 16px below its top on mobile;
+          desktop offset is handled by the leading spacer row (51px). */}
+      <div aria-hidden className="h-[16px] min-[992px]:hidden" />
+      <Rows rows={rows} locale={locale} />
+    </footer>
+  );
+}
