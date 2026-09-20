@@ -55,6 +55,8 @@ export type Section = {
   /** visual hero slides (homepage visual_section) */
   visual?: HeroSlide[];
   bg: string | null;
+  /** original `.section_bg.fixed_bg_wrap` — pin the bg to the viewport */
+  bgFixed?: boolean;
   bgStyle: string;
   bgColor: string | null;
   secStyle: string;

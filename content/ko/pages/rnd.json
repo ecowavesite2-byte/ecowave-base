@@ -227,6 +227,7 @@
       "id": "s20250909caaa8544e0e70",
       "cls": "section_wrap  pc_section       side_basic     ",
       "bg": "/images/thumbnail/20250820/6bbe2b297ab17.jpg",
+      "bgFixed": true,
       "bgStyle": "background-image:url('/images/thumbnail/20250820/6bbe2b297ab17.jpg'); background-position:50% 50%;  background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
       "bgColor": "rgba(0, 0, 0, 0.5)",
       "secStyle": "; ; background-color:rgba(0, 0, 0, 0.5);;",
@@ -342,6 +343,13 @@
               "kind": "col",
               "grid": "12",
               "children": [
+                {
+                  "kind": "widget",
+                  "id": "w20250909spacer15px01",
+                  "type": "padding",
+                  "html": "<div class=\"widget padding\" data-height=\"15\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w20250909spacer15px01\" style=\"width:100%; min-height:1px; height:15px; \"></div>\n</div>\n",
+                  "_h": 15
+                },
                 {
                   "kind": "widget",
                   "id": "w202509092bb83d593e678",
@@ -882,6 +890,9 @@
                   "animDur": "1.2",
                   "animDelay": "0.3",
                   "gridN": "01",
+                  "gridGap": 15,
+                  "gridRowH": 238,
+                  "gridCols": 5,
                   "itemW": 253,
                   "itemH": 253,
                   "items": [

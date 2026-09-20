@@ -1,6 +1,7 @@
 import Link from "next/link";
 import RichText from "@/components/ui/RichText";
 import Reveal from "@/components/ui/Reveal";
+import InquiryForm from "@/components/forms/InquiryForm";
 import type { ColNode, Node, RowNode, Section, WidgetNode } from "@/lib/types";
 import { defaultLocale, localeHref, type Locale } from "@/lib/i18n";
 import { routeForSource } from "@/lib/routes";
@@ -32,6 +33,33 @@ function colClass(grid: string): string {
   const g = Math.min(12, Math.max(1, parseInt(grid, 10) || 12));
   return SPAN_CLASS[g];
 }
+
+/**
+ * Literal class strings for the opt-in measured gallery grid (rnd USP rows).
+ * Tailwind only emits classes it can see as text, so the column count must be
+ * mapped to a static class rather than interpolated.
+ */
+const GRID_COLS_CLASS: Record<number, string> = {
+  1: "min-[992px]:grid-cols-1!",
+  2: "min-[992px]:grid-cols-2!",
+  3: "min-[992px]:grid-cols-3!",
+  4: "min-[992px]:grid-cols-4!",
+  5: "min-[992px]:grid-cols-5!",
+  6: "min-[992px]:grid-cols-6!",
+};
+
+/**
+ * imweb `grid_0N` is a fixed-column layout preset, NOT a numeric column count:
+ * measured on the live site `grid_01` = 5 columns (about USP row), `grid_02` = 6
+ * (about parts row) and `grid_03` = 4 (patents). Reading `Number("01")` as 1
+ * makes each cell full-width, so the gallery stacks into one 1250px row per
+ * item and the section height explodes.
+ */
+const GRID_N_COLS: Record<string, number> = {
+  "01": 5,
+  "02": 6,
+  "03": 4,
+};
 
 function isWidget(n: Node): n is WidgetNode {
   return n.kind === "widget";
@@ -66,6 +94,7 @@ export function GalleryCard({
   w,
   h,
   fill = false,
+  captionBand = false,
   className = "",
 }: {
   item: { org?: string | null; thumb?: string | null; title?: string; desc?: string };
@@ -74,11 +103,43 @@ export function GalleryCard({
   h?: number | null;
   /** stretch to the grid cell (grid layout) */
   fill?: boolean;
+  /**
+   * imweb certificate-card layout (rnd.patents): a 3:4 image area with a
+   * centered caption band below it instead of the absolute hover overlay.
+   * Measured on the live original: `.item_container` = 1px #eee border on a
+   * #f6f6f6 ground, `.img_wrap` 288x384 (i.e. 3:4, so it scales down to
+   * 171x228 at mobile) + `.text_wrap` 288x66 (20px padding, centered 16px
+   * #212121 title). Opt-in per widget so the USP (rnd/rnd.technology) and the
+   * company.about grids keep the overlay-card markup byte-for-byte.
+   */
+  captionBand?: boolean;
   className?: string;
 }) {
   const src = item.org || item.thumb;
   if (!src) return null;
   const boxStyle = !fill && (w || h) ? { width: w ? `${w}px` : undefined, height: h ? `${h}px` : undefined } : undefined;
+  if (captionBand) {
+    return (
+      <figure
+        className={`relative flex flex-col overflow-hidden border border-[#eee] bg-[#f6f6f6] ${
+          fill ? "h-full" : "shrink-0"
+        } ${className}`}
+        style={boxStyle}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={src}
+          alt={item.title || ""}
+          className="aspect-[3/4] w-full object-cover min-[992px]:aspect-auto min-[992px]:min-h-0 min-[992px]:flex-1"
+          loading="lazy"
+        />
+        <figcaption className="flex min-h-[66px] shrink-0 flex-col items-center justify-center px-[20px] py-[20px] text-center">
+          {item.title && <p className="text-[16px] font-normal leading-[1.6] text-[#212121]">{item.title}</p>}
+          {item.desc && <p className="text-[14px] leading-[1.6] text-[#212121]">{item.desc}</p>}
+        </figcaption>
+      </figure>
+    );
+  }
   return (
     <figure className={`relative overflow-hidden bg-soft ${fill ? "h-full" : "shrink-0"} ${className}`} style={boxStyle}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -110,6 +171,22 @@ function ImageWidget({ w, locale }: { w: WidgetNode; locale: Locale }) {
     if (!k || !v) return;
     const key = k.trim();
     const val = v.trim();
+    if (key === "margin") {
+      // imweb emits the shorthand (`margin: 1px auto`, `margin: 86px auto`);
+      // expand it against the CSS 1/2/3/4-value rules so the vertical offsets
+      // survive (the longhand whitelist below never saw them). `auto` is left
+      // unset — for an inline-block img it is a no-op anyway.
+      const p = val.split(/\s+/).filter(Boolean);
+      const [t, r = t, b = t, l = r] = p;
+      const set = (prop: string, nv?: string) => {
+        if (nv && nv !== "auto" && !nv.includes("inherit")) inlineStyle[prop] = nv;
+      };
+      set("margin-top", t);
+      set("margin-right", r);
+      set("margin-bottom", b);
+      set("margin-left", l);
+      return;
+    }
     if (
       ["width", "height", "margin-top", "margin-left", "margin-right", "margin-bottom", "display"].includes(key) &&
       val &&
@@ -121,13 +198,28 @@ function ImageWidget({ w, locale }: { w: WidgetNode; locale: Locale }) {
   });
   if (!inlineStyle.width) inlineStyle.width = "100%";
   if (hasOverlay) inlineStyle.width = "100%";
-  if (w.imgStyle && /(width|height)\s*:\s*(?!100%)/.test(w.imgStyle)) {
-    inlineStyle["max-width"] = "none";
+  // RC5: source desktop-pixel dimensions must stay unclamped at >=992 (the
+  // images are deliberate crops), but below 992 they overflow the 390 column.
+  // Re-apply the desktop max-width/height only at >=992 and let the mobile
+  // preflight (`img { max-width:100%; height:auto }`) scale them down. The fixed
+  // height moves into a CSS var so it does not pin the mobile box.
+  const desktopSized = !!w.imgStyle && /(width|height)\s*:\s*(?!100%)/.test(w.imgStyle);
+  let desktopHeight: string | null = null;
+  if (desktopSized) {
+    const hm = w.imgStyle?.match(/(?:^|;)\s*height\s*:\s*(-?[\d.]+)px/);
+    if (hm) {
+      desktopHeight = `${parseFloat(hm[1])}px`;
+      delete inlineStyle.height;
+    }
   }
+  const imgClass = `block${desktopSized ? " " + IMG_DESKTOP_MAX_NONE : ""}${desktopHeight ? " " + IMG_DESKTOP_HEIGHT : ""}`;
+  const imgStyle = desktopHeight
+    ? ({ ...inlineStyle, ["--img-h" as string]: desktopHeight } as React.CSSProperties)
+    : inlineStyle;
 
   const img = (
     // eslint-disable-next-line @next/next/no-img-element
-    <img src={w.src || ""} alt={title || w.alt || ""} className="block" style={inlineStyle} loading="lazy" />
+    <img src={w.src || ""} alt={title || w.alt || ""} className={imgClass} style={imgStyle} loading="lazy" />
   );
 
   const body =
@@ -160,7 +252,10 @@ function ImageWidget({ w, locale }: { w: WidgetNode; locale: Locale }) {
         </div>
       </div>
     ) : (
-      <div className="relative w-full overflow-hidden" style={h ? { height: h } : undefined}>
+      <div
+        className={`relative w-full overflow-hidden${h ? " " + BOX_DESKTOP_HEIGHT : ""}`}
+        style={h ? ({ ["--box-h" as string]: `${h}px` } as React.CSSProperties) : undefined}
+      >
         {w.src && img}
       </div>
     );
@@ -183,11 +278,26 @@ function ImageWidget({ w, locale }: { w: WidgetNode; locale: Locale }) {
   return body;
 }
 
-export function Widget({ w, locale = defaultLocale }: { w: WidgetNode; locale?: Locale }) {
+export function Widget({
+  w,
+  locale = defaultLocale,
+  nested = false,
+  vGutter = false,
+}: {
+  w: WidgetNode;
+  locale?: Locale;
+  nested?: boolean;
+  vGutter?: boolean;
+}) {
   const content = w.type === "padding" ? renderPadding(w) : WidgetContent({ w, locale });
   if (!content) return null;
+  // imweb `.doz_sys .inside .widget { margin: 15px 0 }`, cancelled for sections
+  // carrying `grid_v_gutter_0`. Only images appear inside nested rows on the
+  // desktop pages where the row min-height already reserves the space, so the
+  // margin is scoped to nested image widgets to avoid shifting top-level rows.
+  const margin = w.type === "image" && nested && vGutter ? "mt-[15px] mb-[15px]" : "";
   const tagged = (
-    <div data-widget-type={w.type}>
+    <div data-widget-type={w.type} className={margin || undefined}>
       {content}
     </div>
   );
@@ -242,9 +352,41 @@ function WidgetContent({ w, locale }: { w: WidgetNode; locale: Locale }) {
           </div>
         );
       }
-      // grid layout: column count from the crawled grid_0N class;
-      // cells stretch to the row's measured min-height, images fill them
-      const cols = Math.max(1, Math.min(6, Number(meta2.gridN) || 4));
+      // grid layout: column count from imweb's `grid_0N` preset (see
+      // GRID_N_COLS) or an explicit crawled `gridCols`; cells stretch to the
+      // row's measured min-height, images fill them
+      const measured = w as unknown as {
+        gridRowH?: number;
+        gridGap?: number;
+        gridCols?: number;
+        captionBand?: boolean;
+      };
+      const cols = Math.max(1, Math.min(6, measured.gridCols ?? GRID_N_COLS[meta2.gridN ?? ""] ?? 4));
+      // imweb's `grid_03` renders 4 columns at desktop, where each item is a
+      // 320px cell with 15px padding (290px card + 30px gutters). The measured
+      // override pins that card height so the grid holds its shape before the
+      // lazy images load — otherwise every cell collapses to 0 and whole
+      // galleries go blank (the patents empty block).
+      // `grid-cols-4!` MUST keep the important flag: Tailwind emits the
+      // `min-[992px]` block before the `sm:` (40rem) block in the stylesheet, so
+      // at 1440 the same-specificity `sm:grid-cols-3` otherwise wins and wraps
+      // the galleries into 3 columns (+1402px page height).
+      if (typeof measured.gridRowH === "number" && measured.gridRowH > 0) {
+        const gc = Math.max(1, Math.min(6, measured.gridCols ?? 4));
+        return (
+          <div
+            className={`grid grid-cols-2 gap-[10px] sm:grid-cols-3 min-[992px]:mt-[15px] ${GRID_COLS_CLASS[gc] ?? GRID_COLS_CLASS[4]} min-[992px]:gap-[var(--ggap)] min-[992px]:py-[15px] min-[992px]:auto-rows-[var(--growh)]`}
+            style={{
+              ["--ggap" as string]: `${measured.gridGap ?? 30}px`,
+              ["--growh" as string]: `${measured.gridRowH}px`,
+            }}
+          >
+            {items.map((it, i) => (
+              <GalleryCard key={i} item={it} fill captionBand={measured.captionBand === true} />
+            ))}
+          </div>
+        );
+      }
       return (
         <div
           className="gallery-grid"
@@ -267,17 +409,26 @@ function WidgetContent({ w, locale }: { w: WidgetNode; locale: Locale }) {
         <iframe src={w.src} className="aspect-video w-full" allowFullScreen title="video" />
       ) : null;
     case "button": {
-      const isTop = w.href === "#doz_header" || /icon-arrow-up/.test(w.html || "");
+      const html = w.html || "";
+      const isTop = w.href === "#doz_header" || /icon-arrow-up/.test(html);
+      const isPlus = /bt-plus|icon-plus|plus/.test(html);
+      const internalHref = w.href && !/^https?:/i.test(w.href) && !w.href.startsWith("#") ? routeForSource(w.href) : null;
+      const dest = internalHref ? localeHref(locale, internalHref) : w.href || "#";
       return (
         <div className="text-right">
           <Link
-            href={w.href || "#"}
+            href={dest}
             aria-label={w.text || "button"}
             className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-[#ddd] text-body transition-colors hover:border-accent hover:text-accent"
           >
             {isTop && (
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M18 15l-6-6-6 6" />
+              </svg>
+            )}
+            {!isTop && isPlus && (
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M12 5v14M5 12h14" />
               </svg>
             )}
           </Link>
@@ -287,6 +438,29 @@ function WidgetContent({ w, locale }: { w: WidgetNode; locale: Locale }) {
     case "board":
       // board widgets are handled explicitly by their page components
       return <div data-board-ref={w.ref} data-board-cls={w.listCls} />;
+    case "form":
+      // the imweb POST form has no live backend — static rebuild instead
+      return <InquiryForm locale={locale} />;
+    case "sitemap-links": {
+      // footer sitemap sub-links injected from the nav tree (the crawl
+      // missed them): 14px #959595, matching the live original
+      const links = (w as unknown as { links?: { name: string; href: string }[] }).links || [];
+      if (links.length === 0) return null;
+      return (
+        <ul>
+          {links.map((l) => (
+            <li key={l.href}>
+              <Link
+                href={l.href}
+                className="block text-[14px] leading-[2] text-[#959595] transition-colors hover:text-white"
+              >
+                {l.name}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      );
+    }
     default:
       return w.html ? <RichText html={w.html} /> : null;
   }
@@ -294,21 +468,34 @@ function WidgetContent({ w, locale }: { w: WidgetNode; locale: Locale }) {
 
 /* ---------------- layout walker ---------------- */
 
-export function Rows({ rows, locale = defaultLocale, nested = false }: { rows: Node[]; locale?: Locale; nested?: boolean }) {
+export function Rows({
+  rows,
+  locale = defaultLocale,
+  nested = false,
+  wdepth = 0,
+  vGutter = false,
+}: {
+  rows: Node[];
+  locale?: Locale;
+  nested?: boolean;
+  /** depth of the row that owns these direct widget children (0 = top level) */
+  wdepth?: number;
+  vGutter?: boolean;
+}) {
   const out: React.ReactNode[] = [];
   rows.forEach((n, i) => {
     if (isRow(n)) {
-      out.push(<Row key={i} r={n} locale={locale} nested={nested} />);
+      out.push(<Row key={i} r={n} locale={locale} nested={nested} wdepth={wdepth + 1} vGutter={vGutter} />);
     } else if (isWidget(n)) {
       out.push(
         <div key={i}>
-          <Widget w={n} locale={locale} />
+          <Widget w={n} locale={locale} nested={wdepth > 0} vGutter={vGutter} />
         </div>,
       );
     } else if (n.kind === "col") {
       out.push(
         <div key={i} className={colClass(n.grid)}>
-          <Rows rows={n.children} locale={locale} nested />
+          <Rows rows={n.children} locale={locale} nested={nested} wdepth={wdepth} vGutter={vGutter} />
         </div>,
       );
     }
@@ -316,7 +503,19 @@ export function Rows({ rows, locale = defaultLocale, nested = false }: { rows: N
   return <>{out}</>;
 }
 
-export function Row({ r, locale = defaultLocale, nested = false }: { r: RowNode; locale?: Locale; nested?: boolean }) {
+export function Row({
+  r,
+  locale = defaultLocale,
+  nested = false,
+  wdepth = 0,
+  vGutter = false,
+}: {
+  r: RowNode;
+  locale?: Locale;
+  nested?: boolean;
+  wdepth?: number;
+  vGutter?: boolean;
+}) {
   const rowVars: React.CSSProperties = {};
   if (!nested && r.w) (rowVars as Record<string, string>)["--row-w"] = `${r.w}px`;
   if (r.h) (rowVars as Record<string, string>)["--row-h"] = `${r.h}px`;
@@ -328,11 +527,13 @@ export function Row({ r, locale = defaultLocale, nested = false }: { r: RowNode;
     ...c,
     span: Math.max(1, Math.min(12, Math.round(((parseInt(c.grid, 10) || 12) / (parseInt(r.grid, 10) || 12)) * 12))),
   }));
+  // five equal cols (footer sitemap) can't split a 12-grid evenly — use grid-cols-5
+  const fiveCol = cols.length === 5 && cols.every((c) => (parseInt(c.grid, 10) || 0) === 1);
   return (
-    <div className="imweb-row grid grid-cols-1 lg:grid-cols-12" style={rowVars}>
+    <div className={`imweb-row grid grid-cols-1 ${fiveCol ? "lg:grid-cols-5" : "lg:grid-cols-12"}`} style={rowVars}>
       {cols.map((c, i) => (
-        <div key={i} className={`imweb-col ${SPAN_CLASS[c.span] || colClass(c.grid)}`}>
-          <Rows rows={c.children} locale={locale} nested />
+        <div key={i} className={`imweb-col ${fiveCol ? "" : SPAN_CLASS[c.span] || colClass(c.grid)}`}>
+          <Rows rows={c.children} locale={locale} nested wdepth={wdepth} vGutter={vGutter} />
         </div>
       ))}
     </div>
@@ -387,6 +588,101 @@ function sectionHasContent(sec: Section): boolean {
 
 const FOOTER_SECTION_IDS = new Set(["s20250811f489e3443bdbe"]);
 
+/* ---------------- responsive section toggle (RC1) ---------------- */
+
+/**
+ * imweb authors every page as two section sets toggled at the 992px breakpoint:
+ * `pc_section.mobile_hide` (hidden below 992) and `mobile_section` (shown below
+ * 992, hidden above). The crawl keeps both; render one per viewport instead of
+ * dropping the mobile set. Whole-token match: excludes `mobile_section` but not
+ * the `mobile_section_first` marker.
+ */
+export const MOBILE_SECTION = /(^|\s)mobile_section(\s|$)/;
+/** sections imweb hides below the 992px breakpoint */
+export const MOBILE_HIDE = /(^|\s)mobile_hide(\s|$)/;
+
+/** `min-[992px]` literal classes (Tailwind only emits classes it can see as text) */
+const MOBILE_ONLY_CLASS = "min-[992px]:hidden";
+const DESKTOP_ONLY_CLASS = "hidden min-[992px]:block";
+const IMG_DESKTOP_MAX_NONE = "min-[992px]:max-w-none";
+const IMG_DESKTOP_HEIGHT = "min-[992px]:h-[var(--img-h)]";
+/**
+ * RC5: the crawl's fixed `boxStyle` height is a desktop measurement. Keep it at
+ * >=992 via a CSS var, but let the mobile box size to the clamped image (imweb
+ * recomputes the box at 390). Without this the wrapper stays e.g. 509px tall
+ * while its image shrinks to 144px, so the org chart / HQ map sections keep
+ * their desktop height.
+ */
+const BOX_DESKTOP_HEIGHT = "min-[992px]:h-[var(--box-h)]";
+
+/** imweb page-title hero markers: `_section_first` (desktop) / `mobile_section_first` (mobile) */
+const PAGE_HERO = /(^|\s)(_section_first|mobile_section_first)(\s|$)/;
+
+/**
+ * True when the section is the imweb page-title hero band the rebuild replaces
+ * with <PageHero> — detected by the first-section marker or a `menu_title`
+ * widget. Used per channel so the mobile hero band is dropped at mobile too.
+ */
+export function isPageHeroSection(sec: Section): boolean {
+  if (PAGE_HERO.test(sec.cls || "")) return true;
+  let found = false;
+  const walk = (nodes: Node[]) => {
+    for (const n of nodes) {
+      if (found) return;
+      if (n.kind === "widget" && n.type === "menu_title") found = true;
+      else if (n.kind === "row") n.cols.forEach((c) => walk(c.children));
+      else if (n.kind === "col") walk(n.children);
+    }
+  };
+  walk(sec.rows);
+  return found;
+}
+
+/**
+ * imweb `side_left`/`side_right` sections render `doz_aside` (a left/right
+ * column) + a `side_gutter` + the content `inside`. The crawl keeps only the
+ * content rows, so the geometry is reconstructed from the content row width:
+ * the section `main` is a 1280px table, therefore the aside occupies
+ * `1280 - contentW` (e.g. philosophy 1280-950=330, history 1280-640=640).
+ */
+type AsideBlock = { pt?: number; gap?: number; items?: WidgetNode[] };
+
+function AsideColumn({
+  asideW,
+  aside,
+  locale,
+  vGutter,
+}: {
+  asideW: number;
+  aside?: AsideBlock;
+  locale: Locale;
+  vGutter: boolean;
+}) {
+  const items = aside?.items || [];
+  return (
+    <div
+      className="hidden min-[1280px]:block min-[1280px]:w-[var(--aside-w)] min-[1280px]:shrink-0 min-[1280px]:pl-[15px] min-[1280px]:pt-[var(--aside-pt)]"
+      style={
+        {
+          ["--aside-w" as string]: `${asideW}px`,
+          ["--aside-pt" as string]: `${aside?.pt ?? 15}px`,
+          ["--aside-gap" as string]: `${aside?.gap ?? 30}px`,
+        } as React.CSSProperties
+      }
+    >
+      {items.length > 0 && (
+        <div className="flex flex-col gap-[var(--aside-gap)]">
+          {items.map((n, i) => (
+            <div key={i}>
+              <Widget w={n} locale={locale} nested={false} vGutter={vGutter} />
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 /**
  * Generic renderer for a crawled page's sections (row/col/widget tree).
  * Bespoke sections (home hero, board widgets) are implemented explicitly
@@ -402,30 +698,75 @@ export default function SectionRenderer({
   locale?: Locale;
 }) {
   const skip = new Set([...FOOTER_SECTION_IDS, ...skipIds]);
-  const list = sections.filter(
-    (s) => !skip.has(s.id) && !/mobile_section/.test(s.cls || "") && sectionHasContent(s),
-  );
+  // RC1: keep both the pc and mobile section sets — visibility is resolved per
+  // breakpoint below instead of dropping the mobile set here.
+  const list = sections.filter((s) => !skip.has(s.id) && sectionHasContent(s));
   return (
     <div>
-      {list.map((sec) => (
-        <section key={sec.id} className="relative">
-          {(sec.bg || urlFromStyle(sec.bgStyle)) && (
+      {list.map((sec) => {
+        const cls = sec.cls || "";
+        // mobile_section → mobile only; pc + mobile_hide → desktop only
+        const mobileOnly = MOBILE_SECTION.test(cls);
+        const desktopOnly = !mobileOnly && MOBILE_HIDE.test(cls);
+        const visibility = mobileOnly ? MOBILE_ONLY_CLASS : desktopOnly ? DESKTOP_ONLY_CLASS : "";
+        const side = /\bside_(left|right)\b/.exec(cls)?.[1] ?? null;
+        const rowWs = sec.rows
+          .filter((r): r is RowNode => r.kind === "row")
+          .map((r) => r.w)
+          .filter((n): n is number => typeof n === "number" && n > 0);
+        const contentW = rowWs.length ? Math.max(...rowWs) : 0;
+        // a side layout only offsets the content when the content column is
+        // narrower than the 1280 main; side_basic / no-token sections keep the
+        // existing centred rows untouched
+        const isSide = !!side && contentW > 0 && contentW < 1280;
+        const asideW = isSide ? 1280 - contentW : 0;
+        // imweb `.inside .widget` gets 15px vertical margins unless the section
+        // disables the vertical gutter (`grid_v_gutter_0`, e.g. all of home)
+        const vGutter = !/(^|\s)grid_v_gutter_0(\s|$)/.test(cls);
+        const aside = (sec as unknown as { aside?: AsideBlock }).aside;
+        return (
+          <section key={sec.id} className={`relative${visibility ? " " + visibility : ""}`}>
+            {(sec.bg || urlFromStyle(sec.bgStyle)) && (
+              <div
+                className="absolute inset-0 bg-cover bg-center"
+                style={{
+                  backgroundImage: `url(${sec.bg || urlFromStyle(sec.bgStyle)})`,
+                  // imweb `.section_bg.fixed_bg_wrap` heroes pin the image to the
+                  // viewport (computed background-attachment: fixed); the visible
+                  // crop is ~79.6% vs ~50% when scrolled, so match the original.
+                  ...(sec.bgFixed ? { backgroundAttachment: "fixed" } : {}),
+                }}
+                aria-hidden
+              />
+            )}
+            {sec.bgColor && <div className="absolute inset-0" style={{ backgroundColor: sec.bgColor }} aria-hidden />}
             <div
-              className="absolute inset-0 bg-cover bg-center"
-              style={{ backgroundImage: `url(${sec.bg || urlFromStyle(sec.bgStyle)})` }}
-              aria-hidden
-            />
-          )}
-          {sec.bgColor && <div className="absolute inset-0" style={{ backgroundColor: sec.bgColor }} aria-hidden />}
-          <div className="relative">
-            {sec.rows
-              .filter((r) => r.kind === "row")
-              .map((r, i) => (
-                <Row key={i} r={r as RowNode} locale={locale} nested={false} />
-              ))}
-          </div>
-        </section>
-      ))}
+              className={
+                isSide
+                  ? "relative min-[1280px]:mx-auto min-[1280px]:flex min-[1280px]:max-w-[1280px]"
+                  : "relative"
+              }
+            >
+              {isSide && side === "left" && (
+                <AsideColumn asideW={asideW} aside={aside} locale={locale} vGutter={vGutter} />
+              )}
+              <div
+                className={isSide ? "min-[1280px]:w-[var(--content-w)] min-[1280px]:shrink-0" : undefined}
+                style={isSide ? ({ ["--content-w" as string]: `${contentW}px` } as React.CSSProperties) : undefined}
+              >
+                {sec.rows
+                  .filter((r) => r.kind === "row")
+                  .map((r, i) => (
+                    <Row key={i} r={r as RowNode} locale={locale} nested={false} wdepth={0} vGutter={vGutter} />
+                  ))}
+              </div>
+              {isSide && side === "right" && (
+                <AsideColumn asideW={asideW} aside={aside} locale={locale} vGutter={vGutter} />
+              )}
+            </div>
+          </section>
+        );
+      })}
     </div>
   );
 }

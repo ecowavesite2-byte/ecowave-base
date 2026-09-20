@@ -5,10 +5,15 @@ import { useEffect, useRef, useState } from "react";
 /**
  * imweb-style scroll reveal: fades/slides content in the first time it
  * enters the viewport (data-widget-anim="fadeInUp" / "fadeIn").
+ *
+ * When the user agent prefers reduced motion, skip the IntersectionObserver
+ * and render the final (visible) state immediately with no transition. This
+ * matches the original site's forced end-state (its `wg_animated` widgets are
+ * revealed) and keeps content visible instead of stuck at opacity:0.
  */
 export default function Reveal({
   anim = "fadeInUp",
-  duration = 0.9,
+  duration = 0.7,
   delay = 0,
   className = "",
   children,
@@ -21,8 +26,14 @@ export default function Reveal({
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const [shown, setShown] = useState(false);
+  const [reduced, setReduced] = useState(false);
 
   useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setReduced(true);
+      setShown(true);
+      return;
+    }
     const el = ref.current;
     if (!el) return;
     const io = new IntersectionObserver(
@@ -54,8 +65,10 @@ export default function Reveal({
       style={{
         opacity: shown ? 1 : 0,
         transform: shown ? "translateY(0) translateX(0)" : from,
-        transition: `opacity ${duration}s ease ${delay}s, transform ${duration}s ease ${delay}s`,
-        willChange: "opacity, transform",
+        transition: reduced
+          ? "none"
+          : `opacity ${duration}s ease ${delay}s, transform ${duration}s ease ${delay}s`,
+        willChange: shown ? undefined : "opacity, transform",
       }}
     >
       {children}

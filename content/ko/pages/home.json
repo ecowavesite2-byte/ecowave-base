@@ -630,6 +630,7 @@
       "id": "s202508116d15f8202cd82",
       "cls": "section_wrap  pc_section   mobile_hide      side_basic     ",
       "bg": "/images/thumbnail/20250811/4caae6f166af6.jpg",
+      "bgFixed": true,
       "bgStyle": "background-image:url('/images/thumbnail/20250811/4caae6f166af6.jpg'); background-position:50% 50%;  background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
       "bgColor": "rgba(0, 0, 0, 0.35)",
       "secStyle": "; ; background-color:rgba(0, 0, 0, 0.35);;",
@@ -671,7 +672,7 @@
                   "kind": "widget",
                   "id": "w20250811b716fff52cc61",
                   "type": "text",
-                  "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: center;\"><img src=\"/images/upload/S20250811e0bd2f7c414df/48fbd16b3a070.png\" class=\"fr-fin fr-dib\" style=\"width: 296px;\"></h6><p style=\"text-align: center; line-height: 2;\"><br></p><p style=\"text-align: center; line-height: 2;\"><span style=\"color: rgb(255, 255, 255); font-size: 18px; letter-spacing: 0px;\">에코웨이브는 깨끗한 물을 위한 기술 혁신과 친환경 가치 실현을 통해&nbsp;</span><span style=\"color: rgb(255, 255, 255); font-size: 18px; letter-spacing: 0px;\">보다 건강하고 지속 가능한 삶을 제안합니다.</span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"color: rgb(255, 255, 255); font-size: 18px; letter-spacing: 0px;\">고객의 라이프스타일에 최적화된 고품질 정수 솔루션으로&nbsp;</span><span style=\"color: rgb(255, 255, 255); font-size: 18px; letter-spacing: 0px;\">사람과 환경이 공존하는 미래를 만들어 갑니다.</span></p></div></div>\n\t",
+                  "html": "\n\t\t<div class=\"text-table \" style=\"display:flow-root;margin:15px 0;font-size:15px;\"><div><h6 style=\"text-align: center;\"><img src=\"/images/upload/S20250811e0bd2f7c414df/48fbd16b3a070.png\" class=\"fr-fin fr-dib\" style=\"width: 296px; display:block; margin:0 auto;\"></h6><p style=\"text-align: center; line-height: 2;\"><br></p><p style=\"text-align: center; line-height: 2;\"><span style=\"color: rgb(255, 255, 255); font-size: 18px; letter-spacing: 0px;\">에코웨이브는 깨끗한 물을 위한 기술 혁신과 친환경 가치 실현을 통해&nbsp;</span><span style=\"color: rgb(255, 255, 255); font-size: 18px; letter-spacing: 0px;\">보다 건강하고 지속 가능한 삶을 제안합니다.</span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"color: rgb(255, 255, 255); font-size: 18px; letter-spacing: 0px;\">고객의 라이프스타일에 최적화된 고품질 정수 솔루션으로&nbsp;</span><span style=\"color: rgb(255, 255, 255); font-size: 18px; letter-spacing: 0px;\">사람과 환경이 공존하는 미래를 만들어 갑니다.</span></p></div></div>\n\t",
                   "anim": "none",
                   "animDur": "0.7",
                   "animDelay": "0"

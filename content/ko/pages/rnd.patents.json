@@ -227,6 +227,7 @@
       "id": "s2025082027290aa48803c",
       "cls": "section_wrap  pc_section       side_basic     ",
       "bg": "/images/thumbnail/20250820/6bbe2b297ab17.jpg",
+      "bgFixed": true,
       "bgStyle": "background-image:url('/images/thumbnail/20250820/6bbe2b297ab17.jpg'); background-position:50% 50%;  background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
       "bgColor": "rgba(0, 0, 0, 0.5)",
       "secStyle": "; ; background-color:rgba(0, 0, 0, 0.5);;",
@@ -375,6 +376,9 @@
                   "animDur": "0.7",
                   "animDelay": "0",
                   "gridN": "03",
+                  "gridGap": 30,
+                  "gridRowH": 452,
+                  "captionBand": true,
                   "itemW": 320,
                   "itemH": 482,
                   "items": [
@@ -534,6 +538,9 @@
                   "animDur": "0.7",
                   "animDelay": "0",
                   "gridN": "03",
+                  "gridGap": 30,
+                  "gridRowH": 452,
+                  "captionBand": true,
                   "itemW": 320,
                   "itemH": 482,
                   "items": [
@@ -633,6 +640,9 @@
                   "animDur": "0.7",
                   "animDelay": "0",
                   "gridN": "03",
+                  "gridGap": 30,
+                  "gridRowH": 452,
+                  "captionBand": true,
                   "itemW": 318,
                   "itemH": 483,
                   "items": [

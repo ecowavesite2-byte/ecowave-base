@@ -20,8 +20,10 @@ export function heroFor(
       route: routeForSource(c.url),
     }));
     if (groupRoute === route) {
+      // the imweb landing route shows the section's first child as the page
+      // title (e.g. /company -> ceo인사말, /rnd -> 보유기술), not the nav group
       return {
-        title: item.name,
+        title: childRoutes[0]?.name || item.name,
         tabs: [
           { label: item.name, href: localeHref(locale, groupRoute), active: true },
           ...childRoutes.map((c) => ({
