@@ -19,7 +19,9 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!_next|images|favicon.ico|robots.txt|sitemap.xml|.*\\..*).*)"],
+  matcher: [
+    "/((?!_next/|images/|uploads/|media/|admin|api/|favicon.ico|robots.txt|sitemap.xml|.*\\..*).*)",
+  ],
 };
 
 // keep defaultLocale referenced for clarity of intent

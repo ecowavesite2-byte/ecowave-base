@@ -7,13 +7,16 @@
     "build": "next build",
     "start": "next start --port 4517",
     "lint": "next lint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "content:validate": "node scripts/content-validate.mjs",
+    "verify": "npm run typecheck && npm run lint && npm run content:validate && npm run build"
   },
   "dependencies": {
     "next": "^15.5.4",
     "pretendard": "^1.3.9",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "zod": "^4.6.5"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.13",

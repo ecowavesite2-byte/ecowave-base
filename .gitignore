@@ -18,3 +18,11 @@ server.log
 # regenerable design references (scripts/crawl/measure.mjs + shoot-rebuilt.mjs)
 design/
 scripts/crawl/*.txt
+
+# admin lane (drafts, history snapshots, local data, uploads, tooling)
+content/**/*.draft.json
+content/.history/
+data/
+*.sqlite*
+public/uploads/
+.openchamber/
