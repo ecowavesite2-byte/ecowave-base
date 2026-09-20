@@ -4,14 +4,17 @@ import { defaultLocale } from "./lib/i18n";
 /**
  * Locale routing + production Content-Security-Policy.
  *
- * The CSP uses a per-request nonce; Next.js reads the nonce from the CSP header
- * we forward on the request and applies it to its own scripts. It is applied in
- * production only (dev HMR needs eval/ws, which a strict policy would block).
+ * Applied in production only (dev HMR needs eval/ws, which a strict policy
+ * would block). script-src currently allows 'unsafe-inline' instead of a
+ * nonce + 'strict-dynamic': Next's emitted scripts do not carry the nonce, so
+ * the strict policy blocked all client JS (reveal/scroll animations) on the
+ * public pages. A strict nonce policy can be reintroduced later once the nonce
+ * is actually applied to Next's scripts (or scoped to /admin only).
  */
 function contentSecurityPolicy(nonce: string): string {
   return [
     "default-src 'self'",
-    `script-src 'self' 'nonce-${nonce}' 'strict-dynamic'`,
+    `script-src 'self' 'unsafe-inline'`,
     "style-src 'self' 'unsafe-inline'",
     "img-src 'self' data: https:",
     "font-src 'self' data:",
@@ -45,8 +48,8 @@ export function middleware(req: NextRequest) {
 
   // /admin is matched explicitly (dotted keys such as
   // /admin/pages/company.ceo are skipped by the main matcher's `.*\..*`
-  // exclusion). It must not be locale-rewritten, but it does need the
-  // nonce-based CSP for Next's inline flight scripts.
+  // exclusion). It must not be locale-rewritten, but it does need the CSP
+  // header (currently 'unsafe-inline' based, since Next's scripts carry no nonce).
   if (pathname === "/admin" || pathname.startsWith("/admin/")) {
     return finish(NextResponse.next({ request: { headers: forwardedHeaders } }));
   }
