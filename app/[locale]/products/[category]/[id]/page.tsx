@@ -35,12 +35,24 @@ export default async function ProductDetailPage({
   if (!post) notFound();
   const hero = heroFor(`/products/${category}`, l);
   const t = ui(l);
+  const board = getBoard(l, slug);
+  const at = board.posts.findIndex((p) => p.idx === id);
+  const nav = (p?: { idx: string; title: string; date?: string | null }) =>
+    p ? { idx: p.idx, title: p.title, date: p.date } : null;
   return (
     <main>
       <PageHero title={hero.title} tabs={hero.tabs} big />
       <section className="mx-auto max-w-[1440px] px-5 pb-24 lg:px-10">
         <div className="mx-auto max-w-[1000px]">
-          <PostDetail post={post} boardHref={localeHref(l, `/products/${category}`)} listLabel={t.board.list} />
+          <PostDetail
+            post={post}
+            boardHref={localeHref(l, `/products/${category}`)}
+            listLabel={t.board.list}
+            prevLabel={t.board.prev}
+            nextLabel={t.board.next}
+            prevPost={nav(board.posts[at + 1])}
+            nextPost={nav(board.posts[at - 1])}
+          />
         </div>
       </section>
     </main>

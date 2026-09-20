@@ -1,12 +1,15 @@
 import { notFound } from "next/navigation";
-import BoardPageShell from "@/components/content/BoardPageShell";
-import { BoardCardGrid, CategoryChips, Pagination } from "@/components/ui/Boards";
-import { PRODUCT_BOARDS } from "@/lib/content";
-import { getBoard } from "@/lib/content";
-import { defaultLocale, isLocale, localeHref, type Locale } from "@/lib/i18n";
+import PageHero from "@/components/ui/PageHero";
+import {
+  ProductBoard,
+  PRODUCT_HERO,
+  PRODUCT_PAGE_SIZE,
+  orderedCategories,
+} from "@/components/products/ProductBoard";
+import { PRODUCT_BOARDS, getBoard } from "@/lib/content";
+import { defaultLocale, isLocale, localeHref } from "@/lib/i18n";
+import { heroFor } from "@/lib/page-hero";
 import { ui } from "@/lib/ui-strings";
-
-const PAGE_SIZE = 12;
 
 /** Product category board (eco-wave / clean-b / flowell). */
 export function generateStaticParams() {
@@ -31,34 +34,40 @@ export default async function ProductBoardPage({
   const slug = `products/${category}`;
   const t = ui(l);
   const board = getBoard(l, slug);
-  const categories = [...new Set(board.posts.map((p) => p.category).filter(Boolean))] as string[];
+  const hero = heroFor(`/products/${category}`, l);
+  const meta = PRODUCT_HERO[slug];
+  const categories = orderedCategories(l, slug, board.posts);
   const filtered = cat ? board.posts.filter((p) => p.category === cat) : board.posts;
   const page = Math.max(1, Number(pageParam || "1"));
-  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
-  const slice = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+  // the original product boards paginate 6 cards per page
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PRODUCT_PAGE_SIZE));
+  const slice = filtered.slice((page - 1) * PRODUCT_PAGE_SIZE, page * PRODUCT_PAGE_SIZE);
+
   const base = localeHref(l, `/products/${category}`);
+  const catQuery = cat ? `?cat=${encodeURIComponent(cat)}` : "";
+  const tabs = [
+    { label: t.board.all, href: base, active: !cat },
+    ...categories.map((c) => ({
+      label: c,
+      href: `${base}?cat=${encodeURIComponent(c)}`,
+      active: cat === c,
+    })),
+  ];
 
   return (
-    <BoardPageShell
-      locale={l}
-      pageKey={slug}
-      big
-      renderBoard={() => (
-        <>
-          <CategoryChips
-            categories={categories}
-            active={cat || undefined}
-            allLabel={t.board.all}
-            hrefFor={(c) => (c ? `${base}?cat=${encodeURIComponent(c)}` : base)}
-          />
-          <BoardCardGrid posts={slice} boardHref={base} emptyLabel={t.board.noPosts} />
-          <Pagination
-            page={page}
-            totalPages={totalPages}
-            basePath={cat ? `${base}?cat=${encodeURIComponent(cat)}` : base}
-          />
-        </>
-      )}
-    />
+    <main>
+      <PageHero title={meta.label} subtitle={meta.subtitle} tabs={hero.tabs} big />
+      <section className="mx-auto max-w-[1280px] px-[15px]">
+        <ProductBoard
+          posts={slice}
+          tabs={tabs}
+          boardHref={base}
+          paginationBase={`${base}${catQuery}`}
+          page={page}
+          totalPages={totalPages}
+          emptyLabel={t.board.noPosts}
+        />
+      </section>
+    </main>
   );
 }
