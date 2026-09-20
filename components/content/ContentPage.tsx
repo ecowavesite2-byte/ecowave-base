@@ -1,6 +1,6 @@
 import PageHero from "@/components/ui/PageHero";
 import SectionRenderer, { MOBILE_SECTION, isPageHeroSection } from "@/components/content/SectionRenderer";
-import { getPage } from "@/lib/content";
+import { getPageForRender } from "@/lib/content/drafts";
 import { defaultLocale, isLocale, type Locale } from "@/lib/i18n";
 import { heroFor, isFooterSection, FOOTER_SECTION_ID } from "@/lib/page-hero";
 import type { Section } from "@/lib/types";
@@ -27,7 +27,7 @@ export default async function ContentPage({
 }) {
   const { locale } = await params;
   const l: Locale = isLocale(locale) ? locale : defaultLocale;
-  const page = getPage(l, pageKey);
+  const page = await getPageForRender(l, pageKey);
   const hero = heroFor("/" + pageKey, l);
 
   const all = page.sections.filter((s) => !isFooterSection(s) && s.id !== FOOTER_SECTION_ID);

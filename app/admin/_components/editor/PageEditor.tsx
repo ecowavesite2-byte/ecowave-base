@@ -95,6 +95,7 @@ export default function PageEditor({
 
   const [content, setContent] = useState<PageContent>(page);
   const [hash, setHash] = useState(initialHash);
+  const [draftHash, setDraftHash] = useState<string | null>(null);
   const [locale, setLocale] = useState<Locale>(initialLocale);
   const [selected, setSelected] = useState<Selection | null>(null);
   const [dirty, setDirty] = useState(false);
@@ -201,8 +202,7 @@ export default function PageEditor({
     }
   }
 
-  async function revert() {
-    if (dirty && !window.confirm("Discard all unsaved changes and reload the saved page?")) return;
+  async function reloadFromPublished(message: string): Promise<boolean> {
     setStatus("saving");
     setBanner(null);
     try {
@@ -213,14 +213,137 @@ export default function PageEditor({
       const data = (await response.json()) as { content: PageContent; hash: string };
       setContent(data.content);
       setHash(data.hash);
+      setDraftHash(null);
       setSelected(null);
       setUndoStack([]);
       setDirty(false);
       setStatus("idle");
-      setBanner({ tone: "info", text: "Reverted to the last saved version." });
+      setBanner({ tone: "info", text: message });
+      return true;
     } catch {
       setStatus("error");
       setBanner({ tone: "error", text: "Could not reload the page." });
+      return false;
+    }
+  }
+
+  async function revert() {
+    if (dirty && !window.confirm("Discard all unsaved changes and reload the saved page?")) return;
+    await reloadFromPublished("Reverted to the last saved version.");
+  }
+
+  /** PUT the current content as a draft; returns false when it did not persist. */
+  async function persistDraft(): Promise<boolean> {
+    try {
+      const response = await fetch("/api/admin/draft", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          kind: "page",
+          locale,
+          key: pageKey,
+          content,
+          hash: draftHash ?? hash,
+        }),
+      });
+
+      if (response.ok) {
+        const data = (await response.json()) as { hash: string };
+        setDraftHash(data.hash);
+        setDirty(false);
+        return true;
+      }
+
+      if (response.status === 409) {
+        setStatus("error");
+        setBanner({
+          tone: "warn",
+          text: "Someone changed this draft — reload to get the latest version.",
+        });
+        return false;
+      }
+
+      if (response.status === 400) {
+        const data = (await response.json().catch(() => ({}))) as { issues?: unknown };
+        setStatus("error");
+        setBanner({
+          tone: "error",
+          text: "Validation failed.",
+          issues: issueMessages(data.issues),
+        });
+        return false;
+      }
+
+      setStatus("error");
+      setBanner({ tone: "error", text: `Save draft failed (HTTP ${response.status}).` });
+      return false;
+    } catch {
+      setStatus("error");
+      setBanner({ tone: "error", text: "Network error while saving the draft." });
+      return false;
+    }
+  }
+
+  async function saveDraft() {
+    setStatus("saving");
+    setBanner(null);
+    if (await persistDraft()) {
+      setStatus("saved");
+      setBanner({ tone: "info", text: "Draft saved" });
+    }
+  }
+
+  async function publishDraft() {
+    setStatus("saving");
+    setBanner(null);
+    if (!(await persistDraft())) return;
+    try {
+      const response = await fetch("/api/admin/draft", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "publish", locale, kind: "page", key: pageKey }),
+      });
+      if (response.ok) {
+        await reloadFromPublished("Published to the site.");
+        return;
+      }
+      if (response.status === 404) {
+        setStatus("error");
+        setBanner({ tone: "error", text: "No draft to publish." });
+        return;
+      }
+      setStatus("error");
+      setBanner({ tone: "error", text: `Publish failed (HTTP ${response.status}).` });
+    } catch {
+      setStatus("error");
+      setBanner({ tone: "error", text: "Network error while publishing." });
+    }
+  }
+
+  async function discardDraft() {
+    if (!window.confirm("Discard the saved draft for this page?")) return;
+    setStatus("saving");
+    setBanner(null);
+    try {
+      const response = await fetch("/api/admin/draft", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "discard", locale, kind: "page", key: pageKey }),
+      });
+      if (response.ok) {
+        await reloadFromPublished("Draft discarded.");
+        return;
+      }
+      if (response.status === 404) {
+        setStatus("error");
+        setBanner({ tone: "error", text: "No draft to discard." });
+        return;
+      }
+      setStatus("error");
+      setBanner({ tone: "error", text: `Discard failed (HTTP ${response.status}).` });
+    } catch {
+      setStatus("error");
+      setBanner({ tone: "error", text: "Network error while discarding the draft." });
     }
   }
 
@@ -255,7 +378,12 @@ export default function PageEditor({
           onLocaleChange={changeLocale}
         />
 
-        <div className="ml-auto flex items-center gap-2">
+        <div className="ml-auto flex flex-wrap items-center gap-2">
+          {draftHash ? (
+            <span className="rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-medium text-amber-800">
+              draft saved
+            </span>
+          ) : null}
           <span
             className={`text-[12px] ${status === "error" ? "text-red-600" : "text-[#6b7280]"}`}
           >
@@ -276,6 +404,30 @@ export default function PageEditor({
             className="rounded-md border border-line px-2.5 py-1.5 text-[12px] text-ink transition-colors hover:border-accent hover:text-accent disabled:cursor-not-allowed disabled:opacity-50"
           >
             Revert
+          </button>
+          <button
+            type="button"
+            onClick={saveDraft}
+            disabled={status === "saving"}
+            className="rounded-md border border-line px-2.5 py-1.5 text-[12px] text-ink transition-colors hover:border-accent hover:text-accent disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            Save draft
+          </button>
+          <button
+            type="button"
+            onClick={publishDraft}
+            disabled={status === "saving"}
+            className="rounded-md border border-accent px-2.5 py-1.5 text-[12px] font-medium text-accent transition-colors hover:bg-accent/10 disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            Publish draft
+          </button>
+          <button
+            type="button"
+            onClick={discardDraft}
+            disabled={status === "saving"}
+            className="rounded-md border border-line px-2.5 py-1.5 text-[12px] text-ink transition-colors hover:border-amber-400 hover:text-amber-700 disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            Discard draft
           </button>
           <button
             type="button"
@@ -326,7 +478,12 @@ export default function PageEditor({
         </section>
 
         <aside className="hidden w-[560px] shrink-0 border-l border-line bg-white xl:block">
-          <PreviewPane route={routeForKey(pageKey)} locale={locale} />
+          <PreviewPane
+            route={routeForKey(pageKey)}
+            locale={locale}
+            kind="page"
+            contentKey={pageKey}
+          />
         </aside>
       </div>
     </div>

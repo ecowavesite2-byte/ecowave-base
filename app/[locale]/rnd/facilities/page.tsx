@@ -3,7 +3,7 @@ import path from "node:path";
 import PageHero from "@/components/ui/PageHero";
 import SectionRenderer, { Rows, isPageHeroSection, MOBILE_SECTION } from "@/components/content/SectionRenderer";
 import FacilitiesTabs, { type FacilitiesTab } from "@/components/content/FacilitiesTabs";
-import { getPage } from "@/lib/content";
+import { getPageForRender } from "@/lib/content/drafts";
 import { defaultLocale, isLocale, type Locale } from "@/lib/i18n";
 import { heroFor, isFooterSection, FOOTER_SECTION_ID } from "@/lib/page-hero";
 import type { Node, Section, WidgetNode } from "@/lib/types";
@@ -100,7 +100,7 @@ export function generateStaticParams() {
 export default async function Page({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const l: Locale = isLocale(locale) ? locale : defaultLocale;
-  const page = getPage(l, "rnd/facilities");
+  const page = await getPageForRender(l, "rnd/facilities");
   const hero = heroFor("/rnd/facilities", l);
   const tabs = getTabs(l);
 
