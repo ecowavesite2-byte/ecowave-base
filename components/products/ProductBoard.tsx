@@ -61,13 +61,15 @@ export function orderedCategories(
 export function ProductTabs({ tabs }: { tabs: ProductTab[] }) {
   return (
     <div className="pb-[15px] pt-[15px]">
-      <div className="flex flex-wrap items-center">
+      {/* original mobile keeps the tabs on a single row (no wrap); desktop keeps
+          the wrapping layout */}
+      <div className="flex flex-nowrap items-center overflow-x-auto min-[992px]:flex-wrap min-[992px]:overflow-visible">
         {tabs.map((t) => (
           <Link
             key={t.label}
             href={t.href}
             aria-current={t.active ? "page" : undefined}
-            className={`mr-[5px] inline-flex h-[37px] items-center rounded-full border px-[15px] text-[17px] font-normal leading-[27.2px] transition duration-300 ${
+            className={`mr-[5px] inline-flex h-[37px] shrink-0 items-center rounded-full border px-[15px] text-[17px] font-normal leading-[27.2px] transition duration-300 ${
               t.active
                 ? "border-accent bg-accent text-white"
                 : "border-transparent text-[rgba(54,54,54,0.7)] hover:text-ink"
@@ -213,7 +215,8 @@ export function ProductBoard({
   return (
     <>
       <ProductTabs tabs={tabs} />
-      <div aria-hidden className="h-[31px]" />
+      {/* original mobile halves the 31px desktop spacer (imweb padding widget) */}
+      <div aria-hidden className="h-[16px] min-[992px]:h-[31px]" />
       <ProductCardGrid posts={posts} boardHref={boardHref} emptyLabel={emptyLabel} />
       <ProductPagination page={page} totalPages={totalPages} basePath={paginationBase} />
       <div aria-hidden className={paginated ? "h-[60px] lg:h-[181px]" : "h-[60px] lg:h-[200px]"} />

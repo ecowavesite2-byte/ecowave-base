@@ -25,25 +25,32 @@ export default function InquiryForm({ locale }: { locale: Locale }) {
     return () => window.removeEventListener("keydown", onKey);
   }, [done]);
 
+  // Original mobile (390) measured from the live /27 form screenshot: the form
+  // is a centred 250px column, inputs are 33px tall and textareas 82px; the
+  // desktop geometry (50px inputs, full width) is restored at >=992px.
   const inputCls =
-    "h-[50px] w-full border border-black/10 bg-white px-4 text-[15px] text-ink outline-none transition-colors placeholder:text-muted focus:border-accent";
+    "h-[33px] w-full border border-black/10 bg-white px-3 text-[15px] text-ink outline-none transition-colors placeholder:text-muted focus:border-accent min-[992px]:h-[50px] min-[992px]:px-4";
+
+  const areaCls =
+    "h-[82px] w-full resize-none border border-black/10 bg-white px-4 py-3 text-[15px] text-ink outline-none transition-colors placeholder:text-muted focus:border-accent min-[992px]:h-[50px]";
 
   const req = (
     <span aria-hidden className="ml-1 inline-block h-[6px] w-[6px] rounded-full bg-[#ee3a3a] align-middle" />
   );
 
-  const labelCls = "flex h-[29px] items-center text-[15px] font-bold text-ink min-[992px]:text-[18px]";
+  const labelCls = "flex h-[22px] items-center text-[15px] font-bold text-ink min-[992px]:h-[29px] min-[992px]:text-[18px]";
 
   return (
     <>
       <form
+        className="mx-auto max-w-[250px] min-[992px]:max-w-none"
         onSubmit={(e) => {
           e.preventDefault();
           setDone(true);
         }}
       >
         {/* 2-col grid: company/contact, phone/email */}
-        <div className="grid grid-cols-1 gap-x-[30px] gap-y-10 lg:grid-cols-2">
+        <div className="grid grid-cols-1 gap-x-[30px] gap-y-[20px] lg:grid-cols-2 min-[992px]:gap-y-10">
           <div>
             <label className={labelCls} htmlFor="inq-company">
               {t.company}
@@ -82,7 +89,7 @@ export default function InquiryForm({ locale }: { locale: Locale }) {
         </div>
 
         {/* address */}
-        <div className="mt-10">
+        <div className="mt-[20px] min-[992px]:mt-10">
           <label className={labelCls} htmlFor="inq-address">
             {t.address}
           </label>
@@ -91,12 +98,12 @@ export default function InquiryForm({ locale }: { locale: Locale }) {
             name="address"
             rows={3}
             placeholder={t.addressPh}
-            className="mt-[5px] h-[50px] w-full resize-none border border-black/10 bg-white px-4 py-3 text-[15px] text-ink outline-none transition-colors placeholder:text-muted focus:border-accent"
+            className={`mt-[5px] ${areaCls}`}
           />
         </div>
 
         {/* products checkboxes */}
-        <fieldset className="mt-10">
+        <fieldset className="mt-[20px] min-[992px]:mt-10">
           <legend className={labelCls}>{t.products}</legend>
           <div className="mt-[5px] space-y-0 text-[15px] text-ink">
             {t.productOptions.map((opt) => (
@@ -114,14 +121,14 @@ export default function InquiryForm({ locale }: { locale: Locale }) {
                 name="products_etc"
                 placeholder={t.etcPh}
                 aria-label={t.etcPh}
-                className="h-10 w-56 border border-black/10 bg-white px-3 text-[15px] outline-none placeholder:text-muted focus:border-accent"
+                className="h-[33px] w-[122px] border border-black/10 bg-white px-3 text-[15px] outline-none placeholder:text-muted focus:border-accent min-[992px]:h-10 min-[992px]:w-56"
               />
             </div>
           </div>
         </fieldset>
 
         {/* oem/odm checkboxes */}
-        <fieldset className="mt-10">
+        <fieldset className="mt-[40px] min-[992px]:mt-10">
           <legend className={labelCls}>{t.oem}</legend>
           <div className="mt-[5px] text-[15px] text-ink">
             {t.oemOptions.map((opt) => (
@@ -134,7 +141,7 @@ export default function InquiryForm({ locale }: { locale: Locale }) {
         </fieldset>
 
         {/* inquiry */}
-        <div className="mt-10">
+        <div className="mt-[34px] min-[992px]:mt-10">
           <label className={labelCls} htmlFor="inq-body">
             {t.inquiry}
           </label>
@@ -143,12 +150,12 @@ export default function InquiryForm({ locale }: { locale: Locale }) {
             name="inquiry"
             rows={3}
             placeholder={t.inquiryPh}
-            className="mt-[5px] h-[50px] w-full resize-none border border-black/10 bg-white px-4 py-3 text-[15px] text-ink outline-none transition-colors placeholder:text-muted focus:border-accent"
+            className={`mt-[5px] ${areaCls}`}
           />
         </div>
 
         {/* file */}
-        <div className="mt-10">
+        <div className="mt-[21px] min-[992px]:mt-10">
           <span className={labelCls}>{t.file}</span>
           <div className="mt-[5px]">
             <input
@@ -172,26 +179,26 @@ export default function InquiryForm({ locale }: { locale: Locale }) {
         </div>
 
         {/* consent */}
-        <div className="mt-10">
+        <div className="mt-[36px] min-[992px]:mt-10">
           <span className={labelCls}>
             {t.consentTitle}
             {req}
           </span>
-          <div className="mt-[5px] h-[150px] overflow-y-auto border border-black/10 bg-white p-4 text-[13px] leading-[1.7] text-body">
+          <div className="mt-[5px] h-[159px] overflow-y-auto border border-black/10 bg-white p-4 text-[13px] leading-[1.7] text-body min-[992px]:h-[150px]">
             {t.consentText.split("\n").map((line, i) => (
               <p key={i} className={line ? "mb-2" : "mb-4"}>
                 {line}
               </p>
             ))}
           </div>
-          <label className="mt-3 flex cursor-pointer items-center gap-2 text-[15px] text-ink">
+          <label className="mt-[19px] flex cursor-pointer items-center gap-2 text-[15px] text-ink min-[992px]:mt-3">
             <input type="checkbox" required className="h-4 w-4 accent-[#3465de]" />
             {t.agree}
           </label>
         </div>
 
         {/* submit */}
-        <div className="mt-10 text-center">
+        <div className="mt-[35px] text-center min-[992px]:mt-10">
           <button
             type="submit"
             className="h-[51px] w-[195px] bg-[#363636] text-[20px] text-white transition-colors hover:bg-accent"

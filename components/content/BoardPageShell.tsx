@@ -36,9 +36,9 @@ function rowsHeight(rows: Node[]): number {
  * SC6: these are DESKTOP measurements and must not be applied verbatim as
  * inline padding on mobile — imweb halves the padding widgets at mobile
  * (110 -> 55) and keeps the 15px row padding unscaled. Render the measured
- * height through `.spacer` (which halves at mobile via CSS) plus a fixed
- * BOARD_ROW_PAD strip, so desktop stays `row + 15` and mobile becomes
- * `row/2 + 15`.
+ * height as an exact half on mobile and the full value at >=992px (the shared
+ * `.spacer` renders 55%, not 50%) plus a fixed BOARD_ROW_PAD strip, so desktop
+ * stays `row + 15` and mobile becomes `row/2 + 15`.
  */
 function boardSectionRows(section: Section | undefined): { found: boolean; top: number; bottom: number } {
   if (!section) return { found: false, top: 0, bottom: 0 };
@@ -92,7 +92,12 @@ export default async function BoardPageShell({
         {boardPad.found && (
           <>
             {boardPad.top > 0 && (
-              <div className="spacer" style={{ ["--h" as string]: boardPad.top } as React.CSSProperties} />
+              <>
+                {/* imweb halves padding widgets at mobile (110 -> 55); the shared
+                    .spacer renders 55% (globals.css), so use the exact half here */}
+                <div aria-hidden className="min-[992px]:hidden" style={{ height: Math.round(boardPad.top / 2) }} />
+                <div aria-hidden className="hidden min-[992px]:block" style={{ height: boardPad.top }} />
+              </>
             )}
             <div aria-hidden style={{ height: BOARD_ROW_PAD }} />
           </>
@@ -102,7 +107,10 @@ export default async function BoardPageShell({
           <>
             <div aria-hidden style={{ height: BOARD_ROW_PAD }} />
             {boardPad.bottom > 0 && (
-              <div className="spacer" style={{ ["--h" as string]: boardPad.bottom } as React.CSSProperties} />
+              <>
+                <div aria-hidden className="min-[992px]:hidden" style={{ height: Math.round(boardPad.bottom / 2) }} />
+                <div aria-hidden className="hidden min-[992px]:block" style={{ height: boardPad.bottom }} />
+              </>
             )}
           </>
         )}

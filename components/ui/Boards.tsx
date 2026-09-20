@@ -195,7 +195,7 @@ export function BoardLineList({
                   <span className="text-[15px] text-[#363636]">{num}</span>
                 )}
               </div>
-              <div style={{ ...bodyCell, textAlign: "left" }} className="min-w-0">
+              <div className="min-w-0 border-b border-[rgba(54,54,54,0.15)] px-[7px] py-[13px] text-left min-[992px]:py-[17px]">
                 <h3 className="truncate text-[15px] font-normal text-[#363636] md:text-[16px] md:leading-[25.6px]">
                   {p.isNotice && (
                     <span className="mr-2 inline-block rounded-[3px] bg-accent px-1.5 py-0.5 align-middle text-[11px] font-bold leading-[16px] text-white md:hidden">
@@ -224,8 +224,9 @@ export function BoardLineList({
           );
         })}
       </ul>
-      {/* imweb `.li_footer _list_bottom`: empty 24px pagination band, mt 15px */}
-      <div className="mt-[15px] h-6 text-center" aria-hidden />
+      {/* imweb `.li_footer _list_bottom`: empty 24px pagination band; original
+          mobile margin-top is 10px (`@media all and (max-width:767px)`), 15px desktop */}
+      <div className="mt-[10px] h-6 text-center min-[992px]:mt-[15px]" aria-hidden />
     </div>
   );
 }
