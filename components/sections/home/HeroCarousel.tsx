@@ -65,7 +65,7 @@ export default function HeroCarousel({
         </div>
       ))}
       {slides.length > 1 && (
-        <div className="absolute bottom-[20px] left-1/2 z-10 flex -translate-x-1/2">
+        <div className="absolute bottom-[27px] left-1/2 z-10 flex -translate-x-1/2">
           {slides.map((_, i) => (
             <button
               key={i}
