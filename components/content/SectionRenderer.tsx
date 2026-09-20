@@ -253,7 +253,7 @@ function ImageWidget({ w, locale }: { w: WidgetNode; locale: Locale }) {
           />
         )}
         <div className="absolute inset-0 flex flex-col items-start justify-end p-5 opacity-0 group-hover:opacity-100">
-          {label && <p className="text-[18px] text-white">{label}</p>}
+          {label && <p className="text-[18px] leading-[1.2] text-white">{label}</p>}
           {title && <h3 className="mt-1 text-[40px] font-bold leading-[1.2] text-white">{title}</h3>}
           {hasOverlay && (
             <span className="mt-2 text-[30px] leading-none text-white">
@@ -304,11 +304,24 @@ export function Widget({
 }) {
   const content = w.type === "padding" ? renderPadding(w) : WidgetContent({ w, locale });
   if (!content) return null;
-  // imweb `.doz_sys .inside .widget { margin: 15px 0 }`, cancelled for sections
-  // carrying `grid_v_gutter_0`. Only images appear inside nested rows on the
-  // desktop pages where the row min-height already reserves the space, so the
-  // margin is scoped to nested image widgets to avoid shifting top-level rows.
-  const margin = w.type === "image" && nested && vGutter ? "mt-[15px] mb-[15px]" : "";
+  // imweb `.doz_sys .inside .widget { margin: 15px 0 }` applies to *every*
+  // widget, cancelled for sections carrying `grid_v_gutter_0`. Images keep the
+  // gutter at every width (existing behaviour). Plain text widgets now get it
+  // too — this is the PROBE A systemic ~15px sub-hero caption offset: the
+  // below-hero text widget was 15px high because only nested images received
+  // the margin. Cover cards (`text_bg_img`) are excluded because
+  // globals.css:108 already gives `.rich-text:has(> .text_bg_img)` a 15px
+  // margin (double-guttering them to 30px).
+  // The text gutter is gated to >=992 so the mobile layout does not gain a new
+  // 15px margin (desktop measurement only; the row min-height already reserves
+  // the space at desktop, where the fix targets below-hero h6 top y = 546.8).
+  const imageGutter = w.type === "image" && nested && vGutter;
+  const textGutter = vGutter && w.type === "text" && !/text_bg_img/.test(w.html || "");
+  const margin = imageGutter
+    ? "mt-[15px] mb-[15px]"
+    : textGutter
+      ? "min-[992px]:mt-[15px] min-[992px]:mb-[15px]"
+      : "";
   const tagged = (
     <div data-widget-type={w.type} className={margin || undefined}>
       {content}
@@ -465,7 +478,7 @@ function WidgetContent({ w, locale }: { w: WidgetNode; locale: Locale }) {
             <li key={l.href}>
               <Link
                 href={l.href}
-                className="block text-[14px] leading-[2] text-[#959595]"
+                className="block text-[14px] leading-[1.6] text-[#959595]"
               >
                 {l.name}
               </Link>

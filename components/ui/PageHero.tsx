@@ -113,7 +113,10 @@ export default function PageHero({
       <div className={`mx-auto flex max-w-[1280px] flex-col justify-start px-[15px] pb-0 pt-[65px] lg:flex-row lg:items-end lg:justify-between lg:pt-0 ${mobileHeightClass} ${heightClass} ${padBottom}`}>
         {!blank && title && hasSubtitle ? (
           <div>
-            <h1 className="font-bold leading-[1.2] text-black text-[30px] lg:text-[72px]">
+            {/* ORIG product hero is a rich-text <strong> "Eco wave" measured
+                72px / line-height 79.2px (=1.1) at desktop; keep the mobile
+                30px/1.2 (36px) which matches the original mobile h1. */}
+            <h1 className="font-bold text-black text-[30px] leading-[1.2] lg:text-[72px] lg:leading-[1.1]">
               {title}
             </h1>
             {/* crawled product hero: the subtitle <p> is 15px with an inline
