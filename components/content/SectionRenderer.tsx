@@ -170,6 +170,17 @@ function ImageWidget({ w, locale }: { w: WidgetNode; locale: Locale }) {
   const h = num(w.boxStyle, "height");
   const { label, title, hasOverlay } = parseImageAlt(w.alt);
 
+  // S1: imweb's scroll-to-top button (`.btn_top a[href="#doz_header"]`) is
+  // crawled with `width:0;height:0;margin:21px auto`; the runtime then paints
+  // the 90px source at 41x41 inside the original 56px band. The generic
+  // zero-size drop below would instead stretch it to the full mobile column
+  // (`width:100%`), ending every non-products page with a 390x390 icon
+  // (+376px). Real content band images (company.history year bands, home
+  // category cards) carry `margin-left/right:auto` with no `#doz_header` link,
+  // so they keep the zero-size drop.
+  const isScrollTop =
+    (w.href || "").includes("#doz_header") && /margin\s*:\s*21px\s+auto/i.test(w.imgStyle || "");
+
   // apply the original img inline styles verbatim (crop margins, sizes);
   // neutralize Tailwind preflight's img{max-width:100%} when the source crops
   const inlineStyle: Record<string, string> = {};
@@ -207,7 +218,17 @@ function ImageWidget({ w, locale }: { w: WidgetNode; locale: Locale }) {
       inlineStyle[key] = val;
     }
   });
-  if (!inlineStyle.width) inlineStyle.width = "100%";
+  if (isScrollTop) {
+    // pin the measured original geometry: 41x41 icon + a 15px top gutter, i.e.
+    // the original 56px band (the crawled 21px vertical margin is clipped by
+    // the original button box)
+    inlineStyle.width = "41px";
+    inlineStyle.height = "41px";
+    inlineStyle["margin-top"] = "15px";
+    delete inlineStyle["margin-bottom"];
+  } else if (!inlineStyle.width) {
+    inlineStyle.width = "100%";
+  }
   if (hasOverlay) inlineStyle.width = "100%";
   // RC5: source desktop-pixel dimensions must stay unclamped at >=992 (the
   // images are deliberate crops), but below 992 they overflow the 390 column.
@@ -525,19 +546,30 @@ export function Row({
   nested = false,
   wdepth = 0,
   vGutter = false,
+  mobileInset = false,
 }: {
   r: RowNode;
   locale?: Locale;
   nested?: boolean;
   wdepth?: number;
   vGutter?: boolean;
+  /**
+   * S3: imweb's mobile runtime pads the `.inside` container to 360px inside a
+   * 390 viewport (15px per side). The crawl stores `pad: 0` for those mobile
+   * rows (it measured the desktop gutter), so mobile-only sections re-apply the
+   * 15px inset on their top-level rows. Nested rows sit inside an already
+   * padded ancestor and stay at 0. Sections carrying `mobile_section` never
+   * render at >=992, so this needs no breakpoint guard.
+   */
+  mobileInset?: boolean;
 }) {
   const rowVars: React.CSSProperties = {};
   if (!nested && r.w) (rowVars as Record<string, string>)["--row-w"] = `${r.w}px`;
   if (r.h) (rowVars as Record<string, string>)["--row-h"] = `${r.h}px`;
   // only top-level rows add the gutter inset — nested rows sit inside an
   // already-padded ancestor col, so re-applying would double the inset
-  (rowVars as Record<string, string>)["--row-pad"] = nested ? "0px" : `${r.pad ?? 0}px`;
+  const pad = nested ? 0 : mobileInset ? Math.max(r.pad ?? 0, 15) : r.pad ?? 0;
+  (rowVars as Record<string, string>)["--row-pad"] = `${pad}px`;
   // nested imweb rows scale to their parent col's grid (doz_grid), not 12
   const cols = r.cols.map((c) => ({
     ...c,
@@ -773,7 +805,15 @@ export default function SectionRenderer({
                 {sec.rows
                   .filter((r) => r.kind === "row")
                   .map((r, i) => (
-                    <Row key={i} r={r as RowNode} locale={locale} nested={false} wdepth={0} vGutter={vGutter} />
+                    <Row
+                      key={i}
+                      r={r as RowNode}
+                      locale={locale}
+                      nested={false}
+                      wdepth={0}
+                      vGutter={vGutter}
+                      mobileInset={mobileOnly}
+                    />
                   ))}
               </div>
               {isSide && side === "right" && (

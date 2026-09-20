@@ -187,13 +187,16 @@ a {
   }
 }
 
-/* vertical spacers extracted from imweb padding widgets; scale down on mobile */
+/* vertical spacers extracted from imweb padding widgets; scale down on mobile.
+   S5: imweb's mobile runtime renders a padding widget at half its desktop
+   height PLUS the 15px `.inside .widget` row margin (measured: 74->52,
+   112->71, 260->145), so a bare 0.5x under-renders by 15px on every spacer. */
 .spacer {
     height: calc(var(--h) * 1px);
 }
 @media (max-width: 1023px) {
     .spacer {
-        height: calc(var(--h) * 0.5px);
+        height: calc(var(--h) * 0.5px + 15px);
     }
 }
 
