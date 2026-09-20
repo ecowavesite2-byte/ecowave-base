@@ -195,6 +195,7 @@
       "id": "s2025082036afa4e23fa8c",
       "cls": "section_wrap  pc_section       side_basic     ",
       "bg": "/images/thumbnail/20250820/5d92141b20894.jpg",
+      "bgFixed": true,
       "bgStyle": "background-image:url('/images/thumbnail/20250820/5d92141b20894.jpg'); background-position:50% 50%;  background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
       "bgColor": "rgba(0, 0, 0, 0.55)",
       "secStyle": "; ; background-color:rgba(0, 0, 0, 0.55);;",

@@ -1,5 +1,5 @@
 import BoardPageShell from "@/components/content/BoardPageShell";
-import { BoardLineList, Pagination } from "@/components/ui/Boards";
+import { BoardHeader, BoardLineList, Pagination } from "@/components/ui/Boards";
 import { getBoard } from "@/lib/content";
 import { defaultLocale, isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { ui } from "@/lib/ui-strings";
@@ -30,7 +30,20 @@ export default async function NoticesPage({
       pageKey="notices"
       renderBoard={() => (
         <>
-          <BoardLineList posts={slice} boardHref={base} emptyLabel={t.board.noPosts} viewsLabel={t.board.views} />
+          <BoardHeader name={board.name || (l === "ko" ? "뉴스" : "News")} count={board.posts.length} />
+          <BoardLineList
+            posts={slice}
+            boardHref={base}
+            emptyLabel={t.board.noPosts}
+            viewsLabel={t.board.views}
+            titleLabel={l === "ko" ? "제목" : "Title"}
+            dateLabel={l === "ko" ? "작성시간" : "Date"}
+            noticeLabel={l === "ko" ? "공지" : "Notice"}
+            startCount={
+              board.posts.filter((p) => !p.isNotice).length -
+              board.posts.slice(0, (page - 1) * PAGE_SIZE).filter((p) => !p.isNotice).length
+            }
+          />
           <Pagination page={page} totalPages={totalPages} basePath={base} />
         </>
       )}

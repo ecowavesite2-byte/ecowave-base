@@ -1,23 +1,9 @@
-import PageHero from "@/components/ui/PageHero";
-import { BoardLineList } from "@/components/ui/Boards";
-import { getBoard } from "@/lib/content";
-import { defaultLocale, isLocale, localeHref, type Locale } from "@/lib/i18n";
-import { heroFor } from "@/lib/page-hero";
-import { ui } from "@/lib/ui-strings";
+import ContentPage from "@/components/content/ContentPage";
 
-/** Customer support: notices list embed. */
+/**
+ * Customer support landing: the original /28 page body holds only a spacer
+ * section (no board) — render the crawled sections generically to match.
+ */
 export default async function SupportPage({ params }: { params: Promise<{ locale: string }> }) {
-  const { locale } = await params;
-  const l = isLocale(locale) ? locale : defaultLocale;
-  const hero = heroFor("/support", l);
-  const t = ui(l);
-  const board = getBoard(l, "notices");
-  return (
-    <main>
-      <PageHero title={hero.title} tabs={hero.tabs} />
-      <section className="mx-auto max-w-[1440px] px-5 pb-24 lg:px-10">
-        <BoardLineList posts={board.posts} boardHref={localeHref(l, "/notices")} emptyLabel={t.board.noPosts} viewsLabel={t.board.views} />
-      </section>
-    </main>
-  );
+  return <ContentPage params={params} pageKey="support" />;
 }

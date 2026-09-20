@@ -28,6 +28,10 @@ export default async function NoticeDetailPage({
   if (!post) notFound();
   const hero = heroFor("/notices", l);
   const t = ui(l);
+  const board = getBoard(l, "notices");
+  const at = board.posts.findIndex((p) => p.idx === id);
+  const nav = (p?: { idx: string; title: string; date?: string | null }) =>
+    p ? { idx: p.idx, title: p.title, date: p.date } : null;
   return (
     <main>
       <PageHero title={hero.title} tabs={hero.tabs} />
@@ -37,6 +41,10 @@ export default async function NoticeDetailPage({
             post={post}
             boardHref={localeHref(l, "/notices")}
             listLabel={t.board.list}
+            prevLabel={t.board.prev}
+            nextLabel={t.board.next}
+            prevPost={nav(board.posts[at + 1])}
+            nextPost={nav(board.posts[at - 1])}
           />
         </div>
       </section>

@@ -17,11 +17,18 @@ const numericRedirects: Record<string, string> = {
   "/37": "/products/eco-wave",
   "/38": "/products/clean-b",
   "/36": "/products/flowell",
-  "/26": "/newsroom",
+  // imweb /26 (newsroom) 301-redirects to /29 (news) — same page
+  "/26": "/news",
   "/29": "/news",
   "/28": "/support",
   "/27": "/notices",
 };
+
+/** legacy semantic paths that no longer have their own route */
+const legacyRedirects: { source: string; destination: string }[] = [
+  { source: "/newsroom", destination: "/news" },
+  { source: "/en/newsroom", destination: "/en/news" },
+];
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
@@ -45,7 +52,8 @@ const nextConfig: NextConfig = {
       has: [{ type: "query" as const, key: "idx" }],
       permanent: true,
     }));
-    return [...posts, ...plain];
+    const legacy = legacyRedirects.map((r) => ({ ...r, permanent: true }));
+    return [...posts, ...plain, ...legacy];
   },
 };
 

@@ -17,7 +17,6 @@ const ROUTES = [
   "/products/eco-wave",
   "/products/clean-b",
   "/products/flowell",
-  "/newsroom",
   "/news",
   "/support",
   "/notices",

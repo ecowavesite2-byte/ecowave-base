@@ -24,12 +24,24 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ loc
   if (!post) notFound();
   const hero = heroFor("/news", l);
   const t = ui(l);
+  const board = getBoard(l, "news");
+  const at = board.posts.findIndex((p) => p.idx === id);
+  const nav = (p?: { idx: string; title: string; date?: string | null }) =>
+    p ? { idx: p.idx, title: p.title, date: p.date } : null;
   return (
     <main>
       <PageHero title={hero.title} tabs={hero.tabs} />
       <section className="mx-auto max-w-[1440px] px-5 pb-24 lg:px-10">
         <div className="mx-auto max-w-[1000px]">
-          <PostDetail post={post} boardHref={localeHref(l, "/news")} boardName={t.board.notice} listLabel={t.board.list} />
+          <PostDetail
+            post={post}
+            boardHref={localeHref(l, "/news")}
+            listLabel={t.board.list}
+            prevLabel={t.board.prev}
+            nextLabel={t.board.next}
+            prevPost={nav(board.posts[at + 1])}
+            nextPost={nav(board.posts[at - 1])}
+          />
         </div>
       </section>
     </main>

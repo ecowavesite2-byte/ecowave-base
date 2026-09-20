@@ -18,7 +18,7 @@ export const SOURCE_TO_ROUTE: Record<string, string> = {
   "/37": "/products/eco-wave",
   "/38": "/products/clean-b",
   "/36": "/products/flowell",
-  "/26": "/newsroom",
+  "/26": "/news",
   "/29": "/news",
   "/28": "/support",
   "/27": "/notices",

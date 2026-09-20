@@ -30,7 +30,7 @@ export default async function NewsPage({
       pageKey="news"
       renderBoard={() => (
         <>
-          <BoardHeader name={board.name || t.board.notice} count={board.posts.length} searchLabel={t.common.search} />
+          <BoardHeader name={board.name || (l === "ko" ? "공지사항" : "Notice")} count={board.posts.length} />
           <BoardCardGrid posts={slice} boardHref={base} emptyLabel={t.board.noPosts} />
           <Pagination page={page} totalPages={totalPages} basePath={base} />
         </>
