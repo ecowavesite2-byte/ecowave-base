@@ -230,6 +230,22 @@ function ImageWidget({ w, locale, mobileBox = false }: { w: WidgetNode; locale: 
     inlineStyle.width = "100%";
   }
   if (hasOverlay) inlineStyle.width = "100%";
+  // MB4: a `mobile_section` image is re-fit by imweb's mobile runtime to the
+  // 390 column — the probe measures `width:100%` with the natural height, and
+  // the authored box clips it (company.about `196f5234277f5.jpg`: img 360x433 in
+  // a 318 box). The crawled `imgStyle` is instead the DESKTOP runtime state: a
+  // portrait crop (`width:auto; height:100%`) plus a large negative
+  // `margin-left`. Applied at mobile that paints only the sliver left of the
+  // box (local card x15-146 vs the original x15-374). Drop the crop
+  // offsets/height and fill the box, exactly like the original mobile runtime.
+  const isMobileCrop =
+    /margin(?:-left|-right)?\s*:\s*-/.test(w.imgStyle || "") || /width\s*:\s*auto/i.test(w.imgStyle || "");
+  if (mobileBox && isMobileCrop) {
+    inlineStyle.width = "100%";
+    delete inlineStyle.height;
+    delete inlineStyle["margin-left"];
+    delete inlineStyle["margin-right"];
+  }
   // RC5: source desktop-pixel dimensions must stay unclamped at >=992 (the
   // images are deliberate crops), but below 992 they overflow the 390 column.
   // Re-apply the desktop max-width/height only at >=992 and let the mobile
@@ -287,7 +303,7 @@ function ImageWidget({ w, locale, mobileBox = false }: { w: WidgetNode; locale: 
       </div>
     ) : (
       <div
-        className={`relative w-full overflow-hidden${h ? " " + (mobileBox ? BOX_MOBILE_HEIGHT : BOX_DESKTOP_HEIGHT) : ""}`}
+        className={`relative w-full overflow-hidden${mobileBox ? " rounded-[6px]" : ""}${h ? " " + (mobileBox ? BOX_MOBILE_HEIGHT : BOX_DESKTOP_HEIGHT) : ""}`}
         style={h ? ({ ["--box-h" as string]: `${h}px` } as React.CSSProperties) : undefined}
       >
         {w.src && img}
