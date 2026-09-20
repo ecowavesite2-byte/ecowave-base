@@ -71,10 +71,10 @@ a {
 .rich-text {
   position: relative;
   display: flow-root;
-  /* crawled widgets inherit the original base line box (15px x 1.6 = 24px).
+  /* crawled widgets inherit the original base line box (15px x 1.28 = 19.2px).
      A forced 1.2 here overrode the inline `line-height` factors the crawl
      carries on <p> (1.5/2/3) and made every span/strong too tight. */
-  line-height: 1.6;
+  line-height: 1.28;
 }
 /* imweb renders every text widget's `.text-table` as a flex column
    (`#text_w<id> .text-table{display:flex;flex-direction:column;justify-content:
@@ -129,6 +129,13 @@ a {
 }
 .rich-text p {
   margin: 0;
+}
+/* crawled <p style="line-height:3"> spans inherit huge factors; the original
+   renders inline-sized spans at lh 1.2 (style-probe: 36/43.2). Scoped to <p>
+   so h6/hero display text is untouched. */
+.rich-text p span,
+.rich-text p strong {
+  line-height: 1.2;
 }
 /* h6 base in the crawled doc sections: original computed 16px/1.4 on mobile,
    19.29px/1.4 at desktop (strong inherits, e.g. 27.006 = 19.29 x 1.4).
