@@ -13,7 +13,7 @@ decisions and deferred stages (Prisma/Neon, admin, forms, Vercel deploy).
 
 ```bash
 npm install
-npm run dev        # http://localhost:3000 (Korean) — English lives under /en
+npm run dev        # http://localhost:4000 (Korean) — English lives under /en
 ```
 
 Production:
