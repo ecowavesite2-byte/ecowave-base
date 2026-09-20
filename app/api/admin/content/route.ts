@@ -153,6 +153,8 @@ export async function PUT(req: Request) {
       content: sanitized,
       expectedHash: parsed.data.hash,
       versionFile: resolved.source,
+      actor: auth.session.admin?.email,
+      action: "save",
     });
     await revalidateFor(resolved.kind, resolved.locale, resolved.key);
     return Response.json({ hash });

@@ -73,3 +73,62 @@ The app is locale-ready: routing, header language selector, per-locale UI string
 (`lib/ui-strings.ts`) and per-locale board data. English **page content** is not
 ported yet — pages fall back to the Korean snapshot until the EN content pass
 (deferred per plan).
+
+## Admin dashboard & ops runbook
+
+The admin dashboard lives at `/admin` (login at `/admin/login`). It is guarded by
+an iron-session cookie and is unreachable without the admin env vars.
+
+### Environment (`.env.local`, never committed)
+
+| Var | Purpose |
+|---|---|
+| `SESSION_SECRET` | iron-session signing/encryption secret (≥ 32 chars). |
+| `ADMIN_EMAIL` | The single admin login email. |
+| `ADMIN_PASSWORD_HASH` | scrypt 64-byte digest, lowercase hex (128 chars). |
+| `ADMIN_PASSWORD_SALT` | scrypt salt, hex. |
+| `CONTENT_ROOT` | Optional content data dir (prod writes outside the git tree). |
+| `MEDIA_ROOT` | Optional uploaded-media dir (default `data/media/`). |
+| `ADMIN_LOGIN_MAX_FAILS` / `ADMIN_LOGIN_WINDOW_MIN` | Login throttle (defaults 5 / 15). |
+
+See `.env.example`. `next build`/`next start` fail closed when the auth vars are unset.
+
+### Build / stop / start (dedicated port 4517)
+
+**Never run `next build` while the server is running** — the build overwrites `.next`
+underneath the live process. Order:
+
+1. stop the server (`Ctrl-C` the `next start` process);
+2. `npm run build`;
+3. `npm run start` (port **4517**).
+
+### Data roots & write model
+
+- Repo `content/` is the seed; production writes go to `CONTENT_ROOT` when set.
+- Uploaded media is content-hashed under `MEDIA_ROOT` (`data/media/`) and served
+  read-only via `/media/...`; `public/` is never written at runtime.
+- Saves are atomic (`write-file-atomic`, Windows retry/backoff) and write a
+  revision snapshot under `content/.history/<ISO>/`; an append-only audit log is
+  kept at `content/.history/audit.log` (actor + file + hashes per write).
+
+### Backup / restore
+
+```bash
+npm run content:backup                                    # data/backups/<ISO>.tar (content/ + data/media/)
+npm run content:restore -- data/backups/<ISO>.tar --yes   # DESTRUCTIVE; stop the server first
+```
+
+Restore extracts into a staging dir, validates it with `content:validate`, takes a
+safety backup, then swaps; the replaced state is kept under
+`data/restore-staging/replaced-<ISO>/` for rollback.
+
+### Optional: Better Auth upgrade path
+
+The dashboard is deliberately a single-admin, cookie-only design. If a second
+editor or per-user audit/roles are ever needed, replace `lib/auth/*` with a
+provider such as Better Auth: keep the existing `requireAdmin`/`requireAdminApi`
+call sites (they already gate every page and route handler), map the session to the
+same `actor` field the audit log consumes, and move the credentials out of the
+`.env.local` admin vars. The file-backed content store and the save/hash/snapshot
+pipeline stay unchanged.
+

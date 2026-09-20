@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { draftMode } from "next/headers";
 import { assertSameOrigin, requireAdminApi } from "@/lib/auth/guard";
+import { appendAudit, auditRelPath } from "@/lib/content/audit";
 import {
   DraftValidationError,
   discardDraft,
@@ -58,6 +59,7 @@ export async function PUT(req: Request) {
       target.key,
       parsed.data.content,
       parsed.data.hash,
+      auth.session.admin?.email,
     );
     return Response.json({ hash });
   } catch (error) {
@@ -116,13 +118,23 @@ export async function POST(req: Request) {
 
   try {
     if (action === "publish") {
-      const result = await promoteDraft(target.locale, target.kind, target.key);
+      const result = await promoteDraft(
+        target.locale,
+        target.kind,
+        target.key,
+        auth.session.admin?.email,
+      );
       if (!result) return jsonError("No draft to publish", 404);
       return Response.json({ ok: true, hash: result.hash });
     }
 
     const removed = await discardDraft(target.locale, target.kind, target.key);
     if (!removed) return jsonError("No draft to discard", 404);
+    appendAudit({
+      actor: auth.session.admin?.email,
+      action: "draft-discard",
+      file: auditRelPath(target.draft),
+    });
     return Response.json({ ok: true });
   } catch (error) {
     if (error instanceof DraftValidationError) {

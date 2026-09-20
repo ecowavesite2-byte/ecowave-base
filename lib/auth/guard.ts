@@ -8,10 +8,25 @@ import { getSession, type SessionData } from "./session";
  * server component and route handler must go through this module.
  */
 
-const MAX_ATTEMPTS = 5;
-const WINDOW_MS = 15 * 60 * 1000; // 15 minutes
-const BASE_LOCKOUT_MS = 15 * 60 * 1000; // 15 minutes after the 5th failure
-const MAX_LOCKOUT_MS = 24 * 60 * 60 * 1000; // 24h cap on exponential lockout
+/**
+ * Login throttling. `ADMIN_LOGIN_MAX_FAILS` (default 5) and
+ * `ADMIN_LOGIN_WINDOW_MIN` (default 15, also the base lockout) are env-tunable;
+ * the lockout grows exponentially per extra failure, capped at 24h.
+ */
+const DEFAULT_MAX_FAILS = 5;
+const DEFAULT_WINDOW_MIN = 15;
+const MAX_LOCKOUT_MS = 24 * 60 * 60 * 1000; // 24h cap on the exponential lockout
+
+function maxFails(): number {
+  const raw = Number(process.env.ADMIN_LOGIN_MAX_FAILS);
+  return Number.isFinite(raw) && raw >= 1 ? Math.floor(raw) : DEFAULT_MAX_FAILS;
+}
+
+function windowMs(): number {
+  const raw = Number(process.env.ADMIN_LOGIN_WINDOW_MIN);
+  const minutes = Number.isFinite(raw) && raw > 0 ? raw : DEFAULT_WINDOW_MIN;
+  return minutes * 60 * 1000;
+}
 
 type RateEntry = {
   count: number;
@@ -32,14 +47,27 @@ export function clientIp(req: Request): string {
   return "local";
 }
 
+let lastSweep = 0;
+
+/** Drop entries whose window elapsed and that are not currently locked out. */
+function sweepStale(now: number): void {
+  const window = windowMs();
+  if (now - lastSweep < window) return;
+  lastSweep = now;
+  for (const [ip, entry] of rateStore) {
+    if (entry.lockedUntil <= now && now - entry.windowStart > window) rateStore.delete(ip);
+  }
+}
+
 export function checkRateLimit(ip: string): { allowed: boolean; retryAfterMs: number } {
   const now = Date.now();
+  sweepStale(now);
   const entry = rateStore.get(ip);
   if (!entry) return { allowed: true, retryAfterMs: 0 };
   if (entry.lockedUntil > now) {
     return { allowed: false, retryAfterMs: entry.lockedUntil - now };
   }
-  if (now - entry.windowStart > WINDOW_MS) {
+  if (now - entry.windowStart > windowMs()) {
     rateStore.delete(ip);
     return { allowed: true, retryAfterMs: 0 };
   }
@@ -48,10 +76,13 @@ export function checkRateLimit(ip: string): { allowed: boolean; retryAfterMs: nu
 
 export function recordFailure(ip: string): void {
   const now = Date.now();
+  sweepStale(now);
+  const window = windowMs();
+  const max = maxFails();
   const existing = rateStore.get(ip);
   const expired =
     existing !== undefined &&
-    (now - existing.windowStart > WINDOW_MS ||
+    (now - existing.windowStart > window ||
       (existing.lockedUntil !== 0 && existing.lockedUntil <= now));
 
   const entry: RateEntry =
@@ -60,9 +91,9 @@ export function recordFailure(ip: string): void {
       : existing;
 
   entry.count += 1;
-  if (entry.count >= MAX_ATTEMPTS) {
-    const over = entry.count - MAX_ATTEMPTS;
-    entry.lockedUntil = now + Math.min(BASE_LOCKOUT_MS * 2 ** over, MAX_LOCKOUT_MS);
+  if (entry.count >= max) {
+    const over = entry.count - max;
+    entry.lockedUntil = now + Math.min(window * 2 ** over, MAX_LOCKOUT_MS);
   }
   rateStore.set(ip, entry);
 }

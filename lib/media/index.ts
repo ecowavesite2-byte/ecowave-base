@@ -48,13 +48,25 @@ export function readMediaIndex(): MediaIndex {
   }
 }
 
+/** Optional audit context threaded from the API routes. */
+export interface MediaAudit {
+  actor?: string;
+  action?: string;
+}
+
 /** Serialized read-modify-write of the index. */
-export async function updateMediaIndex<T>(mutator: (index: MediaIndex) => T): Promise<T> {
+export async function updateMediaIndex<T>(
+  mutator: (index: MediaIndex) => T,
+  audit?: MediaAudit,
+): Promise<T> {
   return withLock(async () => {
     const index = readMediaIndex();
     const result = mutator(index);
     fs.mkdirSync(path.dirname(MEDIA_INDEX_FILE), { recursive: true });
-    await writeJsonFileAtomic(MEDIA_INDEX_FILE, index);
+    await writeJsonFileAtomic(MEDIA_INDEX_FILE, index, {
+      actor: audit?.actor,
+      action: audit?.action ?? "media-index",
+    });
     return result;
   });
 }
@@ -63,33 +75,38 @@ export function getMediaEntry(relPath: string): MediaEntry | null {
   return readMediaIndex()[relPath] ?? null;
 }
 
-export async function setMediaAlt(relPath: string, alt: string): Promise<MediaEntry | null> {
+export async function setMediaAlt(
+  relPath: string,
+  alt: string,
+  audit?: MediaAudit,
+): Promise<MediaEntry | null> {
   return updateMediaIndex((index) => {
     const entry = index[relPath];
     if (!entry) return null;
     entry.alt = alt;
     return entry;
-  });
+  }, audit);
 }
 
 export async function setMediaCrops(
   relPath: string,
   crops: Record<string, string>,
+  audit?: MediaAudit,
 ): Promise<MediaEntry | null> {
   return updateMediaIndex((index) => {
     const entry = index[relPath];
     if (!entry) return null;
     entry.crops = { ...entry.crops, ...crops };
     return entry;
-  });
+  }, audit);
 }
 
-export async function removeMediaEntry(relPath: string): Promise<boolean> {
+export async function removeMediaEntry(relPath: string, audit?: MediaAudit): Promise<boolean> {
   return updateMediaIndex((index) => {
     if (!(relPath in index)) return false;
     delete index[relPath];
     return true;
-  });
+  }, audit);
 }
 
 /* -------------------------------------------------------------------------- */

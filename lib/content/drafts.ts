@@ -135,6 +135,7 @@ export async function writeDraft(
   key: string,
   content: unknown,
   expectedHash: string,
+  actor?: string,
 ): Promise<string> {
   const target = resolveDraftTarget(locale, kind, key);
   if (!target) throw new Error(`Invalid draft target: ${kind}/${key}`);
@@ -149,6 +150,8 @@ export async function writeDraft(
     content: sanitized,
     expectedHash,
     versionFile,
+    actor,
+    action: "draft-save",
   });
 }
 
@@ -160,6 +163,7 @@ export async function promoteDraft(
   locale: Locale,
   kind: DraftKind,
   key: string,
+  actor?: string,
 ): Promise<{ hash: string } | null> {
   const target = resolveDraftTarget(locale, kind, key);
   if (!target) throw new Error(`Invalid draft target: ${kind}/${key}`);
@@ -172,6 +176,8 @@ export async function promoteDraft(
   const hash = await saveJsonFile({
     file: target.published,
     content: sanitizeContent(kind, parsed.value),
+    actor,
+    action: "publish",
   });
   await discardDraft(locale, kind, key);
   await revalidateFor(kind, locale, key);

@@ -2,6 +2,10 @@
   "name": "ecowave",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=20.17 <25",
+    "npm": ">=10"
+  },
   "scripts": {
     "dev": "next dev --port 4000",
     "build": "next build",
@@ -10,6 +14,8 @@
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
     "content:validate": "node scripts/content-validate.mjs",
+    "content:backup": "node scripts/content-backup.mjs",
+    "content:restore": "node scripts/content-restore.mjs",
     "verify": "npm run typecheck && npm run lint && npm run content:validate && npm run build"
   },
   "dependencies": {

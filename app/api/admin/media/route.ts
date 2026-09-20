@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { assertSameOrigin, requireAdminApi } from "@/lib/auth/guard";
+import { appendAudit } from "@/lib/content/audit";
 import {
   getMediaEntry,
   removeMediaEntry,
@@ -37,7 +38,10 @@ export async function PATCH(req: Request) {
     return Response.json({ error: "Invalid request", issues: parsed.error.issues }, { status: 400 });
   }
 
-  const entry = await setMediaAlt(parsed.data.path, parsed.data.alt);
+  const entry = await setMediaAlt(parsed.data.path, parsed.data.alt, {
+    actor: auth.session.admin?.email,
+    action: "media-alt",
+  });
   if (!entry) return jsonError("Media entry not found", 404);
   return Response.json({ ok: true, path: parsed.data.path, alt: entry.alt });
 }
@@ -58,6 +62,14 @@ export async function DELETE(req: Request) {
   }
 
   deleteMediaBlob(relPath);
-  await removeMediaEntry(relPath);
+  await removeMediaEntry(relPath, {
+    actor: auth.session.admin?.email,
+    action: "media-delete",
+  });
+  appendAudit({
+    actor: auth.session.admin?.email,
+    action: "media-delete",
+    file: relPath,
+  });
   return Response.json({ ok: true });
 }

@@ -54,7 +54,10 @@ export async function POST(req: Request) {
     return JsonError("Could not generate crops", 422);
   }
 
-  const updated = await setMediaCrops(relPath, crops);
+  const updated = await setMediaCrops(relPath, crops, {
+    actor: auth.session.admin?.email,
+    action: "media-crop",
+  });
   const urls: Record<string, string> = {};
   for (const [name, cropPath] of Object.entries(updated?.crops ?? crops)) {
     urls[name] = mediaUrl(cropPath);

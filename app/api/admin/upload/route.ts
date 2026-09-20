@@ -1,5 +1,6 @@
 import { fileTypeFromBuffer } from "file-type";
 import { assertSameOrigin, requireAdminApi } from "@/lib/auth/guard";
+import { appendAudit } from "@/lib/content/audit";
 import { MAX_UPLOAD_BYTES, reencodeToWebp } from "@/lib/media/image";
 import { getMediaEntry, updateMediaIndex, type MediaEntry } from "@/lib/media/index";
 import { writeMediaBlob } from "@/lib/media/store";
@@ -79,8 +80,19 @@ export async function POST(req: Request) {
     uploadedAt: new Date().toISOString(),
   };
 
-  await updateMediaIndex((index) => {
-    index[blob.relPath] = entry;
+  await updateMediaIndex(
+    (index) => {
+      index[blob.relPath] = entry;
+    },
+    { actor: auth.session.admin?.email, action: "media-upload" },
+  );
+
+  appendAudit({
+    actor: auth.session.admin?.email,
+    action: replacePath ? "media-replace" : "media-upload",
+    file: blob.relPath,
+    bytes: encoded.size,
+    meta: { format: encoded.format, replaced: replacePath || null },
   });
 
   return Response.json({

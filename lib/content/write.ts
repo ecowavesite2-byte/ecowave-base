@@ -2,6 +2,7 @@ import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import writeFileAtomic from "write-file-atomic";
+import { appendAudit, auditRelPath } from "./audit";
 import { CONTENT_ROOT } from "./paths";
 
 /**
@@ -114,10 +115,26 @@ function serialize(content: unknown): string {
  * Atomic JSON write WITHOUT acquiring the in-process lock. Callers doing a
  * read-modify-write (e.g. the media index) must wrap this in `withLock`;
  * `saveJsonFile` already holds the lock and must not call this.
+ *
+ * `opts.actor` / `opts.action` are recorded in the audit log (best-effort).
  */
-export async function writeJsonFileAtomic(file: string, content: unknown): Promise<void> {
+export async function writeJsonFileAtomic(
+  file: string,
+  content: unknown,
+  opts?: { actor?: string; action?: string },
+): Promise<void> {
   assertInsideContentRoot(file);
-  await writeAtomicWithRetry(file, serialize(content));
+  const before = fs.existsSync(file) ? hashOfFile(file) : EMPTY_HASH;
+  const next = serialize(content);
+  await writeAtomicWithRetry(file, next);
+  appendAudit({
+    actor: opts?.actor,
+    action: opts?.action ?? "save-atomic",
+    file: auditRelPath(file),
+    hashBefore: before,
+    hashAfter: hashOf(next),
+    bytes: Buffer.byteLength(next),
+  });
 }
 
 export interface SaveJsonOptions {
@@ -131,6 +148,10 @@ export interface SaveJsonOptions {
    * Used for ko→en inheritance: read the ko file, write a new en file.
    */
   versionFile?: string;
+  /** Admin email, recorded in the audit log. */
+  actor?: string;
+  /** Audit action label; defaults to `save`. */
+  action?: string;
 }
 
 /**
@@ -148,9 +169,19 @@ export async function saveJsonFile(options: SaveJsonOptions): Promise<string> {
       throw new HashMismatchError(options.expectedHash, actual);
     }
 
+    const before = fs.existsSync(dest) ? hashOfFile(dest) : EMPTY_HASH;
     snapshotBeforeOverwrite(dest);
     const next = serialize(options.content);
     await writeAtomicWithRetry(dest, next);
-    return hashOf(next);
+    const after = hashOf(next);
+    appendAudit({
+      actor: options.actor,
+      action: options.action ?? "save",
+      file: auditRelPath(dest),
+      hashBefore: before,
+      hashAfter: after,
+      bytes: Buffer.byteLength(next),
+    });
+    return after;
   });
 }
