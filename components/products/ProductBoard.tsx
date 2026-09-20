@@ -116,7 +116,7 @@ export function ProductCardGrid({
               )}
             </div>
             <div className="flex h-[84px] items-start justify-center bg-[#f7f7f7] px-5 pt-5 lg:h-[65px]">
-              <h3 className="w-full truncate text-center text-[15px] font-normal leading-[20px] text-black transition-colors group-hover:text-accent">
+              <h3 className="w-full truncate text-center text-[15px] font-normal leading-[20px] text-black">
                 {p.title}
               </h3>
             </div>

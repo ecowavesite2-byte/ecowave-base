@@ -55,7 +55,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                       )}
                     </div>
                     <div className="h-[141px] bg-white px-[15px] pt-[15px] pb-[23px] lg:h-auto">
-                      <h3 className="truncate text-[19px] font-normal text-black transition-colors group-hover:text-accent">{p.title}</h3>
+                      <h3 className="truncate text-[19px] font-normal text-black">{p.title}</h3>
                       {p.excerpt && <p className="mt-[5px] line-clamp-2 text-[16px] leading-[1.4] text-black">{p.excerpt}</p>}
                     </div>
                   </Link>

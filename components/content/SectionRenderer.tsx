@@ -2,6 +2,7 @@ import Link from "next/link";
 import RichText from "@/components/ui/RichText";
 import Reveal from "@/components/ui/Reveal";
 import InquiryForm from "@/components/forms/InquiryForm";
+import GallerySlider from "@/components/content/GallerySlider";
 import type { ColNode, Node, RowNode, Section, WidgetNode } from "@/lib/types";
 import { defaultLocale, localeHref, type Locale } from "@/lib/i18n";
 import { routeForSource } from "@/lib/routes";
@@ -141,7 +142,10 @@ export function GalleryCard({
     );
   }
   return (
-    <figure className={`relative overflow-hidden bg-soft ${fill ? "h-full" : "shrink-0"} ${className}`} style={boxStyle}>
+    <figure
+      className={`group relative overflow-hidden bg-soft ${fill ? "h-full" : "shrink-0"} ${className}`}
+      style={boxStyle}
+    >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={src}
@@ -149,8 +153,11 @@ export function GalleryCard({
         className={fill || (w && h) ? "h-full w-full object-cover" : "aspect-square w-full object-cover"}
         loading="lazy"
       />
+      {/* D9b: original `show_over` widget keeps `.text_wrap` at opacity 0 and
+          fades the white caption in on hover (transition all .3s) with no dark
+          scrim/zoom — measured on /17. */}
       {(item.title || item.desc) && (
-        <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent p-3">
+        <figcaption className="absolute inset-x-0 bottom-0 p-3 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
           {item.title && <h4 className="text-[14px] font-semibold text-white">{item.title}</h4>}
           {item.desc && <p className="text-[12px] text-white/85">{item.desc}</p>}
         </figcaption>
@@ -345,7 +352,7 @@ function WidgetContent({ w, locale }: { w: WidgetNode; locale: Locale }) {
       const meta2 = w as unknown as { itemW?: number; itemH?: number; gridN?: string };
       if (w.layout === "slide") {
         return (
-          <div className="flex snap-x gap-[5px] overflow-x-auto">
+          <GallerySlider count={items.length}>
             {items.map((it, i) => (
               <GalleryCard
                 key={i}
@@ -355,7 +362,7 @@ function WidgetContent({ w, locale }: { w: WidgetNode; locale: Locale }) {
                 className="snap-start"
               />
             ))}
-          </div>
+          </GallerySlider>
         );
       }
       // grid layout: column count from imweb's `grid_0N` preset (see
@@ -425,7 +432,7 @@ function WidgetContent({ w, locale }: { w: WidgetNode; locale: Locale }) {
           <Link
             href={dest}
             aria-label={w.text || "button"}
-            className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-[#ddd] text-body transition duration-300 hover:border-accent hover:text-accent"
+            className="inline-flex items-center justify-center rounded-full bg-[#f7f7f7] p-[14px] text-[rgba(0,0,0,0.15)] transition-all duration-300 hover:bg-transparent hover:text-accent"
           >
             {isTop && (
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -458,7 +465,7 @@ function WidgetContent({ w, locale }: { w: WidgetNode; locale: Locale }) {
             <li key={l.href}>
               <Link
                 href={l.href}
-                className="block text-[14px] leading-[2] text-[#959595] transition duration-300 hover:text-white"
+                className="block text-[14px] leading-[2] text-[#959595]"
               >
                 {l.name}
               </Link>

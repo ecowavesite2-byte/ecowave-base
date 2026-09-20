@@ -273,12 +273,6 @@ a {
     border-radius: 0 0 10px 10px;
 }
 
-/* crawled TOP/plus circle buttons sitting on the black footer section */
-[data-footer] [data-widget-type="button"] a {
-    border-color: rgba(255, 255, 255, 0.4);
-    color: #fff;
-}
-[data-footer] [data-widget-type="button"] a:hover {
-    border-color: #fff;
-    color: #fff;
-}
+/* D14: the footer TOP/plus circle buttons use the same measured widget button
+   style as the rest of the site (bg #f7f7f7, rgba(0,0,0,.15) icon, hover
+   transparent bg + #3465DE icon), so no footer-specific override is needed. */

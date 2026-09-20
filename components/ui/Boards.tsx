@@ -90,7 +90,7 @@ export function BoardCardGrid({
             )}
           </div>
           <div className="bg-white p-5">
-            <h3 className="truncate text-[16px] font-normal leading-[1.275] text-black transition-colors group-hover:text-accent">
+            <h3 className="truncate text-[16px] font-normal leading-[1.275] text-black">
               {p.isNotice && (
                 <span className="mr-2 inline-block rounded-[3px] bg-accent px-1.5 py-0.5 align-middle text-[11px] font-bold leading-[16px] text-white">
                   공지
@@ -196,7 +196,7 @@ export function BoardLineList({
                 )}
               </div>
               <div style={{ ...bodyCell, textAlign: "left" }} className="min-w-0">
-                <h3 className="truncate text-[15px] font-normal text-[#363636] transition-colors group-hover:text-accent md:text-[16px] md:leading-[25.6px]">
+                <h3 className="truncate text-[15px] font-normal text-[#363636] md:text-[16px] md:leading-[25.6px]">
                   {p.isNotice && (
                     <span className="mr-2 inline-block rounded-[3px] bg-accent px-1.5 py-0.5 align-middle text-[11px] font-bold leading-[16px] text-white md:hidden">
                       {noticeLabel}
