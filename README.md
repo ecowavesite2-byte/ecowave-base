@@ -20,7 +20,7 @@ Production:
 
 ```bash
 npm run build
-npm run start
+npm run start      # http://localhost:4517 (audit scripts default here)
 ```
 
 Quality checks: `npm run typecheck` · `npx eslint .`
@@ -36,7 +36,7 @@ Old numeric imweb URLs (`/15`, `/29/?idx=…`) are 301-redirected to the semanti
 | `/company` + `/ceo` `/about` `/philosophy` `/history` `/organization` `/global` | Company |
 | `/rnd` + `/technology` `/patents` `/facilities` | R&D |
 | `/products` + `/products/{eco-wave,clean-b,flowell}` (+ post detail) | Products |
-| `/newsroom`, `/news` (+ detail) | Newsroom / News |
+| `/news` (+ detail) | News (old `/newsroom` 301-redirects here) |
 | `/support`, `/notices` (+ detail) | Customer support / Notices |
 
 ## Project layout

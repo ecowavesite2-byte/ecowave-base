@@ -4,7 +4,7 @@
  * pipeline can shoot identical pages on both sides.
  */
 export const ORIG_BASE = "https://imweb8701032505.imweb.me";
-export const DEFAULT_LOCAL_BASE = "http://localhost:3000";
+export const DEFAULT_LOCAL_BASE = "http://localhost:4517";
 
 export const VIEWPORTS = {
   desktop: { width: 1440, height: 900 },

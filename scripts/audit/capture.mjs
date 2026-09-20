@@ -5,7 +5,7 @@
  *
  * Usage:
  *   node scripts/audit/capture.mjs --side=orig|local [--viewport=desktop|mobile|both]
- *        [--only=home,support] [--base=http://localhost:3000] [--out=design/audit]
+ *        [--only=home,support] [--base=http://localhost:4517] [--out=design/audit]
  */
 import { chromium } from "playwright-core";
 import fs from "node:fs/promises";

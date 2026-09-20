@@ -14,7 +14,7 @@ of truth. This plan lists every measured difference and the fix approach.
 - Re-run after fixes:
   ```powershell
   npm run build
-  npm run start   # port 3000, keep running
+  npm run start   # port 4517 (dedicated audit port), keep running
   node scripts/audit/capture.mjs --side=local --viewport=both
   node scripts/audit/diff.mjs --viewport=both
   ```
@@ -546,7 +546,7 @@ phase after (fix-2 findings to fold in).
 
 ## Final results (2026-09-20, fresh prod build, both viewports)
 
-Command: `npm run build` → `npm run start` (port 3000) →
+Command: `npm run build` → `npm run start` (port 4517; originally 3000) →
 `node scripts/audit/capture.mjs --side=local --viewport=both` (40/40 ok, 0 failed) →
 `node scripts/audit/diff.mjs --viewport=both` (40 page/viewport pairs).
 Full machine-readable report: `design/audit/report.md` / `report.json`.
