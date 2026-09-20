@@ -110,6 +110,16 @@ function serialize(content: unknown): string {
   return JSON.stringify(content, null, 2) + "\n";
 }
 
+/**
+ * Atomic JSON write WITHOUT acquiring the in-process lock. Callers doing a
+ * read-modify-write (e.g. the media index) must wrap this in `withLock`;
+ * `saveJsonFile` already holds the lock and must not call this.
+ */
+export async function writeJsonFileAtomic(file: string, content: unknown): Promise<void> {
+  assertInsideContentRoot(file);
+  await writeAtomicWithRetry(file, serialize(content));
+}
+
 export interface SaveJsonOptions {
   /** Destination file; must live under CONTENT_ROOT. */
   file: string;
