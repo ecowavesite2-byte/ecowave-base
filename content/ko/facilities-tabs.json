@@ -1,0 +1,39 @@
+[
+  {
+    "id": "tab1",
+    "name": "생산설비",
+    "images": [
+      "&quot;/images/thumbnail/20250820/d30f62f69c0aa.jpg&quot;",
+      "&quot;/images/thumbnail/20250820/dc7fa16116dc9.jpg&quot;",
+      "&quot;/images/thumbnail/20250820/f3c1df8dc46a8.jpg&quot;",
+      "&quot;/images/thumbnail/20250820/062eb63731482.jpg&quot;",
+      "&quot;/images/thumbnail/20250820/4b4f5cd2fbde3.jpg&quot;",
+      "&quot;/images/thumbnail/20250820/50ac6e5a2e2bb.jpg&quot;",
+      "&quot;/images/thumbnail/20250820/02f666b8472e4.jpg&quot;",
+      "&quot;/images/thumbnail/20250820/e8fa904f97918.jpg&quot;",
+      "&quot;/images/thumbnail/20250820/08bac9d6e8bc1.jpg&quot;",
+      "&quot;/images/thumbnail/20250820/f6304f436bb27.jpg&quot;"
+    ]
+  },
+  {
+    "id": "tab2",
+    "name": "검사설비",
+    "images": [
+      "&quot;/images/thumbnail/20250820/54af95d13217e.jpg&quot;",
+      "&quot;/images/thumbnail/20250820/6735f08bf8213.jpg&quot;",
+      "&quot;/images/thumbnail/20250820/78e668f55e43e.jpg&quot;",
+      "&quot;/images/thumbnail/20250820/90495192ada6a.jpg&quot;"
+    ]
+  },
+  {
+    "id": "tab3",
+    "name": "생산설비(점검키트)",
+    "images": [
+      "&quot;/images/thumbnail/20250828/4c47338d8f677.jpg&quot;",
+      "&quot;/images/thumbnail/20250828/023f29194d203.jpg&quot;",
+      "&quot;/images/thumbnail/20250828/0b06d3d692fbe.jpg&quot;",
+      "&quot;/images/thumbnail/20250828/a26de2972b3d7.jpg&quot;",
+      "&quot;/images/thumbnail/20250828/26364cba8dd76.jpg&quot;"
+    ]
+  }
+]

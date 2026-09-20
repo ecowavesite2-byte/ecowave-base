@@ -1,0 +1,39 @@
+[
+  {
+    "id": "tab1",
+    "name": "Production facilities",
+    "images": [
+      "&quot;/images/thumbnail/20250912/d6d30faf653d0.jpg&quot;",
+      "&quot;/images/thumbnail/20250912/75b69fe10ab03.jpg&quot;",
+      "&quot;/images/thumbnail/20250912/5d4dd2311940d.jpg&quot;",
+      "&quot;/images/thumbnail/20250912/4b7aa5d32ecbd.jpg&quot;",
+      "&quot;/images/thumbnail/20250912/b228b69e74da3.jpg&quot;",
+      "&quot;/images/thumbnail/20250912/dba9eb362152a.jpg&quot;",
+      "&quot;/images/thumbnail/20250912/afb70cbcc38ed.jpg&quot;",
+      "&quot;/images/thumbnail/20250912/1f406f05f3269.jpg&quot;",
+      "&quot;/images/thumbnail/20250912/873b008a7a696.jpg&quot;",
+      "&quot;/images/thumbnail/20250912/a7590831b9d4f.jpg&quot;"
+    ]
+  },
+  {
+    "id": "tab2",
+    "name": "Inspection facility",
+    "images": [
+      "&quot;/images/thumbnail/20250912/1db7bba39f85a.jpg&quot;",
+      "&quot;/images/thumbnail/20250912/fea32ab4ba8c3.jpg&quot;",
+      "&quot;/images/thumbnail/20250912/743a19604b129.jpg&quot;",
+      "&quot;/images/thumbnail/20250912/1284faa7318b3.jpg&quot;"
+    ]
+  },
+  {
+    "id": "tab3",
+    "name": "Production facility (inspection kit)",
+    "images": [
+      "&quot;/images/thumbnail/20250912/d4840523dc3b9.jpg&quot;",
+      "&quot;/images/thumbnail/20250912/56f48d3cf6848.jpg&quot;",
+      "&quot;/images/thumbnail/20250912/aab06d4f2e206.jpg&quot;",
+      "&quot;/images/thumbnail/20250912/cc89671a773eb.jpg&quot;",
+      "&quot;/images/thumbnail/20250912/fac4144c9b327.jpg&quot;"
+    ]
+  }
+]
