@@ -386,7 +386,10 @@ function renderPadding(w: WidgetNode) {
 function WidgetContent({ w, locale, mobileBox = false }: { w: WidgetNode; locale: Locale; mobileBox?: boolean }) {
   switch (w.type) {
     case "text":
-      return <RichText html={w.html} />;
+      // `text-widget` mirrors imweb's `div[doz_type="text"]` scope: the original
+      // applies an !important size-keyed line-height only inside text widgets,
+      // so html/code widgets must not receive it (see app/globals.css).
+      return <RichText html={w.html} className="text-widget" />;
     case "image":
       return <ImageWidget w={w} locale={locale} mobileBox={mobileBox} />;
     case "gallery2": {

@@ -193,6 +193,36 @@ a {
   }
 }
 
+/* imweb gives inline-sized text spans an !important line-height keyed by their
+   own font-size (CDP-verified rule:
+   `div[doz_type="text"] span[style*="font-size: 60px"], .header-content .text span[…],
+   .fr-element span[…] { line-height: 1.1 !important }`). Because it is declared
+   on the span itself, the crawled parent's unitless line-height (e.g. an h6 with
+   `line-height: 2`) never reaches the span — the original computes 60px * 1.1 =
+   66px, not 120px. Scoped to `.text-widget` (SectionRenderer's text case) to
+   mirror imweb's `div[doz_type="text"]` scope: html/code widgets must NOT receive
+   it (home's hero/footer spans regress if they do). Desktop-only; mobile parity
+   is verified without this rule. 14px/16px are excluded — the original has no
+   line-height rule for them. Sizes: 18-48px -> 1.2, 60-96px -> 1.1. */
+@media (min-width: 992px) {
+  .rich-text.text-widget span[style*="font-size: 18px"],
+  .rich-text.text-widget span[style*="font-size: 20px"],
+  .rich-text.text-widget span[style*="font-size: 22px"],
+  .rich-text.text-widget span[style*="font-size: 24px"],
+  .rich-text.text-widget span[style*="font-size: 26px"],
+  .rich-text.text-widget span[style*="font-size: 30px"],
+  .rich-text.text-widget span[style*="font-size: 36px"],
+  .rich-text.text-widget span[style*="font-size: 48px"] {
+    line-height: 1.2 !important;
+  }
+  .rich-text.text-widget span[style*="font-size: 60px"],
+  .rich-text.text-widget span[style*="font-size: 64px"],
+  .rich-text.text-widget span[style*="font-size: 72px"],
+  .rich-text.text-widget span[style*="font-size: 96px"] {
+    line-height: 1.1 !important;
+  }
+}
+
 /* vertical spacers extracted from imweb padding widgets; scale down on mobile.
    S5: imweb's mobile runtime renders a padding widget at half its desktop
    height PLUS the 15px `.inside .widget` row margin (measured: 74->52,
