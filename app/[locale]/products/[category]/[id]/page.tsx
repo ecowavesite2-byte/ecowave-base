@@ -1,7 +1,9 @@
 import { notFound } from "next/navigation";
 import PageHero from "@/components/ui/PageHero";
 import { PostDetail } from "@/components/ui/Boards";
-import { getBoard, getBoardPost, PRODUCT_BOARDS } from "@/lib/content";
+import { getBoard, PRODUCT_BOARDS } from "@/lib/content";
+import { boardPostByIdx } from "@/lib/content/boards";
+import { getResolvedBoard } from "@/lib/content/resolved";
 import { defaultLocale, isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { heroFor } from "@/lib/page-hero";
 import { ui } from "@/lib/ui-strings";
@@ -31,11 +33,11 @@ export default async function ProductDetailPage({
   const l = isLocale(locale) ? locale : defaultLocale;
   if (!PRODUCT_BOARDS.includes(`products/${category}` as never)) notFound();
   const slug = `products/${category}`;
-  const post = getBoardPost(l, slug, id);
-  if (!post) notFound();
-  const hero = heroFor(`/products/${category}`, l);
+  const hero = await heroFor(`/products/${category}`, l);
   const t = ui(l);
-  const board = getBoard(l, slug);
+  const board = await getResolvedBoard(l, slug);
+  const post = boardPostByIdx(board, id);
+  if (!post) notFound();
   const at = board.posts.findIndex((p) => p.idx === id);
   const nav = (p?: { idx: string; title: string; date?: string | null }) =>
     p ? { idx: p.idx, title: p.title, date: p.date } : null;

@@ -1,4 +1,4 @@
-import { getSite } from "@/lib/content";
+import { getResolvedSite } from "@/lib/content/resolved";
 import { localeHref, type Locale } from "@/lib/i18n";
 import { routeForSource } from "@/lib/routes";
 import type { Section } from "@/lib/types";
@@ -8,11 +8,12 @@ import type { HeroTab } from "@/components/ui/PageHero";
  * Derives the page-hero title + sibling tabs for a route from the nav tree
  * (mirrors the imweb menu_title + sub_menu widgets).
  */
-export function heroFor(
+export async function heroFor(
   route: string,
   locale: Locale,
-): { title: string; tabs: HeroTab[]; big?: boolean } {
-  const site = getSite(locale);
+): Promise<{ title: string; tabs: HeroTab[]; big?: boolean }> {
+  // Resolved site so nav-label overrides reach hero titles/tabs too.
+  const site = await getResolvedSite(locale);
   for (const item of site.nav) {
     const groupRoute = routeForSource(item.url);
     const childRoutes = item.children.map((c) => ({

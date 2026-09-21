@@ -1,8 +1,5 @@
 import type { BoardContent, BoardPost } from "../types";
 import type { Locale } from "../i18n";
-import { BOARD_SLUGS } from "./paths";
-import { boardSourceFile, getBoard, hasEnglishBoard } from "./read";
-import { hashOfFile } from "./write";
 
 /**
  * Server-only board helpers for the admin boards editor.
@@ -10,13 +7,6 @@ import { hashOfFile } from "./write";
  * Do not import this module from client components: it pulls in the fs-backed
  * reader. Client islands receive plain `BoardContent`/`BoardPost` objects.
  */
-
-export interface BoardSummary {
-  slug: string;
-  label: string;
-  count: number;
-  hasEnglish: boolean;
-}
 
 /**
  * Static board labels. The crawled `board.name` fields are unreliable (and
@@ -39,28 +29,7 @@ export function isProductBoard(slug: string): boolean {
   return slug.startsWith("products.");
 }
 
-export function listBoards(locale: Locale): BoardSummary[] {
-  return BOARD_SLUGS.map((slug) => {
-    let count = 0;
-    try {
-      count = getBoard(locale, slug).posts.length;
-    } catch {
-      count = 0;
-    }
-    return {
-      slug,
-      label: boardLabel(slug, locale),
-      count,
-      hasEnglish: hasEnglishBoard(slug),
-    };
-  });
-}
-
 export function boardPostByIdx(board: BoardContent, idx: string): BoardPost | null {
   return board.posts.find((post) => post.idx === idx) ?? null;
 }
 
-/** sha256 of the board file the content API uses as its optimistic version token. */
-export function boardHash(locale: Locale, slug: string): string {
-  return hashOfFile(boardSourceFile(locale, slug));
-}

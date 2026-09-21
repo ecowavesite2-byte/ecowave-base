@@ -3,7 +3,7 @@ import path from "node:path";
 import PageHero from "@/components/ui/PageHero";
 import SectionRenderer, { Rows, isPageHeroSection, MOBILE_SECTION } from "@/components/content/SectionRenderer";
 import FacilitiesTabs, { type FacilitiesTab } from "@/components/content/FacilitiesTabs";
-import { getPageForRender } from "@/lib/content/drafts";
+import { getResolvedPage } from "@/lib/content/resolved";
 import { defaultLocale, isLocale, type Locale } from "@/lib/i18n";
 import { heroFor, isFooterSection, FOOTER_SECTION_ID } from "@/lib/page-hero";
 import type { Node, Section, WidgetNode } from "@/lib/types";
@@ -100,8 +100,8 @@ export function generateStaticParams() {
 export default async function Page({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const l: Locale = isLocale(locale) ? locale : defaultLocale;
-  const page = await getPageForRender(l, "rnd/facilities");
-  const hero = heroFor("/rnd/facilities", l);
+  const page = await getResolvedPage(l, "rnd/facilities");
+  const hero = await heroFor("/rnd/facilities", l);
   const tabs = getTabs(l);
 
   // keep both pc and mobile section sets; SectionRenderer resolves visibility per breakpoint.

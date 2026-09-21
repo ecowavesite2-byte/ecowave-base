@@ -2,7 +2,7 @@ import Link from "next/link";
 import HeroCarousel from "@/components/sections/home/HeroCarousel";
 import Reveal from "@/components/ui/Reveal";
 import SectionRenderer, { Rows, MOBILE_SECTION } from "@/components/content/SectionRenderer";
-import { getBoardForRender, getPageForRender } from "@/lib/content/drafts";
+import { getResolvedBoard, getResolvedPage } from "@/lib/content/resolved";
 import { isLocale, defaultLocale, localeHref } from "@/lib/i18n";
 import type { ColNode, Node, PageContent, RowNode } from "@/lib/types";
 
@@ -21,8 +21,8 @@ function colHasButton(col: ColNode): boolean {
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const l = isLocale(locale) ? locale : defaultLocale;
-  const page: PageContent = await getPageForRender(l, "home");
-  const news = await getBoardForRender(l, "news");
+  const page: PageContent = await getResolvedPage(l, "home");
+  const news = await getResolvedBoard(l, "news");
 
   // the visual hero (desktop + mobile slide sets) is rebuilt by HeroCarousel;
   // every other section — pc and mobile — renders through SectionRenderer,

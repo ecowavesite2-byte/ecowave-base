@@ -1,6 +1,6 @@
 import BoardPageShell from "@/components/content/BoardPageShell";
 import { BoardCardGrid, BoardHeader, Pagination } from "@/components/ui/Boards";
-import { getBoardForRender } from "@/lib/content/drafts";
+import { getResolvedBoard } from "@/lib/content/resolved";
 import { defaultLocale, isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { ui } from "@/lib/ui-strings";
 
@@ -18,7 +18,7 @@ export default async function NewsPage({
   const { page: pageParam } = await searchParams;
   const l = isLocale(locale) ? locale : defaultLocale;
   const t = ui(l);
-  const board = await getBoardForRender(l, "news");
+  const board = await getResolvedBoard(l, "news");
   const page = Math.max(1, Number(pageParam || "1"));
   const totalPages = Math.max(1, Math.ceil(board.posts.length / PAGE_SIZE));
   const slice = board.posts.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);

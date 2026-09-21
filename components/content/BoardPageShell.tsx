@@ -1,6 +1,6 @@
 import PageHero from "@/components/ui/PageHero";
 import SectionRenderer, { MOBILE_SECTION, isPageHeroSection } from "@/components/content/SectionRenderer";
-import { getPageForRender } from "@/lib/content/drafts";
+import { getResolvedPage } from "@/lib/content/resolved";
 import type { Locale } from "@/lib/i18n";
 import type { Node, Section } from "@/lib/types";
 import {
@@ -70,8 +70,8 @@ export default async function BoardPageShell({
   big?: boolean;
   renderBoard: () => React.ReactNode;
 }) {
-  const page = await getPageForRender(locale, pageKey);
-  const hero = heroFor("/" + pageKey, locale);
+  const page = await getResolvedPage(locale, pageKey);
+  const hero = await heroFor("/" + pageKey, locale);
   const all = page.sections.filter((s) => !isFooterSection(s) && s.id !== FOOTER_SECTION_ID);
   const isMobile = (s: Section) => MOBILE_SECTION.test(s.cls || "");
   const dropped = new Set<string>();

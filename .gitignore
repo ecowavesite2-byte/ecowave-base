@@ -8,6 +8,9 @@ tsconfig.tsbuildinfo
 *.log
 server.log
 
+# Prisma generated client (recreate with `npx prisma generate`)
+src/generated/
+
 # env
 .env*
 !.env.example

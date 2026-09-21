@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Header from "@/components/layout/Header";
 import SiteFooter from "@/components/layout/SiteFooter";
 import HtmlLang from "@/components/layout/HtmlLang";
-import { getSite } from "@/lib/content";
+import { getResolvedSite } from "@/lib/content/resolved";
 import { isLocale, defaultLocale, type Locale } from "@/lib/i18n";
 import { ui } from "@/lib/ui-strings";
 
@@ -34,7 +34,7 @@ export default async function LocaleLayout({
 }) {
   const { locale } = await params;
   const l: Locale = isLocale(locale) ? locale : defaultLocale;
-  const site = getSite(l);
+  const site = await getResolvedSite(l);
   const normalLogo =
     (site.logos.find((x) => /normal_logo/.test(x.cls)) || site.logos[0])?.src ||
     "/images/upload/S20250811e0bd2f7c414df/f04049636b82b.png";

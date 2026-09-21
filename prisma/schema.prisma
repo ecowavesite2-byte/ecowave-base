@@ -1,0 +1,60 @@
+// Prisma 7 schema — the datasource URL lives in prisma.config.ts (not here).
+// Override store: a key/value page override store, typed site settings, and a
+// collection-override table for board posts (zero rows = rendered from the
+// crawled JSON defaults; any rows replace that board/locale's post list).
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model PageContent {
+  key       String
+  locale    String   @default("ko")
+  value     String
+  updatedBy String?
+  updatedAt DateTime @default(now()) @updatedAt
+
+  @@id([key, locale])
+  @@map("page_content")
+}
+
+model SiteSetting {
+  key       String   @id
+  group     String
+  label     String
+  value     String   @default("")
+  kind      String   @default("string")
+  updatedBy String?
+  updatedAt DateTime @default(now()) @updatedAt
+
+  @@map("site_setting")
+}
+
+model BoardPost {
+  id        String   @id @default(cuid())
+  slug      String
+  locale    String   @default("ko")
+  idx       String
+  title     String
+  category  String?
+  excerpt   String   @default("")
+  content   String   @default("")
+  thumb     String?
+  isNotice  Boolean  @default(false)
+  date      String?
+  views     Int?
+  files     Json     @default("[]")
+  sortOrder Int      @default(0)
+  updatedBy String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([slug, locale, idx])
+  @@index([slug, locale, sortOrder])
+  @@map("board_post")
+}

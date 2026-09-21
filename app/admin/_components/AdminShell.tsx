@@ -7,11 +7,8 @@ import LogoutButton from "./LogoutButton";
 
 const NAV = [
   { href: "/admin", label: "Dashboard", exact: true },
-  { href: "/admin/pages", label: "Pages" },
+  { href: "/admin/content", label: "Content" },
   { href: "/admin/boards", label: "Boards" },
-  { href: "/admin/media", label: "Media" },
-  { href: "/admin/site", label: "Site strings" },
-  { href: "/admin/settings", label: "Settings" },
 ];
 
 export default function AdminShell({ email, children }: { email: string; children: ReactNode }) {

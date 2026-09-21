@@ -1,0 +1,641 @@
+/**
+ * Generate `lib/content/registry.ts` from the crawled content JSON.
+ *
+ * The JSON under `content/` stays the code-side source of truth (the default
+ * values); the future Postgres `page_content` table stores only overrides. This
+ * script walks the crawled pages/boards/site files and emits a deterministic,
+ * hand-tunable registry describing every overridable field.
+ *
+ * Re-runnable: same input → byte-identical output (`npm run content:registry`).
+ */
+
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const ROOT = path.resolve(__dirname, "..");
+const CONTENT_ROOT = process.env.CONTENT_ROOT ?? path.join(ROOT, "content");
+const OUT_FILE = path.join(ROOT, "lib", "content", "registry.ts");
+
+const LOCALES = ["ko", "en"];
+const PRIMARY = "ko"; // authoritative structure; EN is matched structurally.
+
+/** Mirrors lib/routes.ts (kept local so the script stays TS-free). */
+const PAGE_KEY_TO_ROUTE = {
+  home: "/",
+  company: "/company",
+  "company.ceo": "/company/ceo",
+  "company.about": "/company/about",
+  "company.philosophy": "/company/philosophy",
+  "company.history": "/company/history",
+  "company.organization": "/company/organization",
+  "company.global": "/company/global",
+  rnd: "/rnd",
+  "rnd.technology": "/rnd/technology",
+  "rnd.patents": "/rnd/patents",
+  "rnd.facilities": "/rnd/facilities",
+  news: "/news",
+  notices: "/notices",
+  support: "/support",
+};
+
+const LABELS = {
+  text: { ko: "텍스트 블록", en: "Text block" },
+  imageSrc: { ko: "이미지 경로", en: "Image source" },
+  imageAlt: { ko: "이미지 대체 텍스트", en: "Image alt text" },
+  galleryItem: { ko: "갤러리 항목", en: "Gallery item" },
+  itemTitle: { ko: "제목", en: "Title" },
+  itemDesc: { ko: "설명", en: "Description" },
+  itemOrg: { ko: "원본 이미지", en: "Original image" },
+  itemThumb: { ko: "썸네일", en: "Thumbnail" },
+  buttonText: { ko: "버튼 텍스트", en: "Button text" },
+  buttonHref: { ko: "버튼 링크", en: "Button link" },
+  menuTitle: { ko: "메뉴 제목", en: "Menu title" },
+  navLabel: { ko: "내비게이션 라벨", en: "Nav label" },
+  navSubLabel: { ko: "하위 내비게이션 라벨", en: "Nav sub-label" },
+  boardName: { ko: "게시판 이름", en: "Board name" },
+  boardPosts: { ko: "게시글 목록", en: "Board posts" },
+};
+
+const MAX_LENGTH = {
+  text: 500,
+  textarea: 20000,
+  image: 2000,
+  url: 2000,
+  list: 20000,
+};
+
+// ---------------------------------------------------------------------------
+// helpers
+// ---------------------------------------------------------------------------
+
+function readJson(file) {
+  return JSON.parse(fs.readFileSync(file, "utf8"));
+}
+
+/** Rows → cols → children, widget order; mirrors app/admin/_lib/tree.ts. */
+function collectWidgets(nodes, out) {
+  for (const node of nodes) {
+    if (!node || typeof node !== "object") continue;
+    if (node.kind === "widget") {
+      out.push(node);
+    } else if (node.kind === "col") {
+      collectWidgets(node.children ?? [], out);
+    } else if (node.kind === "row") {
+      for (const col of node.cols ?? []) collectWidgets(col.children ?? [], out);
+    }
+  }
+}
+
+function sectionWidgets(section) {
+  const out = [];
+  collectWidgets(section.rows ?? [], out);
+  if (section.aside) collectWidgets(section.aside.items ?? [], out);
+  return out;
+}
+
+function stripTags(html) {
+  return String(html ?? "")
+    .replace(/<[^>]*>/g, " ")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function truncate(value, max) {
+  const clean = String(value ?? "").replace(/\s+/g, " ").trim();
+  return clean.length > max ? clean.slice(0, max - 1) + "…" : clean;
+}
+
+function basename(src) {
+  const clean = String(src ?? "").split(/[?#]/)[0];
+  const parts = clean.split("/");
+  return parts[parts.length - 1] || clean;
+}
+
+function fmt(prefix, suffix) {
+  return suffix ? `${prefix} · ${suffix}` : prefix;
+}
+
+/**
+ * EN label suffix. Returns `undefined` only when the EN slot is absent, so the
+ * label can mirror KO; an empty-but-present slot yields `""` (English prefix).
+ */
+function enSnippet(value, max = 40) {
+  if (value === undefined || value === null) return undefined;
+  return truncate(value, max) || "";
+}
+
+function enBase(value) {
+  if (value === undefined || value === null) return undefined;
+  return basename(value);
+}
+
+function localeHref(locale, route) {
+  const clean = route.startsWith("/") ? route : "/" + route;
+  return locale === "ko" ? clean : "/en" + (clean === "/" ? "" : clean);
+}
+
+function dedupe(list) {
+  return [...new Set(list)];
+}
+
+function routeForPageKey(key) {
+  return PAGE_KEY_TO_ROUTE[key] ?? "/" + key.replace(/\./g, "/");
+}
+
+function revalidateForPage(key) {
+  const route = routeForPageKey(key);
+  return dedupe([localeHref("ko", route), localeHref("en", route)]);
+}
+
+function revalidateForBoard(slug) {
+  const route = "/" + slug.replace(/\./g, "/");
+  return dedupe([
+    localeHref("ko", route),
+    localeHref("en", route),
+    `${localeHref("ko", route)}/[id]`,
+    `${localeHref("en", route)}/[id]`,
+  ]);
+}
+
+const SITE_REVALIDATE = ["/"];
+
+function groupForPageKey(key) {
+  if (key === "home") return "home";
+  if (key.startsWith("company")) return "company";
+  if (key.startsWith("rnd")) return "rnd";
+  if (key.startsWith("products")) return "products";
+  if (key === "site") return "site";
+  return "boards"; // news, notices, support
+}
+
+function groupForBoardSlug(slug) {
+  return slug.startsWith("products") ? "products" : "boards";
+}
+
+// ---------------------------------------------------------------------------
+// registry accumulation
+// ---------------------------------------------------------------------------
+
+const defs = [];
+const defaults = {};
+const seen = new Map();
+const warnings = [];
+const unmappedWidgets = {};
+
+function addDef(entry) {
+  const {
+    pageKey,
+    group,
+    sectionId,
+    widgetId,
+    field,
+    kind,
+    section,
+    label,
+    revalidate,
+    koValue,
+    enValue,
+  } = entry;
+
+  const key = `${pageKey}#${sectionId}/${widgetId}/${field}`;
+  if (seen.has(key)) {
+    warnings.push(`duplicate key skipped: ${key} (first from ${seen.get(key)})`);
+    return;
+  }
+  seen.set(key, `${pageKey}/${sectionId}/${widgetId}`);
+
+  defs.push({
+    key,
+    group,
+    pageKey,
+    sectionId,
+    widgetId,
+    field,
+    kind,
+    section,
+    label,
+    revalidate,
+  });
+
+  const value = {};
+  if (typeof koValue === "string") value.ko = koValue;
+  if (typeof enValue === "string") value.en = enValue;
+  defaults[key] = value;
+}
+
+function addWidgetDef(entry, koSuffix, enSuffix) {
+  const label = {
+    ko: fmt(entry.prefix.ko, koSuffix),
+    // Mirror the KO label when the EN slot is absent (its value is omitted too).
+    en: enSuffix !== undefined && enSuffix !== null
+      ? fmt(entry.prefix.en, enSuffix)
+      : fmt(entry.prefix.ko, koSuffix),
+  };
+  addDef({ ...entry, label });
+}
+
+// ---------------------------------------------------------------------------
+// pages
+// ---------------------------------------------------------------------------
+
+function listJson(dir) {
+  if (!fs.existsSync(dir)) return [];
+  return fs
+    .readdirSync(dir)
+    .filter((name) => name.endsWith(".json") && !name.endsWith(".draft.json"))
+    .sort();
+}
+
+function pageKeyOf(fileName) {
+  return fileName.replace(/\.json$/, "");
+}
+
+function walkPages() {
+  const koDir = path.join(CONTENT_ROOT, "ko", "pages");
+  const enDir = path.join(CONTENT_ROOT, "en", "pages");
+
+  for (const fileName of listJson(koDir)) {
+    const pageKey = pageKeyOf(fileName);
+    const group = groupForPageKey(pageKey);
+    const revalidate = revalidateForPage(pageKey);
+
+    const koPage = readJson(path.join(koDir, fileName));
+    const enPath = path.join(enDir, fileName);
+    const enPage = fs.existsSync(enPath) ? readJson(enPath) : null;
+    if (!enPage) warnings.push(`no EN page for ${pageKey}; EN values omitted`);
+
+    const section = {
+      ko: koPage.title ?? pageKey,
+      en: enPage?.title ?? koPage.title ?? pageKey,
+    };
+
+    for (let si = 0; si < (koPage.sections ?? []).length; si += 1) {
+      const koSection = koPage.sections[si];
+      const enSection = enPage?.sections?.[si];
+      const koWidgets = sectionWidgets(koSection);
+      const enWidgets = enSection ? sectionWidgets(enSection) : [];
+
+      for (let wi = 0; wi < koWidgets.length; wi += 1) {
+        const koWidget = koWidgets[wi];
+        let enWidget = enWidgets[wi] ?? null;
+        if (enWidget && enWidget.type !== koWidget.type) {
+          warnings.push(
+            `widget type mismatch ${pageKey}/${koSection.id}/${koWidget.id}: ` +
+              `ko=${koWidget.type} en=${enWidget.type}`,
+          );
+          enWidget = null;
+        }
+
+        mapWidget({
+          pageKey,
+          group,
+          sectionId: koSection.id,
+          section,
+          revalidate,
+          koWidget,
+          enWidget,
+        });
+      }
+    }
+  }
+}
+
+function mapWidget({
+  pageKey,
+  group,
+  sectionId,
+  section,
+  revalidate,
+  koWidget,
+  enWidget,
+}) {
+  const base = { pageKey, group, sectionId, widgetId: koWidget.id, revalidate };
+  const type = koWidget.type;
+
+  switch (type) {
+    case "text": {
+      const koHtml = typeof koWidget.html === "string" ? koWidget.html : undefined;
+      const enHtml = enWidget && typeof enWidget.html === "string" ? enWidget.html : undefined;
+      addWidgetDef(
+        { ...base, field: "html", kind: "textarea", prefix: LABELS.text, section,
+          koValue: koHtml, enValue: enHtml },
+        truncate(stripTags(koHtml), 40) || undefined,
+        enSnippet(stripTags(enHtml)),
+      );
+      return;
+    }
+    case "menu_title": {
+      addWidgetDef(
+        { ...base, field: "text", kind: "text", prefix: LABELS.menuTitle, section,
+          koValue: koWidget.text, enValue: enWidget?.text },
+        truncate(koWidget.text, 40),
+        enSnippet(enWidget?.text),
+      );
+      return;
+    }
+    case "image": {
+      addWidgetDef(
+        { ...base, field: "src", kind: "image", prefix: LABELS.imageSrc, section,
+          koValue: koWidget.src, enValue: enWidget?.src },
+        basename(koWidget.src),
+        enBase(enWidget?.src),
+      );
+      addWidgetDef(
+        { ...base, field: "alt", kind: "text", prefix: LABELS.imageAlt, section,
+          koValue: koWidget.alt, enValue: enWidget?.alt },
+        truncate(koWidget.alt, 40) || basename(koWidget.src),
+        enWidget ? enSnippet(enWidget.alt) || enBase(enWidget.src) : undefined,
+      );
+      return;
+    }
+    case "button": {
+      addWidgetDef(
+        { ...base, field: "text", kind: "text", prefix: LABELS.buttonText, section,
+          koValue: koWidget.text, enValue: enWidget?.text },
+        truncate(koWidget.text, 40),
+        enSnippet(enWidget?.text),
+      );
+      addWidgetDef(
+        { ...base, field: "href", kind: "url", prefix: LABELS.buttonHref, section,
+          koValue: koWidget.href, enValue: enWidget?.href },
+        "",
+        enWidget ? "" : undefined,
+      );
+      return;
+    }
+    case "gallery2": {
+      const koItems = koWidget.items ?? [];
+      const enItems = enWidget?.items ?? [];
+      for (let i = 0; i < koItems.length; i += 1) {
+        const koItem = koItems[i];
+        const enItem = enItems[i];
+        const itemBase = { ...base, widgetId: `${koWidget.id}` };
+        const prefix = { ...LABELS.galleryItem };
+        const itemPrefix = {
+          ko: `${prefix.ko} ${i + 1}`,
+          en: `${prefix.en} ${i + 1}`,
+        };
+        const titleKo = truncate(koItem.title, 40);
+        const titleEn = enSnippet(enItem?.title);
+
+        addWidgetDef(
+          { ...itemBase, field: `items[${i}].title`, kind: "text", prefix: itemPrefix,
+            section, koValue: koItem.title, enValue: enItem?.title },
+          titleKo,
+          titleEn,
+        );
+        addWidgetDef(
+          { ...itemBase, field: `items[${i}].desc`, kind: "text", prefix: LABELS.itemDesc,
+            section, koValue: koItem.desc, enValue: enItem?.desc },
+          truncate(koItem.desc, 40),
+          enSnippet(enItem?.desc),
+        );
+        addWidgetDef(
+          { ...itemBase, field: `items[${i}].org`, kind: "image", prefix: LABELS.itemOrg,
+            section, koValue: koItem.org, enValue: enItem?.org },
+          basename(koItem.org),
+          enBase(enItem?.org),
+        );
+        addWidgetDef(
+          { ...itemBase, field: `items[${i}].thumb`, kind: "image", prefix: LABELS.itemThumb,
+            section, koValue: koItem.thumb, enValue: enItem?.thumb },
+          basename(koItem.thumb),
+          enBase(enItem?.thumb),
+        );
+      }
+      return;
+    }
+    default: {
+      unmappedWidgets[type] = (unmappedWidgets[type] ?? 0) + 1;
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// boards
+// ---------------------------------------------------------------------------
+
+function walkBoards() {
+  const koDir = path.join(CONTENT_ROOT, "ko", "boards");
+  const enDir = path.join(CONTENT_ROOT, "en", "boards");
+
+  for (const fileName of listJson(koDir)) {
+    const slug = pageKeyOf(fileName);
+    const group = groupForBoardSlug(slug);
+    const revalidate = revalidateForBoard(slug);
+    const koBoard = readJson(path.join(koDir, fileName));
+    const enPath = path.join(enDir, fileName);
+    const enBoard = fs.existsSync(enPath) ? readJson(enPath) : null;
+    if (!enBoard) warnings.push(`no EN board for ${slug}; EN value omitted`);
+
+    const section = {
+      ko: koBoard.name ?? slug,
+      en: enBoard?.name ?? koBoard.name ?? slug,
+    };
+
+    const base = {
+      pageKey: slug,
+      group,
+      sectionId: "board",
+      widgetId: slug,
+      revalidate,
+      section,
+    };
+
+    addWidgetDef(
+      { ...base, field: "name", kind: "text", prefix: LABELS.boardName, section,
+        koValue: koBoard.name, enValue: enBoard?.name },
+      truncate(koBoard.name, 40),
+      enSnippet(enBoard?.name),
+    );
+
+    // Whole post list as a JSON payload: KO and EN post sets differ, so a single
+    // locale-scoped `list` override is more robust than per-index post keys.
+    addDef({
+      ...base,
+      field: "posts",
+      kind: "list",
+      label: { ko: LABELS.boardPosts.ko, en: LABELS.boardPosts.en },
+      koValue: JSON.stringify(koBoard.posts ?? []),
+      enValue: enBoard ? JSON.stringify(enBoard.posts ?? []) : undefined,
+    });
+  }
+}
+
+// ---------------------------------------------------------------------------
+// site (nav labels)
+// ---------------------------------------------------------------------------
+
+function walkSite() {
+  const koSite = readJson(path.join(CONTENT_ROOT, "ko", "site.json"));
+  const enSitePath = path.join(CONTENT_ROOT, "en", "site.json");
+  const enSite = fs.existsSync(enSitePath) ? readJson(enSitePath) : null;
+  if (!enSite) warnings.push("no EN site.json; EN nav values omitted");
+
+  const koNav = koSite.nav ?? [];
+  const enNav = enSite?.nav ?? [];
+
+  for (let i = 0; i < koNav.length; i += 1) {
+    const item = koNav[i];
+    const enItem = enNav[i];
+    const section = {
+      ko: item.name ?? `nav[${i}]`,
+      en: enItem?.name ?? item.name ?? `nav[${i}]`,
+    };
+    const base = {
+      pageKey: "site",
+      group: "site",
+      sectionId: "nav",
+      revalidate: SITE_REVALIDATE,
+      section,
+    };
+
+    addWidgetDef(
+      { ...base, widgetId: `nav[${i}]`, field: "name", kind: "text",
+        prefix: LABELS.navLabel, section, koValue: item.name, enValue: enItem?.name },
+      truncate(item.name, 40),
+      enSnippet(enItem?.name),
+    );
+
+    const children = item.children ?? [];
+    const enChildren = enItem?.children ?? [];
+    for (let j = 0; j < children.length; j += 1) {
+      const child = children[j];
+      const enChild = enChildren[j];
+      addWidgetDef(
+        { ...base, widgetId: `nav[${i}].children[${j}]`, field: "name", kind: "text",
+          prefix: LABELS.navSubLabel, section, koValue: child.name, enValue: enChild?.name },
+        truncate(child.name, 40),
+        enSnippet(enChild?.name),
+      );
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// emit
+// ---------------------------------------------------------------------------
+
+function sortDefs(list) {
+  return [...list].sort((a, b) => {
+    if (a.pageKey !== b.pageKey) return a.pageKey < b.pageKey ? -1 : 1;
+    if (a.sectionId !== b.sectionId) return a.sectionId < b.sectionId ? -1 : 1;
+    if (a.widgetId !== b.widgetId) return a.widgetId < b.widgetId ? -1 : 1;
+    if (a.field !== b.field) return a.field < b.field ? -1 : 1;
+    return a.key < b.key ? -1 : a.key > b.key ? 1 : 0;
+  });
+}
+
+const GROUPS = ["home", "company", "rnd", "products", "boards", "site"];
+
+function buildOutput(sorted) {
+  const byGroup = Object.fromEntries(GROUPS.map((g) => [g, []]));
+  for (const def of sorted) byGroup[def.group].push(def.key);
+
+  const header = `// AUTO-GENERATED by scripts/gen-content-registry.mjs — regenerate with \`npm run content:registry\`.
+// Hand-tuned edits are allowed, but the next generator run overwrites them.
+//
+// This registry is the code-side default content. The Postgres \`page_content\`
+// table stores only overrides keyed by (key, locale); \`DEFAULT_VALUES\` below is
+// what the app falls back to when no override exists.
+
+`;
+
+  const types = `export type ContentKind = "text" | "textarea" | "image" | "url" | "list";
+
+export type ContentGroup = "home" | "company" | "rnd" | "products" | "boards" | "site";
+
+export interface ContentDef {
+  /** Stable override key: \`<pageKey>#<sectionId>/<widgetId>/<field>\`. */
+  key: string;
+  group: ContentGroup;
+  pageKey: string;
+  sectionId: string;
+  widgetId: string;
+  field: string;
+  kind: ContentKind;
+  section: { ko: string; en: string };
+  label: { ko: string; en: string };
+  /** Routes to invalidate when this default changes. */
+  revalidate: string[];
+}
+
+`;
+
+  const defsLiteral =
+    `export const CONTENT_DEFS: ContentDef[] = ${JSON.stringify(sorted, null, 2)};\n\n`;
+
+  const defaultsLiteral =
+    `/** Code-side defaults, seeded from content/*.json (DB values override these). */\n` +
+    `export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = ` +
+    `${JSON.stringify(defaults, null, 2)};\n\n`;
+
+  const mapLiteral =
+    `export const CONTENT_DEF_MAP: Record<string, ContentDef> = Object.fromEntries(\n` +
+    `  CONTENT_DEFS.map((def) => [def.key, def]),\n);\n\n` +
+    `export const CONTENT_KEYS_BY_GROUP: Record<ContentGroup, string[]> = ` +
+    `${JSON.stringify(byGroup, null, 2)};\n\n` +
+    `export const MAX_LENGTH: Record<ContentKind, number> = ` +
+    `${JSON.stringify(MAX_LENGTH, null, 2)};\n\n` +
+    `export const CONTENT_KINDS: ContentKind[] = ["text", "textarea", "image", "url", "list"];\n\n` +
+    `export const CONTENT_GROUPS: ContentGroup[] = ${JSON.stringify(GROUPS)};\n`;
+
+  return header + types + defsLiteral + defaultsLiteral + mapLiteral;
+}
+
+function main() {
+  walkPages();
+  walkBoards();
+  walkSite();
+
+  // `addDef` already skips + warns on duplicate keys, so `defs` keys are unique.
+
+  const sorted = sortDefs(defs);
+  const output = buildOutput(sorted);
+
+  fs.mkdirSync(path.dirname(OUT_FILE), { recursive: true });
+  fs.writeFileSync(OUT_FILE, output, "utf8");
+
+  const byGroup = {};
+  const byKind = {};
+  for (const def of sorted) {
+    byGroup[def.group] = (byGroup[def.group] ?? 0) + 1;
+    byKind[def.kind] = (byKind[def.kind] ?? 0) + 1;
+  }
+  const missingDefaults = sorted.filter(
+    (def) => Object.keys(defaults[def.key] ?? {}).length === 0,
+  ).length;
+  const missingEnValues = sorted.filter(
+    (def) => typeof defaults[def.key]?.ko === "string" && defaults[def.key]?.en === undefined,
+  ).length;
+  const mirroredLabels = sorted.filter((def) => def.label.en === def.label.ko).length;
+  const maxList = sorted.reduce((max, def) => {
+    if (def.kind !== "list") return max;
+    const value = defaults[def.key];
+    return Math.max(max, (value?.ko?.length ?? 0), (value?.en?.length ?? 0));
+  }, 0);
+
+  console.log(`wrote ${path.relative(ROOT, OUT_FILE)}`);
+  console.log(`  CONTENT_DEFS: ${sorted.length}`);
+  console.log(`  by group: ${JSON.stringify(byGroup)}`);
+  console.log(`  by kind: ${JSON.stringify(byKind)}`);
+  console.log(`  defs without any default value: ${missingDefaults}`);
+  console.log(`  defs with KO value but no EN value: ${missingEnValues}`);
+  console.log(`  labels mirrored from KO: ${mirroredLabels}`);
+  console.log(`  longest list default: ${maxList} chars (MAX_LENGTH.list=${MAX_LENGTH.list})`);
+  console.log(`  unmapped widget types: ${JSON.stringify(unmappedWidgets)}`);
+  if (warnings.length > 0) {
+    console.log(`  warnings (${warnings.length}):`);
+    for (const warning of warnings) console.log(`    - ${warning}`);
+  }
+}
+
+main();

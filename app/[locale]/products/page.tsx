@@ -5,7 +5,7 @@ import {
   PRODUCT_PAGE_SIZE,
   orderedCategories,
 } from "@/components/products/ProductBoard";
-import { getBoardForRender } from "@/lib/content/drafts";
+import { getResolvedBoard } from "@/lib/content/resolved";
 import { defaultLocale, isLocale, localeHref } from "@/lib/i18n";
 import { heroFor } from "@/lib/page-hero";
 import { ui } from "@/lib/ui-strings";
@@ -24,12 +24,12 @@ export default async function ProductsPage({
   const { locale } = await params;
   const { cat, page: pageParam } = await searchParams;
   const l = isLocale(locale) ? locale : defaultLocale;
-  const hero = heroFor("/products", l);
+  const hero = await heroFor("/products", l);
   const meta = PRODUCT_HERO.products;
   const t = ui(l);
 
   const slug = "products/eco-wave";
-  const board = await getBoardForRender(l, slug);
+  const board = await getResolvedBoard(l, slug);
   const categories = orderedCategories(l, slug, board.posts);
   const filtered = cat ? board.posts.filter((p) => p.category === cat) : board.posts;
   const page = Math.max(1, Number(pageParam || "1"));

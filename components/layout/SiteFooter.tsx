@@ -1,5 +1,5 @@
 import { Rows } from "@/components/content/SectionRenderer";
-import { getPage, getSite } from "@/lib/content";
+import { getResolvedPage, getResolvedSite } from "@/lib/content/resolved";
 import { localeHref, type Locale } from "@/lib/i18n";
 import { routeForSource } from "@/lib/routes";
 import type { Node, WidgetNode } from "@/lib/types";
@@ -13,13 +13,13 @@ const FOOTER_SECTION_ID = "s20250811f489e3443bdbe";
  * are injected from the nav tree (identical set on the live original).
  * Rendered at layout level so board detail pages keep the footer too.
  */
-export default function SiteFooter({ locale }: { locale: Locale }) {
-  const page = getPage(locale, "home");
+export default async function SiteFooter({ locale }: { locale: Locale }) {
+  const page = await getResolvedPage(locale, "home");
   const sec = page.sections.find((s) => s.id === FOOTER_SECTION_ID);
   if (!sec) return null;
 
   const rows = structuredClone(sec.rows) as Node[];
-  const nav = getSite(locale).nav;
+  const nav = (await getResolvedSite(locale)).nav;
   for (const n of rows) {
     if (n.kind !== "row") continue;
     for (const col of n.cols) {

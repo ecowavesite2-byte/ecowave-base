@@ -7,7 +7,7 @@ import {
   orderedCategories,
 } from "@/components/products/ProductBoard";
 import { PRODUCT_BOARDS } from "@/lib/content";
-import { getBoardForRender } from "@/lib/content/drafts";
+import { getResolvedBoard } from "@/lib/content/resolved";
 import { defaultLocale, isLocale, localeHref } from "@/lib/i18n";
 import { heroFor } from "@/lib/page-hero";
 import { ui } from "@/lib/ui-strings";
@@ -34,8 +34,8 @@ export default async function ProductBoardPage({
 
   const slug = `products/${category}`;
   const t = ui(l);
-  const board = await getBoardForRender(l, slug);
-  const hero = heroFor(`/products/${category}`, l);
+  const board = await getResolvedBoard(l, slug);
+  const hero = await heroFor(`/products/${category}`, l);
   const meta = PRODUCT_HERO[slug];
   const categories = orderedCategories(l, slug, board.posts);
   const filtered = cat ? board.posts.filter((p) => p.category === cat) : board.posts;
