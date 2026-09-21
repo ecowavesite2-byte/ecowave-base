@@ -1,12 +1,13 @@
 /**
- * Pure validation + naming for registry image uploads.
+ * Pure validation + naming for admin uploads (registry images + board
+ * attachments).
  *
  * Kept free of Node/server imports so it can be unit-tested in isolation and
  * imported by any runtime. Callers supply a short content hash, which keeps
  * naming deterministic (same bytes + filename -> same slug).
  */
 
-/** Hard cap for a single uploaded image (8 MB), matching the legacy media lane. */
+/** Hard cap for a single upload (image or attachment), matching the legacy media lane. */
 export const MAX_UPLOAD_BYTES = 8 * 1024 * 1024;
 
 /** Allowed MIME types mapped to the extensions each one may legitimately use. */
@@ -16,10 +17,11 @@ export const MIME_EXTENSIONS: Record<string, readonly string[]> = {
   "image/webp": ["webp"],
   "image/gif": ["gif"],
   "image/svg+xml": ["svg"],
+  "application/pdf": ["pdf"],
 };
 
 /** Human list used in error messages. */
-export const ALLOWED_TYPE_LABEL = "JPEG, PNG, WebP, GIF and SVG";
+export const ALLOWED_TYPE_LABEL = "JPEG, PNG, WebP, GIF, SVG and PDF";
 
 const MAX_SLUG_LENGTH = 48;
 const MAX_HASH_LENGTH = 16;
@@ -90,7 +92,7 @@ export function validateUploadName(meta: UploadFileMeta, hash: string): UploadNa
     return {
       ok: false,
       status: 415,
-      message: `Unsupported image type; allowed: ${ALLOWED_TYPE_LABEL}.`,
+      message: `Unsupported file type; allowed: ${ALLOWED_TYPE_LABEL}.`,
     };
   }
 

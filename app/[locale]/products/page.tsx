@@ -4,6 +4,7 @@ import {
   PRODUCT_HERO,
   PRODUCT_PAGE_SIZE,
   orderedCategories,
+  productSiblingNav,
 } from "@/components/products/ProductBoard";
 import { getResolvedBoard } from "@/lib/content/resolved";
 import { defaultLocale, isLocale, localeHref } from "@/lib/i18n";
@@ -31,6 +32,9 @@ export default async function ProductsPage({
   const slug = "products/eco-wave";
   const board = await getResolvedBoard(l, slug);
   const categories = orderedCategories(l, slug, board.posts);
+  // original mobile hero: KR combined title + sibling category nav
+  const mobileNav = productSiblingNav(l, slug);
+  const mobileTitle = mobileNav.find((n) => n.active)?.label;
   const filtered = cat ? board.posts.filter((p) => p.category === cat) : board.posts;
   const page = Math.max(1, Number(pageParam || "1"));
   const totalPages = Math.max(1, Math.ceil(filtered.length / PRODUCT_PAGE_SIZE));
@@ -50,7 +54,15 @@ export default async function ProductsPage({
 
   return (
     <main>
-      <PageHero title={meta.label} subtitle={meta.subtitle} tabs={hero.tabs} big />
+      <PageHero
+        title={meta.label}
+        subtitle={meta.subtitle}
+        tabs={hero.tabs}
+        big
+        mobileNav={mobileNav}
+        mobileTitle={mobileTitle}
+        mobilePills
+      />
       <section className="mx-auto max-w-[1280px] px-[15px]">
         <ProductBoard
           posts={slice}

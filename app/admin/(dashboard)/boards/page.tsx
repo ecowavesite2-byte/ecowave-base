@@ -1,4 +1,5 @@
 import BoardPicker from "../../_components/boards/BoardPicker";
+import { getAdminLocale } from "../../_components/adminLocale";
 import { defaultLocale, isLocale } from "@/lib/i18n";
 
 export const metadata = { title: "Boards" };
@@ -11,6 +12,7 @@ export default async function BoardsPage({
 }) {
   const requested = (await searchParams).locale ?? defaultLocale;
   const locale = isLocale(requested) ? requested : defaultLocale;
+  const adminLocale = await getAdminLocale();
 
-  return <BoardPicker initialLocale={locale} />;
+  return <BoardPicker initialLocale={locale} adminLocale={adminLocale} />;
 }

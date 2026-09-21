@@ -37,6 +37,7 @@ interface Row {
   date: string | null;
   views: number | null;
   files: unknown;
+  sortOrder?: number;
 }
 
 function row(idx: string, extra: Partial<Row> = {}): Row {
@@ -137,6 +138,25 @@ describe("board-store validation (no DB needed)", () => {
     expect(badFile.message).toContain("file 1 href must be");
   });
 
+  it("rejects an invalid attachment size but accepts a valid one", async () => {
+    const badSize = await replaceBoardPosts({
+      slug: "news",
+      locale: "ko",
+      posts: [row("a", { files: [{ name: "f.pdf", href: "/files/f.pdf", size: -5 }] })],
+      actor,
+    });
+    expect(badSize.message).toContain("size must be a non-negative number");
+
+    const goodSize = await replaceBoardPosts({
+      slug: "news",
+      locale: "ko",
+      posts: [row("a", { files: [{ name: "f.pdf", href: "/files/f.pdf", size: 14295 }] })],
+      actor,
+    });
+    // No DB configured, but validation passes (message is the DB guard, not a validation error).
+    expect(goodSize.message).toBe(DB_NOT_CONFIGURED_MESSAGE);
+  });
+
   it("returns the not-configured message for valid writes when DATABASE_URL is unset", async () => {
     const result = await replaceBoardPosts({
       slug: "news",
@@ -176,6 +196,32 @@ describe("board-store collection semantics", () => {
     const posts = await loadBoardPosts("ko", "news");
     expect(posts?.map((p) => p.idx)).toEqual(["a", "b"]);
     expect(posts?.[0].files).toEqual([]);
+  });
+
+  it("round-trips attachments (name/href/size) through replace + load", async () => {
+    const { prisma, createMany } = makeFakePrisma();
+    getPrismaMock.mockReturnValue(prisma as never);
+
+    const files = [
+      { name: "spec.pdf", href: "https://blob.example/spec.pdf", size: 14295 },
+      { name: "photo.png", href: "/files/photo.png" },
+    ];
+    const result = await replaceBoardPosts({
+      slug: "news",
+      locale: "ko",
+      posts: [row("a", { files })],
+      actor,
+    });
+    expect(result).toEqual({ ok: true });
+
+    const data = createMany.mock.calls[0][0].data as Array<{ files: unknown }>;
+    expect(data[0].files).toEqual(files);
+
+    // And a stored row reads back with the same values (extra size preserved).
+    const stored = makeFakePrisma([row("a", { files })]);
+    getPrismaMock.mockReturnValue(stored.prisma as never);
+    const posts = await loadBoardPosts("ko", "news");
+    expect(posts?.[0].files).toEqual(files);
   });
 
   it("replaceBoardPosts deletes then creates the whole list in one transaction (sortOrder = index)", async () => {
@@ -241,6 +287,22 @@ describe("board-store collection semantics", () => {
     });
     expect(result).toEqual({ ok: true });
     const data = found.update.mock.calls[0][0].data as { title: string };
+    expect(data.title).toBe("New");
+  });
+
+  it("updateBoardPost preserves the row's sortOrder", async () => {
+    const found = makeFakePrisma([row("a", { sortOrder: 2 })]);
+    getPrismaMock.mockReturnValue(found.prisma as never);
+    const result = await updateBoardPost({
+      slug: "news",
+      locale: "ko",
+      idx: "a",
+      patch: { title: "New" },
+      actor,
+    });
+    expect(result).toEqual({ ok: true });
+    const data = found.update.mock.calls[0][0].data as { sortOrder: number; title: string };
+    expect(data.sortOrder).toBe(2);
     expect(data.title).toBe("New");
   });
 

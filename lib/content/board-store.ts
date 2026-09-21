@@ -89,7 +89,7 @@ interface PostInput {
   isNotice: boolean;
   date: string | null;
   views: number | null;
-  files: { name: string; href: string }[];
+  files: { name: string; href: string; size?: number }[];
   sortOrder: number;
   updatedBy: string | null;
 }
@@ -175,7 +175,7 @@ function validatePost(
     views = Math.floor(n);
   }
 
-  const files: { name: string; href: string }[] = [];
+  const files: { name: string; href: string; size?: number }[] = [];
   if (p.files != null) {
     if (!Array.isArray(p.files)) {
       return { ok: false, message: `${where} (${idx}): files must be an array` };
@@ -194,7 +194,18 @@ function validatePost(
           message: `${where} (${idx}): file ${i + 1} href must be a relative "/..." path or an http(s) URL`,
         };
       }
-      files.push({ name, href });
+      const file: { name: string; href: string; size?: number } = { name, href };
+      if (entry.size != null && entry.size !== "") {
+        const size = Number(entry.size);
+        if (!Number.isFinite(size) || size < 0) {
+          return {
+            ok: false,
+            message: `${where} (${idx}): file ${i + 1} size must be a non-negative number`,
+          };
+        }
+        file.size = Math.floor(size);
+      }
+      files.push(file);
     }
   }
 
@@ -250,7 +261,7 @@ function toBoardPost(row: BoardPostRow): BoardPost {
     date: row.date,
     views: row.views,
     content: row.content,
-    files: Array.isArray(row.files) ? (row.files as { name: string; href: string }[]) : [],
+    files: Array.isArray(row.files) ? (row.files as { name: string; href: string; size?: number }[]) : [],
   };
 }
 
@@ -396,9 +407,16 @@ export async function updateBoardPost(input: {
     );
     if (!validated.ok) return { ok: false, message: validated.message };
 
+    // `validatePosts` assigns sortOrder = array index (0 here); keep the row's
+    // existing position so an edit never reorders the board.
+    const preservedSortOrder = (existing as { sortOrder?: number }).sortOrder;
+
     await prisma.boardPost.update({
       where: { slug_locale_idx: { slug, locale, idx } },
-      data: validated.value[0],
+      data: {
+        ...validated.value[0],
+        ...(typeof preservedSortOrder === "number" ? { sortOrder: preservedSortOrder } : {}),
+      },
     });
   } catch (err) {
     return error(`Failed to update post: ${messageOf(err)}`);

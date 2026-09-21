@@ -1,7 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { BoardListItem } from "@/components/ui/Boards";
-import type { Locale } from "@/lib/i18n";
+import type { MobileNavItem } from "@/components/ui/PageHero";
+import { localeHref, type Locale } from "@/lib/i18n";
 
 /**
  * Products-owned board UI (desktop pixel-parity with the live imweb original).
@@ -44,6 +45,31 @@ const CATEGORY_ORDER: Record<string, string[]> = {
 
 export const PRODUCT_PAGE_SIZE = 6;
 
+/**
+ * Sibling product categories shown in the original MOBILE products hero
+ * (`sub-menu` type4/type2 navs, live-measured at 390 for /32, /37, /38, /36).
+ * The KO nav label is "<KR>(<EN>)" — e.g. `에코웨이브(Eco wave)`.
+ */
+const PRODUCT_SIBLINGS: { key: string; ko: string; en: string }[] = [
+  { key: "eco-wave", ko: "에코웨이브", en: "Eco wave" },
+  { key: "clean-b", ko: "크린비", en: "clean B" },
+  { key: "flowell", ko: "플로웰", en: "Flowell" },
+];
+
+/**
+ * Mobile sibling nav items for a product route. `activeSlug` is the page's
+ * board slug (`products/eco-wave`, …) or `products` for the landing, which is
+ * the eco-wave board on the original.
+ */
+export function productSiblingNav(locale: Locale, activeSlug: string): MobileNavItem[] {
+  const activeKey = activeSlug.replace(/^products\/?/, "") || "eco-wave";
+  return PRODUCT_SIBLINGS.map((s) => ({
+    label: locale === "ko" ? `${s.ko}(${s.en})` : s.en,
+    href: localeHref(locale, `/products/${s.key}`),
+    active: s.key === activeKey,
+  }));
+}
+
 export function orderedCategories(
   locale: Locale,
   slug: string,
@@ -57,10 +83,13 @@ export function orderedCategories(
   return [...order, ...present.filter((c) => !order.includes(c))];
 }
 
-/** imweb sub_menu category tab row (전체 + categories) */
+/** imweb sub_menu category tab row (전체 + categories) — DESKTOP only.
+ *  Live-measured mobile: the original board's filter tabs collapse to 0×0 at
+ *  390 (`li.active` w=0/h=0); the mobile category switch lives in the hero's
+ *  sibling nav instead (see PageHero ProductSiblingNav). */
 export function ProductTabs({ tabs }: { tabs: ProductTab[] }) {
   return (
-    <div className="pb-[15px] pt-[15px]">
+    <div className="hidden pb-[15px] pt-[15px] min-[992px]:block">
       {/* original mobile keeps the tabs on a single row (no wrap); desktop keeps
           the wrapping layout */}
       <div className="flex flex-nowrap items-center overflow-x-auto min-[992px]:flex-wrap min-[992px]:overflow-visible">
@@ -155,7 +184,7 @@ export function ProductPagination({
   const sep = basePath.includes("?") ? "&" : "?";
   const hrefFor = (p: number) => (p === 1 ? basePath : `${basePath}${sep}page=${p}`);
   return (
-    <nav className="mt-6 flex items-center justify-center gap-[3px] lg:mt-[58px]" aria-label="페이지네이션">
+    <nav className="mt-[20px] mb-[20px] flex items-center justify-center gap-[3px] lg:mt-[58px] lg:mb-0" aria-label="페이지네이션">
       {page > 1 ? (
         <Link href={hrefFor(page - 1)} className={`${item} ${dim}`} aria-label="이전 페이지">
           <Arrow dir="left" />
@@ -215,11 +244,19 @@ export function ProductBoard({
   return (
     <>
       <ProductTabs tabs={tabs} />
-      {/* original mobile halves the 31px desktop spacer (imweb padding widget) */}
-      <div aria-hidden className="h-[16px] min-[992px]:h-[31px]" />
+      {/* original board top gap: 402→433 before the first card = 31px
+          (8px spacer + 16px divider row + 10px cell padding on the original);
+          desktop keeps its measured 31px spacer */}
+      <div aria-hidden className="h-[21px] min-[992px]:h-[31px]" />
       <ProductCardGrid posts={posts} boardHref={boardHref} emptyLabel={emptyLabel} />
+      {/* original `.li_footer` carries a 10px top margin under the grid on
+          mobile (measured); desktop has no such row */}
+      <div aria-hidden className="h-[10px] min-[992px]:h-0" />
       <ProductPagination page={page} totalPages={totalPages} basePath={paginationBase} />
-      <div aria-hidden className={paginated ? "h-[60px] lg:h-[181px]" : "h-[60px] lg:h-[200px]"} />
+      {/* original board section tail (measured rows, mobile): paginated =
+          10px + 20px + 24px nav + 20px + 80px = 154px; unpaginated =
+          10px + 73px = 83px. Desktop keeps its measured 181/200px. */}
+      <div aria-hidden className={paginated ? "h-[80px] lg:h-[181px]" : "h-[73px] lg:h-[200px]"} />
     </>
   );
 }

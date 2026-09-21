@@ -163,26 +163,32 @@ a {
   padding: 8px 10px;
 }
 
-/* SC2 — imweb's mobile runtime reduces inline display font sizes inside rich
-   text (measured ORIG-mobile vs LOCAL-mobile on the same crawled spans):
-   48->28, 36->24, 30->20, 22->16, 20->15. 26px/24px and the 30px h1 are
-   unchanged. The crawl always writes the spaced form `font-size: NNpx` on a
-   <span> (verified across content/{ko,en}/pages). Desktop (>=992) untouched.
-   Font-size only — line-height is a separate item. */
+/* SC2 — imweb's mobile runtime reduces the inline display font sizes of
+   *pc-authored* section text at 390 (measured ORIG-mobile vs LOCAL-mobile on the
+   same crawled spans): 48->28, 36->24, 30->20, 22->16, 20->15. Authored
+   `mobile_section` text keeps its own sizes (company.about 24px stays 24px,
+   16px stays 16px), so this is scoped to `.pc-at-mobile` (SectionRenderer tags
+   the pc channel) instead of every `.rich-text`.
+   The crawl always writes the spaced form `font-size: NNpx` on a <span>
+   (verified across content/{ko,en}/pages). Desktop (>=992) untouched; font-size
+   only — line-height is a separate item.
+   NOTE: the 24->16 / 18->15 / 16->14 extension that briefly lived here was
+   reverted — it over-shrank pc-section text on company.about, company.history,
+   company.philosophy, rnd/rnd.technology and rnd.facilities. */
 @media (max-width: 991px) {
-  .rich-text span[style*="font-size: 48px"] {
+  .pc-at-mobile .rich-text span[style*="font-size: 48px"] {
     font-size: 28px !important;
   }
-  .rich-text span[style*="font-size: 36px"] {
+  .pc-at-mobile .rich-text span[style*="font-size: 36px"] {
     font-size: 24px !important;
   }
-  .rich-text span[style*="font-size: 30px"] {
+  .pc-at-mobile .rich-text span[style*="font-size: 30px"] {
     font-size: 20px !important;
   }
-  .rich-text span[style*="font-size: 22px"] {
+  .pc-at-mobile .rich-text span[style*="font-size: 22px"] {
     font-size: 16px !important;
   }
-  .rich-text span[style*="font-size: 20px"] {
+  .pc-at-mobile .rich-text span[style*="font-size: 20px"] {
     font-size: 15px !important;
   }
 }
@@ -197,6 +203,15 @@ a {
 @media (max-width: 1023px) {
     .spacer {
         height: calc(var(--h) * 0.5px + 15px);
+    }
+    /* imweb authors `mobile_section` paddings at their 390px height and the
+       mobile runtime renders them verbatim (measured on the live original:
+       home s20250911e7c6ef8d60c18 44->44 / 30->30, s20250911ce32ed6fec574
+       45->45 / 101->101, company.about s202509191b81eb54a6991 30->30). Only the
+       pc channel is downscaled, so revert the 0.5x+15 approximation for sections
+       that are mobile-only. */
+    section[class*="min-[992px]:hidden"] .spacer {
+        height: calc(var(--h) * 1px);
     }
 }
 

@@ -1,12 +1,18 @@
+import type { Section } from "@/lib/types";
+
 /**
  * Local, client-safe mirrors of the registry API payload.
  *
  * The client island must NOT import `lib/content/registry.ts` (it holds ~700
  * defs and their defaults); these types describe only what `/api/admin/registry`
- * returns.
+ * returns plus the extra read-only preview data the server page hands to the
+ * client (code defaults + crawled page trees).
  */
 
 export type RegistryLocale = "ko" | "en";
+
+/** Kinds the registry actually defines. */
+export type RegistryKind = "text" | "textarea" | "image" | "url" | "list";
 
 export type SaveStatus = "idle" | "saving" | "saved" | "error";
 
@@ -17,7 +23,7 @@ export interface RegistryDef {
   sectionId: string;
   widgetId: string;
   field: string;
-  kind: string;
+  kind: RegistryKind;
   section: { ko: string; en: string };
   label: { ko: string; en: string };
   revalidate: string[];
@@ -29,3 +35,24 @@ export interface RegistryResponse {
   values: Record<string, string>;
   dbConfigured: boolean;
 }
+
+/** Per-locale string pair (code default or effective value). */
+export interface LocalePair {
+  ko: string;
+  en: string;
+}
+
+/** Code defaults (`DEFAULT_VALUES`) for every def in the current group. */
+export type DefaultsMap = Record<string, LocalePair>;
+
+/** Current effective values (override > default) for every def, per locale. */
+export type ValuesMap = Record<string, LocalePair>;
+
+/** Raw crawled page tree per locale; `null` when the page has no file. */
+export interface PageTree {
+  ko: Section[] | null;
+  en: Section[] | null;
+}
+
+/** `pageKey` → crawled page sections (read-only preview source). */
+export type TreesMap = Record<string, PageTree>;

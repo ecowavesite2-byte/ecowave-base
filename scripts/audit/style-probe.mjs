@@ -1,10 +1,26 @@
 /**
  * Style probe — computed-style sampler for one side (orig | local).
  * INVESTIGATION ONLY: reads computed styles + document.fonts, writes JSON
- * artifacts under design/audit/style-probe/<side>-<vp>.json.
+ * artifacts under design/audit/style-probe/<side>-<vp>[-tag].json.
+ *
+ * Samples BOTH typography and MOTION/EFFECT declarations (transition*,
+ * animation*, transform, opacity, willChange, backgroundAttachment) so the
+ * style-diff can compare motion parity. The motion keys are additive — the
+ * original JSON schema is unchanged for consumers that read only typography.
  *
  * Usage:
- *   node scripts/audit/style-probe.mjs --side=orig|local [--vp=desktop|mobile|both] [--only=home,news] [--base=...]
+ *   node scripts/audit/style-probe.mjs --side=orig|local [--vp=desktop|mobile|both] [--only=home,news] [--base=...] [--tag=motion]
+ *
+ *   --tag=<name>   append `-<name>` to the output filename so a partial run
+ *                  (e.g. --only=home,news --tag=motion) does NOT clobber the
+ *                  full artifact. Default: no suffix (`orig-desktop.json`).
+ *
+ * Examples:
+ *   # full desktop pass for both sides (writes orig-desktop.json / local-desktop.json)
+ *   node scripts/audit/style-probe.mjs --side=orig  --vp=desktop
+ *   node scripts/audit/style-probe.mjs --side=local --vp=desktop
+ *   # 3-page motion proof pass, non-destructive
+ *   node scripts/audit/style-probe.mjs --side=orig --vp=desktop --only=home,company.about,news --tag=motion
  *
  * Reuses the capture.mjs browser setup (chrome channel, dsf 1, light, reduced
  * motion, scroll-flatten) so measurements match the audit PNGs.
@@ -34,6 +50,12 @@ for (const v of VPS) {
   }
 }
 const ONLY = getArg("only", "").split(",").filter(Boolean);
+const TAG_RAW = getArg("tag", "");
+const TAG = TAG_RAW ? (/^[-_]/.test(TAG_RAW) ? TAG_RAW : "-" + TAG_RAW) : "";
+if (TAG && !/^[-_][A-Za-z0-9._-]*$/.test(TAG)) {
+  console.error(`invalid --tag: ${TAG_RAW} (use letters/digits/._-)`);
+  process.exit(1);
+}
 const BASE = SIDE === "orig" ? ORIG_BASE : getArg("base", DEFAULT_LOCAL_BASE);
 const OUT = path.resolve("design/audit/style-probe");
 
@@ -42,6 +64,14 @@ const TOTAL_CAP = 700;
 const SELECTORS = [
   "body", "h1", "h2", "h3", "h4", "p", "strong", "em", "a", "button", "li", "td", "th",
   ".section_tit", ".btn", '[class*="btn"]', "header a", "nav a", "footer a", "footer p",
+];
+
+/** motion / effect declarations sampled alongside typography (additive). */
+const MOTION_FIELDS = [
+  "transitionProperty", "transitionDuration", "transitionTimingFunction", "transitionDelay",
+  "animationName", "animationDuration", "animationTimingFunction", "animationDelay",
+  "animationIterationCount", "animationFillMode",
+  "transform", "opacity", "willChange", "backgroundAttachment",
 ];
 
 const HIDE_DEV_STYLE =
@@ -67,7 +97,7 @@ async function scrollThrough(page) {
   await page.waitForTimeout(300);
 }
 
-const EXTRACT = ({ selectors, perSel, totalCap }) => {
+const EXTRACT = ({ selectors, perSel, totalCap, motionFields }) => {
   const norm = (s, n) => (s || "").replace(/\s+/g, " ").trim().slice(0, n);
   const cls = (el) => (typeof el.className === "string" ? norm(el.className, 60) : "");
   const visible = (el) => {
@@ -91,7 +121,7 @@ const EXTRACT = ({ selectors, perSel, totalCap }) => {
       if (n >= perSel || samples.length >= totalCap) break;
       if (!visible(el)) continue;
       const cs = getComputedStyle(el);
-      samples.push({
+      const sample = {
         sel,
         tag: el.tagName.toLowerCase(),
         cls: cls(el),
@@ -104,7 +134,9 @@ const EXTRACT = ({ selectors, perSel, totalCap }) => {
         color: cs.color,
         textAlign: cs.textAlign,
         textTransform: cs.textTransform,
-      });
+      };
+      for (const p of motionFields) sample[p] = cs[p];
+      samples.push(sample);
       n++;
     }
   }
@@ -150,6 +182,7 @@ async function main() {
           selectors: SELECTORS,
           perSel: PER_SEL_CAP,
           totalCap: TOTAL_CAP,
+          motionFields: MOTION_FIELDS,
         });
         out[p.key] = { key: p.key, url, vp: vpName, samples: data.samples, fonts: data.fonts };
         console.log(`[${SIDE}/${vpName}] ${p.key} ok samples=${data.samples.length} fonts=${data.fonts.length}`);
@@ -161,7 +194,7 @@ async function main() {
     }
 
     await ctx.close();
-    const file = path.join(OUT, `${SIDE}-${vpName}.json`);
+    const file = path.join(OUT, `${SIDE}-${vpName}${TAG}.json`);
     await fs.writeFile(file, JSON.stringify(out, null, 2));
     console.log(`wrote ${file}`);
   }

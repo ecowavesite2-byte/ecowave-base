@@ -86,17 +86,24 @@ export default function Header({ locale, nav, logo, logoScrolled, langLabelKo, l
   return (
     <>
       {/*
-       * The original imweb header is `position: relative` and occupies document
-       * flow (88px desktop / 104px mobile) on every subpage; only the home page
-       * is a 0px overlay over the hero. This in-flow spacer reproduces that so
-       * subpage content is not shifted ~88px too high, while the header itself
-       * keeps its fixed/overlay scroll behaviour (metrics: header.h=88, pos=relative).
+       * The original imweb header occupies document flow (metrics: header.h=88,
+       * pos=relative on desktop subpages; h=105 on mobile on EVERY page,
+       * including home — live-measured: `header#doz_header_wrap` at 390 is
+       * position:relative, height 105px on `/`). Only the DESKTOP home header is
+       * a 0px overlay over the hero (orig desktop `#doz_header_wrap` h=0 with an
+       * absolute 88px inner bar). This in-flow spacer reproduces that per
+       * breakpoint: mobile always 105px, desktop 88px on subpages / 0px on home.
        */}
-      {!isHome && <div aria-hidden className="h-[104px] min-[992px]:h-[88px]" />}
+      <div
+        aria-hidden
+        className={isHome ? "h-[105px] min-[992px]:h-0" : "h-[105px] min-[992px]:h-[88px]"}
+      />
       <header
         id="doz_header"
         className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
-          overlay ? "bg-transparent" : "bg-white shadow-[0_1px_0_rgba(0,0,0,0.06)]"
+          overlay
+            ? "bg-white shadow-[0_1px_0_rgba(0,0,0,0.06)] min-[992px]:bg-transparent min-[992px]:shadow-none"
+            : "bg-white shadow-[0_1px_0_rgba(0,0,0,0.06)]"
         }`}
       >
       <div className="relative flex h-[58px] items-center px-[15px] min-[992px]:h-[88px] min-[992px]:px-[30px]">
@@ -108,18 +115,41 @@ export default function Header({ locale, nav, logo, logoScrolled, langLabelKo, l
           className="relative z-10 flex h-10 w-10 flex-col items-center justify-center gap-[5px] min-[992px]:hidden"
         >
           {[0, 1, 2].map((i) => (
-            <span key={i} className={`h-[2px] w-6 ${overlay ? "bg-white" : "bg-ink"}`} />
+            <span key={i} className={`h-[2px] w-6 ${overlay ? "bg-ink min-[992px]:bg-white" : "bg-ink"}`} />
           ))}
         </button>
         <Link href={localeHref(locale, "/")} className="relative z-10 mx-auto shrink-0 min-[992px]:mx-0">
-          <Image
-            src={overlay ? logo : logoScrolled}
-            alt="ECOWAVE"
-            width={266}
-            height={72}
-            priority
-            className="h-8 w-auto min-[992px]:h-[72px]"
-          />
+          {overlay ? (
+            <>
+              {/* mobile: the original home header is solid white -> dark logo */}
+              <Image
+                src={logoScrolled}
+                alt="ECOWAVE"
+                width={266}
+                height={72}
+                priority
+                className="h-8 w-auto min-[992px]:hidden"
+              />
+              {/* desktop: transparent overlay over the hero -> white logo */}
+              <Image
+                src={logo}
+                alt="ECOWAVE"
+                width={266}
+                height={72}
+                priority
+                className="hidden h-[72px] w-auto min-[992px]:block"
+              />
+            </>
+          ) : (
+            <Image
+              src={logoScrolled}
+              alt="ECOWAVE"
+              width={266}
+              height={72}
+              priority
+              className="h-8 w-auto min-[992px]:h-[72px]"
+            />
+          )}
         </Link>
         {/* mobile spacer balancing the hamburger so the logo stays centered */}
         <span className="w-10 min-[992px]:hidden" aria-hidden />

@@ -6,12 +6,13 @@ import { MAX_UPLOAD_BYTES, validateUploadName } from "@/lib/content/upload-name"
 export const runtime = "nodejs";
 
 /**
- * Registry image upload for the simple admin screen.
+ * Registry/board upload for the simple admin screens.
  *
  * Accepts multipart `file` (optionally `locale`, unused for storage), stores the
  * bytes in Vercel Blob under a sanitized, content-hashed public name and returns
- * `{ ok: true, url }`. The client only writes that URL into the field draft; the
- * existing registry PUT still owns persistence.
+ * `{ ok: true, url }`. Accepts images and PDFs (see `validateUploadName`); the
+ * client only writes that URL into the field/attachment draft, and the owning
+ * registry/board PUT still persists it.
  */
 
 const BLOB_NOT_CONFIGURED_MESSAGE =

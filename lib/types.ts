@@ -94,7 +94,7 @@ export type BoardPost = {
   views: number | null;
   content?: string;
   info?: string;
-  files?: { name: string; href: string }[];
+  files?: { name: string; href: string; size?: number }[];
 };
 
 export type BoardContent = {

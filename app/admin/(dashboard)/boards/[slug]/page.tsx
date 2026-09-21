@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import BoardEditor from "../../../_components/boards/BoardEditor";
+import { getAdminLocale } from "../../../_components/adminLocale";
 import { isValidBoardSlug } from "@/lib/content/paths";
 import { defaultLocale, isLocale } from "@/lib/i18n";
 
@@ -18,6 +19,7 @@ export default async function BoardEditorPage({
 
   const requested = (await searchParams).locale ?? defaultLocale;
   const locale = isLocale(requested) ? requested : defaultLocale;
+  const adminLocale = await getAdminLocale();
 
-  return <BoardEditor slug={slug} initialLocale={locale} />;
+  return <BoardEditor slug={slug} initialLocale={locale} adminLocale={adminLocale} />;
 }

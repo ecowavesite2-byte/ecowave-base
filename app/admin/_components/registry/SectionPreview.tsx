@@ -1,0 +1,79 @@
+"use client";
+
+import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
+
+import SectionRenderer from "@/components/content/SectionRenderer";
+import type { Locale } from "@/lib/i18n";
+import type { Section } from "@/lib/types";
+
+/** `useLayoutEffect` in the browser (no flash), `useEffect` during SSR (no warning). */
+const useIsomorphicLayoutEffect = typeof window === "undefined" ? useEffect : useLayoutEffect;
+
+/**
+ * Scaled live preview of a real page section.
+ *
+ * Mirrors MCell's `ScaledDesktop`: the section is laid out at the public site's
+ * desktop width (1280px) and scaled down with a CSS transform so the preview is
+ * a faithful thumbnail of the big-screen layout. A ResizeObserver keeps the
+ * scale and the wrapper height in sync with the pane.
+ */
+export function ScaledDesktop({ children }: { children: ReactNode }) {
+  const outerRef = useRef<HTMLDivElement>(null);
+  const innerRef = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(0);
+  const [innerH, setInnerH] = useState(0);
+
+  useIsomorphicLayoutEffect(() => {
+    const outer = outerRef.current;
+    const inner = innerRef.current;
+    if (!outer || !inner) return;
+    const update = () => {
+      setScale(Math.min(1, outer.clientWidth / 1280));
+      setInnerH(inner.offsetHeight);
+    };
+    update();
+    const observer = new ResizeObserver(update);
+    observer.observe(outer);
+    observer.observe(inner);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={outerRef}
+      className="overflow-hidden"
+      style={{ height: innerH && scale ? innerH * scale : undefined }}
+    >
+      <div
+        ref={innerRef}
+        className="pointer-events-none bg-white"
+        style={{
+          width: 1280,
+          transform: scale ? `scale(${scale})` : undefined,
+          transformOrigin: "top left",
+        }}
+      >
+        {children}
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Renders one crawled section through the public `SectionRenderer` (read-only
+ * import — the public page rendering is not modified). Used with the draft
+ * overrides applied, so the pane is a true live preview.
+ */
+export default function SectionPreview({
+  section,
+  locale,
+}: {
+  section: Section;
+  locale: Locale;
+}) {
+  return (
+    <ScaledDesktop>
+      <SectionRenderer sections={[section]} locale={locale} />
+    </ScaledDesktop>
+  );
+}

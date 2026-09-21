@@ -1,32 +1,47 @@
 /**
- * Hover / animation / mouse-effect ground-truth probe for the ORIGINAL site.
+ * Hover / animation / mouse-effect ground-truth probe for the D-list items.
  *
  * Captures live computed styles and hover deltas for the D-list items
  * (D3 D6 D9 D11 D13 D14 D15 D17) and writes raw JSON under
- * design/audit/hover-probe/.
+ * design/audit/hover-probe/<side>-<item>.json.
  *
- * READ-ONLY investigation: the local source is compared by reading files, NOT
- * by probing the running build (which is stale). This script only talks to the
- * original site.
+ * The probe is side-capable: it defaults to the ORIGINAL site, but the SAME
+ * measurement logic can be pointed at the rebuild with `--side=local` (or an
+ * explicit `--base=`). This lets the applied local parity fixes be re-probed
+ * instead of only the original.
  *
  * Usage:
- *   node scripts/audit/hover-probe.mjs [--only=D3,D6,...] [--base=https://...]
+ *   node scripts/audit/hover-probe.mjs [--side=orig|local] [--only=D3,D6,...] [--base=https://...]
+ *
+ * Examples:
+ *   # original (default) — desktop 1440x900
+ *   node scripts/audit/hover-probe.mjs
+ *   node scripts/audit/hover-probe.mjs --only=D3,D6
+ *   # local rebuild (writes local-D3.json ... local-all.json)
+ *   node scripts/audit/hover-probe.mjs --side=local
+ *   node scripts/audit/hover-probe.mjs --side=local --base=http://localhost:4517
  *
  * Browser setup matches target-probe.mjs (chromium headless, dsf 1, light) but
  * keeps reducedMotion at its default ("no-preference") because D6 must observe
- * the real scroll-reveal animation.
+ * the real scroll-reveal animation. Viewport is fixed at 1440x900 (the D-item
+ * clamp math and SELECTORS are desktop-specific).
  */
 import { chromium } from "playwright-core";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { ORIG_BASE } from "./pages.mjs";
+import { ORIG_BASE, DEFAULT_LOCAL_BASE } from "./pages.mjs";
 
 const args = process.argv.slice(2);
 const getArg = (name, dflt) => {
   const a = args.find((x) => x.startsWith("--" + name + "="));
   return a ? a.split("=").slice(1).join("=") : dflt;
 };
-const BASE = getArg("base", ORIG_BASE).replace(/\/$/, "");
+const SIDE = getArg("side", "orig");
+if (!["orig", "local"].includes(SIDE)) {
+  console.error("usage: node scripts/audit/hover-probe.mjs [--side=orig|local] [--only=D3,...] [--base=...]");
+  process.exit(1);
+}
+const BASE = getArg("base", SIDE === "orig" ? ORIG_BASE : DEFAULT_LOCAL_BASE).replace(/\/$/, "");
 const ONLY = getArg("only", "")
   .split(",")
   .map((s) => s.trim().toUpperCase())
@@ -729,20 +744,20 @@ async function main() {
       data._item = item;
       data._durationMs = Date.now() - start;
       all[item] = data;
-      const file = path.join(OUT, `orig-${item}.json`);
+      const file = path.join(OUT, `${SIDE}-${item}.json`);
       await fs.writeFile(file, JSON.stringify(data, null, 2));
-      console.log(`[${item}] ok ${((Date.now() - start) / 1000).toFixed(1)}s -> ${path.basename(file)}`);
+      console.log(`[${SIDE}/${item}] ok ${((Date.now() - start) / 1000).toFixed(1)}s -> ${path.basename(file)}`);
     } catch (e) {
       const msg = String((e && e.message) || e).split("\n")[0];
       all[item] = { _item: item, error: msg };
-      await fs.writeFile(path.join(OUT, `orig-${item}.json`), JSON.stringify(all[item], null, 2));
-      console.error(`[${item}] FAIL ${msg}`);
+      await fs.writeFile(path.join(OUT, `${SIDE}-${item}.json`), JSON.stringify(all[item], null, 2));
+      console.error(`[${SIDE}/${item}] FAIL ${msg}`);
     }
   }
-  await fs.writeFile(path.join(OUT, "orig-all.json"), JSON.stringify(all, null, 2));
+  await fs.writeFile(path.join(OUT, `${SIDE}-all.json`), JSON.stringify(all, null, 2));
 
   /* compact console summary */
-  console.log("\n================ SUMMARY ================");
+  console.log(`\n================ SUMMARY (${SIDE} @ ${BASE}) ================`);
   const p = (o) => JSON.stringify(o);
   if (all.D3) {
     for (const [k, v] of Object.entries(all.D3.pages || {})) {

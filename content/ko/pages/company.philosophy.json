@@ -309,6 +309,25 @@
       "bgStyle": "   background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
       "bgColor": "#ffffff",
       "secStyle": "; ; background-color:#ffffff;;",
+      "aside": {
+        "pt": 15,
+        "gap": 30,
+        "items": [
+          {
+            "kind": "widget",
+            "id": "w202508119eca72dc669e0pad",
+            "type": "padding",
+            "html": "<div class=\"widget padding\" data-height=\"39\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w202508119eca72dc669e0pad\" style=\"width:100%; min-height:1px; height:39px; \"></div>\n</div>\n",
+            "_h": 39
+          },
+          {
+            "kind": "widget",
+            "id": "w202508119eca72dc669e0lbl",
+            "type": "code",
+            "html": "<div class=\"widget _text_wrap widget_text_wrap fr-view default_padding\"><div class=\"text-table\"><div><p style=\"text-align: left; line-height: 1.2;\"><span style=\"font-size: 36px;\"><strong><span style=\"color: rgb(18, 18, 18);\">경영이념</span></strong></span></p></div></div></div>"
+          }
+        ]
+      },
       "rows": [
         {
           "kind": "row",
@@ -476,6 +495,18 @@
       "bgStyle": "   background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
       "bgColor": "#ffffff",
       "secStyle": "; ; background-color:#ffffff;;",
+      "aside": {
+        "pt": 15,
+        "gap": 0,
+        "items": [
+          {
+            "kind": "widget",
+            "id": "w202508280e68f158799c2lbl",
+            "type": "code",
+            "html": "<div class=\"widget _text_wrap widget_text_wrap fr-view default_padding\"><div class=\"text-table\"><div><p style=\"text-align: left; line-height: 1.2;\"><span style=\"font-size: 36px;\"><strong><span style=\"color: rgb(18, 18, 18);\">비전</span></strong></span></p></div></div></div>"
+          }
+        ]
+      },
       "rows": [
         {
           "kind": "row",

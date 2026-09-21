@@ -66,6 +66,7 @@ describe("validateUploadName", () => {
       ["a.webp", "image/webp", "webp"],
       ["a.gif", "image/gif", "gif"],
       ["a.svg", "image/svg+xml", "svg"],
+      ["a.pdf", "application/pdf", "pdf"],
     ];
     for (const [name, type, ext] of cases) {
       const result = validateUploadName(file(name, type), HASH);
@@ -77,6 +78,12 @@ describe("validateUploadName", () => {
     }
   });
 
+  it("accepts a PDF attachment", () => {
+    const result = validateUploadName(file("report.pdf", "application/pdf"), HASH);
+    expect(result.ok).toBe(true);
+    if (result.ok) expect(result.name).toBe(`report-${HASH}.pdf`);
+  });
+
   it("rejects path traversal filenames", () => {
     for (const name of ["../evil.png", "a/../b.png", "..\\evil.png", "x..png"]) {
       const result = validateUploadName(file(name, "image/png"), HASH);
@@ -85,12 +92,13 @@ describe("validateUploadName", () => {
     }
   });
 
-  it("rejects non-image and mismatched content types", () => {
+  it("rejects unsupported and mismatched content types", () => {
     const rejected = [
-      file("a.pdf", "application/pdf"),
       file("a.avif", "image/avif"),
       file("a.txt", "text/plain"),
+      file("a.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"),
       file("a.png", "image/jpeg"), // extension/MIME mismatch
+      file("a.pdf", "image/png"), // extension/MIME mismatch
       file("a", "image/png"), // no extension
       file("a.png", ""), // missing MIME
     ];

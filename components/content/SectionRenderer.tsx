@@ -394,6 +394,34 @@ function WidgetContent({ w, locale, mobileBox = false }: { w: WidgetNode; locale
       if (items.length === 0) return null;
       const meta2 = w as unknown as { itemW?: number; itemH?: number; gridN?: string };
       if (w.layout === "slide") {
+        // MB6: a mobile-authored slider shows one full-width slide with the
+        // caption in flow below the image (measured on the live original, home
+        // section s20250911db56ac49110f4: slide 365x362 image + `.text_wrap`
+        // 122px, title strong 19px/30.4, desc 15px/24, left aligned). pc slide
+        // galleries (company.about) keep the existing fixed-width hover card.
+        if (mobileBox) {
+          return (
+            <GallerySlider count={items.length}>
+              {items.map((it, i) => (
+                <figure key={i} className="w-full shrink-0 snap-start">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={it.org || it.thumb || ""}
+                    alt={it.title || ""}
+                    className="aspect-square w-full object-cover"
+                    loading="lazy"
+                  />
+                  <figcaption className="px-[15px] pt-[13px] pb-[15px]">
+                    {it.title && (
+                      <p className="text-[19px] font-bold leading-[30.4px] text-black">{it.title}</p>
+                    )}
+                    {it.desc && <p className="text-[15px] leading-[24px] text-body">{it.desc}</p>}
+                  </figcaption>
+                </figure>
+              ))}
+            </GallerySlider>
+          );
+        }
         return (
           <GallerySlider count={items.length}>
             {items.map((it, i) => (
@@ -459,6 +487,15 @@ function WidgetContent({ w, locale, mobileBox = false }: { w: WidgetNode; locale
       return clean ? <div dangerouslySetInnerHTML={{ __html: clean }} /> : null;
     }
     case "video":
+      // MB5: a `mobile_section` video is injected by imweb's mobile runtime and
+      // sized to the 16:9 holder (measured on the live original, home section
+      // s20250911ce32ed6fec574: `.img_box`/iframe = 360x202.5). The crawled
+      // `html` is the pre-JS 0-height holder, so it renders nothing locally.
+      // Render the iframe directly for mobile sections; the pc `mobile_hide`
+      // video (desktop channel) keeps the html path byte-identical.
+      if (mobileBox && w.src) {
+        return <iframe src={w.src} className="aspect-video w-full" allowFullScreen title="video" />;
+      }
       return w.html ? (
         <div dangerouslySetInnerHTML={{ __html: w.html }} />
       ) : w.src ? (
@@ -795,6 +832,12 @@ export default function SectionRenderer({
         const desktopOnly = !mobileOnly && MOBILE_HIDE.test(cls);
         const visibility = mobileOnly ? MOBILE_ONLY_CLASS : desktopOnly ? DESKTOP_ONLY_CLASS : "";
         const side = /\bside_(left|right)\b/.exec(cls)?.[1] ?? null;
+        // imweb shows *pc-authored* sections at 390 with a reduced typographic
+        // scale (measured on the live original: 48->28, 36->24, 30->20, 24->16,
+        // 22->16, 20->15, 18->15, 16->14) while `mobile_section` text keeps its
+        // authored mobile sizes. Tag pc-channel sections so globals.css can scope
+        // the downscale to them (mobile sections stay untouched).
+        const pcAtMobile = !mobileOnly;
         const rowWs = sec.rows
           .filter((r): r is RowNode => r.kind === "row")
           .map((r) => r.w)
@@ -810,7 +853,7 @@ export default function SectionRenderer({
         const vGutter = !/(^|\s)grid_v_gutter_0(\s|$)/.test(cls);
         const aside = (sec as unknown as { aside?: AsideBlock }).aside;
         return (
-          <section key={sec.id} className={`relative${visibility ? " " + visibility : ""}`}>
+          <section key={sec.id} className={`relative${visibility ? " " + visibility : ""}${pcAtMobile ? " pc-at-mobile" : ""}`}>
             {(sec.bg || urlFromStyle(sec.bgStyle)) && (
               <div
                 className="absolute inset-0 bg-cover bg-center"

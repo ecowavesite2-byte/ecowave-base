@@ -2,6 +2,72 @@ import Link from "next/link";
 
 export type HeroTab = { label: string; href: string; active?: boolean };
 
+export type MobileNavItem = { label: string; href: string; active?: boolean };
+
+/**
+ * Mobile sibling category nav, transcribed from the original 390px products
+ * hero (live-measured rows 4–5 of `mobile_section_first`):
+ *  - type4 `nav.sub-menu.h-menu-type4.row-cnt-mobile-2` = 2-col bordered grid,
+ *    180×40 cells, shared 1px #d0d0d0 borders, active cell #3970EB + white,
+ *    14px/22.4px labels;
+ *  - type2 `nav.sub-menu.h-menu-type2.row-cnt-mobile-3` = centred 50%-radius
+ *    pills, 13px/20.8px, padding 4px 15px, active #3970EB fill + 1px border,
+ *    inactive rgba(54,54,54,.7) plain text. Live-measured: this pill nav is
+ *    only VISIBLE on /32 (landing) and /37 (eco-wave); on /36 (flowell) and
+ *    /38 (clean-b) the original carries `sub_menu_hide` on it (display:none),
+ *    so `pills` gates it.
+ */
+function ProductSiblingNav({ items, pills }: { items: MobileNavItem[]; pills: boolean }) {
+  return (
+    <div className="min-[992px]:hidden">
+      <nav className="mt-[8px]" aria-label="제품 카테고리">
+        <ul className="grid grid-cols-2 border-l border-t border-[#d0d0d0]">
+          {items.map((n) => (
+            <li
+              key={n.href}
+              className={`h-10 border-b border-r border-[#d0d0d0] ${n.active ? "bg-[#3970eb]" : "bg-white"}`}
+            >
+              <Link
+                href={n.href}
+                aria-current={n.active ? "page" : undefined}
+                className={`flex h-full w-full items-center justify-center text-center text-[14px] leading-[22.4px] ${
+                  n.active ? "text-white" : "text-[#212121]"
+                }`}
+              >
+                {n.label}
+              </Link>
+            </li>
+          ))}
+          {items.length % 2 === 1 && (
+            <li aria-hidden className="h-10 border-b border-r border-[#d0d0d0] bg-white" />
+          )}
+        </ul>
+      </nav>
+      {pills && (
+        <nav className="mt-[15px]" aria-label="제품 바로가기">
+          <ul className="flex flex-wrap items-center justify-center">
+            {items.map((n) => (
+              <li key={n.href} className="mx-[0.25px]">
+                <Link
+                  href={n.href}
+                  aria-current={n.active ? "page" : undefined}
+                  className={`inline-block rounded-full px-[15px] py-[4px] text-[13px] leading-[20.8px] ${
+                    n.active
+                      ? "border border-[#3970eb] bg-[#3970eb] text-white"
+                      : "border border-transparent text-[rgba(54,54,54,0.7)]"
+                  }`}
+                >
+                  {n.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )}
+    </div>
+  );
+}
+
 /**
  * Original imweb page-hero (`section_first`) heights measured at 1440px:
  * 310px on most subpages, 290px on the support landing (an empty spacer band)
@@ -65,6 +131,9 @@ export default function PageHero({
   big = false,
   height,
   subtitle,
+  mobileNav,
+  mobileTitle,
+  mobilePills = false,
 }: {
   title: string;
   tabs?: HeroTab[];
@@ -77,6 +146,17 @@ export default function PageHero({
    * omitted every existing route renders exactly as before.
    */
   subtitle?: string;
+  /**
+   * Products only, mobile only: sibling category nav (Eco wave / clean B /
+   * Flowell). When provided the mobile hero renders the KR combined title
+   * (`mobileTitle`) plus the measured type4 grid + type2 pill navs instead of
+   * the desktop title+subtitle; desktop is unchanged.
+   */
+  mobileNav?: MobileNavItem[];
+  /** Products only, mobile only: KR combined hero title, e.g. `에코웨이브(Eco wave)`. */
+  mobileTitle?: string;
+  /** Products only, mobile only: render the type2 pill sibling nav (landing + eco-wave only). */
+  mobilePills?: boolean;
 }) {
   const h = height ?? heroHeight(tabs);
   const mh = mobileHeroHeight(tabs);
@@ -112,20 +192,43 @@ export default function PageHero({
     <section className="bg-white">
       <div className={`mx-auto flex max-w-[1280px] flex-col justify-start px-[15px] pb-0 pt-[65px] lg:flex-row lg:items-end lg:justify-between lg:pt-0 ${mobileHeightClass} ${heightClass} ${padBottom}`}>
         {!blank && title && hasSubtitle ? (
-          <div>
-            {/* ORIG product hero is a rich-text <strong> "Eco wave" measured
-                72px / line-height 79.2px (=1.1) at desktop; keep the mobile
-                30px/1.2 (36px) which matches the original mobile h1. */}
-            <h1 className="font-bold text-black text-[30px] leading-[1.2] lg:text-[72px] lg:leading-[1.1]">
-              {title}
-            </h1>
-            {/* crawled product hero: the subtitle <p> is 15px with an inline
-                `line-height:3` (45px) and a 22px <span> inside — the probe
-                measures the <p> (15/45) and the <span> (22px). */}
-            <p className="mt-[3px] text-[15px] leading-[45px] text-body">
-              <span className="text-[22px]">{subtitle}</span>
-            </p>
-          </div>
+          mobileNav && mobileNav.length > 0 ? (
+            <>
+              <div className="hidden min-[992px]:block">
+                <h1 className="font-bold text-black text-[30px] leading-[1.2] lg:text-[72px] lg:leading-[1.1]">
+                  {title}
+                </h1>
+                <p className="mt-[3px] text-[15px] leading-[45px] text-body">
+                  <span className="text-[22px]">{subtitle}</span>
+                </p>
+              </div>
+              {/* mobile: KR combined title + sibling category nav (original
+                  mobile_section_first rows 2/3/4/5: H1 mt20/h36/mb10, 16px
+                  divider band, type4 grid, type2 pills) */}
+              <div className="w-full min-[992px]:hidden">
+                <h1 className="mb-[10px] text-[30px] font-bold leading-[1.2] text-black">
+                  {mobileTitle ?? title}
+                </h1>
+                <div aria-hidden className="h-[16px]" />
+                <ProductSiblingNav items={mobileNav} pills={mobilePills} />
+              </div>
+            </>
+          ) : (
+            <div>
+              {/* ORIG product hero is a rich-text <strong> "Eco wave" measured
+                  72px / line-height 79.2px (=1.1) at desktop; keep the mobile
+                  30px/1.2 (36px) which matches the original mobile h1. */}
+              <h1 className="font-bold text-black text-[30px] leading-[1.2] lg:text-[72px] lg:leading-[1.1]">
+                {title}
+              </h1>
+              {/* crawled product hero: the subtitle <p> is 15px with an inline
+                  `line-height:3` (45px) and a 22px <span> inside — the probe
+                  measures the <p> (15/45) and the <span> (22px). */}
+              <p className="mt-[3px] text-[15px] leading-[45px] text-body">
+                <span className="text-[22px]">{subtitle}</span>
+              </p>
+            </div>
+          )
         ) : !blank && title ? (
           <h1 className={`font-bold leading-[1.2] text-black ${big ? "text-[30px] lg:text-[72px]" : "text-[30px] lg:text-[65px]"}`}>
             {title}

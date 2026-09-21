@@ -1,5 +1,11 @@
+import type { Metadata } from "next";
 import { requireAdmin } from "@/lib/auth/guard";
 import AdminShell from "../_components/AdminShell";
+
+export const metadata: Metadata = {
+  title: "Admin",
+  robots: { index: false },
+};
 
 /**
  * Authoritative auth boundary for every /admin route in this group. Middleware

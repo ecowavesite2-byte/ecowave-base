@@ -1,34 +1,50 @@
 "use client";
 
-/** Group tab row for the registry editor (home | company | rnd | …). */
+import Link from "next/link";
+
+import { adminDict } from "@/lib/admin/i18n";
+import type { RegistryLocale } from "./types";
+
+/**
+ * Group tab row for the registry editor (home | company | rnd | …).
+ *
+ * Tabs are real links (`/admin/content?group=…`): switching a group re-renders
+ * the server page so it can hand the client that group's code defaults and
+ * read-only page trees without shipping every group to the browser.
+ */
 
 export default function GroupTabs({
+  locale,
   groups,
   active,
-  onSelect,
 }: {
+  locale: RegistryLocale;
   groups: string[];
   active: string;
-  onSelect: (group: string) => void;
 }) {
+  const t = adminDict[locale];
+  const labels = t.nav.content as Record<string, string | undefined>;
+
   return (
-    <div className="flex flex-wrap gap-1 rounded-md border border-line bg-white p-1">
+    <nav
+      aria-label={t.content.title}
+      className="flex flex-wrap gap-1 rounded-[4px] border border-black/10 bg-white p-1"
+    >
       {groups.map((group) => {
         const isActive = group === active;
         return (
-          <button
+          <Link
             key={group}
-            type="button"
+            href={`/admin/content?group=${encodeURIComponent(group)}`}
             aria-current={isActive ? "page" : undefined}
-            onClick={() => onSelect(group)}
-            className={`rounded px-3 py-1.5 text-[12px] font-medium capitalize transition-colors ${
-              isActive ? "bg-accent text-white" : "text-[#6b7280] hover:text-accent"
+            className={`rounded-[3px] px-3 py-1.5 text-[12px] font-medium transition-colors ${
+              isActive ? "bg-accent text-white" : "text-muted hover:text-accent"
             }`}
           >
-            {group}
-          </button>
+            {labels[group] ?? group}
+          </Link>
         );
       })}
-    </div>
+    </nav>
   );
 }

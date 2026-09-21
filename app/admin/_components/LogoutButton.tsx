@@ -3,7 +3,11 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-export default function LogoutButton() {
+/**
+ * Inline sign-out control for the admin header. Labels come from the shared
+ * admin dictionary (see `lib/admin/i18n.ts`).
+ */
+export default function LogoutButton({ label, busyLabel }: { label: string; busyLabel: string }) {
   const router = useRouter();
   const [busy, setBusy] = useState(false);
 
@@ -27,9 +31,9 @@ export default function LogoutButton() {
       type="button"
       onClick={onLogout}
       disabled={busy}
-      className="mt-3 w-full rounded-md border border-line px-3 py-2 text-[13px] text-ink transition-colors hover:border-accent hover:text-accent disabled:cursor-not-allowed disabled:opacity-60"
+      className="h-[32px] rounded-[3px] border border-black/10 bg-white px-3 text-[13px] text-ink transition-colors hover:border-accent hover:text-accent disabled:cursor-not-allowed disabled:opacity-60"
     >
-      {busy ? "Logging out…" : "Log out"}
+      {busy ? busyLabel : label}
     </button>
   );
 }

@@ -2,27 +2,34 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { adminDict, type AdminLocale } from "@/lib/admin/i18n";
 import type { BoardListResponse, BoardLocale, BoardSummary } from "./types";
 
 /** Board picker: five slugs, locale switch, materialized/defaults badges. */
 
-const LOCALES: { value: BoardLocale; label: string }[] = [
-  { value: "ko", label: "한국어" },
-  { value: "en", label: "English" },
-];
-
-export default function BoardPicker({ initialLocale }: { initialLocale: BoardLocale }) {
+export default function BoardPicker({
+  initialLocale,
+  adminLocale,
+}: {
+  initialLocale: BoardLocale;
+  adminLocale: AdminLocale;
+}) {
+  const t = adminDict[adminLocale].boards;
+  const LOCALES: { value: BoardLocale; label: string }[] = [
+    { value: "ko", label: t.localeKo },
+    { value: "en", label: t.localeEn },
+  ];
   const [locale, setLocale] = useState<BoardLocale>(initialLocale);
   const [boards, setBoards] = useState<BoardSummary[]>([]);
   const [dbConfigured, setDbConfigured] = useState(true);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState(false);
   const [refresh, setRefresh] = useState(0);
 
   useEffect(() => {
     let cancelled = false;
     setLoading(true);
-    setError(null);
+    setError(false);
 
     (async () => {
       try {
@@ -35,7 +42,7 @@ export default function BoardPicker({ initialLocale }: { initialLocale: BoardLoc
       } catch {
         if (cancelled) return;
         setBoards([]);
-        setError("Could not load boards.");
+        setError(true);
       } finally {
         if (!cancelled) setLoading(false);
       }
@@ -50,10 +57,8 @@ export default function BoardPicker({ initialLocale }: { initialLocale: BoardLoc
     <div className="mx-auto max-w-[960px] p-8">
       <div className="flex flex-wrap items-center gap-3">
         <div className="min-w-0">
-          <h1 className="text-[22px] font-bold tracking-tight text-ink">Boards</h1>
-          <p className="mt-0.5 text-[13px] text-[#6b7280]">
-            Collection overrides · empty = crawled defaults
-          </p>
+          <h1 className="text-[22px] font-bold tracking-tight text-ink">{t.title}</h1>
+          <p className="mt-0.5 text-[13px] text-[#6b7280]">{t.pickerBlurb}</p>
         </div>
         <div className="ml-auto flex rounded-md border border-line bg-white p-0.5">
           {LOCALES.map((item) => (
@@ -77,25 +82,24 @@ export default function BoardPicker({ initialLocale }: { initialLocale: BoardLoc
           role="status"
           className="mt-4 rounded-md border border-amber-300 bg-amber-50 px-3 py-2 text-[12px] text-amber-900"
         >
-          Database is not configured (DATABASE_URL missing). Showing crawled defaults — saving is
-          disabled.
+          {t.dbNotice}
         </div>
       ) : null}
 
       {error ? (
         <div className="mt-6 flex items-center gap-3 rounded-md border border-red-200 bg-red-50 px-3 py-2 text-[12px] text-red-800">
-          <span>{error}</span>
+          <span>{t.pickerLoadError}</span>
           <button
             type="button"
             onClick={() => setRefresh((n) => n + 1)}
             className="ml-auto rounded-md border border-red-200 bg-white px-2.5 py-1 text-[12px] text-red-700 transition-colors hover:border-red-400"
           >
-            Retry
+            {t.retry}
           </button>
         </div>
       ) : null}
 
-      {loading ? <p className="mt-6 text-[13px] text-[#6b7280]">Loading…</p> : null}
+      {loading ? <p className="mt-6 text-[13px] text-[#6b7280]">{t.loading}</p> : null}
 
       {!loading && !error ? (
         <div className="mt-6 overflow-hidden rounded-lg border border-line bg-white">
@@ -120,14 +124,14 @@ export default function BoardPicker({ initialLocale }: { initialLocale: BoardLoc
                     : "bg-[#f3f4f6] text-[#6b7280]"
                 }`}
               >
-                {board.materialized ? "Overrides" : "Defaults"}
+                {board.materialized ? t.overrides : t.defaults}
               </span>
               <span className="shrink-0 rounded-full bg-[#f3f4f6] px-2 py-0.5 text-[11px] font-medium text-[#4b5563]">
-                {board.count} {board.count === 1 ? "post" : "posts"}
+                {t.postCount(board.count)}
               </span>
               {board.hasEnglish ? null : (
                 <span className="shrink-0 rounded-full bg-[#eef2ff] px-2 py-0.5 text-[10px] font-medium text-[#4338ca]">
-                  EN inherits
+                  {t.enInherits}
                 </span>
               )}
             </Link>

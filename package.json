@@ -17,6 +17,7 @@
     "content:registry": "node scripts/gen-content-registry.mjs",
     "content:backup": "node scripts/content-backup.mjs",
     "content:restore": "node scripts/content-restore.mjs",
+    "admin:set-password": "node scripts/admin-set-password.mjs",
     "verify": "npm run typecheck && npm run lint && npm run content:validate && npm run build"
   },
   "dependencies": {
