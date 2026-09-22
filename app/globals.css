@@ -173,6 +173,25 @@ a {
   border: 1px solid #ddd;
   padding: 8px 10px;
 }
+/* imweb table cell borders at mobile — measured on the live rnd/rnd.technology/
+   rnd.facilities originals at 390: cells carry a single 1px #ECECEC hairline
+   under each row (no side/top rules), where our 1px #DDD box showed vertical
+   rules the original lacks. Height-neutral (1px replaced by 1px).
+   NOTE (open item): the `.table-responsive` table is squeezed locally
+   (360x541) while the original keeps its intrinsic width inside an
+   `overflow-x:auto` wrapper (991x281) because its cells are `nowrap`.
+   Applying nowrap+overflow alone fixes that table but drops the rnd page to
+   4578 vs the original's 4858, because ~280px elsewhere on the page are
+   compensating today; the table band must be fixed together with those
+   section-level shortages (see design/audit report + master-differences).
+   Desktop (>=992) is measured separately and untouched. */
+@media (max-width: 991px) {
+  .rich-text table.tableHorizontal td,
+  .rich-text table.tableHorizontal th {
+    border: 0;
+    border-bottom: 1px solid #ececec;
+  }
+}
 
 /* SC2 — imweb's mobile runtime reduces the inline display font sizes of
    *pc-authored* section text at 390 (measured ORIG-mobile vs LOCAL-mobile on the
