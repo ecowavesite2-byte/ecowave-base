@@ -13,8 +13,28 @@ const GAP = 5;
  * the arrows step one item, mirroring the original owl behaviour measured on
  * company.about (`container_w20250918692bb854e97af` 2 dots,
  * `container_w20250918b0ab58de4000e` 5 dots + `custom_nav nav_round`).
+ *
+ * Desktop geometry (all `min-[992px]:`, measured on the live originals): the
+ * track bleeds one item padding past each column edge and drops the inter-item
+ * gap (the item paddings supply the visual gutter), the carousel carries a
+ * 20px bottom padding with the dot row sitting just below the stage, and the
+ * arrows are pinned 15px inside the column, vertically centred, as 30x30
+ * circles with a 1px rgba(255,255,255,.6) ring and a white glyph. Everything
+ * is desktop-gated so the verified mobile rendering is untouched.
  */
-export default function GallerySlider({ count, children }: { count: number; children: ReactNode }) {
+export default function GallerySlider({
+  count,
+  children,
+  pad = 5,
+  arrows = true,
+}: {
+  count: number;
+  children: ReactNode;
+  /** item padding (5px captioned / 10px plain) — also the track bleed */
+  pad?: number;
+  /** the captioned variant has no arrows on the original (owl-prev/next display:none) */
+  arrows?: boolean;
+}) {
   const track = useRef<HTMLDivElement>(null);
   const [perView, setPerView] = useState(1);
   const [active, setActive] = useState(0);
@@ -55,29 +75,36 @@ export default function GallerySlider({ count, children }: { count: number; chil
 
   const arrow =
     "pointer-events-auto flex h-[34px] w-[34px] shrink-0 items-center justify-center rounded-full border border-[#ddd] text-body transition duration-300 hover:border-accent hover:text-accent";
+  // measured `nav_round` circles: 30x30, 1px rgba(255,255,255,.6) ring, white glyph
+  const arrowDesktop =
+    "hidden min-[992px]:absolute min-[992px]:top-1/2 min-[992px]:z-20 min-[992px]:flex min-[992px]:h-[30px] min-[992px]:w-[30px] min-[992px]:-translate-y-1/2 min-[992px]:rounded-full min-[992px]:border min-[992px]:border-white/60 min-[992px]:text-white";
+  const bleed = pad >= 10 ? "min-[992px]:-mx-[10px]" : "min-[992px]:-mx-[5px]";
 
   return (
-    <div className="relative">
+    <div className="relative min-[992px]:pb-[20px]">
       <div
         ref={track}
         onScroll={() => {
           const el = track.current;
           if (el) setActive(Math.min(dotCount - 1, Math.round(el.scrollLeft / Math.max(step() * perView, 1))));
         }}
-        className="flex snap-x gap-[5px] overflow-x-auto"
+        className={`flex snap-x gap-[5px] overflow-x-auto min-[992px]:gap-0 ${bleed}`}
       >
         {children}
       </div>
       {dotCount > 1 && (
         // MB2/D13: the original owl nav (`.owl-nav`/`.owl-dots`) is an absolute
-        // overlay pinned to the bottom of the carousel, so it adds ZERO flow
-        // height. Anchor the pager inside the gallery container instead of
-        // `mt-5` in-flow (which was +54px desktop / +~40-130px mobile per
-        // gallery). The container is `relative`; the strip itself is not, so
-        // the pager is not clipped by the track's `overflow-x-auto`. Only the
-        // controls take pointer events so the strip keeps its swipe target.
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 flex items-center justify-center gap-5">
-          <button type="button" aria-label="이전" onClick={() => nudge(-1)} className={arrow}>
+        // overlay, so it adds ZERO flow height. Anchor the pager inside the
+        // gallery container instead of `mt-5` in-flow (which was +54px desktop
+        // / +~40-130px mobile per gallery). The container is `relative`; the
+        // strip itself is not, so the pager is not clipped by the track's
+        // `overflow-x-auto`. Only the controls take pointer events so the strip
+        // keeps its swipe target. Desktop: the measured `.owl-dots` row sits
+        // just BELOW the stage (stage bottom +1) inside the carousel's 20px
+        // bottom padding, so the overlay overrides to `top: calc(100% - 19px)`.
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 flex items-center justify-center gap-5 min-[992px]:top-[calc(100%-19px)] min-[992px]:bottom-auto">
+          {/* mobile pager arrows (desktop renders the measured nav_round circles below) */}
+          <button type="button" aria-label="이전" onClick={() => nudge(-1)} className={`${arrow} min-[992px]:hidden`}>
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M15 18l-6-6 6-6" />
             </svg>
@@ -94,16 +121,40 @@ export default function GallerySlider({ count, children }: { count: number; chil
                   i === active ? "opacity-100" : "opacity-50"
                 }`}
               >
-                <span className="h-[2px] w-full bg-[#363636]" />
+                <span className="h-[2px] w-full bg-[#363636] min-[992px]:w-[25px]" />
               </button>
             ))}
           </div>
-          <button type="button" aria-label="다음" onClick={() => nudge(1)} className={arrow}>
+          <button type="button" aria-label="다음" onClick={() => nudge(1)} className={`${arrow} min-[992px]:hidden`}>
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M9 18l6-6-6-6" />
             </svg>
           </button>
         </div>
+      )}
+      {dotCount > 1 && arrows && (
+        <>
+          <button
+            type="button"
+            aria-label="이전"
+            onClick={() => nudge(-1)}
+            className={`${arrowDesktop} min-[992px]:left-[15px]`}
+          >
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M15 18l-6-6 6-6" />
+            </svg>
+          </button>
+          <button
+            type="button"
+            aria-label="다음"
+            onClick={() => nudge(1)}
+            className={`${arrowDesktop} min-[992px]:right-[15px]`}
+          >
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </button>
+        </>
       )}
     </div>
   );

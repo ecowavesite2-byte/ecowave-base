@@ -383,6 +383,67 @@ function renderPadding(w: WidgetNode) {
   return <div className="spacer" style={{ ["--h" as string]: fromData }} />;
 }
 
+/**
+ * Desktop card for `layout:"slide"` galleries. Measured on the live
+ * company.about originals: the item box carries the authored width/height
+ * plus a white background and `pad` padding (5px when captioned, 10px when
+ * plain — the padding also supplies the 2x visual gutter between items since
+ * the track drops its own gap); the image fills the remaining box. The
+ * captioned variant adds an in-flow white title bar (padding 20px, 14px/1.6,
+ * #212121, centered); the plain variant carries a 1px #eee border instead.
+ * Mobile keeps the historic full-bleed hover-caption card, so every desktop
+ * rule is `min-[992px]:` gated.
+ */
+function SlideCard({
+  item,
+  w,
+  h,
+  pad,
+  titleBar,
+  className = "",
+}: {
+  item: {
+    org?: string | null;
+    thumb?: string | null;
+    title?: string | null;
+    desc?: string | null;
+  };
+  w: number;
+  h?: number | null;
+  pad: number;
+  titleBar: boolean;
+  className?: string;
+}) {
+  const src = item.org || item.thumb || "";
+  const padCls = pad >= 10 ? "min-[992px]:p-[10px]" : "min-[992px]:p-[5px]";
+  const box = titleBar ? "" : "min-[992px]:border min-[992px]:border-[#eee]";
+  return (
+    <figure
+      className={`group relative shrink-0 overflow-hidden bg-soft ${padCls} min-[992px]:flex min-[992px]:flex-col min-[992px]:bg-white ${box} ${className}`}
+      style={{ width: w, height: h ?? undefined }}
+    >
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={src}
+        alt={item.title || ""}
+        className="h-full w-full object-cover min-[992px]:h-auto min-[992px]:min-h-0 min-[992px]:flex-1"
+        loading="lazy"
+      />
+      {item.title && (
+        <figcaption className="absolute inset-x-0 bottom-0 p-3 opacity-0 transition-opacity duration-300 group-hover:opacity-100 min-[992px]:hidden">
+          <h4 className="text-[14px] font-semibold text-white">{item.title}</h4>
+          {item.desc && <p className="text-[12px] text-white/85">{item.desc}</p>}
+        </figcaption>
+      )}
+      {titleBar && item.title && (
+        <figcaption className="hidden shrink-0 items-center justify-center bg-white px-[20px] py-[20px] text-center text-[14px] font-normal leading-[1.6] text-[#212121] min-[992px]:flex">
+          {item.title}
+        </figcaption>
+      )}
+    </figure>
+  );
+}
+
 function WidgetContent({ w, locale, mobileBox = false }: { w: WidgetNode; locale: Locale; mobileBox?: boolean }) {
   switch (w.type) {
     case "text":
@@ -425,18 +486,33 @@ function WidgetContent({ w, locale, mobileBox = false }: { w: WidgetNode; locale
             </GallerySlider>
           );
         }
+        // Measured on the live originals (company.about galleries): the item
+        // box carries the authored itemW/itemH plus a white background and
+        // `pad` padding — 5px when the gallery is captioned, 10px when plain —
+        // and the captioned variant adds an in-flow white title bar while the
+        // plain one keeps the image only and gets the `nav_round` arrows. The
+        // data itself is the discriminator (the crawl stores no nav/variant
+        // field): titles present -> captioned, absent -> plain. Desktop-only —
+        // every rule lives behind `min-[992px]:`, mobile keeps the historic
+        // hover-caption card.
+        const hasTitles = items.some((it) => (it.title || "").trim() !== "");
+        const slidePad = hasTitles ? 5 : 10;
         return (
-          <GallerySlider count={items.length}>
-            {items.map((it, i) => (
-              <GalleryCard
-                key={i}
-                item={it}
-                w={meta2.itemW || 238}
-                h={meta2.itemH}
-                className="snap-start"
-              />
-            ))}
-          </GallerySlider>
+          <div className="min-[992px]:mt-[15px]">
+            <GallerySlider count={items.length} pad={slidePad} arrows={!hasTitles}>
+              {items.map((it, i) => (
+                <SlideCard
+                  key={i}
+                  item={it}
+                  w={meta2.itemW || 238}
+                  h={meta2.itemH}
+                  pad={slidePad}
+                  titleBar={hasTitles}
+                  className="snap-start"
+                />
+              ))}
+            </GallerySlider>
+          </div>
         );
       }
       // grid layout: column count from imweb's `grid_0N` preset (see
