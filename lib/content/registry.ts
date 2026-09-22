@@ -26,195 +26,6 @@ export interface ContentDef {
 
 export const CONTENT_DEFS: ContentDef[] = [
   {
-    "key": "company#s20250811f489e3443bdbe/w20250811379e3dc61aa7f/html",
-    "group": "company",
-    "pageKey": "company",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w20250811379e3dc61aa7f",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록",
-      "en": "Text block"
-    },
-    "revalidate": [
-      "/company",
-      "/en/company"
-    ]
-  },
-  {
-    "key": "company#s20250811f489e3443bdbe/w202508114039c43732879/href",
-    "group": "company",
-    "pageKey": "company",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w202508114039c43732879",
-    "field": "href",
-    "kind": "url",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "버튼 링크",
-      "en": "Button link"
-    },
-    "revalidate": [
-      "/company",
-      "/en/company"
-    ]
-  },
-  {
-    "key": "company#s20250811f489e3443bdbe/w202508114039c43732879/text",
-    "group": "company",
-    "pageKey": "company",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w202508114039c43732879",
-    "field": "text",
-    "kind": "text",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "버튼 텍스트",
-      "en": "Button text"
-    },
-    "revalidate": [
-      "/company",
-      "/en/company"
-    ]
-  },
-  {
-    "key": "company#s20250811f489e3443bdbe/w20250811c8ba21c61f272/html",
-    "group": "company",
-    "pageKey": "company",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w20250811c8ba21c61f272",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 대표 : 김나연 개인정보관리책임자 : 김나연 ㅣ 문의 : ecowave…",
-      "en": "Text block · CEO : Choi Taeguk Personal Information …"
-    },
-    "revalidate": [
-      "/company",
-      "/en/company"
-    ]
-  },
-  {
-    "key": "company#s20250811f489e3443bdbe/w2025091955cb4ab654cac/html",
-    "group": "company",
-    "pageKey": "company",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w2025091955cb4ab654cac",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 제품소개",
-      "en": "Text block · Product"
-    },
-    "revalidate": [
-      "/company",
-      "/en/company"
-    ]
-  },
-  {
-    "key": "company#s20250811f489e3443bdbe/w2025091988816c09014e4/html",
-    "group": "company",
-    "pageKey": "company",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w2025091988816c09014e4",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 뉴스룸",
-      "en": "Text block · News"
-    },
-    "revalidate": [
-      "/company",
-      "/en/company"
-    ]
-  },
-  {
-    "key": "company#s20250811f489e3443bdbe/w202509198aeb3bd046ac9/html",
-    "group": "company",
-    "pageKey": "company",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w202509198aeb3bd046ac9",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 연구개발",
-      "en": "Text block · R&D"
-    },
-    "revalidate": [
-      "/company",
-      "/en/company"
-    ]
-  },
-  {
-    "key": "company#s20250811f489e3443bdbe/w20250919b68d158c2925e/html",
-    "group": "company",
-    "pageKey": "company",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w20250919b68d158c2925e",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 에코 웨이 브",
-      "en": "Text block · Ecowave"
-    },
-    "revalidate": [
-      "/company",
-      "/en/company"
-    ]
-  },
-  {
-    "key": "company#s20250811f489e3443bdbe/w20250919e76996cca8992/html",
-    "group": "company",
-    "pageKey": "company",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w20250919e76996cca8992",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 고객지원",
-      "en": "Text block · Customer"
-    },
-    "revalidate": [
-      "/company",
-      "/en/company"
-    ]
-  },
-  {
     "key": "company#s20250811fd0a82675a6bc/w20250909edc32b5a0f8ec/html",
     "group": "company",
     "pageKey": "company",
@@ -299,27 +110,6 @@ export const CONTENT_DEFS: ContentDef[] = [
     ]
   },
   {
-    "key": "company#s20250828a35c24d19b8a4/w202508285263c4fecdad7/text",
-    "group": "company",
-    "pageKey": "company",
-    "sectionId": "s20250828a35c24d19b8a4",
-    "widgetId": "w202508285263c4fecdad7",
-    "field": "text",
-    "kind": "text",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "메뉴 제목 · ceo인사말",
-      "en": "Menu title · Ceo greeting"
-    },
-    "revalidate": [
-      "/company",
-      "/en/company"
-    ]
-  },
-  {
     "key": "company#s2025091161e916b59099f/w202509110e7da42eec27c/alt",
     "group": "company",
     "pageKey": "company",
@@ -355,27 +145,6 @@ export const CONTENT_DEFS: ContentDef[] = [
     "label": {
       "ko": "이미지 경로 · 68ffc55b3ed20.png",
       "en": "Image source · 68ffc55b3ed20.png"
-    },
-    "revalidate": [
-      "/company",
-      "/en/company"
-    ]
-  },
-  {
-    "key": "company#s20250911dbe58ff8b7e3d/w20250911a9c7322d29625/text",
-    "group": "company",
-    "pageKey": "company",
-    "sectionId": "s20250911dbe58ff8b7e3d",
-    "widgetId": "w20250911a9c7322d29625",
-    "field": "text",
-    "kind": "text",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "메뉴 제목 · ceo인사말",
-      "en": "Menu title · Ceo greeting"
     },
     "revalidate": [
       "/company",
@@ -1097,195 +866,6 @@ export const CONTENT_DEFS: ContentDef[] = [
     ]
   },
   {
-    "key": "company.about#s20250811f489e3443bdbe/w20250811379e3dc61aa7f/html",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w20250811379e3dc61aa7f",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록",
-      "en": "Text block"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250811f489e3443bdbe/w202508114039c43732879/href",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w202508114039c43732879",
-    "field": "href",
-    "kind": "url",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "버튼 링크",
-      "en": "Button link"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250811f489e3443bdbe/w202508114039c43732879/text",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w202508114039c43732879",
-    "field": "text",
-    "kind": "text",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "버튼 텍스트",
-      "en": "Button text"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250811f489e3443bdbe/w20250811c8ba21c61f272/html",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w20250811c8ba21c61f272",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 대표 : 김나연 개인정보관리책임자 : 김나연 ㅣ 문의 : ecowave…",
-      "en": "Text block · CEO : Choi Taeguk Personal Information …"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250811f489e3443bdbe/w2025091955cb4ab654cac/html",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w2025091955cb4ab654cac",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 제품소개",
-      "en": "Text block · Product"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250811f489e3443bdbe/w2025091988816c09014e4/html",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w2025091988816c09014e4",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 뉴스룸",
-      "en": "Text block · News"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250811f489e3443bdbe/w202509198aeb3bd046ac9/html",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w202509198aeb3bd046ac9",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 연구개발",
-      "en": "Text block · R&D"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250811f489e3443bdbe/w20250919b68d158c2925e/html",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w20250919b68d158c2925e",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 에코 웨이 브",
-      "en": "Text block · Ecowave"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250811f489e3443bdbe/w20250919e76996cca8992/html",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w20250919e76996cca8992",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 고객지원",
-      "en": "Text block · Customer"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
     "key": "company.about#s20250821eb14df6d34580/w20250821770900c60669c/html",
     "group": "company",
     "pageKey": "company.about",
@@ -1300,27 +880,6 @@ export const CONTENT_DEFS: ContentDef[] = [
     "label": {
       "ko": "텍스트 블록 · 더 건강하고 깨끗한 물을 만드는 고객과의 약속 에코웨이브를 소개합니다.",
       "en": "Text block · EcoWave promises healthier, cleaner wat…"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s2025082882954faef91b6/w2025082842f7edfbe3263/text",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s2025082882954faef91b6",
-    "widgetId": "w2025082842f7edfbe3263",
-    "field": "text",
-    "kind": "text",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "메뉴 제목 · 회사소개",
-      "en": "Menu title · Company introduction"
     },
     "revalidate": [
       "/company/about",
@@ -1363,27 +922,6 @@ export const CONTENT_DEFS: ContentDef[] = [
     "label": {
       "ko": "이미지 경로 · 68ffc55b3ed20.png",
       "en": "Image source · 68ffc55b3ed20.png"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s202509117c421c7cbb56a/w20250911332a7d852277b/text",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s202509117c421c7cbb56a",
-    "widgetId": "w20250911332a7d852277b",
-    "field": "text",
-    "kind": "text",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "메뉴 제목 · 회사소개",
-      "en": "Menu title · Company introduction"
     },
     "revalidate": [
       "/company/about",
@@ -4646,195 +4184,6 @@ export const CONTENT_DEFS: ContentDef[] = [
     ]
   },
   {
-    "key": "company.ceo#s20250811f489e3443bdbe/w20250811379e3dc61aa7f/html",
-    "group": "company",
-    "pageKey": "company.ceo",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w20250811379e3dc61aa7f",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록",
-      "en": "Text block"
-    },
-    "revalidate": [
-      "/company/ceo",
-      "/en/company/ceo"
-    ]
-  },
-  {
-    "key": "company.ceo#s20250811f489e3443bdbe/w202508114039c43732879/href",
-    "group": "company",
-    "pageKey": "company.ceo",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w202508114039c43732879",
-    "field": "href",
-    "kind": "url",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "버튼 링크",
-      "en": "Button link"
-    },
-    "revalidate": [
-      "/company/ceo",
-      "/en/company/ceo"
-    ]
-  },
-  {
-    "key": "company.ceo#s20250811f489e3443bdbe/w202508114039c43732879/text",
-    "group": "company",
-    "pageKey": "company.ceo",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w202508114039c43732879",
-    "field": "text",
-    "kind": "text",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "버튼 텍스트",
-      "en": "Button text"
-    },
-    "revalidate": [
-      "/company/ceo",
-      "/en/company/ceo"
-    ]
-  },
-  {
-    "key": "company.ceo#s20250811f489e3443bdbe/w20250811c8ba21c61f272/html",
-    "group": "company",
-    "pageKey": "company.ceo",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w20250811c8ba21c61f272",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 대표 : 김나연 개인정보관리책임자 : 김나연 ㅣ 문의 : ecowave…",
-      "en": "Text block · CEO : Choi Taeguk Personal Information …"
-    },
-    "revalidate": [
-      "/company/ceo",
-      "/en/company/ceo"
-    ]
-  },
-  {
-    "key": "company.ceo#s20250811f489e3443bdbe/w2025091955cb4ab654cac/html",
-    "group": "company",
-    "pageKey": "company.ceo",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w2025091955cb4ab654cac",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 제품소개",
-      "en": "Text block · Product"
-    },
-    "revalidate": [
-      "/company/ceo",
-      "/en/company/ceo"
-    ]
-  },
-  {
-    "key": "company.ceo#s20250811f489e3443bdbe/w2025091988816c09014e4/html",
-    "group": "company",
-    "pageKey": "company.ceo",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w2025091988816c09014e4",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 뉴스룸",
-      "en": "Text block · News"
-    },
-    "revalidate": [
-      "/company/ceo",
-      "/en/company/ceo"
-    ]
-  },
-  {
-    "key": "company.ceo#s20250811f489e3443bdbe/w202509198aeb3bd046ac9/html",
-    "group": "company",
-    "pageKey": "company.ceo",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w202509198aeb3bd046ac9",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 연구개발",
-      "en": "Text block · R&D"
-    },
-    "revalidate": [
-      "/company/ceo",
-      "/en/company/ceo"
-    ]
-  },
-  {
-    "key": "company.ceo#s20250811f489e3443bdbe/w20250919b68d158c2925e/html",
-    "group": "company",
-    "pageKey": "company.ceo",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w20250919b68d158c2925e",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 에코 웨이 브",
-      "en": "Text block · Ecowave"
-    },
-    "revalidate": [
-      "/company/ceo",
-      "/en/company/ceo"
-    ]
-  },
-  {
-    "key": "company.ceo#s20250811f489e3443bdbe/w20250919e76996cca8992/html",
-    "group": "company",
-    "pageKey": "company.ceo",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w20250919e76996cca8992",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 고객지원",
-      "en": "Text block · Customer"
-    },
-    "revalidate": [
-      "/company/ceo",
-      "/en/company/ceo"
-    ]
-  },
-  {
     "key": "company.ceo#s20250811fd0a82675a6bc/w20250909edc32b5a0f8ec/html",
     "group": "company",
     "pageKey": "company.ceo",
@@ -4919,27 +4268,6 @@ export const CONTENT_DEFS: ContentDef[] = [
     ]
   },
   {
-    "key": "company.ceo#s20250828a35c24d19b8a4/w202508285263c4fecdad7/text",
-    "group": "company",
-    "pageKey": "company.ceo",
-    "sectionId": "s20250828a35c24d19b8a4",
-    "widgetId": "w202508285263c4fecdad7",
-    "field": "text",
-    "kind": "text",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "메뉴 제목 · ceo인사말",
-      "en": "Menu title · Ceo greeting"
-    },
-    "revalidate": [
-      "/company/ceo",
-      "/en/company/ceo"
-    ]
-  },
-  {
     "key": "company.ceo#s2025091161e916b59099f/w202509110e7da42eec27c/alt",
     "group": "company",
     "pageKey": "company.ceo",
@@ -4979,216 +4307,6 @@ export const CONTENT_DEFS: ContentDef[] = [
     "revalidate": [
       "/company/ceo",
       "/en/company/ceo"
-    ]
-  },
-  {
-    "key": "company.ceo#s20250911dbe58ff8b7e3d/w20250911a9c7322d29625/text",
-    "group": "company",
-    "pageKey": "company.ceo",
-    "sectionId": "s20250911dbe58ff8b7e3d",
-    "widgetId": "w20250911a9c7322d29625",
-    "field": "text",
-    "kind": "text",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "메뉴 제목 · ceo인사말",
-      "en": "Menu title · Ceo greeting"
-    },
-    "revalidate": [
-      "/company/ceo",
-      "/en/company/ceo"
-    ]
-  },
-  {
-    "key": "company.global#s20250811f489e3443bdbe/w20250811379e3dc61aa7f/html",
-    "group": "company",
-    "pageKey": "company.global",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w20250811379e3dc61aa7f",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록",
-      "en": "Text block"
-    },
-    "revalidate": [
-      "/company/global",
-      "/en/company/global"
-    ]
-  },
-  {
-    "key": "company.global#s20250811f489e3443bdbe/w202508114039c43732879/href",
-    "group": "company",
-    "pageKey": "company.global",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w202508114039c43732879",
-    "field": "href",
-    "kind": "url",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "버튼 링크",
-      "en": "Button link"
-    },
-    "revalidate": [
-      "/company/global",
-      "/en/company/global"
-    ]
-  },
-  {
-    "key": "company.global#s20250811f489e3443bdbe/w202508114039c43732879/text",
-    "group": "company",
-    "pageKey": "company.global",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w202508114039c43732879",
-    "field": "text",
-    "kind": "text",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "버튼 텍스트",
-      "en": "Button text"
-    },
-    "revalidate": [
-      "/company/global",
-      "/en/company/global"
-    ]
-  },
-  {
-    "key": "company.global#s20250811f489e3443bdbe/w20250811c8ba21c61f272/html",
-    "group": "company",
-    "pageKey": "company.global",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w20250811c8ba21c61f272",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 대표 : 김나연 개인정보관리책임자 : 김나연 ㅣ 문의 : ecowave…",
-      "en": "Text block · CEO : Choi Taeguk Personal Information …"
-    },
-    "revalidate": [
-      "/company/global",
-      "/en/company/global"
-    ]
-  },
-  {
-    "key": "company.global#s20250811f489e3443bdbe/w2025091955cb4ab654cac/html",
-    "group": "company",
-    "pageKey": "company.global",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w2025091955cb4ab654cac",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 제품소개",
-      "en": "Text block · Product"
-    },
-    "revalidate": [
-      "/company/global",
-      "/en/company/global"
-    ]
-  },
-  {
-    "key": "company.global#s20250811f489e3443bdbe/w2025091988816c09014e4/html",
-    "group": "company",
-    "pageKey": "company.global",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w2025091988816c09014e4",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 뉴스룸",
-      "en": "Text block · News"
-    },
-    "revalidate": [
-      "/company/global",
-      "/en/company/global"
-    ]
-  },
-  {
-    "key": "company.global#s20250811f489e3443bdbe/w202509198aeb3bd046ac9/html",
-    "group": "company",
-    "pageKey": "company.global",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w202509198aeb3bd046ac9",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 연구개발",
-      "en": "Text block · R&D"
-    },
-    "revalidate": [
-      "/company/global",
-      "/en/company/global"
-    ]
-  },
-  {
-    "key": "company.global#s20250811f489e3443bdbe/w20250919b68d158c2925e/html",
-    "group": "company",
-    "pageKey": "company.global",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w20250919b68d158c2925e",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 에코 웨이 브",
-      "en": "Text block · Ecowave"
-    },
-    "revalidate": [
-      "/company/global",
-      "/en/company/global"
-    ]
-  },
-  {
-    "key": "company.global#s20250811f489e3443bdbe/w20250919e76996cca8992/html",
-    "group": "company",
-    "pageKey": "company.global",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w20250919e76996cca8992",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 고객지원",
-      "en": "Text block · Customer"
-    },
-    "revalidate": [
-      "/company/global",
-      "/en/company/global"
     ]
   },
   {
@@ -5360,27 +4478,6 @@ export const CONTENT_DEFS: ContentDef[] = [
     ]
   },
   {
-    "key": "company.global#s20250828755cb0bfe0e2b/w202508285f7a2a6513da9/text",
-    "group": "company",
-    "pageKey": "company.global",
-    "sectionId": "s20250828755cb0bfe0e2b",
-    "widgetId": "w202508285f7a2a6513da9",
-    "field": "text",
-    "kind": "text",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "메뉴 제목 · 글로벌지사",
-      "en": "Menu title · Global branch office"
-    },
-    "revalidate": [
-      "/company/global",
-      "/en/company/global"
-    ]
-  },
-  {
     "key": "company.global#s202509111ecee05a61770/w202509110c02a9a33a442/html",
     "group": "company",
     "pageKey": "company.global",
@@ -5437,27 +4534,6 @@ export const CONTENT_DEFS: ContentDef[] = [
     "label": {
       "ko": "이미지 경로 · 68ffc55b3ed20.png",
       "en": "Image source · 68ffc55b3ed20.png"
-    },
-    "revalidate": [
-      "/company/global",
-      "/en/company/global"
-    ]
-  },
-  {
-    "key": "company.global#s20250911da8f23550aa24/w202509110d350e21a6307/text",
-    "group": "company",
-    "pageKey": "company.global",
-    "sectionId": "s20250911da8f23550aa24",
-    "widgetId": "w202509110d350e21a6307",
-    "field": "text",
-    "kind": "text",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "메뉴 제목 · 글로벌지사",
-      "en": "Menu title · Global branch office"
     },
     "revalidate": [
       "/company/global",
@@ -5563,216 +4639,6 @@ export const CONTENT_DEFS: ContentDef[] = [
     "label": {
       "ko": "이미지 경로 · 6b14cd3e03e4b.jpg",
       "en": "Image source · 6b14cd3e03e4b.jpg"
-    },
-    "revalidate": [
-      "/company/history",
-      "/en/company/history"
-    ]
-  },
-  {
-    "key": "company.history#s20250811f1ff0a790f814/w202508113473b9473e149/text",
-    "group": "company",
-    "pageKey": "company.history",
-    "sectionId": "s20250811f1ff0a790f814",
-    "widgetId": "w202508113473b9473e149",
-    "field": "text",
-    "kind": "text",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "메뉴 제목 · 회사연혁",
-      "en": "Menu title · History"
-    },
-    "revalidate": [
-      "/company/history",
-      "/en/company/history"
-    ]
-  },
-  {
-    "key": "company.history#s20250811f489e3443bdbe/w20250811379e3dc61aa7f/html",
-    "group": "company",
-    "pageKey": "company.history",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w20250811379e3dc61aa7f",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록",
-      "en": "Text block"
-    },
-    "revalidate": [
-      "/company/history",
-      "/en/company/history"
-    ]
-  },
-  {
-    "key": "company.history#s20250811f489e3443bdbe/w202508114039c43732879/href",
-    "group": "company",
-    "pageKey": "company.history",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w202508114039c43732879",
-    "field": "href",
-    "kind": "url",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "버튼 링크",
-      "en": "Button link"
-    },
-    "revalidate": [
-      "/company/history",
-      "/en/company/history"
-    ]
-  },
-  {
-    "key": "company.history#s20250811f489e3443bdbe/w202508114039c43732879/text",
-    "group": "company",
-    "pageKey": "company.history",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w202508114039c43732879",
-    "field": "text",
-    "kind": "text",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "버튼 텍스트",
-      "en": "Button text"
-    },
-    "revalidate": [
-      "/company/history",
-      "/en/company/history"
-    ]
-  },
-  {
-    "key": "company.history#s20250811f489e3443bdbe/w20250811c8ba21c61f272/html",
-    "group": "company",
-    "pageKey": "company.history",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w20250811c8ba21c61f272",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 대표 : 김나연 개인정보관리책임자 : 김나연 ㅣ 문의 : ecowave…",
-      "en": "Text block · CEO : Choi Taeguk Personal Information …"
-    },
-    "revalidate": [
-      "/company/history",
-      "/en/company/history"
-    ]
-  },
-  {
-    "key": "company.history#s20250811f489e3443bdbe/w2025091955cb4ab654cac/html",
-    "group": "company",
-    "pageKey": "company.history",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w2025091955cb4ab654cac",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 제품소개",
-      "en": "Text block · Product"
-    },
-    "revalidate": [
-      "/company/history",
-      "/en/company/history"
-    ]
-  },
-  {
-    "key": "company.history#s20250811f489e3443bdbe/w2025091988816c09014e4/html",
-    "group": "company",
-    "pageKey": "company.history",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w2025091988816c09014e4",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 뉴스룸",
-      "en": "Text block · News"
-    },
-    "revalidate": [
-      "/company/history",
-      "/en/company/history"
-    ]
-  },
-  {
-    "key": "company.history#s20250811f489e3443bdbe/w202509198aeb3bd046ac9/html",
-    "group": "company",
-    "pageKey": "company.history",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w202509198aeb3bd046ac9",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 연구개발",
-      "en": "Text block · R&D"
-    },
-    "revalidate": [
-      "/company/history",
-      "/en/company/history"
-    ]
-  },
-  {
-    "key": "company.history#s20250811f489e3443bdbe/w20250919b68d158c2925e/html",
-    "group": "company",
-    "pageKey": "company.history",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w20250919b68d158c2925e",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 에코 웨이 브",
-      "en": "Text block · Ecowave"
-    },
-    "revalidate": [
-      "/company/history",
-      "/en/company/history"
-    ]
-  },
-  {
-    "key": "company.history#s20250811f489e3443bdbe/w20250919e76996cca8992/html",
-    "group": "company",
-    "pageKey": "company.history",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w20250919e76996cca8992",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 고객지원",
-      "en": "Text block · Customer"
     },
     "revalidate": [
       "/company/history",
@@ -5948,27 +4814,6 @@ export const CONTENT_DEFS: ContentDef[] = [
     ]
   },
   {
-    "key": "company.history#s2025091135b7d4b0aaf20/w2025091130d303492b7a3/text",
-    "group": "company",
-    "pageKey": "company.history",
-    "sectionId": "s2025091135b7d4b0aaf20",
-    "widgetId": "w2025091130d303492b7a3",
-    "field": "text",
-    "kind": "text",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "메뉴 제목 · 회사연혁",
-      "en": "Menu title · History"
-    },
-    "revalidate": [
-      "/company/history",
-      "/en/company/history"
-    ]
-  },
-  {
     "key": "company.history#s202509113e3a9a552b0c7/w202509111eabf738e9f9f/alt",
     "group": "company",
     "pageKey": "company.history",
@@ -6137,195 +4982,6 @@ export const CONTENT_DEFS: ContentDef[] = [
     ]
   },
   {
-    "key": "company.organization#s20250811f489e3443bdbe/w20250811379e3dc61aa7f/html",
-    "group": "company",
-    "pageKey": "company.organization",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w20250811379e3dc61aa7f",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록",
-      "en": "Text block"
-    },
-    "revalidate": [
-      "/company/organization",
-      "/en/company/organization"
-    ]
-  },
-  {
-    "key": "company.organization#s20250811f489e3443bdbe/w202508114039c43732879/href",
-    "group": "company",
-    "pageKey": "company.organization",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w202508114039c43732879",
-    "field": "href",
-    "kind": "url",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "버튼 링크",
-      "en": "Button link"
-    },
-    "revalidate": [
-      "/company/organization",
-      "/en/company/organization"
-    ]
-  },
-  {
-    "key": "company.organization#s20250811f489e3443bdbe/w202508114039c43732879/text",
-    "group": "company",
-    "pageKey": "company.organization",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w202508114039c43732879",
-    "field": "text",
-    "kind": "text",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "버튼 텍스트",
-      "en": "Button text"
-    },
-    "revalidate": [
-      "/company/organization",
-      "/en/company/organization"
-    ]
-  },
-  {
-    "key": "company.organization#s20250811f489e3443bdbe/w20250811c8ba21c61f272/html",
-    "group": "company",
-    "pageKey": "company.organization",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w20250811c8ba21c61f272",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 대표 : 김나연 개인정보관리책임자 : 김나연 ㅣ 문의 : ecowave…",
-      "en": "Text block · CEO : Choi Taeguk Personal Information …"
-    },
-    "revalidate": [
-      "/company/organization",
-      "/en/company/organization"
-    ]
-  },
-  {
-    "key": "company.organization#s20250811f489e3443bdbe/w2025091955cb4ab654cac/html",
-    "group": "company",
-    "pageKey": "company.organization",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w2025091955cb4ab654cac",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 제품소개",
-      "en": "Text block · Product"
-    },
-    "revalidate": [
-      "/company/organization",
-      "/en/company/organization"
-    ]
-  },
-  {
-    "key": "company.organization#s20250811f489e3443bdbe/w2025091988816c09014e4/html",
-    "group": "company",
-    "pageKey": "company.organization",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w2025091988816c09014e4",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 뉴스룸",
-      "en": "Text block · News"
-    },
-    "revalidate": [
-      "/company/organization",
-      "/en/company/organization"
-    ]
-  },
-  {
-    "key": "company.organization#s20250811f489e3443bdbe/w202509198aeb3bd046ac9/html",
-    "group": "company",
-    "pageKey": "company.organization",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w202509198aeb3bd046ac9",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 연구개발",
-      "en": "Text block · R&D"
-    },
-    "revalidate": [
-      "/company/organization",
-      "/en/company/organization"
-    ]
-  },
-  {
-    "key": "company.organization#s20250811f489e3443bdbe/w20250919b68d158c2925e/html",
-    "group": "company",
-    "pageKey": "company.organization",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w20250919b68d158c2925e",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 에코 웨이 브",
-      "en": "Text block · Ecowave"
-    },
-    "revalidate": [
-      "/company/organization",
-      "/en/company/organization"
-    ]
-  },
-  {
-    "key": "company.organization#s20250811f489e3443bdbe/w20250919e76996cca8992/html",
-    "group": "company",
-    "pageKey": "company.organization",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w20250919e76996cca8992",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 고객지원",
-      "en": "Text block · Customer"
-    },
-    "revalidate": [
-      "/company/organization",
-      "/en/company/organization"
-    ]
-  },
-  {
     "key": "company.organization#s2025082815dd6babdb335/w202508282e3a21059f88e/html",
     "group": "company",
     "pageKey": "company.organization",
@@ -6340,27 +4996,6 @@ export const CONTENT_DEFS: ContentDef[] = [
     "label": {
       "ko": "텍스트 블록 · 더 건강하고 깨끗한 물을 만드는 고객과의 약속 에코웨이브를 소개합니다.",
       "en": "Text block · EcoWave promises healthier, cleaner wat…"
-    },
-    "revalidate": [
-      "/company/organization",
-      "/en/company/organization"
-    ]
-  },
-  {
-    "key": "company.organization#s20250828229b7e9af5799/w20250828e22abd3aa3f07/text",
-    "group": "company",
-    "pageKey": "company.organization",
-    "sectionId": "s20250828229b7e9af5799",
-    "widgetId": "w20250828e22abd3aa3f07",
-    "field": "text",
-    "kind": "text",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "메뉴 제목 · 조직도",
-      "en": "Menu title · Organization chart"
     },
     "revalidate": [
       "/company/organization",
@@ -6452,27 +5087,6 @@ export const CONTENT_DEFS: ContentDef[] = [
     ]
   },
   {
-    "key": "company.organization#s20250911d25877c3201df/w20250911b7e62a09377ba/text",
-    "group": "company",
-    "pageKey": "company.organization",
-    "sectionId": "s20250911d25877c3201df",
-    "widgetId": "w20250911b7e62a09377ba",
-    "field": "text",
-    "kind": "text",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "메뉴 제목 · 조직도",
-      "en": "Menu title · Organization chart"
-    },
-    "revalidate": [
-      "/company/organization",
-      "/en/company/organization"
-    ]
-  },
-  {
     "key": "company.philosophy#s202508119eca72dc669e0/w20250828318841133c7bc/html",
     "group": "company",
     "pageKey": "company.philosophy",
@@ -6550,195 +5164,6 @@ export const CONTENT_DEFS: ContentDef[] = [
     "label": {
       "ko": "텍스트 블록 · 물을 깨끗하게, 사람을 건강하게 에코웨이브의 사명 Eco-wave 사람…",
       "en": "Text block · Clean water, healthy people. For happy …"
-    },
-    "revalidate": [
-      "/company/philosophy",
-      "/en/company/philosophy"
-    ]
-  },
-  {
-    "key": "company.philosophy#s20250811f489e3443bdbe/w20250811379e3dc61aa7f/html",
-    "group": "company",
-    "pageKey": "company.philosophy",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w20250811379e3dc61aa7f",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록",
-      "en": "Text block"
-    },
-    "revalidate": [
-      "/company/philosophy",
-      "/en/company/philosophy"
-    ]
-  },
-  {
-    "key": "company.philosophy#s20250811f489e3443bdbe/w202508114039c43732879/href",
-    "group": "company",
-    "pageKey": "company.philosophy",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w202508114039c43732879",
-    "field": "href",
-    "kind": "url",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "버튼 링크",
-      "en": "Button link"
-    },
-    "revalidate": [
-      "/company/philosophy",
-      "/en/company/philosophy"
-    ]
-  },
-  {
-    "key": "company.philosophy#s20250811f489e3443bdbe/w202508114039c43732879/text",
-    "group": "company",
-    "pageKey": "company.philosophy",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w202508114039c43732879",
-    "field": "text",
-    "kind": "text",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "버튼 텍스트",
-      "en": "Button text"
-    },
-    "revalidate": [
-      "/company/philosophy",
-      "/en/company/philosophy"
-    ]
-  },
-  {
-    "key": "company.philosophy#s20250811f489e3443bdbe/w20250811c8ba21c61f272/html",
-    "group": "company",
-    "pageKey": "company.philosophy",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w20250811c8ba21c61f272",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 대표 : 김나연 개인정보관리책임자 : 김나연 ㅣ 문의 : ecowave…",
-      "en": "Text block · CEO : Choi Taeguk Personal Information …"
-    },
-    "revalidate": [
-      "/company/philosophy",
-      "/en/company/philosophy"
-    ]
-  },
-  {
-    "key": "company.philosophy#s20250811f489e3443bdbe/w2025091955cb4ab654cac/html",
-    "group": "company",
-    "pageKey": "company.philosophy",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w2025091955cb4ab654cac",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 제품소개",
-      "en": "Text block · Product"
-    },
-    "revalidate": [
-      "/company/philosophy",
-      "/en/company/philosophy"
-    ]
-  },
-  {
-    "key": "company.philosophy#s20250811f489e3443bdbe/w2025091988816c09014e4/html",
-    "group": "company",
-    "pageKey": "company.philosophy",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w2025091988816c09014e4",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 뉴스룸",
-      "en": "Text block · News"
-    },
-    "revalidate": [
-      "/company/philosophy",
-      "/en/company/philosophy"
-    ]
-  },
-  {
-    "key": "company.philosophy#s20250811f489e3443bdbe/w202509198aeb3bd046ac9/html",
-    "group": "company",
-    "pageKey": "company.philosophy",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w202509198aeb3bd046ac9",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 연구개발",
-      "en": "Text block · R&D"
-    },
-    "revalidate": [
-      "/company/philosophy",
-      "/en/company/philosophy"
-    ]
-  },
-  {
-    "key": "company.philosophy#s20250811f489e3443bdbe/w20250919b68d158c2925e/html",
-    "group": "company",
-    "pageKey": "company.philosophy",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w20250919b68d158c2925e",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 에코 웨이 브",
-      "en": "Text block · Ecowave"
-    },
-    "revalidate": [
-      "/company/philosophy",
-      "/en/company/philosophy"
-    ]
-  },
-  {
-    "key": "company.philosophy#s20250811f489e3443bdbe/w20250919e76996cca8992/html",
-    "group": "company",
-    "pageKey": "company.philosophy",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w20250919e76996cca8992",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 고객지원",
-      "en": "Text block · Customer"
     },
     "revalidate": [
       "/company/philosophy",
@@ -6844,27 +5269,6 @@ export const CONTENT_DEFS: ContentDef[] = [
     "label": {
       "ko": "이미지 경로 · 3241669643c6e.jpg",
       "en": "Image source · 3241669643c6e.jpg"
-    },
-    "revalidate": [
-      "/company/philosophy",
-      "/en/company/philosophy"
-    ]
-  },
-  {
-    "key": "company.philosophy#s20250828bf06f7204851e/w202508284d9c0b4e5f22c/text",
-    "group": "company",
-    "pageKey": "company.philosophy",
-    "sectionId": "s20250828bf06f7204851e",
-    "widgetId": "w202508284d9c0b4e5f22c",
-    "field": "text",
-    "kind": "text",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "메뉴 제목 · 경영철학",
-      "en": "Menu title · Management philosophy"
     },
     "revalidate": [
       "/company/philosophy",
@@ -6991,27 +5395,6 @@ export const CONTENT_DEFS: ContentDef[] = [
     "label": {
       "ko": "이미지 경로 · 68ffc55b3ed20.png",
       "en": "Image source · 68ffc55b3ed20.png"
-    },
-    "revalidate": [
-      "/company/philosophy",
-      "/en/company/philosophy"
-    ]
-  },
-  {
-    "key": "company.philosophy#s2025091173093c19f4adc/w20250911605ff40ee6b0c/text",
-    "group": "company",
-    "pageKey": "company.philosophy",
-    "sectionId": "s2025091173093c19f4adc",
-    "widgetId": "w20250911605ff40ee6b0c",
-    "field": "text",
-    "kind": "text",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "메뉴 제목 · 경영철학",
-      "en": "Menu title · Management philosophy"
     },
     "revalidate": [
       "/company/philosophy",
@@ -8493,195 +6876,6 @@ export const CONTENT_DEFS: ContentDef[] = [
     ]
   },
   {
-    "key": "news#s20250811f489e3443bdbe/w20250811379e3dc61aa7f/html",
-    "group": "boards",
-    "pageKey": "news",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w20250811379e3dc61aa7f",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록",
-      "en": "Text block"
-    },
-    "revalidate": [
-      "/news",
-      "/en/news"
-    ]
-  },
-  {
-    "key": "news#s20250811f489e3443bdbe/w202508114039c43732879/href",
-    "group": "boards",
-    "pageKey": "news",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w202508114039c43732879",
-    "field": "href",
-    "kind": "url",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "버튼 링크",
-      "en": "Button link"
-    },
-    "revalidate": [
-      "/news",
-      "/en/news"
-    ]
-  },
-  {
-    "key": "news#s20250811f489e3443bdbe/w202508114039c43732879/text",
-    "group": "boards",
-    "pageKey": "news",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w202508114039c43732879",
-    "field": "text",
-    "kind": "text",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "버튼 텍스트",
-      "en": "Button text"
-    },
-    "revalidate": [
-      "/news",
-      "/en/news"
-    ]
-  },
-  {
-    "key": "news#s20250811f489e3443bdbe/w20250811c8ba21c61f272/html",
-    "group": "boards",
-    "pageKey": "news",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w20250811c8ba21c61f272",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 대표 : 김나연 개인정보관리책임자 : 김나연 ㅣ 문의 : ecowave…",
-      "en": "Text block · CEO : Choi Taeguk Personal Information …"
-    },
-    "revalidate": [
-      "/news",
-      "/en/news"
-    ]
-  },
-  {
-    "key": "news#s20250811f489e3443bdbe/w2025091955cb4ab654cac/html",
-    "group": "boards",
-    "pageKey": "news",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w2025091955cb4ab654cac",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 제품소개",
-      "en": "Text block · Product"
-    },
-    "revalidate": [
-      "/news",
-      "/en/news"
-    ]
-  },
-  {
-    "key": "news#s20250811f489e3443bdbe/w2025091988816c09014e4/html",
-    "group": "boards",
-    "pageKey": "news",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w2025091988816c09014e4",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 뉴스룸",
-      "en": "Text block · News"
-    },
-    "revalidate": [
-      "/news",
-      "/en/news"
-    ]
-  },
-  {
-    "key": "news#s20250811f489e3443bdbe/w202509198aeb3bd046ac9/html",
-    "group": "boards",
-    "pageKey": "news",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w202509198aeb3bd046ac9",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 연구개발",
-      "en": "Text block · R&D"
-    },
-    "revalidate": [
-      "/news",
-      "/en/news"
-    ]
-  },
-  {
-    "key": "news#s20250811f489e3443bdbe/w20250919b68d158c2925e/html",
-    "group": "boards",
-    "pageKey": "news",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w20250919b68d158c2925e",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 에코 웨이 브",
-      "en": "Text block · Ecowave"
-    },
-    "revalidate": [
-      "/news",
-      "/en/news"
-    ]
-  },
-  {
-    "key": "news#s20250811f489e3443bdbe/w20250919e76996cca8992/html",
-    "group": "boards",
-    "pageKey": "news",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w20250919e76996cca8992",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 고객지원",
-      "en": "Text block · Customer"
-    },
-    "revalidate": [
-      "/news",
-      "/en/news"
-    ]
-  },
-  {
     "key": "news#s202508205198a0d766f60/w202508205b6f76d4a2c4d/html",
     "group": "boards",
     "pageKey": "news",
@@ -8696,27 +6890,6 @@ export const CONTENT_DEFS: ContentDef[] = [
     "label": {
       "ko": "텍스트 블록 · 더 건강하고 깨끗한 물을 만드는 고객과의 약속 에코웨이브의 새로운 소식…",
       "en": "Text block · Promise of cleaner, healthier water. Ec…"
-    },
-    "revalidate": [
-      "/news",
-      "/en/news"
-    ]
-  },
-  {
-    "key": "news#s20250828076cc53ae3de1/w20250828bdc1cca6ab6f3/text",
-    "group": "boards",
-    "pageKey": "news",
-    "sectionId": "s20250828076cc53ae3de1",
-    "widgetId": "w20250828bdc1cca6ab6f3",
-    "field": "text",
-    "kind": "text",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "메뉴 제목 · 뉴스",
-      "en": "Menu title · News"
     },
     "revalidate": [
       "/news",
@@ -8759,27 +6932,6 @@ export const CONTENT_DEFS: ContentDef[] = [
     "label": {
       "ko": "이미지 경로 · 68ffc55b3ed20.png",
       "en": "Image source · 68ffc55b3ed20.png"
-    },
-    "revalidate": [
-      "/news",
-      "/en/news"
-    ]
-  },
-  {
-    "key": "news#s20250911b15d712a41ffe/w2025091147bc8dec5ab70/text",
-    "group": "boards",
-    "pageKey": "news",
-    "sectionId": "s20250911b15d712a41ffe",
-    "widgetId": "w2025091147bc8dec5ab70",
-    "field": "text",
-    "kind": "text",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "메뉴 제목 · 뉴스",
-      "en": "Menu title · News"
     },
     "revalidate": [
       "/news",
@@ -8833,195 +6985,6 @@ export const CONTENT_DEFS: ContentDef[] = [
     ]
   },
   {
-    "key": "notices#s20250811f489e3443bdbe/w20250811379e3dc61aa7f/html",
-    "group": "boards",
-    "pageKey": "notices",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w20250811379e3dc61aa7f",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록",
-      "en": "Text block"
-    },
-    "revalidate": [
-      "/notices",
-      "/en/notices"
-    ]
-  },
-  {
-    "key": "notices#s20250811f489e3443bdbe/w202508114039c43732879/href",
-    "group": "boards",
-    "pageKey": "notices",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w202508114039c43732879",
-    "field": "href",
-    "kind": "url",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "버튼 링크",
-      "en": "Button link"
-    },
-    "revalidate": [
-      "/notices",
-      "/en/notices"
-    ]
-  },
-  {
-    "key": "notices#s20250811f489e3443bdbe/w202508114039c43732879/text",
-    "group": "boards",
-    "pageKey": "notices",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w202508114039c43732879",
-    "field": "text",
-    "kind": "text",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "버튼 텍스트",
-      "en": "Button text"
-    },
-    "revalidate": [
-      "/notices",
-      "/en/notices"
-    ]
-  },
-  {
-    "key": "notices#s20250811f489e3443bdbe/w20250811c8ba21c61f272/html",
-    "group": "boards",
-    "pageKey": "notices",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w20250811c8ba21c61f272",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 대표 : 김나연 개인정보관리책임자 : 김나연 ㅣ 문의 : ecowave…",
-      "en": "Text block · CEO : Choi Taeguk Personal Information …"
-    },
-    "revalidate": [
-      "/notices",
-      "/en/notices"
-    ]
-  },
-  {
-    "key": "notices#s20250811f489e3443bdbe/w2025091955cb4ab654cac/html",
-    "group": "boards",
-    "pageKey": "notices",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w2025091955cb4ab654cac",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 제품소개",
-      "en": "Text block · Product"
-    },
-    "revalidate": [
-      "/notices",
-      "/en/notices"
-    ]
-  },
-  {
-    "key": "notices#s20250811f489e3443bdbe/w2025091988816c09014e4/html",
-    "group": "boards",
-    "pageKey": "notices",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w2025091988816c09014e4",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 뉴스룸",
-      "en": "Text block · News"
-    },
-    "revalidate": [
-      "/notices",
-      "/en/notices"
-    ]
-  },
-  {
-    "key": "notices#s20250811f489e3443bdbe/w202509198aeb3bd046ac9/html",
-    "group": "boards",
-    "pageKey": "notices",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w202509198aeb3bd046ac9",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 연구개발",
-      "en": "Text block · R&D"
-    },
-    "revalidate": [
-      "/notices",
-      "/en/notices"
-    ]
-  },
-  {
-    "key": "notices#s20250811f489e3443bdbe/w20250919b68d158c2925e/html",
-    "group": "boards",
-    "pageKey": "notices",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w20250919b68d158c2925e",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 에코 웨이 브",
-      "en": "Text block · Ecowave"
-    },
-    "revalidate": [
-      "/notices",
-      "/en/notices"
-    ]
-  },
-  {
-    "key": "notices#s20250811f489e3443bdbe/w20250919e76996cca8992/html",
-    "group": "boards",
-    "pageKey": "notices",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w20250919e76996cca8992",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 고객지원",
-      "en": "Text block · Customer"
-    },
-    "revalidate": [
-      "/notices",
-      "/en/notices"
-    ]
-  },
-  {
     "key": "notices#s2025082036afa4e23fa8c/w202508203bef670019226/html",
     "group": "boards",
     "pageKey": "notices",
@@ -9036,27 +6999,6 @@ export const CONTENT_DEFS: ContentDef[] = [
     "label": {
       "ko": "텍스트 블록 · 더 건강하고 깨끗한 물을 만드는 고객과의 약속 에코웨이브의 새로운 소식…",
       "en": "Text block · EcoWave promises cleaner, healthier wat…"
-    },
-    "revalidate": [
-      "/notices",
-      "/en/notices"
-    ]
-  },
-  {
-    "key": "notices#s20250828de72e07d2742f/w202508285de5ed6830955/text",
-    "group": "boards",
-    "pageKey": "notices",
-    "sectionId": "s20250828de72e07d2742f",
-    "widgetId": "w202508285de5ed6830955",
-    "field": "text",
-    "kind": "text",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "메뉴 제목 · 공지사항",
-      "en": "Menu title · Notic"
     },
     "revalidate": [
       "/notices",
@@ -9099,27 +7041,6 @@ export const CONTENT_DEFS: ContentDef[] = [
     "label": {
       "ko": "이미지 경로 · 68ffc55b3ed20.png",
       "en": "Image source · 68ffc55b3ed20.png"
-    },
-    "revalidate": [
-      "/notices",
-      "/en/notices"
-    ]
-  },
-  {
-    "key": "notices#s202509116fa5db076d881/w202509116d66bee5d5138/text",
-    "group": "boards",
-    "pageKey": "notices",
-    "sectionId": "s202509116fa5db076d881",
-    "widgetId": "w202509116d66bee5d5138",
-    "field": "text",
-    "kind": "text",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "메뉴 제목 · 공지사항",
-      "en": "Menu title · Notic"
     },
     "revalidate": [
       "/notices",
@@ -9262,195 +7183,6 @@ export const CONTENT_DEFS: ContentDef[] = [
       "/en/products/flowell",
       "/products/flowell/[id]",
       "/en/products/flowell/[id]"
-    ]
-  },
-  {
-    "key": "rnd#s20250811f489e3443bdbe/w20250811379e3dc61aa7f/html",
-    "group": "rnd",
-    "pageKey": "rnd",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w20250811379e3dc61aa7f",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록",
-      "en": "Text block"
-    },
-    "revalidate": [
-      "/rnd",
-      "/en/rnd"
-    ]
-  },
-  {
-    "key": "rnd#s20250811f489e3443bdbe/w202508114039c43732879/href",
-    "group": "rnd",
-    "pageKey": "rnd",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w202508114039c43732879",
-    "field": "href",
-    "kind": "url",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "버튼 링크",
-      "en": "Button link"
-    },
-    "revalidate": [
-      "/rnd",
-      "/en/rnd"
-    ]
-  },
-  {
-    "key": "rnd#s20250811f489e3443bdbe/w202508114039c43732879/text",
-    "group": "rnd",
-    "pageKey": "rnd",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w202508114039c43732879",
-    "field": "text",
-    "kind": "text",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "버튼 텍스트",
-      "en": "Button text"
-    },
-    "revalidate": [
-      "/rnd",
-      "/en/rnd"
-    ]
-  },
-  {
-    "key": "rnd#s20250811f489e3443bdbe/w20250811c8ba21c61f272/html",
-    "group": "rnd",
-    "pageKey": "rnd",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w20250811c8ba21c61f272",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 대표 : 김나연 개인정보관리책임자 : 김나연 ㅣ 문의 : ecowave…",
-      "en": "Text block · CEO : Choi Taeguk Personal Information …"
-    },
-    "revalidate": [
-      "/rnd",
-      "/en/rnd"
-    ]
-  },
-  {
-    "key": "rnd#s20250811f489e3443bdbe/w2025091955cb4ab654cac/html",
-    "group": "rnd",
-    "pageKey": "rnd",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w2025091955cb4ab654cac",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 제품소개",
-      "en": "Text block · Product"
-    },
-    "revalidate": [
-      "/rnd",
-      "/en/rnd"
-    ]
-  },
-  {
-    "key": "rnd#s20250811f489e3443bdbe/w2025091988816c09014e4/html",
-    "group": "rnd",
-    "pageKey": "rnd",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w2025091988816c09014e4",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 뉴스룸",
-      "en": "Text block · News"
-    },
-    "revalidate": [
-      "/rnd",
-      "/en/rnd"
-    ]
-  },
-  {
-    "key": "rnd#s20250811f489e3443bdbe/w202509198aeb3bd046ac9/html",
-    "group": "rnd",
-    "pageKey": "rnd",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w202509198aeb3bd046ac9",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 연구개발",
-      "en": "Text block · R&D"
-    },
-    "revalidate": [
-      "/rnd",
-      "/en/rnd"
-    ]
-  },
-  {
-    "key": "rnd#s20250811f489e3443bdbe/w20250919b68d158c2925e/html",
-    "group": "rnd",
-    "pageKey": "rnd",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w20250919b68d158c2925e",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 에코 웨이 브",
-      "en": "Text block · Ecowave"
-    },
-    "revalidate": [
-      "/rnd",
-      "/en/rnd"
-    ]
-  },
-  {
-    "key": "rnd#s20250811f489e3443bdbe/w20250919e76996cca8992/html",
-    "group": "rnd",
-    "pageKey": "rnd",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w20250919e76996cca8992",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 고객지원",
-      "en": "Text block · Customer"
-    },
-    "revalidate": [
-      "/rnd",
-      "/en/rnd"
     ]
   },
   {
@@ -10252,48 +7984,6 @@ export const CONTENT_DEFS: ContentDef[] = [
     ]
   },
   {
-    "key": "rnd#s20250909d881ca212d6f0/w2025090976b24482b642f/text",
-    "group": "rnd",
-    "pageKey": "rnd",
-    "sectionId": "s20250909d881ca212d6f0",
-    "widgetId": "w2025090976b24482b642f",
-    "field": "text",
-    "kind": "text",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "메뉴 제목 · 보유기술",
-      "en": "Menu title · Retained technology"
-    },
-    "revalidate": [
-      "/rnd",
-      "/en/rnd"
-    ]
-  },
-  {
-    "key": "rnd#s20250910c77bdacaa4d4c/w2025091082708cc61e1aa/text",
-    "group": "rnd",
-    "pageKey": "rnd",
-    "sectionId": "s20250910c77bdacaa4d4c",
-    "widgetId": "w2025091082708cc61e1aa",
-    "field": "text",
-    "kind": "text",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "메뉴 제목 · 보유기술",
-      "en": "Menu title · Retained technology"
-    },
-    "revalidate": [
-      "/rnd",
-      "/en/rnd"
-    ]
-  },
-  {
     "key": "rnd#s2025091161e916b59099f/w202509110e7da42eec27c/alt",
     "group": "rnd",
     "pageKey": "rnd",
@@ -10378,195 +8068,6 @@ export const CONTENT_DEFS: ContentDef[] = [
     ]
   },
   {
-    "key": "rnd.facilities#s20250811f489e3443bdbe/w20250811379e3dc61aa7f/html",
-    "group": "rnd",
-    "pageKey": "rnd.facilities",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w20250811379e3dc61aa7f",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록",
-      "en": "Text block"
-    },
-    "revalidate": [
-      "/rnd/facilities",
-      "/en/rnd/facilities"
-    ]
-  },
-  {
-    "key": "rnd.facilities#s20250811f489e3443bdbe/w202508114039c43732879/href",
-    "group": "rnd",
-    "pageKey": "rnd.facilities",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w202508114039c43732879",
-    "field": "href",
-    "kind": "url",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "버튼 링크",
-      "en": "Button link"
-    },
-    "revalidate": [
-      "/rnd/facilities",
-      "/en/rnd/facilities"
-    ]
-  },
-  {
-    "key": "rnd.facilities#s20250811f489e3443bdbe/w202508114039c43732879/text",
-    "group": "rnd",
-    "pageKey": "rnd.facilities",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w202508114039c43732879",
-    "field": "text",
-    "kind": "text",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "버튼 텍스트",
-      "en": "Button text"
-    },
-    "revalidate": [
-      "/rnd/facilities",
-      "/en/rnd/facilities"
-    ]
-  },
-  {
-    "key": "rnd.facilities#s20250811f489e3443bdbe/w20250811c8ba21c61f272/html",
-    "group": "rnd",
-    "pageKey": "rnd.facilities",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w20250811c8ba21c61f272",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 대표 : 김나연 개인정보관리책임자 : 김나연 ㅣ 문의 : ecowave…",
-      "en": "Text block · CEO : Choi Taeguk Personal Information …"
-    },
-    "revalidate": [
-      "/rnd/facilities",
-      "/en/rnd/facilities"
-    ]
-  },
-  {
-    "key": "rnd.facilities#s20250811f489e3443bdbe/w2025091955cb4ab654cac/html",
-    "group": "rnd",
-    "pageKey": "rnd.facilities",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w2025091955cb4ab654cac",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 제품소개",
-      "en": "Text block · Product"
-    },
-    "revalidate": [
-      "/rnd/facilities",
-      "/en/rnd/facilities"
-    ]
-  },
-  {
-    "key": "rnd.facilities#s20250811f489e3443bdbe/w2025091988816c09014e4/html",
-    "group": "rnd",
-    "pageKey": "rnd.facilities",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w2025091988816c09014e4",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 뉴스룸",
-      "en": "Text block · News"
-    },
-    "revalidate": [
-      "/rnd/facilities",
-      "/en/rnd/facilities"
-    ]
-  },
-  {
-    "key": "rnd.facilities#s20250811f489e3443bdbe/w202509198aeb3bd046ac9/html",
-    "group": "rnd",
-    "pageKey": "rnd.facilities",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w202509198aeb3bd046ac9",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 연구개발",
-      "en": "Text block · R&D"
-    },
-    "revalidate": [
-      "/rnd/facilities",
-      "/en/rnd/facilities"
-    ]
-  },
-  {
-    "key": "rnd.facilities#s20250811f489e3443bdbe/w20250919b68d158c2925e/html",
-    "group": "rnd",
-    "pageKey": "rnd.facilities",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w20250919b68d158c2925e",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 에코 웨이 브",
-      "en": "Text block · Ecowave"
-    },
-    "revalidate": [
-      "/rnd/facilities",
-      "/en/rnd/facilities"
-    ]
-  },
-  {
-    "key": "rnd.facilities#s20250811f489e3443bdbe/w20250919e76996cca8992/html",
-    "group": "rnd",
-    "pageKey": "rnd.facilities",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w20250919e76996cca8992",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 고객지원",
-      "en": "Text block · Customer"
-    },
-    "revalidate": [
-      "/rnd/facilities",
-      "/en/rnd/facilities"
-    ]
-  },
-  {
     "key": "rnd.facilities#s202508207ea6e772a48a0/w20250820e4cafbac3320e/html",
     "group": "rnd",
     "pageKey": "rnd.facilities",
@@ -10581,27 +8082,6 @@ export const CONTENT_DEFS: ContentDef[] = [
     "label": {
       "ko": "텍스트 블록 · 첨단 설비와 철저한 관리로 더 깨끗하고 안전한 물을 만듭니다.",
       "en": "Text block · Advanced facilities and strict manageme…"
-    },
-    "revalidate": [
-      "/rnd/facilities",
-      "/en/rnd/facilities"
-    ]
-  },
-  {
-    "key": "rnd.facilities#s20250828f765151cfdfa4/w20250828cc56990ab2881/text",
-    "group": "rnd",
-    "pageKey": "rnd.facilities",
-    "sectionId": "s20250828f765151cfdfa4",
-    "widgetId": "w20250828cc56990ab2881",
-    "field": "text",
-    "kind": "text",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "메뉴 제목 · 생산설비",
-      "en": "Menu title · Production facilities"
     },
     "revalidate": [
       "/rnd/facilities",
@@ -10833,27 +8313,6 @@ export const CONTENT_DEFS: ContentDef[] = [
     "label": {
       "ko": "이미지 경로 · 68ffc55b3ed20.png",
       "en": "Image source · 68ffc55b3ed20.png"
-    },
-    "revalidate": [
-      "/rnd/facilities",
-      "/en/rnd/facilities"
-    ]
-  },
-  {
-    "key": "rnd.facilities#s20250911d9c03b9ac01da/w20250911674a140c7b58e/text",
-    "group": "rnd",
-    "pageKey": "rnd.facilities",
-    "sectionId": "s20250911d9c03b9ac01da",
-    "widgetId": "w20250911674a140c7b58e",
-    "field": "text",
-    "kind": "text",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "메뉴 제목 · 생산설비",
-      "en": "Menu title · Production facilities"
     },
     "revalidate": [
       "/rnd/facilities",
@@ -12772,195 +10231,6 @@ export const CONTENT_DEFS: ContentDef[] = [
     ]
   },
   {
-    "key": "rnd.patents#s20250811f489e3443bdbe/w20250811379e3dc61aa7f/html",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w20250811379e3dc61aa7f",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록",
-      "en": "Text block"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s20250811f489e3443bdbe/w202508114039c43732879/href",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w202508114039c43732879",
-    "field": "href",
-    "kind": "url",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "버튼 링크",
-      "en": "Button link"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s20250811f489e3443bdbe/w202508114039c43732879/text",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w202508114039c43732879",
-    "field": "text",
-    "kind": "text",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "버튼 텍스트",
-      "en": "Button text"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s20250811f489e3443bdbe/w20250811c8ba21c61f272/html",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w20250811c8ba21c61f272",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 대표 : 김나연 개인정보관리책임자 : 김나연 ㅣ 문의 : ecowave…",
-      "en": "Text block · CEO : Choi Taeguk Personal Information …"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s20250811f489e3443bdbe/w2025091955cb4ab654cac/html",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w2025091955cb4ab654cac",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 제품소개",
-      "en": "Text block · Product"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s20250811f489e3443bdbe/w2025091988816c09014e4/html",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w2025091988816c09014e4",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 뉴스룸",
-      "en": "Text block · News"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s20250811f489e3443bdbe/w202509198aeb3bd046ac9/html",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w202509198aeb3bd046ac9",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 연구개발",
-      "en": "Text block · R&D"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s20250811f489e3443bdbe/w20250919b68d158c2925e/html",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w20250919b68d158c2925e",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 에코 웨이 브",
-      "en": "Text block · Ecowave"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s20250811f489e3443bdbe/w20250919e76996cca8992/html",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w20250919e76996cca8992",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 고객지원",
-      "en": "Text block · Customer"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
     "key": "rnd.patents#s2025082027290aa48803c/w20250820f45ae1e9a7239/html",
     "group": "rnd",
     "pageKey": "rnd.patents",
@@ -12975,27 +10245,6 @@ export const CONTENT_DEFS: ContentDef[] = [
     "label": {
       "ko": "텍스트 블록 · 첨단 설비와 철저한 관리로 더 깨끗하고 안전한 물을 만듭니다.",
       "en": "Text block · Advanced facilities and strict manageme…"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508283b9485c9d69c8/w20250828924d9408dda61/text",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508283b9485c9d69c8",
-    "widgetId": "w20250828924d9408dda61",
-    "field": "text",
-    "kind": "text",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "메뉴 제목 · 국내외 특허",
-      "en": "Menu title · Patents home & abroad"
     },
     "revalidate": [
       "/rnd/patents",
@@ -13042,216 +10291,6 @@ export const CONTENT_DEFS: ContentDef[] = [
     "revalidate": [
       "/rnd/patents",
       "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202509118ab6b37a880d4/w202509119c8444cd0b3e6/text",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202509118ab6b37a880d4",
-    "widgetId": "w202509119c8444cd0b3e6",
-    "field": "text",
-    "kind": "text",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "메뉴 제목 · 국내외 특허",
-      "en": "Menu title · Patents home & abroad"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.technology#s20250811f489e3443bdbe/w20250811379e3dc61aa7f/html",
-    "group": "rnd",
-    "pageKey": "rnd.technology",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w20250811379e3dc61aa7f",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록",
-      "en": "Text block"
-    },
-    "revalidate": [
-      "/rnd/technology",
-      "/en/rnd/technology"
-    ]
-  },
-  {
-    "key": "rnd.technology#s20250811f489e3443bdbe/w202508114039c43732879/href",
-    "group": "rnd",
-    "pageKey": "rnd.technology",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w202508114039c43732879",
-    "field": "href",
-    "kind": "url",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "버튼 링크",
-      "en": "Button link"
-    },
-    "revalidate": [
-      "/rnd/technology",
-      "/en/rnd/technology"
-    ]
-  },
-  {
-    "key": "rnd.technology#s20250811f489e3443bdbe/w202508114039c43732879/text",
-    "group": "rnd",
-    "pageKey": "rnd.technology",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w202508114039c43732879",
-    "field": "text",
-    "kind": "text",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "버튼 텍스트",
-      "en": "Button text"
-    },
-    "revalidate": [
-      "/rnd/technology",
-      "/en/rnd/technology"
-    ]
-  },
-  {
-    "key": "rnd.technology#s20250811f489e3443bdbe/w20250811c8ba21c61f272/html",
-    "group": "rnd",
-    "pageKey": "rnd.technology",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w20250811c8ba21c61f272",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 대표 : 김나연 개인정보관리책임자 : 김나연 ㅣ 문의 : ecowave…",
-      "en": "Text block · CEO : Choi Taeguk Personal Information …"
-    },
-    "revalidate": [
-      "/rnd/technology",
-      "/en/rnd/technology"
-    ]
-  },
-  {
-    "key": "rnd.technology#s20250811f489e3443bdbe/w2025091955cb4ab654cac/html",
-    "group": "rnd",
-    "pageKey": "rnd.technology",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w2025091955cb4ab654cac",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 제품소개",
-      "en": "Text block · Product"
-    },
-    "revalidate": [
-      "/rnd/technology",
-      "/en/rnd/technology"
-    ]
-  },
-  {
-    "key": "rnd.technology#s20250811f489e3443bdbe/w2025091988816c09014e4/html",
-    "group": "rnd",
-    "pageKey": "rnd.technology",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w2025091988816c09014e4",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 뉴스룸",
-      "en": "Text block · News"
-    },
-    "revalidate": [
-      "/rnd/technology",
-      "/en/rnd/technology"
-    ]
-  },
-  {
-    "key": "rnd.technology#s20250811f489e3443bdbe/w202509198aeb3bd046ac9/html",
-    "group": "rnd",
-    "pageKey": "rnd.technology",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w202509198aeb3bd046ac9",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 연구개발",
-      "en": "Text block · R&D"
-    },
-    "revalidate": [
-      "/rnd/technology",
-      "/en/rnd/technology"
-    ]
-  },
-  {
-    "key": "rnd.technology#s20250811f489e3443bdbe/w20250919b68d158c2925e/html",
-    "group": "rnd",
-    "pageKey": "rnd.technology",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w20250919b68d158c2925e",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 에코 웨이 브",
-      "en": "Text block · Ecowave"
-    },
-    "revalidate": [
-      "/rnd/technology",
-      "/en/rnd/technology"
-    ]
-  },
-  {
-    "key": "rnd.technology#s20250811f489e3443bdbe/w20250919e76996cca8992/html",
-    "group": "rnd",
-    "pageKey": "rnd.technology",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w20250919e76996cca8992",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 고객지원",
-      "en": "Text block · Customer"
-    },
-    "revalidate": [
-      "/rnd/technology",
-      "/en/rnd/technology"
     ]
   },
   {
@@ -14053,48 +11092,6 @@ export const CONTENT_DEFS: ContentDef[] = [
     ]
   },
   {
-    "key": "rnd.technology#s20250909d881ca212d6f0/w2025090976b24482b642f/text",
-    "group": "rnd",
-    "pageKey": "rnd.technology",
-    "sectionId": "s20250909d881ca212d6f0",
-    "widgetId": "w2025090976b24482b642f",
-    "field": "text",
-    "kind": "text",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "메뉴 제목 · 보유기술",
-      "en": "Menu title · Retained technology"
-    },
-    "revalidate": [
-      "/rnd/technology",
-      "/en/rnd/technology"
-    ]
-  },
-  {
-    "key": "rnd.technology#s20250910c77bdacaa4d4c/w2025091082708cc61e1aa/text",
-    "group": "rnd",
-    "pageKey": "rnd.technology",
-    "sectionId": "s20250910c77bdacaa4d4c",
-    "widgetId": "w2025091082708cc61e1aa",
-    "field": "text",
-    "kind": "text",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "메뉴 제목 · 보유기술",
-      "en": "Menu title · Retained technology"
-    },
-    "revalidate": [
-      "/rnd/technology",
-      "/en/rnd/technology"
-    ]
-  },
-  {
     "key": "rnd.technology#s2025091161e916b59099f/w202509110e7da42eec27c/alt",
     "group": "rnd",
     "pageKey": "rnd.technology",
@@ -14517,195 +11514,6 @@ export const CONTENT_DEFS: ContentDef[] = [
     ]
   },
   {
-    "key": "support#s20250811f489e3443bdbe/w20250811379e3dc61aa7f/html",
-    "group": "boards",
-    "pageKey": "support",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w20250811379e3dc61aa7f",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록",
-      "en": "Text block"
-    },
-    "revalidate": [
-      "/support",
-      "/en/support"
-    ]
-  },
-  {
-    "key": "support#s20250811f489e3443bdbe/w202508114039c43732879/href",
-    "group": "boards",
-    "pageKey": "support",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w202508114039c43732879",
-    "field": "href",
-    "kind": "url",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "버튼 링크",
-      "en": "버튼 링크"
-    },
-    "revalidate": [
-      "/support",
-      "/en/support"
-    ]
-  },
-  {
-    "key": "support#s20250811f489e3443bdbe/w202508114039c43732879/text",
-    "group": "boards",
-    "pageKey": "support",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w202508114039c43732879",
-    "field": "text",
-    "kind": "text",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "버튼 텍스트",
-      "en": "버튼 텍스트"
-    },
-    "revalidate": [
-      "/support",
-      "/en/support"
-    ]
-  },
-  {
-    "key": "support#s20250811f489e3443bdbe/w20250811c8ba21c61f272/html",
-    "group": "boards",
-    "pageKey": "support",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w20250811c8ba21c61f272",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 대표 : 김나연 개인정보관리책임자 : 김나연 ㅣ 문의 : ecowave…",
-      "en": "Text block"
-    },
-    "revalidate": [
-      "/support",
-      "/en/support"
-    ]
-  },
-  {
-    "key": "support#s20250811f489e3443bdbe/w2025091955cb4ab654cac/html",
-    "group": "boards",
-    "pageKey": "support",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w2025091955cb4ab654cac",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 제품소개",
-      "en": "Text block"
-    },
-    "revalidate": [
-      "/support",
-      "/en/support"
-    ]
-  },
-  {
-    "key": "support#s20250811f489e3443bdbe/w2025091988816c09014e4/html",
-    "group": "boards",
-    "pageKey": "support",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w2025091988816c09014e4",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 뉴스룸",
-      "en": "Text block"
-    },
-    "revalidate": [
-      "/support",
-      "/en/support"
-    ]
-  },
-  {
-    "key": "support#s20250811f489e3443bdbe/w202509198aeb3bd046ac9/html",
-    "group": "boards",
-    "pageKey": "support",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w202509198aeb3bd046ac9",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 연구개발",
-      "en": "Text block"
-    },
-    "revalidate": [
-      "/support",
-      "/en/support"
-    ]
-  },
-  {
-    "key": "support#s20250811f489e3443bdbe/w20250919b68d158c2925e/html",
-    "group": "boards",
-    "pageKey": "support",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w20250919b68d158c2925e",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 에코 웨이 브",
-      "en": "Text block"
-    },
-    "revalidate": [
-      "/support",
-      "/en/support"
-    ]
-  },
-  {
-    "key": "support#s20250811f489e3443bdbe/w20250919e76996cca8992/html",
-    "group": "boards",
-    "pageKey": "support",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w20250919e76996cca8992",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "에코웨이브",
-      "en": "ecowave"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 고객지원",
-      "en": "Text block"
-    },
-    "revalidate": [
-      "/support",
-      "/en/support"
-    ]
-  },
-  {
     "key": "support#s2025091161e916b59099f/w202509110e7da42eec27c/alt",
     "group": "boards",
     "pageKey": "support",
@@ -14751,14 +11559,6 @@ export const CONTENT_DEFS: ContentDef[] = [
 
 /** Code-side defaults, seeded from content/*.json (DB values override these). */
 export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
-  "company.about#s2025082882954faef91b6/w2025082842f7edfbe3263/text": {
-    "ko": "회사소개",
-    "en": "Company introduction"
-  },
-  "company.about#s202509117c421c7cbb56a/w20250911332a7d852277b/text": {
-    "ko": "회사소개",
-    "en": "Company introduction"
-  },
   "company.about#s20250821eb14df6d34580/w20250821770900c60669c/html": {
     "ko": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">더 건강하고 깨끗한 물을 만드는 고객과의 약속</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">에코웨이브를 소개합니다.</span></strong></h6></div></div>\n\t",
     "en": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">EcoWave promises healthier,</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">cleaner water for customers.</span></strong></h6></div></div>\n\t"
@@ -15525,50 +12325,6 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "ko": "",
     "en": ""
   },
-  "company.about#s20250811f489e3443bdbe/w20250811379e3dc61aa7f/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p><img src=\"/images/upload/S20250811e0bd2f7c414df/f04049636b82b.png\" class=\"fr-fin fr-dib fr-fil\" style=\"width: 238px;\"></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><img src=\"/images/upload/S20250811e0bd2f7c414df/f04049636b82b.png\" class=\"fr-fin fr-dib fr-fil\" style=\"width: 238px;\"></p></div></div>\n\t"
-  },
-  "company.about#s20250811f489e3443bdbe/w20250811c8ba21c61f272/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2;\"><span style=\"color: rgb(149, 149, 149); font-size: 14px;\">대표 : 김나연 &nbsp;</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">개인정보관리책임자 : 김나연 &nbsp;ㅣ &nbsp;문의 : ecowave_1800@naver.com</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">주소 : 인천광역시 남동구 은봉로 14 영도빌딩 2동</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">전화 : +82-32-812-1800 &nbsp;ㅣ &nbsp;팩스 : +82-32-812-1804</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><br></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Copyright ⓒ ECOWAVE. All Rights Reserved</span></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2;\"><span style=\"color: rgb(149, 149, 149); font-size: 14px;\">CEO : Choi Taeguk&nbsp;</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Personal Information Management Officer : Kim nacyeon</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Inquiry : ecowave_1800@naver.com</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">ADDRESS : 2-dong, Yeongdo Building, 14, Eunbong-ro, Namdong-gu, Incheon, Republic of Korea</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">TEL : +82-32-812-1800 &nbsp;ㅣ &nbsp;FAX : +82-32-812-1804</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><br></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Copyright ⓒ ECOWAVE. All Rights Reserved</span></span></p></div></div>\n\t"
-  },
-  "company.about#s20250811f489e3443bdbe/w202508114039c43732879/text": {
-    "ko": "",
-    "en": ""
-  },
-  "company.about#s20250811f489e3443bdbe/w202508114039c43732879/href": {
-    "ko": "#doz_header",
-    "en": "#doz_header"
-  },
-  "company.about#s20250811f489e3443bdbe/w20250919b68d158c2925e/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>에코</strong><strong>웨이</strong><strong>브</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Ecowave</strong></span></p></div></div>\n\t"
-  },
-  "company.about#s20250811f489e3443bdbe/w202509198aeb3bd046ac9/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216);\"><strong>연구개발</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>R&amp;D</strong></span></p></div></div>\n\t"
-  },
-  "company.about#s20250811f489e3443bdbe/w2025091955cb4ab654cac/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>제품소개</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Product</strong></span></p></div></div>\n\t"
-  },
-  "company.about#s20250811f489e3443bdbe/w2025091988816c09014e4/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>뉴스룸</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>News</strong></span></p></div></div>\n\t"
-  },
-  "company.about#s20250811f489e3443bdbe/w20250919e76996cca8992/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>고객지원</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Customer</strong></span></p></div></div>\n\t"
-  },
-  "company.ceo#s20250828a35c24d19b8a4/w202508285263c4fecdad7/text": {
-    "ko": "ceo인사말",
-    "en": "Ceo greeting"
-  },
-  "company.ceo#s20250911dbe58ff8b7e3d/w20250911a9c7322d29625/text": {
-    "ko": "ceo인사말",
-    "en": "Ceo greeting"
-  },
   "company.ceo#s202508206321c39177601/w20250820e1c08ac226481/html": {
     "ko": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">더 건강하고 깨끗한 물을 만드는 고객과의 약속</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">에코웨이브를 소개합니다.</span></strong></h6></div></div>\n\t",
     "en": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">EcoWave promises healthier,</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">cleaner water for customers.</span></strong></h6></div></div>\n\t"
@@ -15592,50 +12348,6 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
   "company.ceo#s2025091161e916b59099f/w202509110e7da42eec27c/alt": {
     "ko": "",
     "en": ""
-  },
-  "company.ceo#s20250811f489e3443bdbe/w20250811379e3dc61aa7f/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p><img src=\"/images/upload/S20250811e0bd2f7c414df/f04049636b82b.png\" class=\"fr-fin fr-dib fr-fil\" style=\"width: 238px;\"></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><img src=\"/images/upload/S20250811e0bd2f7c414df/f04049636b82b.png\" class=\"fr-fin fr-dib fr-fil\" style=\"width: 238px;\"></p></div></div>\n\t"
-  },
-  "company.ceo#s20250811f489e3443bdbe/w20250811c8ba21c61f272/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2;\"><span style=\"color: rgb(149, 149, 149); font-size: 14px;\">대표 : 김나연 &nbsp;</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">개인정보관리책임자 : 김나연 &nbsp;ㅣ &nbsp;문의 : ecowave_1800@naver.com</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">주소 : 인천광역시 남동구 은봉로 14 영도빌딩 2동</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">전화 : +82-32-812-1800 &nbsp;ㅣ &nbsp;팩스 : +82-32-812-1804</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><br></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Copyright ⓒ ECOWAVE. All Rights Reserved</span></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2;\"><span style=\"color: rgb(149, 149, 149); font-size: 14px;\">CEO : Choi Taeguk&nbsp;</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Personal Information Management Officer : Kim nacyeon</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Inquiry : ecowave_1800@naver.com</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">ADDRESS : 2-dong, Yeongdo Building, 14, Eunbong-ro, Namdong-gu, Incheon, Republic of Korea</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">TEL : +82-32-812-1800 &nbsp;ㅣ &nbsp;FAX : +82-32-812-1804</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><br></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Copyright ⓒ ECOWAVE. All Rights Reserved</span></span></p></div></div>\n\t"
-  },
-  "company.ceo#s20250811f489e3443bdbe/w202508114039c43732879/text": {
-    "ko": "",
-    "en": ""
-  },
-  "company.ceo#s20250811f489e3443bdbe/w202508114039c43732879/href": {
-    "ko": "#doz_header",
-    "en": "#doz_header"
-  },
-  "company.ceo#s20250811f489e3443bdbe/w20250919b68d158c2925e/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>에코</strong><strong>웨이</strong><strong>브</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Ecowave</strong></span></p></div></div>\n\t"
-  },
-  "company.ceo#s20250811f489e3443bdbe/w202509198aeb3bd046ac9/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216);\"><strong>연구개발</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>R&amp;D</strong></span></p></div></div>\n\t"
-  },
-  "company.ceo#s20250811f489e3443bdbe/w2025091955cb4ab654cac/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>제품소개</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Product</strong></span></p></div></div>\n\t"
-  },
-  "company.ceo#s20250811f489e3443bdbe/w2025091988816c09014e4/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>뉴스룸</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>News</strong></span></p></div></div>\n\t"
-  },
-  "company.ceo#s20250811f489e3443bdbe/w20250919e76996cca8992/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>고객지원</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Customer</strong></span></p></div></div>\n\t"
-  },
-  "company.global#s20250828755cb0bfe0e2b/w202508285f7a2a6513da9/text": {
-    "ko": "글로벌지사",
-    "en": "Global branch office"
-  },
-  "company.global#s20250911da8f23550aa24/w202509110d350e21a6307/text": {
-    "ko": "글로벌지사",
-    "en": "Global branch office"
   },
   "company.global#s20250820da33f7f397fba/w202508201a58c7d614215/html": {
     "ko": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">더 건강하고 깨끗한 물을 만드는 고객과의 약속</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">에코웨이브를 소개합니다.</span></strong></h6></div></div>\n\t",
@@ -15680,50 +12392,6 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
   "company.global#s2025091161e916b59099f/w202509110e7da42eec27c/alt": {
     "ko": "",
     "en": ""
-  },
-  "company.global#s20250811f489e3443bdbe/w20250811379e3dc61aa7f/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p><img src=\"/images/upload/S20250811e0bd2f7c414df/f04049636b82b.png\" class=\"fr-fin fr-dib fr-fil\" style=\"width: 238px;\"></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><img src=\"/images/upload/S20250811e0bd2f7c414df/f04049636b82b.png\" class=\"fr-fin fr-dib fr-fil\" style=\"width: 238px;\"></p></div></div>\n\t"
-  },
-  "company.global#s20250811f489e3443bdbe/w20250811c8ba21c61f272/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2;\"><span style=\"color: rgb(149, 149, 149); font-size: 14px;\">대표 : 김나연 &nbsp;</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">개인정보관리책임자 : 김나연 &nbsp;ㅣ &nbsp;문의 : ecowave_1800@naver.com</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">주소 : 인천광역시 남동구 은봉로 14 영도빌딩 2동</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">전화 : +82-32-812-1800 &nbsp;ㅣ &nbsp;팩스 : +82-32-812-1804</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><br></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Copyright ⓒ ECOWAVE. All Rights Reserved</span></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2;\"><span style=\"color: rgb(149, 149, 149); font-size: 14px;\">CEO : Choi Taeguk&nbsp;</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Personal Information Management Officer : Kim nacyeon</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Inquiry : ecowave_1800@naver.com</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">ADDRESS : 2-dong, Yeongdo Building, 14, Eunbong-ro, Namdong-gu, Incheon, Republic of Korea</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">TEL : +82-32-812-1800 &nbsp;ㅣ &nbsp;FAX : +82-32-812-1804</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><br></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Copyright ⓒ ECOWAVE. All Rights Reserved</span></span></p></div></div>\n\t"
-  },
-  "company.global#s20250811f489e3443bdbe/w202508114039c43732879/text": {
-    "ko": "",
-    "en": ""
-  },
-  "company.global#s20250811f489e3443bdbe/w202508114039c43732879/href": {
-    "ko": "#doz_header",
-    "en": "#doz_header"
-  },
-  "company.global#s20250811f489e3443bdbe/w20250919b68d158c2925e/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>에코</strong><strong>웨이</strong><strong>브</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Ecowave</strong></span></p></div></div>\n\t"
-  },
-  "company.global#s20250811f489e3443bdbe/w202509198aeb3bd046ac9/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216);\"><strong>연구개발</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>R&amp;D</strong></span></p></div></div>\n\t"
-  },
-  "company.global#s20250811f489e3443bdbe/w2025091955cb4ab654cac/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>제품소개</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Product</strong></span></p></div></div>\n\t"
-  },
-  "company.global#s20250811f489e3443bdbe/w2025091988816c09014e4/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>뉴스룸</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>News</strong></span></p></div></div>\n\t"
-  },
-  "company.global#s20250811f489e3443bdbe/w20250919e76996cca8992/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>고객지원</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Customer</strong></span></p></div></div>\n\t"
-  },
-  "company.history#s20250811f1ff0a790f814/w202508113473b9473e149/text": {
-    "ko": "회사연혁",
-    "en": "History"
-  },
-  "company.history#s2025091135b7d4b0aaf20/w2025091130d303492b7a3/text": {
-    "ko": "회사연혁",
-    "en": "History"
   },
   "company.history#s2025081109284c6634db6/w2025081119c3906474684/html": {
     "ko": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">더 건강하고 깨끗한 물을 만드는 고객과의 약속</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">에코웨이브를 소개합니다.</span></strong></h6></div></div>\n\t",
@@ -15809,50 +12477,6 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "ko": "",
     "en": ""
   },
-  "company.history#s20250811f489e3443bdbe/w20250811379e3dc61aa7f/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p><img src=\"/images/upload/S20250811e0bd2f7c414df/f04049636b82b.png\" class=\"fr-fin fr-dib fr-fil\" style=\"width: 238px;\"></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><img src=\"/images/upload/S20250811e0bd2f7c414df/f04049636b82b.png\" class=\"fr-fin fr-dib fr-fil\" style=\"width: 238px;\"></p></div></div>\n\t"
-  },
-  "company.history#s20250811f489e3443bdbe/w20250811c8ba21c61f272/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2;\"><span style=\"color: rgb(149, 149, 149); font-size: 14px;\">대표 : 김나연 &nbsp;</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">개인정보관리책임자 : 김나연 &nbsp;ㅣ &nbsp;문의 : ecowave_1800@naver.com</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">주소 : 인천광역시 남동구 은봉로 14 영도빌딩 2동</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">전화 : +82-32-812-1800 &nbsp;ㅣ &nbsp;팩스 : +82-32-812-1804</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><br></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Copyright ⓒ ECOWAVE. All Rights Reserved</span></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2;\"><span style=\"color: rgb(149, 149, 149); font-size: 14px;\">CEO : Choi Taeguk&nbsp;</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Personal Information Management Officer : Kim nacyeon</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Inquiry : ecowave_1800@naver.com</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">ADDRESS : 2-dong, Yeongdo Building, 14, Eunbong-ro, Namdong-gu, Incheon, Republic of Korea</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">TEL : +82-32-812-1800 &nbsp;ㅣ &nbsp;FAX : +82-32-812-1804</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><br></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Copyright ⓒ ECOWAVE. All Rights Reserved</span></span></p></div></div>\n\t"
-  },
-  "company.history#s20250811f489e3443bdbe/w202508114039c43732879/text": {
-    "ko": "",
-    "en": ""
-  },
-  "company.history#s20250811f489e3443bdbe/w202508114039c43732879/href": {
-    "ko": "#doz_header",
-    "en": "#doz_header"
-  },
-  "company.history#s20250811f489e3443bdbe/w20250919b68d158c2925e/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>에코</strong><strong>웨이</strong><strong>브</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Ecowave</strong></span></p></div></div>\n\t"
-  },
-  "company.history#s20250811f489e3443bdbe/w202509198aeb3bd046ac9/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216);\"><strong>연구개발</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>R&amp;D</strong></span></p></div></div>\n\t"
-  },
-  "company.history#s20250811f489e3443bdbe/w2025091955cb4ab654cac/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>제품소개</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Product</strong></span></p></div></div>\n\t"
-  },
-  "company.history#s20250811f489e3443bdbe/w2025091988816c09014e4/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>뉴스룸</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>News</strong></span></p></div></div>\n\t"
-  },
-  "company.history#s20250811f489e3443bdbe/w20250919e76996cca8992/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>고객지원</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Customer</strong></span></p></div></div>\n\t"
-  },
-  "company#s20250828a35c24d19b8a4/w202508285263c4fecdad7/text": {
-    "ko": "ceo인사말",
-    "en": "Ceo greeting"
-  },
-  "company#s20250911dbe58ff8b7e3d/w20250911a9c7322d29625/text": {
-    "ko": "ceo인사말",
-    "en": "Ceo greeting"
-  },
   "company#s202508206321c39177601/w20250820e1c08ac226481/html": {
     "ko": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">더 건강하고 깨끗한 물을 만드는 고객과의 약속</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">에코웨이브를 소개합니다.</span></strong></h6></div></div>\n\t",
     "en": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">EcoWave promises healthier,</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">cleaner water for customers.</span></strong></h6></div></div>\n\t"
@@ -15877,50 +12501,6 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "ko": "",
     "en": ""
   },
-  "company#s20250811f489e3443bdbe/w20250811379e3dc61aa7f/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p><img src=\"/images/upload/S20250811e0bd2f7c414df/f04049636b82b.png\" class=\"fr-fin fr-dib fr-fil\" style=\"width: 238px;\"></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><img src=\"/images/upload/S20250811e0bd2f7c414df/f04049636b82b.png\" class=\"fr-fin fr-dib fr-fil\" style=\"width: 238px;\"></p></div></div>\n\t"
-  },
-  "company#s20250811f489e3443bdbe/w20250811c8ba21c61f272/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2;\"><span style=\"color: rgb(149, 149, 149); font-size: 14px;\">대표 : 김나연 &nbsp;</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">개인정보관리책임자 : 김나연 &nbsp;ㅣ &nbsp;문의 : ecowave_1800@naver.com</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">주소 : 인천광역시 남동구 은봉로 14 영도빌딩 2동</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">전화 : +82-32-812-1800 &nbsp;ㅣ &nbsp;팩스 : +82-32-812-1804</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><br></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Copyright ⓒ ECOWAVE. All Rights Reserved</span></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2;\"><span style=\"color: rgb(149, 149, 149); font-size: 14px;\">CEO : Choi Taeguk&nbsp;</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Personal Information Management Officer : Kim nacyeon</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Inquiry : ecowave_1800@naver.com</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">ADDRESS : 2-dong, Yeongdo Building, 14, Eunbong-ro, Namdong-gu, Incheon, Republic of Korea</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">TEL : +82-32-812-1800 &nbsp;ㅣ &nbsp;FAX : +82-32-812-1804</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><br></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Copyright ⓒ ECOWAVE. All Rights Reserved</span></span></p></div></div>\n\t"
-  },
-  "company#s20250811f489e3443bdbe/w202508114039c43732879/text": {
-    "ko": "",
-    "en": ""
-  },
-  "company#s20250811f489e3443bdbe/w202508114039c43732879/href": {
-    "ko": "#doz_header",
-    "en": "#doz_header"
-  },
-  "company#s20250811f489e3443bdbe/w20250919b68d158c2925e/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>에코</strong><strong>웨이</strong><strong>브</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Ecowave</strong></span></p></div></div>\n\t"
-  },
-  "company#s20250811f489e3443bdbe/w202509198aeb3bd046ac9/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216);\"><strong>연구개발</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>R&amp;D</strong></span></p></div></div>\n\t"
-  },
-  "company#s20250811f489e3443bdbe/w2025091955cb4ab654cac/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>제품소개</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Product</strong></span></p></div></div>\n\t"
-  },
-  "company#s20250811f489e3443bdbe/w2025091988816c09014e4/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>뉴스룸</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>News</strong></span></p></div></div>\n\t"
-  },
-  "company#s20250811f489e3443bdbe/w20250919e76996cca8992/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>고객지원</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Customer</strong></span></p></div></div>\n\t"
-  },
-  "company.organization#s20250828229b7e9af5799/w20250828e22abd3aa3f07/text": {
-    "ko": "조직도",
-    "en": "Organization chart"
-  },
-  "company.organization#s20250911d25877c3201df/w20250911b7e62a09377ba/text": {
-    "ko": "조직도",
-    "en": "Organization chart"
-  },
   "company.organization#s2025082815dd6babdb335/w202508282e3a21059f88e/html": {
     "ko": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">더 건강하고 깨끗한 물을 만드는 고객과의 약속</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">에코웨이브를 소개합니다.</span></strong></h6></div></div>\n\t",
     "en": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">EcoWave promises healthier,</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">cleaner water for customers.</span></strong><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\"></span></strong></h6></div></div>\n\t"
@@ -15940,50 +12520,6 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
   "company.organization#s2025091161e916b59099f/w202509110e7da42eec27c/alt": {
     "ko": "",
     "en": ""
-  },
-  "company.organization#s20250811f489e3443bdbe/w20250811379e3dc61aa7f/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p><img src=\"/images/upload/S20250811e0bd2f7c414df/f04049636b82b.png\" class=\"fr-fin fr-dib fr-fil\" style=\"width: 238px;\"></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><img src=\"/images/upload/S20250811e0bd2f7c414df/f04049636b82b.png\" class=\"fr-fin fr-dib fr-fil\" style=\"width: 238px;\"></p></div></div>\n\t"
-  },
-  "company.organization#s20250811f489e3443bdbe/w20250811c8ba21c61f272/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2;\"><span style=\"color: rgb(149, 149, 149); font-size: 14px;\">대표 : 김나연 &nbsp;</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">개인정보관리책임자 : 김나연 &nbsp;ㅣ &nbsp;문의 : ecowave_1800@naver.com</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">주소 : 인천광역시 남동구 은봉로 14 영도빌딩 2동</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">전화 : +82-32-812-1800 &nbsp;ㅣ &nbsp;팩스 : +82-32-812-1804</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><br></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Copyright ⓒ ECOWAVE. All Rights Reserved</span></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2;\"><span style=\"color: rgb(149, 149, 149); font-size: 14px;\">CEO : Choi Taeguk&nbsp;</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Personal Information Management Officer : Kim nacyeon</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Inquiry : ecowave_1800@naver.com</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">ADDRESS : 2-dong, Yeongdo Building, 14, Eunbong-ro, Namdong-gu, Incheon, Republic of Korea</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">TEL : +82-32-812-1800 &nbsp;ㅣ &nbsp;FAX : +82-32-812-1804</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><br></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Copyright ⓒ ECOWAVE. All Rights Reserved</span></span></p></div></div>\n\t"
-  },
-  "company.organization#s20250811f489e3443bdbe/w202508114039c43732879/text": {
-    "ko": "",
-    "en": ""
-  },
-  "company.organization#s20250811f489e3443bdbe/w202508114039c43732879/href": {
-    "ko": "#doz_header",
-    "en": "#doz_header"
-  },
-  "company.organization#s20250811f489e3443bdbe/w20250919b68d158c2925e/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>에코</strong><strong>웨이</strong><strong>브</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Ecowave</strong></span></p></div></div>\n\t"
-  },
-  "company.organization#s20250811f489e3443bdbe/w202509198aeb3bd046ac9/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216);\"><strong>연구개발</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>R&amp;D</strong></span></p></div></div>\n\t"
-  },
-  "company.organization#s20250811f489e3443bdbe/w2025091955cb4ab654cac/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>제품소개</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Product</strong></span></p></div></div>\n\t"
-  },
-  "company.organization#s20250811f489e3443bdbe/w2025091988816c09014e4/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>뉴스룸</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>News</strong></span></p></div></div>\n\t"
-  },
-  "company.organization#s20250811f489e3443bdbe/w20250919e76996cca8992/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>고객지원</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Customer</strong></span></p></div></div>\n\t"
-  },
-  "company.philosophy#s20250828bf06f7204851e/w202508284d9c0b4e5f22c/text": {
-    "ko": "경영철학",
-    "en": "Management philosophy"
-  },
-  "company.philosophy#s2025091173093c19f4adc/w20250911605ff40ee6b0c/text": {
-    "ko": "경영철학",
-    "en": "Management philosophy"
   },
   "company.philosophy#s20250821af3858f799ed0/w20250821cacc4fa0b7888/html": {
     "ko": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">더 건강하고 깨끗한 물을 만드는 고객과의 약속</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">에코웨이브를 소개합니다.</span></strong></h6></div></div>\n\t",
@@ -16044,42 +12580,6 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
   "company.philosophy#s2025091161e916b59099f/w202509110e7da42eec27c/alt": {
     "ko": "",
     "en": ""
-  },
-  "company.philosophy#s20250811f489e3443bdbe/w20250811379e3dc61aa7f/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p><img src=\"/images/upload/S20250811e0bd2f7c414df/f04049636b82b.png\" class=\"fr-fin fr-dib fr-fil\" style=\"width: 238px;\"></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><img src=\"/images/upload/S20250811e0bd2f7c414df/f04049636b82b.png\" class=\"fr-fin fr-dib fr-fil\" style=\"width: 238px;\"></p></div></div>\n\t"
-  },
-  "company.philosophy#s20250811f489e3443bdbe/w20250811c8ba21c61f272/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2;\"><span style=\"color: rgb(149, 149, 149); font-size: 14px;\">대표 : 김나연 &nbsp;</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">개인정보관리책임자 : 김나연 &nbsp;ㅣ &nbsp;문의 : ecowave_1800@naver.com</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">주소 : 인천광역시 남동구 은봉로 14 영도빌딩 2동</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">전화 : +82-32-812-1800 &nbsp;ㅣ &nbsp;팩스 : +82-32-812-1804</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><br></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Copyright ⓒ ECOWAVE. All Rights Reserved</span></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2;\"><span style=\"color: rgb(149, 149, 149); font-size: 14px;\">CEO : Choi Taeguk&nbsp;</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Personal Information Management Officer : Kim nacyeon</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Inquiry : ecowave_1800@naver.com</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">ADDRESS : 2-dong, Yeongdo Building, 14, Eunbong-ro, Namdong-gu, Incheon, Republic of Korea</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">TEL : +82-32-812-1800 &nbsp;ㅣ &nbsp;FAX : +82-32-812-1804</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><br></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Copyright ⓒ ECOWAVE. All Rights Reserved</span></span></p></div></div>\n\t"
-  },
-  "company.philosophy#s20250811f489e3443bdbe/w202508114039c43732879/text": {
-    "ko": "",
-    "en": ""
-  },
-  "company.philosophy#s20250811f489e3443bdbe/w202508114039c43732879/href": {
-    "ko": "#doz_header",
-    "en": "#doz_header"
-  },
-  "company.philosophy#s20250811f489e3443bdbe/w20250919b68d158c2925e/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>에코</strong><strong>웨이</strong><strong>브</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Ecowave</strong></span></p></div></div>\n\t"
-  },
-  "company.philosophy#s20250811f489e3443bdbe/w202509198aeb3bd046ac9/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216);\"><strong>연구개발</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>R&amp;D</strong></span></p></div></div>\n\t"
-  },
-  "company.philosophy#s20250811f489e3443bdbe/w2025091955cb4ab654cac/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>제품소개</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Product</strong></span></p></div></div>\n\t"
-  },
-  "company.philosophy#s20250811f489e3443bdbe/w2025091988816c09014e4/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>뉴스룸</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>News</strong></span></p></div></div>\n\t"
-  },
-  "company.philosophy#s20250811f489e3443bdbe/w20250919e76996cca8992/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>고객지원</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Customer</strong></span></p></div></div>\n\t"
   },
   "home#s20250911c5c5fd5e57c26/w2025091161bea948f6bee/html": {
     "ko": "\n\t\t<div class=\"text-table \"><div><h6 style=\"line-height: 2;\"><strong><span style=\"color: rgb(0, 0, 0); font-size: 26px; letter-spacing: 0px;\">건강하고 깨끗한 물,</span></strong></h6><h6 style=\"line-height: 2;\"><span style=\"font-size: 26px;\"><strong><span style=\"color: rgb(0, 0, 0); letter-spacing: 0px;\">에코웨이브가&nbsp;</span></strong><strong><span style=\"letter-spacing: 0;\"><span style=\"color: rgb(0, 0, 0);\">고객과 함께</span></span></strong></span></h6><h6 style=\"line-height: 2;\"><span style=\"font-size: 26px;\"><strong><span style=\"color: rgb(52, 101, 222); letter-spacing: 0px;\">더 나은 미래를&nbsp;</span></strong></span><strong><span style=\"color: rgb(52, 101, 222); font-size: 26px; letter-spacing: 0px;\">만들어갑니다. </span></strong></h6></div></div>\n\t",
@@ -16353,14 +12853,6 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>고객지원</strong></span></p></div></div>\n\t",
     "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Customer</strong></span></p></div></div>\n\t"
   },
-  "news#s20250828076cc53ae3de1/w20250828bdc1cca6ab6f3/text": {
-    "ko": "뉴스",
-    "en": "News"
-  },
-  "news#s20250911b15d712a41ffe/w2025091147bc8dec5ab70/text": {
-    "ko": "뉴스",
-    "en": "News"
-  },
   "news#s202508205198a0d766f60/w202508205b6f76d4a2c4d/html": {
     "ko": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">더 건강하고 깨끗한 물을 만드는 고객과의 약속</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">에코웨이브의 새로운 소식을 전해드립니다.</span></strong></h6></div></div>\n\t",
     "en": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">Promise of cleaner, healthier water.<br data-start=\"81\" data-end=\"84\">EcoWave update for customers.</span></strong></h6></div></div>\n\t"
@@ -16373,50 +12865,6 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "ko": "",
     "en": ""
   },
-  "news#s20250811f489e3443bdbe/w20250811379e3dc61aa7f/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p><img src=\"/images/upload/S20250811e0bd2f7c414df/f04049636b82b.png\" class=\"fr-fin fr-dib fr-fil\" style=\"width: 238px;\"></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><img src=\"/images/upload/S20250811e0bd2f7c414df/f04049636b82b.png\" class=\"fr-fin fr-dib fr-fil\" style=\"width: 238px;\"></p></div></div>\n\t"
-  },
-  "news#s20250811f489e3443bdbe/w20250811c8ba21c61f272/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2;\"><span style=\"color: rgb(149, 149, 149); font-size: 14px;\">대표 : 김나연 &nbsp;</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">개인정보관리책임자 : 김나연 &nbsp;ㅣ &nbsp;문의 : ecowave_1800@naver.com</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">주소 : 인천광역시 남동구 은봉로 14 영도빌딩 2동</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">전화 : +82-32-812-1800 &nbsp;ㅣ &nbsp;팩스 : +82-32-812-1804</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><br></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Copyright ⓒ ECOWAVE. All Rights Reserved</span></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2;\"><span style=\"color: rgb(149, 149, 149); font-size: 14px;\">CEO : Choi Taeguk&nbsp;</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Personal Information Management Officer : Kim nacyeon</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Inquiry : ecowave_1800@naver.com</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">ADDRESS : 2-dong, Yeongdo Building, 14, Eunbong-ro, Namdong-gu, Incheon, Republic of Korea</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">TEL : +82-32-812-1800 &nbsp;ㅣ &nbsp;FAX : +82-32-812-1804</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><br></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Copyright ⓒ ECOWAVE. All Rights Reserved</span></span></p></div></div>\n\t"
-  },
-  "news#s20250811f489e3443bdbe/w202508114039c43732879/text": {
-    "ko": "",
-    "en": ""
-  },
-  "news#s20250811f489e3443bdbe/w202508114039c43732879/href": {
-    "ko": "#doz_header",
-    "en": "#doz_header"
-  },
-  "news#s20250811f489e3443bdbe/w20250919b68d158c2925e/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>에코</strong><strong>웨이</strong><strong>브</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Ecowave</strong></span></p></div></div>\n\t"
-  },
-  "news#s20250811f489e3443bdbe/w202509198aeb3bd046ac9/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216);\"><strong>연구개발</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>R&amp;D</strong></span></p></div></div>\n\t"
-  },
-  "news#s20250811f489e3443bdbe/w2025091955cb4ab654cac/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>제품소개</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Product</strong></span></p></div></div>\n\t"
-  },
-  "news#s20250811f489e3443bdbe/w2025091988816c09014e4/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>뉴스룸</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>News</strong></span></p></div></div>\n\t"
-  },
-  "news#s20250811f489e3443bdbe/w20250919e76996cca8992/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>고객지원</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Customer</strong></span></p></div></div>\n\t"
-  },
-  "notices#s20250828de72e07d2742f/w202508285de5ed6830955/text": {
-    "ko": "공지사항",
-    "en": "Notic"
-  },
-  "notices#s202509116fa5db076d881/w202509116d66bee5d5138/text": {
-    "ko": "공지사항",
-    "en": "Notic"
-  },
   "notices#s2025082036afa4e23fa8c/w202508203bef670019226/html": {
     "ko": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px; letter-spacing: 0px;\">더 건강하고 깨끗한 물을 만드는 고객과의 약속</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px; letter-spacing: 0px;\">에코웨이브의 새로운 소식을 전해드립니다.</span></strong></h6></div></div>\n\t",
     "en": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px; letter-spacing: 0px;\">EcoWave promises cleaner, healthier water.</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px; letter-spacing: 0px;\">A new update for our customers.&nbsp;</span></strong></h6></div></div>\n\t"
@@ -16428,50 +12876,6 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
   "notices#s2025091161e916b59099f/w202509110e7da42eec27c/alt": {
     "ko": "",
     "en": ""
-  },
-  "notices#s20250811f489e3443bdbe/w20250811379e3dc61aa7f/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p><img src=\"/images/upload/S20250811e0bd2f7c414df/f04049636b82b.png\" class=\"fr-fin fr-dib fr-fil\" style=\"width: 238px;\"></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><img src=\"/images/upload/S20250811e0bd2f7c414df/f04049636b82b.png\" class=\"fr-fin fr-dib fr-fil\" style=\"width: 238px;\"></p></div></div>\n\t"
-  },
-  "notices#s20250811f489e3443bdbe/w20250811c8ba21c61f272/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2;\"><span style=\"color: rgb(149, 149, 149); font-size: 14px;\">대표 : 김나연 &nbsp;</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">개인정보관리책임자 : 김나연 &nbsp;ㅣ &nbsp;문의 : ecowave_1800@naver.com</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">주소 : 인천광역시 남동구 은봉로 14 영도빌딩 2동</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">전화 : +82-32-812-1800 &nbsp;ㅣ &nbsp;팩스 : +82-32-812-1804</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><br></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Copyright ⓒ ECOWAVE. All Rights Reserved</span></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2;\"><span style=\"color: rgb(149, 149, 149); font-size: 14px;\">CEO : Choi Taeguk&nbsp;</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Personal Information Management Officer : Kim nacyeon</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Inquiry : ecowave_1800@naver.com</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">ADDRESS : 2-dong, Yeongdo Building, 14, Eunbong-ro, Namdong-gu, Incheon, Republic of Korea</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">TEL : +82-32-812-1800 &nbsp;ㅣ &nbsp;FAX : +82-32-812-1804</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><br></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Copyright ⓒ ECOWAVE. All Rights Reserved</span></span></p></div></div>\n\t"
-  },
-  "notices#s20250811f489e3443bdbe/w202508114039c43732879/text": {
-    "ko": "",
-    "en": ""
-  },
-  "notices#s20250811f489e3443bdbe/w202508114039c43732879/href": {
-    "ko": "#doz_header",
-    "en": "#doz_header"
-  },
-  "notices#s20250811f489e3443bdbe/w20250919b68d158c2925e/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>에코</strong><strong>웨이</strong><strong>브</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Ecowave</strong></span></p></div></div>\n\t"
-  },
-  "notices#s20250811f489e3443bdbe/w202509198aeb3bd046ac9/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216);\"><strong>연구개발</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>R&amp;D</strong></span></p></div></div>\n\t"
-  },
-  "notices#s20250811f489e3443bdbe/w2025091955cb4ab654cac/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>제품소개</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Product</strong></span></p></div></div>\n\t"
-  },
-  "notices#s20250811f489e3443bdbe/w2025091988816c09014e4/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>뉴스룸</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>News</strong></span></p></div></div>\n\t"
-  },
-  "notices#s20250811f489e3443bdbe/w20250919e76996cca8992/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>고객지원</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Customer</strong></span></p></div></div>\n\t"
-  },
-  "rnd.facilities#s20250828f765151cfdfa4/w20250828cc56990ab2881/text": {
-    "ko": "생산설비",
-    "en": "Production facilities"
-  },
-  "rnd.facilities#s20250911d9c03b9ac01da/w20250911674a140c7b58e/text": {
-    "ko": "생산설비",
-    "en": "Production facilities"
   },
   "rnd.facilities#s202508207ea6e772a48a0/w20250820e4cafbac3320e/html": {
     "ko": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">첨단 설비와 철저한 관리로</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">더 깨끗하고 안전한 물을 만듭니다.</span></strong></h6></div></div>\n\t",
@@ -16528,50 +12932,6 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
   "rnd.facilities#s2025091161e916b59099f/w202509110e7da42eec27c/alt": {
     "ko": "",
     "en": ""
-  },
-  "rnd.facilities#s20250811f489e3443bdbe/w20250811379e3dc61aa7f/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p><img src=\"/images/upload/S20250811e0bd2f7c414df/f04049636b82b.png\" class=\"fr-fin fr-dib fr-fil\" style=\"width: 238px;\"></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><img src=\"/images/upload/S20250811e0bd2f7c414df/f04049636b82b.png\" class=\"fr-fin fr-dib fr-fil\" style=\"width: 238px;\"></p></div></div>\n\t"
-  },
-  "rnd.facilities#s20250811f489e3443bdbe/w20250811c8ba21c61f272/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2;\"><span style=\"color: rgb(149, 149, 149); font-size: 14px;\">대표 : 김나연 &nbsp;</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">개인정보관리책임자 : 김나연 &nbsp;ㅣ &nbsp;문의 : ecowave_1800@naver.com</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">주소 : 인천광역시 남동구 은봉로 14 영도빌딩 2동</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">전화 : +82-32-812-1800 &nbsp;ㅣ &nbsp;팩스 : +82-32-812-1804</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><br></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Copyright ⓒ ECOWAVE. All Rights Reserved</span></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2;\"><span style=\"color: rgb(149, 149, 149); font-size: 14px;\">CEO : Choi Taeguk&nbsp;</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Personal Information Management Officer : Kim nacyeon</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Inquiry : ecowave_1800@naver.com</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">ADDRESS : 2-dong, Yeongdo Building, 14, Eunbong-ro, Namdong-gu, Incheon, Republic of Korea</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">TEL : +82-32-812-1800 &nbsp;ㅣ &nbsp;FAX : +82-32-812-1804</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><br></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Copyright ⓒ ECOWAVE. All Rights Reserved</span></span></p></div></div>\n\t"
-  },
-  "rnd.facilities#s20250811f489e3443bdbe/w202508114039c43732879/text": {
-    "ko": "",
-    "en": ""
-  },
-  "rnd.facilities#s20250811f489e3443bdbe/w202508114039c43732879/href": {
-    "ko": "#doz_header",
-    "en": "#doz_header"
-  },
-  "rnd.facilities#s20250811f489e3443bdbe/w20250919b68d158c2925e/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>에코</strong><strong>웨이</strong><strong>브</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Ecowave</strong></span></p></div></div>\n\t"
-  },
-  "rnd.facilities#s20250811f489e3443bdbe/w202509198aeb3bd046ac9/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216);\"><strong>연구개발</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>R&amp;D</strong></span></p></div></div>\n\t"
-  },
-  "rnd.facilities#s20250811f489e3443bdbe/w2025091955cb4ab654cac/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>제품소개</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Product</strong></span></p></div></div>\n\t"
-  },
-  "rnd.facilities#s20250811f489e3443bdbe/w2025091988816c09014e4/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>뉴스룸</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>News</strong></span></p></div></div>\n\t"
-  },
-  "rnd.facilities#s20250811f489e3443bdbe/w20250919e76996cca8992/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>고객지원</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Customer</strong></span></p></div></div>\n\t"
-  },
-  "rnd#s20250909d881ca212d6f0/w2025090976b24482b642f/text": {
-    "ko": "보유기술",
-    "en": "Retained technology"
-  },
-  "rnd#s20250910c77bdacaa4d4c/w2025091082708cc61e1aa/text": {
-    "ko": "보유기술",
-    "en": "Retained technology"
   },
   "rnd#s20250909caaa8544e0e70/w20250909b16e1f0580760/html": {
     "ko": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">첨단 설비와 철저한 관리로</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">더 깨끗하고 안전한 물을 만듭니다.</span></strong></h6></div></div>\n\t",
@@ -16732,50 +13092,6 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
   "rnd#s2025091161e916b59099f/w202509110e7da42eec27c/alt": {
     "ko": "",
     "en": ""
-  },
-  "rnd#s20250811f489e3443bdbe/w20250811379e3dc61aa7f/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p><img src=\"/images/upload/S20250811e0bd2f7c414df/f04049636b82b.png\" class=\"fr-fin fr-dib fr-fil\" style=\"width: 238px;\"></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><img src=\"/images/upload/S20250811e0bd2f7c414df/f04049636b82b.png\" class=\"fr-fin fr-dib fr-fil\" style=\"width: 238px;\"></p></div></div>\n\t"
-  },
-  "rnd#s20250811f489e3443bdbe/w20250811c8ba21c61f272/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2;\"><span style=\"color: rgb(149, 149, 149); font-size: 14px;\">대표 : 김나연 &nbsp;</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">개인정보관리책임자 : 김나연 &nbsp;ㅣ &nbsp;문의 : ecowave_1800@naver.com</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">주소 : 인천광역시 남동구 은봉로 14 영도빌딩 2동</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">전화 : +82-32-812-1800 &nbsp;ㅣ &nbsp;팩스 : +82-32-812-1804</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><br></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Copyright ⓒ ECOWAVE. All Rights Reserved</span></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2;\"><span style=\"color: rgb(149, 149, 149); font-size: 14px;\">CEO : Choi Taeguk&nbsp;</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Personal Information Management Officer : Kim nacyeon</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Inquiry : ecowave_1800@naver.com</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">ADDRESS : 2-dong, Yeongdo Building, 14, Eunbong-ro, Namdong-gu, Incheon, Republic of Korea</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">TEL : +82-32-812-1800 &nbsp;ㅣ &nbsp;FAX : +82-32-812-1804</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><br></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Copyright ⓒ ECOWAVE. All Rights Reserved</span></span></p></div></div>\n\t"
-  },
-  "rnd#s20250811f489e3443bdbe/w202508114039c43732879/text": {
-    "ko": "",
-    "en": ""
-  },
-  "rnd#s20250811f489e3443bdbe/w202508114039c43732879/href": {
-    "ko": "#doz_header",
-    "en": "#doz_header"
-  },
-  "rnd#s20250811f489e3443bdbe/w20250919b68d158c2925e/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>에코</strong><strong>웨이</strong><strong>브</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Ecowave</strong></span></p></div></div>\n\t"
-  },
-  "rnd#s20250811f489e3443bdbe/w202509198aeb3bd046ac9/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216);\"><strong>연구개발</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>R&amp;D</strong></span></p></div></div>\n\t"
-  },
-  "rnd#s20250811f489e3443bdbe/w2025091955cb4ab654cac/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>제품소개</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Product</strong></span></p></div></div>\n\t"
-  },
-  "rnd#s20250811f489e3443bdbe/w2025091988816c09014e4/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>뉴스룸</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>News</strong></span></p></div></div>\n\t"
-  },
-  "rnd#s20250811f489e3443bdbe/w20250919e76996cca8992/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>고객지원</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Customer</strong></span></p></div></div>\n\t"
-  },
-  "rnd.patents#s202508283b9485c9d69c8/w20250828924d9408dda61/text": {
-    "ko": "국내외 특허",
-    "en": "Patents home & abroad"
-  },
-  "rnd.patents#s202509118ab6b37a880d4/w202509119c8444cd0b3e6/text": {
-    "ko": "국내외 특허",
-    "en": "Patents home & abroad"
   },
   "rnd.patents#s2025082027290aa48803c/w20250820f45ae1e9a7239/html": {
     "ko": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">첨단 설비와 철저한 관리로</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">더 깨끗하고 안전한 물을 만듭니다.</span></strong></h6></div></div>\n\t",
@@ -17147,50 +13463,6 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "ko": "",
     "en": ""
   },
-  "rnd.patents#s20250811f489e3443bdbe/w20250811379e3dc61aa7f/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p><img src=\"/images/upload/S20250811e0bd2f7c414df/f04049636b82b.png\" class=\"fr-fin fr-dib fr-fil\" style=\"width: 238px;\"></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><img src=\"/images/upload/S20250811e0bd2f7c414df/f04049636b82b.png\" class=\"fr-fin fr-dib fr-fil\" style=\"width: 238px;\"></p></div></div>\n\t"
-  },
-  "rnd.patents#s20250811f489e3443bdbe/w20250811c8ba21c61f272/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2;\"><span style=\"color: rgb(149, 149, 149); font-size: 14px;\">대표 : 김나연 &nbsp;</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">개인정보관리책임자 : 김나연 &nbsp;ㅣ &nbsp;문의 : ecowave_1800@naver.com</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">주소 : 인천광역시 남동구 은봉로 14 영도빌딩 2동</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">전화 : +82-32-812-1800 &nbsp;ㅣ &nbsp;팩스 : +82-32-812-1804</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><br></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Copyright ⓒ ECOWAVE. All Rights Reserved</span></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2;\"><span style=\"color: rgb(149, 149, 149); font-size: 14px;\">CEO : Choi Taeguk&nbsp;</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Personal Information Management Officer : Kim nacyeon</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Inquiry : ecowave_1800@naver.com</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">ADDRESS : 2-dong, Yeongdo Building, 14, Eunbong-ro, Namdong-gu, Incheon, Republic of Korea</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">TEL : +82-32-812-1800 &nbsp;ㅣ &nbsp;FAX : +82-32-812-1804</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><br></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Copyright ⓒ ECOWAVE. All Rights Reserved</span></span></p></div></div>\n\t"
-  },
-  "rnd.patents#s20250811f489e3443bdbe/w202508114039c43732879/text": {
-    "ko": "",
-    "en": ""
-  },
-  "rnd.patents#s20250811f489e3443bdbe/w202508114039c43732879/href": {
-    "ko": "#doz_header",
-    "en": "#doz_header"
-  },
-  "rnd.patents#s20250811f489e3443bdbe/w20250919b68d158c2925e/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>에코</strong><strong>웨이</strong><strong>브</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Ecowave</strong></span></p></div></div>\n\t"
-  },
-  "rnd.patents#s20250811f489e3443bdbe/w202509198aeb3bd046ac9/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216);\"><strong>연구개발</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>R&amp;D</strong></span></p></div></div>\n\t"
-  },
-  "rnd.patents#s20250811f489e3443bdbe/w2025091955cb4ab654cac/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>제품소개</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Product</strong></span></p></div></div>\n\t"
-  },
-  "rnd.patents#s20250811f489e3443bdbe/w2025091988816c09014e4/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>뉴스룸</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>News</strong></span></p></div></div>\n\t"
-  },
-  "rnd.patents#s20250811f489e3443bdbe/w20250919e76996cca8992/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>고객지원</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Customer</strong></span></p></div></div>\n\t"
-  },
-  "rnd.technology#s20250909d881ca212d6f0/w2025090976b24482b642f/text": {
-    "ko": "보유기술",
-    "en": "Retained technology"
-  },
-  "rnd.technology#s20250910c77bdacaa4d4c/w2025091082708cc61e1aa/text": {
-    "ko": "보유기술",
-    "en": "Retained technology"
-  },
   "rnd.technology#s20250909caaa8544e0e70/w20250909b16e1f0580760/html": {
     "ko": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">첨단 설비와 철저한 관리로</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">더 깨끗하고 안전한 물을 만듭니다.</span></strong></h6></div></div>\n\t",
     "en": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">Advanced facilities&nbsp;</span></strong><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">and strict management</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">create cleaner, safer water.</span></strong></h6></div></div>\n\t"
@@ -17351,74 +13623,11 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "ko": "",
     "en": ""
   },
-  "rnd.technology#s20250811f489e3443bdbe/w20250811379e3dc61aa7f/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p><img src=\"/images/upload/S20250811e0bd2f7c414df/f04049636b82b.png\" class=\"fr-fin fr-dib fr-fil\" style=\"width: 238px;\"></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><img src=\"/images/upload/S20250811e0bd2f7c414df/f04049636b82b.png\" class=\"fr-fin fr-dib fr-fil\" style=\"width: 238px;\"></p></div></div>\n\t"
-  },
-  "rnd.technology#s20250811f489e3443bdbe/w20250811c8ba21c61f272/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2;\"><span style=\"color: rgb(149, 149, 149); font-size: 14px;\">대표 : 김나연 &nbsp;</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">개인정보관리책임자 : 김나연 &nbsp;ㅣ &nbsp;문의 : ecowave_1800@naver.com</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">주소 : 인천광역시 남동구 은봉로 14 영도빌딩 2동</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">전화 : +82-32-812-1800 &nbsp;ㅣ &nbsp;팩스 : +82-32-812-1804</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><br></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Copyright ⓒ ECOWAVE. All Rights Reserved</span></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2;\"><span style=\"color: rgb(149, 149, 149); font-size: 14px;\">CEO : Choi Taeguk&nbsp;</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Personal Information Management Officer : Kim nacyeon</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Inquiry : ecowave_1800@naver.com</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">ADDRESS : 2-dong, Yeongdo Building, 14, Eunbong-ro, Namdong-gu, Incheon, Republic of Korea</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">TEL : +82-32-812-1800 &nbsp;ㅣ &nbsp;FAX : +82-32-812-1804</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><br></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Copyright ⓒ ECOWAVE. All Rights Reserved</span></span></p></div></div>\n\t"
-  },
-  "rnd.technology#s20250811f489e3443bdbe/w202508114039c43732879/text": {
-    "ko": "",
-    "en": ""
-  },
-  "rnd.technology#s20250811f489e3443bdbe/w202508114039c43732879/href": {
-    "ko": "#doz_header",
-    "en": "#doz_header"
-  },
-  "rnd.technology#s20250811f489e3443bdbe/w20250919b68d158c2925e/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>에코</strong><strong>웨이</strong><strong>브</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Ecowave</strong></span></p></div></div>\n\t"
-  },
-  "rnd.technology#s20250811f489e3443bdbe/w202509198aeb3bd046ac9/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216);\"><strong>연구개발</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>R&amp;D</strong></span></p></div></div>\n\t"
-  },
-  "rnd.technology#s20250811f489e3443bdbe/w2025091955cb4ab654cac/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>제품소개</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Product</strong></span></p></div></div>\n\t"
-  },
-  "rnd.technology#s20250811f489e3443bdbe/w2025091988816c09014e4/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>뉴스룸</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>News</strong></span></p></div></div>\n\t"
-  },
-  "rnd.technology#s20250811f489e3443bdbe/w20250919e76996cca8992/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>고객지원</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Customer</strong></span></p></div></div>\n\t"
-  },
   "support#s2025091161e916b59099f/w202509110e7da42eec27c/src": {
     "ko": "/images/thumbnail/20250911/68ffc55b3ed20.png"
   },
   "support#s2025091161e916b59099f/w202509110e7da42eec27c/alt": {
     "ko": ""
-  },
-  "support#s20250811f489e3443bdbe/w20250811379e3dc61aa7f/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p><img src=\"/images/upload/S20250811e0bd2f7c414df/f04049636b82b.png\" class=\"fr-fin fr-dib fr-fil\" style=\"width: 238px;\"></p></div></div>\n\t"
-  },
-  "support#s20250811f489e3443bdbe/w20250811c8ba21c61f272/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2;\"><span style=\"color: rgb(149, 149, 149); font-size: 14px;\">대표 : 김나연 &nbsp;</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">개인정보관리책임자 : 김나연 &nbsp;ㅣ &nbsp;문의 : ecowave_1800@naver.com</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">주소 : 인천광역시 남동구 은봉로 14 영도빌딩 2동</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">전화 : +82-32-812-1800 &nbsp;ㅣ &nbsp;팩스 : +82-32-812-1804</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><br></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Copyright ⓒ ECOWAVE. All Rights Reserved</span></span></p></div></div>\n\t"
-  },
-  "support#s20250811f489e3443bdbe/w202508114039c43732879/text": {
-    "ko": ""
-  },
-  "support#s20250811f489e3443bdbe/w202508114039c43732879/href": {
-    "ko": "#doz_header"
-  },
-  "support#s20250811f489e3443bdbe/w20250919b68d158c2925e/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>에코</strong><strong>웨이</strong><strong>브</strong></span></p></div></div>\n\t"
-  },
-  "support#s20250811f489e3443bdbe/w202509198aeb3bd046ac9/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216);\"><strong>연구개발</strong></span></p></div></div>\n\t"
-  },
-  "support#s20250811f489e3443bdbe/w2025091955cb4ab654cac/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>제품소개</strong></span></p></div></div>\n\t"
-  },
-  "support#s20250811f489e3443bdbe/w2025091988816c09014e4/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>뉴스룸</strong></span></p></div></div>\n\t"
-  },
-  "support#s20250811f489e3443bdbe/w20250919e76996cca8992/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>고객지원</strong></span></p></div></div>\n\t"
   },
   "news#board/news/name": {
     "ko": "공지사항",
@@ -17614,23 +13823,12 @@ export const CONTENT_KEYS_BY_GROUP: Record<ContentGroup, string[]> = {
     "home#s20250911e7c6ef8d60c18/w20250911f6299fc147ec0/html"
   ],
   "company": [
-    "company#s20250811f489e3443bdbe/w20250811379e3dc61aa7f/html",
-    "company#s20250811f489e3443bdbe/w202508114039c43732879/href",
-    "company#s20250811f489e3443bdbe/w202508114039c43732879/text",
-    "company#s20250811f489e3443bdbe/w20250811c8ba21c61f272/html",
-    "company#s20250811f489e3443bdbe/w2025091955cb4ab654cac/html",
-    "company#s20250811f489e3443bdbe/w2025091988816c09014e4/html",
-    "company#s20250811f489e3443bdbe/w202509198aeb3bd046ac9/html",
-    "company#s20250811f489e3443bdbe/w20250919b68d158c2925e/html",
-    "company#s20250811f489e3443bdbe/w20250919e76996cca8992/html",
     "company#s20250811fd0a82675a6bc/w20250909edc32b5a0f8ec/html",
     "company#s20250811fd0a82675a6bc/w20250909f454e7a9b1143/html",
     "company#s20250811fd0a82675a6bc/w20250909fe979998d4590/html",
     "company#s202508206321c39177601/w20250820e1c08ac226481/html",
-    "company#s20250828a35c24d19b8a4/w202508285263c4fecdad7/text",
     "company#s2025091161e916b59099f/w202509110e7da42eec27c/alt",
     "company#s2025091161e916b59099f/w202509110e7da42eec27c/src",
-    "company#s20250911dbe58ff8b7e3d/w20250911a9c7322d29625/text",
     "company.about#s20250811457daf6e58a2c/w2025091840bd06b2a6c1d/alt",
     "company.about#s20250811457daf6e58a2c/w2025091840bd06b2a6c1d/src",
     "company.about#s20250811457daf6e58a2c/w20250918684332dc780e7/html",
@@ -17665,20 +13863,9 @@ export const CONTENT_KEYS_BY_GROUP: Record<ContentGroup, string[]> = {
     "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[6].title",
     "company.about#s202508119a2e8fe21b47a/w20250918824e703adf63a/html",
     "company.about#s202508119a2e8fe21b47a/w20250918fb56c1bc5ba1c/html",
-    "company.about#s20250811f489e3443bdbe/w20250811379e3dc61aa7f/html",
-    "company.about#s20250811f489e3443bdbe/w202508114039c43732879/href",
-    "company.about#s20250811f489e3443bdbe/w202508114039c43732879/text",
-    "company.about#s20250811f489e3443bdbe/w20250811c8ba21c61f272/html",
-    "company.about#s20250811f489e3443bdbe/w2025091955cb4ab654cac/html",
-    "company.about#s20250811f489e3443bdbe/w2025091988816c09014e4/html",
-    "company.about#s20250811f489e3443bdbe/w202509198aeb3bd046ac9/html",
-    "company.about#s20250811f489e3443bdbe/w20250919b68d158c2925e/html",
-    "company.about#s20250811f489e3443bdbe/w20250919e76996cca8992/html",
     "company.about#s20250821eb14df6d34580/w20250821770900c60669c/html",
-    "company.about#s2025082882954faef91b6/w2025082842f7edfbe3263/text",
     "company.about#s2025091161e916b59099f/w202509110e7da42eec27c/alt",
     "company.about#s2025091161e916b59099f/w202509110e7da42eec27c/src",
-    "company.about#s202509117c421c7cbb56a/w20250911332a7d852277b/text",
     "company.about#s202509180d5f2b5ede2b3/w2025091860d26840abbc7/html",
     "company.about#s202509180d5f2b5ede2b3/w2025091886eece88ff0c0/html",
     "company.about#s202509180d5f2b5ede2b3/w20250918c7cf1698ddcc4/alt",
@@ -17834,32 +14021,12 @@ export const CONTENT_KEYS_BY_GROUP: Record<ContentGroup, string[]> = {
     "company.about#s202509191b81eb54a6991/w202509191cf358c2625d5/src",
     "company.about#s202509191b81eb54a6991/w20250919473898f523ab7/html",
     "company.about#s202509191b81eb54a6991/w20250919f67f88afd25af/html",
-    "company.ceo#s20250811f489e3443bdbe/w20250811379e3dc61aa7f/html",
-    "company.ceo#s20250811f489e3443bdbe/w202508114039c43732879/href",
-    "company.ceo#s20250811f489e3443bdbe/w202508114039c43732879/text",
-    "company.ceo#s20250811f489e3443bdbe/w20250811c8ba21c61f272/html",
-    "company.ceo#s20250811f489e3443bdbe/w2025091955cb4ab654cac/html",
-    "company.ceo#s20250811f489e3443bdbe/w2025091988816c09014e4/html",
-    "company.ceo#s20250811f489e3443bdbe/w202509198aeb3bd046ac9/html",
-    "company.ceo#s20250811f489e3443bdbe/w20250919b68d158c2925e/html",
-    "company.ceo#s20250811f489e3443bdbe/w20250919e76996cca8992/html",
     "company.ceo#s20250811fd0a82675a6bc/w20250909edc32b5a0f8ec/html",
     "company.ceo#s20250811fd0a82675a6bc/w20250909f454e7a9b1143/html",
     "company.ceo#s20250811fd0a82675a6bc/w20250909fe979998d4590/html",
     "company.ceo#s202508206321c39177601/w20250820e1c08ac226481/html",
-    "company.ceo#s20250828a35c24d19b8a4/w202508285263c4fecdad7/text",
     "company.ceo#s2025091161e916b59099f/w202509110e7da42eec27c/alt",
     "company.ceo#s2025091161e916b59099f/w202509110e7da42eec27c/src",
-    "company.ceo#s20250911dbe58ff8b7e3d/w20250911a9c7322d29625/text",
-    "company.global#s20250811f489e3443bdbe/w20250811379e3dc61aa7f/html",
-    "company.global#s20250811f489e3443bdbe/w202508114039c43732879/href",
-    "company.global#s20250811f489e3443bdbe/w202508114039c43732879/text",
-    "company.global#s20250811f489e3443bdbe/w20250811c8ba21c61f272/html",
-    "company.global#s20250811f489e3443bdbe/w2025091955cb4ab654cac/html",
-    "company.global#s20250811f489e3443bdbe/w2025091988816c09014e4/html",
-    "company.global#s20250811f489e3443bdbe/w202509198aeb3bd046ac9/html",
-    "company.global#s20250811f489e3443bdbe/w20250919b68d158c2925e/html",
-    "company.global#s20250811f489e3443bdbe/w20250919e76996cca8992/html",
     "company.global#s20250820da33f7f397fba/w202508201a58c7d614215/html",
     "company.global#s20250828182272ec01906/w202508280b0ed4b9954c7/html",
     "company.global#s20250828182272ec01906/w20250828247c9904b6b1e/html",
@@ -17868,26 +14035,14 @@ export const CONTENT_KEYS_BY_GROUP: Record<ContentGroup, string[]> = {
     "company.global#s202508286e01c87027ecf/w202508281ace26521721b/html",
     "company.global#s202508286e01c87027ecf/w20250828de7deb233dbfa/html",
     "company.global#s202508286e01c87027ecf/w20250828e62031634c512/html",
-    "company.global#s20250828755cb0bfe0e2b/w202508285f7a2a6513da9/text",
     "company.global#s202509111ecee05a61770/w202509110c02a9a33a442/html",
     "company.global#s2025091161e916b59099f/w202509110e7da42eec27c/alt",
     "company.global#s2025091161e916b59099f/w202509110e7da42eec27c/src",
-    "company.global#s20250911da8f23550aa24/w202509110d350e21a6307/text",
     "company.history#s2025081109284c6634db6/w2025081119c3906474684/html",
     "company.history#s20250811d0a0980d730fb/w2025082800cb79b620e9f/html",
     "company.history#s20250811d0a0980d730fb/w202508283581492aaba5b/html",
     "company.history#s20250811d0a0980d730fb/w20250828e2f457614fd1a/alt",
     "company.history#s20250811d0a0980d730fb/w20250828e2f457614fd1a/src",
-    "company.history#s20250811f1ff0a790f814/w202508113473b9473e149/text",
-    "company.history#s20250811f489e3443bdbe/w20250811379e3dc61aa7f/html",
-    "company.history#s20250811f489e3443bdbe/w202508114039c43732879/href",
-    "company.history#s20250811f489e3443bdbe/w202508114039c43732879/text",
-    "company.history#s20250811f489e3443bdbe/w20250811c8ba21c61f272/html",
-    "company.history#s20250811f489e3443bdbe/w2025091955cb4ab654cac/html",
-    "company.history#s20250811f489e3443bdbe/w2025091988816c09014e4/html",
-    "company.history#s20250811f489e3443bdbe/w202509198aeb3bd046ac9/html",
-    "company.history#s20250811f489e3443bdbe/w20250919b68d158c2925e/html",
-    "company.history#s20250811f489e3443bdbe/w20250919e76996cca8992/html",
     "company.history#s2025082848202431448dd/w202508280039b649ce648/alt",
     "company.history#s2025082848202431448dd/w202508280039b649ce648/src",
     "company.history#s2025082848202431448dd/w202508288b50dcc1f5d69/html",
@@ -17896,7 +14051,6 @@ export const CONTENT_KEYS_BY_GROUP: Record<ContentGroup, string[]> = {
     "company.history#s20250828fe85691f33b65/w202508289a08701d84b65/alt",
     "company.history#s20250828fe85691f33b65/w202508289a08701d84b65/src",
     "company.history#s20250828fe85691f33b65/w20250828e83ff2674ace5/html",
-    "company.history#s2025091135b7d4b0aaf20/w2025091130d303492b7a3/text",
     "company.history#s202509113e3a9a552b0c7/w202509111eabf738e9f9f/alt",
     "company.history#s202509113e3a9a552b0c7/w202509111eabf738e9f9f/src",
     "company.history#s2025091161e916b59099f/w202509110e7da42eec27c/alt",
@@ -17905,59 +14059,28 @@ export const CONTENT_KEYS_BY_GROUP: Record<ContentGroup, string[]> = {
     "company.history#s2025091169f925490d127/w2025091118beac108f780/src",
     "company.history#s20250911d986b4b4130eb/w202509117601025aae8ff/alt",
     "company.history#s20250911d986b4b4130eb/w202509117601025aae8ff/src",
-    "company.organization#s20250811f489e3443bdbe/w20250811379e3dc61aa7f/html",
-    "company.organization#s20250811f489e3443bdbe/w202508114039c43732879/href",
-    "company.organization#s20250811f489e3443bdbe/w202508114039c43732879/text",
-    "company.organization#s20250811f489e3443bdbe/w20250811c8ba21c61f272/html",
-    "company.organization#s20250811f489e3443bdbe/w2025091955cb4ab654cac/html",
-    "company.organization#s20250811f489e3443bdbe/w2025091988816c09014e4/html",
-    "company.organization#s20250811f489e3443bdbe/w202509198aeb3bd046ac9/html",
-    "company.organization#s20250811f489e3443bdbe/w20250919b68d158c2925e/html",
-    "company.organization#s20250811f489e3443bdbe/w20250919e76996cca8992/html",
     "company.organization#s2025082815dd6babdb335/w202508282e3a21059f88e/html",
-    "company.organization#s20250828229b7e9af5799/w20250828e22abd3aa3f07/text",
     "company.organization#s20250828f005be7f3c16a/w2025082844061a0c9a3b2/alt",
     "company.organization#s20250828f005be7f3c16a/w2025082844061a0c9a3b2/src",
     "company.organization#s2025091161e916b59099f/w202509110e7da42eec27c/alt",
     "company.organization#s2025091161e916b59099f/w202509110e7da42eec27c/src",
-    "company.organization#s20250911d25877c3201df/w20250911b7e62a09377ba/text",
     "company.philosophy#s202508119eca72dc669e0/w20250828318841133c7bc/html",
     "company.philosophy#s202508119eca72dc669e0/w202508285a7385a21e446/html",
     "company.philosophy#s202508119eca72dc669e0/w202508286148935689b29/html",
     "company.philosophy#s202508119eca72dc669e0/w2025082880e9f1cd594e5/html",
-    "company.philosophy#s20250811f489e3443bdbe/w20250811379e3dc61aa7f/html",
-    "company.philosophy#s20250811f489e3443bdbe/w202508114039c43732879/href",
-    "company.philosophy#s20250811f489e3443bdbe/w202508114039c43732879/text",
-    "company.philosophy#s20250811f489e3443bdbe/w20250811c8ba21c61f272/html",
-    "company.philosophy#s20250811f489e3443bdbe/w2025091955cb4ab654cac/html",
-    "company.philosophy#s20250811f489e3443bdbe/w2025091988816c09014e4/html",
-    "company.philosophy#s20250811f489e3443bdbe/w202509198aeb3bd046ac9/html",
-    "company.philosophy#s20250811f489e3443bdbe/w20250919b68d158c2925e/html",
-    "company.philosophy#s20250811f489e3443bdbe/w20250919e76996cca8992/html",
     "company.philosophy#s20250821af3858f799ed0/w20250821cacc4fa0b7888/html",
     "company.philosophy#s202508280e68f158799c2/w202508280d2f1669e2789/html",
     "company.philosophy#s202508280e68f158799c2/w202508281ce9cfb92c9a4/html",
     "company.philosophy#s202508280e68f158799c2/w202508289fc0c0165c025/alt",
     "company.philosophy#s202508280e68f158799c2/w202508289fc0c0165c025/src",
-    "company.philosophy#s20250828bf06f7204851e/w202508284d9c0b4e5f22c/text",
     "company.philosophy#s20250829e04e5ce09ea7e/w202508291aa62a1ed03bb/html",
     "company.philosophy#s20250829e04e5ce09ea7e/w202508295885a3029f0c2/html",
     "company.philosophy#s20250829e04e5ce09ea7e/w202508297535663fbc7e0/html",
     "company.philosophy#s20250829e04e5ce09ea7e/w2025082996725d2a2d20e/html",
     "company.philosophy#s2025091161e916b59099f/w202509110e7da42eec27c/alt",
-    "company.philosophy#s2025091161e916b59099f/w202509110e7da42eec27c/src",
-    "company.philosophy#s2025091173093c19f4adc/w20250911605ff40ee6b0c/text"
+    "company.philosophy#s2025091161e916b59099f/w202509110e7da42eec27c/src"
   ],
   "rnd": [
-    "rnd#s20250811f489e3443bdbe/w20250811379e3dc61aa7f/html",
-    "rnd#s20250811f489e3443bdbe/w202508114039c43732879/href",
-    "rnd#s20250811f489e3443bdbe/w202508114039c43732879/text",
-    "rnd#s20250811f489e3443bdbe/w20250811c8ba21c61f272/html",
-    "rnd#s20250811f489e3443bdbe/w2025091955cb4ab654cac/html",
-    "rnd#s20250811f489e3443bdbe/w2025091988816c09014e4/html",
-    "rnd#s20250811f489e3443bdbe/w202509198aeb3bd046ac9/html",
-    "rnd#s20250811f489e3443bdbe/w20250919b68d158c2925e/html",
-    "rnd#s20250811f489e3443bdbe/w20250919e76996cca8992/html",
     "rnd#s202509091799d895b62ea/w202509092bb83d593e678/alt",
     "rnd#s202509091799d895b62ea/w202509092bb83d593e678/src",
     "rnd#s202509091799d895b62ea/w20250909a6322fa870d46/html",
@@ -17996,23 +14119,11 @@ export const CONTENT_KEYS_BY_GROUP: Record<ContentGroup, string[]> = {
     "rnd#s20250909b12fa8000068e/w20250909dbdd88bc19258/alt",
     "rnd#s20250909b12fa8000068e/w20250909dbdd88bc19258/src",
     "rnd#s20250909caaa8544e0e70/w20250909b16e1f0580760/html",
-    "rnd#s20250909d881ca212d6f0/w2025090976b24482b642f/text",
-    "rnd#s20250910c77bdacaa4d4c/w2025091082708cc61e1aa/text",
     "rnd#s2025091161e916b59099f/w202509110e7da42eec27c/alt",
     "rnd#s2025091161e916b59099f/w202509110e7da42eec27c/src",
     "rnd.facilities#s2025081165e9bc78b81eb/w2025082017159663bed3c/html",
     "rnd.facilities#s2025081165e9bc78b81eb/w202508207cdb6535abb7d/html",
-    "rnd.facilities#s20250811f489e3443bdbe/w20250811379e3dc61aa7f/html",
-    "rnd.facilities#s20250811f489e3443bdbe/w202508114039c43732879/href",
-    "rnd.facilities#s20250811f489e3443bdbe/w202508114039c43732879/text",
-    "rnd.facilities#s20250811f489e3443bdbe/w20250811c8ba21c61f272/html",
-    "rnd.facilities#s20250811f489e3443bdbe/w2025091955cb4ab654cac/html",
-    "rnd.facilities#s20250811f489e3443bdbe/w2025091988816c09014e4/html",
-    "rnd.facilities#s20250811f489e3443bdbe/w202509198aeb3bd046ac9/html",
-    "rnd.facilities#s20250811f489e3443bdbe/w20250919b68d158c2925e/html",
-    "rnd.facilities#s20250811f489e3443bdbe/w20250919e76996cca8992/html",
     "rnd.facilities#s202508207ea6e772a48a0/w20250820e4cafbac3320e/html",
-    "rnd.facilities#s20250828f765151cfdfa4/w20250828cc56990ab2881/text",
     "rnd.facilities#s20250829c25afe324e195/w202508292eb257f4075b4/html",
     "rnd.facilities#s20250829c25afe324e195/w20250829336d480a01019/html",
     "rnd.facilities#s20250829c25afe324e195/w2025082935a39e86acbcc/html",
@@ -18024,7 +14135,6 @@ export const CONTENT_KEYS_BY_GROUP: Record<ContentGroup, string[]> = {
     "rnd.facilities#s20250829c25afe324e195/w20250829dc320d96d4f7e/html",
     "rnd.facilities#s2025091161e916b59099f/w202509110e7da42eec27c/alt",
     "rnd.facilities#s2025091161e916b59099f/w202509110e7da42eec27c/src",
-    "rnd.facilities#s20250911d9c03b9ac01da/w20250911674a140c7b58e/text",
     "rnd.patents#s202508114d9bc90ceb876/w2025082013eb8cbe71ecd/items[0].desc",
     "rnd.patents#s202508114d9bc90ceb876/w2025082013eb8cbe71ecd/items[0].org",
     "rnd.patents#s202508114d9bc90ceb876/w2025082013eb8cbe71ecd/items[0].thumb",
@@ -18116,29 +14226,9 @@ export const CONTENT_KEYS_BY_GROUP: Record<ContentGroup, string[]> = {
     "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[9].org",
     "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[9].thumb",
     "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[9].title",
-    "rnd.patents#s20250811f489e3443bdbe/w20250811379e3dc61aa7f/html",
-    "rnd.patents#s20250811f489e3443bdbe/w202508114039c43732879/href",
-    "rnd.patents#s20250811f489e3443bdbe/w202508114039c43732879/text",
-    "rnd.patents#s20250811f489e3443bdbe/w20250811c8ba21c61f272/html",
-    "rnd.patents#s20250811f489e3443bdbe/w2025091955cb4ab654cac/html",
-    "rnd.patents#s20250811f489e3443bdbe/w2025091988816c09014e4/html",
-    "rnd.patents#s20250811f489e3443bdbe/w202509198aeb3bd046ac9/html",
-    "rnd.patents#s20250811f489e3443bdbe/w20250919b68d158c2925e/html",
-    "rnd.patents#s20250811f489e3443bdbe/w20250919e76996cca8992/html",
     "rnd.patents#s2025082027290aa48803c/w20250820f45ae1e9a7239/html",
-    "rnd.patents#s202508283b9485c9d69c8/w20250828924d9408dda61/text",
     "rnd.patents#s2025091161e916b59099f/w202509110e7da42eec27c/alt",
     "rnd.patents#s2025091161e916b59099f/w202509110e7da42eec27c/src",
-    "rnd.patents#s202509118ab6b37a880d4/w202509119c8444cd0b3e6/text",
-    "rnd.technology#s20250811f489e3443bdbe/w20250811379e3dc61aa7f/html",
-    "rnd.technology#s20250811f489e3443bdbe/w202508114039c43732879/href",
-    "rnd.technology#s20250811f489e3443bdbe/w202508114039c43732879/text",
-    "rnd.technology#s20250811f489e3443bdbe/w20250811c8ba21c61f272/html",
-    "rnd.technology#s20250811f489e3443bdbe/w2025091955cb4ab654cac/html",
-    "rnd.technology#s20250811f489e3443bdbe/w2025091988816c09014e4/html",
-    "rnd.technology#s20250811f489e3443bdbe/w202509198aeb3bd046ac9/html",
-    "rnd.technology#s20250811f489e3443bdbe/w20250919b68d158c2925e/html",
-    "rnd.technology#s20250811f489e3443bdbe/w20250919e76996cca8992/html",
     "rnd.technology#s202509091799d895b62ea/w202509092bb83d593e678/alt",
     "rnd.technology#s202509091799d895b62ea/w202509092bb83d593e678/src",
     "rnd.technology#s202509091799d895b62ea/w20250909a6322fa870d46/html",
@@ -18177,8 +14267,6 @@ export const CONTENT_KEYS_BY_GROUP: Record<ContentGroup, string[]> = {
     "rnd.technology#s20250909b12fa8000068e/w20250909dbdd88bc19258/alt",
     "rnd.technology#s20250909b12fa8000068e/w20250909dbdd88bc19258/src",
     "rnd.technology#s20250909caaa8544e0e70/w20250909b16e1f0580760/html",
-    "rnd.technology#s20250909d881ca212d6f0/w2025090976b24482b642f/text",
-    "rnd.technology#s20250910c77bdacaa4d4c/w2025091082708cc61e1aa/text",
     "rnd.technology#s2025091161e916b59099f/w202509110e7da42eec27c/alt",
     "rnd.technology#s2025091161e916b59099f/w202509110e7da42eec27c/src"
   ],
@@ -18193,45 +14281,14 @@ export const CONTENT_KEYS_BY_GROUP: Record<ContentGroup, string[]> = {
   "boards": [
     "news#board/news/name",
     "news#board/news/posts",
-    "news#s20250811f489e3443bdbe/w20250811379e3dc61aa7f/html",
-    "news#s20250811f489e3443bdbe/w202508114039c43732879/href",
-    "news#s20250811f489e3443bdbe/w202508114039c43732879/text",
-    "news#s20250811f489e3443bdbe/w20250811c8ba21c61f272/html",
-    "news#s20250811f489e3443bdbe/w2025091955cb4ab654cac/html",
-    "news#s20250811f489e3443bdbe/w2025091988816c09014e4/html",
-    "news#s20250811f489e3443bdbe/w202509198aeb3bd046ac9/html",
-    "news#s20250811f489e3443bdbe/w20250919b68d158c2925e/html",
-    "news#s20250811f489e3443bdbe/w20250919e76996cca8992/html",
     "news#s202508205198a0d766f60/w202508205b6f76d4a2c4d/html",
-    "news#s20250828076cc53ae3de1/w20250828bdc1cca6ab6f3/text",
     "news#s2025091161e916b59099f/w202509110e7da42eec27c/alt",
     "news#s2025091161e916b59099f/w202509110e7da42eec27c/src",
-    "news#s20250911b15d712a41ffe/w2025091147bc8dec5ab70/text",
     "notices#board/notices/name",
     "notices#board/notices/posts",
-    "notices#s20250811f489e3443bdbe/w20250811379e3dc61aa7f/html",
-    "notices#s20250811f489e3443bdbe/w202508114039c43732879/href",
-    "notices#s20250811f489e3443bdbe/w202508114039c43732879/text",
-    "notices#s20250811f489e3443bdbe/w20250811c8ba21c61f272/html",
-    "notices#s20250811f489e3443bdbe/w2025091955cb4ab654cac/html",
-    "notices#s20250811f489e3443bdbe/w2025091988816c09014e4/html",
-    "notices#s20250811f489e3443bdbe/w202509198aeb3bd046ac9/html",
-    "notices#s20250811f489e3443bdbe/w20250919b68d158c2925e/html",
-    "notices#s20250811f489e3443bdbe/w20250919e76996cca8992/html",
     "notices#s2025082036afa4e23fa8c/w202508203bef670019226/html",
-    "notices#s20250828de72e07d2742f/w202508285de5ed6830955/text",
     "notices#s2025091161e916b59099f/w202509110e7da42eec27c/alt",
     "notices#s2025091161e916b59099f/w202509110e7da42eec27c/src",
-    "notices#s202509116fa5db076d881/w202509116d66bee5d5138/text",
-    "support#s20250811f489e3443bdbe/w20250811379e3dc61aa7f/html",
-    "support#s20250811f489e3443bdbe/w202508114039c43732879/href",
-    "support#s20250811f489e3443bdbe/w202508114039c43732879/text",
-    "support#s20250811f489e3443bdbe/w20250811c8ba21c61f272/html",
-    "support#s20250811f489e3443bdbe/w2025091955cb4ab654cac/html",
-    "support#s20250811f489e3443bdbe/w2025091988816c09014e4/html",
-    "support#s20250811f489e3443bdbe/w202509198aeb3bd046ac9/html",
-    "support#s20250811f489e3443bdbe/w20250919b68d158c2925e/html",
-    "support#s20250811f489e3443bdbe/w20250919e76996cca8992/html",
     "support#s2025091161e916b59099f/w202509110e7da42eec27c/alt",
     "support#s2025091161e916b59099f/w202509110e7da42eec27c/src"
   ],

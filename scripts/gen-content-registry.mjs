@@ -66,6 +66,57 @@ const MAX_LENGTH = {
   list: 20000,
 };
 
+/**
+ * Sections the public renderers strip, so the admin must not expose their
+ * fields (an override there would be a silent no-op):
+ *  - the black footer band — every page shell drops its own copy and
+ *    `components/layout/SiteFooter.tsx` renders the HOME page's copy on every
+ *    route, so only `home`'s footer defs are live;
+ *  - the leading page-title hero band of each channel — rebuilt as <PageHero>
+ *    from the nav labels (site#nav/…), which are the real source.
+ * Mirrors lib/page-hero.ts (`isFooterSection`, FOOTER_SECTION_ID) and
+ * components/content/SectionRenderer.tsx (`MOBILE_SECTION`, `PAGE_HERO`,
+ * `isPageHeroSection`).
+ */
+const FOOTER_SECTION_ID = "s20250811f489e3443bdbe";
+const MOBILE_SECTION = /(^|\s)mobile_section(\s|$)/;
+const PAGE_HERO = /(^|\s)(_section_first|mobile_section_first)(\s|$)/;
+
+/** true when the section is the black footer band (contains the copyright line) */
+function isFooterSection(section) {
+  let found = false;
+  (function walk(rows) {
+    for (const r of rows ?? []) {
+      if (r.kind === "widget" && r.type === "text" && /Copyright/i.test(r.html || "")) found = true;
+      if (r.kind === "row") for (const c of r.cols ?? []) walk(c.children);
+    }
+  })(section.rows);
+  return found;
+}
+
+function hasMenuTitle(section) {
+  return sectionWidgets(section).some((w) => w.type === "menu_title");
+}
+
+function isPageHeroSection(section) {
+  return PAGE_HERO.test(section.cls || "") || hasMenuTitle(section);
+}
+
+/** Section ids of `page` that no route renders (see the block comment above). */
+function deadSectionIds(page) {
+  const sections = page.sections ?? [];
+  const dead = new Set();
+  for (const s of sections) {
+    if (isFooterSection(s) || s.id === FOOTER_SECTION_ID) dead.add(s.id);
+  }
+  const live = sections.filter((s) => !dead.has(s.id));
+  const firstPc = live.find((s) => !MOBILE_SECTION.test(s.cls || ""));
+  const firstMobile = live.find((s) => MOBILE_SECTION.test(s.cls || ""));
+  if (firstPc && isPageHeroSection(firstPc)) dead.add(firstPc.id);
+  if (firstMobile && isPageHeroSection(firstMobile)) dead.add(firstMobile.id);
+  return dead;
+}
+
 // ---------------------------------------------------------------------------
 // helpers
 // ---------------------------------------------------------------------------
@@ -272,6 +323,10 @@ function walkPages() {
     const enPage = fs.existsSync(enPath) ? readJson(enPath) : null;
     if (!enPage) warnings.push(`no EN page for ${pageKey}; EN values omitted`);
 
+    // home keeps its own footer section (SiteFooter renders it site-wide) and
+    // has no page-title hero band; every other page drops the sections below.
+    const dead = pageKey === "home" ? new Set() : deadSectionIds(koPage);
+
     const section = {
       ko: koPage.title ?? pageKey,
       en: enPage?.title ?? koPage.title ?? pageKey,
@@ -279,6 +334,8 @@ function walkPages() {
 
     for (let si = 0; si < (koPage.sections ?? []).length; si += 1) {
       const koSection = koPage.sections[si];
+      // keep the EN index alignment: skip by position, not by filtering
+      if (dead.has(koSection.id)) continue;
       const enSection = enPage?.sections?.[si];
       const koWidgets = sectionWidgets(koSection);
       const enWidgets = enSection ? sectionWidgets(enSection) : [];

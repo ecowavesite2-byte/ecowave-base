@@ -43,15 +43,6 @@ const ALLOWLIST: Record<string, string> = {
   // No structurally paired EN widget (ko/en type mismatch recorded by the generator).
   "company.about#s20250811457daf6e58a2c/w20250918684332dc780e7/html@en": NO_EN_COUNTERPART,
   "company.about#s20250918e40b7f78d4437/w20250918bf11a5c9a5e10/html@en": NO_EN_COUNTERPART,
-  "support#s20250811f489e3443bdbe/w20250811379e3dc61aa7f/html@en": NO_EN_COUNTERPART,
-  "support#s20250811f489e3443bdbe/w202508114039c43732879/href@en": NO_EN_COUNTERPART,
-  "support#s20250811f489e3443bdbe/w202508114039c43732879/text@en": NO_EN_COUNTERPART,
-  "support#s20250811f489e3443bdbe/w20250811c8ba21c61f272/html@en": NO_EN_COUNTERPART,
-  "support#s20250811f489e3443bdbe/w2025091955cb4ab654cac/html@en": NO_EN_COUNTERPART,
-  "support#s20250811f489e3443bdbe/w2025091988816c09014e4/html@en": NO_EN_COUNTERPART,
-  "support#s20250811f489e3443bdbe/w202509198aeb3bd046ac9/html@en": NO_EN_COUNTERPART,
-  "support#s20250811f489e3443bdbe/w20250919b68d158c2925e/html@en": NO_EN_COUNTERPART,
-  "support#s20250811f489e3443bdbe/w20250919e76996cca8992/html@en": NO_EN_COUNTERPART,
   "support#s2025091161e916b59099f/w202509110e7da42eec27c/alt@en": NO_EN_COUNTERPART,
   "support#s2025091161e916b59099f/w202509110e7da42eec27c/src@en": NO_EN_COUNTERPART,
 };
@@ -141,10 +132,13 @@ describe("override coverage (every CONTENT_DEFS key, both locales)", () => {
     }
 
     expect(failures).toEqual([]);
-    // 701 defs × 2 locales − 23 allowlisted applications (10 board-post + 13 EN).
-    expect(allowlisted.length).toBe(23);
-    expect(applied).toBe(CONTENT_DEFS.length * LOCALES.length - 23);
-    expect(applied).toBe(1379);
+    // 549 defs × 2 locales − 14 allowlisted applications (10 board-post + 4 EN).
+    // Dead sections are excluded from the registry by the generator: the footer
+    // copies on non-home pages (SiteFooter renders home's) and the leading
+    // page-title hero band of each channel (rebuilt as <PageHero> from nav).
+    expect(allowlisted.length).toBe(14);
+    expect(applied).toBe(CONTENT_DEFS.length * LOCALES.length - 14);
+    expect(applied).toBe(1084);
     expect(applied).toBe(expectedApplied);
   });
 
