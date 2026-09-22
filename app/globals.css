@@ -88,6 +88,17 @@ a {
 .rich-text .text-table.holder {
   padding: 20px 0;
 }
+/* imweb spaces every text widget with `margin: 15px 0` on `.widget_text_wrap`
+   (CDP-measured on company.philosophy: holder pad 0 + 15/15 margins). Our
+   wrapper carries no margins, so the holder supplies the whole spacing — at
+   20px it overshoots the original by 10px per holder row (company.philosophy
+   MISSION 280->290, VISION 162.63->172.63). Desktop-only; the verified mobile
+   parity keeps 20px. */
+@media (min-width: 992px) {
+  .rich-text .text-table.holder {
+    padding: 15px 0;
+  }
+}
 /* cover layers (`text_bg_img` + `text_bg_color`) are imweb-absolute inside
    `.widget_text_wrap`; our equivalent wrapper is `.rich-text`. Without this the
    layers are 0-height in flow and white text renders white-on-white. Lift the
