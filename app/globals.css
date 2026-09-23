@@ -284,6 +284,21 @@ a {
     .spacer {
         height: calc(var(--h) * 0.5px + 15px);
     }
+    /* S5b — `grid_v_gutter_0` pc-at-mobile sections have NO `.inside .widget`
+       15px gutter, so their padding widgets render at exactly half the desktop
+       height (verified live at 390 on the original home §4
+       s20250811611f0c372c57a: the authored 120px padding renders 60px and the
+       82px padding renders 41px, where the local +15 approximation rendered
+       75px/56px → +30 per section). The section class is not in the local DOM,
+       so CSS cannot detect gutter-0 on its own; this rule waits on the
+       SectionRenderer hook `data-vgutter="0"` (see
+       `design/scratch/globals-progress.md`). Validated by CSSOM simulation on
+       the running build: with the attribute the two spacers become 60/41 and
+       the §4 section drops 273 -> 243. Kept ahead of the mobile-only rule below
+       so a mobile_section still renders its authored 1.0x height. */
+    section[data-vgutter="0"] .spacer {
+        height: calc(var(--h) * 0.5px);
+    }
     /* imweb authors `mobile_section` paddings at their 390px height and the
        mobile runtime renders them verbatim (measured on the live original:
        home s20250911e7c6ef8d60c18 44->44 / 30->30, s20250911ce32ed6fec574
@@ -292,6 +307,23 @@ a {
        that are mobile-only. */
     section[class*="min-[992px]:hidden"] .spacer {
         height: calc(var(--h) * 1px);
+    }
+}
+
+/* imweb hides `.hidden-xs` elements below 768px:
+   `bundle-13-bootstrap.css: @media (max-width:767px){.hidden-xs{display:none!important}}`.
+   Verified live on the original home at 390: `<div class="doz_row hidden-xs">`
+   (the §4 section's second authored padding strip, 82px at desktop) computes
+   `display:none`, height 0 — while the local build renders it as a 56px
+   `.spacer` (41px once S5b halves it), closing home §4's +56/+41 gap. The
+   crawl dropped row classes, so NO element in
+   `content/*.json` carries `hidden-xs` today (verified by full-tree scan) and
+   this rule is inert — it cannot hide anything currently visible. Activation
+   needs the crawler to persist the row class and SectionRenderer to emit it
+   (see `design/scratch/globals-progress.md`). */
+@media (max-width: 767px) {
+    .hidden-xs {
+        display: none !important;
     }
 }
 

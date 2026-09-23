@@ -431,6 +431,7 @@ export function Widget({
   nested = false,
   vGutter = false,
   mobileBox = false,
+  topBand = false,
 }: {
   w: WidgetNode;
   locale?: Locale;
@@ -438,6 +439,8 @@ export function Widget({
   vGutter?: boolean;
   /** MB1: this widget lives in a `mobile_section`; apply its box height on mobile */
   mobileBox?: boolean;
+  /** this widget's section is in TOP_BAND_SECTION_IDS; band its top-level widgets at mobile */
+  topBand?: boolean;
 }) {
   const content = w.type === "padding" ? renderPadding(w) : WidgetContent({ w, locale, mobileBox });
   if (!content) return null;
@@ -456,14 +459,26 @@ export function Widget({
   // is gated on `mobileBox`. Verified by DOM simulation: home §2 807→867,
   // history §2/§5/§8 298/255/255→313/270/270 (originals 328/270/270), about §3
   // 790→805 (orig 835); rnd/rnd.facilities/rnd.patents pc sections untouched.
+  //
+  // The pc-section nested band lives in NESTED_IMAGE_BAND / NESTED_TEXT_BAND
+  // above (7.5px at mobile, images 15px at desktop); `text_bg_color` cards are
+  // excluded because their own box already reproduces the band. The optional
+  // top-level band (TOP_BAND_SECTION_IDS) is applied to non-padding top-level
+  // widgets of the measured pc sections only.
   const margin =
     w.type === "image" && vGutter
       ? mobileBox
         ? "mt-[7.5px] mb-[7.5px]"
         : nested
-          ? "mt-[15px] mb-[15px]"
-          : ""
-      : "";
+          ? NESTED_IMAGE_BAND
+          : topBand
+            ? WIDGET_TOP_BAND
+            : ""
+      : !mobileBox && vGutter && nested && w.type === "text" && !/text_bg_color/.test(w.html || "")
+        ? NESTED_TEXT_BAND
+        : !mobileBox && vGutter && topBand && !nested && w.type !== "padding"
+          ? WIDGET_TOP_BAND
+          : "";
   const tagged = (
     <div data-widget-type={w.type} className={margin || undefined}>
       {content}
@@ -768,6 +783,7 @@ export function Rows({
   wdepth = 0,
   vGutter = false,
   mobileBox = false,
+  topBand = false,
 }: {
   rows: Node[];
   locale?: Locale;
@@ -777,21 +793,23 @@ export function Rows({
   vGutter?: boolean;
   /** MB1: propagate the mobile-authored box height from the owning section */
   mobileBox?: boolean;
+  /** propagate the TOP_BAND_SECTION_IDS flag to top-level widgets */
+  topBand?: boolean;
 }) {
   const out: React.ReactNode[] = [];
   rows.forEach((n, i) => {
     if (isRow(n)) {
-      out.push(<Row key={i} r={n} locale={locale} nested={nested} wdepth={wdepth + 1} vGutter={vGutter} mobileBox={mobileBox} />);
+      out.push(<Row key={i} r={n} locale={locale} nested={nested} wdepth={wdepth + 1} vGutter={vGutter} mobileBox={mobileBox} topBand={topBand} />);
     } else if (isWidget(n)) {
       out.push(
         <div key={i}>
-          <Widget w={n} locale={locale} nested={wdepth > 0} vGutter={vGutter} mobileBox={mobileBox} />
+          <Widget w={n} locale={locale} nested={wdepth > 0} vGutter={vGutter} mobileBox={mobileBox} topBand={topBand} />
         </div>,
       );
     } else if (n.kind === "col") {
       out.push(
         <div key={i} className={colClass(n.grid)}>
-          <Rows rows={n.children} locale={locale} nested={nested} wdepth={wdepth} vGutter={vGutter} mobileBox={mobileBox} />
+          <Rows rows={n.children} locale={locale} nested={nested} wdepth={wdepth} vGutter={vGutter} mobileBox={mobileBox} topBand={topBand} />
         </div>,
       );
     }
@@ -807,6 +825,7 @@ export function Row({
   vGutter = false,
   mobileInset = false,
   mobileBox = false,
+  topBand = false,
 }: {
   r: RowNode;
   locale?: Locale;
@@ -824,6 +843,8 @@ export function Row({
   mobileInset?: boolean;
   /** MB1: mobile-authored box heights apply at all widths for mobile sections */
   mobileBox?: boolean;
+  /** propagate the TOP_BAND_SECTION_IDS flag to top-level widgets */
+  topBand?: boolean;
 }) {
   const rowVars: React.CSSProperties = {};
   if (!nested && r.w) (rowVars as Record<string, string>)["--row-w"] = `${r.w}px`;
@@ -843,7 +864,7 @@ export function Row({
     <div className={`imweb-row grid grid-cols-1 ${fiveCol ? "lg:grid-cols-5" : "lg:grid-cols-12"}`} style={rowVars}>
       {cols.map((c, i) => (
         <div key={i} className={`imweb-col ${fiveCol ? "" : SPAN_CLASS[c.span] || colClass(c.grid)}`}>
-          <Rows rows={c.children} locale={locale} nested wdepth={wdepth} vGutter={vGutter} mobileBox={mobileBox} />
+          <Rows rows={c.children} locale={locale} nested wdepth={wdepth} vGutter={vGutter} mobileBox={mobileBox} topBand={topBand} />
         </div>
       ))}
     </div>
@@ -936,6 +957,63 @@ const BOX_DESKTOP_HEIGHT = "min-[992px]:h-[var(--box-h)]";
  * `s202509191b81eb54a6991` (`height: 318px` -> original band 694..1012 = 318).
  */
 const BOX_MOBILE_HEIGHT = "h-[var(--box-h)]";
+
+/**
+ * Nested widget band inside a `vGutter` pc section (measured live at 390 on the
+ * original rnd / rnd.facilities pc sections). imweb gives every `.inside .widget`
+ * `margin: 7.5px 0` at mobile; the local row/col scaffolding already reproduces
+ * that for top-level widgets but not for widgets nested one level deeper (a col
+ * holding a nested row). Two shapes were measured:
+ *
+ * - nested IMAGE: the previous rebuild applied `15px/15px` (=30px) at every
+ *   width. The original is `7.5px/7.5px` (15px) at mobile — it only doubles to
+ *   15px/15px at desktop — so the mobile size is corrected here while the
+ *   `min-[992px]` pair keeps the desktop value byte-identical.
+ * - nested TEXT (facilities §생산능력): the band was missing entirely, leaving
+ *   the section 115px short (local 1580 / orig 1695). The 8 nested text widgets
+ *   × 15px restores it to 1700 (+5). Text widgets carrying a `text_bg_color`
+ *   card (company.philosophy §경영이념) already reproduce the band inside the
+ *   card's own box, so they are excluded — adding it there measured +91.
+ *
+ * Live 390 simulation of this exact scope (pc sections, vGutter, mobile 7.5px):
+ *   facilities §3 1580→1700 (orig 1695) · rnd §3/§4/§5, patents, history, about,
+ *   philosophy, organization 0 change · company §2 1293→1323 (−65→−35) ·
+ *   global §4 1212→1272 (−100→−40) · home unchanged (its visible pc sections
+ *   carry `grid_v_gutter_0`, so vGutter is false).
+ */
+const NESTED_IMAGE_BAND =
+  "max-[991.98px]:mt-[7.5px] max-[991.98px]:mb-[7.5px] min-[992px]:mt-[15px] min-[992px]:mb-[15px]";
+const NESTED_TEXT_BAND = "max-[991.98px]:mt-[7.5px] max-[991.98px]:mb-[7.5px]";
+
+/**
+ * Top-level widget band for `TOP_BAND_SECTION_IDS` (mobile only, 7.5px each
+ * side). A top-level band cannot be applied globally: measured at 390 it
+ * inflates company.about by +419 body and the home §7 map by +56 (their content
+ * already folds the gutter in) and regresses every §첨단 sub-hero by +15 (that
+ * heading needs the desktop-only 48px line-height rule, not a band). So the band
+ * is applied only to the pc sections whose deficit was traced to it.
+ */
+const WIDGET_TOP_BAND = "max-[991.98px]:mt-[7.5px] max-[991.98px]:mb-[7.5px]";
+
+/**
+ * pc sections needing the top-level band, measured section-by-section. Expected
+ * live 390 heights (original in parens): rnd/rnd.technology §2 464→494 (490) ·
+ * §5 729→774 (779) · rnd.patents §2 3683→3773 (3820; the remaining −47 is the
+ * certificate-card geometry, see design/scratch/renderer-progress.md) ·
+ * company.history §3/§6/§9 874/738/812→904/768/842 (926/824/890) ·
+ * company/ceo §2 1293→1338 (1358). Every other section measures 0 change.
+ * Ids are stable across the duplicated routes (rnd == rnd.technology; company ==
+ * company.ceo) — verified in the content JSON.
+ */
+const TOP_BAND_SECTION_IDS = new Set([
+  "s202509091799d895b62ea", // rnd / rnd.technology §2 다단계 정수 시스템
+  "s20250909b12fa8000068e", // rnd / rnd.technology §5 투자자 핵심 USP 요약
+  "s202508114d9bc90ceb876", // rnd.patents §2 인증서
+  "s20250811d0a0980d730fb", // company.history §3 2020 - 2023
+  "s20250828fe85691f33b65", // company.history §6 2015 - 2019
+  "s2025082848202431448dd", // company.history §9 2010 - 2014
+  "s20250811fd0a82675a6bc", // company / company.ceo §2
+]);
 
 /** imweb page-title hero markers: `_section_first` (desktop) / `mobile_section_first` (mobile) */
 const PAGE_HERO = /(^|\s)(_section_first|mobile_section_first)(\s|$)/;
@@ -1094,9 +1172,20 @@ export default function SectionRenderer({
         // imweb `.inside .widget` gets 15px vertical margins unless the section
         // disables the vertical gutter (`grid_v_gutter_0`, e.g. all of home)
         const vGutter = !/(^|\s)grid_v_gutter_0(\s|$)/.test(cls);
+        // the measured top-level band applies to a fixed set of pc sections only
+        const topBand = TOP_BAND_SECTION_IDS.has(sec.id);
         const aside = (sec as unknown as { aside?: AsideBlock }).aside;
         return (
-          <section key={sec.id} className={`${backToTop ? BACK_TO_TOP_CLASS : "relative"}${visibility ? " " + visibility : ""}${pcAtMobile ? " pc-at-mobile" : ""}`}>
+          <section
+            key={sec.id}
+            className={`${backToTop ? BACK_TO_TOP_CLASS : "relative"}${visibility ? " " + visibility : ""}${pcAtMobile ? " pc-at-mobile" : ""}`}
+            // globals.css hook (globals lane): `section[data-vgutter="0"] .spacer`
+            // at <=1023px halves the spacer height, which imweb does for
+            // `grid_v_gutter_0` sections (no `.inside .widget` gutter to fold in).
+            // Same `vGutter` const the Widget margins use. Home §4 spacers
+            // measured 75/56 -> 60/41 against the original 60/41.
+            data-vgutter={vGutter ? undefined : "0"}
+          >
             {(sec.bg || urlFromStyle(sec.bgStyle)) && (
               <div
                 className="absolute inset-0 bg-cover bg-center"
@@ -1137,6 +1226,7 @@ export default function SectionRenderer({
                       vGutter={vGutter}
                       mobileInset={mobileOnly}
                       mobileBox={mobileOnly}
+                      topBand={topBand}
                     />
                   ))}
               </div>

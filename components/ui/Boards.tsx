@@ -25,7 +25,10 @@ export function BoardHeader({
   return (
     <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between" style={{ margin: "0 -15px 15px" }}>
       <header className="text-[15px] text-[#363636]">
-        {name} <em className="not-italic">{count}</em>
+        {/* live orig count `<em>`: 15px font with a standalone line-height —
+            34px desktop / 18px mobile (imweb `.table_top em`); the inherited
+            1.6 body box (24px) was the only mismatch. */}
+        {name} <em className="not-italic leading-[18px] min-[992px]:leading-[34px]">{count}</em>
       </header>
       <div className="relative">
         <input

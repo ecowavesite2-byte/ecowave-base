@@ -9,13 +9,17 @@ export type MobileNavItem = { label: string; href: string; active?: boolean };
  * hero (live-measured rows 4–5 of `mobile_section_first`):
  *  - type4 `nav.sub-menu.h-menu-type4.row-cnt-mobile-2` = 2-col bordered grid,
  *    180×40 cells, shared 1px #d0d0d0 borders, active cell #3970EB + white,
- *    14px/22.4px labels;
+ *    14px/22.4px labels. Live-measured at 390 the `li.depth-01` cell itself
+ *    computes font-size 0 / line-height 0 / text-align center (the link owns
+ *    the real type); applied mobile-only via `max-[991px]:` in the markup
+ *    below so desktop stays as measured;
  *  - type2 `nav.sub-menu.h-menu-type2.row-cnt-mobile-3` = centred 50%-radius
  *    pills, 13px/20.8px, padding 4px 15px, active #3970EB fill + 1px border,
- *    inactive rgba(54,54,54,.7) plain text. Live-measured: this pill nav is
- *    only VISIBLE on /32 (landing) and /37 (eco-wave); on /36 (flowell) and
- *    /38 (clean-b) the original carries `sub_menu_hide` on it (display:none),
- *    so `pills` gates it.
+ *    inactive rgba(54,54,54,.7) plain text. Its `li` cell also computes
+ *    font-size 0 / line-height 0 / text-align center at 390 (mobile-only,
+ *    same as type4). Live-measured: this pill nav is only VISIBLE on /32
+ *    (landing) and /37 (eco-wave); on /36 (flowell) and /38 (clean-b) the
+ *    original carries `sub_menu_hide` on it (display:none), so `pills` gates it.
  */
 function ProductSiblingNav({ items, pills }: { items: MobileNavItem[]; pills: boolean }) {
   return (
@@ -25,7 +29,7 @@ function ProductSiblingNav({ items, pills }: { items: MobileNavItem[]; pills: bo
           {items.map((n) => (
             <li
               key={n.href}
-              className={`h-10 border-b border-r border-[#d0d0d0] ${n.active ? "bg-[#3970eb]" : "bg-white"}`}
+              className={`h-10 border-b border-r border-[#d0d0d0] max-[991px]:text-center max-[991px]:text-[0px] max-[991px]:leading-[0px] ${n.active ? "bg-[#3970eb]" : "bg-white"}`}
             >
               <Link
                 href={n.href}
@@ -39,7 +43,10 @@ function ProductSiblingNav({ items, pills }: { items: MobileNavItem[]; pills: bo
             </li>
           ))}
           {items.length % 2 === 1 && (
-            <li aria-hidden className="h-10 border-b border-r border-[#d0d0d0] bg-white" />
+            <li
+              aria-hidden
+              className="h-10 border-b border-r border-[#d0d0d0] bg-white max-[991px]:text-center max-[991px]:text-[0px] max-[991px]:leading-[0px]"
+            />
           )}
         </ul>
       </nav>
@@ -47,7 +54,10 @@ function ProductSiblingNav({ items, pills }: { items: MobileNavItem[]; pills: bo
         <nav className="mt-[15px]" aria-label="제품 바로가기">
           <ul className="flex flex-wrap items-center justify-center">
             {items.map((n) => (
-              <li key={n.href} className="mx-[0.25px]">
+              <li
+                key={n.href}
+                className="mx-[0.25px] max-[991px]:text-center max-[991px]:text-[0px] max-[991px]:leading-[0px]"
+              >
                 <Link
                   href={n.href}
                   aria-current={n.active ? "page" : undefined}
