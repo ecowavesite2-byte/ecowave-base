@@ -442,6 +442,50 @@ function ImageWidget({ w, locale, mobileBox = false }: { w: WidgetNode; locale: 
   return body;
 }
 
+/**
+ * Resolve the effective reveal direction for a widget.
+ *
+ * imweb authors these cards as `fadeInUp` and its runtime then remaps the
+ * direction via an extra class the crawler dropped:
+ *   `._widget_data.fadeInUp.Right { animation-name: fadeInLeft }`,
+ *   `.Left → fadeInRight`, `.Down → fadeInDown`.
+ * The current crawl JSON has no direction field (verified: 0 matches), so the
+ * measured stop-gap below is an id → animation-name map for the two affected
+ * home sections:
+ *   - desktop §7 `s20250811004ea868d7376` — Company / R&D / Products / PR Center
+ *     cards (all authored `Right` on the live original).
+ *   - mobile §회사소개 `s20250911281117781b494` — the four cards alternate
+ *     `Right` / `Left` (measured at 390).
+ *
+ * Durable fix: teach the crawler to record the widget's direction class as
+ * `animDir: "Left" | "Right" | "Down" | null`; then the branch below mirrors the
+ * original's injected rule and the id map can be deleted.
+ */
+const ANIM_DIR_OVERRIDES: Record<string, string> = {
+  // home §7 desktop pillar cards (all `Right`)
+  w20250811c8b38b2e2cde9: "fadeInLeft",
+  w20250811d66d9ca495dfe: "fadeInLeft",
+  w202508114adeb9816c562: "fadeInLeft",
+  w20250811dc0392f259c1d: "fadeInLeft",
+  // home §회사소개 mobile cards (alternating Right/Left)
+  w202509119ecb84eb6e940: "fadeInLeft",
+  w2025091149bbbec8e797d: "fadeInRight",
+  w20250911cb710bccd6323: "fadeInLeft",
+  w20250911edd80efa0562b: "fadeInRight",
+};
+
+function effectiveAnim(w: WidgetNode): string | undefined {
+  // durable path — inert until the crawler writes `animDir`
+  const dir = (w as unknown as { animDir?: string | null }).animDir;
+  if (dir && w.anim === "fadeInUp") {
+    if (dir === "Right") return "fadeInLeft";
+    if (dir === "Left") return "fadeInRight";
+    if (dir === "Down") return "fadeInDown";
+  }
+  // stop-gap id map for the sections whose direction the crawl dropped
+  return ANIM_DIR_OVERRIDES[w.id] ?? w.anim;
+}
+
 export function Widget({
   w,
   locale = defaultLocale,
@@ -509,7 +553,7 @@ export function Widget({
   if (w.anim && w.anim !== "none") {
     return (
       <Reveal
-        anim={w.anim}
+        anim={effectiveAnim(w)}
         duration={w.animDur ? parseFloat(w.animDur) : undefined}
         delay={w.animDelay ? parseFloat(w.animDelay) : undefined}
       >

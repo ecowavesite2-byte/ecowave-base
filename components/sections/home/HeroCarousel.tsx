@@ -12,6 +12,13 @@ export type HeroSlide = { bg: string | null; bgColor: string | null; html: strin
  * The crawl holds separate desktop + mobile visual sections — slides are
  * paired by index and each layer only renders on its breakpoint, so mobile
  * shows the 26px mobile copy and desktop the 85px copy.
+ *
+ * The `.hero-slide.is-active` hook (see `app/globals.css`) drives the desktop
+ * text entrance (`visualAnimation` on `.font1`/`.font2`). The class is toggled
+ * by `idx`, so it is removed and re-added on every slide change — which restarts
+ * the CSS animation, reproducing the original's re-run on each change and on
+ * first load. The whole block is `min-width:992px` scoped (the original's rule
+ * is on the desktop hero section id), so the mobile hero stays animation-free.
  */
 export default function HeroCarousel({
   slides,
@@ -36,13 +43,15 @@ export default function HeroCarousel({
   ];
 
   return (
-    <section className="relative h-[356px] w-full overflow-hidden min-[992px]:h-[100svh] min-[992px]:min-h-[560px]">
+    <section className="hero-carousel relative h-[356px] w-full overflow-hidden min-[992px]:h-[100svh] min-[992px]:min-h-[560px]">
       {layers.map((layer) => (
         <div key={layer.cls} className={`absolute inset-0 ${layer.cls}`}>
           {layer.items.map((s, i) => (
             <div
               key={i}
-              className={`absolute inset-0 transition-opacity duration-1000 ${i === idx ? "opacity-100" : "pointer-events-none opacity-0"}`}
+              className={`hero-slide absolute inset-0 transition-opacity duration-700 ease-[ease] ${
+                i === idx ? "is-active opacity-100" : "pointer-events-none opacity-0"
+              }`}
             >
               {s.bgColor && <div className="absolute inset-0" style={{ backgroundColor: s.bgColor }} aria-hidden />}
               {s.bg && (

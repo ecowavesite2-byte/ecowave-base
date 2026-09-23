@@ -513,6 +513,50 @@ a {
     border-radius: 0 0 10px 10px;
 }
 
+/* Home hero text entrance (H1/H2). The original injects
+   `#<desktop-hero-id> .owl-item.active .font1 { position:relative; top:50px;
+   opacity:0; animation:visualAnimation 1.5s ease-in-out .5s forwards }` and the
+   same for `.font2` with a .8s delay; the Owl item's `.fadeIn` layer fades the
+   whole slide in over 700ms separately. The `.hero-slide.is-active` class is
+   toggled per slide change (HeroCarousel), so the animation restarts on every
+   change — including the first load — exactly like the original.
+   Desktop-only: the original rule is scoped to the desktop hero section id, and
+   the mobile hero (390) measures `animation-name:none` on `.font1`/`.font2`. */
+@keyframes visualAnimation {
+  0% {
+    opacity: 0;
+    top: 50px;
+  }
+  100% {
+    opacity: 1;
+    top: 0px;
+  }
+}
+@media (min-width: 992px) and (prefers-reduced-motion: no-preference) {
+  .hero-carousel .hero-slide.is-active .font1 {
+    position: relative;
+    top: 50px;
+    opacity: 0;
+    animation: visualAnimation 1.5s ease-in-out 0.5s forwards;
+  }
+  .hero-carousel .hero-slide.is-active .font2 {
+    position: relative;
+    top: 50px;
+    opacity: 0;
+    animation: visualAnimation 1.5s ease-in-out 0.8s forwards;
+  }
+}
+/* reduced motion: keep the hero text fully visible with no offset/animation */
+@media (min-width: 992px) and (prefers-reduced-motion: reduce) {
+  .hero-carousel .hero-slide .font1,
+  .hero-carousel .hero-slide .font2 {
+    position: static;
+    top: auto;
+    opacity: 1;
+    animation: none;
+  }
+}
+
 /* Home overlay header (transparent header over the homepage hero). The original
    computes `transition-property: color, background, border-color` with
    `ease-out` on the overlay anchors — 에코웨이브 / 연구개발 / 제품소개 / ENGLISH

@@ -110,6 +110,11 @@ channels, widget CSS gaps, board/detail template differences).
    change), EN rnd §2 band id.
 6. **Wave 6** — scoped philosophy mobile downscale (`data-rtm`), home §7 holder box model
    (`data-mapholder`; §7 exact 864), EN home §3 zero-placeholder image fix (−670 px).
+7. **Wave 7 — home motion parity** — hero text `visualAnimation` on load and every slide change
+   (desktop-only, 1.5s, delays 0.5s/0.8s, re-triggered, reduced-motion safe), hero slide fade
+   1s→700ms, pillar cards `fadeInUp`→`fadeInLeft` (crawler-dropped direction; `ANIM_DIR_OVERRIDES`
+   stop-gap + the durable `animDir` path), `Reveal` Left/Right travel ±100%→±60%. Audit + acceptance
+   criteria: `design/audit/home-motion-audit.md`.
 
 ### Final verified metrics (closing build; diff % of differing pixels)
 
