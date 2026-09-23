@@ -273,6 +273,24 @@ a {
   }
 }
 
+/* item 1 — mobile 48px-span line-height inside `h6[line-height: 2]` headings,
+   scoped to the SectionRenderer `data-mh6` hook. The size-keyed rule above is
+   desktop-only; at mobile the same 48px span inherits the h6's inline
+   `line-height: 2` and computes 28px/56px where the original computes
+   28px/33.6px (1.2). The base `.rich-text p span { line-height: 1.2 }` already
+   covers paragraph spans, so only the h6 case is missing — and only in the
+   sections whose original was measured to compute 1.2 (the hook mirrors the
+   exact trigger, so sub-hero h6s without the inline line-height are untouched).
+   Measured live at 390: home §4 친환경 기술혁신 section 243 -> 205 (orig 164;
+   the two h6s become 37/37, matching the original), home §7/§9/§14 hooked and
+   home §2/§3, company.about, philosophy, organization, company/global 0 change.
+   Desktop (>=992) keeps the rule above unchanged. */
+@media (max-width: 991px) {
+  section[data-mh6="1"] .rich-text.text-widget h6[style*="line-height: 2"] span[style*="font-size: 48px"] {
+    line-height: 1.2 !important;
+  }
+}
+
 /* vertical spacers extracted from imweb padding widgets; scale down on mobile.
    S5: imweb's mobile runtime renders a padding widget at half its desktop
    height PLUS the 15px `.inside .widget` row margin (measured: 74->52,

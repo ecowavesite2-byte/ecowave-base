@@ -57,7 +57,7 @@ export default function HeroCarousel({
               <div className="relative flex h-full items-start justify-center px-6 pt-[87px] min-[992px]:items-center min-[992px]:pt-[88px]">
                 <RichText
                   html={s.html}
-                  className="max-w-[1200px] text-center [&_p]:text-center [&_span]:text-white [&_strong]:text-white [&_h6_span]:!text-white [&_h6]:text-white"
+                  className="max-w-[1200px] text-center [&_p]:text-center [&_p]:text-white [&_span]:text-white [&_strong]:text-white [&_h6_span]:!text-white [&_h6]:text-white"
                 />
               </div>
             </div>

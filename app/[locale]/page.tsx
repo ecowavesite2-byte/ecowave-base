@@ -121,7 +121,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             <div className="min-[1024px]:min-h-[310px]">
             <div className="-mx-[22.5px] -mt-[7px] flex flex-wrap min-[1024px]:-mt-[15px] lg:-mx-[15px] lg:flex-row">
               {news.posts.slice(0, 4).map((p, i) => (
-                <Reveal key={p.idx} delay={i * 0.12} className={`w-1/2 p-[7.5px] lg:w-auto lg:flex-1 lg:p-[15px]${i >= 2 ? " hidden lg:block" : ""}`}>
+                <Reveal key={p.idx} delay={i * 0.12} className={`w-1/2 p-[7.5px] lg:w-auto lg:flex-1 lg:p-[15px] ${i >= 2 ? " hidden lg:block" : ""}`}>
                   <Link href={localeHref(l, `/news/${p.idx}`)} className="group block h-[283px] overflow-hidden bg-white lg:h-auto lg:overflow-visible">
                     <div className="relative h-[142px] w-full overflow-hidden lg:h-[179px]">
                       {p.thumb && (

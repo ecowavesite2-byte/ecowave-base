@@ -670,9 +670,25 @@ function WidgetContent({ w, locale, mobileBox = false }: { w: WidgetNode; locale
       // the galleries into 3 columns (+1402px page height).
       if (typeof measured.gridRowH === "number" && measured.gridRowH > 0) {
         const gc = Math.max(1, Math.min(6, measured.gridCols ?? 4));
+        // item 2/3 — mobile geometry of the measured gallery grids. Live 390
+        // measurements of the originals (`.item_gallary` table-cells, padding on
+        // all sides, adjacent cells so the gutter is 2x the padding):
+        //  - rnd.patents certificates (`captionBand`): cell 7.5px -> 172.5px
+        //    cards, 310.59px row pitch.
+        //  - rnd / rnd.technology §5 USP (no captions): cell 3.75px -> 176.25px
+        //    cards, 183.5px row pitch.
+        // The local mobile grid used `grid-cols-2 gap-[10px]` for both, so the
+        // cards and the outer vertical band were off. These literals restore the
+        // measured gutters + outer band; `min-[992px]:gap/py` still win at
+        // desktop and the gate keeps the two grid shapes apart.
+        // Simulated on the running build: rnd.patents §2 3773 -> 3821 (orig
+        // 3820); rnd §5 (with the top band below) 728.59 -> 779.84 (orig 779.09).
+        const mobileGrid = measured.captionBand === true
+          ? " max-[991.98px]:gap-[15px] max-[991.98px]:py-[7.5px]"
+          : " max-[991.98px]:gap-[7.5px] max-[991.98px]:py-[3.75px]";
         return (
           <div
-            className={`grid grid-cols-2 gap-[10px] sm:grid-cols-3 min-[992px]:mt-[15px] ${GRID_COLS_CLASS[gc] ?? GRID_COLS_CLASS[4]} min-[992px]:gap-[var(--ggap)] min-[992px]:py-[15px] min-[992px]:auto-rows-[var(--growh)]`}
+            className={`grid grid-cols-2 gap-[10px] sm:grid-cols-3 min-[992px]:mt-[15px] ${GRID_COLS_CLASS[gc] ?? GRID_COLS_CLASS[4]} min-[992px]:gap-[var(--ggap)] min-[992px]:py-[15px] min-[992px]:auto-rows-[var(--growh)] ${mobileGrid}`}
             style={{
               ["--ggap" as string]: `${measured.gridGap ?? 30}px`,
               ["--growh" as string]: `${measured.gridRowH}px`,
@@ -998,22 +1014,85 @@ const WIDGET_TOP_BAND = "max-[991.98px]:mt-[7.5px] max-[991.98px]:mb-[7.5px]";
 /**
  * pc sections needing the top-level band, measured section-by-section. Expected
  * live 390 heights (original in parens): rnd/rnd.technology §2 464→494 (490) ·
- * §5 729→774 (779) · rnd.patents §2 3683→3773 (3820; the remaining −47 is the
- * certificate-card geometry, see design/scratch/renderer-progress.md) ·
+ * §5 729→774 (779) · rnd.patents §2 3683→3773 (3820; the remaining −47 was the
+ * certificate-card geometry, closed by the mobile grid gutters above) ·
  * company.history §3/§6/§9 874/738/812→904/768/842 (926/824/890) ·
  * company/ceo §2 1293→1338 (1358). Every other section measures 0 change.
  * Ids are stable across the duplicated routes (rnd == rnd.technology; company ==
  * company.ceo) — verified in the content JSON.
+ *
+ * item 3: the §5 entry used to be `s20250909b12fa8000068e`, which is the
+ * *스마트·살균 기술* section (content rnd.json sec5). That section's widgets are
+ * all nested (its band comes from increment 5), so the entry was inert and the
+ * real §5 (투자자 핵심 USP 요약, content sec6 `s2025090979d4f02da9a4c`) never got
+ * the band — measured live at 390: 728.59 vs the original 779.09. Corrected to
+ * the USP id; §4 stays 1323.34 and §2/§3 are unchanged (simulated).
  */
 const TOP_BAND_SECTION_IDS = new Set([
   "s202509091799d895b62ea", // rnd / rnd.technology §2 다단계 정수 시스템
-  "s20250909b12fa8000068e", // rnd / rnd.technology §5 투자자 핵심 USP 요약
+  "s2025090979d4f02da9a4c", // rnd / rnd.technology §5 투자자 핵심 USP 요약
   "s202508114d9bc90ceb876", // rnd.patents §2 인증서
   "s20250811d0a0980d730fb", // company.history §3 2020 - 2023
   "s20250828fe85691f33b65", // company.history §6 2015 - 2019
   "s2025082848202431448dd", // company.history §9 2010 - 2014
   "s20250811fd0a82675a6bc", // company / company.ceo §2
 ]);
+
+/**
+ * item 1 — mobile 48px-span line-height hook (`data-mh6`).
+ *
+ * imweb gives inline-sized text spans an `!important` line-height keyed by
+ * their own font-size (48px -> 1.2). globals.css already carries that rule for
+ * >=992px, but at mobile it is a per-element no-op for most spans because the
+ * base `.rich-text p span { line-height: 1.2 }` covers paragraphs. The gap is
+ * a 48px span that descends from an `h6[style*="line-height: 2"]`: the h6's
+ * inline 2 wins (locally the span computes `28px/56px`), where the original
+ * computes `28px/33.6px` (1.2) — measured live at 390 on the original home
+ * (fix-35 `out/home4.txt`: orig H6 h37, span lh 33.6; local H6 h56, span lh
+ * 56, section 273 vs orig 164).
+ *
+ * A GLOBAL mobile rule for every 48px span is unsafe: it also shrinks the
+ * §첨단 sub-hero headings (h6 without the inline line-height), whose sections
+ * are already height-compensated elsewhere (company.about, philosophy,
+ * organization, company/global), so it regresses them. Instead the rule is
+ * scoped to the measured trigger via this section hook — the same pattern as
+ * `TOP_BAND_SECTION_IDS`.
+ *
+ * Trigger (matches globals.css exactly): an `<h6>` whose inline `style` contains
+ * `line-height: 2` that wraps (descendant) a `<span>` whose inline `style`
+ * contains `font-size: 48px`. Live measurement of the original at 390 confirms
+ * every such span computes 1.2 (33.6px). Sections detected in the crawled
+ * content (ko and en): home §7/§9/§14/§15. company.history §4/§7/§10 also
+ * author 48px spans, but they sit in sibling `<p style="line-height: 2">`
+ * elements, not inside the h6, and already compute 1.2 locally via the base
+ * `p span` rule — they are correctly NOT hooked.
+ */
+const H6_LINE_HEIGHT_2 = /<h6\b[^>]*\bstyle="[^"]*line-height:\s*2[^"]*"[^>]*>([\s\S]*?)<\/h6>/gi;
+
+export function sectionHasMh6Spans(sec: Section): boolean {
+  let found = false;
+  const walk = (nodes: Node[]) => {
+    for (const n of nodes) {
+      if (found) return;
+      if (n.kind === "widget") {
+        const html = n.html || "";
+        if (html.includes("font-size: 48px")) {
+          H6_LINE_HEIGHT_2.lastIndex = 0;
+          let m: RegExpExecArray | null;
+          while ((m = H6_LINE_HEIGHT_2.exec(html))) {
+            if (/font-size:\s*48px/.test(m[1])) {
+              found = true;
+              break;
+            }
+          }
+        }
+      } else if (n.kind === "row") n.cols.forEach((c) => walk(c.children));
+      else if (n.kind === "col") walk(n.children);
+    }
+  };
+  walk(sec.rows);
+  return found;
+}
 
 /** imweb page-title hero markers: `_section_first` (desktop) / `mobile_section_first` (mobile) */
 const PAGE_HERO = /(^|\s)(_section_first|mobile_section_first)(\s|$)/;
@@ -1174,6 +1253,8 @@ export default function SectionRenderer({
         const vGutter = !/(^|\s)grid_v_gutter_0(\s|$)/.test(cls);
         // the measured top-level band applies to a fixed set of pc sections only
         const topBand = TOP_BAND_SECTION_IDS.has(sec.id);
+        // item 1: mobile 48px-span line-height hook (globals.css `data-mh6`)
+        const mh6 = sectionHasMh6Spans(sec);
         const aside = (sec as unknown as { aside?: AsideBlock }).aside;
         return (
           <section
@@ -1185,6 +1266,10 @@ export default function SectionRenderer({
             // Same `vGutter` const the Widget margins use. Home §4 spacers
             // measured 75/56 -> 60/41 against the original 60/41.
             data-vgutter={vGutter ? undefined : "0"}
+            // item 1 hook (globals.css): mobile-only 1.2 line-height on the
+            // `h6[style*="line-height: 2"] span[style*="font-size: 48px"]`
+            // headings this section authors (measured trigger).
+            data-mh6={mh6 ? "1" : undefined}
           >
             {(sec.bg || urlFromStyle(sec.bgStyle)) && (
               <div

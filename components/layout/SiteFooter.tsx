@@ -67,6 +67,14 @@ export default async function SiteFooter({ locale }: { locale: Locale }) {
        * desktop footer keeps that column, so hide it only below 992px. The
        * selector targets the one grid-5 col in the footer (nested sitemap
        * columns are grid-1 and carry no `col-span-5` class).
+       *
+       * Live-verified (2026-09-23) that imweb's `.hidden-xs` flips at 992, NOT
+       * bootstrap's 767: the original's 12 `.hidden-xs` footer rows compute
+       * `display:none` at 767/768/900/991 and `display:block` at 992+, and the
+       * original shows 0 visible footer links at 900 vs 15 at 1200 — exactly
+       * like the local `display:none` below 991.98px. Moving this breakpoint to
+       * 767 would therefore REGRESS 768-991 by revealing a sitemap the original
+       * keeps hidden; keep 991.98.
        */}
       <style>{`
         @media (max-width: 991.98px) {
