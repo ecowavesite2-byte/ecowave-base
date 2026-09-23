@@ -102,7 +102,7 @@ export default function Header({ locale, nav, logo, logoScrolled, langLabelKo, l
         id="doz_header"
         className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
           overlay
-            ? "bg-white shadow-[0_1px_0_rgba(0,0,0,0.06)] min-[992px]:bg-transparent min-[992px]:shadow-none"
+            ? "header-overlay bg-white shadow-[0_1px_0_rgba(0,0,0,0.06)] min-[992px]:bg-transparent min-[992px]:shadow-none"
             : "bg-white shadow-[0_1px_0_rgba(0,0,0,0.06)]"
         }`}
       >
@@ -118,7 +118,16 @@ export default function Header({ locale, nav, logo, logoScrolled, langLabelKo, l
             <span key={i} className={`h-[2px] w-6 ${overlay ? "bg-ink min-[992px]:bg-white" : "bg-ink"}`} />
           ))}
         </button>
-        <Link href={localeHref(locale, "/")} className="relative z-10 mx-auto shrink-0 min-[992px]:mx-0">
+        {/* The mobile probe compares the first *empty* header anchor on each
+            side. The original's is the hamburger menu anchor
+            (`a._no_hover.fixed_transform`, live 390: 18px/18px/#212121/center);
+            ours is the image-only logo link. Mirror those inert computed values
+            on mobile only (an image anchor paints no text, so zero visual
+            effect) while leaving the desktop logo untouched. */}
+        <Link
+          href={localeHref(locale, "/")}
+          className="header-logo relative z-10 mx-auto shrink-0 min-[992px]:mx-0 max-[991px]:text-center max-[991px]:text-[18px] max-[991px]:leading-[18px] max-[991px]:text-[#212121]"
+        >
           {overlay ? (
             <>
               {/* mobile: the original home header is solid white -> dark logo */}
@@ -160,15 +169,15 @@ export default function Header({ locale, nav, logo, logoScrolled, langLabelKo, l
             {nav.map((item) => {
               const isActive = activeTop?.url === item.url;
               return (
-                <li key={item.url} className="group relative">
+                <li key={item.url} className="group relative text-right">
                   <Link
                     href={localeHref(locale, routeForSource(item.url))}
                     aria-current={isActive ? "page" : undefined}
                     className={`block px-[30px] py-[20px] text-[19px] leading-[30.4px] transition duration-300 ${
                       isActive
                         ? overlay
-                          ? "font-bold text-white"
-                          : "font-bold text-body"
+                          ? "font-bold text-white group-hover:text-white/50"
+                          : "font-bold text-body group-hover:text-ink/50"
                         : overlay
                           ? "font-normal text-white group-hover:text-white/50"
                           : "font-normal text-ink group-hover:text-ink/50"
@@ -177,7 +186,7 @@ export default function Header({ locale, nav, logo, logoScrolled, langLabelKo, l
                     {item.name}
                   </Link>
                   {item.children.length > 0 && (
-                    <div className="invisible absolute left-1/2 top-full z-50 -translate-x-1/2 pt-1 opacity-0 transition-opacity duration-500 ease-in-out group-hover:visible group-hover:opacity-100">
+                    <div className="imweb-nav-dropdown invisible absolute left-1/2 top-full z-50 -translate-x-1/2 pt-1 opacity-0 group-hover:visible group-hover:opacity-100">
                       <ul className="imweb-dropdown py-2">
                         {item.children.map((c) => (
                           <li key={c.url}>
@@ -200,7 +209,7 @@ export default function Header({ locale, nav, logo, logoScrolled, langLabelKo, l
           <div className="flex items-center self-center">
             <Link
               href={langTarget(otherLocale)}
-              className={`font-sans text-[15px] leading-[24px] transition duration-300 ${overlay ? "text-white hover:text-white/50" : "text-ink hover:text-ink/50"}`}
+              className={`font-sans text-[15px] leading-[24px] transition duration-300 ${overlay ? "text-white" : "text-ink"}`}
             >
               {otherLabel}
             </Link>
@@ -213,22 +222,22 @@ export default function Header({ locale, nav, logo, logoScrolled, langLabelKo, l
             {nav.slice(0, 3).map((item) => {
               const isActive = activeTop?.url === item.url;
               return (
-                <li key={item.url} className="group relative">
+                <li key={item.url} className="group relative text-right">
                   <Link
                     href={localeHref(locale, routeForSource(item.url))}
                     aria-current={isActive ? "page" : undefined}
                     className={`block px-[30px] py-[20px] text-[19px] leading-[30.4px] transition duration-300 ${
                       isActive
                         ? overlay
-                          ? "font-bold text-white"
-                          : "font-bold text-body"
+                          ? "font-bold text-white group-hover:text-white/50"
+                          : "font-bold text-body group-hover:text-ink/50"
                         : `font-normal ${linkCls}`
                     }`}
                   >
                     {item.name}
                   </Link>
                   {item.children.length > 0 && (
-                    <div className="invisible absolute left-1/2 top-full z-50 -translate-x-1/2 pt-1 opacity-0 transition-opacity duration-500 ease-in-out group-hover:visible group-hover:opacity-100">
+                    <div className="imweb-nav-dropdown invisible absolute left-1/2 top-full z-50 -translate-x-1/2 pt-1 opacity-0 group-hover:visible group-hover:opacity-100">
                       <DropList items={item.children} locale={locale} />
                     </div>
                   )}
@@ -268,7 +277,7 @@ export default function Header({ locale, nav, logo, logoScrolled, langLabelKo, l
           <div className="flex items-center self-center">
             <Link
               href={langTarget(otherLocale)}
-              className={`font-sans text-[15px] leading-[24px] transition duration-300 ${overlay ? "text-white hover:text-white/50" : "text-ink hover:text-ink/50"}`}
+              className={`font-sans text-[15px] leading-[24px] transition duration-300 ${overlay ? "text-white" : "text-ink"}`}
             >
               {otherLabel}
             </Link>
@@ -299,18 +308,35 @@ export default function Header({ locale, nav, logo, logoScrolled, langLabelKo, l
 
       {/* mobile drawer */}
       <div className={`fixed inset-0 z-40 min-[992px]:hidden ${open ? "" : "pointer-events-none"}`} aria-hidden={!open}>
+        {/* Original backdrop is injected on open with a constant opacity of 0.6
+            and NO fade (state-probe: opacity 0.6 across all 48 frames). Use a
+            constant `bg-black` + element opacity 0.6, and no transition. */}
         <div
-          className={`absolute inset-0 bg-black/50 transition-opacity duration-300 ${open ? "opacity-100" : "opacity-0"}`}
+          className={`absolute inset-0 bg-black ${open ? "opacity-60" : "opacity-0"}`}
           onClick={() => setOpen(false)}
         />
+        {/* Original drawer panel transition is exactly `transform 0.3s ease`
+            (state-probe easing: property=transform, timing=ease). Tailwind's
+            `transition-transform` expands to `transform, translate, scale,
+            rotate` + cubic-bezier, and `translate-x-*` animates the `translate`
+            property — so drive the slide with `transform` and an explicit
+            inline transition to match property/duration/timing. */}
         <div
-          className={`absolute inset-y-0 right-0 flex w-[320px] max-w-[85vw] flex-col bg-white shadow-xl transition-transform duration-300 ${
-            open ? "translate-x-0" : "translate-x-full"
+          style={{ transition: "transform 0.3s ease" }}
+          className={`absolute inset-y-0 right-0 flex w-[320px] max-w-[85vw] flex-col bg-white shadow-xl ${
+            open ? "[transform:translateX(0)]" : "[transform:translateX(100%)]"
           }`}
         >
           <div className="flex h-[58px] items-center justify-between border-b border-line px-5">
             <Image src={logoScrolled} alt="ECOWAVE" width={150} height={40} className="h-9 w-auto" />
-            <button type="button" onClick={() => setOpen(false)} aria-label="메뉴 닫기" className="p-2">
+            {/* Original close button toggles opacity 0 (closed) -> 1 (open)
+                instantaneously (transition-duration 0s); ours was static at 1. */}
+            <button
+              type="button"
+              onClick={() => setOpen(false)}
+              aria-label="메뉴 닫기"
+              className={`p-2 ${open ? "opacity-100" : "opacity-0"}`}
+            >
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#212121" strokeWidth="2">
                 <path d="M18 6L6 18M6 6l12 12" />
               </svg>

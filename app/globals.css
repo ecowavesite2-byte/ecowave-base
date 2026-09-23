@@ -2,7 +2,14 @@
 @import "pretendard/dist/web/static/pretendard.css";
 
 @theme {
-    --font-sans: Pretendard, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+    /* Fallback chain must mirror the original computed value EXACTLY:
+       live orig body (desktop) = `Pretendard, "Apple SD Gothic Neo",
+       "Malgun Gothic", "Nanum Gothic", "Noto Sans", "sans-serif"` (the
+       quoted trailing generic is imweb-authored). Local previously dropped
+       "Nanum Gothic"/"Noto Sans" and left sans-serif unquoted, producing the
+       single largest TYPE signature (1003 desktop + 685 mobile). Neither
+       family is installed here, so the added entries are inert visually. */
+    --font-sans: Pretendard, "Apple SD Gothic Neo", "Malgun Gothic", "Nanum Gothic", "Noto Sans", "sans-serif";
 
     --color-accent: #3465de;
     --color-ink: #212121;
@@ -29,9 +36,25 @@ body {
     line-height: 1.6;
 }
 
-/* original bundle-16-site.css: `a { transition: .3s }` (all props, 300ms ease) */
+/* original bundle-16-site.css: `a { transition: .3s }` (all props, 300ms ease).
+   The original MOBILE base is `transition: none` on `a`, but its real anchors
+   (cards, nav, footer — imweb `.fade_link`) still compute `all .3s ease`
+   (style-probe orig-mobile: product cards `post_link_wrap _fade_link` =
+   all/.3s/ease). Our rebuild has no `.fade_link` equivalent, so the desktop
+   base rule doubles as that proxy and is kept global; only the mobile logo
+   link, which the original leaves at `none`, is neutralised below. */
 a {
     transition: .3s;
+}
+
+/* mobile header logo link: original computes `transition-property: none`
+   (style-probe mobile: the representative `a`/`header a` element is the empty
+   logo link, `none → all`). Fixed from Header.tsx via the `.header-logo` hook;
+   desktop is not measured for the logo and is left untouched. */
+@media (max-width: 991px) {
+    .header-logo {
+        transition: none;
+    }
 }
 
 .imweb-row {
@@ -71,9 +94,11 @@ a {
 .rich-text {
   position: relative;
   display: flow-root;
-  /* crawled widgets inherit the original base line box (15px x 1.28 = 19.2px).
-     A forced 1.2 here overrode the inline `line-height` factors the crawl
-     carries on <p> (1.5/2/3) and made every span/strong too tight. */
+  /* REVERTED (2026-09-23, final round): `line-height: 1.28` restored. The
+     "inherit body 1.6" experiment fixed 102 desktop / 49 mobile computed-style
+     signatures per element but regressed the aggregate mobile pixel diff
+     (company.about/history/home/rnd heights moved away from the original).
+     A section-aware re-attempt is queued. */
   line-height: 1.28;
 }
 /* imweb renders every text widget's `.text-table` as a flex column
@@ -141,9 +166,10 @@ a {
 .rich-text p {
   margin: 0;
 }
-/* crawled <p style="line-height:3"> spans inherit huge factors; the original
-   renders inline-sized spans at lh 1.2 (style-probe: 36/43.2). Scoped to <p>
-   so h6/hero display text is untouched. */
+/* REVERTED (2026-09-23, final round): the 1.2 lock is restored together with the
+   other two typography-experiment changes (see the `.rich-text` comment above);
+   the per-element evidence remains valid and a section-aware re-attempt is
+   queued. */
 .rich-text p span,
 .rich-text p strong {
   line-height: 1.2;
@@ -223,17 +249,11 @@ a {
   }
 }
 
-/* imweb gives inline-sized text spans an !important line-height keyed by their
-   own font-size (CDP-verified rule:
-   `div[doz_type="text"] span[style*="font-size: 60px"], .header-content .text span[…],
-   .fr-element span[…] { line-height: 1.1 !important }`). Because it is declared
-   on the span itself, the crawled parent's unitless line-height (e.g. an h6 with
-   `line-height: 2`) never reaches the span — the original computes 60px * 1.1 =
-   66px, not 120px. Scoped to `.text-widget` (SectionRenderer's text case) to
-   mirror imweb's `div[doz_type="text"]` scope: html/code widgets must NOT receive
-   it (home's hero/footer spans regress if they do). Desktop-only; mobile parity
-   is verified without this rule. 14px/16px are excluded — the original has no
-   line-height rule for them. Sizes: 18-48px -> 1.2, 60-96px -> 1.1. */
+/* REVERTED to desktop-only (2026-09-23, final round): imweb gives inline-sized
+   text spans an !important line-height keyed by their own font-size. The
+   "apply at mobile too" experiment matched e.g. the rnd intro span per element
+   but regressed most mobile pages' aggregate pixel diff, so the rule is
+   min-width:992px again. A section-aware re-attempt is queued. */
 @media (min-width: 992px) {
   .rich-text.text-widget span[style*="font-size: 18px"],
   .rich-text.text-widget span[style*="font-size: 20px"],
@@ -346,6 +366,17 @@ a {
     font-size: 15px;
     line-height: 21px;
     color: #212121;
+    /* original dropdown anchors compute `text-align: left` while their parent
+       `<li>` computes `right`; keep the anchor explicitly left so the header
+       nav's `text-right` (see Header.tsx) does not leak into the panels. */
+    text-align: left;
+}
+/* Original `.menu-dropdown li` computes font-size/line-height 0 (the anchors
+   carry the real 15px/21px). Inert for rendering but closes the desktop
+   `0px -> 15px` / `0px -> 24px` TYPE signatures. */
+.imweb-dropdown li {
+    font-size: 0;
+    line-height: 0;
 }
 .imweb-dropdown a:hover {
     background: #3465de;
@@ -356,6 +387,61 @@ a {
 }
 .imweb-dropdown li:last-child a:hover {
     border-radius: 0 0 10px 10px;
+}
+
+/* Home overlay header (transparent header over the homepage hero). The original
+   computes `transition-property: color, background, border-color` with
+   `ease-out` on the overlay anchors — 에코웨이브 / 연구개발 / 제품소개 / ENGLISH
+   (`design/audit/state-probe/nav-report.md` T2) — while the base
+   `a { transition: .3s }` gives `all` + `ease`. Scoped to the overlay header
+   only: the solid subpage header keeps `all`/`ease` (T1) and the subpage
+   language link too (T4 `all`/`ease`). Colours are unchanged (they match). */
+@media (min-width: 992px) {
+    #doz_header.header-overlay > div > nav > ul > li > a,
+    #doz_header.header-overlay > div > nav > div > a {
+        transition: color 0.3s ease-out, background 0.3s ease-out, border-color 0.3s ease-out;
+    }
+}
+
+/* Header submenu open/close box: the original dropdown-menu is
+   `all 0.3s ease` (nav-report T3); the rebuilt panel used
+   `opacity 0.5s cubic-bezier(.4,0,.2,1)`. Open/close visuals already matched,
+   so only the transition declaration is aligned. */
+.imweb-nav-dropdown {
+    transition: all 0.3s ease;
+}
+
+/* Products mobile sibling-category grid (PageHero type4 `sub-menu`): the
+   original carries `transition: .3s` on these <li> cells (style-probe mobile:
+   12 rows, `0.3s → 0s`). The pill variant (`제품 바로가기`) is not part of the
+   original's transition rule. The trailing decorative spacer row is included
+   harmlessly. */
+@media (max-width: 991px) {
+    nav[aria-label="제품 카테고리"] > ul > li {
+        transition: .3s;
+    }
+}
+
+/* Mobile rnd / rnd.technology table #2 (`.table-responsive`). The original
+   wraps the authored ~991px table in an `overflow-x:auto` scroller and sets
+   `white-space:nowrap` on the cells, so each cell stays on one line and the
+   table scrolls horizontally (row pitch ~93px). Without it the table is
+   squeezed into the content column and every cell wraps (row pitch ~181px),
+   adding ~+230px to the section. Scoped to the `.table-responsive` wrapper and
+   to mobile only — desktop tables (and the other rnd tables, which have no
+   `.table-responsive` wrapper) already match and are not touched. */
+@media (max-width: 991px) {
+    .rich-text .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    .rich-text .table-responsive table {
+        width: 100%;
+    }
+    .rich-text .table-responsive td,
+    .rich-text .table-responsive th {
+        white-space: nowrap;
+    }
 }
 
 /* D14: the footer TOP/plus circle buttons use the same measured widget button

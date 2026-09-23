@@ -9,6 +9,31 @@ import type { ColNode, Node, PageContent, RowNode } from "@/lib/types";
 const FOOTER_SECTION_ID = "s20250811f489e3443bdbe";
 const TICKER_SECTION_ID = "s2025081139ff276cae8d6";
 
+/**
+ * Mobile heights of the ticker's padding widgets, measured live at 390 on the
+ * original (126->63, 39->20, 114->57). imweb's mobile runtime renders a padding
+ * widget at half its desktop height; the global `.spacer` mobile formula
+ * (`h*0.5 + 15`) folds in the `.inside .widget` vertical gutter, but this
+ * section is `grid_v_gutter_0` (no widget margins) so its paddings are exactly
+ * halved. Literal classes because Tailwind only emits strings it can read.
+ * Desktop values are unchanged.
+ */
+const TICKER_SPACER_CLASS: Record<number, string> = {
+  126: "h-[63px] min-[1024px]:h-[126px]",
+  39: "h-[20px] min-[1024px]:h-[39px]",
+};
+
+/**
+ * imweb's font-size-keyed `line-height: 1.2 !important` also applies at mobile
+ * (measured on the original ticker heading: the 48px span downscales to 28px
+ * and computes line-height 33.6px), but globals.css scopes that rule to >=992.
+ * Re-apply it here for the ticker's 28px mobile heading so the header row
+ * matches the original 89px. Same pattern SectionRenderer uses for its inline
+ * mobile table rules.
+ */
+const TICKER_HEADING_MOBILE_CSS =
+  "@media (max-width:991px){.ticker-notice .rich-text.text-widget span[style*='font-size: 48px']{line-height:1.2 !important}}";
+
 /** does this col contain the round "+" button (the ticker header's 3-col)? */
 function colHasButton(col: ColNode): boolean {
   const walk = (nodes: Node[]): boolean =>
@@ -46,12 +71,17 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       {/* all content sections from the crawl (row widths, hover cards, reveal anims) */}
       <SectionRenderer sections={rest} locale={l} />
 
-      {/* notice ticker — measured original: 1040 row, 126 spacer, 116 header
-          (Notice 20px + 48px title, plus-circle button right after 57 spacer),
-          39 spacer, newest cards (179px image, 19px title, 16px/1.4 text),
-          114 spacer */}
+      {/* notice ticker — measured original at 390: 63 padding, 89 header
+          (Notice 15px + 28px/33.6 heading after imweb's mobile downscale),
+          20 padding, 291 newest band (298px of cards pulled up 7px),
+          57 padding = 520. Desktop keeps the 1040 row, 126/116/39 paddings
+          and the 114 tail (unchanged). */}
       {tickerSec && (
-        <section className="relative overflow-x-clip" style={{ backgroundColor: tickerSec.bgColor || "#f7f7f7" }}>
+        <section
+          className="ticker-notice pc-at-mobile relative overflow-x-clip"
+          style={{ backgroundColor: tickerSec.bgColor || "#f7f7f7" }}
+        >
+          <style dangerouslySetInnerHTML={{ __html: TICKER_HEADING_MOBILE_CSS }} />
           <div className="mx-auto max-w-[1040px] px-[15px] lg:px-0">
             {tickerHeaderRows.map((r, i) =>
               r === tickerHeaderRow ? (
@@ -76,15 +106,20 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                     </div>
                   ))}
                 </div>
+              ) : TICKER_SPACER_CLASS[r.h ?? 0] ? (
+                // measured mobile heights (see TICKER_SPACER_CLASS): the global
+                // `.spacer` mobile formula would add +15px this section does not
+                // have — it is `grid_v_gutter_0` (no `.inside .widget` margin).
+                <div key={i} aria-hidden className={TICKER_SPACER_CLASS[r.h ?? 0]} />
               ) : (
                 <Rows key={i} rows={[r]} locale={l} />
               ),
             )}
-            {/* newest row: measured min-height 310, cards overlap upward by 15.
-                Mobile (orig 390): full-bleed 405px track (margin -7.5), 2 columns,
-                card 188x283, thumb 186x142; desktop flex-1 row unchanged (lg:). */}
-            <div className="min-h-[310px]">
-            <div className="-mx-[22.5px] -mt-[15px] flex flex-wrap lg:-mx-[15px] lg:flex-row">
+            {/* newest row: measured at 390 the original band is 298px of cards
+                pulled up 7px (net 291) inside a 291px row; at >=1024 the cards
+                are 327 and the block keeps min-height 310 with a 15px pull-up. */}
+            <div className="min-[1024px]:min-h-[310px]">
+            <div className="-mx-[22.5px] -mt-[7px] flex flex-wrap min-[1024px]:-mt-[15px] lg:-mx-[15px] lg:flex-row">
               {news.posts.slice(0, 4).map((p, i) => (
                 <Reveal key={p.idx} delay={i * 0.12} className={`w-1/2 p-[7.5px] lg:w-auto lg:flex-1 lg:p-[15px]${i >= 2 ? " hidden lg:block" : ""}`}>
                   <Link href={localeHref(l, `/news/${p.idx}`)} className="group block h-[283px] overflow-hidden bg-white lg:h-auto lg:overflow-visible">
@@ -103,7 +138,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               ))}
             </div>
             </div>
-            <div className="spacer" style={{ ["--h" as string]: 114 }} />
+            <div aria-hidden className="h-[57px] min-[1024px]:h-[114px]" />
           </div>
         </section>
       )}

@@ -1,10 +1,11 @@
 import { notFound } from "next/navigation";
 import PageHero from "@/components/ui/PageHero";
 import { PostDetail } from "@/components/ui/Boards";
+import BoardDetailShell from "@/components/boards/BoardDetailShell";
 import { getBoard } from "@/lib/content";
 import { boardPostByIdx } from "@/lib/content/boards";
 import { getResolvedBoard } from "@/lib/content/resolved";
-import { defaultLocale, isLocale, localeHref, type Locale } from "@/lib/i18n";
+import { defaultLocale, isLocale, localeHref } from "@/lib/i18n";
 import { heroFor } from "@/lib/page-hero";
 import { ui } from "@/lib/ui-strings";
 
@@ -31,21 +32,16 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ loc
   const nav = (p?: { idx: string; title: string; date?: string | null }) =>
     p ? { idx: p.idx, title: p.title, date: p.date } : null;
   return (
-    <main>
-      <PageHero title={hero.title} tabs={hero.tabs} />
-      <section className="mx-auto max-w-[1440px] px-5 pb-24 lg:px-10">
-        <div className="mx-auto max-w-[1000px]">
-          <PostDetail
-            post={post}
-            boardHref={localeHref(l, "/news")}
-            listLabel={t.board.list}
-            prevLabel={t.board.prev}
-            nextLabel={t.board.next}
-            prevPost={nav(board.posts[at + 1])}
-            nextPost={nav(board.posts[at - 1])}
-          />
-        </div>
-      </section>
-    </main>
+    <BoardDetailShell locale={l} pageKey="news" hero={<PageHero title={hero.title} tabs={hero.tabs} />}>
+      <PostDetail
+        post={post}
+        boardHref={localeHref(l, "/news")}
+        listLabel={t.board.list}
+        prevLabel={t.board.prev}
+        nextLabel={t.board.next}
+        prevPost={nav(board.posts[at + 1])}
+        nextPost={nav(board.posts[at - 1])}
+      />
+    </BoardDetailShell>
   );
 }

@@ -101,7 +101,7 @@ export function ProductTabs({ tabs }: { tabs: ProductTab[] }) {
             className={`mr-[5px] inline-flex h-[37px] shrink-0 items-center rounded-full border px-[15px] text-[17px] font-normal leading-[27.2px] transition duration-300 ${
               t.active
                 ? "border-accent bg-accent text-white"
-                : "border-transparent text-[rgba(54,54,54,0.7)] hover:text-ink"
+                : "border-transparent text-[rgba(54,54,54,0.7)] hover:text-[#D6D6D6]"
             }`}
           >
             {t.label}
@@ -178,8 +178,8 @@ export function ProductPagination({
 }) {
   if (totalPages <= 1) return null;
   const item =
-    "flex h-6 min-w-6 items-center justify-center rounded-full px-[3px] text-center text-[14px] leading-[24px] transition duration-300";
-  const dim = "text-[rgba(54,54,54,0.4)] hover:text-ink";
+    "flex h-6 min-w-6 items-center justify-center rounded-full px-[3px] text-center text-[14px] leading-[24px] transition duration-300 ease-[ease]";
+  const dim = "text-[rgba(54,54,54,0.4)] hover:text-[#363636]";
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
   const sep = basePath.includes("?") ? "&" : "?";
   const hrefFor = (p: number) => (p === 1 ? basePath : `${basePath}${sep}page=${p}`);

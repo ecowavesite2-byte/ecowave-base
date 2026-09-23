@@ -1,26 +1,31 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 
-/** imweb owl `paging_type_line` pager caps out at five indicators */
-const MAX_DOTS = 5;
 const GAP = 5;
 
 /**
  * D13: owl-carousel-style pager for the `layout:"slide"` galleries. Keeps the
  * native snap scroll strip but adds the measured `paging_type_line` dot row
- * (39x12 indicators) and round prev/next arrows; a dot jumps to its page and
- * the arrows step one item, mirroring the original owl behaviour measured on
- * company.about (`container_w20250918692bb854e97af` 2 dots,
- * `container_w20250918b0ab58de4000e` 5 dots + `custom_nav nav_round`).
+ * (imweb `.owl-dot` indicators: 32x12 / 2px bar at <992px, 39x12 / 2px bar at
+ * >=992px) and round prev/next arrows; a dot jumps to its page and the arrows
+ * step one item, mirroring the original owl behaviour.
  *
  * Desktop geometry (all `min-[992px]:`, measured on the live originals): the
  * track bleeds one item padding past each column edge and drops the inter-item
  * gap (the item paddings supply the visual gutter), the carousel carries a
  * 20px bottom padding with the dot row sitting just below the stage, and the
  * arrows are pinned 15px inside the column, vertically centred, as 30x30
- * circles with a 1px rgba(255,255,255,.6) ring and a white glyph. Everything
- * is desktop-gated so the verified mobile rendering is untouched.
+ * circles with a 1px rgba(255,255,255,.6) ring and a white glyph.
+ *
+ * Mobile geometry (measured live on the originals, <992px): every original
+ * `gallery2 slide` shows TWO items per view (company.about: 21 items -> 11
+ * dots, 7 items -> 4 dots; home: 3 items -> 3 dots), each dot advances one
+ * full page (2 items), and the owl `nav_round`/`owl-nav` arrows are
+ * `display:none` — mobile is a dots-only pager. Desktop fixed-width galleries
+ * (the company.about pair) therefore override their item width to a 2-up
+ * column and let the image keep its natural aspect; the mobile-only home
+ * gallery keeps its authored 1-up full-width slide.
  */
 export default function GallerySlider({
   count,
@@ -39,12 +44,23 @@ export default function GallerySlider({
   const [perView, setPerView] = useState(1);
   const [active, setActive] = useState(0);
 
+  /**
+   * SectionRenderer renders the desktop-authored fixed-width slide galleries
+   * as `pad=5/arrows=false` (captioned) and `pad=10/arrows=true` (plain); the
+   * mobile-only home gallery keeps the `pad=5` + `arrows=true` defaults. Only
+   * the fixed-width pair gets the owl 2-up mobile layout.
+   */
+  const fixedItems = arrows === false || pad >= 10;
+  const scope = (useId().replace(/[^a-zA-Z0-9_-]/g, "") || "gs") + (fixedItems ? "-fx" : "");
+
   const step = () => {
     const el = track.current;
     const first = el?.firstElementChild as HTMLElement | null | undefined;
     return first ? first.offsetWidth + GAP : el?.clientWidth || 1;
   };
-  const dotCount = Math.min(MAX_DOTS, Math.max(1, Math.ceil(count / perView)));
+  // owl `paging_type_line` renders one indicator per page and does NOT cap the
+  // row (the original shows 11 dots for 21 items at 2-up), so dots == pages.
+  const dotCount = Math.max(1, Math.ceil(count / perView));
 
   useEffect(() => {
     const el = track.current;
@@ -58,7 +74,7 @@ export default function GallerySlider({
     const ro = new ResizeObserver(measure);
     ro.observe(el);
     return () => ro.disconnect();
-  }, [count]);
+  }, [count, fixedItems]);
 
   const goTo = (page: number) => {
     const el = track.current;
@@ -73,8 +89,6 @@ export default function GallerySlider({
     track.current?.scrollBy({ left: dir * step(), behavior: "smooth" });
   };
 
-  const arrow =
-    "pointer-events-auto flex h-[34px] w-[34px] shrink-0 items-center justify-center rounded-full border border-[#ddd] text-body transition duration-300 hover:border-accent hover:text-accent";
   // measured `nav_round` circles: 30x30, 1px rgba(255,255,255,.6) ring, white glyph
   const arrowDesktop =
     "hidden min-[992px]:absolute min-[992px]:top-1/2 min-[992px]:z-20 min-[992px]:flex min-[992px]:h-[30px] min-[992px]:w-[30px] min-[992px]:-translate-y-1/2 min-[992px]:rounded-full min-[992px]:border min-[992px]:border-white/60 min-[992px]:text-white";
@@ -82,8 +96,19 @@ export default function GallerySlider({
 
   return (
     <div className="relative min-[992px]:pb-[20px]">
+      {fixedItems && (
+        // Mobile-only 2-up override. The track's `figure` children carry an
+        // inline desktop `width`/`height`; only below 992px do we widen them to
+        // half the track (minus the 5px gutter) and drop the fixed height so
+        // the image keeps its natural aspect — this is how the original owl
+        // `slide_02` item scales at mobile (company.about: 185x243 and
+        // 183x134 + caption). No >=992px rule is emitted, so desktop is
+        // untouched.
+        <style>{`@media (max-width:991.98px){[data-gs="${scope}"]>figure{width:calc((100% - ${GAP}px) / 2) !important;height:auto !important}[data-gs="${scope}"]>figure>img{height:auto !important}}`}</style>
+      )}
       <div
         ref={track}
+        data-gs={scope}
         onScroll={() => {
           const el = track.current;
           if (el) setActive(Math.min(dotCount - 1, Math.round(el.scrollLeft / Math.max(step() * perView, 1))));
@@ -102,13 +127,10 @@ export default function GallerySlider({
         // keeps its swipe target. Desktop: the measured `.owl-dots` row sits
         // just BELOW the stage (stage bottom +1) inside the carousel's 20px
         // bottom padding, so the overlay overrides to `top: calc(100% - 19px)`.
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 flex items-center justify-center gap-5 min-[992px]:top-[calc(100%-19px)] min-[992px]:bottom-auto">
-          {/* mobile pager arrows (desktop renders the measured nav_round circles below) */}
-          <button type="button" aria-label="이전" onClick={() => nudge(-1)} className={`${arrow} min-[992px]:hidden`}>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M15 18l-6-6 6-6" />
-            </svg>
-          </button>
+        //
+        // Mobile carries the dot row only: the original hides its owl/round
+        // arrows below 992px (`display:none`), so the row is centred.
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 flex items-center justify-center min-[992px]:top-[calc(100%-19px)] min-[992px]:bottom-auto">
           <div className="flex items-center justify-center">
             {Array.from({ length: dotCount }, (_, i) => (
               <button
@@ -117,19 +139,14 @@ export default function GallerySlider({
                 aria-label={`${i + 1}`}
                 aria-current={i === active ? "true" : undefined}
                 onClick={() => goTo(i)}
-                className={`pointer-events-auto flex h-[12px] w-[39px] items-center justify-center ${
+                className={`pointer-events-auto flex h-[12px] w-[32px] items-center justify-center min-[992px]:w-[39px] ${
                   i === active ? "opacity-100" : "opacity-50"
                 }`}
               >
-                <span className="h-[2px] w-full bg-[#363636] min-[992px]:w-[25px]" />
+                <span className="h-[2px] w-[24px] bg-[#363636] min-[992px]:w-[25px]" />
               </button>
             ))}
           </div>
-          <button type="button" aria-label="다음" onClick={() => nudge(1)} className={`${arrow} min-[992px]:hidden`}>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M9 18l6-6-6-6" />
-            </svg>
-          </button>
         </div>
       )}
       {dotCount > 1 && arrows && (

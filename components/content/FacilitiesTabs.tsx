@@ -16,6 +16,12 @@ export type FacilitiesTab = { id: string; name: string; images: string[] };
  * centred) and a 5-column x 2-row image grid, 1250px wide, 234x349 cells
  * with 20px gaps. Below 992px the grid drops to 2 columns with ~347px cells
  * (mobile original), still one pane at a time.
+ *
+ * The original `.tab` rule is `max-width:767px`: 150x31 pills, 12px text
+ * (active bold), same 15px gap and centred wrap -> two pills on the first
+ * row and the third centred beneath. Pill colour stays #F9F9F9 / #3465DE
+ * border / #3465DE label (inactive) and #3465DE / white label (active),
+ * with `transition: all 0.3s ease` and no hover change on the inactive pill.
  */
 export default function FacilitiesTabs({ tabs }: { tabs: FacilitiesTab[] }) {
   const [active, setActive] = useState(0);
@@ -33,10 +39,10 @@ export default function FacilitiesTabs({ tabs }: { tabs: FacilitiesTab[] }) {
               type="button"
               onClick={() => setActive(i)}
               aria-pressed={isActive}
-              className={`h-[51px] w-[250px] rounded-full border border-accent text-[18px] transition-colors ${
+              className={`h-[51px] w-[250px] rounded-full border border-accent text-[18px] transition-all duration-300 ease-[ease] max-md:h-[31px] max-md:w-[150px] max-md:text-[12px] ${
                 isActive
-                  ? "bg-accent text-white"
-                  : "bg-[#F9F9F9] text-accent hover:bg-white"
+                  ? "bg-accent text-white max-md:font-bold"
+                  : "bg-[#F9F9F9] text-accent"
               }`}
             >
               {t.name}

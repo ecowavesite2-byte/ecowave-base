@@ -78,14 +78,86 @@ function decodeEntities(s: string): string {
     .replace(/&amp;/g, "&");
 }
 
-/** image widgets can carry overlay labels encoded in their alt attribute */
-function parseImageAlt(alt?: string): { label: string; title: string; hasOverlay: boolean } {
-  if (!alt) return { label: "", title: "", hasOverlay: false };
+const stripTags = (s: string) => s.replace(/<[^>]+>/g, "").replace(/&nbsp;/g, " ").trim();
+
+/**
+ * Residual #1: imweb's `.table-responsive` wrapper is `overflow-x:auto` with
+ * `nowrap` cells, so the authored 991px R&D table scrolls inside the 360px
+ * mobile column instead of wrapping (measured live on /21: wrapper `overflow-x:
+ * auto`, cell `white-space: nowrap`, table 991px wide, row pitch 93px). The
+ * local rebuild dropped both rules, squeezing the table to 360px and doubling
+ * every row (pitch 181). globals.css is owned by another lane, so inject the
+ * two rules inline on the wrapper (the only element carrying the class); the
+ * `nowrap` inherits to the cells. Desktop is unaffected — 991px fits the
+ * desktop column, where both sides already render the table unwrapped.
+ */
+const TABLE_HORIZONTAL_MOBILE_CSS =
+  "<style>@media (max-width:991px){" +
+  ".pc-at-mobile .rich-text table.tableHorizontal:not(.tableHover) td," +
+  ".pc-at-mobile .rich-text table.tableHorizontal:not(.tableHover) th{padding:20px;line-height:24px}" +
+  '.pc-at-mobile .rich-text table.tableHorizontal:not(.tableHover) span[style*="font-size: 18px"]{font-size:15px !important}' +
+  '.pc-at-mobile .rich-text table.tableHorizontal:not(.tableHover) span[style*="font-size: 16px"]{font-size:14px !important}' +
+  // imweb's `.table-responsive` wrapper keeps bootstrap's `margin-bottom:15px`
+  // at mobile (measured live on rnd §2: wrapper h281 with `margin:0 0 15px`,
+  // local had `margin:0`). Only rnd/rnd.technology author `.table-responsive`.
+  ".pc-at-mobile .rich-text .table-responsive{margin-bottom:15px}" +
+  "}</style>";
+
+function fixResponsiveTables(html: string): string {
+  const out = html.replace(
+    /class="([^"]*\btable-responsive\b[^"]*)"/g,
+    'class="$1" style="overflow-x:auto;overflow-y:hidden;white-space:nowrap;"',
+  );
+  // Mobile `tableHorizontal` cell metrics (rnd / rnd.technology §§2–4). Measured
+  // live at 390 against the originals: their cells are `padding:20px` with
+  // `line-height:24px`, and the pc-at-mobile runtime downscales the authored
+  // 18px -> 15px and 16px -> 14px text (row pitch 72/125/153; local 50/113/145).
+  // Only rnd/rnd.technology author `tableHorizontal` WITHOUT `tableHover` —
+  // rnd.facilities uses `tableHover tableHorizontal` and its 8px padding already
+  // matches — so the rule is inert on every other page and on desktop (the
+  // whole block is behind `max-width:991px`). Verified live before editing:
+  // rnd §3 1270 -> 1378 (orig 1371), §4 1239 -> 1323 (orig 1316) and the §2
+  // table 221 -> 281 = the original exactly (rows 94/93/93).
+  return /class="[^"]*\btableHorizontal\b/.test(out) ? TABLE_HORIZONTAL_MOBILE_CSS + out : out;
+}
+
+/**
+ * Image widgets carry overlay labels encoded in their `alt` attribute in two
+ * authored shapes (both measured live on the home originals):
+ *
+ *  - desktop `img-title` (home §2 pc pillar cards):
+ *      `<div class="img-title"><div class="top-t"><P>Company</P></div><h5>회사소개</h5></div>
+ *       <span class="material-symbols-outlined">add</span>`
+ *    → label "Company" (18px) ABOVE title "회사소개" (40px) plus a 30px "+".
+ *  - mobile (home §회사소개 mobile_section pillar cards):
+ *      `<h5>회사소개</h5><span>Company</span>`
+ *    → title "회사소개" (25px) ABOVE label "Company" (18px), no "+".
+ *
+ * Both are visible **at rest** on the original (`.overlay` scrim
+ * rgba(0,0,0,0.3) opacity 1 + white labels), not hover-only. The `layout`
+ * field selects the label order / type scale / alignment.
+ */
+function parseImageAlt(alt?: string): {
+  label: string;
+  title: string;
+  plus: boolean;
+  layout: "desktop" | "mobile" | "none";
+  hasOverlay: boolean;
+} {
+  if (!alt) return { label: "", title: "", plus: false, layout: "none", hasOverlay: false };
   const html = decodeEntities(alt);
-  if (!/img-title/i.test(html)) return { label: "", title: "", hasOverlay: false };
-  const label = html.match(/top-t[^>]*>\s*<P[^>]*>([\s\S]*?)<\/P>/i)?.[1]?.trim() || "";
-  const title = html.match(/<h5[^>]*>([\s\S]*?)<\/h5>/i)?.[1]?.replace(/<[^>]+>/g, "").trim() || "";
-  return { label, title, hasOverlay: true };
+  if (/img-title/i.test(html)) {
+    const label = stripTags(html.match(/top-t[^>]*>\s*<p[^>]*>([\s\S]*?)<\/p>/i)?.[1] || "");
+    const title = stripTags(html.match(/<h5[^>]*>([\s\S]*?)<\/h5>/i)?.[1] || "");
+    const plus = /material-symbols-outlined/i.test(html);
+    return { label, title, plus, layout: "desktop", hasOverlay: true };
+  }
+  // mobile pillar cards: `<h5>회사소개</h5><span>Company</span>` (the en locale
+  // sometimes omits the English `<span>`)
+  const title = stripTags(html.match(/<h5[^>]*>([\s\S]*?)<\/h5>/i)?.[1] || "");
+  if (!title) return { label: "", title: "", plus: false, layout: "none", hasOverlay: false };
+  const spans = [...html.matchAll(/<span[^>]*>([\s\S]*?)<\/span>/gi)].map((m) => stripTags(m[1])).filter(Boolean);
+  return { label: spans[0] || "", title, plus: false, layout: "mobile", hasOverlay: true };
 }
 
 /* ---------------- widgets ---------------- */
@@ -168,7 +240,7 @@ export function GalleryCard({
 
 function ImageWidget({ w, locale, mobileBox = false }: { w: WidgetNode; locale: Locale; mobileBox?: boolean }) {
   const h = num(w.boxStyle, "height");
-  const { label, title, hasOverlay } = parseImageAlt(w.alt);
+  const { label, title, plus, layout, hasOverlay } = parseImageAlt(w.alt);
 
   // S1: imweb's scroll-to-top button (`.btn_top a[href="#doz_header"]`) is
   // crawled with `width:0;height:0;margin:21px auto`; the runtime then paints
@@ -219,12 +291,12 @@ function ImageWidget({ w, locale, mobileBox = false }: { w: WidgetNode; locale: 
     }
   });
   if (isScrollTop) {
-    // pin the measured original geometry: 41x41 icon + a 15px top gutter, i.e.
-    // the original 56px band (the crawled 21px vertical margin is clipped by
-    // the original button box)
+    // pin the measured original geometry: a 41x41 icon vertically centred in
+    // the original 56px band (live probe: section top 748.1, icon top 755.6 →
+    // 7.5px gutter; 15px would push it to the band's bottom edge)
     inlineStyle.width = "41px";
     inlineStyle.height = "41px";
-    inlineStyle["margin-top"] = "15px";
+    inlineStyle["margin-top"] = "7.5px";
     delete inlineStyle["margin-bottom"];
   } else if (!inlineStyle.width) {
     inlineStyle.width = "100%";
@@ -274,7 +346,19 @@ function ImageWidget({ w, locale, mobileBox = false }: { w: WidgetNode; locale: 
 
   const body =
     hasOverlay && (label || title) ? (
-      <div className="group relative w-full overflow-hidden bg-soft" style={h ? { height: h } : undefined}>
+      // Both overlay formats show at rest on the original: a `rgba(0,0,0,0.3)`
+      // scrim plus white labels. Desktop cards centre their 18/40px label+title
+      // block in a 114px column inside a 20px-rounded frame; mobile cards stack
+      // the 25px title over the 18px label bottom-left inside a 7px-rounded
+      // frame. The image is a `cover`/`center` background layer, which also
+      // reproduces the original mobile crop (a 480x644 source vertically
+      // centred in the 179px band).
+      <div
+        className={`group relative w-full overflow-hidden bg-soft ${
+          layout === "desktop" ? "rounded-[20px]" : "rounded-[7px]"
+        }`}
+        style={h ? { height: h } : undefined}
+      >
         {w.src && (
           <div
             className="absolute inset-0 bg-cover bg-center"
@@ -289,21 +373,34 @@ function ImageWidget({ w, locale, mobileBox = false }: { w: WidgetNode; locale: 
             aria-hidden
           />
         )}
-        <div className="absolute inset-0 flex flex-col items-start justify-end p-5 opacity-0 group-hover:opacity-100">
-          {label && <p className="text-[18px] leading-[1.2] text-white">{label}</p>}
-          {title && <h3 className="mt-1 text-[40px] font-bold leading-[1.2] text-white">{title}</h3>}
-          {hasOverlay && (
-            <span className="mt-2 text-[30px] leading-none text-white">
-              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <path d="M12 5v14M5 12h14" />
-              </svg>
-            </span>
-          )}
-        </div>
+        {/* measured `.overlay` layer, visible at rest */}
+        <div className="absolute inset-0 bg-[rgba(0,0,0,0.3)]" aria-hidden />
+        {layout === "desktop" ? (
+          <div className="absolute inset-0 flex flex-col items-center justify-center px-5">
+            <div className="w-[114px] text-left">
+              {label && <p className="text-[18px] leading-[1.2] text-white">{label}</p>}
+              {title && <h3 className="mt-[9px] text-[40px] leading-[1.2] font-bold text-white">{title}</h3>}
+              {plus && (
+                <span className="mt-[12px] block text-[30px] leading-none text-white">
+                  <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <path d="M12 5v14M5 12h14" />
+                  </svg>
+                </span>
+              )}
+            </div>
+          </div>
+        ) : (
+          <div className="absolute inset-0 flex flex-col items-start justify-end p-5">
+            {title && <h3 className="text-[25px] leading-[1.5] font-bold text-white">{title}</h3>}
+            {label && <p className="mt-[12px] text-[18px] leading-[1.2] text-white">{label}</p>}
+          </div>
+        )}
       </div>
     ) : (
       <div
-        className={`relative w-full overflow-hidden${mobileBox ? " rounded-[6px]" : ""}${h ? " " + (mobileBox ? BOX_MOBILE_HEIGHT : BOX_DESKTOP_HEIGHT) : ""}`}
+        className={`relative w-full overflow-hidden${mobileBox ? " rounded-[6px]" : ""}${
+          mobileBox && isMobileCrop ? " flex items-center" : ""
+        }${h ? " " + (mobileBox ? BOX_MOBILE_HEIGHT : BOX_DESKTOP_HEIGHT) : ""}`}
         style={h ? ({ ["--box-h" as string]: `${h}px` } as React.CSSProperties) : undefined}
       >
         {w.src && img}
@@ -345,13 +442,28 @@ export function Widget({
   const content = w.type === "padding" ? renderPadding(w) : WidgetContent({ w, locale, mobileBox });
   if (!content) return null;
   // imweb `.doz_sys .inside .widget { margin: 15px 0 }`, cancelled for sections
-  // carrying `grid_v_gutter_0`. Scoped to nested image widgets only: applying
-  // it to text widgets double-counts the gutter (our section/row spacing
-  // already reproduces it), which measurably grew desktop heights by +30px per
-  // text widget (+18..+563px per page). PROBE A's ~15px sub-hero caption
-  // offset is a positional residual, not a size mismatch — do not re-add the
-  // text gutter without removing the compensating spacing elsewhere.
-  const margin = w.type === "image" && nested && vGutter ? "mt-[15px] mb-[15px]" : "";
+  // carrying `grid_v_gutter_0`. Scoped to image widgets only: applying it to
+  // text widgets double-counts the gutter (our section/row spacing already
+  // reproduces it), which measurably grew desktop heights by +30px per text
+  // widget (+18..+563px per page). PROBE A's ~15px sub-hero caption offset is a
+  // positional residual, not a size mismatch — do not re-add the text gutter
+  // without removing the compensating spacing elsewhere.
+  //
+  // Measured live at 390 (home §2 회사소개 pillar cards): every `.widget.image`
+  // in a `mobile_section` carries `margin: 7.5px 0` — the 4 card rows are 194px
+  // (179 box + 15 band), the section 882 vs local 807 (−75). The band applies to
+  // the mobile-authored widgets too (they are top-level, `nested` false), so it
+  // is gated on `mobileBox`. Verified by DOM simulation: home §2 807→867,
+  // history §2/§5/§8 298/255/255→313/270/270 (originals 328/270/270), about §3
+  // 790→805 (orig 835); rnd/rnd.facilities/rnd.patents pc sections untouched.
+  const margin =
+    w.type === "image" && vGutter
+      ? mobileBox
+        ? "mt-[7.5px] mb-[7.5px]"
+        : nested
+          ? "mt-[15px] mb-[15px]"
+          : ""
+      : "";
   const tagged = (
     <div data-widget-type={w.type} className={margin || undefined}>
       {content}
@@ -436,7 +548,14 @@ function SlideCard({
         </figcaption>
       )}
       {titleBar && item.title && (
-        <figcaption className="hidden shrink-0 items-center justify-center bg-white px-[20px] py-[20px] text-center text-[14px] font-normal leading-[1.6] text-[#212121] min-[992px]:flex">
+        // The captioned slide (company.about §4) renders its title bar in flow
+        // BELOW the image at every width. Measured live on the original at 390:
+        // `.item_container` 178x219 = `.img_wrap` 178x134 (3:4) + `.text_wrap`
+        // 178x62/85, and `.text_wrap p.title` is `padding:20px`, 14px/22.4
+        // (leading 1.6), centered, #212121. Previously this bar was desktop-only
+        // (`hidden ... min-[992px]:flex`) so the mobile 2-up slides rendered with
+        // no caption.
+        <figcaption className="flex shrink-0 items-center justify-center bg-white px-[20px] py-[20px] text-center text-[14px] font-normal leading-[1.6] text-[#212121]">
           {item.title}
         </figcaption>
       )}
@@ -450,7 +569,7 @@ function WidgetContent({ w, locale, mobileBox = false }: { w: WidgetNode; locale
       // `text-widget` mirrors imweb's `div[doz_type="text"]` scope: the original
       // applies an !important size-keyed line-height only inside text widgets,
       // so html/code widgets must not receive it (see app/globals.css).
-      return <RichText html={w.html} className="text-widget" />;
+      return <RichText html={fixResponsiveTables(w.html || "")} className="text-widget" />;
     case "image":
       return <ImageWidget w={w} locale={locale} mobileBox={mobileBox} />;
     case "gallery2": {
@@ -562,7 +681,7 @@ function WidgetContent({ w, locale, mobileBox = false }: { w: WidgetNode; locale
       );
     }
     case "code": {
-      const clean = (w.html || "").replace(/<link[^>]*>/g, "").trim();
+      const clean = fixResponsiveTables((w.html || "").replace(/<link[^>]*>/g, "").trim());
       return clean ? <div dangerouslySetInnerHTML={{ __html: clean }} /> : null;
     }
     case "video":
@@ -591,7 +710,9 @@ function WidgetContent({ w, locale, mobileBox = false }: { w: WidgetNode; locale
           <Link
             href={dest}
             aria-label={w.text || "button"}
-            className="inline-flex items-center justify-center rounded-full bg-[#f7f7f7] p-[14px] text-[rgba(0,0,0,0.15)] transition-all duration-300 hover:bg-transparent hover:text-accent"
+            className={`inline-flex items-center justify-center rounded-full bg-[#f7f7f7] p-[14px] text-[rgba(0,0,0,0.15)] transition-all duration-300 hover:bg-transparent hover:text-accent ${
+              isPlus && !isTop ? "text-[17px]" : ""
+            }`}
           >
             {isTop && (
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -840,6 +961,46 @@ export function isPageHeroSection(sec: Section): boolean {
 }
 
 /**
+ * T4: imweb's mobile back-to-top widget (`#doz_header`) is a `position:fixed`
+ * viewport overlay. Measured live at 390x844 on the original: `position:fixed;
+ * right:0; top:692.078px` (= 82% of the 844 viewport); `z-index:9999;
+ * transform:translateY(56px)`; a 71x56 box (41px icon + 15px side gutters,
+ * vertically centred) contributing **0 document-flow height**, visible at rest.
+ * At >=992 it collapses (`display:none`, `top:82%`). Locally it rendered as an
+ * in-flow `<section>` adding 56px on 16/20 mobile pages. These literals
+ * reproduce the original geometry (fixed → no flow, floats top-right, hidden
+ * at desktop).
+ */
+const BACK_TO_TOP_CLASS =
+  "fixed right-0 top-[82%] z-[9999] h-[56px] w-[71px] translate-y-[56px] overflow-hidden min-[992px]:hidden";
+
+/**
+ * True when the section is imweb's mobile back-to-top overlay — an image widget
+ * linking to `#doz_header` with the crawled `margin: 21px auto` placeholder
+ * (the same discriminator as ImageWidget's `isScrollTop`). The desktop footer
+ * also links to `#doz_header` but as a `button` widget, which is excluded.
+ */
+export function isBackToTopSection(sec: Section): boolean {
+  let found = false;
+  const walk = (nodes: Node[]) => {
+    for (const n of nodes) {
+      if (found) return;
+      if (
+        n.kind === "widget" &&
+        n.type === "image" &&
+        (n.href || "").includes("#doz_header") &&
+        /margin\s*:\s*21px\s+auto/i.test(n.imgStyle || "")
+      ) {
+        found = true;
+      } else if (n.kind === "row") n.cols.forEach((c) => walk(c.children));
+      else if (n.kind === "col") walk(n.children);
+    }
+  };
+  walk(sec.rows);
+  return found;
+}
+
+/**
  * imweb `side_left`/`side_right` sections render `doz_aside` (a left/right
  * column) + a `side_gutter` + the content `inside`. The crawl keeps only the
  * content rows, so the geometry is reconstructed from the content row width:
@@ -909,7 +1070,10 @@ export default function SectionRenderer({
         // mobile_section → mobile only; pc + mobile_hide → desktop only
         const mobileOnly = MOBILE_SECTION.test(cls);
         const desktopOnly = !mobileOnly && MOBILE_HIDE.test(cls);
-        const visibility = mobileOnly ? MOBILE_ONLY_CLASS : desktopOnly ? DESKTOP_ONLY_CLASS : "";
+        // T4: the mobile back-to-top widget is an out-of-flow fixed overlay, not
+        // an ordinary mobile section (it must not contribute flow height).
+        const backToTop = isBackToTopSection(sec);
+        const visibility = backToTop ? "" : mobileOnly ? MOBILE_ONLY_CLASS : desktopOnly ? DESKTOP_ONLY_CLASS : "";
         const side = /\bside_(left|right)\b/.exec(cls)?.[1] ?? null;
         // imweb shows *pc-authored* sections at 390 with a reduced typographic
         // scale (measured on the live original: 48->28, 36->24, 30->20, 24->16,
@@ -932,7 +1096,7 @@ export default function SectionRenderer({
         const vGutter = !/(^|\s)grid_v_gutter_0(\s|$)/.test(cls);
         const aside = (sec as unknown as { aside?: AsideBlock }).aside;
         return (
-          <section key={sec.id} className={`relative${visibility ? " " + visibility : ""}${pcAtMobile ? " pc-at-mobile" : ""}`}>
+          <section key={sec.id} className={`${backToTop ? BACK_TO_TOP_CLASS : "relative"}${visibility ? " " + visibility : ""}${pcAtMobile ? " pc-at-mobile" : ""}`}>
             {(sec.bg || urlFromStyle(sec.bgStyle)) && (
               <div
                 className="absolute inset-0 bg-cover bg-center"
