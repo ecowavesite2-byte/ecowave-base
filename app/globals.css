@@ -312,6 +312,59 @@ a {
   }
 }
 
+/* item 1 — company.philosophy mobile rich-text downscale (coordinated set),
+   scoped to the SectionRenderer `data-rtm` hook (three philosophy sections;
+   see the allowlist comment in components/content/SectionRenderer.tsx).
+   imweb's pc-at-mobile runtime at 390 downscales the authored inline spans:
+   `font-size:18px` -> 15px/18px and `font-size:16px` -> 14px (verified live on
+   the /18 original), and a *no-size* `p span` inherits the 1.6 body factor
+   (24px) where the rebuild's `.rich-text p span` lock forces 18px.
+   Applied globally this regresses about/history/rnd/patents/facilities (each
+   page's other compensating errors surface); the p-span half is also
+   context-dependent (on company/global the original already computes 1.2). The
+   hook is therefore allowlisted to the three philosophy sections, where the
+   whole page moves toward the original: measured live 390 body 4357 -> 4342
+   (orig 4308, +49 -> +34; 경영이념 1026->1011, 비전 487->494, 3단계 1911->1903)
+   with 0 change on the other 19 mobile pages and 0 desktop change. */
+@media (max-width: 991px) {
+  section[data-rtm="1"] .rich-text span[style*="font-size: 18px"] {
+    font-size: 15px !important;
+    line-height: 1.2 !important;
+  }
+  section[data-rtm="1"] .rich-text span[style*="font-size: 16px"] {
+    font-size: 14px !important;
+  }
+  section[data-rtm="1"] .rich-text p span:not([style*="font-size"]),
+  section[data-rtm="1"] .rich-text p strong:not([style*="font-size"]) {
+    line-height: 1.6 !important;
+  }
+}
+
+/* item 2 — home §7 (Headquarters & Factory Locations) holder box model, scoped
+   to the SectionRenderer `data-mapholder` hook (see the allowlist comment in
+   components/content/SectionRenderer.tsx). The original address holders are
+   `.text-table.holder { padding: 20px 50px }` inside a `padding: 0 15px`
+   `.widget._text_wrap` (h6 width 260), and the holder h6's authored 36/30/20px
+   spans compute line-height 1.2 (24/28.8, 20/24, 15/18) — locally they inherit
+   the h6's inline 1.5/2 and run 36/48/30px tall. Restoring all three lands the
+   section exactly: live 390 sim section 845 -> 864 (orig 864), holders
+   144/140/140 -> 161/157/125 and h6 84/80/80 -> 101/97/65 (all = original).
+   Mobile-only (desktop already matches) and allowlisted to the one home §7
+   section, so every other page/section is 0-change. */
+@media (max-width: 991px) {
+  section[data-mapholder="1"] .rich-text {
+    padding: 0 15px;
+  }
+  section[data-mapholder="1"] .rich-text .text-table.holder {
+    padding: 20px 50px;
+  }
+  section[data-mapholder="1"] .rich-text span[style*="font-size: 36px"],
+  section[data-mapholder="1"] .rich-text span[style*="font-size: 30px"],
+  section[data-mapholder="1"] .rich-text span[style*="font-size: 20px"] {
+    line-height: 1.2 !important;
+  }
+}
+
 /* vertical spacers extracted from imweb padding widgets; scale down on mobile.
    S5: imweb's mobile runtime renders a padding widget at half its desktop
    height PLUS the 15px `.inside .widget` row margin (measured: 74->52,

@@ -318,6 +318,23 @@ function ImageWidget({ w, locale, mobileBox = false }: { w: WidgetNode; locale: 
     delete inlineStyle["margin-left"];
     delete inlineStyle["margin-right"];
   }
+  // item 3 — EN home §3 (물을 깨끗하게 / Healthy water): a `mobile_section`
+  // image widget whose crawl style is a zero-size desktop placeholder
+  // (`width:0;height:0;margin:335px auto`). The split-loop above expands the
+  // shorthand and keeps the two 335px vertical margins, inflating the widget
+  // from 720 to 1390 and the section from 1010 to 1680 (EN original 1029/699).
+  // imweb's mobile runtime re-lays the image out and drops them (measured live:
+  // the original img computes 335x670 with `margin:0`). Drop the placeholder's
+  // vertical margins; `isScrollTop` (the back-to-top overlay, same zero-size +
+  // `margin:21px auto` shape) sets its own margins below and is excluded.
+  const isZeroPlaceholder =
+    mobileBox &&
+    /width\s*:\s*0(?:px)?\b/.test(w.imgStyle || "") &&
+    /height\s*:\s*0(?:px)?\b/.test(w.imgStyle || "");
+  if (isZeroPlaceholder && !isScrollTop) {
+    delete inlineStyle["margin-top"];
+    delete inlineStyle["margin-bottom"];
+  }
   // RC5: source desktop-pixel dimensions must stay unclamped at >=992 (the
   // images are deliberate crops), but below 992 they overflow the 390 column.
   // Re-apply the desktop max-width/height only at >=992 and let the mobile
@@ -1096,6 +1113,71 @@ const MOBILE_SECTION_BAND_IDS = new Set([
 ]);
 
 /**
+ * item 1 — company.philosophy mobile rich-text downscale (coordinated set).
+ *
+ * At 390 imweb's pc-at-mobile runtime downscales the authored inline rich-text
+ * spans: `font-size:18px` -> 15px/18px and `font-size:16px` -> 14px (verified
+ * live on the /18 original: h6 18px spans compute 15px/18px, 16px spans compute
+ * 14px/19.6px = the h6 1.4 factor). A *no-size* `p span` that inherits 15px
+ * computes 24px (the body 1.6 factor) where the rebuild's `.rich-text p span`
+ * lock forces 18px (1.2).
+ *
+ * Applied globally the coordinated set is NOT safe — turning on per-element
+ * correctness exposes each page's other compensating errors. Measured live 390
+ * (local body delta before -> after; original in parens):
+ *   about  -6 -> -929 (9964) · history -150 -> -214 (4625) ·
+ *   rnd/technology +12 -> +23 (4858) · rnd.patents -7 -> +27 (4722) ·
+ *   rnd.facilities -3 -> -14 (4382) · company/ceo -28 -> -23 (2300) ·
+ *   global -22 -> -8 (3080) · philosophy +49 -> +34 (4308).
+ * The p-span half is context-dependent: on company/global the original no-size
+ * p span already computes 1.2 (18px) and the local value matches, so applying
+ * the rule there would be per-element *wrong* (raised to 38.4px). Only the
+ * philosophy sections both carry the 18/16px spans and gain from the set, so the
+ * hook is allowlisted to them (`data-rtm`, see globals.css). Verified by CSSOM
+ * simulation of exactly this scope across all 20 mobile pages: philosophy
+ * 4357 -> 4342 (-15, section deltas 경영이념 1026->1011 / 비전 487->494 /
+ * 3단계 1911->1903) and **0 change on the other 19 pages**; desktop 0 (the
+ * rules live in `@media (max-width:991px)`).
+ *
+ * EN philosophy authors the equivalent spans on different section ids; it is
+ * deliberately NOT listed because the EN channel is outside the measured 20-page
+ * protocol (would need its own validation pass).
+ */
+const RT_MOBILE_SECTION_IDS = new Set([
+  "s202508119eca72dc669e0", // philosophy §경영이념 (18px x5)
+  "s202508280e68f158799c2", // philosophy §비전 (18px x2)
+  "s20250829e04e5ce09ea7e", // philosophy §3단계 서비스 (18px x12, 16px x3)
+]);
+
+/**
+ * item 2 — home §7 (Headquarters & Factory Locations) holder box model.
+ *
+ * The original's address holders compute `.text-table.holder { padding: 20px
+ * 50px }` inside a `.widget._text_wrap` carrying `padding: 0 15px`, so the `h6`
+ * is 260px wide and wraps 5/5/3 lines. Locally the holder is `padding: 20px 0`
+ * and the wrapper has no inset, so the `h6` is 390px wide. The larger gap,
+ * however, is the mobile line-height: the holder `h6`s carry an inline
+ * `line-height: 1.5`/`2`, and the authored 36/30/20px spans inherit it
+ * (36/48/30px) where the original downscales them to 1.2 (24->28.8, 20->24,
+ * 15->18). Applying only the holder padding reaches the right h6 width but
+ * overshoots the section to +56; adding the mobile 1.2 line-height on the
+ * measured span sizes lands the section exactly:
+ *
+ *   live 390 sim · section 845 -> 864 (orig 864); holders 144/140/140 ->
+ *   161/157/125 = original; h6 widths 390 -> 260 = original; h6 heights
+ *   84/80/80 -> 101/97/65 = original.
+ *
+ * The `.text-table.holder` class also appears on about/philosophy, so the fix is
+ * allowlisted to the home §7 section (`data-mapholder`) and gated to
+ * `max-width:991px` (desktop measurement already matches). Verified by CSSOM
+ * simulation across all 20 mobile pages: only home moves (§7 exact; home body
+ * 5539 -> 5558) and 0 change on the other 19; desktop 0.
+ */
+const MAP_HOLDER_SECTION_IDS = new Set([
+  "s202508112787439deffdb", // home §7 Headquarters & Factory Locations (ko)
+]);
+
+/**
  * item 1 — mobile 48px-span line-height hook (`data-mh6`).
  *
  * imweb gives inline-sized text spans an `!important` line-height keyed by
@@ -1314,6 +1396,10 @@ export default function SectionRenderer({
         const mobileBand = MOBILE_SECTION_BAND_IDS.has(sec.id);
         // item 1: mobile 48px-span line-height hook (globals.css `data-mh6`)
         const mh6 = sectionHasMh6Spans(sec);
+        // item 1: philosophy mobile rich-text downscale (globals.css `data-rtm`)
+        const rtm = RT_MOBILE_SECTION_IDS.has(sec.id);
+        // item 2: home §7 holder box model (globals.css `data-mapholder`)
+        const mapHolder = MAP_HOLDER_SECTION_IDS.has(sec.id);
         const aside = (sec as unknown as { aside?: AsideBlock }).aside;
         return (
           <section
@@ -1329,6 +1415,13 @@ export default function SectionRenderer({
             // `h6[style*="line-height: 2"] span[style*="font-size: 48px"]`
             // headings this section authors (measured trigger).
             data-mh6={mh6 ? "1" : undefined}
+            // item 1 hook (globals.css): philosophy mobile rich-text downscale
+            // (18px->15/18, 16px->14, no-size p span 1.2->1.6) for the measured
+            // section allowlist above.
+            data-rtm={rtm ? "1" : undefined}
+            // item 2 hook (globals.css): home §7 holder box model
+            // (wrapper 0 15px + holder 20px 50px + mobile span 1.2).
+            data-mapholder={mapHolder ? "1" : undefined}
           >
             {(sec.bg || urlFromStyle(sec.bgStyle)) && (
               <div
