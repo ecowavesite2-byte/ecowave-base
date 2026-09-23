@@ -1,6 +1,5 @@
 import Link from "next/link";
 import HeroCarousel from "@/components/sections/home/HeroCarousel";
-import Reveal from "@/components/ui/Reveal";
 import SectionRenderer, { Rows, MOBILE_SECTION } from "@/components/content/SectionRenderer";
 import { getResolvedBoard, getResolvedPage } from "@/lib/content/resolved";
 import { isLocale, defaultLocale, localeHref } from "@/lib/i18n";
@@ -120,8 +119,13 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                 are 327 and the block keeps min-height 310 with a 15px pull-up. */}
             <div className="min-[1024px]:min-h-[310px]">
             <div className="-mx-[22.5px] -mt-[7px] flex flex-wrap min-[1024px]:-mt-[15px] lg:-mx-[15px] lg:flex-row">
+              {/* No entrance animation: the original `newest` board widget is
+                  `data-widget-anim="none"` with no per-card `wg_animated` class
+                  (probe: first `._post_item_wrap` computes opacity 1,
+                  animation-name none, visibility visible); the previous local
+                  staggered `fadeInUp` had no counterpart. */}
               {news.posts.slice(0, 4).map((p, i) => (
-                <Reveal key={p.idx} delay={i * 0.12} className={`w-1/2 p-[7.5px] lg:w-auto lg:flex-1 lg:p-[15px] ${i >= 2 ? " hidden lg:block" : ""}`}>
+                <div key={p.idx} className={`w-1/2 p-[7.5px] lg:w-auto lg:flex-1 lg:p-[15px] ${i >= 2 ? " hidden lg:block" : ""}`}>
                   <Link href={localeHref(l, `/news/${p.idx}`)} className="group block h-[283px] overflow-hidden bg-white lg:h-auto lg:overflow-visible">
                     <div className="relative h-[142px] w-full overflow-hidden lg:h-[179px]">
                       {p.thumb && (
@@ -134,7 +138,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                       {p.excerpt && <p className="mt-[5px] line-clamp-2 text-[16px] leading-[1.4] text-black">{p.excerpt}</p>}
                     </div>
                   </Link>
-                </Reveal>
+                </div>
               ))}
             </div>
             </div>

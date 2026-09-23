@@ -456,6 +456,9 @@ function ImageWidget({ w, locale, mobileBox = false }: { w: WidgetNode; locale: 
  *     cards (all authored `Right` on the live original).
  *   - mobile §회사소개 `s20250911281117781b494` — the four cards alternate
  *     `Right` / `Left` (measured at 390).
+ *   - desktop §7 HQ `s202508112787439deffdb` — the three address holder cards
+ *     (KOR/CHN/KHM) and the §8 ticker "+" button (`s2025081139ff276cae8d6`) are
+ *     authored `Left` → `fadeInRight`.
  *
  * Durable fix: teach the crawler to record the widget's direction class as
  * `animDir: "Left" | "Right" | "Down" | null`; then the branch below mirrors the
@@ -472,6 +475,19 @@ const ANIM_DIR_OVERRIDES: Record<string, string> = {
   w2025091149bbbec8e797d: "fadeInRight",
   w20250911cb710bccd6323: "fadeInLeft",
   w20250911edd80efa0562b: "fadeInRight",
+  // home §7 (Headquarters & Factory Locations) holder cards — the three
+  // address cards (KOR / CHN / KHM) are authored `fadeInUp` but carry the
+  // dropped `.Left` class, so the original remaps them to `fadeInRight`
+  // (`translate3d(60%,0,0)`). Live probe (1440 + 390): animation-name
+  // `fadeInRight`, 1.2s ease, delays 0.2/0.3/0.4, fill both.
+  w202508128d2c07927c2ff: "fadeInRight",
+  w2025081223442f1bcc005: "fadeInRight",
+  w20250812061e68ea9a22d: "fadeInRight",
+  // home §8 Notice ticker round "+" button — authored `fadeInUp` with the
+  // dropped `.Left` class on its inner `.inline-blocked` wrap; the original
+  // remaps it to `fadeInRight` (0.7s ease, delay 0). Desktop-only in practice
+  // (the local mobile ticker hides the button column).
+  w2025081232232779d83d2: "fadeInRight",
 };
 
 function effectiveAnim(w: WidgetNode): string | undefined {
@@ -665,7 +681,7 @@ function WidgetContent({ w, locale, mobileBox = false }: { w: WidgetNode; locale
         // galleries (company.about) keep the existing fixed-width hover card.
         if (mobileBox) {
           return (
-            <GallerySlider count={items.length}>
+            <GallerySlider count={items.length} autoplayMs={w.id === HOME_MOBILE_SLIDER_ID ? 5000 : 0}>
               {items.map((it, i) => (
                 <figure key={i} className="w-full shrink-0 snap-start">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -1125,6 +1141,19 @@ const TOP_BAND_SECTION_IDS = new Set([
   // (opposite-sign deficits). See design/audit/DEEP-UI-AUDIT.md §10.
   "s20250911b2b3771c0a0cd", // rnd / rnd.technology §2 (en)
 ]);
+
+/**
+ * Home §5 mobile slider (`s20250911db56ac49110f4`, gallery2 `layout:"slide"`).
+ * The crawl stores no gallery autoplay config, so the measured value is pinned
+ * here: the original's authored gallery config for this widget is
+ * `"effect":"slide","effect_wait":"5","effect_time":"0.2","show_paging":"Y",
+ * "auto_change":"Y","effect_loop":"Y"` → one full slide per 5000ms, looping,
+ * dots paging, no arrows at mobile. Only this widget opts into autoplay;
+ * every other slide gallery stays manual (their originals do not auto-advance).
+ * Durable path: have the crawler persist `auto_change`/`effect_wait` on the
+ * widget and read it here (mirrors the `animDir` migration note).
+ */
+const HOME_MOBILE_SLIDER_ID = "w20250911b19e5033093cd";
 
 /**
  * Mobile-authored (`mobile_section`) widget band (7.5px each side).

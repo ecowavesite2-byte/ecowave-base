@@ -115,6 +115,11 @@ channels, widget CSS gaps, board/detail template differences).
    1s→700ms, pillar cards `fadeInUp`→`fadeInLeft` (crawler-dropped direction; `ANIM_DIR_OVERRIDES`
    stop-gap + the durable `animDir` path), `Reveal` Left/Right travel ±100%→±60%. Audit + acceptance
    criteria: `design/audit/home-motion-audit.md`.
+8. **Wave 8 — home motion, remaining sections** — §7 holder cards and the §8 ticker "+" button corrected
+   to `fadeInRight` (same crawler-dropped direction; id map extended), §5 mobile slider autoplay added
+   (opt-in `autoplayMs`, 5000ms, looping, reduced-motion aware), §8 ticker cards' spurious staggered
+   `fadeInUp` removed (the original has none). Audit + acceptance criteria: `home-motion-audit.md`
+   Part B.
 
 ### Final verified metrics (closing build; diff % of differing pixels)
 

@@ -32,6 +32,7 @@ export default function GallerySlider({
   children,
   pad = 5,
   arrows = true,
+  autoplayMs = 0,
 }: {
   count: number;
   children: ReactNode;
@@ -39,6 +40,16 @@ export default function GallerySlider({
   pad?: number;
   /** the captioned variant has no arrows on the original (owl-prev/next display:none) */
   arrows?: boolean;
+  /**
+   * owl `auto_change` interval in ms (0 = manual). The home §5 mobile slider
+   * (`s20250911db56ac49110f4`) autoplays on the original: the authored gallery
+   * config is `"effect":"slide","effect_wait":"5","effect_time":"0.2",
+   * "show_paging":"Y","auto_change":"Y","effect_loop":"Y"`, i.e. one full slide
+   * per **5000ms**, looping. Opt-in per widget so no other page's gallery
+   * (company.about etc.) gains motion it does not have. Honours
+   * `prefers-reduced-motion: reduce` (render at rest, no timer).
+   */
+  autoplayMs?: number;
 }) {
   const track = useRef<HTMLDivElement>(null);
   const [perView, setPerView] = useState(1);
@@ -76,18 +87,37 @@ export default function GallerySlider({
     return () => ro.disconnect();
   }, [count, fixedItems]);
 
+  // mirror of `active` readable from the autoplay timer without re-arming it
+  const activeRef = useRef(0);
+
   const goTo = (page: number) => {
     const el = track.current;
     if (!el) return;
     const p = Math.max(0, Math.min(dotCount - 1, page));
     const target = el.children[p * perView] as HTMLElement | undefined;
     if (target) el.scrollTo({ left: target.offsetLeft - el.offsetLeft, behavior: "smooth" });
+    activeRef.current = p;
     setActive(p);
   };
 
   const nudge = (dir: -1 | 1) => {
     track.current?.scrollBy({ left: dir * step(), behavior: "smooth" });
   };
+
+  // owl `auto_change` (home §5 mobile gallery): advance one page per interval,
+  // looping. Off unless the caller opts in; `prefers-reduced-motion: reduce`
+  // leaves the gallery at rest (the original does not respect it, but our
+  // policy is to keep the reduced-motion build static).
+  const goToRef = useRef(goTo);
+  goToRef.current = goTo;
+  useEffect(() => {
+    if (!autoplayMs || dotCount <= 1) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const t = setInterval(() => {
+      goToRef.current((activeRef.current + 1) % dotCount);
+    }, autoplayMs);
+    return () => clearInterval(t);
+  }, [autoplayMs, dotCount]);
 
   // measured `nav_round` circles: 30x30, 1px rgba(255,255,255,.6) ring, white glyph
   const arrowDesktop =
@@ -111,7 +141,10 @@ export default function GallerySlider({
         data-gs={scope}
         onScroll={() => {
           const el = track.current;
-          if (el) setActive(Math.min(dotCount - 1, Math.round(el.scrollLeft / Math.max(step() * perView, 1))));
+          if (!el) return;
+          const p = Math.min(dotCount - 1, Math.round(el.scrollLeft / Math.max(step() * perView, 1)));
+          activeRef.current = p;
+          setActive(p);
         }}
         className={`flex snap-x gap-[5px] overflow-x-auto min-[992px]:gap-0 ${bleed}`}
       >
