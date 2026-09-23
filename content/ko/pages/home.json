@@ -793,6 +793,7 @@
           "w": 1040,
           "h": 82,
           "pad": 0,
+          "_hiddenXs": true,
           "cols": [
             {
               "kind": "col",

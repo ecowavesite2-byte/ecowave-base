@@ -94,11 +94,10 @@ a {
 .rich-text {
   position: relative;
   display: flow-root;
-  /* REVERTED (2026-09-23, final round): `line-height: 1.28` restored. The
-     "inherit body 1.6" experiment fixed 102 desktop / 49 mobile computed-style
-     signatures per element but regressed the aggregate mobile pixel diff
-     (company.about/history/home/rnd heights moved away from the original).
-     A section-aware re-attempt is queued. */
+  /* Mobile stays 1.28: the "inherit body 1.6" factor was measured to regress
+     mobile page heights (company.global +55, rnd.facilities +30, philosophy
+     +21 vs the original), so the base value is unchanged below 992.
+     Desktop overrides to 1.6 in the `(a)+(b)` media block below. */
   line-height: 1.28;
 }
 /* imweb renders every text widget's `.text-table` as a flex column
@@ -166,13 +165,35 @@ a {
 .rich-text p {
   margin: 0;
 }
-/* REVERTED (2026-09-23, final round): the 1.2 lock is restored together with the
-   other two typography-experiment changes (see the `.rich-text` comment above);
-   the per-element evidence remains valid and a section-aware re-attempt is
-   queued. */
+/* Mobile-only: the crawl keeps the `.rich-text p span/strong` 1.2 lock (see
+   the desktop override below). */
 .rich-text p span,
 .rich-text p strong {
   line-height: 1.2;
+}
+/* (a)+(b) desktop re-application (2026-09-24). The set of three was reverted as
+   a unit because (c) — the size-keyed mobile line-height rule — caused the big
+   regressions; (a)+(b) only enlarge line boxes. CSSOM-simulated on the running
+   build across all 20 pages x both viewports:
+     - DESKTOP: body height delta 0 on all 20 pages (a=0, b=0, a+b=0), so every
+       page keeps its exact current delta vs the original, while the
+       `line-height 24px -> 19.2px` (104 elements), `28px -> 16.8px` strong and
+       `127.5px -> 102px` / `112.5px -> 90px` hero signatures all move to the
+       original value (the cover sections' min-height absorbs the taller boxes).
+     - MOBILE: (a) regresses company.global(+55)/rnd.facilities(+30)/
+       philosophy(+21) and (b) regresses company(+213)/about(+256)/... vs the
+       original, so both stay desktop-scoped only.
+   `line-height: inherit` is used for spans/strongs (not a fixed factor) so
+   anything with an authored parent line-height (e.g. the 85px hero span whose
+   parent computes 1.5) keeps inheriting it — measured 102 -> 127.5 = original. */
+@media (min-width: 992px) {
+  .rich-text {
+    line-height: 1.6;
+  }
+  .rich-text p span,
+  .rich-text p strong {
+    line-height: inherit;
+  }
 }
 /* h6 base in the crawled doc sections: original computed 16px/1.4 on mobile,
    19.29px/1.4 at desktop (strong inherits, e.g. 27.006 = 19.29 x 1.4).
@@ -491,6 +512,20 @@ a {
     .rich-text .table-responsive td,
     .rich-text .table-responsive th {
         white-space: nowrap;
+    }
+    /* rnd.facilities counter tables: imweb's mobile runtime renders the
+       authored 16px `strong` counters ("Total" / the number) at 14px, so the
+       original computes 14px/21px (line-height 1.5) and 14px/28px (factor 2)
+       where we compute 16px/24px and 16px/32px (mobile signatures
+       `14px -> 16px`, `21px -> 24px`, `28px -> 32px`). 14/16 = 0.875, so the
+       inherited 1.5/2 factors fall through unchanged and land exactly on the
+       original values. `tableHover` is a facilities-only class (verified: the
+       string occurs only in content/{ko,en}/pages/rnd.facilities.json), so no
+       other page's tables are touched. Measured on the live build: strongs
+       become 14/21 and 14/28, body height +0 on rnd.facilities at 390 and
+       desktop (>=992) unchanged. */
+    .rich-text table.tableHover strong {
+        font-size: 14px;
     }
 }
 
