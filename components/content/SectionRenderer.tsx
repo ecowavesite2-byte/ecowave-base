@@ -1078,7 +1078,7 @@ const TOP_BAND_SECTION_IDS = new Set([
   // deficits differ from ko (the EN originals do not show the same gaps, so the
   // ko band would overshoot them): rnd §5 (local −15, band → +30), rnd.patents
   // §2 (local −27, band → +63), company.history §3/§6/§9 and company §2
-  // (opposite-sign deficits). See design/scratch/renderer-progress.md.
+  // (opposite-sign deficits). See design/audit/DEEP-UI-AUDIT.md §10.
   "s20250911b2b3771c0a0cd", // rnd / rnd.technology §2 (en)
 ]);
 

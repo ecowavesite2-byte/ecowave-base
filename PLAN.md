@@ -1,196 +1,206 @@
-# ECOWAVE Website Migration Plan — Stage 1 (Static Migration)
+# ECOWAVE — project master doc
 
-> **STATUS (Stage 1 implemented):** ✅ Phases 0–6 complete and validated.
-> Scaffold + crawler + content snapshot (KR/EN) + 523 mirrored assets + pixel-close rebuild of
-> all 20 pages × 2 locales + boards as static JSON + 301 redirects + sitemap/robots/404.
-> `tsc` ✅ · ESLint ✅ · `next build` ✅ (101 static pages) · side-by-side metrics vs original in `design/metrics.json`,
-> rebuilt screenshots in `design/rebuilt/`.
+> Consolidated from the former `PLAN.md` (Stage 1 migration), `FIX-PLAN.md` (pixel-parity program) and
+> `ADMIN-PLAN.md` (admin dashboard). Those files are removed; git history retains them.
+>
+> Companion docs: **`README.md`** — getting started, environment, admin ops runbook, build/serve rules.
+> **`design/audit/DEEP-UI-AUDIT.md`** — the detailed UI-parity audit + fix progress (git-ignored
+> `design/` folder; regenerated artifacts live next to it).
 
-**Source:** https://imweb8701032505.imweb.me (Korean, imweb.me page builder) + EN mirror https://en.ecowavekorea.co.kr
-**Target folder:** `E:\Projects\ecowave`
-**Stage 1 stack:** Next.js (App Router) + TypeScript + TailwindCSS — **no database, no forms, no auth, no deployment yet**
-**Approved decisions:**
-
-1. Two locales (KR + EN) with language selector at the **end of the header** — EN text content comes later; EN falls back to KR content for now.
-2. No admin. All pages static.
-3. No form actions (skipped; DB + admin + forms in a later stage).
-4. Vercel + Neon confirmed for the future; env vars added later.
-5. No deployment work in this stage — copy content, semantic routing, static rendering.
-6. Client owns the content (confirmed).
-7. No auth/member logic (imweb chrome excluded).
+**Source of truth:** <https://imweb8701032505.imweb.me> (Korean, imweb.me page builder) +
+EN mirror <https://en.ecowavekorea.co.kr>
+**Stack:** Next.js (App Router) + TypeScript + TailwindCSS v4 · self-hosted Node
+(`next start --port 4517`) · content = crawled JSON snapshots (no DB for the site; admin writes files)
+**Locales:** `ko` (default, no prefix) and `en` (`/en/*`) — language selector at the end of the header.
 
 ---
 
-## 1. Site Inventory (verified by crawl)
+## 1. Status
 
-### 1.1 Sitemap & semantic routing
-
-| #   | Source | Page (KR)                                                        | New route                          |
-| --- | ------ | ---------------------------------------------------------------- | ---------------------------------- |
-| 1   | `/`    | 메인 (hero, vision, business pillars, global map, notice ticker) | `/`                                |
-| 2   | `/15`  | 에코웨이브 (company landing)                                     | `/company`                         |
-| 3   | `/16`  | ceo인사말                                                        | `/company/ceo`                     |
-| 4   | `/17`  | 회사소개                                                         | `/company/about`                   |
-| 5   | `/18`  | 경영철학                                                         | `/company/philosophy`              |
-| 6   | `/19`  | 회사연혁                                                         | `/company/history`                 |
-| 7   | `/31`  | 조직도                                                           | `/company/organization`            |
-| 8   | `/20`  | 글로벌지사 (KOR/CHN/KHM)                                         | `/company/global`                  |
-| 9   | `/21`  | 연구개발 (R&D landing)                                           | `/rnd`                             |
-| 10  | `/22`  | 보유기술                                                         | `/rnd/technology`                  |
-| 11  | `/23`  | 국내외 특허                                                      | `/rnd/patents`                     |
-| 12  | `/24`  | 생산설비                                                         | `/rnd/facilities`                  |
-| 13  | `/32`  | 제품소개 (products landing)                                      | `/products`                        |
-| 14  | `/37`  | 에코웨이브 제품 게시판                                           | `/products/eco-wave` (+ `/[id]`)   |
-| 15  | `/38`  | 크린비 제품 게시판                                               | `/products/clean-b` (+ `/[id]`)    |
-| 16  | `/36`  | 플로웰 제품 게시판                                               | `/products/flowell` (+ `/[id]`)    |
-| 17  | `/26`  | 뉴스룸                                                           | `/newsroom` (redirects to `/news`) |
-| 18  | `/29`  | 뉴스 게시판                                                      | `/news` (+ `/news/[id]`)           |
-| 19  | `/28`  | 고객지원                                                         | `/support`                         |
-| 20  | `/27`  | 공지사항 게시판                                                  | `/notices` (+ `/notices/[id]`)     |
-
-- **Every numeric source URL (`/15`, `/27`, `/32`, …) becomes a proper Next.js page route with a semantic path** (see table above) — no numeric URLs in the new site. A 301 redirect map preserves inbound links from the old URLs.
-- Board posts (`?idx=…&bmode=view`) → `/news/[id]`, `/notices/[id]`, `/products/{category}/[id]`.
-- Excluded: imweb login/member/alarm chrome, privacy-policy boilerplate pages (imweb templates), platform footers.
-
-### 1.2 Content types
-
-1. **Static corporate pages** — text, images, tables (history timeline, org chart, patents, facilities).
-2. **Boards** — News, Notices, 3 product catalogs: lists (title/date/views/pagination) + rich-HTML detail posts. In Stage 1 these render **from static JSON**, exactly matching the original look.
-3. **i18n structure** — `[locale]` routing with `ko` default (no URL prefix) and `en` (prefixed). UI strings translated now; **page content EN port deferred** (EN falls back to KR content until then).
-
-### 1.3 Assets
-
-- All media on public CDN `cdn.imweb.me` → downloaded into `public/images/…`, served via `next/image`.
-- Scraper requests the largest available variant of each asset; a URL→local-path manifest drives content rewriting.
+| area | status |
+| --- | --- |
+| Stage 1 — static migration (20 pages × 2 locales, boards, redirects, SEO) | ✅ implemented & validated |
+| Admin dashboard (`/admin`, content editing, drafts/publish, media, audit log) | ✅ implemented |
+| Pixel-parity program (audit pipeline + fix waves 1–6, commits `3eb57bc`…`cede0bc`) | ✅ desktop at parity; mobile residuals documented |
+| Deployment | ⏳ not started — Vercel + Neon confirmed for the future |
 
 ---
 
-## 2. Target Architecture (Stage 1)
+## 2. Routes
 
-```
-ecowave/
-├─ app/
-│  ├─ [locale]/                      # en (prefixed); ko handled via root rewrite
-│  │  ├─ page.tsx                    # Home
-│  │  ├─ company/{ceo,about,philosophy,history,organization,global}/page.tsx
-│  │  ├─ rnd/{technology,patents,facilities}/page.tsx
-│  │  ├─ products/page.tsx
-│  │  ├─ products/[category]/page.tsx          # eco-wave | clean-b | flowell
-│  │  ├─ products/[category]/[id]/page.tsx
-│  │  ├─ news/page.tsx   news/[id]/page.tsx
-│  │  ├─ notices/page.tsx  notices/[id]/page.tsx
-│  │  └─ support/page.tsx
-│  ├─ sitemap.ts, robots.ts, not-found.tsx, layout.tsx, globals.css
-├─ components/
-│  ├─ layout/   (Header w/ language selector at end, Footer, MobileMenu)
-│  ├─ ui/       (SectionTitle, BoardList, Pagination, Breadcrumb, PageHero, …)
-│  └─ sections/home/ (Hero, Vision, QuickLinks, Pillars, GlobalMap, NoticeTicker)
-├─ content/
-│  ├─ ko/… en/…                      # per-page structured JSON from crawler
-│  └─ boards/{news,notices,products}/*.json
-├─ scripts/crawl/                    # crawler + asset downloader + report
-├─ lib/ (i18n.ts, content.ts, seo.ts)
-├─ messages/ (ko.json, en.json)      # UI strings only
-└─ public/images/…
-```
+| Route | Page | Old imweb URL |
+| --- | --- | --- |
+| `/` | Home | `/` |
+| `/company` + `/ceo` `/about` `/philosophy` `/history` `/organization` `/global` | Company | `/15`–`/20`, `/31` |
+| `/rnd` + `/technology` `/patents` `/facilities` | R&D | `/21`–`/24` |
+| `/products` + `/products/{eco-wave,clean-b,flowell}` (+ post detail) | Products | `/32`, `/37`, `/38`, `/36` |
+| `/news` (+ detail) | News (old `/newsroom` 301→ here) | `/29`, `/26` |
+| `/support`, `/notices` (+ detail) | Support / Notices | `/28`, `/27` |
 
-- All pages are **RSC**, content loaded from `content/` JSON at build time (fully static, no DB).
-- Board pagination in Stage 1: static path segments (`?page=` handled client-side or via generated segments) — exact behavior decided by what matches the original UX best.
-- Prisma/Neon added in the **next stage** (schema draft retained at the bottom of this file for reference).
+Old numeric URLs 301-redirect to the semantic routes (`next.config.ts`). Content lives in
+`content/{ko,en}/pages/*.json` (19 pages/locale), `content/{ko,en}/boards/*.json` (5 boards),
+`content/{ko,en}/site.json`; assets under `public/images/`.
 
 ---
 
-## 3. Execution Phases (Stage 1)
+## 3. Stage 1 — static migration (done)
 
-### Phase 0 — Scaffold
-
-- `create-next-app` (TS strict, App Router, Tailwind v4, ESLint/Prettier), Git init, folder skeleton, i18n wiring stubs, `env.example` placeholder.
-
-### Phase 1 — Crawl & extract (the "copy" step)
-
-- `scripts/crawl/` (Node + Playwright):
-  - Crawl all ~40 URLs per locale (19 pages × 2 + board pages + every post detail).
-  - Extract structured JSON per page (headings, paragraphs, images+alt, tables, timelines, org chart) with de-duplication of imweb's responsive DOM clones.
-  - Extract all board posts incl. rich HTML + attachments → `content/boards/…`.
-  - Download every referenced asset (largest variant) into `public/images/…` + manifest; rewrite content references to local paths.
-- **Deliverable:** full `content/` snapshot (ko + en), mirrored assets, crawl report (URLs, assets, misses).
-
-### Phase 2 — Design system & global layout
-
-- Design tokens (colors, typography w/ Korean web font via `next/font` — Pretendard or Noto Sans KR, spacing, breakpoints) derived from the original.
-- `Header`: full nav dropdowns (에코웨이브/연구개발/제품소개/뉴스룸/고객지원), mobile drawer, **language selector at the end of the header** (KR ⇄ EN).
-- `Footer`: company info block + sitemap columns, exactly as original.
-- Shared: `PageHero` (per-section banner), breadcrumbs, `SectionTitle`.
-
-### Phase 3 — Static pages (KR, pixel perfect)
-
-- Implement all corporate/R&D/product-landing pages from extracted JSON, faithfully matching layout: hero banners, section titles, history timeline, org chart, patents, facilities gallery, global offices.
-- Homepage: hero carousel, vision, quick links, business pillars, global locations, notice ticker.
-- **Validation gate:** Playwright side-by-side screenshots vs. original at 1440px + 390px for every page.
-
-### Phase 4 — Boards as static content
-
-- Board list pages (news / notices / 3 product categories) + detail pages rendered from `content/boards/*.json` — visually identical to the original (list rows, view counts, detail layout, prev/next navigation).
-- 301 redirect map from old numeric URLs.
-
-### Phase 5 — i18n wiring (structure only)
-
-- `[locale]` routing active; language selector switches locale; UI strings translated (`messages/ko.json`, `en.json`); page content resolves locale → falls back to `ko` until EN port (deferred).
-
-### Phase 6 — SEO & polish
-
-- Per-page metadata + OG, `sitemap.ts`, `robots.ts`, favicons, 404, `next/image` everywhere, Lighthouse pass, dead-link check.
-
-### Deferred (next stages, per your decisions)
-
-- Prisma + Neon Postgres (schema draft in §4), seeded from Stage-1 content JSON.
-- Admin panel, inquiry/contact form, view counters.
-- EN content port (texts for all pages).
-- Vercel deployment + domain.
-
-### Validation (continuous)
-
-- `tsc --noEmit` + ESLint + `next build` green at each phase end.
-- Playwright side-by-side screenshots (1440px / 390px) vs. original for every page.
-- E2E smoke: nav menus, board pagination, post detail, language switch, numeric-URL redirects.
+- Crawler (`scripts/crawl/`) snapshots the original DOM/CSS into content JSON (inline styles preserved —
+  a CMS-style schema migration would destroy fidelity), mirrors 523 assets, and records metrics.
+- Rebuild renders the crawled sections via `components/content/SectionRenderer.tsx` with imweb's
+  per-breakpoint channels (`pc_section mobile_hide` vs `mobile_section`), 992px breakpoint.
+- Boards (news/notices/products) render from static JSON; rich-HTML posts via `BoardDetailShell` +
+  `PostDetail`.
+- Decisions: no member/auth logic from imweb; client owns content; EN content was later ported
+  (`content/en/`).
 
 ---
 
-## 4. Reference — future Prisma schema (NOT in Stage 1)
+## 4. Admin dashboard (done)
 
-```prisma
-model Post {
-  id          Int       @id @default(autoincrement())
-  board       Board     // NOTICE | NEWS | PRODUCT
-  category    String?   // "eco-wave" | "clean-b" | "flowell" (PRODUCT only)
-  locale      String    @default("ko")
-  title       String
-  content     String    @db.Text
-  excerpt     String?
-  thumbnail   String?
-  isPinned    Boolean   @default(false)
-  views       Int       @default(0)
-  publishedAt DateTime
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  @@index([board, category, locale, publishedAt])
-}
+Single-admin dashboard at `/admin` (login `/admin/login`, iron-session cookie; fails closed without the
+admin env vars). Built in phases 1–8: auth + shell → content store + save API + revalidation → pages
+editor → boards editor → drafts + preview → media library/uploads → site strings → hardening/ops.
+Writes are atomic with revision snapshots + an append-only audit log; uploaded media is content-hashed
+and served read-only via `/media/...`.
+
+**Operations, environment variables, backup/restore, and the build/serve order are documented in
+`README.md`** (the runbook). Key rule: never run `next build` while `next start` is serving — stop,
+build, start.
+
+---
+
+## 5. Pixel-parity program (done, with residuals)
+
+### Method
+
+- **Source of truth = the live original.** Both sides captured with the same procedure
+  (`scripts/audit/capture.mjs`; 1440×900 desktop / 390×844 mobile; reveal/lazy settle; JS freeze on the
+  original).
+- Full-page pixel diff (`diff.mjs`, 32 bands), per-section diff (`section-diff.mjs`, crops),
+  computed-style probes (`style-probe.mjs` + `style-diff.mjs` + `style-diff-summarize.mjs`), verified
+  hover/active probes (`state-probe-nav.mjs`, `state-probe-content.mjs`), mobile interaction probe
+  (`mobile-interaction-probe.mjs`), detail-page audit (`details-capture.mjs`), plus targeted DOM
+  root-cause probes (`hot-probe*.mjs`, `residual-probe.mjs`).
+- Every fix is measured against the original before/after; "mobile-only"/"desktop-only" scoping via
+  breakpoint classes and per-section hooks (`data-vgutter`, `data-mh6`, `data-rtm`, `data-mapholder`).
+
+### Starting point (2026-09-19 baseline)
+
+Desktop worst pages: newsroom/news 62.7 %, support 57.3 %, rnd.facilities 51.4 %, products 51.2 %,
+news 48.0 %, home 25.5 %. Mobile worst: newsroom 70.0 %, news 60.2 %, home 59.7 %, facilities 56.1 %,
+organization 51.6 %. Root causes were structural (missing in-flow header, dropped mobile section
+channels, widget CSS gaps, board/detail template differences).
+
+### Fix waves (commits `3eb57bc` → `cede0bc`)
+
+1. **Wave 1** — detail templates (`BoardDetailShell`: board banner, notices inquiry form, product tabs),
+   SectionRenderer core (fixed-overlay back-to-top, mobile card overlay labels + crop centring, desktop
+   overlays at rest, button size, rnd table scrolling), board-card geometry, shell/motion states
+   (nav active hover, dropdown, language, mobile drawer), facilities pills, product tabs/pagination.
+2. **Wave 2** — board card exact geometry (172.5×238, 7.5px gutter, 131px thumb, natural wrap),
+   home ticker, PostDetail board view, galleries (dot cap removed, mobile 2-up, arrows hidden),
+   reveal-trigger refuted as a probe artifact.
+3. **Wave 3** — mobile widget bands + gutter-0 `.spacer` hook, board header `<em>`, products sibling nav.
+4. **Wave 4** — scoped `data-mh6` 48px line-height, patents cert-grid + facilities mobile geometry,
+   hero `[&_p]` white, **Tailwind candidate-mangling fix** (static class + `${…}` adjacency silently
+   dropped `min-[992px]:auto-rows-…` → desktop patents +36px).
+5. **Wave 5** — home mobile section bands (`MOBILE_SECTION_BAND` allowlist; §2/§3/§4 exact),
+   `_hiddenXs` flag, desktop-scoped rich-text typography (−40.5 % desktop TYPE signatures, 0 height
+   change), EN rnd §2 band id.
+6. **Wave 6** — scoped philosophy mobile downscale (`data-rtm`), home §7 holder box model
+   (`data-mapholder`; §7 exact 864), EN home §3 zero-placeholder image fix (−670 px).
+
+### Final verified metrics (closing build; diff % of differing pixels)
+
+**Desktop 1440** — home **13.15** · philosophy 6.14 · about 5.41 · company/ceo 4.02 · patents 3.38 ·
+facilities 3.25 · rnd/rnd.technology 2.80 · organization 2.48 · notices 2.40 · global 2.10 ·
+history 1.90 · news/newsroom 1.72 · products.flowell 1.16 · products/eco-wave 1.14 · support 1.01 ·
+products.clean-b 0.94.
+
+**Mobile 390** — home **25.42** · history 18.22 · philosophy **16.19** · news/newsroom 16.07 ·
+facilities 15.71 · rnd/rnd.technology 15.19 · about 13.54 · company/ceo 9.68 · notices 6.85 ·
+organization 6.82 · global 5.91 · patents **5.61** · products.flowell 5.22 · support 4.85 ·
+products/eco-wave 3.73 · products.clean-b 3.33.
+
+**Board detail pages** (pre-fix → final): desktop news 63.8→**4.2**, notices 61.2→**2.2**,
+product 44.4→**1.8**; mobile 57.8→**10.5**, 56.2→**6.8**, 24.6→**5.6**.
+
+**Interactive states**: computed MOTION diffs 0 on both viewports; hover/active probes 8/8 MATCH on
+content targets; nav T1/T3/T4/T5 MATCH; drawer MATCH.
+
+### Known capture artifacts (not defects)
+
+Carousel-phase mismatches (home hero/§5 slider, gallery bands — the original's JS is frozen mid-rotation
+while local timers run); `background-attachment: fixed` non-paint in full-page captures (home §3);
+fixed elements painted into full-page shots; font-family fallback-chain signatures (inert);
+reveal/animation end-state normalization.
+
+### Remaining work (documented with measurements)
+
+1. Home ±24 px compensation items (page body now +14 vs original); §5 slider + hero bands remain
+   carousel-phase artifacts.
+2. Mobile coordinated typography for the excluded pages (about/history/rnd/patents/facilities) — the
+   per-element-correct set moves those page heights beyond the ±10 px guard and needs per-page
+   section-aware application.
+3. `rnd` §2 +4 px — crawler row-partition artifact (extra padding widget) interacting with the global
+   `.spacer` formula; needs a crawler-side fix.
+4. EN channel: remaining band ids / EN philosophy downscale need an EN-side validation pass.
+5. Header probe-pairing signature items (empty logo anchor vs the original's dropdown anchor) — inert.
+
+Full detail, evidence index and per-wave validation tables live in `design/audit/DEEP-UI-AUDIT.md`.
+
+---
+
+## 6. Operations
+
+```bash
+npm run dev          # dev server (ko default, /en prefix)
+npm run build        # production build  — STOP the running server first
+npm run start        # production server on :4517 (audit scripts default here)
+npm run verify       # typecheck + lint + content:validate + build
+npm run test         # vitest (88 tests)
 ```
 
+Content & audit tooling (all output to `content/`, `public/images/`, `design/` — the latter is
+git-ignored):
+
+```bash
+node scripts/crawl/crawl.mjs --locales=ko,en --only=globals,pages,boards  # content harvest
+node scripts/audit/capture.mjs --side=local --viewport=both               # screenshots
+node scripts/audit/diff.mjs --viewport=both                               # full-page diff
+node scripts/audit/section-diff.mjs --vp=both --top=12                    # per-section diff + crops
+node scripts/audit/style-probe.mjs --side=local --vp=both                 # computed styles
+node scripts/audit/details-capture.mjs                                    # detail pages
+```
+
+Admin ops, environment variables, backup/restore and the build/serve rules: see `README.md`.
+
 ---
 
-## 5. Risks & Mitigations
+## 7. Repo layout
 
-| Risk                                                                           | Mitigation                                                                                         |
-| ------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------- |
-| imweb page-builder DOM is noisy (duplicated responsive widgets, inline styles) | Crawler extracts semantic content; pages rebuilt clean in Tailwind — visually faithful, code clean |
-| CDN serves resized thumbnail variants                                          | Scraper requests largest available variant of each asset                                           |
-| Board posts contain rich/inline HTML & attachments                             | Stored as HTML in JSON, rendered with typography preset; attachments mirrored                      |
-| Korean web font performance                                                    | `next/font` self-hosting, `display: swap`, subsets                                                 |
-| Hotlinked CDN URLs inside post HTML                                            | Rewritten at crawl time to local paths via manifest                                                |
+```
+app/[locale]/…            pages (ko | en), admin under /admin
+components/layout/        Header, SiteFooter
+components/content/       SectionRenderer (+ FacilitiesTabs, GallerySlider), BoardPageShell
+components/ui/            PageHero, Boards (BoardCardGrid/PostDetail), Reveal, RichText
+components/products/      ProductBoard
+components/boards/        BoardDetailShell
+lib/                      content loaders, route map, i18n, admin auth/store
+content/{ko,en}/          crawled site content (pages, boards, site.json)
+public/images/            mirrored + uploaded media
+scripts/crawl/            crawler + validators
+scripts/audit/            parity audit pipeline + probes
+design/                   audit artifacts, snapshots, reference shots (git-ignored)
+```
 
 ---
 
-## 6. Out of Scope (Stage 1)
+## 8. History
 
-- Database/Prisma, admin panel, forms, view counters, auth/member system, e-commerce, Vercel deployment, EN page content.
+- Stage 1 migration: phases 0–6 (scaffold, crawl, design system, pages, boards, i18n, SEO) — original
+  `PLAN.md` (now in git history).
+- Admin: phases 1–8 — original `ADMIN-PLAN.md` (now in git history).
+- Parity program: baseline 2026-09-19 → fix waves → final verification 2026-09-23 (commits `3eb57bc`,
+  `a7ddcd6`, `1d98449`, `d02bbe1`, `e59bcc5`, `cede0bc`) — original `FIX-PLAN.md` (now in git history).

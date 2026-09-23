@@ -2,9 +2,10 @@
 
 Pixel-faithful migration of the ECOWAVE corporate site (Korean + English) from the
 imweb.me page builder to a self-owned stack: **Next.js (App Router) · TypeScript ·
-TailwindCSS v4**. Stage 1 is fully static — all content is served from local JSON
-snapshots, no database, no forms, no auth. See `PLAN.md` for the full plan, scope
-decisions and deferred stages (Prisma/Neon, admin, forms, Vercel deploy).
+TailwindCSS v4**. Content is served from crawled JSON snapshots; the admin dashboard (below)
+edits them via atomic file writes with revision snapshots. See `PLAN.md` for the project master
+doc (scope, routes, parity program, remaining work) and `design/audit/DEEP-UI-AUDIT.md` for the
+UI-parity audit detail.
 
 - Original KR: <https://imweb8701032505.imweb.me>
 - Original EN mirror: <https://en.ecowavekorea.co.kr>
