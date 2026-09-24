@@ -673,3 +673,61 @@ a {
 /* D14: the footer TOP/plus circle buttons use the same measured widget button
    style as the rest of the site (bg #f7f7f7, rgba(0,0,0,.15) icon, hover
    transparent bg + #3465DE icon), so no footer-specific override is needed. */
+
+/* company.about §9 — Headquarters & Factory Locations address cards.
+   The original hoists a custom-CSS block out of the empty `code` widget
+   (`w202509180449a8104088a`, comment 카드형 주소) and applies it to the three
+   address text widgets: `border-radius:80px; overflow:hidden; transition:
+   box-shadow .3s ease, transform .2s ease; box-shadow: 0 12px 24px
+   rgba(37,99,235,.08)` with a `:hover` lift to `…,.18` + `translateY(-2px)`.
+   Locally the widgets were flat white (radius 0 / no shadow) and the holder
+   used the shared `15px 0` padding instead of the original `20px 30px`.
+   Hooked on the stable SectionRenderer `data-widget-id` so no other widget or
+   page can inherit it; the holder override is desktop-only (the original's
+   mobile holder narrows to the 15px default padding, which is out of scope).
+   Both locales' widget ids are listed (EN anim is `none`, so no entrance
+   conflict). Radius/overflow/shadow are pure paint — zero layout change. */
+[data-widget-id="w2025091886eece88ff0c0"],
+[data-widget-id="w20250919ad2bb4e856fba"],
+[data-widget-id="w20250919aa8199dc628c3"],
+[data-widget-id="w20250919acb2363841cb2"],
+[data-widget-id="w2025091918fef070d2137"],
+[data-widget-id="w2025091967935ff9055c1"] {
+    border-radius: 80px;
+    overflow: hidden;
+    transition: box-shadow .3s ease, transform .2s ease;
+    box-shadow: 0 12px 24px rgba(37, 99, 235, .08);
+}
+[data-widget-id="w2025091886eece88ff0c0"]:hover,
+[data-widget-id="w20250919ad2bb4e856fba"]:hover,
+[data-widget-id="w20250919aa8199dc628c3"]:hover,
+[data-widget-id="w20250919acb2363841cb2"]:hover,
+[data-widget-id="w2025091918fef070d2137"]:hover,
+[data-widget-id="w2025091967935ff9055c1"]:hover {
+    box-shadow: 0 12px 24px rgba(37, 99, 235, .18);
+    transform: translateY(-2px);
+}
+@media (min-width: 992px) {
+    [data-widget-id="w2025091886eece88ff0c0"] .text-table.holder,
+    [data-widget-id="w20250919ad2bb4e856fba"] .text-table.holder,
+    [data-widget-id="w20250919aa8199dc628c3"] .text-table.holder,
+    [data-widget-id="w20250919acb2363841cb2"] .text-table.holder,
+    [data-widget-id="w2025091918fef070d2137"] .text-table.holder,
+    [data-widget-id="w2025091967935ff9055c1"] .text-table.holder {
+        padding: 20px 30px;
+    }
+}
+
+/* company.about §2 — intro image holder corner radius. The original measures
+   `border-radius:10px; overflow:hidden` on the shown image holder at both
+   widths; the desktop image widget had no radius locally, and the
+   mobile-section variant reused the generic 6px mobile box radius. Scoped to
+   the four intro image widget ids (ko + en, desktop + mobile) so no other
+   image holder changes. Paint-only — zero layout change. */
+[data-widget-id="w2025091840bd06b2a6c1d"] > div,
+[data-widget-id="w202509191cf358c2625d5"] > div,
+[data-widget-id="w202509192792fa883e8d1"] > div,
+[data-widget-id="w20250919c0a9ce1936b3e"] > div {
+    border-radius: 10px;
+    overflow: hidden;
+}

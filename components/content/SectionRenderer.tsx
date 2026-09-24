@@ -184,13 +184,38 @@ export function GalleryCard({
    * 171x228 at mobile) + `.text_wrap` 288x66 (20px padding, centered 16px
    * #212121 title). Opt-in per widget so the USP (rnd/rnd.technology) and the
    * company.about grids keep the overlay-card markup byte-for-byte.
+   *
+   * `"icon"` is the company.about §8 R&D grid (`gallery2 grid_02`, 6 square
+   * icons): the original paints a square icon (`.img_wrap` 200x200) with a
+   * STATIC caption band below it (`.text_wrap` 200x68, `padding:10px 0`,
+   * centered; title 16px #212121, body 14px #999) inside a transparent cell
+   * with 5px padding (2.5px at mobile) — no `bg-soft` card and no hover
+   * overlay. Kept a distinct flag so the patents certificate variant
+   * (`captionBand: true`, 3:4 bordered card) is untouched.
    */
-  captionBand?: boolean;
+  captionBand?: boolean | "icon";
   className?: string;
 }) {
   const src = item.org || item.thumb;
   if (!src) return null;
   const boxStyle = !fill && (w || h) ? { width: w ? `${w}px` : undefined, height: h ? `${h}px` : undefined } : undefined;
+  if (captionBand === "icon") {
+    return (
+      <figure
+        className={`flex flex-col bg-white p-[5px] max-[991.98px]:p-[2.5px] ${
+          fill ? "h-full" : "shrink-0"
+        } ${className}`}
+        style={boxStyle}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={src} alt={item.title || ""} className="aspect-square w-full object-contain" loading="lazy" />
+        <figcaption className="flex flex-col items-center justify-center bg-white py-[10px] text-center">
+          {item.title && <p className="text-[16px] leading-[1.6] text-[#212121]">{item.title}</p>}
+          {item.desc && <p className="text-[14px] leading-[1.6] text-[#999]">{item.desc}</p>}
+        </figcaption>
+      </figure>
+    );
+  }
   if (captionBand) {
     return (
       <figure
@@ -596,7 +621,7 @@ export function Widget({
             ? WIDGET_TOP_BAND
             : "";
   const tagged = (
-    <div data-widget-type={w.type} className={margin || undefined}>
+    <div data-widget-type={w.type} data-widget-id={w.id} className={margin || undefined}>
       {content}
     </div>
   );
@@ -777,7 +802,7 @@ function WidgetContent({ w, locale, mobileBox = false }: { w: WidgetNode; locale
         gridRowH?: number;
         gridGap?: number;
         gridCols?: number;
-        captionBand?: boolean;
+        captionBand?: boolean | "icon";
       };
       const cols = Math.max(1, Math.min(6, measured.gridCols ?? GRID_N_COLS[meta2.gridN ?? ""] ?? 4));
       // imweb's `grid_03` renders 4 columns at desktop, where each item is a
@@ -798,25 +823,39 @@ function WidgetContent({ w, locale, mobileBox = false }: { w: WidgetNode; locale
         //    cards, 310.59px row pitch.
         //  - rnd / rnd.technology §5 USP (no captions): cell 3.75px -> 176.25px
         //    cards, 183.5px row pitch.
+        //  - company.about §8 R&D icons (`captionBand: "icon"`): cell 2.5px ->
+        //    183px cards, so the gutter is 5px and the outer band 2.5px.
         // The local mobile grid used `grid-cols-2 gap-[10px]` for both, so the
         // cards and the outer vertical band were off. These literals restore the
         // measured gutters + outer band; `min-[992px]:gap/py` still win at
         // desktop and the gate keeps the two grid shapes apart.
         // Simulated on the running build: rnd.patents §2 3773 -> 3821 (orig
         // 3820); rnd §5 (with the top band below) 728.59 -> 779.84 (orig 779.09).
-        const mobileGrid = measured.captionBand === true
-          ? " max-[991.98px]:gap-[15px] max-[991.98px]:py-[7.5px]"
-          : " max-[991.98px]:gap-[7.5px] max-[991.98px]:py-[3.75px]";
+        const mobileGrid =
+          measured.captionBand === "icon"
+            ? " max-[991.98px]:gap-[0px] max-[991.98px]:-mx-[2.5px] max-[991.98px]:py-[2.5px]"
+            : measured.captionBand === true
+              ? " max-[991.98px]:gap-[15px] max-[991.98px]:py-[7.5px]"
+              : " max-[991.98px]:gap-[7.5px] max-[991.98px]:py-[3.75px]";
+        // The icon grid (company.about §8) is flush: the original has no outer
+        // vertical band on this grid (pad/mar 0 at desktop) and bleeds 5px per
+        // side (grid 1260 wide -> 210px cells, 200px icons) — measured live
+        // 2026-09-24 (orig grid 1260x278 vs previous local 1250x308, mt15+py15).
+        // The other measured grids keep their verified mt/py band.
+        const desktopGrid =
+          measured.captionBand === "icon"
+            ? "min-[992px]:-mx-[5px]"
+            : "min-[992px]:mt-[15px] min-[992px]:py-[15px]";
         return (
           <div
-            className={`grid grid-cols-2 gap-[10px] sm:grid-cols-3 min-[992px]:mt-[15px] ${GRID_COLS_CLASS[gc] ?? GRID_COLS_CLASS[4]} min-[992px]:gap-[var(--ggap)] min-[992px]:py-[15px] min-[992px]:auto-rows-[var(--growh)] ${mobileGrid}`}
+            className={`grid grid-cols-2 gap-[10px] sm:grid-cols-3 ${GRID_COLS_CLASS[gc] ?? GRID_COLS_CLASS[4]} min-[992px]:gap-[var(--ggap)] min-[992px]:auto-rows-[var(--growh)] ${desktopGrid} ${mobileGrid}`}
             style={{
               ["--ggap" as string]: `${measured.gridGap ?? 30}px`,
               ["--growh" as string]: `${measured.gridRowH}px`,
             }}
           >
             {items.map((it, i) => (
-              <GalleryCard key={i} item={it} fill captionBand={measured.captionBand === true} />
+              <GalleryCard key={i} item={it} fill captionBand={measured.captionBand} />
             ))}
           </div>
         );
@@ -827,7 +866,7 @@ function WidgetContent({ w, locale, mobileBox = false }: { w: WidgetNode; locale
           style={{ ["--gcols" as string]: cols }}
         >
           {items.map((it, i) => (
-            <GalleryCard key={i} item={it} fill />
+            <GalleryCard key={i} item={it} fill captionBand={measured.captionBand} />
           ))}
         </div>
       );

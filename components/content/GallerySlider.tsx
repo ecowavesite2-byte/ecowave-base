@@ -1,6 +1,16 @@
 "use client";
 
-import { useEffect, useId, useRef, useState, type ReactNode } from "react";
+import {
+  Children,
+  Fragment,
+  useEffect,
+  useId,
+  useRef,
+  useState,
+  type MouseEvent as ReactMouseEvent,
+  type PointerEvent as ReactPointerEvent,
+  type ReactNode,
+} from "react";
 
 const GAP = 5;
 
@@ -26,6 +36,33 @@ const GAP = 5;
  * (the company.about pair) therefore override their item width to a 2-up
  * column and let the image keep its natural aspect; the mobile-only home
  * gallery keeps its authored 1-up full-width slide.
+ *
+ * company.about audit (2026-09-24): the original is an owl carousel
+ * (`loop:true`, `mouseDrag:true`, `touchDrag:true`, container
+ * `overflow:hidden`, dots/arrows `cursor:pointer`). Four gaps were closed here
+ * so both company.about galleries (and the home §5 slider) match:
+ *
+ * 1. **Hidden scrollbar** — the owl outer is `overflow:hidden` (never shows a
+ *    bar); the native strip is `overflow-x:auto`, so `scrollbar-width:none`
+ *    + the webkit pseudo-element are applied to the track.
+ * 2. **`cursor:pointer`** on the dots and arrows (the original computes
+ *    `pointer`; it has NO grab/grabbing, so none is added).
+ * 3. **Mouse/pen drag** — pointer down/move/up pans `scrollLeft` (fractional
+ *    mouse deltas are ignored below 3px so a plain click/tap still works;
+ *    `pointerType === "touch"` is left to the native overflow-x swipe). The
+ *    card under the pointer cannot be activated mid-drag.
+ * 4. **Infinite loop (owl `loop:true`)** — a full page of items is cloned at
+ *    each end and the track is recentred by one real span whenever it enters a
+ *    clone region. This is the owl-equivalent (owl also clones for wrap) and
+ *    is the only mechanism that also reaches the tail page for counts that are
+ *    not a multiple of `perView` (21 / 5 -> page 5 starts at item 20, which a
+ *    clamped native strip cannot scroll to). The dot/scroll synchronisation is
+ *    preserved: dot count is still derived from the REAL item count and the
+ *    active dot is computed modulo it, so the clones never appear in the dot
+ *    math. Trade-off: clones add hidden DOM (invisible — the track clips them)
+ *    where the simpler "wrap inside goTo" fallback would not; the fallback was
+ *    rejected because it leaves the tail page partial and cannot physically
+ *    wrap a drag/wheel past either end.
  */
 export default function GallerySlider({
   count,
@@ -64,6 +101,10 @@ export default function GallerySlider({
   const fixedItems = arrows === false || pad >= 10;
   const scope = (useId().replace(/[^a-zA-Z0-9_-]/g, "") || "gs") + (fixedItems ? "-fx" : "");
 
+  // clone one page of items at each end for the owl loop wrap
+  const kids = Children.toArray(children);
+  const cloneN = Math.min(perView, kids.length);
+
   const step = () => {
     const el = track.current;
     const first = el?.firstElementChild as HTMLElement | null | undefined;
@@ -87,21 +128,54 @@ export default function GallerySlider({
     return () => ro.disconnect();
   }, [count, fixedItems]);
 
+  // Park the track on the first REAL item (one clone-page in from the left) so
+  // the leading clones sit hidden to the left and the loop can recentre.
+  useEffect(() => {
+    const el = track.current;
+    if (!el) return;
+    const firstReal = el.children[cloneN] as HTMLElement | undefined;
+    if (firstReal) el.scrollLeft = firstReal.offsetLeft - el.offsetLeft;
+  }, [cloneN, count, perView]);
+
+  // exact item pitch from two adjacent real children (falls back to the old
+  // `offsetWidth + GAP` measurement when the gallery holds a single item)
+  const unit = () => {
+    const el = track.current;
+    if (!el) return 1;
+    const a = el.children[cloneN] as HTMLElement | undefined;
+    const b = el.children[cloneN + 1] as HTMLElement | undefined;
+    if (a && b) return Math.max(1, b.offsetLeft - a.offsetLeft);
+    return a ? a.offsetWidth + GAP : el.clientWidth || 1;
+  };
+  const origin = () => {
+    const el = track.current;
+    if (!el) return 0;
+    const a = el.children[cloneN] as HTMLElement | undefined;
+    return a ? a.offsetLeft - el.offsetLeft : 0;
+  };
+  const wrap = (n: number, m: number) => ((n % m) + m) % m;
+
   // mirror of `active` readable from the autoplay timer without re-arming it
   const activeRef = useRef(0);
 
   const goTo = (page: number) => {
     const el = track.current;
     if (!el) return;
-    const p = Math.max(0, Math.min(dotCount - 1, page));
-    const target = el.children[p * perView] as HTMLElement | undefined;
+    const p = wrap(page, dotCount);
+    const idx = Math.min(count - 1, p * perView);
+    const target = el.children[cloneN + idx] as HTMLElement | undefined;
     if (target) el.scrollTo({ left: target.offsetLeft - el.offsetLeft, behavior: "smooth" });
     activeRef.current = p;
     setActive(p);
   };
 
+  // step ONE item, wrapping at both ends (owl `slideBy: 1`)
   const nudge = (dir: -1 | 1) => {
-    track.current?.scrollBy({ left: dir * step(), behavior: "smooth" });
+    const el = track.current;
+    if (!el) return;
+    const idx = wrap(Math.round((el.scrollLeft - origin()) / unit()) + dir, count);
+    const target = el.children[cloneN + idx] as HTMLElement | undefined;
+    if (target) el.scrollTo({ left: target.offsetLeft - el.offsetLeft, behavior: "smooth" });
   };
 
   // owl `auto_change` (home §5 mobile gallery): advance one page per interval,
@@ -114,14 +188,94 @@ export default function GallerySlider({
     if (!autoplayMs || dotCount <= 1) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const t = setInterval(() => {
-      goToRef.current((activeRef.current + 1) % dotCount);
+      goToRef.current(activeRef.current + 1);
     }, autoplayMs);
     return () => clearInterval(t);
   }, [autoplayMs, dotCount]);
 
+  // mouse/pen drag state. Touch is intentionally excluded — the native
+  // `overflow-x:auto` swipe already matches the original `touchDrag`.
+  const dragging = useRef(false);
+  const drag = useRef<{ id: number; x: number; left: number } | null>(null);
+  const moved = useRef(false);
+
+  const onScroll = () => {
+    const el = track.current;
+    if (!el) return;
+    const firstReal = el.children[cloneN] as HTMLElement | undefined;
+    if (!firstReal) return;
+    const o = firstReal.offsetLeft - el.offsetLeft;
+    const firstTrail = el.children[cloneN + count] as HTMLElement | undefined;
+    const span = firstTrail ? firstTrail.offsetLeft - firstReal.offsetLeft : el.scrollWidth;
+    // recentre when the strip enters either clone region (not mid-drag — the
+    // pointer math holds an absolute start offset and a jump would fight it)
+    if (!dragging.current && span > 1) {
+      if (el.scrollLeft < o - 1) el.scrollLeft += span;
+      else if (el.scrollLeft >= o + span - 1) el.scrollLeft -= span;
+    }
+    const idx = wrap(Math.round((el.scrollLeft - o) / unit()), count);
+    const p = wrap(Math.floor(idx / perView), dotCount);
+    activeRef.current = p;
+    setActive(p);
+  };
+
+  const onPointerDown = (e: ReactPointerEvent<HTMLDivElement>) => {
+    if (e.pointerType === "touch" || e.button !== 0) return;
+    const el = track.current;
+    if (!el) return;
+    drag.current = { id: e.pointerId, x: e.clientX, left: el.scrollLeft };
+    moved.current = false;
+    dragging.current = true;
+    el.setPointerCapture(e.pointerId);
+    el.style.scrollSnapType = "none";
+    el.style.userSelect = "none";
+  };
+  const onPointerMove = (e: ReactPointerEvent<HTMLDivElement>) => {
+    const d = drag.current;
+    if (!d || d.id !== e.pointerId) return;
+    const el = track.current;
+    if (!el) return;
+    const dx = e.clientX - d.x;
+    if (Math.abs(dx) > 3) moved.current = true;
+    el.scrollLeft = d.left - dx;
+  };
+  const endDrag = (e: ReactPointerEvent<HTMLDivElement>) => {
+    const d = drag.current;
+    if (!d) return;
+    const el = track.current;
+    drag.current = null;
+    dragging.current = false;
+    if (!el) return;
+    el.style.scrollSnapType = "";
+    el.style.userSelect = "";
+    try {
+      el.releasePointerCapture(d.id);
+    } catch {
+      /* pointer not captured (already released) */
+    }
+    // settle on the nearest REAL item — this also walks any clone position back
+    // into the real region, so a drag that ran past either end wraps cleanly
+    const o = origin();
+    const idx = wrap(Math.round((el.scrollLeft - o) / unit()), count);
+    const target = el.children[cloneN + idx] as HTMLElement | undefined;
+    if (target) el.scrollTo({ left: target.offsetLeft - el.offsetLeft, behavior: "smooth" });
+    if (moved.current) {
+      // swallow the click the browser fires after this drag (same task)
+      window.setTimeout(() => {
+        moved.current = false;
+      }, 0);
+    }
+  };
+  const onClickCapture = (e: ReactMouseEvent<HTMLDivElement>) => {
+    if (!moved.current) return;
+    e.preventDefault();
+    e.stopPropagation();
+    moved.current = false;
+  };
+
   // measured `nav_round` circles: 30x30, 1px rgba(255,255,255,.6) ring, white glyph
   const arrowDesktop =
-    "hidden min-[992px]:absolute min-[992px]:top-1/2 min-[992px]:z-20 min-[992px]:flex min-[992px]:h-[30px] min-[992px]:w-[30px] min-[992px]:-translate-y-1/2 min-[992px]:rounded-full min-[992px]:border min-[992px]:border-white/60 min-[992px]:text-white";
+    "hidden min-[992px]:absolute min-[992px]:top-1/2 min-[992px]:z-20 min-[992px]:flex min-[992px]:h-[30px] min-[992px]:w-[30px] min-[992px]:-translate-y-1/2 min-[992px]:rounded-full min-[992px]:border min-[992px]:border-white/60 min-[992px]:cursor-pointer min-[992px]:text-white";
   const bleed = pad >= 10 ? "min-[992px]:-mx-[10px]" : "min-[992px]:-mx-[5px]";
 
   return (
@@ -139,16 +293,26 @@ export default function GallerySlider({
       <div
         ref={track}
         data-gs={scope}
-        onScroll={() => {
-          const el = track.current;
-          if (!el) return;
-          const p = Math.min(dotCount - 1, Math.round(el.scrollLeft / Math.max(step() * perView, 1)));
-          activeRef.current = p;
-          setActive(p);
-        }}
-        className={`flex snap-x gap-[5px] overflow-x-auto min-[992px]:gap-0 ${bleed}`}
+        onScroll={onScroll}
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={endDrag}
+        onPointerCancel={endDrag}
+        onDragStart={(e) => e.preventDefault()}
+        onClickCapture={onClickCapture}
+        className={`flex snap-x gap-[5px] overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden min-[992px]:gap-0 ${bleed}`}
       >
-        {children}
+        {cloneN > 0 &&
+          kids.slice(kids.length - cloneN).map((c, i) => (
+            // eslint-disable-next-line react/no-array-index-key
+            <Fragment key={`lead-${i}`}>{c}</Fragment>
+          ))}
+        {kids}
+        {cloneN > 0 &&
+          kids.slice(0, cloneN).map((c, i) => (
+            // eslint-disable-next-line react/no-array-index-key
+            <Fragment key={`trail-${i}`}>{c}</Fragment>
+          ))}
       </div>
       {dotCount > 1 && (
         // MB2/D13: the original owl nav (`.owl-nav`/`.owl-dots`) is an absolute
@@ -172,7 +336,7 @@ export default function GallerySlider({
                 aria-label={`${i + 1}`}
                 aria-current={i === active ? "true" : undefined}
                 onClick={() => goTo(i)}
-                className={`pointer-events-auto flex h-[12px] w-[32px] items-center justify-center min-[992px]:w-[39px] ${
+                className={`pointer-events-auto flex h-[12px] w-[32px] cursor-pointer items-center justify-center min-[992px]:w-[39px] ${
                   i === active ? "opacity-100" : "opacity-50"
                 }`}
               >

@@ -130,6 +130,10 @@ channels, widget CSS gaps, board/detail template differences).
    gallery autoplay wired (opt-in 5000 ms), `Reveal.fadeInDown` travel −100% → −60%, and the subpage
    page-title `fadeDown` entrance reproduced (desktop-only, reduced-motion safe). Audit + acceptance
    criteria: `design/audit/pages-motion-audit.md`.
+11. **Wave 11 — company.about** — gallery drag + infinite loop + hidden scrollbar + pointer cursors;
+   the R&D grid's static caption band; address-card radius/shadow/hover; intro radius; §8 icon-grid
+   geometry (desktop 1260×278 flush, mobile 365 gap-0). Audit: `design/audit/company-about-audit.md`.
+   Queued: §6 정수기 +441px (mobile), §9 card x-offsets, §8 ~10px y-offset.
 
 ### Final verified metrics (closing build; diff % of differing pixels)
 

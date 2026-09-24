@@ -1575,6 +1575,10 @@
                   "gridN": "02",
                   "itemW": 210,
                   "itemH": 300,
+                  "gridCols": 6,
+                  "gridGap": 0,
+                  "gridRowH": 300,
+                  "captionBand": "icon",
                   "items": [
                     {
                       "org": "/images/upload/S20250811e0bd2f7c414df/3da27f8b900c6.png",
