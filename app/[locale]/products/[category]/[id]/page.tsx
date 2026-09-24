@@ -87,8 +87,8 @@ export default async function ProductDetailPage({
           listLabel={t.board.list}
           prevLabel={t.board.prev}
           nextLabel={t.board.next}
-          prevPost={nav(board.posts[at + 1])}
-          nextPost={nav(board.posts[at - 1])}
+          prevPost={nav(board.posts[at - 1])}
+          nextPost={nav(board.posts[at + 1])}
         />
         {/* original board-section tail below the view: 105px mobile / 186px desktop */}
         <div aria-hidden className="h-[105px] min-[992px]:h-[186px]" />

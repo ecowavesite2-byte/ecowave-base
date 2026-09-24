@@ -545,9 +545,11 @@ a {
     }
 }
 
-/* rich-HTML board content rendering (post detail pages) */
+/* rich-HTML board content rendering (post detail pages). live original
+   board-view content (`.board_txt_area.fr-view`) computes 15px/24px — the
+   1.6 factor here; the old 1.75/1.8 rendered 26.25px. */
 .board-content {
-    line-height: 1.75;
+    line-height: 1.6;
 }
 .board-content img {
     max-width: 100%;
@@ -555,7 +557,7 @@ a {
 }
 .board-content p {
     margin: 0.9em 0;
-    line-height: 1.8;
+    line-height: 1.6;
 }
 .board-content h1,
 .board-content h2,

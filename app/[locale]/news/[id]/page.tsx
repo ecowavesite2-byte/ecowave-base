@@ -39,8 +39,8 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ loc
         listLabel={t.board.list}
         prevLabel={t.board.prev}
         nextLabel={t.board.next}
-        prevPost={nav(board.posts[at + 1])}
-        nextPost={nav(board.posts[at - 1])}
+        prevPost={nav(board.posts[at - 1])}
+        nextPost={nav(board.posts[at + 1])}
       />
     </BoardDetailShell>
   );

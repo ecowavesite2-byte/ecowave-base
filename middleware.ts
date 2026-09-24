@@ -56,13 +56,21 @@ export function middleware(req: NextRequest) {
 
   if (pathname === "/ko" || pathname.startsWith("/ko/")) {
     const stripped = pathname.replace(/^\/ko/, "") || "/";
-    return finish(NextResponse.redirect(new URL(stripped, req.url)));
+    // clone so the query string (?cat= / ?page=…) survives the redirect
+    const target = req.nextUrl.clone();
+    target.pathname = stripped;
+    return finish(NextResponse.redirect(target));
   }
   if (pathname === "/en" || pathname.startsWith("/en/")) {
     return finish(NextResponse.next({ request: { headers: forwardedHeaders } }));
   }
+  // clone so the query string survives the locale rewrite — a bare
+  // `new URL("/ko" + pathname, req.url)` drops `?cat=`/`?page=` and the board
+  // pages then render unfiltered/unpaginated (filtering + page 2 were dead).
+  const target = req.nextUrl.clone();
+  target.pathname = "/ko" + (pathname === "/" ? "" : pathname);
   return finish(
-    NextResponse.rewrite(new URL("/ko" + (pathname === "/" ? "" : pathname), req.url), {
+    NextResponse.rewrite(target, {
       request: { headers: forwardedHeaders },
     }),
   );

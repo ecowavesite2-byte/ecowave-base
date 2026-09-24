@@ -311,7 +311,10 @@ export function Pagination({
  *   .list_tap      full-width row: 14px/22.4 #363636, padding 8px 12px
  *                  (10px 12px desktop), border-bottom 1px rgba(128,128,128,.2),
  *                  14px arrow at left 12px + 44/45px title indent; wrapper
- *                  margin-top 32px, full-bleed on mobile.
+ *                  margin-top 32px, full-bleed on mobile. Direction follows
+ *                  imweb: `dir="prev"` (이전글 = newer, `posts[at-1]`) renders
+ *                  the UP arrow, `dir="next"` (다음글 = older, `posts[at+1]`)
+ *                  the DOWN arrow.
  *   .table_bottom  padding 12px 0 0; 목록 button left-aligned, 12px/18,
  *                  letter-spacing 1px, padding 6px 20px, bg #363636, radius 2.
  *   wrapper        margin-bottom 24px.
@@ -364,7 +367,17 @@ function ListTapRow({
         aria-hidden
         className="absolute left-3 top-1/2 -translate-y-1/2"
       >
-        {dir === "prev" ? <path d="M6 9l6 6 6-6" /> : <path d="M18 15l-6-6-6 6" />}
+        {dir === "prev" ? (
+          <>
+            <path d="M12 19V5" />
+            <path d="M6 11l6-6 6 6" />
+          </>
+        ) : (
+          <>
+            <path d="M12 5v14" />
+            <path d="M6 13l6 6 6-6" />
+          </>
+        )}
       </svg>
       <span className="block truncate pl-[45px] min-[992px]:pl-[44px]">{post.title}</span>
     </Link>
