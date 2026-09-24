@@ -125,6 +125,11 @@ channels, widget CSS gaps, board/detail template differences).
    `all 0.3s ease`, mobile drawer accordion animated via `grid-template-rows` 350ms (collapsed-state
    padding floor fixed with `minmax(0,·fr)`), z-index 999/998/997, mobile logo transition restored.
    Audit + acceptance criteria: `design/audit/header-motion-audit.md`.
+10. **Wave 10 — remaining-pages motion sweep** — 15 crawled-dropped direction widgets remapped
+   (`ANIM_DIR_OVERRIDES`; company.about 10, philosophy 2, history 3), company.about's plain slide
+   gallery autoplay wired (opt-in 5000 ms), `Reveal.fadeInDown` travel −100% → −60%, and the subpage
+   page-title `fadeDown` entrance reproduced (desktop-only, reduced-motion safe). Audit + acceptance
+   criteria: `design/audit/pages-motion-audit.md`.
 
 ### Final verified metrics (closing build; diff % of differing pixels)
 

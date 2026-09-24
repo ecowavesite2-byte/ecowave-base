@@ -459,6 +459,9 @@ function ImageWidget({ w, locale, mobileBox = false }: { w: WidgetNode; locale: 
  *   - desktop §7 HQ `s202508112787439deffdb` — the three address holder cards
  *     (KOR/CHN/KHM) and the §8 ticker "+" button (`s2025081139ff276cae8d6`) are
  *     authored `Left` → `fadeInRight`.
+ *   - non-home pages (company.about feature/HQ cards, company.philosophy
+ *     §3단계 서비스, company.history year bands) — same dropped direction
+ *     classes, measured live 2026-09-24.
  *
  * Durable fix: teach the crawler to record the widget's direction class as
  * `animDir: "Left" | "Right" | "Down" | null`; then the branch below mirrors the
@@ -488,6 +491,37 @@ const ANIM_DIR_OVERRIDES: Record<string, string> = {
   // remaps it to `fadeInRight` (0.7s ease, delay 0). Desktop-only in practice
   // (the local mobile ticker hides the button column).
   w2025081232232779d83d2: "fadeInRight",
+
+  /* ---- non-home pages (pages-motion audit, 2026-09-24) -------------------
+   * Same root cause: authored `fadeInUp` + a direction class the crawler
+   * dropped. Measured live with `getAnimations()` on the original after a
+   * scroll-through at 1440x900 and 390x844 — `document.styleSheets` remap
+   * `.fadeInUp.Right -> fadeInLeft`, `.Left -> fadeInRight`,
+   * `.Down -> fadeInDown`. Duration/delay already match the crawl
+   * (`animDur`/`animDelay`); only the name is remapped here. */
+  // company.about — the "우리 일상 속에서 만나는 에코웨이브" feature cards
+  // alternate Right/Left (fadeInLeft / fadeInRight), and the three HQ address
+  // holder cards at the foot are authored Left -> fadeInRight
+  // (delays 0.2 / 0.4 / 0.6).
+  w2025091840bd06b2a6c1d: "fadeInLeft",
+  w20250919eb33a28196229: "fadeInLeft",
+  w20250919a06813f5e869d: "fadeInRight",
+  w202509196d95887d0ea56: "fadeInLeft",
+  w2025091937ef9567e5c28: "fadeInRight",
+  w2025091911917416765db: "fadeInLeft",
+  w20250919752cb4c4b07f1: "fadeInRight",
+  w2025091886eece88ff0c0: "fadeInRight",
+  w20250919ad2bb4e856fba: "fadeInRight",
+  w20250919aa8199dc628c3: "fadeInRight",
+  // company.philosophy §3단계 서비스 — 차별화된 아이디어 is Right -> fadeInLeft;
+  // 품질/시간 cards are Left -> fadeInRight.
+  w202508297535663fbc7e0: "fadeInLeft",
+  w2025082996725d2a2d20e: "fadeInRight",
+  // company.history year bands (2020-2023 / 2015-2019 / 2010-2014) — authored
+  // `Left` -> fadeInRight (1.5s ease, delay 0).
+  w2025082800cb79b620e9f: "fadeInRight",
+  w20250828e83ff2674ace5: "fadeInRight",
+  w20250828ed4c25cde1fa0: "fadeInRight",
 };
 
 function effectiveAnim(w: WidgetNode): string | undefined {
@@ -715,7 +749,12 @@ function WidgetContent({ w, locale, mobileBox = false }: { w: WidgetNode; locale
         const slidePad = hasTitles ? 5 : 10;
         return (
           <div className="min-[992px]:mt-[15px]">
-            <GallerySlider count={items.length} pad={slidePad} arrows={!hasTitles}>
+            <GallerySlider
+              count={items.length}
+              pad={slidePad}
+              arrows={!hasTitles}
+              autoplayMs={w.id === ABOUT_PLAIN_SLIDER_ID ? 5000 : 0}
+            >
               {items.map((it, i) => (
                 <SlideCard
                   key={i}
@@ -1148,12 +1187,28 @@ const TOP_BAND_SECTION_IDS = new Set([
  * here: the original's authored gallery config for this widget is
  * `"effect":"slide","effect_wait":"5","effect_time":"0.2","show_paging":"Y",
  * "auto_change":"Y","effect_loop":"Y"` → one full slide per 5000ms, looping,
- * dots paging, no arrows at mobile. Only this widget opts into autoplay;
- * every other slide gallery stays manual (their originals do not auto-advance).
+ * dots paging, no arrows at mobile. This widget opts in here; company.about's
+ * plain slide gallery opts in separately (`ABOUT_PLAIN_SLIDER_ID`, see
+ * `design/audit/pages-motion-audit.md` C2); captioned galleries stay manual.
  * Durable path: have the crawler persist `auto_change`/`effect_wait` on the
  * widget and read it here (mirrors the `animDir` migration note).
  */
 const HOME_MOBILE_SLIDER_ID = "w20250911b19e5033093cd";
+
+/**
+ * company.about plain slide gallery (`w20250918b0ab58de4000e`, 21 items).
+ *
+ * The live original initializes this one as an owl carousel with
+ * `autoplay: true, autoplayTimeout: 5000, smartSpeed: 200, items: 5, nav: true,
+ * loop: true` (read from `jQuery(el).data("owlCarousel").options`), and the
+ * active dot was observed advancing at ~5.0-6.0s intervals at both 1440x900
+ * (3->4 @5461ms, 4->0 @11470ms) and 390x844 (3->4 @3436ms, 4->5 @8827ms).
+ * The sibling captioned gallery (`w20250918692bb854e97af`) does NOT autoplay
+ * (`effect_wait:"0"`; only the init-correcting dot change was observed), so
+ * only this widget opts in. Durable path: persist the gallery
+ * `auto_change`/`effect_wait` config on the crawl (mirrors HOME_MOBILE_SLIDER_ID).
+ */
+const ABOUT_PLAIN_SLIDER_ID = "w20250918b0ab58de4000e";
 
 /**
  * Mobile-authored (`mobile_section`) widget band (7.5px each side).

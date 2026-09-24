@@ -553,6 +553,45 @@ a {
   }
 }
 
+/* Subpage page-title entrance (every non-home page whose first <main> child is
+   the <PageHero> band). Measured live on the original 2026-09-24: the desktop
+   `menu_title` widget (`_widget_data.animated.wg_animated.Down.fadeInUp`)
+   computes `fadeInDown` = `opacity 0->1` + `translate3d(0,-60%,0)->0` with
+   `1.2s ease` `0.3s` `both` (verified via `getAnimations()` keyframes on
+   company.about), on company.about / company.ceo / company / company.philosophy
+   / company.history / company.organization / company.global / rnd /
+   rnd.technology / rnd.patents / rnd.facilities / news / notices. The original
+   *mobile* hero band (`mobile_section_first`) is `data-widget-anim:"none"` and
+   computes `animation-name:none`, so this is desktop-only — mirroring the home
+   hero text rule above. `PageHero.tsx` is out of scope for this change, so the
+   rule is applied from the shared stylesheet through the stable structural hook
+   `main > section.bg-white:first-child` (the home hero's first section is
+   `section.hero-carousel`, never matched; the products hero's `min-[992px]:hidden`
+   mobile h1 is not rendered at >=992). Opacity/transform only — zero layout
+   change. */
+@keyframes subpageHeroFadeDown {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -60%, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+@media (min-width: 992px) and (prefers-reduced-motion: no-preference) {
+  main > section.bg-white:first-child h1 {
+    animation: subpageHeroFadeDown 1.2s ease 0.3s both;
+  }
+}
+@media (min-width: 992px) and (prefers-reduced-motion: reduce) {
+  main > section.bg-white:first-child h1 {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
 /* Home overlay header (transparent header over the homepage hero). The original
    computes `transition-property: color, background, border-color` with
    `ease-out` on the overlay anchors — 에코웨이브 / 연구개발 / 제품소개 / ENGLISH
