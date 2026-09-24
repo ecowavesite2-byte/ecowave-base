@@ -139,6 +139,11 @@ channels, widget CSS gaps, board/detail template differences).
    and the `data-ph48` promise-band line-height hook. Desktop **6.14 → 2.77**; mobile 16.19 → 20.55
    (the corrected elements exposed the pre-existing mobile content deficit — queued). Audit:
    `design/audit/company-philosophy-audit.md`.
+13. **Wave 13 — vision hover scale** — opt-in `hover_scale` image widgets now zoom `scale(1.1)` on hover
+   (0.4s ease-out, clipped, ≥768px only) via a `data-hover-scale` hook + the measured 9-widget stop-gap;
+   the crawler's class drop is the same family as `animDir` (durable path: persist `hoverScale`).
+   Verified: both sides' hover values match, mobile static, no idle change. Audit:
+   `design/audit/company-philosophy-audit.md` §8.
 
 ### Final verified metrics (closing build; diff % of differing pixels)
 

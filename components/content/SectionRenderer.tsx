@@ -266,6 +266,12 @@ export function GalleryCard({
 function ImageWidget({ w, locale, mobileBox = false }: { w: WidgetNode; locale: Locale; mobileBox?: boolean }) {
   const h = num(w.boxStyle, "height");
   const { label, title, plus, layout, hasOverlay } = parseImageAlt(w.alt);
+  // opt-in `hover_scale` widgets (see HOVER_SCALE_WIDGET_IDS). The effect itself
+  // lives in globals.css, hooked on this attribute; only the plain `img` branch
+  // implements it because every crawled `hover_scale` widget is `alt:""` (no
+  // overlay). The wrapper already clips (`overflow-hidden`), matching the
+  // original `._img_box { overflow: hidden }`.
+  const hoverScale = hoverScaleFor(w);
 
   // S1: imweb's scroll-to-top button (`.btn_top a[href="#doz_header"]`) is
   // crawled with `width:0;height:0;margin:21px auto`; the runtime then paints
@@ -443,6 +449,7 @@ function ImageWidget({ w, locale, mobileBox = false }: { w: WidgetNode; locale: 
         className={`relative w-full overflow-hidden${mobileBox ? " rounded-[6px]" : ""}${
           mobileBox && isMobileCrop ? " flex items-center" : ""
         }${h ? " " + (mobileBox ? BOX_MOBILE_HEIGHT : BOX_DESKTOP_HEIGHT) : ""}`}
+        data-hover-scale={hoverScale ? "1" : undefined}
         style={h ? ({ ["--box-h" as string]: `${h}px` } as React.CSSProperties) : undefined}
       >
         {w.src && img}
@@ -559,6 +566,56 @@ function effectiveAnim(w: WidgetNode): string | undefined {
   }
   // stop-gap id map for the sections whose direction the crawl dropped
   return ANIM_DIR_OVERRIDES[w.id] ?? w.anim;
+}
+
+/**
+ * Vision hover scale — opt-in `hover_scale` image widgets.
+ *
+ * The original marks some image widgets with a `hover_scale` class on the
+ * `.widget.image._image_wrap` root. Measured live on /18 at 1440x900 (the
+ * 비전 image `w202508289fc0c0165c025`): under a verified `:hover` the
+ * `<img class="org_image">` computes `transform: matrix(1.1, 0, 0, 1.1, 0, 0)`
+ * (= `scale(1.1)`) and carries `transition: transform 0.4s ease-out` at rest;
+ * its `._img_box` parent is `overflow: hidden`, so the scaled image is clipped
+ * to the original box. The effect is gated at 768px in the original (measured:
+ * 767 -> no scale, 768 -> scale), so mobile 390 stays static; the desktop-only
+ * home/about widgets are unaffected either way.
+ *
+ * Root cause (same family as the dropped `animDir`): the crawler does not
+ * persist the widget's class list, so `hover_scale` is not in the content JSON
+ * (verified: 0 matches across content/{ko,en}). Durable path: teach the crawler
+ * to write `hoverScale: true` on the widget; the stop-gap below is the measured
+ * id list. The override is applied by `ImageWidget` via a `data-hover-scale`
+ * attribute, and globals.css owns the actual effect (transform/timing/clipping)
+ * — see the "Vision hover scale" block there.
+ *
+ * Coverage — every `hover_scale` image widget on the original's 20-page set
+ * (bounded DOM scan 2026-09-24, `[class*="hover_scale"]`), mapped to the
+ * crawled content. rnd == rnd.technology (duplicated routes) and every entry is
+ * `alt:""`, i.e. the plain ImageWidget branch (no overlay):
+ */
+const HOVER_SCALE_WIDGET_IDS = new Set([
+  // home §company (pc_section mobile_hide) — three pillar photos
+  "w2025081110a9d2744f9fb",
+  "w20250811b881aa576382c",
+  "w20250812aea22580e7e86",
+  // company.about — 우리 일상 속에서 만나는 에코웨이브 feature photo
+  "w2025091840bd06b2a6c1d",
+  // company.philosophy §비전 — the reported image
+  "w202508289fc0c0165c025",
+  // rnd / rnd.technology §2 system diagram + §3/§4 two-column feature photos
+  "w202509092bb83d593e678",
+  "w20250909743cf5b3c0201",
+  "w2025090999ac3275406dc",
+  "w20250909dbdd88bc19258",
+  "w2025090910fe01238de32",
+]);
+
+function hoverScaleFor(w: WidgetNode): boolean {
+  // durable path — inert until the crawler writes `hoverScale`
+  if ((w as unknown as { hoverScale?: boolean }).hoverScale === true) return true;
+  // stop-gap id list for the widgets whose `hover_scale` class the crawl dropped
+  return HOVER_SCALE_WIDGET_IDS.has(w.id);
 }
 
 export function Widget({

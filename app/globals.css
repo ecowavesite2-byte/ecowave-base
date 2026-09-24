@@ -829,3 +829,26 @@ a {
     border-radius: 10px;
     overflow: hidden;
 }
+
+/* Vision hover scale — opt-in `hover_scale` image widgets (SectionRenderer
+   `HOVER_SCALE_WIDGET_IDS`, emitted as `data-hover-scale="1"`).
+   Measured live on the /18 original at 1440x900 (비전 image
+   `w202508289fc0c0165c025`): under a verified `:hover` the `<img class=
+   "org_image">` computes `transform: matrix(1.1,0,0,1.1,0,0)` = `scale(1.1)`,
+   carries `transition: transform 0.4s ease-out` at rest, and is clipped by its
+   `overflow:hidden` `._img_box` parent (the scaled image is cropped to the
+   box). The transform rule is gated at **768px** in the original — measured:
+   767 -> no scale, 768 -> scale — so mobile 390 is static. The transition is
+   unconditional (it computes on the original at 390 too, just never animates).
+   `prefers-reduced-motion: no-preference` keeps the scale inert for reduced
+   motion (the original has no such guard; this is a safety addition). The
+   wrapper already carries Tailwind `overflow-hidden`, so no clipping rule is
+   needed. Paint-only — zero layout change. */
+[data-hover-scale="1"] img {
+    transition: transform 0.4s ease-out;
+}
+@media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+    [data-hover-scale="1"]:hover img {
+        transform: scale(1.1);
+    }
+}
