@@ -50,7 +50,7 @@ export default function Header({ locale, nav, logo, logoScrolled, langLabelKo, l
   const overlay = isHome && !scrolled;
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60);
+    const onScroll = () => setScrolled(window.scrollY > 0);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -100,10 +100,10 @@ export default function Header({ locale, nav, logo, logoScrolled, langLabelKo, l
       />
       <header
         id="doz_header"
-        className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
+        className={`fixed inset-x-0 top-0 z-[999] ${
           overlay
-            ? "header-overlay bg-white shadow-[0_1px_0_rgba(0,0,0,0.06)] min-[992px]:bg-transparent min-[992px]:shadow-none"
-            : "bg-white shadow-[0_1px_0_rgba(0,0,0,0.06)]"
+            ? "header-overlay bg-white min-[992px]:bg-transparent min-[992px]:shadow-none"
+            : "bg-white"
         }`}
       >
       <div className="relative flex h-[58px] items-center px-[15px] min-[992px]:h-[88px] min-[992px]:px-[30px]">
@@ -256,7 +256,7 @@ export default function Header({ locale, nav, logo, logoScrolled, langLabelKo, l
                   <circle cx="19" cy="12" r="1.8" />
                 </svg>
               </button>
-              <div className="invisible absolute right-0 top-full z-50 pt-1 opacity-0 transition-all duration-200 group-hover/more:visible group-hover/more:opacity-100">
+              <div className="invisible absolute right-0 top-full z-50 pt-1 opacity-0 transition-all duration-300 ease-[ease] group-hover/more:visible group-hover/more:opacity-100">
                 <ul className="imweb-dropdown py-2" style={{ minWidth: 160 }}>
                   {nav.slice(3).map((item) => (
                     <li key={item.url} className="group/sub relative">
@@ -264,7 +264,7 @@ export default function Header({ locale, nav, logo, logoScrolled, langLabelKo, l
                         {item.name}
                       </Link>
                       {item.children.length > 0 && (
-                        <div className="invisible absolute left-full top-0 z-50 opacity-0 transition-all duration-200 group-hover/sub:visible group-hover/sub:opacity-100">
+                        <div className="invisible absolute left-full top-0 z-50 opacity-0 transition-all duration-300 ease-[ease] group-hover/sub:visible group-hover/sub:opacity-100">
                           <DropList items={item.children} locale={locale} />
                         </div>
                       )}
@@ -285,8 +285,9 @@ export default function Header({ locale, nav, logo, logoScrolled, langLabelKo, l
         </nav>
       </div>
 
-      {/* mobile carousel nav — scrollable top-level links under the top row */}
-      <nav className="min-[992px]:hidden" aria-label="모바일 섹션 메뉴">
+      {/* mobile carousel nav — scrollable top-level links under the top row.
+          Original stacking: bar z-999, nav strip z-997 at top:59 (audit H9). */}
+      <nav className="absolute inset-x-0 top-[59px] z-[997] min-[992px]:hidden" aria-label="모바일 섹션 메뉴">
         <div className="flex h-[46px] items-center gap-[11px] overflow-x-auto bg-white px-0 pl-[15px] [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {nav.map((item) => {
             const isActive = activeTop?.url === item.url;
@@ -306,8 +307,9 @@ export default function Header({ locale, nav, logo, logoScrolled, langLabelKo, l
         </div>
       </nav>
 
-      {/* mobile drawer */}
-      <div className={`fixed inset-0 z-40 min-[992px]:hidden ${open ? "" : "pointer-events-none"}`} aria-hidden={!open}>
+      {/* mobile drawer — z-998 keeps it above the z-997 nav strip (both live in
+          the header's z-999 stacking context) */}
+      <div className={`fixed inset-0 z-[998] min-[992px]:hidden ${open ? "" : "pointer-events-none"}`} aria-hidden={!open}>
         {/* Original backdrop is injected on open with a constant opacity of 0.6
             and NO fade (state-probe: opacity 0.6 across all 48 frames). Use a
             constant `bg-black` + element opacity 0.6, and no transition. */}
@@ -366,18 +368,24 @@ export default function Header({ locale, nav, logo, logoScrolled, langLabelKo, l
                         <path d="M6 9l6 6 6-6" />
                       </svg>
                     </button>
-                    <ul className={`${isOpen ? "block" : "hidden"} pb-3 pl-1`}>
-                      {item.children.map((c) => (
-                        <li key={c.url}>
-                          <Link
-                            href={localeHref(locale, routeForSource(c.url))}
-                            className="block py-2.5 pl-3 text-[15px] text-body hover:text-accent"
-                          >
-                            {c.name}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
+                    <div
+                      className={`grid overflow-hidden transition-[grid-template-rows] duration-[350ms] ease-[ease] motion-reduce:transition-none ${
+                        isOpen ? "grid-rows-[minmax(0,1fr)]" : "grid-rows-[minmax(0,0fr)]"
+                      }`}
+                    >
+                      <ul className="min-h-0 pb-3 pl-1">
+                        {item.children.map((c) => (
+                          <li key={c.url}>
+                            <Link
+                              href={localeHref(locale, routeForSource(c.url))}
+                              className="block py-2.5 pl-3 text-[15px] text-body hover:text-accent"
+                            >
+                              {c.name}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   </li>
                 );
               })}

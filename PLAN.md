@@ -120,6 +120,11 @@ channels, widget CSS gaps, board/detail template differences).
    (opt-in `autoplayMs`, 5000ms, looping, reduced-motion aware), §8 ticker cards' spurious staggered
    `fadeInUp` removed (the original has none). Audit + acceptance criteria: `home-motion-audit.md`
    Part B.
+9. **Wave 9 — header motion** — first-pixel scroll pin (`>0`), background transition
+   `color/background/border-color 0.3s ease-out`, solid-state shadow removed, "더보기" + nested flyout
+   `all 0.3s ease`, mobile drawer accordion animated via `grid-template-rows` 350ms (collapsed-state
+   padding floor fixed with `minmax(0,·fr)`), z-index 999/998/997, mobile logo transition restored.
+   Audit + acceptance criteria: `design/audit/header-motion-audit.md`.
 
 ### Final verified metrics (closing build; diff % of differing pixels)
 

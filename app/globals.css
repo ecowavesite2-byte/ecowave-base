@@ -47,15 +47,11 @@ a {
     transition: .3s;
 }
 
-/* mobile header logo link: original computes `transition-property: none`
-   (style-probe mobile: the representative `a`/`header a` element is the empty
-   logo link, `none → all`). Fixed from Header.tsx via the `.header-logo` hook;
-   desktop is not measured for the logo and is left untouched. */
-@media (max-width: 991px) {
-    .header-logo {
-        transition: none;
-    }
-}
+/* mobile header logo link: the original computes `all .3s ease` on the live
+   ECOWAVE anchor at 390 (header-motion audit H26). The previous
+   `@media (max-width: 991px) { .header-logo { transition: none } }` override
+   was removed for computed-style parity; the base `a { transition: .3s }`
+   above now supplies `all 0.3s ease` at every breakpoint. */
 
 .imweb-row {
   width: 100%;
@@ -569,6 +565,15 @@ a {
     #doz_header.header-overlay > div > nav > div > a {
         transition: color 0.3s ease-out, background 0.3s ease-out, border-color 0.3s ease-out;
     }
+}
+
+/* Original pinned header background fade (`_fixed_header_section` clone,
+   header-motion audit H3): `color, background, border-color 0.3s ease-out`.
+   Tailwind `transition-colors duration-300` emitted 10 properties with
+   cubic-bezier(0.4, 0, 0.2, 1); this scoped rule (unlayered, so it beats the
+   utility layer) replaces it. Inert on subpages where the bg never changes. */
+#doz_header {
+    transition: color 0.3s ease-out, background 0.3s ease-out, border-color 0.3s ease-out;
 }
 
 /* Header submenu open/close box: the original dropdown-menu is
