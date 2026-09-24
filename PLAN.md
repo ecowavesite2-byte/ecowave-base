@@ -134,6 +134,11 @@ channels, widget CSS gaps, board/detail template differences).
    the R&D grid's static caption band; address-card radius/shadow/hover; intro radius; §8 icon-grid
    geometry (desktop 1260×278 flush, mobile 365 gap-0). Audit: `design/audit/company-about-audit.md`.
    Queued: §6 정수기 +441px (mobile), §9 card x-offsets, §8 ~10px y-offset.
+12. **Wave 12 — company.philosophy** — per-widget radii (banner/cover/vision), the vision margin/holder
+   box model (desktop), the rtm mobile downscale additions (24→16 + h6 lh 1.2), centered §3단계 icons,
+   and the `data-ph48` promise-band line-height hook. Desktop **6.14 → 2.77**; mobile 16.19 → 20.55
+   (the corrected elements exposed the pre-existing mobile content deficit — queued). Audit:
+   `design/audit/company-philosophy-audit.md`.
 
 ### Final verified metrics (closing build; diff % of differing pixels)
 

@@ -1317,6 +1317,26 @@ const RT_MOBILE_SECTION_IDS = new Set([
 ]);
 
 /**
+ * P6 — company.philosophy §1 promise band (`더 건강하고 깨끗한 물을…`,
+ * `s20250821af3858f799ed0`) mobile 48px-span line-height.
+ *
+ * At 390 the band's two `<h6>` lines author a 48px span with NO inline
+ * `line-height` (unlike the `data-mh6` trigger) and the section is not in
+ * `RT_MOBILE_SECTION_IDS`, so neither existing hook fires. The SC2 downscale
+ * takes the span to 28px, but it inherits the `.rich-text h6 { line-height:
+ * 1.4 }` base and computes 28/39.2 where the original computes 28/33.6 (1.2) —
+ * measured live on the /18 original at 390 (company-philosophy-audit.md §2C).
+ * A global mobile 48px rule regresses the §첨단 sub-hero headings (globals.css
+ * comment), so the rule is scoped to this measured section via `data-ph48`
+ * (the `data-mh6` / `data-rtm` pattern). EN philosophy uses different section
+ * ids and is outside the measured 20-page protocol, so it is deliberately not
+ * listed (same note as `RT_MOBILE_SECTION_IDS`).
+ */
+const PH48_SECTION_IDS = new Set([
+  "s20250821af3858f799ed0", // philosophy §1 promise band (48px spans)
+]);
+
+/**
  * item 2 — home §7 (Headquarters & Factory Locations) holder box model.
  *
  * The original's address holders compute `.text-table.holder { padding: 20px
@@ -1565,6 +1585,9 @@ export default function SectionRenderer({
         const mh6 = sectionHasMh6Spans(sec);
         // item 1: philosophy mobile rich-text downscale (globals.css `data-rtm`)
         const rtm = RT_MOBILE_SECTION_IDS.has(sec.id);
+        // P6: philosophy §1 promise band mobile 48px-span line-height
+        // (globals.css `data-ph48`)
+        const ph48 = PH48_SECTION_IDS.has(sec.id);
         // item 2: home §7 holder box model (globals.css `data-mapholder`)
         const mapHolder = MAP_HOLDER_SECTION_IDS.has(sec.id);
         const aside = (sec as unknown as { aside?: AsideBlock }).aside;
@@ -1586,6 +1609,10 @@ export default function SectionRenderer({
             // (18px->15/18, 16px->14, no-size p span 1.2->1.6) for the measured
             // section allowlist above.
             data-rtm={rtm ? "1" : undefined}
+            // P6 hook (globals.css): mobile-only 1.2 line-height on the §1
+            // promise band's `span[style*="font-size: 48px"]` (measured
+            // trigger: an h6 with no inline line-height).
+            data-ph48={ph48 ? "1" : undefined}
             // item 2 hook (globals.css): home §7 holder box model
             // (wrapper 0 15px + holder 20px 50px + mobile span 1.2).
             data-mapholder={mapHolder ? "1" : undefined}

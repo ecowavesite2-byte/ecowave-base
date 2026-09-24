@@ -308,6 +308,20 @@ a {
   }
 }
 
+/* P6 — company.philosophy §1 promise band mobile 48px-span line-height, scoped
+   to the SectionRenderer `data-ph48` hook. At 390 the band's 48px spans sit in
+   an h6 with NO inline line-height, so they inherit the `.rich-text h6 { 1.4 }`
+   base and compute 28/39.2 where the original computes 28/33.6 (1.2). A global
+   mobile 48px rule regresses the §첨단 sub-hero headings (see the `data-mh6`
+   comment above), so the hook is allowlisted to the one measured section.
+   Measured live at 390 on the /18 original: promise span lh 33.6. Desktop is
+   untouched. */
+@media (max-width: 991px) {
+  section[data-ph48="1"] .rich-text span[style*="font-size: 48px"] {
+    line-height: 1.2 !important;
+  }
+}
+
 /* item 1 — company.philosophy mobile rich-text downscale (coordinated set),
    scoped to the SectionRenderer `data-rtm` hook (three philosophy sections;
    see the allowlist comment in components/content/SectionRenderer.tsx).
@@ -330,10 +344,94 @@ a {
   section[data-rtm="1"] .rich-text span[style*="font-size: 16px"] {
     font-size: 14px !important;
   }
-  section[data-rtm="1"] .rich-text p span:not([style*="font-size"]),
-  section[data-rtm="1"] .rich-text p strong:not([style*="font-size"]) {
-    line-height: 1.6 !important;
+  /* P3 — the missing 24px -> 16px pc-at-mobile downscale (SC2 lists it:
+     `48->28, 36->24, 30->20, 24->16, 22->16, 20->15`, but the rtm hook carried
+     only 18/16). Only the §비전 banner authors the *spaced* `font-size: 24px`
+     form inside the three rtm sections, so this turns the local 2-line 24px
+     banner into the original's single 16px line (banner 117 -> ~74, §비전
+     27.82 %). The unspaced `font-size:24px` circle spans are untouched. */
+  section[data-rtm="1"] .rich-text span[style*="font-size: 24px"] {
+    font-size: 16px !important;
   }
+  /* P3 follow-up — the §비전 caption / §경영이념 body 20px spans sit inside an
+     `h6[style*="line-height: 2"]`, so the h6's inline 2 beats the size-keyed
+     1.2 and the 15px span runs 30px tall; the original computes 1.2 (18px). */
+  section[data-rtm="1"] .rich-text h6[style*="line-height: 2"] span[style*="font-size: 20px"] {
+    line-height: 1.2 !important;
+  }
+}
+
+/* ── company.philosophy per-widget skins + box model ────────────────────────
+   design/audit/company-philosophy-audit.md §2D/§3. The crawler dropped the
+   generated per-widget skins; these reproduce them. P1 (radii) is paint-only;
+   P2 (vision margins/holder pads) is height-neutral against the authored
+   desktop row heights (109/359/163) — see §2A. Selectors are scoped by
+   `data-widget-id` (the wrapper emitted in SectionRenderer.tsx), so no other
+   widget or page can inherit them. */
+/* P1 — wrapper cover radius 10px (original `#text_w<id>{border-radius:10px}`). */
+[data-widget-id="w2025082880e9f1cd594e5"],
+[data-widget-id="w202508285a7385a21e446"],
+[data-widget-id="w202508280d2f1669e2789"],
+[data-widget-id="w202508281ce9cfb92c9a4"],
+[data-widget-id="w2025082996725d2a2d20e"],
+[data-widget-id="w202508291aa62a1ed03bb"],
+[data-widget-id="w202508297535663fbc7e0"] {
+  border-radius: 10px;
+}
+/* P1 — cover layers (`text_bg_img`/`text_bg_color`) radius 9px (banner 10px). */
+[data-widget-id="w2025082880e9f1cd594e5"] .text_bg_img,
+[data-widget-id="w2025082880e9f1cd594e5"] .text_bg_color,
+[data-widget-id="w202508285a7385a21e446"] .text_bg_img,
+[data-widget-id="w202508285a7385a21e446"] .text_bg_color,
+[data-widget-id="w202508281ce9cfb92c9a4"] .text_bg_img,
+[data-widget-id="w202508281ce9cfb92c9a4"] .text_bg_color,
+[data-widget-id="w2025082996725d2a2d20e"] .text_bg_img,
+[data-widget-id="w2025082996725d2a2d20e"] .text_bg_color,
+[data-widget-id="w202508291aa62a1ed03bb"] .text_bg_img,
+[data-widget-id="w202508291aa62a1ed03bb"] .text_bg_color,
+[data-widget-id="w202508297535663fbc7e0"] .text_bg_img,
+[data-widget-id="w202508297535663fbc7e0"] .text_bg_color {
+  border-radius: 9px;
+}
+[data-widget-id="w202508280d2f1669e2789"] .text_bg_img,
+[data-widget-id="w202508280d2f1669e2789"] .text_bg_color {
+  border-radius: 10px;
+}
+/* P1 — vision image (original `#w… .img_wrap { border-radius:10px }`). The
+   local wrapper is the `overflow:hidden` div inside the widget, so both it and
+   the `<img>` need the radius for the clip to show it. */
+[data-widget-id="w202508289fc0c0165c025"] > div,
+[data-widget-id="w202508289fc0c0165c025"] img {
+  border-radius: 10px;
+}
+/* P2 — desktop vision alignment: `margin:15px 0` on the three vision widgets.
+   The `.imweb-row { min-height: var(--row-h) }` rule only exists at >=1024, so
+   the authored row heights absorb 15+widget+15 exactly (15+79+15=109,
+   15+329+15=359, 15+133+15=163) and the section height is unchanged. Below 1024
+   there is no row min-height, so this must stay out of the mobile range. */
+@media (min-width: 1024px) {
+  [data-widget-id="w202508280d2f1669e2789"],
+  [data-widget-id="w202508281ce9cfb92c9a4"],
+  [data-widget-id="w202508289fc0c0165c025"] {
+    margin: 15px 0;
+  }
+}
+/* P2 — original measured holder paddings (both viewports). */
+[data-widget-id="w202508280d2f1669e2789"] .text-table.holder {
+  padding: 25px 20px;
+}
+[data-widget-id="w202508281ce9cfb92c9a4"] .text-table.holder {
+  padding: 0 20px;
+}
+/* P4 — center the §3단계 card icons (original `img.fr-dib { margin:5px auto }`;
+   locally `margin:0` and the `p[text-align:center]` cannot center a block
+   image). Scoped to the three card widgets so generic `img.fr-dib` is not
+   touched. Expected desktop x249/676/1103, mobile x151. */
+[data-widget-id="w2025082996725d2a2d20e"] img,
+[data-widget-id="w202508291aa62a1ed03bb"] img,
+[data-widget-id="w202508297535663fbc7e0"] img {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* item 2 — home §7 (Headquarters & Factory Locations) holder box model, scoped
