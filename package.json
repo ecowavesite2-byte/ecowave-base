@@ -7,7 +7,7 @@
     "npm": ">=10"
   },
   "scripts": {
-    "dev": "next dev --port 4000",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start --port 4517",
     "lint": "next lint",

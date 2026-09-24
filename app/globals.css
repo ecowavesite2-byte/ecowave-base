@@ -227,12 +227,44 @@ a {
    4578 vs the original's 4858, because ~280px elsewhere on the page are
    compensating today; the table band must be fixed together with those
    section-level shortages (see design/audit report + master-differences).
-   Desktop (>=992) is measured separately and untouched. */
+   Desktop (>=992) carries the same measured values via the counterpart block
+   below. */
 @media (max-width: 991px) {
   .rich-text table.tableHorizontal td,
   .rich-text table.tableHorizontal th {
     border: 0;
     border-bottom: 1px solid #ececec;
+  }
+}
+/* Desktop (>=992) counterpart of the corrections above — measured on the live
+   rnd / rnd.technology / rnd.facilities originals at 1440: every
+   `tableHorizontal` cell carries a single 1px #ECECEC hairline under the row
+   (no side/top rules); the technology/rnd cells compute 20px padding and 24px
+   line-height, the facilities `tableHover` cells 8px padding. Without this the
+   base `.rich-text td/th` 1px #DDD box at 8px 10px stays visible at desktop
+   (the "borders too visible / spacing too tight" state). Desktop cells also
+   compute `white-space: normal`: the crawled `.table-responsive` wrapper
+   carries an imweb runtime inline style (`overflow-x:auto; white-space:nowrap`)
+   which must not leak into desktop cell layout (it stays correct at <=991,
+   where the nowrap matches the original). */
+@media (min-width: 992px) {
+  .rich-text table.tableHorizontal td,
+  .rich-text table.tableHorizontal th {
+    border: 0;
+    border-bottom: 1px solid #ececec;
+  }
+  .rich-text .table-responsive td,
+  .rich-text .table-responsive th {
+    white-space: normal;
+  }
+  .pc-at-mobile .rich-text table.tableHorizontal:not(.tableHover) td,
+  .pc-at-mobile .rich-text table.tableHorizontal:not(.tableHover) th {
+    padding: 20px;
+    line-height: 24px;
+  }
+  .pc-at-mobile .rich-text table.tableHorizontal.tableHover td,
+  .pc-at-mobile .rich-text table.tableHorizontal.tableHover th {
+    padding: 8px;
   }
 }
 
@@ -851,4 +883,203 @@ a {
     [data-hover-scale="1"]:hover img {
         transform: scale(1.1);
     }
+}
+
+/* ── imweb lightgallery viewer (image lightbox) ────────────────────────────
+   design/audit/viewer-spec.md §2. Ports the subset of imweb's
+   `vendor_blue_10.css` lightgallery skin the rebuilt single-image viewer needs
+   (raw source: design/audit/orig-lightgallery.css). Class names are the
+   ORIGINAL `.lg-*` ones and nothing else in the app uses them. imweb overrides
+   vs the vendor CSS (measured live, use these): `.lg-toolbar` background
+   transparent, `.lg-sub-html` background transparent + padding 20px +
+   text-align left, `.lg-backdrop` background rgba(0,0,0,.9) and z-index 1041,
+   `.lg-outer` z-index 1050. */
+@font-face {
+    font-family: 'lg';
+    src: url('/fonts/lg/lg.woff') format('woff'),
+         url('/fonts/lg/lg.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.lg-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 1041;
+    background: rgba(0, 0, 0, .9);
+    opacity: 0;
+    transition: opacity .15s ease;
+}
+.lg-backdrop.in {
+    opacity: 1;
+}
+
+.lg-outer {
+    position: fixed;
+    inset: 0;
+    z-index: 1050;
+    opacity: 0;
+    transition: opacity .15s ease;
+}
+.lg-outer * {
+    box-sizing: border-box;
+}
+.lg-outer.lg-visible {
+    opacity: 1;
+}
+
+.lg {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+    max-height: 100%;
+}
+.lg-inner {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    white-space: nowrap;
+}
+
+.lg-item {
+    display: inline-block;
+    text-align: center;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+.lg-item.lg-current {
+    z-index: 1060;
+}
+/* 50% + inline-block + vertical-align:middle centering (both wrappers) */
+.lg-item:before,
+.lg-img-wrap:before {
+    content: "";
+    display: inline-block;
+    height: 50%;
+    width: 1px;
+    margin-right: -1px;
+}
+
+.lg-img-wrap {
+    position: absolute;
+    inset: 0;
+    padding: 0 5px;
+    text-align: center;
+}
+
+.lg-object,
+.lg-image {
+    display: inline-block;
+    vertical-align: middle;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto !important;
+    height: auto !important;
+    transform: scale3d(1, 1, 1);
+    transition: transform .3s cubic-bezier(0, 0, .25, 1);
+}
+
+.lg-toolbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1082;
+    background: transparent;
+}
+.lg-toolbar .lg-icon {
+    color: #999;
+    cursor: pointer;
+    float: right;
+    font-size: 24px;
+    height: 47px;
+    line-height: 27px;
+    padding: 10px 0;
+    text-align: center;
+    width: 50px;
+    transition: color .2s linear;
+}
+.lg-toolbar .lg-icon:hover {
+    color: #FFF;
+}
+
+.lg-icon {
+    font-family: 'lg';
+    speak: none;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+}
+
+.lg-close:after {
+    content: "\e070";
+}
+#lg-zoom-in:after {
+    content: "\e311";
+}
+#lg-zoom-out:after {
+    content: "\e312";
+}
+#lg-actual-size:after {
+    content: "\e033";
+}
+#lg-actual-size {
+    font-size: 20px;
+}
+
+/* zoom-out is inert until the image is zoomed (`.lg-zoomed` is on `.lg-outer`) */
+#lg-zoom-out {
+    opacity: .5;
+    pointer-events: none;
+}
+.lg-zoomed #lg-zoom-out {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#lg-counter {
+    color: #999;
+    display: inline-block;
+    font-size: 16px;
+    padding-left: 20px;
+    padding-top: 12px;
+    vertical-align: middle;
+}
+
+.lg-sub-html {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1080;
+    color: #EEE;
+    font-size: 16px;
+    padding: 20px;
+    background: transparent;
+    text-align: left;
+}
+.lg-sub-html h4 {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+body.lg-on {
+    overflow: hidden;
+}
+
+/* click affordance for every non-link content image inside <main>; linked
+   images (inside <a>) keep their link cursor, and the viewer's own `.lg-image`
+   is excluded so the enlarged image never advertises a click. Header, footer
+   and admin do not render inside <main>, so they are untouched. */
+main img:not(a img):not(.lg-image) {
+    cursor: pointer;
 }

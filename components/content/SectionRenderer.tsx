@@ -389,7 +389,14 @@ function ImageWidget({ w, locale, mobileBox = false }: { w: WidgetNode; locale: 
 
   const img = (
     // eslint-disable-next-line @next/next/no-img-element
-    <img src={w.src || ""} alt={title || w.alt || ""} className={imgClass} style={imgStyle} loading="lazy" />
+    <img
+      src={w.src || ""}
+      alt={title || w.alt || ""}
+      className={imgClass}
+      style={imgStyle}
+      loading="lazy"
+      data-lightbox-src={LIGHTBOX_IMAGE_SRC[w.id]}
+    />
   );
 
   const body =
@@ -617,6 +624,13 @@ function hoverScaleFor(w: WidgetNode): boolean {
   // stop-gap id list for the widgets whose `hover_scale` class the crawl dropped
   return HOVER_SCALE_WIDGET_IDS.has(w.id);
 }
+
+/** imweb `_image_widget_lightbox` — the only image wired to the original lightgallery;
+ *  the viewer loads the full-size upload, not the thumbnail (src differs per locale). */
+const LIGHTBOX_IMAGE_SRC: Record<string, string> = {
+  w202509117eecb693b3fc9: "/images/upload/S20250811e0bd2f7c414df/5f5d2323340f1.png",
+  w2025082844061a0c9a3b2: "/images/upload/S20250811e0bd2f7c414df/81722d7e2a42a.png",
+};
 
 export function Widget({
   w,
@@ -1394,6 +1408,21 @@ const PH48_SECTION_IDS = new Set([
 ]);
 
 /**
+ * imweb "fixed side" editor option — company.history year bands pin their
+ * aside content below the 88px desktop header while the timeline column
+ * scrolls past (measured live: original writes inline
+ * `position:sticky; top:88px; z-index:100` on `._doz_aside > .inside`;
+ * pinned image top y=209 = 88 header + 121 aside pt; philosophy's
+ * side_left asides are NOT sticky).
+ */
+const STICKY_ASIDE_SECTION_IDS = new Set([
+  // en /company/history §4/§7/§10
+  "s20250911bad9c985a650f", "s202509119a200517d0b1e", "s2025091127b399e6585cd",
+  // ko /company/history §4/§7/§10
+  "s20250811d0a0980d730fb", "s20250828fe85691f33b65", "s2025082848202431448dd",
+]);
+
+/**
  * item 2 — home §7 (Headquarters & Factory Locations) holder box model.
  *
  * The original's address holders compute `.text-table.holder { padding: 20px
@@ -1554,16 +1583,18 @@ function AsideColumn({
   aside,
   locale,
   vGutter,
+  sticky,
 }: {
   asideW: number;
   aside?: AsideBlock;
   locale: Locale;
   vGutter: boolean;
+  sticky?: boolean;
 }) {
   const items = aside?.items || [];
   return (
     <div
-      className="hidden min-[1280px]:block min-[1280px]:w-[var(--aside-w)] min-[1280px]:shrink-0 min-[1280px]:pl-[15px] min-[1280px]:pt-[var(--aside-pt)]"
+      className="hidden min-[1280px]:block min-[1280px]:w-[var(--aside-w)] min-[1280px]:shrink-0 min-[1280px]:pl-[15px]"
       style={
         {
           ["--aside-w" as string]: `${asideW}px`,
@@ -1572,15 +1603,23 @@ function AsideColumn({
         } as React.CSSProperties
       }
     >
-      {items.length > 0 && (
-        <div className="flex flex-col gap-[var(--aside-gap)]">
-          {items.map((n, i) => (
-            <div key={i}>
-              <Widget w={n} locale={locale} nested={false} vGutter={vGutter} />
-            </div>
-          ))}
-        </div>
-      )}
+      <div
+        className={
+          sticky
+            ? "min-[1280px]:sticky min-[1280px]:top-[88px] min-[1280px]:z-[100] min-[1280px]:pt-[var(--aside-pt)]"
+            : "min-[1280px]:pt-[var(--aside-pt)]"
+        }
+      >
+        {items.length > 0 && (
+          <div className="flex flex-col gap-[var(--aside-gap)]">
+            {items.map((n, i) => (
+              <div key={i}>
+                <Widget w={n} locale={locale} nested={false} vGutter={vGutter} />
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
@@ -1696,7 +1735,13 @@ export default function SectionRenderer({
               }
             >
               {isSide && side === "left" && (
-                <AsideColumn asideW={asideW} aside={aside} locale={locale} vGutter={vGutter} />
+                <AsideColumn
+                  asideW={asideW}
+                  aside={aside}
+                  locale={locale}
+                  vGutter={vGutter}
+                  sticky={STICKY_ASIDE_SECTION_IDS.has(sec.id)}
+                />
               )}
               <div
                 className={isSide ? "min-[1280px]:w-[var(--content-w)] min-[1280px]:shrink-0" : undefined}
@@ -1720,7 +1765,13 @@ export default function SectionRenderer({
                   ))}
               </div>
               {isSide && side === "right" && (
-                <AsideColumn asideW={asideW} aside={aside} locale={locale} vGutter={vGutter} />
+                <AsideColumn
+                  asideW={asideW}
+                  aside={aside}
+                  locale={locale}
+                  vGutter={vGutter}
+                  sticky={STICKY_ASIDE_SECTION_IDS.has(sec.id)}
+                />
               )}
             </div>
           </section>
