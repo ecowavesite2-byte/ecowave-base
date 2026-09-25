@@ -1,5 +1,5 @@
 import type { BoardContent, BoardPost, PageContent, SiteData, WidgetNode } from "../types";
-import { resolvePairedWidget } from "./pair";
+import { resolvePairedWidget, type ResolvedTarget } from "./pair";
 
 /**
  * Pure override application.
@@ -62,23 +62,32 @@ function deepClone<T>(value: T): T {
   return JSON.parse(JSON.stringify(value)) as T;
 }
 
-/** Apply one scalar/gallery field to a widget in place (caller owns the clone). */
-function applyWidgetField(widget: WidgetNode, field: string, value: string): void {
+/**
+ * Apply one scalar/gallery field in place (caller owns the clone).
+ *
+ * `target` is a widget node or a hero slide (`visual[i]`); fields not valid for
+ * the resolved target are ignored.
+ */
+function applyWidgetField(target: ResolvedTarget, field: string, value: string): void {
   switch (field) {
     case "html":
-      widget.html = value;
+      target.html = value;
+      return;
+    case "bg":
+      // hero slide image (`visual[i]/bg`)
+      if ("bg" in target) target.bg = value;
       return;
     case "src":
-      widget.src = value;
+      (target as WidgetNode).src = value;
       return;
     case "alt":
-      widget.alt = value;
+      (target as WidgetNode).alt = value;
       return;
     case "text":
-      widget.text = value;
+      (target as WidgetNode).text = value;
       return;
     case "href":
-      widget.href = value;
+      (target as WidgetNode).href = value;
       return;
     default:
       break;
@@ -89,7 +98,7 @@ function applyWidgetField(widget: WidgetNode, field: string, value: string): voi
 
   const index = Number(match[1]);
   const prop = match[2] as "title" | "desc" | "org" | "thumb";
-  const items = widget.items;
+  const items = "items" in target ? target.items : undefined;
   if (!Array.isArray(items) || index < 0 || index >= items.length) return;
 
   const item = items[index];
@@ -147,8 +156,7 @@ export function applyPageOverrides<T extends PageContent>(
     const widget = resolvePairedWidget(clone, parsed, options.primaryPage ?? null);
     if (!widget) continue;
 
-    applyWidgetField(widget, parsed.field, value);
-  }
+    applyWidgetField(widget, parsed.field, value);  }
 
   return clone;
 }

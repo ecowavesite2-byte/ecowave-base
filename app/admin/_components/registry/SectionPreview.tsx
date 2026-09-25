@@ -3,6 +3,7 @@
 import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 
 import SectionRenderer from "@/components/content/SectionRenderer";
+import HeroCarousel from "@/components/sections/home/HeroCarousel";
 import type { Locale } from "@/lib/i18n";
 import type { Section } from "@/lib/types";
 
@@ -63,6 +64,12 @@ export function ScaledDesktop({ children }: { children: ReactNode }) {
  * Renders one crawled section through the public `SectionRenderer` (read-only
  * import — the public page rendering is not modified). Used with the draft
  * overrides applied, so the pane is a true live preview.
+ *
+ * Desktop hero ("visual") sections carry no widgets — the public home page
+ * renders them through `HeroCarousel`, not `SectionRenderer` — so they mount
+ * the same carousel here. `mobileSlides` is omitted: the mobile hero is a
+ * separate crawled section (previewed as its own "mobile" pane), and this pane
+ * lays the desktop layer out at 1280px.
  */
 export default function SectionPreview({
   section,
@@ -73,7 +80,11 @@ export default function SectionPreview({
 }) {
   return (
     <ScaledDesktop>
-      <SectionRenderer sections={[section]} locale={locale} />
+      {section.visual?.length ? (
+        <HeroCarousel slides={section.visual} />
+      ) : (
+        <SectionRenderer sections={[section]} locale={locale} />
+      )}
     </ScaledDesktop>
   );
 }

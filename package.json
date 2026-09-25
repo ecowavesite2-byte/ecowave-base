@@ -15,6 +15,7 @@
     "typecheck": "tsc --noEmit",
     "content:validate": "node scripts/content-validate.mjs",
     "content:registry": "node scripts/gen-content-registry.mjs",
+    "content:health": "node scripts/content-health.mjs",
     "content:backup": "node scripts/content-backup.mjs",
     "content:restore": "node scripts/content-restore.mjs",
     "admin:set-password": "node scripts/admin-set-password.mjs",

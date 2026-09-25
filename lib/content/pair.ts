@@ -1,4 +1,4 @@
-import type { Node, PageContent, Section, WidgetNode } from "../types";
+import type { HeroSlide, Node, PageContent, Section, WidgetNode } from "../types";
 
 /**
  * Locale pairing for override application.
@@ -10,8 +10,23 @@ import type { Node, PageContent, Section, WidgetNode } from "../types";
  * sections pair by index, widgets pair by index within their section, and the
  * pairing is rejected unless the widget `type` matches.
  *
+ * Hero slides (`visual[i]` refs) are not widget nodes; they pair by slide index
+ * within the positionally-paired section.
+ *
  * Pure and dependency-free (types only) — safe on server, client and in tests.
  */
+
+/** Registry target for a def: a widget node or a hero slide (`visual[i]`). */
+export type ResolvedTarget = WidgetNode | HeroSlide;
+
+/** `visual[2]` → 2; null for ordinary widget refs. */
+const VISUAL_REF = /^visual\[(\d+)\]$/;
+
+/** Does this ref address a hero slide rather than a widget node? */
+export function visualRefIndex(widgetId: string): number | null {
+  const match = VISUAL_REF.exec(widgetId);
+  return match ? Number(match[1]) : null;
+}
 
 /** Rows → cols → children, widget order (mirrors `merge`/generator traversal). */
 export function collectWidgets(nodes: Node[] | undefined, out: WidgetNode[]): void {
@@ -46,6 +61,18 @@ function findWidgetInSection(section: Section, widgetId: string): WidgetNode | n
   return sectionWidgets(section).find((widget) => widget.id === widgetId) ?? null;
 }
 
+/** Section by id, or null (shared by the widget and slide resolvers). */
+function findSection(page: PageContent, sectionId: string): Section | null {
+  return (page.sections ?? []).find((section) => section?.id === sectionId) ?? null;
+}
+
+/** Hero slide at `index` of the section named by `sectionId`. */
+function findVisualSlide(page: PageContent, sectionId: string, index: number): HeroSlide | null {
+  const section = findSection(page, sectionId);
+  const slide = section?.visual?.[index];
+  return slide ?? null;
+}
+
 /**
  * Fast path: locate a widget by id in the target tree, preferring the section
  * named by the ref (so the ko path is a direct section lookup).
@@ -72,11 +99,12 @@ function findWidgetById(
 }
 
 /**
- * Resolve the target-locale widget addressed by a primary-locale registry ref.
+ * Resolve the target-locale target addressed by a primary-locale registry ref.
  *
  * 1. id lookup in `target` (ko, or any locale whose ids happen to align);
  * 2. positional pairing against `primary`: section index by `sectionId`, widget
- *    index within that section, guarded by a `type` equality check.
+ *    index within that section (slide index for `visual[i]` refs), guarded by a
+ *    `type` equality check for widgets.
  *
  * Returns `null` when there is no counterpart (unknown key → skipped silently).
  */
@@ -84,7 +112,24 @@ export function resolvePairedWidget(
   target: PageContent,
   ref: PairRef,
   primary?: PageContent | null,
-): WidgetNode | null {
+): ResolvedTarget | null {
+  const visualIndex = visualRefIndex(ref.widgetId);
+  if (visualIndex !== null) {
+    const directSlide = findVisualSlide(target, ref.sectionId, visualIndex);
+    if (directSlide) return directSlide;
+    if (!primary) return null;
+
+    const primarySections = primary.sections ?? [];
+    const primarySectionIndex = primarySections.findIndex(
+      (section) => section?.id === ref.sectionId,
+    );
+    if (primarySectionIndex < 0) return null;
+    if (visualIndex >= (primarySections[primarySectionIndex]?.visual?.length ?? 0)) return null;
+
+    const targetSection = (target.sections ?? [])[primarySectionIndex];
+    return targetSection?.visual?.[visualIndex] ?? null;
+  }
+
   const direct = findWidgetById(target, ref.sectionId, ref.widgetId);
   if (direct) return direct;
   if (!primary) return null;

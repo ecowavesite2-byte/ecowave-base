@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 
 import { applyPageOverrides } from "@/lib/content/merge";
+import { sectionWidgets } from "@/lib/content/pair";
 import { MOBILE_SECTION } from "@/components/content/SectionRenderer";
 import { adminDict, type AdminLocale } from "@/lib/admin/i18n";
 import type { PageContent, Section } from "@/lib/types";
@@ -76,21 +77,63 @@ function fieldLabelHead(def: RegistryDef, locale: RegistryLocale): string {
 }
 
 /**
- * Primary accordion label for a section: the first field's label head when that
- * is genuinely descriptive, otherwise the section name. Returns `""` when the
- * registry has no name that identifies the section (callers show the honest
- * `content.unnamedSection` text instead of inventing one).
+ * Primary accordion label for a section: the section name (the generator now
+ * emits a real per-section name) when present, otherwise the first field's
+ * label head. Returns `""` when neither carries anything identifying the
+ * section (callers show the honest `content.unnamedSection` text instead of
+ * inventing one).
  *
- * The crawled `section` name is usually just the site name, so it is kept as
- * grouping context in the header's meta line rather than used as the title.
+ * The field-label head ("텍스트 블록" etc.) is far less specific than the
+ * generated section name, so it is only the fallback.
  */
 function sectionPrimaryLabel(defs: RegistryDef[], locale: RegistryLocale): string {
   const def = defs[0];
   if (!def) return "";
   const name = sectionName(def, locale);
-  const head = fieldLabelHead(def, locale);
-  if (head && head !== name) return head;
-  return name;
+  if (name) return name;
+  return fieldLabelHead(def, locale);
+}
+
+/** `visual[3]` target widget id used by the hero-slide defs. */
+const VISUAL_WIDGET = /^visual\[(\d+)\]$/;
+
+/** Purely decorative crawled widget types; never reported as uneditable. */
+const DECORATIVE_WIDGET_TYPES = new Set(["padding", "hr"]);
+
+/**
+ * Widget types present in a crawled section that no registry def can edit.
+ * Defs are matched by `widgetId` (`visual[i]` defs address the slide array,
+ * which is not part of the rows/cols/aside widget walk). Decorative types are
+ * excluded; order follows the walk (rows → cols → children → aside).
+ */
+function uneditableWidgetTypes(section: Section | undefined, defs: RegistryDef[]): string[] {
+  if (!section) return [];
+  const editable = new Set(defs.map((def) => def.widgetId));
+  const out: string[] = [];
+  const seen = new Set<string>();
+  for (const widget of sectionWidgets(section)) {
+    if (DECORATIVE_WIDGET_TYPES.has(widget.type)) continue;
+    if (editable.has(widget.id)) continue;
+    if (seen.has(widget.type)) continue;
+    seen.add(widget.type);
+    out.push(widget.type);
+  }
+  return out;
+}
+
+/**
+ * Does a def's target exist in the crawled ko section? Regular defs address a
+ * widget id in the walked tree; `visual[i]` defs address the slide array.
+ * Returns `false` when there is no crawled section (unknown ≠ missing).
+ */
+function defTargetMissing(section: Section | undefined, def: RegistryDef): boolean {
+  if (!section) return false;
+  const visual = VISUAL_WIDGET.exec(def.widgetId);
+  if (visual) {
+    const index = Number(visual[1]);
+    return !(Array.isArray(section.visual) && index >= 0 && index < section.visual.length);
+  }
+  return !sectionWidgets(section).some((widget) => widget.id === def.widgetId);
 }
 
 /** `s20250811004ea868d7376` → `s2025081…d7376` (first 8 chars + `…` + last 5). */
@@ -242,6 +285,16 @@ export default function RegistryEditor({
       return next;
     });
 
+    // Locales that have already been persisted. If a later locale fails, these
+    // are merged into the effective baseline so the displayed values do not
+    // diverge from the DB until the next reload.
+    const succeeded: Partial<LocalePair> = {};
+    const mergeSucceeded = () =>
+      setValues((prev) => ({
+        ...prev,
+        [def.key]: { ...(prev[def.key] ?? EMPTY_PAIR), ...succeeded },
+      }));
+
     try {
       for (const { lang, value } of target) {
         const response = await fetch("/api/admin/registry", {
@@ -252,6 +305,7 @@ export default function RegistryEditor({
         if (!response.ok) {
           const data = (await response.json().catch(() => ({}))) as { error?: unknown };
           if (response.status === 503) setDbConfigured(false);
+          mergeSucceeded();
           setStatus((prev) => ({ ...prev, [def.key]: "error" }));
           setErrors((prev) => ({
             ...prev,
@@ -260,11 +314,13 @@ export default function RegistryEditor({
           }));
           return;
         }
+        succeeded[lang] = value;
       }
 
       setValues((prev) => ({ ...prev, [def.key]: { ...draft } }));
       setStatus((prev) => ({ ...prev, [def.key]: "saved" }));
     } catch {
+      mergeSucceeded();
       setStatus((prev) => ({ ...prev, [def.key]: "error" }));
       setErrors((prev) => ({ ...prev, [def.key]: t.failed }));
     }
@@ -289,30 +345,36 @@ export default function RegistryEditor({
     if (openItem.sectionId === "board") return { kind: "board" };
     const tree = trees[openItem.pageKey];
     if (!tree || !tree.ko) return { kind: "unavailable" };
+    const koTree = tree.ko;
 
-    const koSection = tree.ko.find((section) => section.id === openItem.sectionId);
+    const koSection = koTree.find((section) => section.id === openItem.sectionId);
     if (!koSection) return { kind: "unavailable" };
     // Shared footer chrome is filtered out of the public section stream.
     if (koSection.id === FOOTER_SECTION_ID) return { kind: "chrome" };
-    // Desktop-only preview: a mobile_section is hidden at >=992 by design.
+    // Desktop-only preview: a mobile_section is hidden at >=992 by design. This
+    // includes the MOBILE hero (visual) section, which keeps the "mobile"
+    // message. A DESKTOP visual section is not unavailable: the public home
+    // page renders it through HeroCarousel (see SectionPreview) instead of
+    // SectionRenderer, so it is resolved through the normal ko/en path.
     if (MOBILE_SECTION.test(koSection.cls || "")) return { kind: "mobile" };
 
-    try {
+    /** Resolve one crawled section to its draft-applied preview (ko/en). */
+    const resolveSection = (ko: Section, en: Section[] | null): Section | null => {
       if (previewLang === "ko") {
-        const page: PageContent = { key: openItem.pageKey, sourceUrl: "", title: "", sections: [koSection] };
-        const resolved = applyPageOverrides(page, draftOverrides, "ko");
-        const section = resolved.sections[0];
-        return section ? { kind: "ok", section } : { kind: "unavailable" };
+        const page: PageContent = { key: openItem.pageKey, sourceUrl: "", title: "", sections: [ko] };
+        return applyPageOverrides(page, draftOverrides, "ko").sections[0] ?? null;
       }
-
-      if (!tree.en) return { kind: "unavailable" };
-      const index = tree.ko.indexOf(koSection);
-      const enSection = tree.en[index];
-      if (!enSection) return { kind: "unavailable" };
-      const primary: PageContent = { key: openItem.pageKey, sourceUrl: "", title: "", sections: [koSection] };
+      if (!en) return null;
+      const index = koTree.indexOf(ko);
+      const enSection = en[index];
+      if (!enSection) return null;
+      const primary: PageContent = { key: openItem.pageKey, sourceUrl: "", title: "", sections: [ko] };
       const page: PageContent = { key: openItem.pageKey, sourceUrl: "", title: "", sections: [enSection] };
-      const resolved = applyPageOverrides(page, draftOverrides, "en", { primaryPage: primary });
-      const section = resolved.sections[0];
+      return applyPageOverrides(page, draftOverrides, "en", { primaryPage: primary }).sections[0] ?? null;
+    };
+
+    try {
+      const section = resolveSection(koSection, tree.en);
       return section ? { kind: "ok", section } : { kind: "unavailable" };
     } catch {
       return { kind: "unavailable" };
@@ -368,6 +430,12 @@ export default function RegistryEditor({
               const showDivider = !previous || previous.pageKey !== item.pageKey;
               const open = openSection === item.key;
               const route = item.defs[0]?.revalidate[0] ?? "";
+              // The crawled KO section backs the open-body hints/badges (it is
+              // the tree the registry keys were generated from).
+              const koTreeSection = open
+                ? trees[item.pageKey]?.ko?.find((section) => section.id === item.sectionId)
+                : undefined;
+              const uneditable = uneditableWidgetTypes(koTreeSection, item.defs);
               return (
                 <div key={item.key}>
                   {showDivider ? (
@@ -430,11 +498,15 @@ export default function RegistryEditor({
                             status={status[def.key] ?? "idle"}
                             error={errors[def.key]}
                             disabled={!dbConfigured}
+                            targetMissing={defTargetMissing(koTreeSection, def)}
                             t={t}
                             onDraft={(lang, value) => setDraft(def.key, lang, value)}
                             onSave={() => void save(def)}
                           />
                         ))}
+                        {uneditable.length > 0 ? (
+                          <p className="text-[11px] text-muted">{t.uneditableHint(uneditable.join(", "))}</p>
+                        ) : null}
                       </div>
                     ) : null}
                   </div>

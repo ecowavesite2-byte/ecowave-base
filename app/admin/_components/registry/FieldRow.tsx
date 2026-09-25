@@ -120,6 +120,7 @@ export default function FieldRow({
   status,
   error,
   disabled,
+  targetMissing = false,
   t,
   onDraft,
   onSave,
@@ -135,6 +136,8 @@ export default function FieldRow({
   status: SaveStatus;
   error?: string;
   disabled: boolean;
+  /** The def's target widget/slide is absent from the crawled section. */
+  targetMissing?: boolean;
   t: AdminDict["content"];
   onDraft: (locale: RegistryLocale, value: string) => void;
   onSave: () => void;
@@ -274,6 +277,11 @@ export default function FieldRow({
         <span className="rounded-[3px] bg-soft px-1.5 py-0.5 text-[11px] text-muted">
           {t.kinds[def.kind] ?? def.kind}
         </span>
+        {targetMissing ? (
+          <span className="rounded-[3px] bg-amber-100 px-1.5 py-0.5 text-[11px] text-amber-800">
+            {t.targetMissing}
+          </span>
+        ) : null}
         {isDefault ? (
           <span className="rounded-[3px] bg-soft px-1.5 py-0.5 text-[11px] text-muted">
             {t.defaultBadge}

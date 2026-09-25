@@ -51,6 +51,11 @@ const LABELS = {
   itemThumb: { ko: "썸네일", en: "Thumbnail" },
   buttonText: { ko: "버튼 텍스트", en: "Button text" },
   buttonHref: { ko: "버튼 링크", en: "Button link" },
+  imageHref: { ko: "이미지 링크", en: "Image link" },
+  videoSrc: { ko: "동영상 URL", en: "Video URL" },
+  codeBlock: { ko: "코드 블록", en: "Code block" },
+  heroImage: { ko: "히어로 이미지", en: "Hero image" },
+  heroText: { ko: "히어로 문구", en: "Hero text" },
   menuTitle: { ko: "메뉴 제목", en: "Menu title" },
   navLabel: { ko: "내비게이션 라벨", en: "Nav label" },
   navSubLabel: { ko: "하위 내비게이션 라벨", en: "Nav sub-label" },
@@ -100,6 +105,110 @@ function hasMenuTitle(section) {
 
 function isPageHeroSection(section) {
   return PAGE_HERO.test(section.cls || "") || hasMenuTitle(section);
+}
+
+/**
+ * Curated section names for crawl ids whose auto-derived name would be poor or
+ * missing. Keyed by section id; falls back to content-derived names.
+ */
+const TICKER_SECTION_ID = "s2025081139ff276cae8d6";
+const SECTION_NAME_OVERRIDES = {
+  [FOOTER_SECTION_ID]: { ko: "푸터", en: "Footer" },
+  [TICKER_SECTION_ID]: { ko: "공지사항 티커", en: "Notice ticker" },
+};
+
+/** Breakpoint tag so PC/mobile variants of the same block are distinguishable. */
+function breakpointOf(section) {
+  if (MOBILE_SECTION.test(section.cls || "")) return "mobile";
+  if (/(^|\s)pc_section(\s|$)/.test(section.cls || "")) return "pc";
+  return null;
+}
+
+/**
+ * Content-derived section name for one locale: first visible text, then menu
+ * title, then image alt/file, then a type-based fallback. `null` when the
+ * section carries no nameable content (e.g. spacers only).
+ */
+function autoSectionName(section, locale) {
+  if (Array.isArray(section.visual) && section.visual.length > 0) {
+    return locale === "en" ? "Main visual" : "메인 비주얼";
+  }
+  const widgets = sectionWidgets(section);
+  const text = widgets.find((w) => w.type === "text" && stripTags(w.html));
+  if (text) return truncate(stripTags(text.html), 34);
+  const menu = widgets.find((w) => w.type === "menu_title" && w.text);
+  if (menu) return truncate(menu.text, 34);
+  const image = widgets.find((w) => w.type === "image" && (w.alt || w.src));
+  if (image) return truncate(image.alt || basename(image.src), 34);
+  const types = new Set(widgets.map((w) => w.type));
+  if (types.has("gallery2")) return locale === "en" ? "Gallery" : "갤러리";
+  if (types.has("video")) return locale === "en" ? "Video" : "동영상";
+  if (types.has("newest")) return locale === "en" ? "Latest posts" : "게시판 최신글";
+  if (types.has("code")) return locale === "en" ? "Code block" : "코드 블록";
+  if (types.has("form")) return locale === "en" ? "Inquiry form" : "문의 폼";
+  if (types.has("board")) return locale === "en" ? "Board" : "게시판";
+  return null;
+}
+
+/** Per-section registry name (`section` field), breakpoint-tagged. */
+function sectionNameFor(koSection, enSection, pageSection) {
+  const override = SECTION_NAME_OVERRIDES[koSection.id];
+  const baseKo = override?.ko ?? autoSectionName(koSection, "ko") ?? pageSection.ko;
+  const baseEn =
+    override?.en ??
+    (enSection ? autoSectionName(enSection, "en") ?? baseKo : baseKo);
+  const bp = breakpointOf(koSection);
+  const prefix =
+    bp === "mobile"
+      ? { ko: "모바일 · ", en: "Mobile · " }
+      : bp === "pc"
+        ? { ko: "PC · ", en: "PC · " }
+        : { ko: "", en: "" };
+  return { ko: prefix.ko + baseKo, en: prefix.en + baseEn };
+}
+
+/**
+ * Append ` (2)`, ` (3)` … to sections that would otherwise share one label
+ * within a page (e.g. two PC-only code blocks), so every admin accordion is
+ * distinguishable. Order follows document order (first keeps the plain name).
+ */
+function disambiguateSectionNames(list) {
+  const groups = new Map();
+  for (const def of list) {
+    const sk = `${def.pageKey}#${def.sectionId}`;
+    let group = groups.get(sk);
+    if (!group) {
+      group = { pageKey: def.pageKey, label: def.section, defs: [] };
+      groups.set(sk, group);
+    }
+    group.defs.push(def);
+  }
+
+  const byPage = new Map();
+  for (const group of groups.values()) {
+    let labels = byPage.get(group.pageKey);
+    if (!labels) {
+      labels = new Map();
+      byPage.set(group.pageKey, labels);
+    }
+    const labelKey = `${group.label.ko}\u0000${group.label.en}`;
+    const bucket = labels.get(labelKey) ?? [];
+    bucket.push(group);
+    labels.set(labelKey, bucket);
+  }
+
+  for (const labels of byPage.values()) {
+    for (const bucket of labels.values()) {
+      if (bucket.length < 2) continue;
+      bucket.forEach((group, index) => {
+        if (index === 0) return;
+        const suffix = ` (${index + 1})`;
+        for (const def of group.defs) {
+          def.section = { ko: def.section.ko + suffix, en: def.section.en + suffix };
+        }
+      });
+    }
+  }
 }
 
 /** Section ids of `page` that no route renders (see the block comment above). */
@@ -241,6 +350,13 @@ const seen = new Map();
 const warnings = [];
 const unmappedWidgets = {};
 
+/**
+ * Monotonic emission counter. Sorting by `(pageKey, order)` preserves the
+ * SOURCE DOCUMENT ORDER of sections/widgets/fields instead of the old
+ * lexicographic `sectionId` order, which scrambled the admin accordion.
+ */
+let emissionOrder = 0;
+
 function addDef(entry) {
   const {
     pageKey,
@@ -274,6 +390,8 @@ function addDef(entry) {
     section,
     label,
     revalidate,
+    /** internal emission index (stripped before output) */
+    order: emissionOrder++,
   });
 
   const value = {};
@@ -327,7 +445,7 @@ function walkPages() {
     // has no page-title hero band; every other page drops the sections below.
     const dead = pageKey === "home" ? new Set() : deadSectionIds(koPage);
 
-    const section = {
+    const pageSection = {
       ko: koPage.title ?? pageKey,
       en: enPage?.title ?? koPage.title ?? pageKey,
     };
@@ -337,6 +455,11 @@ function walkPages() {
       // keep the EN index alignment: skip by position, not by filtering
       if (dead.has(koSection.id)) continue;
       const enSection = enPage?.sections?.[si];
+      const section = sectionNameFor(koSection, enSection, pageSection);
+      // the footer is shared chrome (SiteFooter renders it on every route), so
+      // its defs live in their own `common` group instead of bloating `home`
+      const sectionGroup =
+        isFooterSection(koSection) || koSection.id === FOOTER_SECTION_ID ? "common" : group;
       const koWidgets = sectionWidgets(koSection);
       const enWidgets = enSection ? sectionWidgets(enSection) : [];
 
@@ -353,13 +476,31 @@ function walkPages() {
 
         mapWidget({
           pageKey,
-          group,
+          group: sectionGroup,
           sectionId: koSection.id,
           section,
           revalidate,
           koWidget,
           enWidget,
         });
+      }
+
+      // hero slides (`section.visual`) are not widget nodes, so they get their
+      // own defs: `home#<sectionId>/visual[i]/bg|html`.
+      if (Array.isArray(koSection.visual)) {
+        const enVisual = Array.isArray(enSection?.visual) ? enSection.visual : [];
+        for (let vi = 0; vi < koSection.visual.length; vi += 1) {
+          mapVisual({
+            pageKey,
+            group: sectionGroup,
+            sectionId: koSection.id,
+            section,
+            revalidate,
+            slideIndex: vi,
+            koSlide: koSection.visual[vi],
+            enSlide: enVisual[vi] ?? null,
+          });
+        }
       }
     }
   }
@@ -411,6 +552,15 @@ function mapWidget({
         truncate(koWidget.alt, 40) || basename(koWidget.src),
         enWidget ? enSnippet(enWidget.alt) || enBase(enWidget.src) : undefined,
       );
+      // linked images: the click target is editable too
+      if (typeof koWidget.href === "string" && koWidget.href) {
+        addWidgetDef(
+          { ...base, field: "href", kind: "url", prefix: LABELS.imageHref, section,
+            koValue: koWidget.href, enValue: enWidget?.href },
+          truncate(koWidget.href, 40),
+          enSnippet(enWidget?.href),
+        );
+      }
       return;
     }
     case "button": {
@@ -470,10 +620,54 @@ function mapWidget({
       }
       return;
     }
+    case "video": {
+      addWidgetDef(
+        { ...base, field: "src", kind: "url", prefix: LABELS.videoSrc, section,
+          koValue: koWidget.src, enValue: enWidget?.src },
+        truncate(koWidget.src, 40),
+        enSnippet(enWidget?.src),
+      );
+      return;
+    }
+    case "code": {
+      const koHtml = typeof koWidget.html === "string" ? koWidget.html : undefined;
+      const enHtml = enWidget && typeof enWidget.html === "string" ? enWidget.html : undefined;
+      addWidgetDef(
+        { ...base, field: "html", kind: "textarea", prefix: LABELS.codeBlock, section,
+          koValue: koHtml, enValue: enHtml },
+        truncate(stripTags(koHtml), 40) || undefined,
+        enSnippet(stripTags(enHtml)),
+      );
+      return;
+    }
     default: {
       unmappedWidgets[type] = (unmappedWidgets[type] ?? 0) + 1;
     }
   }
+}
+
+/** Hero slides: `visual[i]` targets resolved by pair/merge at apply time. */
+function mapVisual({ pageKey, group, sectionId, section, revalidate, slideIndex, koSlide, enSlide }) {
+  const base = {
+    pageKey,
+    group,
+    sectionId,
+    widgetId: `visual[${slideIndex}]`,
+    revalidate,
+  };
+  const n = slideIndex + 1;
+  addWidgetDef(
+    { ...base, field: "bg", kind: "image", prefix: { ko: `${LABELS.heroImage.ko} ${n}`, en: `${LABELS.heroImage.en} ${n}` },
+      section, koValue: koSlide?.bg ?? undefined, enValue: enSlide?.bg },
+    basename(koSlide?.bg),
+    enBase(enSlide?.bg),
+  );
+  addWidgetDef(
+    { ...base, field: "html", kind: "textarea", prefix: { ko: `${LABELS.heroText.ko} ${n}`, en: `${LABELS.heroText.en} ${n}` },
+      section, koValue: koSlide?.html, enValue: enSlide?.html },
+    truncate(stripTags(koSlide?.html), 40) || undefined,
+    enSnippet(stripTags(enSlide?.html)),
+  );
 }
 
 // ---------------------------------------------------------------------------
@@ -581,17 +775,21 @@ function walkSite() {
 // emit
 // ---------------------------------------------------------------------------
 
+/**
+ * Page key stays the primary key (groups show pages in a stable route order),
+ * but within a page the emission index preserves the crawled DOCUMENT ORDER of
+ * sections → widgets → fields. The old `sectionId` string sort produced
+ * hash-ordered admin accordions unrelated to the rendered page.
+ */
 function sortDefs(list) {
   return [...list].sort((a, b) => {
     if (a.pageKey !== b.pageKey) return a.pageKey < b.pageKey ? -1 : 1;
-    if (a.sectionId !== b.sectionId) return a.sectionId < b.sectionId ? -1 : 1;
-    if (a.widgetId !== b.widgetId) return a.widgetId < b.widgetId ? -1 : 1;
-    if (a.field !== b.field) return a.field < b.field ? -1 : 1;
+    if (a.order !== b.order) return a.order - b.order;
     return a.key < b.key ? -1 : a.key > b.key ? 1 : 0;
   });
 }
 
-const GROUPS = ["home", "company", "rnd", "products", "boards", "site"];
+const GROUPS = ["home", "company", "rnd", "products", "boards", "site", "common"];
 
 function buildOutput(sorted) {
   const byGroup = Object.fromEntries(GROUPS.map((g) => [g, []]));
@@ -608,7 +806,7 @@ function buildOutput(sorted) {
 
   const types = `export type ContentKind = "text" | "textarea" | "image" | "url" | "list";
 
-export type ContentGroup = "home" | "company" | "rnd" | "products" | "boards" | "site";
+export type ContentGroup = ${GROUPS.map((g) => JSON.stringify(g)).join(" | ")};
 
 export interface ContentDef {
   /** Stable override key: \`<pageKey>#<sectionId>/<widgetId>/<field>\`. */
@@ -653,13 +851,32 @@ function main() {
   walkBoards();
   walkSite();
 
-  // `addDef` already skips + warns on duplicate keys, so `defs` keys are unique.
+  // make duplicate per-page section names distinguishable before emitting
+  disambiguateSectionNames(defs);
 
-  const sorted = sortDefs(defs);
+  // `addDef` already skips + warns on duplicate keys, so `defs` keys are unique.
+  // Strip the internal emission index before emitting the registry.
+  const sorted = sortDefs(defs).map((def) => {
+    const copy = { ...def };
+    delete copy.order;
+    return copy;
+  });
   const output = buildOutput(sorted);
 
-  fs.mkdirSync(path.dirname(OUT_FILE), { recursive: true });
-  fs.writeFileSync(OUT_FILE, output, "utf8");
+  // `--check` reports drift without writing (safe before/after crawl imports).
+  if (process.argv.includes("--check")) {
+    const current = fs.existsSync(OUT_FILE) ? fs.readFileSync(OUT_FILE, "utf8") : "";
+    if (current === output) {
+      console.log("registry is up to date (no diff)");
+    } else {
+      console.log("registry is OUT OF DATE — run `npm run content:registry`");
+      process.exitCode = 1;
+    }
+  } else {
+    fs.mkdirSync(path.dirname(OUT_FILE), { recursive: true });
+    fs.writeFileSync(OUT_FILE, output, "utf8");
+    console.log(`wrote ${path.relative(ROOT, OUT_FILE)}`);
+  }
 
   const byGroup = {};
   const byKind = {};

@@ -45,7 +45,7 @@ export function isAdminLocale(value: unknown): value is AdminLocale {
 }
 
 /** Content-group ids used by `app/admin/(dashboard)/content/page.tsx` (`?group=`). */
-export type AdminContentGroup = "home" | "company" | "rnd" | "products" | "boards" | "site";
+export type AdminContentGroup = "home" | "company" | "rnd" | "products" | "boards" | "site" | "common";
 
 export interface AdminDict {
   shell: {
@@ -177,6 +177,10 @@ export interface AdminDict {
     previewUnavailableChrome: string;
     /** Header label for a section whose fields/section carry no descriptive name. */
     unnamedSection: string;
+    /** Muted hint listing crawled widget types that have no editable registry def. */
+    uneditableHint: (types: string) => string;
+    /** Badge marking a def whose target widget/slide is missing from the crawl. */
+    targetMissing: string;
   };
   /**
    * `/admin/boards` + `/admin/boards/<slug>` — the board picker, the per-board
@@ -311,6 +315,7 @@ export const ADMIN_CONTENT_GROUPS: readonly {
   { group: "products", key: "products" },
   { group: "boards", key: "boards" },
   { group: "site", key: "site" },
+  { group: "common", key: "common" },
 ];
 
 /** Board slugs (`lib/content/boards.ts`) → sidebar label keys (order = sidebar order). */
@@ -349,6 +354,7 @@ const ko: AdminDict = {
       products: "제품 소개",
       boards: "게시판 콘텐츠",
       site: "사이트 내비게이션",
+      common: "공통",
     },
     boards: {
       news: "뉴스",
@@ -486,6 +492,8 @@ const ko: AdminDict = {
     previewUnavailableChrome:
       "이 섹션은 사이트 공통 푸터 영역이라 개별 섹션 미리보기에서 제외됩니다.",
     unnamedSection: "이름 없는 섹션",
+    uneditableHint: (types) => `편집할 수 없는 위젯: ${types}`,
+    targetMissing: "대상 없음",
   },
   boards: {
     title: "게시판",
@@ -631,6 +639,7 @@ const en: AdminDict = {
       products: "Products",
       boards: "Board content",
       site: "Site navigation",
+      common: "Common",
     },
     boards: {
       news: "News",
@@ -768,6 +777,8 @@ const en: AdminDict = {
     previewUnavailableChrome:
       "This is the shared footer chrome, so it is excluded from the per-section preview.",
     unnamedSection: "Unnamed section",
+    uneditableHint: (types) => `Not editable here: ${types}`,
+    targetMissing: "Target missing",
   },
   boards: {
     title: "Boards",
