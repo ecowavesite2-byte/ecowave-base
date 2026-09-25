@@ -151,3 +151,24 @@ export function resolvePairedWidget(
 
   return targetWidget;
 }
+
+/**
+ * Resolve the target-locale SECTION addressed by a primary-locale registry ref
+ * (used by the `visual/slides` hero-list def, which replaces a whole slide
+ * array rather than one widget field). Id lookup first, then positional pairing
+ * against `primary` exactly like `resolvePairedWidget`.
+ */
+export function resolvePairedSection(
+  target: PageContent,
+  ref: PairRef,
+  primary?: PageContent | null,
+): Section | null {
+  const direct = findSection(target, ref.sectionId);
+  if (direct) return direct;
+  if (!primary) return null;
+
+  const primarySections = primary.sections ?? [];
+  const index = primarySections.findIndex((section) => section?.id === ref.sectionId);
+  if (index < 0) return null;
+  return (target.sections ?? [])[index] ?? null;
+}

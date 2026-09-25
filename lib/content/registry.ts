@@ -5,7 +5,7 @@
 // table stores only overrides keyed by (key, locale); `DEFAULT_VALUES` below is
 // what the app falls back to when no override exists.
 
-export type ContentKind = "text" | "textarea" | "image" | "url" | "list";
+export type ContentKind = "text" | "textarea" | "lines" | "image" | "url" | "list" | "slides";
 
 export type ContentGroup = "home" | "company" | "rnd" | "products" | "boards" | "site" | "common";
 
@@ -32,14 +32,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s202508206321c39177601",
     "widgetId": "w20250820e1c08ac226481",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 더 건강하고 깨끗한 물을 만드는 고객과의 약속 에코웨이브를 …",
       "en": "PC · EcoWave promises healthier, clean…"
     },
     "label": {
-      "ko": "텍스트 블록 · 더 건강하고 깨끗한 물을 만드는 고객과의 약속 에코웨이브를 소개합니다.",
-      "en": "Text block · EcoWave promises healthier, cleaner wat…"
+      "ko": "텍스트 블록 · 더 건강하고 깨끗한 물을 만드는 고객과의 약속",
+      "en": "Text block · EcoWave promises healthier,"
     },
     "revalidate": [
       "/company",
@@ -53,14 +53,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250811fd0a82675a6bc",
     "widgetId": "w20250909fe979998d4590",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 에코웨이브 홈페이지를 찾아주신 모든 분들께 진심으로 감사를 …",
       "en": "PC · Thank you sincerely for visiting …"
     },
     "label": {
-      "ko": "텍스트 블록 · 에코웨이브 홈페이지를 찾아주신 모든 분들께 진심으로 감사를 드립니다.",
-      "en": "Text block · Thank you sincerely for visiting EcoWav…"
+      "ko": "텍스트 블록 · 에코웨이브",
+      "en": "Text block · Thank you sincerely"
     },
     "revalidate": [
       "/company",
@@ -74,14 +74,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250811fd0a82675a6bc",
     "widgetId": "w20250909edc32b5a0f8ec",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 에코웨이브 홈페이지를 찾아주신 모든 분들께 진심으로 감사를 …",
       "en": "PC · Thank you sincerely for visiting …"
     },
     "label": {
-      "ko": "텍스트 블록 · 존경하는 여러분께, 에코웨이브는 “깨끗한 물이 곧 건강한 삶의 시작” …",
-      "en": "Text block · To all you respect, EcoWave says, \"Clea…"
+      "ko": "텍스트 블록 · 존경하는 여러분께,",
+      "en": "Text block · To all you respect, EcoWave says,"
     },
     "revalidate": [
       "/company",
@@ -95,14 +95,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250811fd0a82675a6bc",
     "widgetId": "w20250909f454e7a9b1143",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 에코웨이브 홈페이지를 찾아주신 모든 분들께 진심으로 감사를 …",
       "en": "PC · Thank you sincerely for visiting …"
     },
     "label": {
-      "ko": "텍스트 블록 · 에코웨이브 대표 최 태 국",
-      "en": "Text block · Representative of EcoWave, Choi Tae-guk"
+      "ko": "텍스트 블록 · 에코웨이브 대표",
+      "en": "Text block · Representative of EcoWave,"
     },
     "revalidate": [
       "/company",
@@ -221,14 +221,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250821eb14df6d34580",
     "widgetId": "w20250821770900c60669c",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 더 건강하고 깨끗한 물을 만드는 고객과의 약속 에코웨이브를 …",
       "en": "PC · EcoWave promises healthier, clean…"
     },
     "label": {
-      "ko": "텍스트 블록 · 더 건강하고 깨끗한 물을 만드는 고객과의 약속 에코웨이브를 소개합니다.",
-      "en": "Text block · EcoWave promises healthier, cleaner wat…"
+      "ko": "텍스트 블록 · 더 건강하고 깨끗한 물을 만드는 고객과의 약속",
+      "en": "Text block · EcoWave promises healthier,"
     },
     "revalidate": [
       "/company/about",
@@ -284,14 +284,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s202509191b81eb54a6991",
     "widgetId": "w20250919f67f88afd25af",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "모바일 · 깨끗한 물, 건강한 삶을 만드는 에코웨이브",
       "en": "Mobile · Clean water, making a healthy lif…"
     },
     "label": {
-      "ko": "텍스트 블록 · 깨끗한 물, 건강한 삶을 만드는 에코웨이브",
-      "en": "Text block · Clean water, making a healthy life Eco-…"
+      "ko": "텍스트 블록 · 깨끗한 물,",
+      "en": "Text block · Clean water,"
     },
     "revalidate": [
       "/company/about",
@@ -305,13 +305,13 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s202509191b81eb54a6991",
     "widgetId": "w20250919473898f523ab7",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "모바일 · 깨끗한 물, 건강한 삶을 만드는 에코웨이브",
       "en": "Mobile · Clean water, making a healthy lif…"
     },
     "label": {
-      "ko": "텍스트 블록 · 맑고 깨끗한 물이 생활의 기본이자 건강의 근원이라는 믿음을 바탕으로, …",
+      "ko": "텍스트 블록 · 맑고 깨끗한 물이 생활의 기본이자 건강의 근원이라는 믿음을 바탕으로,",
       "en": "Text block · Based on the belief that clear and clea…"
     },
     "revalidate": [
@@ -368,13 +368,13 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250811457daf6e58a2c",
     "widgetId": "w202509187c7529a0c38c3",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 깨끗한 물, 건강한 삶을 만드는 에코웨이브",
       "en": "PC · Clean water, making a healthy lif…"
     },
     "label": {
-      "ko": "텍스트 블록 · 깨끗한 물, 건강한 삶을 만드는 에코웨이브",
+      "ko": "텍스트 블록 · 깨끗한 물,",
       "en": "Text block · Based on the belief that clear and clea…"
     },
     "revalidate": [
@@ -389,14 +389,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250811457daf6e58a2c",
     "widgetId": "w20250918684332dc780e7",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 깨끗한 물, 건강한 삶을 만드는 에코웨이브",
       "en": "PC · Clean water, making a healthy lif…"
     },
     "label": {
-      "ko": "텍스트 블록 · 맑고 깨끗한 물이 생활의 기본이자 건강의 근원이라는 믿음을 바탕으로, …",
-      "en": "Text block"
+      "ko": "텍스트 블록 · 맑고 깨끗한 물이 생활의 기본이자 건강의 근원이라는 믿음을 바탕으로,",
+      "en": "텍스트 블록 · 맑고 깨끗한 물이 생활의 기본이자 건강의 근원이라는 믿음을 바탕으로,"
     },
     "revalidate": [
       "/company/about",
@@ -410,13 +410,13 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250918e40b7f78d4437",
     "widgetId": "w20250918f607bbed181f6",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 에코웨이브 기술력",
       "en": "PC · Eco-wave technology"
     },
     "label": {
-      "ko": "텍스트 블록 · 에코웨이브 기술력",
+      "ko": "텍스트 블록 · 에코웨이브",
       "en": "Text block · Eco-wave technology"
     },
     "revalidate": [
@@ -431,14 +431,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250918e40b7f78d4437",
     "widgetId": "w20250918907bfdecbaebd",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 에코웨이브 기술력",
       "en": "PC · Eco-wave technology"
     },
     "label": {
-      "ko": "텍스트 블록 · POINT 01 친환경·프리미엄 수처리 기술력 고성능 필터와 마이크로 …",
-      "en": "Text block · POINT 02 OEM/Global Collaboration Capab…"
+      "ko": "텍스트 블록 · POINT 01",
+      "en": "Text block · POINT 02"
     },
     "revalidate": [
       "/company/about",
@@ -452,14 +452,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250918e40b7f78d4437",
     "widgetId": "w2025091834b55c4354127",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 에코웨이브 기술력",
       "en": "PC · Eco-wave technology"
     },
     "label": {
-      "ko": "텍스트 블록 · POINT 02 OEM/글로벌 협업 역량 국내외 대기업 공급 경험과 다…",
-      "en": "Text block · POINT 03 Advanced inspection and qualit…"
+      "ko": "텍스트 블록 · POINT 02",
+      "en": "Text block · POINT 03"
     },
     "revalidate": [
       "/company/about",
@@ -473,14 +473,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250918e40b7f78d4437",
     "widgetId": "w202509189da0d6c8fdca9",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 에코웨이브 기술력",
       "en": "PC · Eco-wave technology"
     },
     "label": {
-      "ko": "텍스트 블록 · POINT 03 첨단 검사 및 품질 관리 체계 중금속·세균 등 다중 항…",
-      "en": "Text block · POINT 04 Smart sterilization technology…"
+      "ko": "텍스트 블록 · POINT 03",
+      "en": "Text block · POINT 04"
     },
     "revalidate": [
       "/company/about",
@@ -494,14 +494,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250918e40b7f78d4437",
     "widgetId": "w20250918491b988a3f900",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 에코웨이브 기술력",
       "en": "PC · Eco-wave technology"
     },
     "label": {
-      "ko": "텍스트 블록 · POINT 04 스마트 살균 기술 친환경 공법과 IoT 센서를 활용해 …",
-      "en": "Text block · POINT 05 Mass production and global sup…"
+      "ko": "텍스트 블록 · POINT 04",
+      "en": "Text block · POINT 05"
     },
     "revalidate": [
       "/company/about",
@@ -515,14 +515,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250918e40b7f78d4437",
     "widgetId": "w20250918bf11a5c9a5e10",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 에코웨이브 기술력",
       "en": "PC · Eco-wave technology"
     },
     "label": {
-      "ko": "텍스트 블록 · POINT 05 대량 생산 및 글로벌 공급망 연간 25억 개 이상의 필…",
-      "en": "Text block"
+      "ko": "텍스트 블록 · POINT 05",
+      "en": "텍스트 블록 · POINT 05"
     },
     "revalidate": [
       "/company/about",
@@ -536,7 +536,7 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s202508119a2e8fe21b47a",
     "widgetId": "w20250918fb56c1bc5ba1c",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 에코웨이브가 만드는 건강한 생활 솔루션",
       "en": "PC · EcoWave's Healthy Living Solution"
@@ -557,7 +557,7 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s202508119a2e8fe21b47a",
     "widgetId": "w20250918824e703adf63a",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 에코웨이브가 만드는 건강한 생활 솔루션",
       "en": "PC · EcoWave's Healthy Living Solution"
@@ -1166,7 +1166,7 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250918c54b2950e2f1a",
     "widgetId": "w202509182e2d041573010",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 깨끗한 물을 위한 에코웨이브의 토탈 솔루션",
       "en": "PC · EcoWave's Total Solution for Clea…"
@@ -1187,13 +1187,13 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250918c54b2950e2f1a",
     "widgetId": "w20250918b4546d15749bb",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 깨끗한 물을 위한 에코웨이브의 토탈 솔루션",
       "en": "PC · EcoWave's Total Solution for Clea…"
     },
     "label": {
-      "ko": "텍스트 블록 · 정수기에서 필터, 살균 기술과 부품까지, 에코웨이브는 건강하고 안전한 …",
+      "ko": "텍스트 블록 · 정수기에서 필터, 살균 기술과 부품까지,",
       "en": "Text block · From water purifiers to filters to ster…"
     },
     "revalidate": [
@@ -1628,7 +1628,7 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250918c5a18b62c8acd",
     "widgetId": "w20250919d3f58a52c151b",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 우리 일상 속에서 만나는 에코웨이브",
       "en": "PC · Eco wave that we meet in our dail…"
@@ -1649,14 +1649,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250918c5a18b62c8acd",
     "widgetId": "w20250919eb33a28196229",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 우리 일상 속에서 만나는 에코웨이브",
       "en": "PC · Eco wave that we meet in our dail…"
     },
     "label": {
-      "ko": "텍스트 블록 · 정수기 언더싱크와 슬림형 등 다양한 제품군으로 구성된 에코웨이브의 정수…",
-      "en": "Text block · Water purifier EcoWave's water purifier…"
+      "ko": "텍스트 블록 · 정수기",
+      "en": "Text block · Water purifier"
     },
     "revalidate": [
       "/company/about",
@@ -1670,14 +1670,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250918c5a18b62c8acd",
     "widgetId": "w20250919a06813f5e869d",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 우리 일상 속에서 만나는 에코웨이브",
       "en": "PC · Eco wave that we meet in our dail…"
     },
     "label": {
-      "ko": "텍스트 블록 · 정수 필터 세디먼트, 프리카본, UF/RO/나노 멤브레인, 포스트카본 …",
-      "en": "Text block · Water filter Multistage water filters c…"
+      "ko": "텍스트 블록 · 정수 필터",
+      "en": "Text block · Water filter"
     },
     "revalidate": [
       "/company/about",
@@ -1691,14 +1691,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250918c5a18b62c8acd",
     "widgetId": "w202509196d95887d0ea56",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 우리 일상 속에서 만나는 에코웨이브",
       "en": "PC · Eco wave that we meet in our dail…"
     },
     "label": {
-      "ko": "텍스트 블록 · 비데 필터 항균볼과 세디먼트 필터가 적용된 에코웨이브의 비데 필터는 민…",
-      "en": "Text block · Bidet filter EcoWave's bidet filter wit…"
+      "ko": "텍스트 블록 · 비데 필터",
+      "en": "Text block · Bidet filter"
     },
     "revalidate": [
       "/company/about",
@@ -1712,14 +1712,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250918c5a18b62c8acd",
     "widgetId": "w2025091937ef9567e5c28",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 우리 일상 속에서 만나는 에코웨이브",
       "en": "PC · Eco wave that we meet in our dail…"
     },
     "label": {
-      "ko": "텍스트 블록 · 샤워·비타민 필터 잔류 염소 제거를 기본으로 아로마와 비타민 성분을 더…",
-      "en": "Text block · Shower/Vitamin Filter Based on residual…"
+      "ko": "텍스트 블록 · 샤워·비타민 필터",
+      "en": "Text block · Shower/Vitamin Filter"
     },
     "revalidate": [
       "/company/about",
@@ -1733,14 +1733,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250918c5a18b62c8acd",
     "widgetId": "w2025091911917416765db",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 우리 일상 속에서 만나는 에코웨이브",
       "en": "PC · Eco wave that we meet in our dail…"
     },
     "label": {
-      "ko": "텍스트 블록 · 살균 모듈 전극을 통해 물을 전기분해하여 살균수를 생성하는 살균 모듈은…",
-      "en": "Text block · Sterilization module Sterilization modu…"
+      "ko": "텍스트 블록 · 살균 모듈",
+      "en": "Text block · Sterilization module"
     },
     "revalidate": [
       "/company/about",
@@ -1754,14 +1754,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250918c5a18b62c8acd",
     "widgetId": "w20250919752cb4c4b07f1",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 우리 일상 속에서 만나는 에코웨이브",
       "en": "PC · Eco wave that we meet in our dail…"
     },
     "label": {
-      "ko": "텍스트 블록 · 부품 & 액세서리 저압 스위치(LPS), 핸드밸브, 다양한 피팅류 등으…",
-      "en": "Text block · Parts & Accessories Composed of low pre…"
+      "ko": "텍스트 블록 · 부품 & 액세서리",
+      "en": "Text block · Parts & Accessories"
     },
     "revalidate": [
       "/company/about",
@@ -1775,7 +1775,7 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250918ab81858502f9e",
     "widgetId": "w20250918c66e7987eaeca",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 기준은 높게, 품질은 정확하게",
       "en": "PC · High standards, high quality"
@@ -3560,14 +3560,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250918ffd77075d76ea",
     "widgetId": "w20250919f5460109361d6",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · R&D & MANUFACTURING 연구개발부터 글로벌 공급…",
       "en": "PC · R&D & MANUFACTURING From R&D to g…"
     },
     "label": {
-      "ko": "텍스트 블록 · R&D & MANUFACTURING 연구개발부터 글로벌 공급까지",
-      "en": "Text block · R&D & MANUFACTURING From R&D to global …"
+      "ko": "텍스트 블록 · R&D & MANUFACTURING",
+      "en": "Text block · R&D & MANUFACTURING"
     },
     "revalidate": [
       "/company/about",
@@ -4085,14 +4085,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s202509180d5f2b5ede2b3",
     "widgetId": "w2025091860d26840abbc7",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · Headquarters & Factory Locations …",
       "en": "PC · Headquarters & Factory Locations …"
     },
     "label": {
-      "ko": "텍스트 블록 · Headquarters & Factory Locations 세계 속의 …",
-      "en": "Text block · Headquarters & Factory Locations Eco Wa…"
+      "ko": "텍스트 블록 · Headquarters & Factory Locations",
+      "en": "Text block · Headquarters & Factory Locations"
     },
     "revalidate": [
       "/company/about",
@@ -4148,14 +4148,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s202509180d5f2b5ede2b3",
     "widgetId": "w2025091886eece88ff0c0",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · Headquarters & Factory Locations …",
       "en": "PC · Headquarters & Factory Locations …"
     },
     "label": {
-      "ko": "텍스트 블록 · 한국본사 인천광역시 남동구 은봉로 14 영도빌딩 2동 TEL: +82-…",
-      "en": "Text block · Korean headquarters 2-dong, Yeongdo Bui…"
+      "ko": "텍스트 블록 · 한국본사",
+      "en": "Text block · Korean headquarters"
     },
     "revalidate": [
       "/company/about",
@@ -4169,14 +4169,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s202509180d5f2b5ede2b3",
     "widgetId": "w20250919ad2bb4e856fba",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · Headquarters & Factory Locations …",
       "en": "PC · Headquarters & Factory Locations …"
     },
     "label": {
-      "ko": "텍스트 블록 · 중국 제조공장 Hongfuiie NO.90 Yantai, Shandon…",
-      "en": "Text block · Chinese manufacturing plant Hongfuiie N…"
+      "ko": "텍스트 블록 · 중국 제조공장",
+      "en": "Text block · Chinese manufacturing plant"
     },
     "revalidate": [
       "/company/about",
@@ -4190,14 +4190,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s202509180d5f2b5ede2b3",
     "widgetId": "w20250919aa8199dc628c3",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · Headquarters & Factory Locations …",
       "en": "PC · Headquarters & Factory Locations …"
     },
     "label": {
-      "ko": "텍스트 블록 · 캄보디아 오피스 Tuol Kork Phnom Penh City",
-      "en": "Text block · Cambodian Office Tuol Kork Phnom Penh C…"
+      "ko": "텍스트 블록 · 캄보디아 오피스",
+      "en": "Text block · Cambodian Office"
     },
     "revalidate": [
       "/company/about",
@@ -4337,14 +4337,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s202508206321c39177601",
     "widgetId": "w20250820e1c08ac226481",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 더 건강하고 깨끗한 물을 만드는 고객과의 약속 에코웨이브를 …",
       "en": "PC · EcoWave promises healthier, clean…"
     },
     "label": {
-      "ko": "텍스트 블록 · 더 건강하고 깨끗한 물을 만드는 고객과의 약속 에코웨이브를 소개합니다.",
-      "en": "Text block · EcoWave promises healthier, cleaner wat…"
+      "ko": "텍스트 블록 · 더 건강하고 깨끗한 물을 만드는 고객과의 약속",
+      "en": "Text block · EcoWave promises healthier,"
     },
     "revalidate": [
       "/company/ceo",
@@ -4358,14 +4358,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250811fd0a82675a6bc",
     "widgetId": "w20250909fe979998d4590",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 에코웨이브 홈페이지를 찾아주신 모든 분들께 진심으로 감사를 …",
       "en": "PC · Thank you sincerely for visiting …"
     },
     "label": {
-      "ko": "텍스트 블록 · 에코웨이브 홈페이지를 찾아주신 모든 분들께 진심으로 감사를 드립니다.",
-      "en": "Text block · Thank you sincerely for visiting EcoWav…"
+      "ko": "텍스트 블록 · 에코웨이브",
+      "en": "Text block · Thank you sincerely"
     },
     "revalidate": [
       "/company/ceo",
@@ -4379,14 +4379,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250811fd0a82675a6bc",
     "widgetId": "w20250909edc32b5a0f8ec",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 에코웨이브 홈페이지를 찾아주신 모든 분들께 진심으로 감사를 …",
       "en": "PC · Thank you sincerely for visiting …"
     },
     "label": {
-      "ko": "텍스트 블록 · 존경하는 여러분께, 에코웨이브는 “깨끗한 물이 곧 건강한 삶의 시작” …",
-      "en": "Text block · To all you respect, EcoWave says, \"Clea…"
+      "ko": "텍스트 블록 · 존경하는 여러분께,",
+      "en": "Text block · To all you respect, EcoWave says,"
     },
     "revalidate": [
       "/company/ceo",
@@ -4400,14 +4400,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250811fd0a82675a6bc",
     "widgetId": "w20250909f454e7a9b1143",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 에코웨이브 홈페이지를 찾아주신 모든 분들께 진심으로 감사를 …",
       "en": "PC · Thank you sincerely for visiting …"
     },
     "label": {
-      "ko": "텍스트 블록 · 에코웨이브 대표 최 태 국",
-      "en": "Text block · Representative of EcoWave, Choi Tae-guk"
+      "ko": "텍스트 블록 · 에코웨이브 대표",
+      "en": "Text block · Representative of EcoWave,"
     },
     "revalidate": [
       "/company/ceo",
@@ -4526,14 +4526,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250820da33f7f397fba",
     "widgetId": "w202508201a58c7d614215",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 더 건강하고 깨끗한 물을 만드는 고객과의 약속 에코웨이브를 …",
       "en": "PC · EcoWave promises healthier, clean…"
     },
     "label": {
-      "ko": "텍스트 블록 · 더 건강하고 깨끗한 물을 만드는 고객과의 약속 에코웨이브를 소개합니다.",
-      "en": "Text block · EcoWave promises healthier, cleaner wat…"
+      "ko": "텍스트 블록 · 더 건강하고 깨끗한 물을 만드는 고객과의 약속",
+      "en": "Text block · EcoWave promises healthier,"
     },
     "revalidate": [
       "/company/global",
@@ -4547,14 +4547,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250828182272ec01906",
     "widgetId": "w20250828247c9904b6b1e",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 에코웨이브 본사 인천광역시 남동구 은봉로 14 영도빌딩 2동",
       "en": "PC · EcoWave Headquarters 2-dong, Yeon…"
     },
     "label": {
-      "ko": "텍스트 블록 · 에코웨이브 본사 인천광역시 남동구 은봉로 14 영도빌딩 2동",
-      "en": "Text block · EcoWave Headquarters 2-dong, Yeongdo Bu…"
+      "ko": "텍스트 블록 · 에코웨이브 본사",
+      "en": "Text block · EcoWave Headquarters"
     },
     "revalidate": [
       "/company/global",
@@ -4568,35 +4568,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250828182272ec01906",
     "widgetId": "w2025082843a86201a5455",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 에코웨이브 본사 인천광역시 남동구 은봉로 14 영도빌딩 2동",
       "en": "PC · EcoWave Headquarters 2-dong, Yeon…"
     },
     "label": {
-      "ko": "텍스트 블록 · TEL +82-32-812-1800 FAX +82-32-812-1804…",
-      "en": "Text block · TEL +82-32-812-1800 FAX +82-32-812-1804…"
-    },
-    "revalidate": [
-      "/company/global",
-      "/en/company/global"
-    ]
-  },
-  {
-    "key": "company.global#s20250828182272ec01906/w202508280b0ed4b9954c7/html",
-    "group": "company",
-    "pageKey": "company.global",
-    "sectionId": "s20250828182272ec01906",
-    "widgetId": "w202508280b0ed4b9954c7",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "PC · 에코웨이브 본사 인천광역시 남동구 은봉로 14 영도빌딩 2동",
-      "en": "PC · EcoWave Headquarters 2-dong, Yeon…"
-    },
-    "label": {
-      "ko": "텍스트 블록",
-      "en": "Text block"
+      "ko": "텍스트 블록 · TEL",
+      "en": "Text block · TEL"
     },
     "revalidate": [
       "/company/global",
@@ -4610,14 +4589,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s202509111ecee05a61770",
     "widgetId": "w202509110c02a9a33a442",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "모바일 · TEL +82-32-812-1800 FAX +82-32-81…",
       "en": "Mobile · TEL +82-32-812-1800 FAX +82-32-81…"
     },
     "label": {
-      "ko": "텍스트 블록 · TEL +82-32-812-1800 FAX +82-32-812-1804…",
-      "en": "Text block · TEL +82-32-812-1800 FAX +82-32-812-1804…"
+      "ko": "텍스트 블록 · TEL",
+      "en": "Text block · TEL"
     },
     "revalidate": [
       "/company/global",
@@ -4631,35 +4610,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s202508286e01c87027ecf",
     "widgetId": "w20250828055c4220c2f68",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 중국 지사 상하이 옌타이 시티 Hongfuiie NO.90 …",
       "en": "PC · China branch Yantai City, Shangha…"
     },
     "label": {
-      "ko": "텍스트 블록 · 중국 지사 상하이 옌타이 시티 Hongfuiie NO.90 Yantai…",
-      "en": "Text block · China branch Yantai City, Shanghai Hong…"
-    },
-    "revalidate": [
-      "/company/global",
-      "/en/company/global"
-    ]
-  },
-  {
-    "key": "company.global#s202508286e01c87027ecf/w20250828e62031634c512/html",
-    "group": "company",
-    "pageKey": "company.global",
-    "sectionId": "s202508286e01c87027ecf",
-    "widgetId": "w20250828e62031634c512",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "PC · 중국 지사 상하이 옌타이 시티 Hongfuiie NO.90 …",
-      "en": "PC · China branch Yantai City, Shangha…"
-    },
-    "label": {
-      "ko": "텍스트 블록",
-      "en": "Text block"
+      "ko": "텍스트 블록 · 중국 지사",
+      "en": "Text block · China branch"
     },
     "revalidate": [
       "/company/global",
@@ -4673,35 +4631,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s202508286e01c87027ecf",
     "widgetId": "w20250828de7deb233dbfa",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 중국 지사 상하이 옌타이 시티 Hongfuiie NO.90 …",
       "en": "PC · China branch Yantai City, Shangha…"
     },
     "label": {
-      "ko": "텍스트 블록 · 캄보디아 지사 캄보디아 프놈펜 Tuol Kork Phnom Penh C…",
-      "en": "Text block · Cambodian branch Cambodia Phnom Penh Tu…"
-    },
-    "revalidate": [
-      "/company/global",
-      "/en/company/global"
-    ]
-  },
-  {
-    "key": "company.global#s202508286e01c87027ecf/w202508281ace26521721b/html",
-    "group": "company",
-    "pageKey": "company.global",
-    "sectionId": "s202508286e01c87027ecf",
-    "widgetId": "w202508281ace26521721b",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "PC · 중국 지사 상하이 옌타이 시티 Hongfuiie NO.90 …",
-      "en": "PC · China branch Yantai City, Shangha…"
-    },
-    "label": {
-      "ko": "텍스트 블록",
-      "en": "Text block"
+      "ko": "텍스트 블록 · 캄보디아 지사",
+      "en": "Text block · Cambodian branch"
     },
     "revalidate": [
       "/company/global",
@@ -4820,14 +4757,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s2025081109284c6634db6",
     "widgetId": "w2025081119c3906474684",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 더 건강하고 깨끗한 물을 만드는 고객과의 약속 에코웨이브를 …",
       "en": "PC · EcoWave promises healthier, clean…"
     },
     "label": {
-      "ko": "텍스트 블록 · 더 건강하고 깨끗한 물을 만드는 고객과의 약속 에코웨이브를 소개합니다.",
-      "en": "Text block · EcoWave promises healthier, cleaner wat…"
+      "ko": "텍스트 블록 · 더 건강하고 깨끗한 물을 만드는 고객과의 약속",
+      "en": "Text block · EcoWave promises healthier,"
     },
     "revalidate": [
       "/company/history",
@@ -4883,14 +4820,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250811d0a0980d730fb",
     "widgetId": "w2025082800cb79b620e9f",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 2020 - 2023 에코웨이브의 지속적 ​ 인 혁 ​ 신 …",
       "en": "PC · 2020 - 2023 ECO-WAVE Continuous i…"
     },
     "label": {
-      "ko": "텍스트 블록 · 2020 - 2023 에코웨이브의 지속적 ​ 인 혁 ​ 신 과 성장",
-      "en": "Text block · 2020 - 2023 ECO-WAVE Continuous innovat…"
+      "ko": "텍스트 블록 · 2020 - 2023",
+      "en": "Text block · 2020 - 2023"
     },
     "revalidate": [
       "/company/history",
@@ -4904,14 +4841,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250811d0a0980d730fb",
     "widgetId": "w202508283581492aaba5b",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 2020 - 2023 에코웨이브의 지속적 ​ 인 혁 ​ 신 …",
       "en": "PC · 2020 - 2023 ECO-WAVE Continuous i…"
     },
     "label": {
-      "ko": "텍스트 블록 · 2025 · LS대원 비데 필터 및 아답터 공급 · 쿠쿠 홈시스 마그네…",
-      "en": "Text block · 2025 · LS Daewon bidet filter and adapt…"
+      "ko": "텍스트 블록 · 2025",
+      "en": "Text block · 2025"
     },
     "revalidate": [
       "/company/history",
@@ -5009,14 +4946,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250828fe85691f33b65",
     "widgetId": "w20250828e83ff2674ace5",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 2015 - 2019 에코웨이브의 기술 과 서비스의 융합",
       "en": "PC · 2015 - 2019 ECO-WAVE convergence …"
     },
     "label": {
-      "ko": "텍스트 블록 · 2015 - 2019 에코웨이브의 기술 과 서비스의 융합",
-      "en": "Text block · 2015 - 2019 ECO-WAVE convergence of tec…"
+      "ko": "텍스트 블록 · 2015 - 2019",
+      "en": "Text block · 2015 - 2019"
     },
     "revalidate": [
       "/company/history",
@@ -5030,14 +4967,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250828fe85691f33b65",
     "widgetId": "w2025082812223844d5d61",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 2015 - 2019 에코웨이브의 기술 과 서비스의 융합",
       "en": "PC · 2015 - 2019 ECO-WAVE convergence …"
     },
     "label": {
-      "ko": "텍스트 블록 · 2019 · LG전자 정수기 아답터 개발 2018 · 쿠쿠 홈시스 정수…",
-      "en": "Text block · 2019 · Development of LG Electronics Wa…"
+      "ko": "텍스트 블록 · 2019",
+      "en": "Text block · 2019"
     },
     "revalidate": [
       "/company/history",
@@ -5135,14 +5072,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s2025082848202431448dd",
     "widgetId": "w20250828ed4c25cde1fa0",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 2010 - 2014 에코웨이브의 고객과 함께한 신뢰의 역사",
       "en": "PC · 2010 - 2014 ECO-WAVE a history of…"
     },
     "label": {
-      "ko": "텍스트 블록 · 2010 - 2014 에코웨이브의 고객과 함께한 신뢰의 역사",
-      "en": "Text block · 2010 - 2014 ECO-WAVE a history of trust…"
+      "ko": "텍스트 블록 · 2010 - 2014",
+      "en": "Text block · 2010 - 2014"
     },
     "revalidate": [
       "/company/history",
@@ -5156,14 +5093,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s2025082848202431448dd",
     "widgetId": "w202508288b50dcc1f5d69",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 2010 - 2014 에코웨이브의 고객과 함께한 신뢰의 역사",
       "en": "PC · 2010 - 2014 ECO-WAVE a history of…"
     },
     "label": {
-      "ko": "텍스트 블록 · 2014 · 기업 부설 연구소 설립 2013 · 자사 언더 싱크 정수기…",
-      "en": "Text block · 2014 · Establishment of corporate-affil…"
+      "ko": "텍스트 블록 · 2014",
+      "en": "Text block · 2014"
     },
     "revalidate": [
       "/company/history",
@@ -5324,14 +5261,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s2025082815dd6babdb335",
     "widgetId": "w202508282e3a21059f88e",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 더 건강하고 깨끗한 물을 만드는 고객과의 약속 에코웨이브를 …",
       "en": "PC · EcoWave promises healthier, clean…"
     },
     "label": {
-      "ko": "텍스트 블록 · 더 건강하고 깨끗한 물을 만드는 고객과의 약속 에코웨이브를 소개합니다.",
-      "en": "Text block · EcoWave promises healthier, cleaner wat…"
+      "ko": "텍스트 블록 · 더 건강하고 깨끗한 물을 만드는 고객과의 약속",
+      "en": "Text block · EcoWave promises healthier,"
     },
     "revalidate": [
       "/company/organization",
@@ -5492,14 +5429,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250821af3858f799ed0",
     "widgetId": "w20250821cacc4fa0b7888",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 더 건강하고 깨끗한 물을 만드는 고객과의 약속 에코웨이브를 …",
       "en": "PC · EcoWave promises healthier, clean…"
     },
     "label": {
-      "ko": "텍스트 블록 · 더 건강하고 깨끗한 물을 만드는 고객과의 약속 에코웨이브를 소개합니다.",
-      "en": "Text block · EcoWave promises healthier, cleaner wat…"
+      "ko": "텍스트 블록 · 더 건강하고 깨끗한 물을 만드는 고객과의 약속",
+      "en": "Text block · EcoWave promises healthier,"
     },
     "revalidate": [
       "/company/philosophy",
@@ -5513,7 +5450,7 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s202508119eca72dc669e0",
     "widgetId": "w20250828318841133c7bc",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · Mission",
       "en": "PC · Mission"
@@ -5534,14 +5471,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s202508119eca72dc669e0",
     "widgetId": "w2025082880e9f1cd594e5",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · Mission",
       "en": "PC · Mission"
     },
     "label": {
-      "ko": "텍스트 블록 · 물을 깨끗하게, 사람을 건강하게 에코웨이브의 사명 Eco-wave 사람…",
-      "en": "Text block · Clean water, healthy people. For happy …"
+      "ko": "텍스트 블록 · 물을 깨끗하게, 사람을 건강하게",
+      "en": "Text block · Clean water, healthy people."
     },
     "revalidate": [
       "/company/philosophy",
@@ -5555,7 +5492,7 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s202508119eca72dc669e0",
     "widgetId": "w202508286148935689b29",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · Mission",
       "en": "PC · Mission"
@@ -5576,14 +5513,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s202508119eca72dc669e0",
     "widgetId": "w202508285a7385a21e446",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · Mission",
       "en": "PC · Mission"
     },
     "label": {
-      "ko": "텍스트 블록 · 더 건강하고 깨끗한 물을 만드는 고객과의 약속 건강하기 위해서 중 요한…",
-      "en": "Text block · We promise cleaner water . Healthy life…"
+      "ko": "텍스트 블록 · 더 건강하고 깨끗한 물을 만드는 고객과의 약속",
+      "en": "Text block · We promise cleaner water"
     },
     "revalidate": [
       "/company/philosophy",
@@ -5618,7 +5555,7 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s202508280e68f158799c2",
     "widgetId": "w202508280d2f1669e2789",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · Environment Design Management",
       "en": "PC · Environment Design Management"
@@ -5681,14 +5618,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s202508280e68f158799c2",
     "widgetId": "w202508281ce9cfb92c9a4",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · Environment Design Management",
       "en": "PC · Environment Design Management"
     },
     "label": {
-      "ko": "텍스트 블록 · Environment Design Management / 환경 디자인관…",
-      "en": "Text block · Environment Design Management EcoWave i…"
+      "ko": "텍스트 블록 · Environment Design Management / 환경 디자인관리",
+      "en": "Text block · Environment Design Management"
     },
     "revalidate": [
       "/company/philosophy",
@@ -5723,7 +5660,7 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250829e04e5ce09ea7e",
     "widgetId": "w202508295885a3029f0c2",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 3단계 서비스",
       "en": "PC · Three-step service"
@@ -5744,14 +5681,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250829e04e5ce09ea7e",
     "widgetId": "w2025082996725d2a2d20e",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 3단계 서비스",
       "en": "PC · Three-step service"
     },
     "label": {
-      "ko": "텍스트 블록 · 차별화된 아이디어 IDEA 차별화된 가치는 우리의 시작점입니다. 고객의…",
-      "en": "Text block · Differentiated idea IDEA Differentiated…"
+      "ko": "텍스트 블록 · 차별화된 아이디어",
+      "en": "Text block · Differentiated idea"
     },
     "revalidate": [
       "/company/philosophy",
@@ -5765,14 +5702,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250829e04e5ce09ea7e",
     "widgetId": "w202508291aa62a1ed03bb",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 3단계 서비스",
       "en": "PC · Three-step service"
     },
     "label": {
-      "ko": "텍스트 블록 · 최고의 품질 Quality 전사적 자원관리를 바탕으로 최고의 품질을 실…",
-      "en": "Text block · Highest quality Quality We deliver the …"
+      "ko": "텍스트 블록 · 최고의 품질",
+      "en": "Text block · Highest quality"
     },
     "revalidate": [
       "/company/philosophy",
@@ -5786,14 +5723,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250829e04e5ce09ea7e",
     "widgetId": "w202508297535663fbc7e0",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 3단계 서비스",
       "en": "PC · Three-step service"
     },
     "label": {
-      "ko": "텍스트 블록 · 선행된 시간 관리 TIME 선행 품질관리, 선행 생산관리, 선행 납기관…",
-      "en": "Text block · Preceded time management TIME Prior qua…"
+      "ko": "텍스트 블록 · 선행된 시간 관리",
+      "en": "Text block · Preceded time management"
     },
     "revalidate": [
       "/company/philosophy",
@@ -5906,83 +5843,20 @@ export const CONTENT_DEFS: ContentDef[] = [
     ]
   },
   {
-    "key": "home#s20250811b5ffbb4730f67/visual[0]/bg",
+    "key": "home#s20250811b5ffbb4730f67/visual/slides",
     "group": "home",
     "pageKey": "home",
     "sectionId": "s20250811b5ffbb4730f67",
-    "widgetId": "visual[0]",
-    "field": "bg",
-    "kind": "image",
+    "widgetId": "visual",
+    "field": "slides",
+    "kind": "slides",
     "section": {
       "ko": "메인 비주얼",
       "en": "Main visual"
     },
     "label": {
-      "ko": "히어로 이미지 1 · 50e595a379834.jpg",
-      "en": "Hero image 1 · 50e595a379834.jpg"
-    },
-    "revalidate": [
-      "/",
-      "/en"
-    ]
-  },
-  {
-    "key": "home#s20250811b5ffbb4730f67/visual[0]/html",
-    "group": "home",
-    "pageKey": "home",
-    "sectionId": "s20250811b5ffbb4730f67",
-    "widgetId": "visual[0]",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "메인 비주얼",
-      "en": "Main visual"
-    },
-    "label": {
-      "ko": "히어로 문구 1 · 더 나은 미래, 풍요로운 삶 에코웨이브의 가치입니다. 우리의 비전은 자…",
-      "en": "Hero text 1 · EcoWave, for a better future and richer…"
-    },
-    "revalidate": [
-      "/",
-      "/en"
-    ]
-  },
-  {
-    "key": "home#s20250811b5ffbb4730f67/visual[1]/bg",
-    "group": "home",
-    "pageKey": "home",
-    "sectionId": "s20250811b5ffbb4730f67",
-    "widgetId": "visual[1]",
-    "field": "bg",
-    "kind": "image",
-    "section": {
-      "ko": "메인 비주얼",
-      "en": "Main visual"
-    },
-    "label": {
-      "ko": "히어로 이미지 2 · b8cb7e0cebd15.jpg",
-      "en": "Hero image 2 · b8cb7e0cebd15.jpg"
-    },
-    "revalidate": [
-      "/",
-      "/en"
-    ]
-  },
-  {
-    "key": "home#s20250811b5ffbb4730f67/visual[1]/html",
-    "group": "home",
-    "pageKey": "home",
-    "sectionId": "s20250811b5ffbb4730f67",
-    "widgetId": "visual[1]",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "메인 비주얼",
-      "en": "Main visual"
-    },
-    "label": {
-      "ko": "히어로 문구 2 · 더 나은 미래, 풍요로운 삶 에코웨이브의 가치입니다. 우리의 비전은 자…",
-      "en": "Hero text 2 · EcoWave, for a better future and richer…"
+      "ko": "메인 비주얼 슬라이드",
+      "en": "Main visual slides"
     },
     "revalidate": [
       "/",
@@ -6017,14 +5891,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250811004ea868d7376",
     "widgetId": "w202508116077d50475951",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "건강하고 깨끗한 물, 에코웨이브가 고객과 함께 더 나은 미래…",
       "en": "Healthy water, Eco-wave Together …"
     },
     "label": {
-      "ko": "텍스트 블록 · 건강하고 깨끗한 물, 에코웨이브가 고객과 함께 더 나은 미래를 만들어갑…",
-      "en": "Text block · Healthy water, Eco-wave Together we cre…"
+      "ko": "텍스트 블록 · 건강하고 깨끗한 물, 에코웨이브가",
+      "en": "Text block · Healthy water, Eco-wave"
     },
     "revalidate": [
       "/",
@@ -6311,13 +6185,13 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s202508116d15f8202cd82",
     "widgetId": "w20250811b716fff52cc61",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "에코웨이브는 깨끗한 물을 위한 기술 혁신과 친환경 가치 실현…",
       "en": "EcoWave promotes a healthy, susta…"
     },
     "label": {
-      "ko": "텍스트 블록 · 에코웨이브는 깨끗한 물을 위한 기술 혁신과 친환경 가치 실현을 통해 보…",
+      "ko": "텍스트 블록 · 에코웨이브는 깨끗한 물을 위한 기술 혁신과 친환경 가치 실현을 통해",
       "en": "Text block · EcoWave promotes a healthy, sustainable…"
     },
     "revalidate": [
@@ -6374,13 +6248,13 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250811611f0c372c57a",
     "widgetId": "w202508119108a47b15e11",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "친환경 기술혁신 을 통한 에코웨이브의 지속 가능한 미래",
       "en": "Through eco-friendly technologica…"
     },
     "label": {
-      "ko": "텍스트 블록 · 친환경 기술혁신 을 통한 에코웨이브의 지속 가능한 미래",
+      "ko": "텍스트 블록 · 친환경 기술혁신",
       "en": "Text block · Through eco-friendly technological inno…"
     },
     "revalidate": [
@@ -6437,14 +6311,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250811e48a3b857667a",
     "widgetId": "w2025081155a9d991c8dc5",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "생활환경 솔루션 첨단 정수 필터 기술과 살균 모듈, 위생 솔…",
       "en": "Living Solution Advanced filters …"
     },
     "label": {
-      "ko": "텍스트 블록 · 생활환경 솔루션 첨단 정수 필터 기술과 살균 모듈, 위생 솔루션을 기반…",
-      "en": "Text block · Living Solution Advanced filters & eco-…"
+      "ko": "텍스트 블록 · 생활환경 솔루션",
+      "en": "Text block · Living Solution"
     },
     "revalidate": [
       "/",
@@ -6500,14 +6374,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250811e48a3b857667a",
     "widgetId": "w20250811c5fb5f0d8fafd",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "생활환경 솔루션 첨단 정수 필터 기술과 살균 모듈, 위생 솔…",
       "en": "Living Solution Advanced filters …"
     },
     "label": {
-      "ko": "텍스트 블록 · 정수 소재 & 스마트 부품 정수기 필터, 비데 필터, 샤워기 필터 등 …",
-      "en": "Text block · Water & Smart Parts High-performance fi…"
+      "ko": "텍스트 블록 · 정수 소재 & 스마트 부품",
+      "en": "Text block · Water & Smart Parts"
     },
     "revalidate": [
       "/",
@@ -6563,14 +6437,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250811e48a3b857667a",
     "widgetId": "w202508119d8af42ac2987",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "생활환경 솔루션 첨단 정수 필터 기술과 살균 모듈, 위생 솔…",
       "en": "Living Solution Advanced filters …"
     },
     "label": {
-      "ko": "텍스트 블록 · 헬스 & 워터케어 물이 곧 건강이라는 철학 아래, 에코웨이브는 인류의 …",
-      "en": "Text block · Health & Care EcoWave develops next-gen…"
+      "ko": "텍스트 블록 · 헬스 & 워터케어",
+      "en": "Text block · Health & Care"
     },
     "revalidate": [
       "/",
@@ -6584,14 +6458,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250811b220484e22b98",
     "widgetId": "w202508127679af0442416",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "물을 깨끗하게, 사람을 건강하게 Clean Water, He…",
       "en": "Eco wave Clean Water, Healthy Peo…"
     },
     "label": {
-      "ko": "텍스트 블록 · 물을 깨끗하게, 사람을 건강하게 Clean Water, Healthy …",
-      "en": "Text block · Eco wave Clean Water, Healthy People."
+      "ko": "텍스트 블록 · 물을 깨끗하게, 사람을 건강하게",
+      "en": "Text block · Eco wave"
     },
     "revalidate": [
       "/",
@@ -6626,14 +6500,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s202508112787439deffdb",
     "widgetId": "w2025081255820418f5e3f",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "Headquarters & Factory Locations …",
       "en": "Headquarters & Factory Locations …"
     },
     "label": {
-      "ko": "텍스트 블록 · Headquarters & Factory Locations 세계 속의 …",
-      "en": "Text block · Headquarters & Factory Locations Eco Wa…"
+      "ko": "텍스트 블록 · Headquarters & Factory Locations",
+      "en": "Text block · Headquarters & Factory Locations"
     },
     "revalidate": [
       "/",
@@ -6689,14 +6563,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s202508112787439deffdb",
     "widgetId": "w202508128d2c07927c2ff",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "Headquarters & Factory Locations …",
       "en": "Headquarters & Factory Locations …"
     },
     "label": {
-      "ko": "텍스트 블록 · KOR [KOREA] 인천광역시 남동구 은봉로 14 영도빌딩 2동 TE…",
-      "en": "Text block · KOR [KOREA] 2-dong, Yeongdo Building, 1…"
+      "ko": "텍스트 블록 · KOR",
+      "en": "Text block · KOR"
     },
     "revalidate": [
       "/",
@@ -6710,14 +6584,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s202508112787439deffdb",
     "widgetId": "w2025081223442f1bcc005",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "Headquarters & Factory Locations …",
       "en": "Headquarters & Factory Locations …"
     },
     "label": {
-      "ko": "텍스트 블록 · CHN [CHINA] Hongfuiie NO.90 Yantai, Sha…",
-      "en": "Text block · CHN [CHINA] Hongfuiie NO.90 Yantai, Sha…"
+      "ko": "텍스트 블록 · CHN",
+      "en": "Text block · CHN"
     },
     "revalidate": [
       "/",
@@ -6731,14 +6605,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s202508112787439deffdb",
     "widgetId": "w20250812061e68ea9a22d",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "Headquarters & Factory Locations …",
       "en": "Headquarters & Factory Locations …"
     },
     "label": {
-      "ko": "텍스트 블록 · KHM [CAMBODIA] Tuol Kork Phnom Penh City",
-      "en": "Text block · KHM [CAMBODIA] Tuol Kork Phnom Penh City"
+      "ko": "텍스트 블록 · KHM",
+      "en": "Text block · KHM"
     },
     "revalidate": [
       "/",
@@ -6773,14 +6647,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s2025081139ff276cae8d6",
     "widgetId": "w202508119c5dc9cae67eb",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "공지사항 티커",
       "en": "Notice ticker"
     },
     "label": {
-      "ko": "텍스트 블록 · Notice 에코웨이브 이야기",
-      "en": "Text block · News The New Story of Ecowave"
+      "ko": "텍스트 블록 · Notice",
+      "en": "Text block · News"
     },
     "revalidate": [
       "/",
@@ -6935,41 +6809,20 @@ export const CONTENT_DEFS: ContentDef[] = [
     ]
   },
   {
-    "key": "home#s20250811f489e3443bdbe/w20250811379e3dc61aa7f/html",
-    "group": "common",
-    "pageKey": "home",
-    "sectionId": "s20250811f489e3443bdbe",
-    "widgetId": "w20250811379e3dc61aa7f",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "푸터",
-      "en": "Footer"
-    },
-    "label": {
-      "ko": "텍스트 블록",
-      "en": "Text block"
-    },
-    "revalidate": [
-      "/",
-      "/en"
-    ]
-  },
-  {
     "key": "home#s20250811f489e3443bdbe/w20250811c8ba21c61f272/html",
     "group": "common",
     "pageKey": "home",
     "sectionId": "s20250811f489e3443bdbe",
     "widgetId": "w20250811c8ba21c61f272",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "푸터",
       "en": "Footer"
     },
     "label": {
-      "ko": "텍스트 블록 · 대표 : 김나연 개인정보관리책임자 : 김나연 ㅣ 문의 : ecowave…",
-      "en": "Text block · CEO : Choi Taeguk Personal Information …"
+      "ko": "텍스트 블록 · 대표 : 김나연",
+      "en": "Text block · CEO : Choi Taeguk"
     },
     "revalidate": [
       "/",
@@ -7025,13 +6878,13 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250811f489e3443bdbe",
     "widgetId": "w20250919b68d158c2925e",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "푸터",
       "en": "Footer"
     },
     "label": {
-      "ko": "텍스트 블록 · 에코 웨이 브",
+      "ko": "텍스트 블록 · 에코",
       "en": "Text block · Ecowave"
     },
     "revalidate": [
@@ -7046,7 +6899,7 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250811f489e3443bdbe",
     "widgetId": "w202509198aeb3bd046ac9",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "푸터",
       "en": "Footer"
@@ -7067,7 +6920,7 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250811f489e3443bdbe",
     "widgetId": "w2025091955cb4ab654cac",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "푸터",
       "en": "Footer"
@@ -7088,7 +6941,7 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250811f489e3443bdbe",
     "widgetId": "w2025091988816c09014e4",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "푸터",
       "en": "Footer"
@@ -7109,7 +6962,7 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250811f489e3443bdbe",
     "widgetId": "w20250919e76996cca8992",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "푸터",
       "en": "Footer"
@@ -7130,14 +6983,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s202508205198a0d766f60",
     "widgetId": "w202508205b6f76d4a2c4d",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 더 건강하고 깨끗한 물을 만드는 고객과의 약속 에코웨이브의 …",
       "en": "PC · Promise of cleaner, healthier wat…"
     },
     "label": {
-      "ko": "텍스트 블록 · 더 건강하고 깨끗한 물을 만드는 고객과의 약속 에코웨이브의 새로운 소식…",
-      "en": "Text block · Promise of cleaner, healthier water. Ec…"
+      "ko": "텍스트 블록 · 더 건강하고 깨끗한 물을 만드는 고객과의 약속",
+      "en": "Text block · Promise of cleaner, healthier water."
     },
     "revalidate": [
       "/news",
@@ -7302,13 +7155,13 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s2025082036afa4e23fa8c",
     "widgetId": "w202508203bef670019226",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 더 건강하고 깨끗한 물을 만드는 고객과의 약속 에코웨이브의 …",
       "en": "PC · EcoWave promises cleaner, healthi…"
     },
     "label": {
-      "ko": "텍스트 블록 · 더 건강하고 깨끗한 물을 만드는 고객과의 약속 에코웨이브의 새로운 소식…",
+      "ko": "텍스트 블록 · 더 건강하고 깨끗한 물을 만드는 고객과의 약속",
       "en": "Text block · EcoWave promises cleaner, healthier wat…"
     },
     "revalidate": [
@@ -7633,14 +7486,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250909caaa8544e0e70",
     "widgetId": "w20250909b16e1f0580760",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 첨단 설비와 철저한 관리로 더 깨끗하고 안전한 물을 만듭니다.",
       "en": "PC · Advanced facilities and strict ma…"
     },
     "label": {
-      "ko": "텍스트 블록 · 첨단 설비와 철저한 관리로 더 깨끗하고 안전한 물을 만듭니다.",
-      "en": "Text block · Advanced facilities and strict manageme…"
+      "ko": "텍스트 블록 · 첨단 설비와 철저한 관리로",
+      "en": "Text block · Advanced facilities"
     },
     "revalidate": [
       "/rnd",
@@ -7696,14 +7549,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s202509091799d895b62ea",
     "widgetId": "w20250909a6322fa870d46",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 친환경·프리미엄 수처리 기술력 다단계 정수 시스템 세디먼트,…",
       "en": "PC · Eco-friendly premium water techno…"
     },
     "label": {
-      "ko": "텍스트 블록 · 친환경·프리미엄 수처리 기술력 다단계 정수 시스템 세디먼트, 프리카본,…",
-      "en": "Text block · Eco-friendly premium water technology m…"
+      "ko": "텍스트 블록 · 친환경·프리미엄",
+      "en": "Text block · Eco-friendly"
     },
     "revalidate": [
       "/rnd",
@@ -7780,14 +7633,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s2025090972e449f7846e1",
     "widgetId": "w20250909f986ae33491f9",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · OEM/글로벌 협업 역량 글로벌 대기업 공급 실적 LG, 쿠…",
       "en": "PC · OEM/Global Collaboration Capabili…"
     },
     "label": {
-      "ko": "텍스트 블록 · OEM/글로벌 협업 역량 글로벌 대기업 공급 실적 LG, 쿠쿠 등 주요…",
-      "en": "Text block · OEM/Global Collaboration Capabilities G…"
+      "ko": "텍스트 블록 · OEM/글로벌 협업 역량",
+      "en": "Text block · OEM/Global Collaboration Capabilities"
     },
     "revalidate": [
       "/rnd",
@@ -7843,13 +7696,13 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s2025090972e449f7846e1",
     "widgetId": "w20250909cabf29c2126d9",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · OEM/글로벌 협업 역량 글로벌 대기업 공급 실적 LG, 쿠…",
       "en": "PC · OEM/Global Collaboration Capabili…"
     },
     "label": {
-      "ko": "텍스트 블록 · 첨단 검사 및 품질 관리 체계 정밀 검사 장비 구축 잔류염소, 탁도, …",
+      "ko": "텍스트 블록 · 첨단 검사 및 품질 관리 체계",
       "en": "Text block · Advanced inspection and quality control…"
     },
     "revalidate": [
@@ -7927,14 +7780,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250909b12fa8000068e",
     "widgetId": "w202509093403364594dce",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 스마트·살균 기술 전극 기반 전기분해 살균 모듈 물을 전기분…",
       "en": "PC · Smart/sterilizing technology Elec…"
     },
     "label": {
-      "ko": "텍스트 블록 · 스마트·살균 기술 전극 기반 전기분해 살균 모듈 물을 전기분해해 염소를…",
-      "en": "Text block · Smart/sterilizing technology Electrode …"
+      "ko": "텍스트 블록 · 스마트·살균 기술",
+      "en": "Text block · Smart/sterilizing technology"
     },
     "revalidate": [
       "/rnd",
@@ -7990,14 +7843,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250909b12fa8000068e",
     "widgetId": "w20250909aaff6976da0b4",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 스마트·살균 기술 전극 기반 전기분해 살균 모듈 물을 전기분…",
       "en": "PC · Smart/sterilizing technology Elec…"
     },
     "label": {
-      "ko": "텍스트 블록 · 대량 생산 및 글로벌 공급망 대량 생산 능력 월 25만 개 생산 가능,…",
-      "en": "Text block · Mass production and global supply chain…"
+      "ko": "텍스트 블록 · 대량 생산 및 글로벌 공급망",
+      "en": "Text block · Mass production and global supply chain"
     },
     "revalidate": [
       "/rnd",
@@ -8032,7 +7885,7 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s2025090979d4f02da9a4c",
     "widgetId": "w202509098378a31a7319e",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 투자자 핵심 USP 요약",
       "en": "PC · Investor Core USP Summary"
@@ -8053,13 +7906,13 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s2025090979d4f02da9a4c",
     "widgetId": "w20250909deb55b36523e5",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 투자자 핵심 USP 요약",
       "en": "PC · Investor Core USP Summary"
     },
     "label": {
-      "ko": "텍스트 블록 · 건강하기 위해서 중요한 물, 소홀히 할 수 없습니다. 여러분들이 안심하…",
+      "ko": "텍스트 블록 · 건강하기 위해서 중요한 물, 소홀히 할 수 없습니다.",
       "en": "Text block · Water is vital to health and must not b…"
     },
     "revalidate": [
@@ -8599,14 +8452,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s202508207ea6e772a48a0",
     "widgetId": "w20250820e4cafbac3320e",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 첨단 설비와 철저한 관리로 더 깨끗하고 안전한 물을 만듭니다.",
       "en": "PC · Advanced facilities and strict ma…"
     },
     "label": {
-      "ko": "텍스트 블록 · 첨단 설비와 철저한 관리로 더 깨끗하고 안전한 물을 만듭니다.",
-      "en": "Text block · Advanced facilities and strict manageme…"
+      "ko": "텍스트 블록 · 첨단 설비와 철저한 관리로",
+      "en": "Text block · Advanced facilities"
     },
     "revalidate": [
       "/rnd/facilities",
@@ -8620,7 +8473,7 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s2025081165e9bc78b81eb",
     "widgetId": "w2025082017159663bed3c",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 생산설비",
       "en": "PC · Production facilities"
@@ -8641,13 +8494,13 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s2025081165e9bc78b81eb",
     "widgetId": "w202508207cdb6535abb7d",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 생산설비",
       "en": "PC · Production facilities"
     },
     "label": {
-      "ko": "텍스트 블록 · 건강하기 위해서 중요한 물, 소홀히 할 수 없습니다. 여러분들이 안심하…",
+      "ko": "텍스트 블록 · 건강하기 위해서 중요한 물, 소홀히 할 수 없습니다.",
       "en": "Text block · Water, which is important to be healthy…"
     },
     "revalidate": [
@@ -8704,7 +8557,7 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250829c25afe324e195",
     "widgetId": "w2025082935a39e86acbcc",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 생산능력",
       "en": "PC · Production capacity"
@@ -8725,7 +8578,7 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250829c25afe324e195",
     "widgetId": "w20250829cd9176971c728",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 생산능력",
       "en": "PC · Production capacity"
@@ -8746,14 +8599,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250829c25afe324e195",
     "widgetId": "w20250829bb21466f4e0f1",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 생산능력",
       "en": "PC · Production capacity"
     },
     "label": {
-      "ko": "텍스트 블록 · 설비명 대 수 회전융착기 3 공압검사기 2 라벨부착기 3 수축포장기 2…",
-      "en": "Text block · Facility name Number Rotary fusion mach…"
+      "ko": "텍스트 블록 · 설비명",
+      "en": "Text block · Facility name"
     },
     "revalidate": [
       "/rnd/facilities",
@@ -8767,7 +8620,7 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250829c25afe324e195",
     "widgetId": "w20250829dc320d96d4f7e",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 생산능력",
       "en": "PC · Production capacity"
@@ -8788,14 +8641,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250829c25afe324e195",
     "widgetId": "w20250829370d74ba50fab",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 생산능력",
       "en": "PC · Production capacity"
     },
     "label": {
-      "ko": "텍스트 블록 · 설비명 대 수 잔류염소측정기 1 탁도 측정기 1 경도 측정기 1 ORP…",
-      "en": "Text block · Facility name Number Residual chlorine …"
+      "ko": "텍스트 블록 · 설비명",
+      "en": "Text block · Facility name"
     },
     "revalidate": [
       "/rnd/facilities",
@@ -8809,7 +8662,7 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250829c25afe324e195",
     "widgetId": "w20250829336d480a01019",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 생산능력",
       "en": "PC · Production capacity"
@@ -8830,14 +8683,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250829c25afe324e195",
     "widgetId": "w202508298781405b23d22",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 생산능력",
       "en": "PC · Production capacity"
     },
     "label": {
-      "ko": "텍스트 블록 · 설비명 대 수 수압시험기 1 공압시험기 1 항온항습기 1 Total 3",
-      "en": "Text block · Facility name Number Hydraulic tester 1…"
+      "ko": "텍스트 블록 · 설비명",
+      "en": "Text block · Facility name"
     },
     "revalidate": [
       "/rnd/facilities",
@@ -8851,7 +8704,7 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250829c25afe324e195",
     "widgetId": "w202508292eb257f4075b4",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 생산능력",
       "en": "PC · Production capacity"
@@ -8872,14 +8725,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250829c25afe324e195",
     "widgetId": "w202508293b8acaf6df97a",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 생산능력",
       "en": "PC · Production capacity"
     },
     "label": {
-      "ko": "텍스트 블록 · 생산능력 수 량 Units / hr 1,250 ea Units / da…",
-      "en": "Text block · Production capacity Number Units / hr 1…"
+      "ko": "텍스트 블록 · 생산능력",
+      "en": "Text block · Production capacity"
     },
     "revalidate": [
       "/rnd/facilities",
@@ -8998,14 +8851,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s2025082027290aa48803c",
     "widgetId": "w20250820f45ae1e9a7239",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 첨단 설비와 철저한 관리로 더 깨끗하고 안전한 물을 만듭니다.",
       "en": "PC · Advanced facilities and strict ma…"
     },
     "label": {
-      "ko": "텍스트 블록 · 첨단 설비와 철저한 관리로 더 깨끗하고 안전한 물을 만듭니다.",
-      "en": "Text block · Advanced facilities and strict manageme…"
+      "ko": "텍스트 블록 · 첨단 설비와 철저한 관리로",
+      "en": "Text block · Advanced facilities"
     },
     "revalidate": [
       "/rnd/patents",
@@ -9019,7 +8872,7 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s202508114d9bc90ceb876",
     "widgetId": "w20250820275c6573162a6",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 인증 현황",
       "en": "PC · Certification Status"
@@ -10216,7 +10069,7 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s202508114d9bc90ceb876",
     "widgetId": "w2025082061b08b8c142c7",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 인증 현황",
       "en": "PC · Certification Status"
@@ -10573,7 +10426,7 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s202508114d9bc90ceb876",
     "widgetId": "w202508201caaa295b789a",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 인증 현황",
       "en": "PC · Certification Status"
@@ -11035,14 +10888,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250909caaa8544e0e70",
     "widgetId": "w20250909b16e1f0580760",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 첨단 설비와 철저한 관리로 더 깨끗하고 안전한 물을 만듭니다.",
       "en": "PC · Advanced facilities and strict ma…"
     },
     "label": {
-      "ko": "텍스트 블록 · 첨단 설비와 철저한 관리로 더 깨끗하고 안전한 물을 만듭니다.",
-      "en": "Text block · Advanced facilities and strict manageme…"
+      "ko": "텍스트 블록 · 첨단 설비와 철저한 관리로",
+      "en": "Text block · Advanced facilities"
     },
     "revalidate": [
       "/rnd/technology",
@@ -11098,14 +10951,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s202509091799d895b62ea",
     "widgetId": "w20250909a6322fa870d46",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 친환경·프리미엄 수처리 기술력 다단계 정수 시스템 세디먼트,…",
       "en": "PC · Eco-friendly premium water techno…"
     },
     "label": {
-      "ko": "텍스트 블록 · 친환경·프리미엄 수처리 기술력 다단계 정수 시스템 세디먼트, 프리카본,…",
-      "en": "Text block · Eco-friendly premium water technology m…"
+      "ko": "텍스트 블록 · 친환경·프리미엄",
+      "en": "Text block · Eco-friendly"
     },
     "revalidate": [
       "/rnd/technology",
@@ -11182,14 +11035,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s2025090972e449f7846e1",
     "widgetId": "w20250909f986ae33491f9",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · OEM/글로벌 협업 역량 글로벌 대기업 공급 실적 LG, 쿠…",
       "en": "PC · OEM/Global Collaboration Capabili…"
     },
     "label": {
-      "ko": "텍스트 블록 · OEM/글로벌 협업 역량 글로벌 대기업 공급 실적 LG, 쿠쿠 등 주요…",
-      "en": "Text block · OEM/Global Collaboration Capabilities G…"
+      "ko": "텍스트 블록 · OEM/글로벌 협업 역량",
+      "en": "Text block · OEM/Global Collaboration Capabilities"
     },
     "revalidate": [
       "/rnd/technology",
@@ -11245,13 +11098,13 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s2025090972e449f7846e1",
     "widgetId": "w20250909cabf29c2126d9",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · OEM/글로벌 협업 역량 글로벌 대기업 공급 실적 LG, 쿠…",
       "en": "PC · OEM/Global Collaboration Capabili…"
     },
     "label": {
-      "ko": "텍스트 블록 · 첨단 검사 및 품질 관리 체계 정밀 검사 장비 구축 잔류염소, 탁도, …",
+      "ko": "텍스트 블록 · 첨단 검사 및 품질 관리 체계",
       "en": "Text block · Advanced inspection and quality control…"
     },
     "revalidate": [
@@ -11329,14 +11182,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250909b12fa8000068e",
     "widgetId": "w202509093403364594dce",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 스마트·살균 기술 전극 기반 전기분해 살균 모듈 물을 전기분…",
       "en": "PC · Smart/sterilizing technology Elec…"
     },
     "label": {
-      "ko": "텍스트 블록 · 스마트·살균 기술 전극 기반 전기분해 살균 모듈 물을 전기분해해 염소를…",
-      "en": "Text block · Smart/sterilizing technology Electrode …"
+      "ko": "텍스트 블록 · 스마트·살균 기술",
+      "en": "Text block · Smart/sterilizing technology"
     },
     "revalidate": [
       "/rnd/technology",
@@ -11392,14 +11245,14 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s20250909b12fa8000068e",
     "widgetId": "w20250909aaff6976da0b4",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 스마트·살균 기술 전극 기반 전기분해 살균 모듈 물을 전기분…",
       "en": "PC · Smart/sterilizing technology Elec…"
     },
     "label": {
-      "ko": "텍스트 블록 · 대량 생산 및 글로벌 공급망 대량 생산 능력 월 25만 개 생산 가능,…",
-      "en": "Text block · Mass production and global supply chain…"
+      "ko": "텍스트 블록 · 대량 생산 및 글로벌 공급망",
+      "en": "Text block · Mass production and global supply chain"
     },
     "revalidate": [
       "/rnd/technology",
@@ -11434,7 +11287,7 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s2025090979d4f02da9a4c",
     "widgetId": "w202509098378a31a7319e",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 투자자 핵심 USP 요약",
       "en": "PC · Investor Core USP Summary"
@@ -11455,13 +11308,13 @@ export const CONTENT_DEFS: ContentDef[] = [
     "sectionId": "s2025090979d4f02da9a4c",
     "widgetId": "w20250909deb55b36523e5",
     "field": "html",
-    "kind": "textarea",
+    "kind": "lines",
     "section": {
       "ko": "PC · 투자자 핵심 USP 요약",
       "en": "PC · Investor Core USP Summary"
     },
     "label": {
-      "ko": "텍스트 블록 · 건강하기 위해서 중요한 물, 소홀히 할 수 없습니다. 여러분들이 안심하…",
+      "ko": "텍스트 블록 · 건강하기 위해서 중요한 물, 소홀히 할 수 없습니다.",
       "en": "Text block · Water is vital to health and must not b…"
     },
     "revalidate": [
@@ -12484,8 +12337,8 @@ export const CONTENT_DEFS: ContentDef[] = [
 /** Code-side defaults, seeded from content/*.json (DB values override these). */
 export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
   "company.about#s20250821eb14df6d34580/w20250821770900c60669c/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">더 건강하고 깨끗한 물을 만드는 고객과의 약속</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">에코웨이브를 소개합니다.</span></strong></h6></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">EcoWave promises healthier,</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">cleaner water for customers.</span></strong></h6></div></div>\n\t"
+    "ko": "더 건강하고 깨끗한 물을 만드는 고객과의 약속\n에코웨이브를 소개합니다.",
+    "en": "EcoWave promises healthier,\ncleaner water for customers."
   },
   "company.about#s202509191b81eb54a6991/w202509191cf358c2625d5/src": {
     "ko": "/images/thumbnail/20250919/196f5234277f5.jpg",
@@ -12496,12 +12349,12 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "en": ""
   },
   "company.about#s202509191b81eb54a6991/w20250919f67f88afd25af/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: left; line-height: 2;\"><span style=\"font-size: 24px;\"><strong><span style=\"color: rgb(18, 18, 18);\">깨끗한 물,&nbsp;</span></strong><strong><span style=\"color: rgb(18, 18, 18);\">건강한 삶을 만드는</span></strong></span></h6><h6 style=\"text-align: left; line-height: 2;\"><span style=\"font-size: 24px;\"><strong><span style=\"color: rgb(57, 112, 235);\">에코웨이브 </span></strong></span></h6></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: left; line-height: 2;\"><span style=\"font-size: 24px;\"><strong><span style=\"color: rgb(18, 18, 18);\">Clean water,&nbsp;</span></strong></span></h6><h6 style=\"text-align: left; line-height: 2;\"><span style=\"font-size: 24px;\"><strong><span style=\"color: rgb(18, 18, 18);\">making a healthy life&nbsp;</span></strong></span></h6><h6 style=\"text-align: left; line-height: 2;\"><span style=\"font-size: 24px;\"><strong><span style=\"color: rgb(57, 112, 235);\">Eco-wave </span></strong></span></h6></div></div>\n\t"
+    "ko": "깨끗한 물,\n건강한 삶을 만드는\n에코웨이브",
+    "en": "Clean water,\nmaking a healthy life\nEco-wave"
   },
   "company.about#s202509191b81eb54a6991/w20250919473898f523ab7/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><h6 style=\"line-height: 2;\"><span style=\"font-size: 16px;\">맑고 깨끗한 물이 생활의 기본이자 건강의 근원이라는 믿음을 바탕으로,&nbsp;</span><span style=\"font-size: 16px;\">우리는 혁신적인 정수기와 고성능 필터 솔루션을 연구·개발하여 가정과 기업에 공급하고 있습니다.</span></h6><h6 style=\"line-height: 2;\"><span style=\"font-size: 16px;\">작은 한 방울의 물까지도 안전하게 지켜내는 기술력과 지속 가능한 친환경 철학을 바탕으로,&nbsp;</span><span style=\"font-size: 16px;\">고객의 삶의 질을 높이고 미래 세대에게 더욱 깨끗한 환경을 물려주기 위해 노력하고 있습니다.</span></h6></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><h6 style=\"line-height: 2;\"><span style=\"font-size: 16px;\">Based on the belief that clear and clean water is the basis of life and the source of health,<br style=\"color: rgb(68, 68, 71); font-family: -apple-system, BlinkMacSystemFont, &quot;Malgun Gothic&quot;, &quot;맑은 고딕&quot;, helvetica, &quot;Apple SD Gothic Neo&quot;, helvetica, &quot;나눔바른고딕 옛한글&quot;, &quot;NanumBarunGothic YetHangul&quot;, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: -0.1px; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;\">We research and develop innovative water purifiers and high-performance filter solutions and supply them to homes and businesses.&nbsp;</span></h6><h6 style=\"line-height: 2;\"><span style=\"font-size: 16px;\">Based on technology and sustainable eco-friendly philosophy that keeps even a tiny drop of water safe, We strive to improve the quality of life of our customers and pass on a cleaner environment to future generations.</span></h6></div></div>\n\t"
+    "ko": "맑고 깨끗한 물이 생활의 기본이자 건강의 근원이라는 믿음을 바탕으로,\n우리는 혁신적인 정수기와 고성능 필터 솔루션을 연구·개발하여 가정과 기업에 공급하고 있습니다.\n작은 한 방울의 물까지도 안전하게 지켜내는 기술력과 지속 가능한 친환경 철학을 바탕으로,\n고객의 삶의 질을 높이고 미래 세대에게 더욱 깨끗한 환경을 물려주기 위해 노력하고 있습니다.",
+    "en": "Based on the belief that clear and clean water is the basis of life and the source of health,\nWe research and develop innovative water purifiers and high-performance filter solutions and supply them to homes and businesses.\nBased on technology and sustainable eco-friendly philosophy that keeps even a tiny drop of water safe, We strive to improve the quality of life of our customers and pass on a cleaner environment to future generations."
   },
   "company.about#s20250811457daf6e58a2c/w2025091840bd06b2a6c1d/src": {
     "ko": "/images/thumbnail/20250918/5cda7b9aa9b6e.jpg",
@@ -12512,42 +12365,42 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "en": ""
   },
   "company.about#s20250811457daf6e58a2c/w202509187c7529a0c38c3/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: left; line-height: 2;\"><span style=\"font-size: 60px;\"><strong><span style=\"color: rgb(18, 18, 18);\">깨끗한 물,</span></strong></span></h6><h6 style=\"text-align: left; line-height: 2;\"><span style=\"font-size: 60px;\"><strong><span style=\"color: rgb(18, 18, 18);\">건강한 삶을 만드는</span></strong></span></h6><h6 style=\"text-align: left; line-height: 2;\"><span style=\"font-size: 60px;\"><strong><span style=\"color: rgb(57, 112, 235);\">에코웨이브&nbsp;</span></strong></span></h6></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><h6 style=\"line-height: 2;\"><span style=\"font-size: 18px;\">Based on the belief that clear and clean water is the basis of life and the source of health,<br style=\"color: rgb(68, 68, 71); font-family: -apple-system, BlinkMacSystemFont, &quot;Malgun Gothic&quot;, &quot;맑은 고딕&quot;, helvetica, &quot;Apple SD Gothic Neo&quot;, helvetica, &quot;나눔바른고딕 옛한글&quot;, &quot;NanumBarunGothic YetHangul&quot;, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: -0.1px; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;\">We research and develop innovative water purifiers and high-performance filter solutions and supply them to homes and businesses.&nbsp;</span></h6><h6 style=\"line-height: 2;\"><span style=\"font-size: 18px;\">Based on technology and sustainable eco-friendly philosophy that keeps even a tiny drop of water safe, We strive to improve the quality of life of our customers and pass on a cleaner environment to future generations.</span></h6></div></div>\n\t"
+    "ko": "깨끗한 물,\n건강한 삶을 만드는\n에코웨이브",
+    "en": "Based on the belief that clear and clean water is the basis of life and the source of health,\nWe research and develop innovative water purifiers and high-performance filter solutions and supply them to homes and businesses.\nBased on technology and sustainable eco-friendly philosophy that keeps even a tiny drop of water safe, We strive to improve the quality of life of our customers and pass on a cleaner environment to future generations."
   },
   "company.about#s20250811457daf6e58a2c/w20250918684332dc780e7/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><h6 style=\"line-height: 2;\"><span style=\"font-size: 18px;\">맑고 깨끗한 물이 생활의 기본이자 건강의 근원이라는 믿음을 바탕으로,</span></h6><h6 style=\"line-height: 2;\"><span style=\"font-size: 18px;\">우리는 혁신적인 정수기와 고성능 필터 솔루션을 연구·개발하여 가정과 기업에 공급하고 있습니다.</span></h6><h6 style=\"line-height: 2;\"><span style=\"font-size: 18px;\">작은 한 방울의 물까지도 안전하게 지켜내는 기술력과 지속 가능한 친환경 철학을 바탕으로,</span></h6><h6 style=\"line-height: 2;\"><span style=\"font-size: 18px;\">고객의 삶의 질을 높이고 미래 세대에게 더욱 깨끗한 환경을 물려주기 위해 노력하고 있습니다.</span></h6></div></div>\n\t"
+    "ko": "맑고 깨끗한 물이 생활의 기본이자 건강의 근원이라는 믿음을 바탕으로,\n우리는 혁신적인 정수기와 고성능 필터 솔루션을 연구·개발하여 가정과 기업에 공급하고 있습니다.\n작은 한 방울의 물까지도 안전하게 지켜내는 기술력과 지속 가능한 친환경 철학을 바탕으로,\n고객의 삶의 질을 높이고 미래 세대에게 더욱 깨끗한 환경을 물려주기 위해 노력하고 있습니다."
   },
   "company.about#s20250918e40b7f78d4437/w20250918f607bbed181f6/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: left; line-height: 2;\"><span style=\"font-size: 36px;\"><strong><span style=\"color: rgb(18, 18, 18);\">에코웨이브&nbsp;</span></strong></span><span style=\"font-size: 36px;\"><strong><span style=\"color: rgb(18, 18, 18);\">기술력</span></strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: left; line-height: 2;\"><span style=\"font-size: 36px;\"><strong><span style=\"color: rgb(18, 18, 18);\">Eco-wave technology&nbsp;</span></strong></span></p></div></div>\n\t"
+    "ko": "에코웨이브\n기술력",
+    "en": "Eco-wave technology"
   },
   "company.about#s20250918e40b7f78d4437/w20250918907bfdecbaebd/html": {
-    "ko": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: #ffffff\"></div><div class=\"text-table holder\"><div><h6 style=\"text-align: center;\"><strong><span style=\"color: rgb(57, 112, 235); font-size: 16px;\">POINT 01</span></strong></h6><h6 style=\"text-align: center;\"><span style=\"font-size: 20px;\"><strong>친환경·프리미엄 수처리 기술력</strong></span></h6><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px;\">고성능 필터와 마이크로 여과 기술로 미세 불순물까지 제거하여,<br>더 맑고 안전한 물을 제공합니다.</span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: #ffffff\"></div><div class=\"text-table holder\"><div><h6 style=\"text-align: center;\"><strong><span style=\"color: rgb(57, 112, 235); font-size: 16px;\">POINT 02</span></strong></h6><h6 style=\"text-align: center;\"><span style=\"font-size: 20px;\"><strong>OEM/Global Collaboration Capabilities&nbsp;</strong></span></h6><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px;\">Based on our experience in supplying large domestic and foreign companies and our diverse product portfolio, we work with global partners in more than 30 countries.&nbsp;</span></p></div></div>\n\t"
+    "ko": "POINT 01\n친환경·프리미엄 수처리 기술력\n고성능 필터와 마이크로 여과 기술로 미세 불순물까지 제거하여,\n더 맑고 안전한 물을 제공합니다.",
+    "en": "POINT 02\nOEM/Global Collaboration Capabilities\nBased on our experience in supplying large domestic and foreign companies and our diverse product portfolio, we work with global partners in more than 30 countries."
   },
   "company.about#s20250918e40b7f78d4437/w2025091834b55c4354127/html": {
-    "ko": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: #ffffff\"></div><div class=\"text-table holder\"><div><h6 style=\"text-align: center;\"><strong><span style=\"color: rgb(57, 112, 235); font-size: 16px;\">POINT 02</span></strong></h6><h6 style=\"text-align: center;\"><span style=\"font-size: 20px;\"><strong>OEM/글로벌 협업 역량</strong></span></h6><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px;\">국내외 대기업 공급 경험과 다양한 제품 포트폴리오를 기반으로,</span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px;\">30여 개국 이상 글로벌 파트너와 협력합니다.&nbsp;</span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: #ffffff\"></div><div class=\"text-table holder\"><div><h6 style=\"text-align: center;\"><strong><span style=\"color: rgb(57, 112, 235); font-size: 16px;\">POINT 03</span></strong></h6><h6 style=\"text-align: center;\"><span style=\"font-size: 20px;\"><strong>Advanced inspection and quality control systems&nbsp;</strong></span></h6><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px;\">Establish a system that closely inspects multiple items such as heavy metals and bacteria and operates a quality management system that can respond to global audits.&nbsp;</span></p></div></div>\n\t"
+    "ko": "POINT 02\nOEM/글로벌 협업 역량\n국내외 대기업 공급 경험과 다양한 제품 포트폴리오를 기반으로,\n30여 개국 이상 글로벌 파트너와 협력합니다.",
+    "en": "POINT 03\nAdvanced inspection and quality control systems\nEstablish a system that closely inspects multiple items such as heavy metals and bacteria and operates a quality management system that can respond to global audits."
   },
   "company.about#s20250918e40b7f78d4437/w202509189da0d6c8fdca9/html": {
-    "ko": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: #ffffff\"></div><div class=\"text-table holder\"><div><h6 style=\"text-align: center;\"><strong><span style=\"color: rgb(57, 112, 235); font-size: 16px;\">POINT 03</span></strong></h6><h6 style=\"text-align: center;\"><span style=\"font-size: 20px;\"><strong>첨단 검사 및 품질 관리 체계</strong></span></h6><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px;\">중금속·세균 등 다중 항목을 정밀 검사하는 시스템을 구축하고,</span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px;\">글로벌 Audit에 대응 가능한 품질 관리 체계를 운영합니다.&nbsp;</span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: #ffffff\"></div><div class=\"text-table holder\"><div><h6 style=\"text-align: center;\"><strong><span style=\"color: rgb(57, 112, 235); font-size: 16px;\">POINT 04</span></strong></h6><h6 style=\"text-align: center;\"><span style=\"font-size: 20px;\"><strong>Smart sterilization technology&nbsp;</strong></span></h6><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px;\">It monitors in real time using eco-friendly construction</span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px;\">methods and IoT sensors, and provides a safe sterilization solution without residues.&nbsp;</span></p></div></div>\n\t"
+    "ko": "POINT 03\n첨단 검사 및 품질 관리 체계\n중금속·세균 등 다중 항목을 정밀 검사하는 시스템을 구축하고,\n글로벌 Audit에 대응 가능한 품질 관리 체계를 운영합니다.",
+    "en": "POINT 04\nSmart sterilization technology\nIt monitors in real time using eco-friendly construction\nmethods and IoT sensors, and provides a safe sterilization solution without residues."
   },
   "company.about#s20250918e40b7f78d4437/w20250918491b988a3f900/html": {
-    "ko": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: #ffffff\"></div><div class=\"text-table holder\"><div><h6 style=\"text-align: center;\"><strong><span style=\"color: rgb(57, 112, 235); font-size: 16px;\">POINT 04</span></strong></h6><h6 style=\"text-align: center;\"><span style=\"font-size: 20px;\"><strong>스마트 살균 기술</strong></span></h6><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px;\">친환경 공법과 IoT 센서를 활용해 실시간 모니터링하며,</span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px;\">잔류물 없는 안전한 살균 솔루션을 제공합니다.&nbsp;</span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: #ffffff\"></div><div class=\"text-table holder\"><div><h6 style=\"text-align: center;\"><strong><span style=\"color: rgb(57, 112, 235); font-size: 16px;\">POINT 05</span></strong></h6><h6 style=\"text-align: center;\"><span style=\"font-size: 20px;\"><strong>Mass production and global supply chain&nbsp;</strong></span></h6><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px;\">.With a yearly filter production capacity of more than 2.5 billion filters and a logistics network,</span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px;\">it supplies reliably to more than 60 countries around the world.&nbsp;</span></p></div></div>\n\t"
+    "ko": "POINT 04\n스마트 살균 기술\n친환경 공법과 IoT 센서를 활용해 실시간 모니터링하며,\n잔류물 없는 안전한 살균 솔루션을 제공합니다.",
+    "en": "POINT 05\nMass production and global supply chain\n.With a yearly filter production capacity of more than 2.5 billion filters and a logistics network,\nit supplies reliably to more than 60 countries around the world."
   },
   "company.about#s20250918e40b7f78d4437/w20250918bf11a5c9a5e10/html": {
-    "ko": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: #ffffff\"></div><div class=\"text-table holder\"><div><h6 style=\"text-align: center;\"><strong><span style=\"color: rgb(57, 112, 235); font-size: 16px;\">POINT 05</span></strong></h6><h6 style=\"text-align: center;\"><span style=\"font-size: 20px;\"><strong>대량 생산 및 글로벌 공급망</strong></span></h6><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px;\">연간 25억 개 이상의 필터 생산 능력과 물류 네트워크를 통해,</span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px;\">전 세계 60여 개국에 안정적으로 공급합니다.</span></p></div></div>\n\t"
+    "ko": "POINT 05\n대량 생산 및 글로벌 공급망\n연간 25억 개 이상의 필터 생산 능력과 물류 네트워크를 통해,\n전 세계 60여 개국에 안정적으로 공급합니다."
   },
   "company.about#s202508119a2e8fe21b47a/w20250918fb56c1bc5ba1c/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 36px;\"><strong><span style=\"color: rgb(18, 18, 18);\">에코웨이브가 만드는 건강한 생활 솔루션</span></strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 36px;\"><strong><span style=\"color: rgb(18, 18, 18);\">EcoWave's Healthy Living Solution</span></strong></span></p></div></div>\n\t"
+    "ko": "에코웨이브가 만드는 건강한 생활 솔루션",
+    "en": "EcoWave's Healthy Living Solution"
   },
   "company.about#s202508119a2e8fe21b47a/w20250918824e703adf63a/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(81, 81, 81);\">에코웨이브는 깨끗한 물과 안전한 환경을 바탕으로, 일상 속에서 더 건강하고 편리한 삶을 누릴 수 있도록</span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(81, 81, 81);\">혁신적인 정수기와 필터 솔루션을 비롯한 다양한 생활 기술을 제공합니다.</span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(81, 81, 81);\">Based on clean water and a safe environment, EcoWave provides a variety of living technologies,</span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(81, 81, 81);\">including innovative water purifiers and filter solutions, to help you enjoy a healthier and more convenient life in your daily life.&nbsp;</span></p></div></div>\n\t"
+    "ko": "에코웨이브는 깨끗한 물과 안전한 환경을 바탕으로, 일상 속에서 더 건강하고 편리한 삶을 누릴 수 있도록\n혁신적인 정수기와 필터 솔루션을 비롯한 다양한 생활 기술을 제공합니다.",
+    "en": "Based on clean water and a safe environment, EcoWave provides a variety of living technologies,\nincluding innovative water purifiers and filter solutions, to help you enjoy a healthier and more convenient life in your daily life."
   },
   "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[0].title": {
     "ko": "3단계 필터(8인치)",
@@ -12662,12 +12515,12 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "en": "/images/thumbnail/20250919/84e45dec147d7.jpg"
   },
   "company.about#s20250918c54b2950e2f1a/w202509182e2d041573010/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 36px;\"><strong><span style=\"color: rgb(57, 112, 235);\">깨끗한 물을 위한 에코웨이브의 토탈 솔루션</span></strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 36px;\"><strong><span style=\"color: rgb(57, 112, 235);\">EcoWave's Total Solution for Clean Water</span></strong></span></p></div></div>\n\t"
+    "ko": "깨끗한 물을 위한 에코웨이브의 토탈 솔루션",
+    "en": "EcoWave's Total Solution for Clean Water"
   },
   "company.about#s20250918c54b2950e2f1a/w20250918b4546d15749bb/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(81, 81, 81);\">정수기에서 필터, 살균 기술과 부품까지,</span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(81, 81, 81);\">에코웨이브는 건강하고 안전한 생활을 위한 종합적인 물 관리 솔루션을 제공합니다.</span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(81, 81, 81);\">From water purifiers to filters to sterilization technologies and parts,</span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(81, 81, 81);\">EcoWave provides a comprehensive water management solution for a healthy and safe life.&nbsp;</span></p></div></div>\n\t"
+    "ko": "정수기에서 필터, 살균 기술과 부품까지,\n에코웨이브는 건강하고 안전한 생활을 위한 종합적인 물 관리 솔루션을 제공합니다.",
+    "en": "From water purifiers to filters to sterilization technologies and parts,\nEcoWave provides a comprehensive water management solution for a healthy and safe life."
   },
   "company.about#s20250918c54b2950e2f1a/w2025091858b5ee5de7c2a/items[0].title": {
     "ko": "",
@@ -12750,36 +12603,36 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "en": "/images/thumbnail/20250919/12fcc0fa3899a.png"
   },
   "company.about#s20250918c5a18b62c8acd/w20250919d3f58a52c151b/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: left; line-height: 2;\"><span style=\"font-size: 36px;\"><strong><span style=\"color: rgb(18, 18, 18);\">우리 일상 속에서 만나는 에코웨이브</span></strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: left; line-height: 2;\"><span style=\"font-size: 36px;\"><strong><span style=\"color: rgb(18, 18, 18);\">Eco wave that we meet in our daily lives&nbsp;</span></strong></span></p></div></div>\n\t"
+    "ko": "우리 일상 속에서 만나는 에코웨이브",
+    "en": "Eco wave that we meet in our daily lives"
   },
   "company.about#s20250918c5a18b62c8acd/w20250919eb33a28196229/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><div style=\"border-radius:20px; background:#f8f8f8; overflow:hidden;     padding: 20px 20px;\"><table class=\"noBorder\" style=\"width: 100%; padding:10px;\"><tbody><tr style=\"border-radius:50px 50px 0 0;\"><td style=\"width: 100%; text-align: center; background-color: rgb(248, 248, 248);\"><img src=\"/images/upload/S20250811e0bd2f7c414df/1b9f9b2c85d9a.jpg\" class=\"fr-fin fr-dib\" style=\"width: 800px;\"></td></tr><tr><td style=\"width: 100%; text-align: center; background-color: rgb(248, 248, 248);\"><h6 style=\"text-align: left;\"><span style=\"font-size: 22px;\"><strong><span style=\"color: rgb(57, 112, 235);\"><strong>정수기</strong></span></strong></span></h6><div style=\"text-align: left;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(57, 112, 235);\"><span style=\"font-size: 20px; color: rgb(54, 54, 54);\"><span style=\"font-size: 18px; line-height: 2;\">언더싱크와 슬림형 등 다양한 제품군으로 구성된 에코웨이브의 정수기는 공간 활용성과 사용 편의성을 동시에 갖추어, 가정은 물론 사무실과 상업 시설에서도 언제나 깨끗하고 신뢰할 수 있는 물을 공급하는 생활의 기본 솔루션입니다.</span></span></span></span></div><p><br></p></td></tr></tbody></table></div></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><div style=\"border-radius:20px; background:#f8f8f8; overflow:hidden;     padding: 20px 20px;\"><table class=\"noBorder\" style=\"width: 100%; padding:10px;\"><tbody><tr style=\"border-radius:50px 50px 0 0;\"><td style=\"width: 100%; text-align: center; background-color: rgb(248, 248, 248);\"><img src=\"/images/upload/S20250811e0bd2f7c414df/1b9f9b2c85d9a.jpg\" class=\"fr-fin fr-dib\" style=\"width: 800px;\"></td></tr><tr><td style=\"width: 100%; text-align: center; background-color: rgb(248, 248, 248);\"><h6 style=\"text-align: left;\"><span style=\"font-size: 22px;\"><strong><span style=\"color: rgb(57, 112, 235);\"><strong>Water purifier&nbsp;</strong></span></strong></span></h6><div style=\"text-align: left;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(57, 112, 235);\"><span style=\"font-size: 20px; color: rgb(54, 54, 54);\"><span style=\"font-size: 18px; line-height: 2;\">EcoWave's water purifier, which consists of various product lines such as undersink and slim type, is a basic solution to life that always supplies clean and reliable water at home, in offices and commercial facilities. &nbsp;</span></span></span></span></div><p><br></p></td></tr></tbody></table></div></div></div>\n\t"
+    "ko": "정수기\n언더싱크와 슬림형 등 다양한 제품군으로 구성된 에코웨이브의 정수기는 공간 활용성과 사용 편의성을 동시에 갖추어, 가정은 물론 사무실과 상업 시설에서도 언제나 깨끗하고 신뢰할 수 있는 물을 공급하는 생활의 기본 솔루션입니다.",
+    "en": "Water purifier\nEcoWave's water purifier, which consists of various product lines such as undersink and slim type, is a basic solution to life that always supplies clean and reliable water at home, in offices and commercial facilities."
   },
   "company.about#s20250918c5a18b62c8acd/w20250919a06813f5e869d/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><div style=\"border-radius:20px; background:#f8f8f8; overflow:hidden;     padding: 20px 20px;\"><table class=\"noBorder\" style=\"width: 100%; padding:10px;\"><tbody><tr style=\"border-radius:50px 50px 0 0;\"><td style=\"width: 100%; text-align: center; background-color: rgb(248, 248, 248);\"><img src=\"/images/upload/S20250811e0bd2f7c414df/e7b42395cc54b.jpg\" class=\"fr-fin fr-dib\" style=\"width: 800px;\"></td></tr><tr><td style=\"width: 100%; text-align: center; background-color: rgb(248, 248, 248);\"><h6 style=\"text-align: left;\"><span style=\"font-size: 22px;\"><strong><span style=\"color: rgb(57, 112, 235);\"><strong>정수 필터</strong></span></strong></span></h6><div style=\"text-align: left;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(57, 112, 235);\"><span style=\"font-size: 20px; color: rgb(54, 54, 54);\"><span style=\"font-size: 18px; line-height: 2;\">세디먼트, 프리카본, UF/RO/나노 멤브레인, 포스트카본 등으로 이루어진 다단계 정수 필터는 눈에 보이지 않는 미세 불순물과 중금속, 잔류 염소 및 유해 물질까지 효과적으로 제거하여, 단순히 수질을 개선하는 차원을 넘어 건강한 물의 가치를 실현합니다.</span></span></span></span></div></td></tr></tbody></table></div></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><div style=\"border-radius:20px; background:#f8f8f8; overflow:hidden;     padding: 20px 20px;\"><table class=\"noBorder\" style=\"width: 100%; padding:10px;\"><tbody><tr style=\"border-radius:50px 50px 0 0;\"><td style=\"width: 100%; text-align: center; background-color: rgb(248, 248, 248);\"><img src=\"/images/upload/S20250811e0bd2f7c414df/e7b42395cc54b.jpg\" class=\"fr-fin fr-dib\" style=\"width: 800px;\"></td></tr><tr><td style=\"width: 100%; text-align: center; background-color: rgb(248, 248, 248);\"><h6 style=\"text-align: left;\"><span style=\"font-size: 22px;\"><strong><span style=\"color: rgb(57, 112, 235);\"><strong>Water filter&nbsp;</strong></span></strong></span></h6><div style=\"text-align: left;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(57, 112, 235);\"><span style=\"font-size: 20px; color: rgb(54, 54, 54);\"><span style=\"font-size: 18px; line-height: 2;\">Multistage water filters consisting of sediments, pre-carbon, UF/RO/nano membranes, and post-carbon effectively remove invisible fine impurities, heavy metals, residual chlorine and harmful substances, realizing the value of healthy water beyond just improving water quality.&nbsp;</span></span></span></span></div></td></tr></tbody></table></div></div></div>\n\t"
+    "ko": "정수 필터\n세디먼트, 프리카본, UF/RO/나노 멤브레인, 포스트카본 등으로 이루어진 다단계 정수 필터는 눈에 보이지 않는 미세 불순물과 중금속, 잔류 염소 및 유해 물질까지 효과적으로 제거하여, 단순히 수질을 개선하는 차원을 넘어 건강한 물의 가치를 실현합니다.",
+    "en": "Water filter\nMultistage water filters consisting of sediments, pre-carbon, UF/RO/nano membranes, and post-carbon effectively remove invisible fine impurities, heavy metals, residual chlorine and harmful substances, realizing the value of healthy water beyond just improving water quality."
   },
   "company.about#s20250918c5a18b62c8acd/w202509196d95887d0ea56/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><div style=\"border-radius:20px; background:#f8f8f8; overflow:hidden;     padding: 20px 20px;\"><table class=\"noBorder\" style=\"width: 100%; padding:10px;\"><tbody><tr style=\"border-radius:50px 50px 0 0;\"><td style=\"width: 100%; text-align: center; background-color: rgb(248, 248, 248);\"><img src=\"/images/upload/S20250811e0bd2f7c414df/115b10efe54e3.jpg\" class=\"fr-fin fr-dib\" style=\"width: 800px;\"></td></tr><tr><td style=\"width: 100%; text-align: center; background-color: rgb(248, 248, 248);\"><h6 style=\"text-align: left;\"><span style=\"font-size: 22px;\"><strong><span style=\"color: rgb(57, 112, 235);\"><strong>비데 필터</strong></span></strong></span></h6><div style=\"text-align: left;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(57, 112, 235);\"><span style=\"font-size: 20px; color: rgb(54, 54, 54);\"><span style=\"font-size: 18px; line-height: 2;\">항균볼과 세디먼트 필터가 적용된 에코웨이브의 비데 필터는 민감한 피부에도 부담을 주지 않는 부드럽고 위생적인 물을 제공하여, 개인 위생 관리의 새로운 기준을 제시하며 안심하고 사용할 수 있는 생활 위생 솔루션입니다.</span></span></span></span></div></td></tr></tbody></table></div></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><div style=\"border-radius:20px; background:#f8f8f8; overflow:hidden;     padding: 20px 20px;\"><table class=\"noBorder\" style=\"width: 100%; padding:10px;\"><tbody><tr style=\"border-radius:50px 50px 0 0;\"><td style=\"width: 100%; text-align: center; background-color: rgb(248, 248, 248);\"><img src=\"/images/upload/S20250811e0bd2f7c414df/115b10efe54e3.jpg\" class=\"fr-fin fr-dib\" style=\"width: 800px;\"></td></tr><tr><td style=\"width: 100%; text-align: center; background-color: rgb(248, 248, 248);\"><h6 style=\"text-align: left;\"><span style=\"font-size: 22px;\"><strong><span style=\"color: rgb(57, 112, 235);\"><strong>Bidet filter&nbsp;</strong></span></strong></span></h6><div style=\"text-align: left;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(57, 112, 235);\"><span style=\"font-size: 20px; color: rgb(54, 54, 54);\"><span style=\"font-size: 18px; line-height: 2;\">EcoWave's bidet filter with antibacterial balls and sediment filters provides soft and hygienic water that does not burden sensitive skin, setting a new standard for personal hygiene care and providing a safe living hygiene solution.</span></span></span></span></div></td></tr></tbody></table></div></div></div>\n\t"
+    "ko": "비데 필터\n항균볼과 세디먼트 필터가 적용된 에코웨이브의 비데 필터는 민감한 피부에도 부담을 주지 않는 부드럽고 위생적인 물을 제공하여, 개인 위생 관리의 새로운 기준을 제시하며 안심하고 사용할 수 있는 생활 위생 솔루션입니다.",
+    "en": "Bidet filter\nEcoWave's bidet filter with antibacterial balls and sediment filters provides soft and hygienic water that does not burden sensitive skin, setting a new standard for personal hygiene care and providing a safe living hygiene solution."
   },
   "company.about#s20250918c5a18b62c8acd/w2025091937ef9567e5c28/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><div style=\"border-radius:20px; background:#f8f8f8; overflow:hidden;     padding: 20px 20px;\"><table class=\"noBorder\" style=\"width: 100%; padding:10px;\"><tbody><tr style=\"border-radius:50px 50px 0 0;\"><td style=\"width: 100%; text-align: center; background-color: rgb(248, 248, 248);\"><img src=\"/images/upload/S20250811e0bd2f7c414df/f6a0015ce78bf.jpg\" class=\"fr-fin fr-dib\" style=\"width: 800px;\"></td></tr><tr><td style=\"width: 100%; text-align: center; background-color: rgb(248, 248, 248);\"><h6 style=\"text-align: left;\"><span style=\"font-size: 22px;\"><strong><span style=\"color: rgb(57, 112, 235);\"><strong>샤워·비타민 필터</strong></span></strong></span></h6><div style=\"text-align: left;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(57, 112, 235);\"><span style=\"font-size: 20px; color: rgb(54, 54, 54);\"><span style=\"font-size: 18px; line-height: 2;\">잔류 염소 제거를 기본으로 아로마와 비타민 성분을 더한 샤워·비타민 필터는 일상적인 세정 행위를 피부와 모발 건강을 지키는 프리미엄 케어의 시간으로 바꾸어, 가족 모두가 건강하고 상쾌한 생활을 누릴 수 있도록 돕습니다.</span></span></span></span></div></td></tr></tbody></table></div></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><div style=\"border-radius:20px; background:#f8f8f8; overflow:hidden;     padding: 20px 20px;\"><table class=\"noBorder\" style=\"width: 100%; padding:10px;\"><tbody><tr style=\"border-radius:50px 50px 0 0;\"><td style=\"width: 100%; text-align: center; background-color: rgb(248, 248, 248);\"><img src=\"/images/upload/S20250811e0bd2f7c414df/f6a0015ce78bf.jpg\" class=\"fr-fin fr-dib\" style=\"width: 800px;\"></td></tr><tr><td style=\"width: 100%; text-align: center; background-color: rgb(248, 248, 248);\"><h6 style=\"text-align: left;\"><span style=\"font-size: 22px;\"><strong><span style=\"color: rgb(57, 112, 235);\"><strong>Shower/Vitamin Filter&nbsp;</strong></span></strong></span></h6><div style=\"text-align: left;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(57, 112, 235);\"><span style=\"font-size: 20px; color: rgb(54, 54, 54);\"><span style=\"font-size: 18px; line-height: 2;\">Based on residual chlorine removal, the shower and vitamin filter, which adds aroma and vitamin ingredients, turns everyday cleaning into a time of premium care to protect skin and hair health, helping all families enjoy a healthy and refreshing life.&nbsp;</span></span></span></span></div></td></tr></tbody></table></div></div></div>\n\t"
+    "ko": "샤워·비타민 필터\n잔류 염소 제거를 기본으로 아로마와 비타민 성분을 더한 샤워·비타민 필터는 일상적인 세정 행위를 피부와 모발 건강을 지키는 프리미엄 케어의 시간으로 바꾸어, 가족 모두가 건강하고 상쾌한 생활을 누릴 수 있도록 돕습니다.",
+    "en": "Shower/Vitamin Filter\nBased on residual chlorine removal, the shower and vitamin filter, which adds aroma and vitamin ingredients, turns everyday cleaning into a time of premium care to protect skin and hair health, helping all families enjoy a healthy and refreshing life."
   },
   "company.about#s20250918c5a18b62c8acd/w2025091911917416765db/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><div style=\"border-radius:20px; background:#f8f8f8; overflow:hidden;     padding: 20px 20px;\"><table class=\"noBorder\" style=\"width: 100%; padding:10px;\"><tbody><tr style=\"border-radius:50px 50px 0 0;\"><td style=\"width: 100%; text-align: center; background-color: rgb(248, 248, 248);\"><img src=\"/images/upload/S20250811e0bd2f7c414df/1b9f9b2c85d9a.jpg\" class=\"fr-fin fr-dib\" style=\"width: 800px;\"></td></tr><tr><td style=\"width: 100%; text-align: center; background-color: rgb(248, 248, 248);\"><h6 style=\"text-align: left;\"><span style=\"font-size: 22px;\"><strong><span style=\"color: rgb(57, 112, 235);\"><strong>살균 모듈</strong></span></strong></span></h6><div style=\"text-align: left;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(57, 112, 235);\"><span style=\"font-size: 20px; color: rgb(54, 54, 54);\"><span style=\"font-size: 18px; line-height: 2;\">전극을 통해 물을 전기분해하여 살균수를 생성하는 살균 모듈은 정수기와 비데 내부의 물탱크 및 호스를 항상 청결하게 유지시켜 주며, 세균과 오염으로부터 안전한 환경을 보장하는 차세대 정수기 핵심 기술입니다.</span></span></span></span></div><p><br></p></td></tr></tbody></table></div></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><div style=\"border-radius:20px; background:#f8f8f8; overflow:hidden;     padding: 20px 20px;\"><table class=\"noBorder\" style=\"width: 100%; padding:10px;\"><tbody><tr style=\"border-radius:50px 50px 0 0;\"><td style=\"width: 100%; text-align: center; background-color: rgb(248, 248, 248);\"><img src=\"/images/upload/S20250811e0bd2f7c414df/1b9f9b2c85d9a.jpg\" class=\"fr-fin fr-dib\" style=\"width: 800px;\"></td></tr><tr><td style=\"width: 100%; text-align: center; background-color: rgb(248, 248, 248);\"><h6 style=\"text-align: left;\"><span style=\"font-size: 22px;\"><strong><span style=\"color: rgb(57, 112, 235);\"><strong>Sterilization module&nbsp;</strong></span></strong></span></h6><div style=\"text-align: left;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(57, 112, 235);\"><span style=\"font-size: 20px; color: rgb(54, 54, 54);\"><span style=\"font-size: 18px; line-height: 2;\">Sterilization modules, which generate sterilizing water by electrolyzing water through electrodes, are a key technology for next-generation water purifiers that always keeps water tanks and hoses inside water purifiers and bidets clean and ensures a safe environment from germs and contamination.&nbsp;</span></span></span></span></div><p><br></p></td></tr></tbody></table></div></div></div>\n\t"
+    "ko": "살균 모듈\n전극을 통해 물을 전기분해하여 살균수를 생성하는 살균 모듈은 정수기와 비데 내부의 물탱크 및 호스를 항상 청결하게 유지시켜 주며, 세균과 오염으로부터 안전한 환경을 보장하는 차세대 정수기 핵심 기술입니다.",
+    "en": "Sterilization module\nSterilization modules, which generate sterilizing water by electrolyzing water through electrodes, are a key technology for next-generation water purifiers that always keeps water tanks and hoses inside water purifiers and bidets clean and ensures a safe environment from germs and contamination."
   },
   "company.about#s20250918c5a18b62c8acd/w20250919752cb4c4b07f1/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><div style=\"border-radius:20px; background:#f8f8f8; overflow:hidden;     padding: 20px 20px;\"><table class=\"noBorder\" style=\"width: 100%; padding:10px;\"><tbody><tr style=\"border-radius:50px 50px 0 0;\"><td style=\"width: 100%; text-align: center; background-color: rgb(248, 248, 248);\"><img src=\"/images/upload/S20250811e0bd2f7c414df/938b9b68a8715.jpg\" class=\"fr-fin fr-dib\"></td></tr><tr><td style=\"width: 100%; text-align: center; background-color: rgb(248, 248, 248);\"><h6 style=\"text-align: left;\"><span style=\"font-size: 22px;\"><strong><span style=\"color: rgb(57, 112, 235);\"><strong>부품 &amp; 액세서리</strong></span></strong></span></h6><div style=\"text-align: left;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(57, 112, 235);\"><span style=\"font-size: 20px; color: rgb(54, 54, 54);\"><span style=\"font-size: 18px; line-height: 2;\">저압 스위치(LPS), 핸드밸브, 다양한 피팅류 등으로 구성된 부품 및 액세서리 제품군은 정수기와 필터 시스템을 안정적이고 효율적으로 작동하게 하여, 글로벌 OEM 수준의 정밀성과 호환성을 기반으로 고객에게 완성도 높은 사용 경험을 제공합니다.</span></span></span></span></div></td></tr></tbody></table></div></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><div style=\"border-radius:20px; background:#f8f8f8; overflow:hidden;     padding: 20px 20px;\"><table class=\"noBorder\" style=\"width: 100%; padding:10px;\"><tbody><tr style=\"border-radius:50px 50px 0 0;\"><td style=\"width: 100%; text-align: center; background-color: rgb(248, 248, 248);\"><img src=\"/images/upload/S20250811e0bd2f7c414df/938b9b68a8715.jpg\" class=\"fr-fin fr-dib\"></td></tr><tr><td style=\"width: 100%; text-align: center; background-color: rgb(248, 248, 248);\"><h6 style=\"text-align: left;\"><span style=\"font-size: 22px;\"><strong><span style=\"color: rgb(57, 112, 235);\"><strong>Parts &amp; Accessories&nbsp;</strong></span></strong></span></h6><div style=\"text-align: left;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(57, 112, 235);\"><span style=\"font-size: 20px; color: rgb(54, 54, 54);\"><span style=\"font-size: 18px; line-height: 2;\">Composed of low pressure switches (LPS), hand valves, various fittings, and more, the suite of components and accessories enables reliable and efficient operation of water purifiers and filter systems, providing customers with a high-quality experience based on global OEM-level precision and compatibility.&nbsp;</span></span></span></span></div><p><br></p></td></tr></tbody></table></div></div></div>\n\t"
+    "ko": "부품 & 액세서리\n저압 스위치(LPS), 핸드밸브, 다양한 피팅류 등으로 구성된 부품 및 액세서리 제품군은 정수기와 필터 시스템을 안정적이고 효율적으로 작동하게 하여, 글로벌 OEM 수준의 정밀성과 호환성을 기반으로 고객에게 완성도 높은 사용 경험을 제공합니다.",
+    "en": "Parts & Accessories\nComposed of low pressure switches (LPS), hand valves, various fittings, and more, the suite of components and accessories enables reliable and efficient operation of water purifiers and filter systems, providing customers with a high-quality experience based on global OEM-level precision and compatibility."
   },
   "company.about#s20250918ab81858502f9e/w20250918c66e7987eaeca/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 36px;\"><strong><span style=\"color: rgb(18, 18, 18);\">기준은 높게, 품질은 정확하게</span></strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 36px;\"><strong><span style=\"color: rgb(18, 18, 18);\">High standards, high quality</span></strong></span></p></div></div>\n\t"
+    "ko": "기준은 높게, 품질은 정확하게",
+    "en": "High standards, high quality"
   },
   "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[0].title": {
     "ko": "",
@@ -13118,8 +12971,8 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "en": "/images/thumbnail/20250919/e2748fd376a57.jpg"
   },
   "company.about#s20250918ffd77075d76ea/w20250919f5460109361d6/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: center;\"><strong><span style=\"color: rgb(52, 101, 222); font-size: 18px;\">R&amp;D &amp; MANUFACTURING</span></strong></h6><h6 style=\"line-height: 2; text-align: center;\"><strong><span style=\"color: rgb(0, 0, 0); font-size: 36px; letter-spacing: -1px;\">연구개발부터 글로벌 공급까지</span></strong></h6></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: center;\"><strong><span style=\"color: rgb(52, 101, 222); font-size: 18px;\">R&amp;D &amp; MANUFACTURING</span></strong></h6><h6 style=\"line-height: 2; text-align: center;\"><strong><span style=\"color: rgb(0, 0, 0); font-size: 36px; letter-spacing: -1px;\">From R&amp;D to global supply</span></strong></h6></div></div>\n\t"
+    "ko": "R&D & MANUFACTURING\n연구개발부터 글로벌 공급까지",
+    "en": "R&D & MANUFACTURING\nFrom R&D to global supply"
   },
   "company.about#s20250918ffd77075d76ea/w202509190fd35e33e86f8/items[0].title": {
     "ko": "연구소(R&D CENTER)",
@@ -13218,8 +13071,8 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "en": "/images/thumbnail/20250919/1bafb2b5e4196.png"
   },
   "company.about#s202509180d5f2b5ede2b3/w2025091860d26840abbc7/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: center;\"><strong><span style=\"color: rgb(52, 101, 222); font-size: 18px;\">Headquarters &amp; Factory Locations&nbsp;</span></strong></h6><h6 style=\"line-height: 2; text-align: center;\"><strong><span style=\"color: rgb(0, 0, 0); font-size: 36px; letter-spacing: -1px;\">세계 속의 에코웨이브&nbsp;</span></strong></h6></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: center;\"><strong><span style=\"color: rgb(52, 101, 222); font-size: 18px;\">Headquarters &amp; Factory Locations&nbsp;</span></strong></h6><h6 style=\"line-height: 2; text-align: center;\"><strong><span style=\"color: rgb(0, 0, 0); font-size: 36px; letter-spacing: -1px;\">Eco Wave in the World</span></strong></h6></div></div>\n\t"
+    "ko": "Headquarters & Factory Locations\n세계 속의 에코웨이브",
+    "en": "Headquarters & Factory Locations\nEco Wave in the World"
   },
   "company.about#s202509180d5f2b5ede2b3/w20250918c7cf1698ddcc4/src": {
     "ko": "/images/thumbnail/20250828/9bc64982daf80.jpg",
@@ -13230,16 +13083,16 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "en": ""
   },
   "company.about#s202509180d5f2b5ede2b3/w2025091886eece88ff0c0/html": {
-    "ko": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: #ffffff\"></div><div class=\"text-table holder\"><div><h6 style=\"line-height: 1.5;\"><strong><span style=\"color: rgb(52, 101, 222); font-size: 36px;\"><img src=\"/images/upload/S20250811e0bd2f7c414df/780da2c850799.png\" class=\"fr-fin fr-dii\" style=\"width: 16px;\">&nbsp;</span><span style=\"color: rgb(52, 101, 222); font-size: 26px;\">한국본사&nbsp;</span></strong><span style=\"font-size: 20px;\"><br data-start=\"13\" data-end=\"16\" data-is-only-node=\"\"></span><span style=\"font-size: 18px;\">인천광역시 남동구 은봉로 14 영도빌딩 2동</span><span style=\"font-size: 20px;\"><br data-start=\"40\" data-end=\"43\"></span><span style=\"font-size: 18px;\">TEL: +82-32-812-1800</span></h6></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: #ffffff\"></div><div class=\"text-table holder\"><div><h6 style=\"line-height: 1.5;\"><strong><span style=\"color: rgb(52, 101, 222); font-size: 36px;\"><img src=\"/images/upload/S20250811e0bd2f7c414df/780da2c850799.png\" class=\"fr-fin fr-dii\" style=\"width: 16px;\">&nbsp;</span><span style=\"color: rgb(52, 101, 222); font-size: 26px;\">Korean headquarters &nbsp;</span></strong><span style=\"font-size: 20px;\"><br data-start=\"13\" data-end=\"16\" data-is-only-node=\"\"></span><span style=\"font-size: 18px;\">2-dong, Yeongdo Building, 14, Eunbong-ro, Namdong-gu, Incheon, Republic of Korea</span><span style=\"font-size: 20px;\"><br data-start=\"40\" data-end=\"43\"></span><span style=\"font-size: 18px;\">TEL: +82-32-812-1800</span></h6></div></div>\n\t"
+    "ko": "한국본사\n인천광역시 남동구 은봉로 14 영도빌딩 2동\nTEL: +82-32-812-1800",
+    "en": "Korean headquarters\n2-dong, Yeongdo Building, 14, Eunbong-ro, Namdong-gu, Incheon, Republic of Korea\nTEL: +82-32-812-1800"
   },
   "company.about#s202509180d5f2b5ede2b3/w20250919ad2bb4e856fba/html": {
-    "ko": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: #ffffff\"></div><div class=\"text-table holder\"><div><h6 style=\"line-height: 1.5;\"><strong><span style=\"color: rgb(52, 101, 222); font-size: 36px;\"><img src=\"/images/upload/S20250811e0bd2f7c414df/780da2c850799.png\" class=\"fr-fin fr-dii\" style=\"width: 16px;\">&nbsp;</span><span style=\"color: rgb(52, 101, 222); font-size: 26px;\">중국 제조공장</span></strong><span style=\"font-size: 20px;\"><br data-start=\"13\" data-end=\"16\" data-is-only-node=\"\"></span><span style=\"font-size: 18px;\">Hongfuiie NO.90 Yantai, Shandong, PR. China</span></h6></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: #ffffff\"></div><div class=\"text-table holder\"><div><h6 style=\"line-height: 1.5;\"><strong><span style=\"color: rgb(52, 101, 222); font-size: 36px;\"><img src=\"/images/upload/S20250811e0bd2f7c414df/780da2c850799.png\" class=\"fr-fin fr-dii\" style=\"width: 16px;\">&nbsp;</span><span style=\"color: rgb(52, 101, 222); font-size: 26px;\">Chinese manufacturing plant&nbsp;</span></strong><span style=\"font-size: 20px;\"><br data-start=\"13\" data-end=\"16\" data-is-only-node=\"\"></span><span style=\"font-size: 18px;\">Hongfuiie NO.90 Yantai, Shandong, PR. China</span></h6></div></div>\n\t"
+    "ko": "중국 제조공장\nHongfuiie NO.90 Yantai, Shandong, PR. China",
+    "en": "Chinese manufacturing plant\nHongfuiie NO.90 Yantai, Shandong, PR. China"
   },
   "company.about#s202509180d5f2b5ede2b3/w20250919aa8199dc628c3/html": {
-    "ko": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: #ffffff\"></div><div class=\"text-table holder\"><div><h6 style=\"line-height: 1.5;\"><strong><span style=\"color: rgb(52, 101, 222); font-size: 36px;\"><img src=\"/images/upload/S20250811e0bd2f7c414df/780da2c850799.png\" class=\"fr-fin fr-dii\" style=\"width: 16px;\">&nbsp;</span><span style=\"color: rgb(52, 101, 222); font-size: 26px;\">캄보디아 오피스</span></strong><span style=\"font-size: 20px;\"><br data-start=\"13\" data-end=\"16\" data-is-only-node=\"\"></span><span style=\"font-size: 18px;\">Tuol Kork Phnom Penh City</span></h6><p><br></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: #ffffff\"></div><div class=\"text-table holder\"><div><h6 style=\"line-height: 1.5;\"><strong><span style=\"color: rgb(52, 101, 222); font-size: 36px;\"><img src=\"/images/upload/S20250811e0bd2f7c414df/780da2c850799.png\" class=\"fr-fin fr-dii\" style=\"width: 16px;\">&nbsp;</span><span style=\"color: rgb(52, 101, 222); font-size: 26px;\">Cambodian Office&nbsp;</span></strong><span style=\"font-size: 20px;\"><br data-start=\"13\" data-end=\"16\" data-is-only-node=\"\"></span><span style=\"font-size: 18px;\">Tuol Kork Phnom Penh City</span></h6><p><br></p></div></div>\n\t"
+    "ko": "캄보디아 오피스\nTuol Kork Phnom Penh City",
+    "en": "Cambodian Office\nTuol Kork Phnom Penh City"
   },
   "company.about#s202509180d5f2b5ede2b3/w202509180449a8104088a/html": {
     "ko": "",
@@ -13266,20 +13119,20 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "en": ""
   },
   "company.ceo#s202508206321c39177601/w20250820e1c08ac226481/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">더 건강하고 깨끗한 물을 만드는 고객과의 약속</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">에코웨이브를 소개합니다.</span></strong></h6></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">EcoWave promises healthier,</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">cleaner water for customers.</span></strong></h6></div></div>\n\t"
+    "ko": "더 건강하고 깨끗한 물을 만드는 고객과의 약속\n에코웨이브를 소개합니다.",
+    "en": "EcoWave promises healthier,\ncleaner water for customers."
   },
   "company.ceo#s20250811fd0a82675a6bc/w20250909fe979998d4590/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 3;\"><span style=\"font-size: 36px;\"><strong><span style=\"color: rgb(52, 101, 222);\">에코웨이브&nbsp;</span></strong><span style=\"color: rgb(52, 101, 222);\"><strong>홈페이지를</strong></span></span></p><p style=\"line-height: 3;\"><span style=\"font-size: 36px;\"><span style=\"color: rgb(20, 20, 20);\"><strong>찾아주신 모든 분들께</strong></span></span></p><p style=\"line-height: 3;\"><span style=\"font-size: 36px;\"><strong><span style=\"color: rgb(20, 20, 20);\">진심으로 감사를 드립니다.</span></strong></span></p><p><strong><br></strong></p><p><strong><img src=\"/images/upload/S20250811e0bd2f7c414df/a4521d6c5d4c5.png\" class=\"fr-fin fr-dib fr-fil\" style=\"width: 369px;\"></strong></p><p><br></p><p style=\"line-height: 3;\"><br></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 3;\"><span style=\"font-size: 36px;\"><span style=\"color: rgb(52, 101, 222);\"><strong>Thank you sincerely &nbsp;</strong></span></span></p><p style=\"line-height: 3;\"><span style=\"font-size: 36px;\"><span style=\"color: rgb(20, 20, 20);\"><strong>for visiting EcoWave.&nbsp;</strong></span></span></p><p><strong><br></strong></p><p><strong><img src=\"/images/upload/S20250811e0bd2f7c414df/a4521d6c5d4c5.png\" class=\"fr-fin fr-dib fr-fil\" style=\"width: 369px;\"></strong></p><p><br></p><p style=\"line-height: 3;\"><br></p></div></div>\n\t"
+    "ko": "에코웨이브\n홈페이지를\n찾아주신 모든 분들께\n진심으로 감사를 드립니다.",
+    "en": "Thank you sincerely\nfor visiting EcoWave."
   },
   "company.ceo#s20250811fd0a82675a6bc/w20250909edc32b5a0f8ec/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2;\"><span style=\"font-size: 20px;\"><strong><span style=\"color: rgb(17, 17, 17);\">존경하는 여러분께,</span></strong></span></p><p style=\"line-height: 2;\"><span style=\"color: rgb(17, 17, 17);\"><span style=\"font-size: 20px;\"><strong>에코웨이브는 “깨끗한 물이 곧 건강한 삶의 시작”</strong></span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 20px;\"><strong><span style=\"color: rgb(17, 17, 17);\">이라는 믿음을 바탕으로 출발했습니다.</span></strong></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px;\"><br>물은 인간의 생존에 가장 기본적이면서도, 삶의 질을 결정짓는 중요한 요소입니다.</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px;\">그렇기에 저희는 단순히 정수기를 만드는 것이 아니라, <strong><span style=\"color: rgb(17, 17, 17);\">사람과 환경을 동시에 건강하게 하는 기술</span></strong>을 개발하고자 노력해왔습니다.</span></p><p style=\"line-height: 2;\"><br></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px;\">우리는 <strong><span style=\"color: rgb(17, 17, 17);\">환경 친화적인 수처리 솔루션</span></strong>을 통해 지속 가능한 미래를 만들고자 합니다. <br>다단계 정수 시스템, 기능성 미네랄 필터, 스마트 살균 기술 등 에코웨이브의 모든 기술은</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px;\">“안전하고 신뢰할 수 있는 물”을 제공한다는 하나의 목표로 모이고 있습니다.</span></p><p style=\"line-height: 2;\"><br></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px;\">또한, 글로벌 파트너십을 통해 검증된 품질과 안정적인 공급망을 구축하며,</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px;\">전 세계 어디서든 에코웨이브의 물을 경험할 수 있도록 성장해 나가고 있습니다.</span></p><p style=\"line-height: 2;\"><br></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px;\">앞으로도 저희 에코웨이브는 <strong><span style=\"color: rgb(17, 17, 17);\">환경과 인류의 건강을 동시에 지키는 가치 있는 기업,</span></strong> <br>그리고 <span style=\"color: rgb(17, 17, 17);\"><strong>고객에게 신뢰받는 동반자</strong></span>로 자리매김하기 위해 끊임없이 도전하겠습니다.</span></p><p style=\"line-height: 2;\"><br></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px;\">감사합니다.</span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2;\"><span style=\"font-size: 20px;\"><strong><span style=\"color: rgb(17, 17, 17);\">To all you respect, EcoWave says,</span></strong></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 20px;\"><strong><span style=\"color: rgb(17, 17, 17);\">\"Clean water is the beginning of a healthy life.\"</span></strong></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 20px;\"><strong><span style=\"color: rgb(17, 17, 17);\">I started based on the belief that.</span></strong></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px;\"><br></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px;\">EcoWave was founded on the belief that clean water is the beginning of a healthy life. Because water is essential not only for survival but also for quality of life,&nbsp;</span><span style=\"font-size: 18px;\">we are committed to developing technologies that care for both people and the environment.</span></p><p style=\"line-height: 2;\"><br></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px;\">Through eco-friendly solutions—such as advanced purification systems, mineral filters, and smart sterilization—we strive to deliver safe and reliable water. With strong global partnerships, we ensure proven quality and stable supply so EcoWave water can be experienced anywhere in the world.</span></p><p style=\"line-height: 2;\"><br></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px;\">Looking ahead, we will continue to protect the environment and human health, and we promise to remain a trusted partner to all our customers.</span></p><p style=\"line-height: 2;\"><br></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px;\">Thank you for your continued support.</span><span style=\"font-size: 18px;\">&nbsp;</span></p></div></div>\n\t"
+    "ko": "존경하는 여러분께,\n에코웨이브는 “깨끗한 물이 곧 건강한 삶의 시작”\n이라는 믿음을 바탕으로 출발했습니다.\n물은 인간의 생존에 가장 기본적이면서도, 삶의 질을 결정짓는 중요한 요소입니다.\n그렇기에 저희는 단순히 정수기를 만드는 것이 아니라,\n사람과 환경을 동시에 건강하게 하는 기술\n을 개발하고자 노력해왔습니다.\n우리는\n환경 친화적인 수처리 솔루션\n을 통해 지속 가능한 미래를 만들고자 합니다.\n다단계 정수 시스템, 기능성 미네랄 필터, 스마트 살균 기술 등 에코웨이브의 모든 기술은\n“안전하고 신뢰할 수 있는 물”을 제공한다는 하나의 목표로 모이고 있습니다.\n또한, 글로벌 파트너십을 통해 검증된 품질과 안정적인 공급망을 구축하며,\n전 세계 어디서든 에코웨이브의 물을 경험할 수 있도록 성장해 나가고 있습니다.\n앞으로도 저희 에코웨이브는\n환경과 인류의 건강을 동시에 지키는 가치 있는 기업,\n그리고\n고객에게 신뢰받는 동반자\n로 자리매김하기 위해 끊임없이 도전하겠습니다.\n감사합니다.",
+    "en": "To all you respect, EcoWave says,\n\"Clean water is the beginning of a healthy life.\"\nI started based on the belief that.\nEcoWave was founded on the belief that clean water is the beginning of a healthy life. Because water is essential not only for survival but also for quality of life,\nwe are committed to developing technologies that care for both people and the environment.\nThrough eco-friendly solutions—such as advanced purification systems, mineral filters, and smart sterilization—we strive to deliver safe and reliable water. With strong global partnerships, we ensure proven quality and stable supply so EcoWave water can be experienced anywhere in the world.\nLooking ahead, we will continue to protect the environment and human health, and we promise to remain a trusted partner to all our customers.\nThank you for your continued support."
   },
   "company.ceo#s20250811fd0a82675a6bc/w20250909f454e7a9b1143/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: right;\"><span style=\"font-size: 18px;\">에코웨이브 대표</span><span style=\"font-size: 20px;\">&nbsp;&nbsp;<strong>최 태 국</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: right;\"><span style=\"font-size: 18px;\">Representative of EcoWave,</span><span style=\"font-size: 20px;\">&nbsp; <strong>Choi Tae-guk</strong></span></p></div></div>\n\t"
+    "ko": "에코웨이브 대표\n최 태 국",
+    "en": "Representative of EcoWave,\nChoi Tae-guk"
   },
   "company.ceo#s2025091161e916b59099f/w202509110e7da42eec27c/src": {
     "ko": "/images/thumbnail/20250911/68ffc55b3ed20.png",
@@ -13302,40 +13155,28 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "en": ""
   },
   "company.global#s20250820da33f7f397fba/w202508201a58c7d614215/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">더 건강하고 깨끗한 물을 만드는 고객과의 약속</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">에코웨이브를 소개합니다.</span></strong></h6></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">EcoWave promises healthier,</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">cleaner water for customers.</span></strong><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\"></span></strong></h6></div></div>\n\t"
+    "ko": "더 건강하고 깨끗한 물을 만드는 고객과의 약속\n에코웨이브를 소개합니다.",
+    "en": "EcoWave promises healthier,\ncleaner water for customers."
   },
   "company.global#s20250828182272ec01906/w20250828247c9904b6b1e/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: left;\"><span style=\"font-size: 22px;\"><strong><span style=\"background-color: rgb(57, 112, 235); border-radius: 100px; padding: 15px 30px; color: rgb(255, 255, 255); position: relative; top: -5px;\">에코웨이브 본사</span></strong></span></h6><p><br></p><p><span style=\"font-size: 30px;\"><strong>인천광역시 남동구 은봉로 14 영도빌딩 2동</strong><strong>&nbsp;</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: left;\"><span style=\"font-size: 22px;\"><strong><span style=\"background-color: rgb(57, 112, 235); border-radius: 100px; padding: 15px 30px; color: rgb(255, 255, 255); position: relative; top: -5px;\">EcoWave Headquarters</span></strong></span></h6><p><br></p><p><span style=\"font-size: 30px;\"><strong>2-dong, Yeongdo Building, 14, Eunbong-ro, Namdong-gu, Incheon, Republic of Korea&nbsp;</strong></span></p></div></div>\n\t"
+    "ko": "에코웨이브 본사\n인천광역시 남동구 은봉로 14 영도빌딩 2동",
+    "en": "EcoWave Headquarters\n2-dong, Yeongdo Building, 14, Eunbong-ro, Namdong-gu, Incheon, Republic of Korea"
   },
   "company.global#s20250828182272ec01906/w2025082843a86201a5455/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><table class=\"noBorder\" style=\"width: 100%; text-align:center; border-collapse: collapse;\"><tbody><tr><td style=\"width:33.3%;\"><div style=\"text-align: left;\"><span style=\"border-left:3px solid #1a4c9a; padding-left:8px; font-size:18px;\">&nbsp;<strong>TEL</strong><span style=\"color: rgb(120, 120, 120);\">&nbsp; +82-32-812-1800&nbsp;</span></span></div></td><td style=\"width:33.3%;\"><div style=\"text-align: left;\"><span style=\"border-left:3px solid #1a4c9a; padding-left:8px; font-size:18px;\">&nbsp;<strong>FAX</strong> <span style=\"color: rgb(120, 120, 120);\">+82-32-812-1804&nbsp;</span></span></div></td><td style=\"width:33.3%;\"><div style=\"text-align: left;\"><span style=\"border-left:3px solid #1a4c9a; padding-left:8px; font-size:18px;\">&nbsp;<strong>EMAIL</strong> <span style=\"color: rgb(120, 120, 120);\">abc@naver.com&nbsp;</span></span></div></td></tr></tbody></table></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><table class=\"noBorder\" style=\"width: 100%; text-align:center; border-collapse: collapse;\"><tbody><tr><td style=\"width:33.3%;\"><div style=\"text-align: left;\"><span style=\"border-left:3px solid #1a4c9a; padding-left:8px; font-size:18px;\">&nbsp;<strong>TEL</strong><span style=\"color: rgb(120, 120, 120);\">&nbsp; +82-32-812-1800&nbsp;</span></span></div></td><td style=\"width:33.3%;\"><div style=\"text-align: left;\"><span style=\"border-left:3px solid #1a4c9a; padding-left:8px; font-size:18px;\">&nbsp;<strong>FAX</strong> <span style=\"color: rgb(120, 120, 120);\">+82-32-812-1804&nbsp;</span></span></div></td><td style=\"width:33.3%;\"><div style=\"text-align: left;\"><span style=\"border-left:3px solid #1a4c9a; padding-left:8px; font-size:18px;\">&nbsp;<strong>EMAIL</strong> <span style=\"color: rgb(120, 120, 120);\">abc@naver.com&nbsp;</span></span></div></td></tr></tbody></table></div></div>\n\t"
-  },
-  "company.global#s20250828182272ec01906/w202508280b0ed4b9954c7/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p><iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d792.2574458919692!2d126.69277282647334!3d37.412770917172814!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357b79f653a08a39%3A0xeb2783864a797da5!2z7J247LKc6rSR7Jet7IucIOuCqOuPmeq1rCDsnYDrtInroZwgMTQ!5e0!3m2!1sko!2skr!4v1756358491614!5m2!1sko!2skr\" width=\"100%\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\"></iframe></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d792.2574458919692!2d126.69277282647334!3d37.412770917172814!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357b79f653a08a39%3A0xeb2783864a797da5!2z7J247LKc6rSR7Jet7IucIOuCqOuPmeq1rCDsnYDrtInroZwgMTQ!5e0!3m2!1sko!2skr!4v1756358491614!5m2!1sko!2skr\" width=\"100%\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\"></iframe></p></div></div>\n\t"
+    "ko": "TEL\n+82-32-812-1800\nFAX\n+82-32-812-1804\nEMAIL\nabc@naver.com",
+    "en": "TEL\n+82-32-812-1800\nFAX\n+82-32-812-1804\nEMAIL\nabc@naver.com"
   },
   "company.global#s202509111ecee05a61770/w202509110c02a9a33a442/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><table class=\"noBorder\" style=\"width: 100%; text-align:center; border-collapse: collapse;\"><tbody><tr><td style=\"width: 100%;\"><div style=\"text-align: left;\"><span style=\"border-left:3px solid #1a4c9a; padding-left:8px; font-size:18px;\">&nbsp;<strong>TEL</strong><span style=\"color: rgb(120, 120, 120);\">&nbsp; +82-32-812-1800&nbsp;</span></span></div></td></tr><tr><td style=\"width: 100%;\"><div style=\"text-align: left;\"><span style=\"border-left:3px solid #1a4c9a; padding-left:8px; font-size:18px;\">&nbsp;<strong>FAX</strong><span style=\"color: rgb(120, 120, 120);\">&nbsp; +82-32-812-1804 &nbsp;</span></span></div></td></tr><tr><td style=\"width: 100%;\"><div style=\"text-align: left;\"><span style=\"border-left:3px solid #1a4c9a; padding-left:8px; font-size:18px;\">&nbsp;<strong>EMAIL</strong><span style=\"color: rgb(120, 120, 120);\">&nbsp; abc@naver.com&nbsp;</span></span></div></td></tr></tbody></table></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><table class=\"noBorder\" style=\"width: 100%; text-align:center; border-collapse: collapse;\"><tbody><tr><td style=\"width: 100%;\"><div style=\"text-align: left;\"><span style=\"border-left:3px solid #1a4c9a; padding-left:8px; font-size:18px;\">&nbsp;<strong>TEL</strong><span style=\"color: rgb(120, 120, 120);\">&nbsp; +82-32-812-1800&nbsp;</span></span></div></td></tr><tr><td style=\"width: 100%;\"><div style=\"text-align: left;\"><span style=\"border-left:3px solid #1a4c9a; padding-left:8px; font-size:18px;\">&nbsp;<strong>FAX</strong><span style=\"color: rgb(120, 120, 120);\">&nbsp; +82-32-812-1804 &nbsp;</span></span></div></td></tr><tr><td style=\"width: 100%;\"><div style=\"text-align: left;\"><span style=\"border-left:3px solid #1a4c9a; padding-left:8px; font-size:18px;\">&nbsp;<strong>EMAIL</strong><span style=\"color: rgb(120, 120, 120);\">&nbsp; abc@naver.com&nbsp;</span></span></div></td></tr></tbody></table></div></div>\n\t"
+    "ko": "TEL\n+82-32-812-1800\nFAX\n+82-32-812-1804\nEMAIL\nabc@naver.com",
+    "en": "TEL\n+82-32-812-1800\nFAX\n+82-32-812-1804\nEMAIL\nabc@naver.com"
   },
   "company.global#s202508286e01c87027ecf/w20250828055c4220c2f68/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: left;\"><span style=\"\n    font-size: 22px;\n    font-weight: bold;\n    border: 2px solid rgb(57, 112, 235);\n    border-radius: 100px;\n    padding: 15px 30px;\n    color: rgb(57, 112, 235);\n    position: relative;\n    top: -5px;\"><span style=\"font-size: 20px;\">&nbsp;중국 지사</span>&nbsp;</span></h6><p><br></p><p style=\"line-height: 2;\"><span style=\"font-size: 30px;\"><strong>상하이 옌타이 시티</strong></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 20px;\">Hongfuiie NO.90 Yantai. Shandong. P.R.China</span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: left;\"><span style=\"\n    font-size: 22px;\n    font-weight: bold;\n    border: 2px solid rgb(57, 112, 235);\n    border-radius: 100px;\n    padding: 15px 30px;\n    color: rgb(57, 112, 235);\n    position: relative;\n    top: -5px;\"><span style=\"font-size: 20px;\">&nbsp;China branch</span>&nbsp;</span></h6><p><br></p><p style=\"line-height: 2;\"><span style=\"font-size: 30px;\"><strong>Yantai City, Shanghai&nbsp;</strong></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 20px;\">Hongfuiie NO.90 Yantai. Shandong. P.R.China</span></p></div></div>\n\t"
-  },
-  "company.global#s202508286e01c87027ecf/w20250828e62031634c512/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p><iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3191.921646376016!2d120.51968507627214!3d36.86829426385741!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3596b8ab88fb5af1%3A0xa4ae422919dd9f02!2s90%20Yan%20Tai%20Lu%2C%20Lai%20Xi%20Shi%2C%20Qing%20Dao%20Shi%2C%20Shan%20Dong%20Sheng%2C%20%EC%A4%91%EA%B5%AD%20266600!5e0!3m2!1sko!2skr!4v1756359503622!5m2!1sko!2skr\" width=\"100%\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\"></iframe></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3191.921646376016!2d120.51968507627214!3d36.86829426385741!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3596b8ab88fb5af1%3A0xa4ae422919dd9f02!2s90%20Yan%20Tai%20Lu%2C%20Lai%20Xi%20Shi%2C%20Qing%20Dao%20Shi%2C%20Shan%20Dong%20Sheng%2C%20%EC%A4%91%EA%B5%AD%20266600!5e0!3m2!1sko!2skr!4v1756359503622!5m2!1sko!2skr\" width=\"100%\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\"></iframe></p></div></div>\n\t"
+    "ko": "중국 지사\n상하이 옌타이 시티\nHongfuiie NO.90 Yantai. Shandong. P.R.China",
+    "en": "China branch\nYantai City, Shanghai\nHongfuiie NO.90 Yantai. Shandong. P.R.China"
   },
   "company.global#s202508286e01c87027ecf/w20250828de7deb233dbfa/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: left;\"><span style=\"\n    font-size: 22px;\n    font-weight: bold;\n    border: 2px solid rgb(57, 112, 235);\n    border-radius: 100px;\n    padding: 15px 30px;\n    color: rgb(57, 112, 235);\n    position: relative;\n    top: -5px;\">&nbsp;<span style=\"font-size: 20px;\">캄보디아 지사</span>&nbsp;</span></h6><p><br></p><p style=\"line-height: 2;\"><span style=\"font-size: 30px;\"><strong>캄보디아 프놈펜</strong></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 20px;\">Tuol Kork Phnom Penh City&nbsp;</span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: left;\"><span style=\"\n    font-size: 22px;\n    font-weight: bold;\n    border: 2px solid rgb(57, 112, 235);\n    border-radius: 100px;\n    padding: 15px 30px;\n    color: rgb(57, 112, 235);\n    position: relative;\n    top: -5px;\">&nbsp;<span style=\"font-size: 20px;\">Cambodian branch</span>&nbsp;</span></h6><p><br></p><p style=\"line-height: 2;\"><span style=\"font-size: 30px;\"><strong>Cambodia Phnom Penh&nbsp;</strong></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 20px;\">Tuol Kork Phnom Penh City&nbsp;</span></p></div></div>\n\t"
-  },
-  "company.global#s202508286e01c87027ecf/w202508281ace26521721b/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p><iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d18592.98576115093!2d104.88517323644685!3d11.573796848921877!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3109517485ad1295%3A0xb2bbda109bd51b1a!2zS2hhbiBUdW9sIEtvcmssIO2UhOuGiO2OnCDsuoTrs7TrlJTslYQ!5e0!3m2!1sko!2skr!4v1756358557816!5m2!1sko!2skr\" width=\"100%\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\"></iframe></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d18592.98576115093!2d104.88517323644685!3d11.573796848921877!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3109517485ad1295%3A0xb2bbda109bd51b1a!2zS2hhbiBUdW9sIEtvcmssIO2UhOuGiO2OnCDsuoTrs7TrlJTslYQ!5e0!3m2!1sko!2skr!4v1756358557816!5m2!1sko!2skr\" width=\"100%\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\"></iframe></p></div></div>\n\t"
+    "ko": "캄보디아 지사\n캄보디아 프놈펜\nTuol Kork Phnom Penh City",
+    "en": "Cambodian branch\nCambodia Phnom Penh\nTuol Kork Phnom Penh City"
   },
   "company.global#s2025091161e916b59099f/w202509110e7da42eec27c/src": {
     "ko": "/images/thumbnail/20250911/68ffc55b3ed20.png",
@@ -13358,8 +13199,8 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "en": ""
   },
   "company.history#s2025081109284c6634db6/w2025081119c3906474684/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">더 건강하고 깨끗한 물을 만드는 고객과의 약속</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">에코웨이브를 소개합니다.</span></strong></h6></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">EcoWave promises healthier,</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">cleaner water for customers.</span></strong></h6></div></div>\n\t"
+    "ko": "더 건강하고 깨끗한 물을 만드는 고객과의 약속\n에코웨이브를 소개합니다.",
+    "en": "EcoWave promises healthier,\ncleaner water for customers."
   },
   "company.history#s20250911d986b4b4130eb/w202509117601025aae8ff/src": {
     "ko": "/images/thumbnail/20250911/8a464767025fa.jpg",
@@ -13370,12 +13211,12 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "en": ""
   },
   "company.history#s20250811d0a0980d730fb/w2025082800cb79b620e9f/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><h6 style=\"line-height: 2;\"><span style=\"font-size: 24px;\"><strong><span style=\"color: rgb(52, 101, 222);\">2020 - 2023</span></strong></span></h6><p style=\"line-height: 2;\"><span style=\"font-size: 48px;\"><strong><span style=\"letter-spacing: 0;\">에코웨이브의</span></strong></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 48px;\"><span style=\"letter-spacing: 0;\"><strong><span style=\"color: rgb(57, 112, 235);\">지속적<span class=\"fr-marker\" data-id=\"0\" data-type=\"true\" style=\"display: none; line-height: 0;\">​</span>인 혁<span class=\"fr-marker\" data-id=\"0\" data-type=\"false\" style=\"display: none; line-height: 0;\">​</span>신</span>과&nbsp;</strong></span><span style=\"color: rgb(57, 112, 235); letter-spacing: 0px;\"><strong>성장</strong></span></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><h6 style=\"line-height: 2;\"><span style=\"font-size: 24px;\"><strong><span style=\"color: rgb(52, 101, 222);\">2020 - 2023</span></strong></span></h6><p style=\"line-height: 2;\"><span style=\"font-size: 48px;\"><strong><span style=\"letter-spacing: 0;\">ECO-WAVE</span></strong></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 48px;\"><span style=\"letter-spacing: 0;\"><strong><span style=\"color: rgb(57, 112, 235);\">Continuous innovation&nbsp;</span>and&nbsp;</strong></span><span style=\"color: rgb(57, 112, 235); letter-spacing: 0px;\"><strong>growth&nbsp;</strong></span></span></p></div></div>\n\t"
+    "ko": "2020 - 2023\n에코웨이브의\n지속적\n​\n인 혁\n​\n신\n과\n성장",
+    "en": "2020 - 2023\nECO-WAVE\nContinuous innovation\nand\ngrowth"
   },
   "company.history#s20250811d0a0980d730fb/w202508283581492aaba5b/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2025</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· LS대원 비데 필터 및 아답터 공급</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· 쿠쿠 홈시스 마그네틱 5종 공급</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2024</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· LS대원 비데 필터 및 아답터 공급</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· 쿠쿠 홈시스 마그네틱 5종 공급</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2023</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· 캄보디아 판매회사 설립</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2021</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· 에코웨이브 2공장 설립</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· LG전자 서비스 점검키트 개발</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2020</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· 쿠쿠 홈시스 정수기 설치 아답터 개발</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· 쿠쿠 홈시스 POE정수 필터 개발</span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2025</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· LS Daewon bidet filter and adapter supply&nbsp;</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· Kuku Homesys Magnetic 5 Pieces Supplied&nbsp;</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2024</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· LS Daewon bidet filter and adapter supply&nbsp;</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· Kuku Homesys Magnetic 5 Pieces Supplied&nbsp;</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2023</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· Establishment of Cambodian Sales Company&nbsp;</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2021</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· Establishment of EcoWave Plant 2&nbsp;</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· Development of LG Electronics Service Inspection Kit&nbsp;</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2020</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· Development of Cuckoo Homesys Water Purifier Installation Adapter&nbsp;</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· Development of Cuckoo Homesys POE Water Purification Filter&nbsp;</span></p></div></div>\n\t"
+    "ko": "2025\n· LS대원 비데 필터 및 아답터 공급\n· 쿠쿠 홈시스 마그네틱 5종 공급\n2024\n· LS대원 비데 필터 및 아답터 공급\n· 쿠쿠 홈시스 마그네틱 5종 공급\n2023\n· 캄보디아 판매회사 설립\n2021\n· 에코웨이브 2공장 설립\n· LG전자 서비스 점검키트 개발\n2020\n· 쿠쿠 홈시스 정수기 설치 아답터 개발\n· 쿠쿠 홈시스 POE정수 필터 개발",
+    "en": "2025\n· LS Daewon bidet filter and adapter supply\n· Kuku Homesys Magnetic 5 Pieces Supplied\n2024\n· LS Daewon bidet filter and adapter supply\n· Kuku Homesys Magnetic 5 Pieces Supplied\n2023\n· Establishment of Cambodian Sales Company\n2021\n· Establishment of EcoWave Plant 2\n· Development of LG Electronics Service Inspection Kit\n2020\n· Development of Cuckoo Homesys Water Purifier Installation Adapter\n· Development of Cuckoo Homesys POE Water Purification Filter"
   },
   "company.history#s20250811d0a0980d730fb/w20250828e2f457614fd1a/src": {
     "ko": "/images/thumbnail/20250828/6b14cd3e03e4b.jpg",
@@ -13394,12 +13235,12 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "en": ""
   },
   "company.history#s20250828fe85691f33b65/w20250828e83ff2674ace5/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><h6 style=\"line-height: 2;\"><span style=\"font-size: 24px;\"><strong><span style=\"color: rgb(52, 101, 222);\">2015 - 2019</span></strong></span></h6><p style=\"line-height: 2;\"><span style=\"font-size: 48px;\"><strong><span style=\"letter-spacing: 0;\">에코웨이브의</span></strong></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 48px;\"><span style=\"letter-spacing: 0px; color: rgb(54, 54, 54);\"><strong>기술</strong></span><span style=\"letter-spacing: 0;\"><strong>과 서비스의 융합 &nbsp;</strong></span></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><h6 style=\"line-height: 2;\"><span style=\"font-size: 24px;\"><strong><span style=\"color: rgb(52, 101, 222);\">2015 - 2019</span></strong></span></h6><p style=\"line-height: 2;\"><span style=\"font-size: 48px;\"><strong><span style=\"letter-spacing: 0;\">ECO-WAVE</span></strong></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 48px;\"><span style=\"letter-spacing: 0;\"><strong>convergence of technology and services &nbsp;&nbsp;</strong></span></span></p></div></div>\n\t"
+    "ko": "2015 - 2019\n에코웨이브의\n기술\n과 서비스의 융합",
+    "en": "2015 - 2019\nECO-WAVE\nconvergence of technology and services"
   },
   "company.history#s20250828fe85691f33b65/w2025082812223844d5d61/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2019</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· LG전자 정수기 아답터 개발&nbsp;</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2018</span></strong></h6><p><span style=\"font-size: 18px;\">· 쿠쿠 홈시스 정수기 필터 개발</span></p><p><span style=\"font-size: 18px;\">· SK Magic 신규 비데 필터 개발</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2017</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· 자사 비타민 샤워기 모듈 및 필터 개발&nbsp;</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2016</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· SK Magic 비데 필터 공급&nbsp;</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2015</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· 나노 필터 개발&nbsp;</span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2019</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· Development of LG Electronics Water Purifier Adapter &nbsp;</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2018</span></strong></h6><p><span style=\"font-size: 18px;\">· Development of Cuckoo Homesys Water Purifier Filter&nbsp;</span></p><p><span style=\"font-size: 18px;\">· Development of SK Magic New Bidet Filter&nbsp;</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2017</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· Developing its own vitamin shower module and filter &nbsp;</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2016</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· SK Magic Bidet filter supply &nbsp;</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2015</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· Development of Nano Filter &nbsp;</span></p></div></div>\n\t"
+    "ko": "2019\n· LG전자 정수기 아답터 개발\n2018\n· 쿠쿠 홈시스 정수기 필터 개발\n· SK Magic 신규 비데 필터 개발\n2017\n· 자사 비타민 샤워기 모듈 및 필터 개발\n2016\n· SK Magic 비데 필터 공급\n2015\n· 나노 필터 개발",
+    "en": "2019\n· Development of LG Electronics Water Purifier Adapter\n2018\n· Development of Cuckoo Homesys Water Purifier Filter\n· Development of SK Magic New Bidet Filter\n2017\n· Developing its own vitamin shower module and filter\n2016\n· SK Magic Bidet filter supply\n2015\n· Development of Nano Filter"
   },
   "company.history#s20250828fe85691f33b65/w202508289a08701d84b65/src": {
     "ko": "/images/thumbnail/20250828/a183e714076fb.jpg",
@@ -13418,12 +13259,12 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "en": ""
   },
   "company.history#s2025082848202431448dd/w20250828ed4c25cde1fa0/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><h6 style=\"line-height: 2;\"><span style=\"font-size: 24px;\"><strong><span style=\"color: rgb(52, 101, 222);\">2010 - 2014</span></strong></span></h6><p style=\"line-height: 2;\"><span style=\"font-size: 48px;\"><strong><span style=\"letter-spacing: 0;\">에코웨이브의</span></strong></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 48px;\"><span style=\"letter-spacing: 0;\"><strong>고객과 함께한 신뢰의 역사 </strong></span></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><h6 style=\"line-height: 2;\"><span style=\"font-size: 24px;\"><strong><span style=\"color: rgb(52, 101, 222);\">2010 - 2014</span></strong></span></h6><p style=\"line-height: 2;\"><span style=\"font-size: 48px;\"><strong><span style=\"letter-spacing: 0;\">ECO-WAVE</span></strong></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 48px;\"><span style=\"letter-spacing: 0;\"><strong>a history of trust with customers &nbsp;</strong></span></span></p></div></div>\n\t"
+    "ko": "2010 - 2014\n에코웨이브의\n고객과 함께한 신뢰의 역사",
+    "en": "2010 - 2014\nECO-WAVE\na history of trust with customers"
   },
   "company.history#s2025082848202431448dd/w202508288b50dcc1f5d69/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2014</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· 기업 부설 연구소 설립&nbsp;</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2013</span></strong></h6><p><span style=\"font-size: 18px;\">· 자사 언더 싱크 정수기 개발</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2012</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· LG 살균 모듈 개발(ESD)개발</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· LG전자 스위치 아세이(LPS)개발</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2011</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· 에코웨이브 설립</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· LG 정수기 필터 공급</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2010</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px;\">· 정수기 필터 개발(LG)</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px;\">· RO 시스템 및 UF 시스템</span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2014</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· Establishment of corporate-affiliated research institutes &nbsp;</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2013</span></strong></h6><p><span style=\"font-size: 18px;\">· Development of the company's under-sink water purifier&nbsp;</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2012</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· Development of LG Sterilization Module (ESD)&nbsp;</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· Development of LG Electronics Switch Asei (LPS)&nbsp;</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2011</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· Establishment of EcoWave&nbsp;</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px; line-height: 2;\">· LG Water Purifier Filter Supply&nbsp;</span></p><p style=\"line-height: 2;\"><br></p><hr><h6><strong><span style=\"color: rgb(57, 112, 235); font-size: 30px;\">2010</span></strong></h6><p style=\"line-height: 2;\"><span style=\"font-size: 18px;\">· Development of Water Purifier Filter (LG)&nbsp;</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px;\">· RO System and UF System&nbsp;</span></p></div></div>\n\t"
+    "ko": "2014\n· 기업 부설 연구소 설립\n2013\n· 자사 언더 싱크 정수기 개발\n2012\n· LG 살균 모듈 개발(ESD)개발\n· LG전자 스위치 아세이(LPS)개발\n2011\n· 에코웨이브 설립\n· LG 정수기 필터 공급\n2010\n· 정수기 필터 개발(LG)\n· RO 시스템 및 UF 시스템",
+    "en": "2014\n· Establishment of corporate-affiliated research institutes\n2013\n· Development of the company's under-sink water purifier\n2012\n· Development of LG Sterilization Module (ESD)\n· Development of LG Electronics Switch Asei (LPS)\n2011\n· Establishment of EcoWave\n· LG Water Purifier Filter Supply\n2010\n· Development of Water Purifier Filter (LG)\n· RO System and UF System"
   },
   "company.history#s2025082848202431448dd/w202508280039b649ce648/src": {
     "ko": "/images/thumbnail/20250828/d7b2a8a54d3e2.jpg",
@@ -13454,20 +13295,20 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "en": ""
   },
   "company#s202508206321c39177601/w20250820e1c08ac226481/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">더 건강하고 깨끗한 물을 만드는 고객과의 약속</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">에코웨이브를 소개합니다.</span></strong></h6></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">EcoWave promises healthier,</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">cleaner water for customers.</span></strong></h6></div></div>\n\t"
+    "ko": "더 건강하고 깨끗한 물을 만드는 고객과의 약속\n에코웨이브를 소개합니다.",
+    "en": "EcoWave promises healthier,\ncleaner water for customers."
   },
   "company#s20250811fd0a82675a6bc/w20250909fe979998d4590/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 3;\"><span style=\"font-size: 36px;\"><strong><span style=\"color: rgb(52, 101, 222);\">에코웨이브&nbsp;</span></strong><span style=\"color: rgb(52, 101, 222);\"><strong>홈페이지를</strong></span></span></p><p style=\"line-height: 3;\"><span style=\"font-size: 36px;\"><span style=\"color: rgb(20, 20, 20);\"><strong>찾아주신 모든 분들께</strong></span></span></p><p style=\"line-height: 3;\"><span style=\"font-size: 36px;\"><strong><span style=\"color: rgb(20, 20, 20);\">진심으로 감사를 드립니다.</span></strong></span></p><p><strong><br></strong></p><p><strong><img src=\"/images/upload/S20250811e0bd2f7c414df/a4521d6c5d4c5.png\" class=\"fr-fin fr-dib fr-fil\" style=\"width: 369px;\"></strong></p><p><br></p><p style=\"line-height: 3;\"><br></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 3;\"><span style=\"font-size: 36px;\"><span style=\"color: rgb(52, 101, 222);\"><strong>Thank you sincerely &nbsp;</strong></span></span></p><p style=\"line-height: 3;\"><span style=\"font-size: 36px;\"><span style=\"color: rgb(20, 20, 20);\"><strong>for visiting EcoWave.&nbsp;</strong></span></span></p><p><strong><br></strong></p><p><strong><img src=\"/images/upload/S20250811e0bd2f7c414df/a4521d6c5d4c5.png\" class=\"fr-fin fr-dib fr-fil\" style=\"width: 369px;\"></strong></p><p><br></p><p style=\"line-height: 3;\"><br></p></div></div>\n\t"
+    "ko": "에코웨이브\n홈페이지를\n찾아주신 모든 분들께\n진심으로 감사를 드립니다.",
+    "en": "Thank you sincerely\nfor visiting EcoWave."
   },
   "company#s20250811fd0a82675a6bc/w20250909edc32b5a0f8ec/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2;\"><span style=\"font-size: 20px;\"><strong><span style=\"color: rgb(17, 17, 17);\">존경하는 여러분께,</span></strong></span></p><p style=\"line-height: 2;\"><span style=\"color: rgb(17, 17, 17);\"><span style=\"font-size: 20px;\"><strong>에코웨이브는 “깨끗한 물이 곧 건강한 삶의 시작”</strong></span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 20px;\"><strong><span style=\"color: rgb(17, 17, 17);\">이라는 믿음을 바탕으로 출발했습니다.</span></strong></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px;\"><br>물은 인간의 생존에 가장 기본적이면서도, 삶의 질을 결정짓는 중요한 요소입니다.</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px;\">그렇기에 저희는 단순히 정수기를 만드는 것이 아니라, <strong><span style=\"color: rgb(17, 17, 17);\">사람과 환경을 동시에 건강하게 하는 기술</span></strong>을 개발하고자 노력해왔습니다.</span></p><p style=\"line-height: 2;\"><br></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px;\">우리는 <strong><span style=\"color: rgb(17, 17, 17);\">환경 친화적인 수처리 솔루션</span></strong>을 통해 지속 가능한 미래를 만들고자 합니다. <br>다단계 정수 시스템, 기능성 미네랄 필터, 스마트 살균 기술 등 에코웨이브의 모든 기술은</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px;\">“안전하고 신뢰할 수 있는 물”을 제공한다는 하나의 목표로 모이고 있습니다.</span></p><p style=\"line-height: 2;\"><br></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px;\">또한, 글로벌 파트너십을 통해 검증된 품질과 안정적인 공급망을 구축하며,</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px;\">전 세계 어디서든 에코웨이브의 물을 경험할 수 있도록 성장해 나가고 있습니다.</span></p><p style=\"line-height: 2;\"><br></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px;\">앞으로도 저희 에코웨이브는 <strong><span style=\"color: rgb(17, 17, 17);\">환경과 인류의 건강을 동시에 지키는 가치 있는 기업,</span></strong> <br>그리고 <span style=\"color: rgb(17, 17, 17);\"><strong>고객에게 신뢰받는 동반자</strong></span>로 자리매김하기 위해 끊임없이 도전하겠습니다.</span></p><p style=\"line-height: 2;\"><br></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px;\">감사합니다.</span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2;\"><span style=\"font-size: 20px;\"><strong><span style=\"color: rgb(17, 17, 17);\">To all you respect, EcoWave says,</span></strong></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 20px;\"><strong><span style=\"color: rgb(17, 17, 17);\">\"Clean water is the beginning of a healthy life.\"</span></strong></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 20px;\"><strong><span style=\"color: rgb(17, 17, 17);\">I started based on the belief that.</span></strong></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px;\"><br></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px;\">EcoWave was founded on the belief that clean water is the beginning of a healthy life. Because water is essential not only for survival but also for quality of life,&nbsp;</span><span style=\"font-size: 18px;\">we are committed to developing technologies that care for both people and the environment.</span></p><p style=\"line-height: 2;\"><br></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px;\">Through eco-friendly solutions—such as advanced purification systems, mineral filters, and smart sterilization—we strive to deliver safe and reliable water. With strong global partnerships, we ensure proven quality and stable supply so EcoWave water can be experienced anywhere in the world.</span></p><p style=\"line-height: 2;\"><br></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px;\">Looking ahead, we will continue to protect the environment and human health, and we promise to remain a trusted partner to all our customers.</span></p><p style=\"line-height: 2;\"><br></p><p style=\"line-height: 2;\"><span style=\"font-size: 18px;\">Thank you for your continued support.</span><span style=\"font-size: 18px;\">&nbsp;</span></p></div></div>\n\t"
+    "ko": "존경하는 여러분께,\n에코웨이브는 “깨끗한 물이 곧 건강한 삶의 시작”\n이라는 믿음을 바탕으로 출발했습니다.\n물은 인간의 생존에 가장 기본적이면서도, 삶의 질을 결정짓는 중요한 요소입니다.\n그렇기에 저희는 단순히 정수기를 만드는 것이 아니라,\n사람과 환경을 동시에 건강하게 하는 기술\n을 개발하고자 노력해왔습니다.\n우리는\n환경 친화적인 수처리 솔루션\n을 통해 지속 가능한 미래를 만들고자 합니다.\n다단계 정수 시스템, 기능성 미네랄 필터, 스마트 살균 기술 등 에코웨이브의 모든 기술은\n“안전하고 신뢰할 수 있는 물”을 제공한다는 하나의 목표로 모이고 있습니다.\n또한, 글로벌 파트너십을 통해 검증된 품질과 안정적인 공급망을 구축하며,\n전 세계 어디서든 에코웨이브의 물을 경험할 수 있도록 성장해 나가고 있습니다.\n앞으로도 저희 에코웨이브는\n환경과 인류의 건강을 동시에 지키는 가치 있는 기업,\n그리고\n고객에게 신뢰받는 동반자\n로 자리매김하기 위해 끊임없이 도전하겠습니다.\n감사합니다.",
+    "en": "To all you respect, EcoWave says,\n\"Clean water is the beginning of a healthy life.\"\nI started based on the belief that.\nEcoWave was founded on the belief that clean water is the beginning of a healthy life. Because water is essential not only for survival but also for quality of life,\nwe are committed to developing technologies that care for both people and the environment.\nThrough eco-friendly solutions—such as advanced purification systems, mineral filters, and smart sterilization—we strive to deliver safe and reliable water. With strong global partnerships, we ensure proven quality and stable supply so EcoWave water can be experienced anywhere in the world.\nLooking ahead, we will continue to protect the environment and human health, and we promise to remain a trusted partner to all our customers.\nThank you for your continued support."
   },
   "company#s20250811fd0a82675a6bc/w20250909f454e7a9b1143/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: right;\"><span style=\"font-size: 18px;\">에코웨이브 대표</span><span style=\"font-size: 20px;\">&nbsp;&nbsp;<strong>최 태 국</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: right;\"><span style=\"font-size: 18px;\">Representative of EcoWave,</span><span style=\"font-size: 20px;\">&nbsp; <strong>Choi Tae-guk</strong></span></p></div></div>\n\t"
+    "ko": "에코웨이브 대표\n최 태 국",
+    "en": "Representative of EcoWave,\nChoi Tae-guk"
   },
   "company#s2025091161e916b59099f/w202509110e7da42eec27c/src": {
     "ko": "/images/thumbnail/20250911/68ffc55b3ed20.png",
@@ -13490,8 +13331,8 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "en": ""
   },
   "company.organization#s2025082815dd6babdb335/w202508282e3a21059f88e/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">더 건강하고 깨끗한 물을 만드는 고객과의 약속</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">에코웨이브를 소개합니다.</span></strong></h6></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">EcoWave promises healthier,</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">cleaner water for customers.</span></strong><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\"></span></strong></h6></div></div>\n\t"
+    "ko": "더 건강하고 깨끗한 물을 만드는 고객과의 약속\n에코웨이브를 소개합니다.",
+    "en": "EcoWave promises healthier,\ncleaner water for customers."
   },
   "company.organization#s20250828f005be7f3c16a/w2025082844061a0c9a3b2/src": {
     "ko": "/images/thumbnail/20250828/5045189daef5d.png",
@@ -13522,31 +13363,31 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "en": ""
   },
   "company.philosophy#s20250821af3858f799ed0/w20250821cacc4fa0b7888/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">더 건강하고 깨끗한 물을 만드는 고객과의 약속</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">에코웨이브를 소개합니다.</span></strong></h6></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">EcoWave promises healthier,</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">cleaner water for customers.</span></strong></h6></div></div>\n\t"
+    "ko": "더 건강하고 깨끗한 물을 만드는 고객과의 약속\n에코웨이브를 소개합니다.",
+    "en": "EcoWave promises healthier,\ncleaner water for customers."
   },
   "company.philosophy#s202508119eca72dc669e0/w20250828318841133c7bc/html": {
-    "ko": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: rgba(57, 112, 235, 0)\"></div><div class=\"text-table holder\"><div><p style=\"text-align:center;\"><span style=\"display: inline-flex; justify-content: center; align-items: center; width: 250px; aspect-ratio: 1 / 1; background-color: rgb(57, 112, 235); color: rgb(255, 255, 255); font-size: 30px; font-weight: bold; border-radius: 50%;\">Mission</span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: rgba(57, 112, 235, 0)\"></div><div class=\"text-table holder\"><div><p style=\"text-align:center;\"><span style=\"display: inline-flex; justify-content: center; align-items: center; width: 250px; aspect-ratio: 1 / 1; background-color: rgb(57, 112, 235); color: rgb(255, 255, 255); font-size: 30px; font-weight: bold; border-radius: 50%;\">Mission</span></p></div></div>\n\t"
+    "ko": "Mission",
+    "en": "Mission"
   },
   "company.philosophy#s202508119eca72dc669e0/w2025082880e9f1cd594e5/html": {
-    "ko": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: rgba(247, 247, 247, 0)\"></div><div class=\"text-table holder\"><div><h6 style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 20px;\">물을 깨끗하게, 사람을 건강하게&nbsp;</span><span style=\"font-size: 20px;\">에코웨이브의 사명</span></h6><p><br></p><h6 style=\"text-align: center;\"><span style=\"font-size: 18px;\"><span style=\"color: rgb(57, 112, 235);\"><strong>Eco-wave 사람들의 행복한 삶을 위해</strong></span></span></h6><h6 style=\"text-align: center;\"><span style=\"font-size: 18px; color: rgb(57, 112, 235);\"><strong>더 깨끗하고 더 건강한 필터를 만들어 나갑니다.</strong></span></h6></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: rgba(247, 247, 247, 0)\"></div><div class=\"text-table holder\"><div><h6 style=\"text-align: center; line-height: 1;\"><span style=\"font-size: 20px;\">Clean water, healthy people.</span></h6><h6 style=\"text-align: center; line-height: 1;\"><span style=\"font-size: 18px;\"><span style=\"color: rgb(57, 112, 235);\"><strong>For happy lives, &nbsp;we create healthier filters.&nbsp;</strong></span></span><span style=\"font-size: 18px;\"><span style=\"color: rgb(57, 112, 235);\"><strong>&nbsp;</strong></span></span></h6></div></div>\n\t"
+    "ko": "물을 깨끗하게, 사람을 건강하게\n에코웨이브의 사명\nEco-wave 사람들의 행복한 삶을 위해\n더 깨끗하고 더 건강한 필터를 만들어 나갑니다.",
+    "en": "Clean water, healthy people.\nFor happy lives, we create healthier filters."
   },
   "company.philosophy#s202508119eca72dc669e0/w202508286148935689b29/html": {
-    "ko": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: rgba(57, 112, 235, 0)\"></div><div class=\"text-table holder\"><div><p style=\"text-align:center;\"><span style=\"display:inline-flex;justify-content:center;align-items:center;width:250px;aspect-ratio:1/1;background-color:#3970eb;color:#fff;font-size:24px;font-weight:bold;border-radius:50%;\">건강한 약속</span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: rgba(57, 112, 235, 0)\"></div><div class=\"text-table holder\"><div><p style=\"text-align:center;\"><span style=\"display:inline-flex;justify-content:center;align-items:center;width:250px;aspect-ratio:1/1;background-color:#3970eb;color:#fff;font-size:24px;font-weight:bold;border-radius:50%;\">Healthy promise</span></p></div></div>\n\t"
+    "ko": "건강한 약속",
+    "en": "Healthy promise"
   },
   "company.philosophy#s202508119eca72dc669e0/w202508285a7385a21e446/html": {
-    "ko": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: rgba(247, 247, 247, 0)\"></div><div class=\"text-table holder\"><div><h6 style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 20px;\">더 건강하고 깨끗한 물을 만드는 고객과의 약속&nbsp;</span></h6><h6 style=\"text-align: center;\"><span style=\"font-size: 18px;\"><span style=\"color: rgb(57, 112, 235);\"><strong>건강하기 위해서 중</strong><strong>요한 물, 소홀히 할 수 없습니다.</strong></span></span></h6><h6 style=\"text-align: center;\"><span style=\"font-size: 18px;\"><span style=\"color: rgb(57, 112, 235);\"><strong>여러분들이 안심하</strong><strong>고 마실 수 있도록</strong></span></span></h6><h6 style=\"text-align: center;\"><span style=\"font-size: 18px;\"><span style=\"color: rgb(57, 112, 235);\"><strong>깨끗하고 건강한 물만 만들겠다 약속합니다.</strong></span></span></h6></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: rgba(247, 247, 247, 0)\"></div><div class=\"text-table holder\"><div><h6 style=\"text-align: center; line-height: 1;\"><span style=\"font-size: 20px;\">We promise cleaner water</span><span style=\"font-size: 20px;\">.</span></h6><h6 style=\"text-align: center; line-height: 1;\"><span style=\"font-size: 18px;\"><span style=\"color: rgb(57, 112, 235);\"><strong>Healthy life with clean, trusted water.&nbsp;</strong></span></span><span style=\"font-size: 18px;\"><span style=\"color: rgb(57, 112, 235);\"><strong>&nbsp;</strong></span></span></h6></div></div>\n\t"
+    "ko": "더 건강하고 깨끗한 물을 만드는 고객과의 약속\n건강하기 위해서 중\n요한 물, 소홀히 할 수 없습니다.\n여러분들이 안심하\n고 마실 수 있도록\n깨끗하고 건강한 물만 만들겠다 약속합니다.",
+    "en": "We promise cleaner water\n.\nHealthy life with clean, trusted water."
   },
   "company.philosophy#s202508119eca72dc669e0/w202508119eca72dc669e0lbl/html": {
     "ko": "<div class=\"widget _text_wrap widget_text_wrap fr-view default_padding\"><div class=\"text-table\"><div><p style=\"text-align: left; line-height: 1.2;\"><span style=\"font-size: 36px;\"><strong><span style=\"color: rgb(18, 18, 18);\">경영이념</span></strong></span></p></div></div></div>"
   },
   "company.philosophy#s202508280e68f158799c2/w202508280d2f1669e2789/html": {
-    "ko": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: #3970eb\"></div><div class=\"text-table holder\"><div><p style=\"text-align: center;\"><span style=\"font-size: 24px;\"><strong><span style=\"color: rgb(255, 255, 255);\">Environment\nDesign Management</span></strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: #3970eb\"></div><div class=\"text-table holder\"><div><p style=\"text-align: center;\"><span style=\"font-size: 24px;\"><strong><span style=\"color: rgb(255, 255, 255);\">Environment\nDesign Management</span></strong></span></p></div></div>\n\t"
+    "ko": "Environment Design Management",
+    "en": "Environment Design Management"
   },
   "company.philosophy#s202508280e68f158799c2/w202508289fc0c0165c025/src": {
     "ko": "/images/thumbnail/20250911/3241669643c6e.jpg",
@@ -13557,27 +13398,27 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "en": ""
   },
   "company.philosophy#s202508280e68f158799c2/w202508281ce9cfb92c9a4/html": {
-    "ko": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: rgba(247, 247, 247, 0)\"></div><div class=\"text-table holder\"><div><h6 style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 20px;\">Environment Design Management / 환경 디자인관리</span></h6><h6 style=\"text-align: center;\"><span style=\"font-size: 18px;\"><span style=\"color: rgb(57, 112, 235);\"><strong>에코웨이브는 친환경전문회사로서 새로운 가치를 선</strong><strong><span class=\"fr-marker\" data-id=\"0\" data-type=\"true\" style=\"display: none; line-height: 0;\">​</span>도하며&nbsp;</strong><strong>친<span class=\"fr-marker\" data-id=\"0\" data-type=\"false\" style=\"display: none; line-height: 0;\">​</span></strong><strong>환경적인 제품으로 건강한 환경,&nbsp;</strong></span></span></h6><h6 style=\"text-align: center;\"><span style=\"font-size: 18px;\"><span style=\"color: rgb(57, 112, 235);\"><strong>건강한 인간의 삶을 만들겠다는&nbsp;</strong><strong>약속과 의지로 기업 경영을 실천하겠습니다.</strong></span></span></h6></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: rgba(247, 247, 247, 0)\"></div><div class=\"text-table holder\"><div><h6 style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 20px;\">Environment Design Management</span></h6><h6 style=\"text-align: center; line-height: 1;\"><span style=\"font-size: 18px;\"><span style=\"color: rgb(57, 112, 235);\"><strong>EcoWave is an eco-friendly company creating new values and products</strong></span></span></h6><h6 style=\"text-align: center; line-height: 1;\"><span style=\"font-size: 18px;\"><span style=\"color: rgb(57, 112, 235);\"><strong>for a healthy environment, committed to corporate management that promotes human well-being.</strong></span></span></h6></div></div>\n\t"
+    "ko": "Environment Design Management / 환경 디자인관리\n에코웨이브는 친환경전문회사로서 새로운 가치를 선\n​\n도하며\n친\n​\n환경적인 제품으로 건강한 환경,\n건강한 인간의 삶을 만들겠다는\n약속과 의지로 기업 경영을 실천하겠습니다.",
+    "en": "Environment Design Management\nEcoWave is an eco-friendly company creating new values and products\nfor a healthy environment, committed to corporate management that promotes human well-being."
   },
   "company.philosophy#s202508280e68f158799c2/w202508280e68f158799c2lbl/html": {
     "ko": "<div class=\"widget _text_wrap widget_text_wrap fr-view default_padding\"><div class=\"text-table\"><div><p style=\"text-align: left; line-height: 1.2;\"><span style=\"font-size: 36px;\"><strong><span style=\"color: rgb(18, 18, 18);\">비전</span></strong></span></p></div></div></div>"
   },
   "company.philosophy#s20250829e04e5ce09ea7e/w202508295885a3029f0c2/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center;\"><span style=\"font-size: 36px;\"><strong><span style=\"color: rgb(18, 18, 18);\">3단계 서비스 </span></strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center;\"><span style=\"font-size: 36px;\"><strong><span style=\"color: rgb(18, 18, 18);\">Three-step service &nbsp;</span></strong></span></p></div></div>\n\t"
+    "ko": "3단계 서비스",
+    "en": "Three-step service"
   },
   "company.philosophy#s20250829e04e5ce09ea7e/w2025082996725d2a2d20e/html": {
-    "ko": "\n\t\t<div class=\"text_bg_img\" style=\"background: url(/images/thumbnail/20250829/a33c73512d479.jpg) no-repeat; background-size: cover;\"></div><div class=\"text_bg_color\" style=\"background-color: rgba(0, 0, 0, 0.7)\"></div><div class=\"text-table holder\"><div><h6 style=\"text-align: center;\"><br></h6><h6 style=\"text-align: center;\"><span style=\"color: rgb(255, 255, 255); font-size: 16px;\">차별화된 아이디어</span></h6><p style=\"text-align: center;\"><span style=\"color: rgb(57, 112, 235); font-size: 36px;\"><strong>IDEA</strong></span></p><p style=\"text-align: center;\"><span style=\"color: rgb(255, 255, 255);\"><img src=\"/images/upload/S20250811e0bd2f7c414df/879858cb2c258.png\" class=\"fr-fin fr-dib\" style=\"width: 88px;\"></span><br></p><p style=\"text-align: center; line-height: 2;\"><span style=\"color: rgb(255, 255, 255);\"><span style=\"font-size: 18px;\">차별화된 가치는</span></span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px;\"><span style=\"color: rgb(255, 255, 255);\">우리의 시작점입니다.</span></span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px;\"><br></span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px;\"><span style=\"color: rgb(255, 255, 255); font-weight: bold; background: linear-gradient(to top, rgba(0, 123, 255, 0.3) 50%, transparent 50%); padding: 0px 4px;\">고객의 기대를 넘어서는 혁신</span></span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(255, 255, 255); font-weight: bold; background: linear-gradient(to top, rgba(0, 123, 255, 0.3) 50%, transparent 50%); padding: 0px 4px;\">새로운 가치를 창조합니다.</span></p><p style=\"text-align: center; line-height: 2;\"><br></p><p style=\"text-align: center; line-height: 2;\"><br></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text_bg_img\" style=\"background: url(/images/thumbnail/20250829/a33c73512d479.jpg) no-repeat; background-size: cover;\"></div><div class=\"text_bg_color\" style=\"background-color: rgba(0, 0, 0, 0.7)\"></div><div class=\"text-table holder\"><div><h6 style=\"text-align: center;\"><br></h6><h6 style=\"text-align: center;\"><span style=\"color: rgb(255, 255, 255); font-size: 16px;\">Differentiated idea&nbsp;</span></h6><p style=\"text-align: center;\"><span style=\"color: rgb(57, 112, 235); font-size: 36px;\"><strong>IDEA</strong></span></p><p style=\"text-align: center;\"><span style=\"color: rgb(255, 255, 255);\"><img src=\"/images/upload/S20250811e0bd2f7c414df/879858cb2c258.png\" class=\"fr-fin fr-dib\" style=\"width: 88px;\"></span><br></p><p style=\"text-align: center; line-height: 2;\"><span style=\"color: rgb(255, 255, 255);\"><span style=\"font-size: 18px;\">Differentiated values</span></span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"color: rgb(255, 255, 255);\"><span style=\"font-size: 18px;\">are our starting point.</span></span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px;\"><br></span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px;\"><span style=\"color: rgb(255, 255, 255); font-weight: bold; background: linear-gradient(to top, rgba(0, 123, 255, 0.3) 50%, transparent 50%); padding: 0px 4px;\">Innovation beyond expectations,</span></span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(255, 255, 255); font-weight: bold; background: linear-gradient(to top, rgba(0, 123, 255, 0.3) 50%, transparent 50%); padding: 0px 4px;\">creating new values.</span></p><p style=\"text-align: center; line-height: 2;\"><br></p><p style=\"text-align: center; line-height: 2;\"><br></p><p style=\"text-align: center; line-height: 2;\"><br></p></div></div>\n\t"
+    "ko": "차별화된 아이디어\nIDEA\n차별화된 가치는\n우리의 시작점입니다.\n고객의 기대를 넘어서는 혁신\n새로운 가치를 창조합니다.",
+    "en": "Differentiated idea\nIDEA\nDifferentiated values\nare our starting point.\nInnovation beyond expectations,\ncreating new values."
   },
   "company.philosophy#s20250829e04e5ce09ea7e/w202508291aa62a1ed03bb/html": {
-    "ko": "\n\t\t<div class=\"text_bg_img\" style=\"background: url(/images/thumbnail/20250829/ac35b37a40e78.jpg) no-repeat; background-size: cover;\"></div><div class=\"text_bg_color\" style=\"background-color: rgba(0, 0, 0, 0.7)\"></div><div class=\"text-table holder\"><div><h6 style=\"text-align: center;\"><br></h6><h6 style=\"text-align: center;\"><span style=\"color: rgb(255, 255, 255); font-size: 16px;\">최고의 품질</span></h6><p style=\"text-align: center;\"><span style=\"color: rgb(57, 112, 235); font-size: 36px;\"><strong>Quality</strong></span></p><p style=\"text-align: center;\"><span style=\"color: rgb(255, 255, 255);\"><img src=\"/images/upload/S20250811e0bd2f7c414df/cd34a22b71f69.png\" class=\"fr-fin fr-dib\" style=\"width: 88px;\"></span><br></p><p style=\"text-align: center; line-height: 2;\"><span style=\"color: rgb(255, 255, 255);\"><span style=\"font-size: 18px;\">전사적 자원관리를 바탕으로 최고의 품질을 실현하며, 신뢰받는 파트너로 앞서 나갑니다.</span></span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px;\"><br></span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(255, 255, 255); font-weight: bold; background: linear-gradient(to top, rgba(0, 123, 255, 0.3) 50%, transparent 50%); padding: 0px 4px;\">고객 만족을 최우선으로 합니다. 우리는 함께 성장하는 성공의 동반자가 되겠습니다.</span></p><p style=\"text-align: center; line-height: 2;\"><br></p><p style=\"text-align: center; line-height: 2;\"><br></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text_bg_img\" style=\"background: url(/images/thumbnail/20250829/ac35b37a40e78.jpg) no-repeat; background-size: cover;\"></div><div class=\"text_bg_color\" style=\"background-color: rgba(0, 0, 0, 0.7)\"></div><div class=\"text-table holder\"><div><h6 style=\"text-align: center;\"><br></h6><h6 style=\"text-align: center;\"><span style=\"color: rgb(255, 255, 255); font-size: 16px;\">Highest quality&nbsp;</span></h6><p style=\"text-align: center;\"><span style=\"color: rgb(57, 112, 235); font-size: 36px;\"><strong>Quality</strong></span></p><p style=\"text-align: center;\"><span style=\"color: rgb(255, 255, 255);\"><img src=\"/images/upload/S20250811e0bd2f7c414df/cd34a22b71f69.png\" class=\"fr-fin fr-dib\" style=\"width: 88px;\"></span><br></p><p style=\"text-align: center; line-height: 2;\"><span style=\"color: rgb(255, 255, 255);\"><span style=\"font-size: 18px;\">We deliver the highest quality</span></span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"color: rgb(255, 255, 255);\"><span style=\"font-size: 18px;\">and lead as a trusted partner.</span></span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px;\"><br></span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(255, 255, 255); font-weight: bold; background: linear-gradient(to top, rgba(0, 123, 255, 0.3) 50%, transparent 50%); padding: 0px 4px;\">We value customer satisfaction.</span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(255, 255, 255); font-weight: bold; background: linear-gradient(to top, rgba(0, 123, 255, 0.3) 50%, transparent 50%); padding: 0px 4px;\">We succeed and grow together.&nbsp;</span></p><p style=\"text-align: center; line-height: 2;\"><br></p><p style=\"text-align: center; line-height: 2;\"><br></p><p style=\"text-align: center; line-height: 2;\"><br></p></div></div>\n\t"
+    "ko": "최고의 품질\nQuality\n전사적 자원관리를 바탕으로 최고의 품질을 실현하며, 신뢰받는 파트너로 앞서 나갑니다.\n고객 만족을 최우선으로 합니다. 우리는 함께 성장하는 성공의 동반자가 되겠습니다.",
+    "en": "Highest quality\nQuality\nWe deliver the highest quality\nand lead as a trusted partner.\nWe value customer satisfaction.\nWe succeed and grow together."
   },
   "company.philosophy#s20250829e04e5ce09ea7e/w202508297535663fbc7e0/html": {
-    "ko": "\n\t\t<div class=\"text_bg_img\" style=\"background: url(/images/thumbnail/20250829/2401fc601eefc.jpg) no-repeat; background-size: cover;\"></div><div class=\"text_bg_color\" style=\"background-color: rgba(0, 0, 0, 0.7)\"></div><div class=\"text-table holder\"><div><h6 style=\"text-align: center;\"><br></h6><h6 style=\"text-align: center;\"><span style=\"color: rgb(255, 255, 255); font-size: 16px;\">선행된 시간 관리</span></h6><p style=\"text-align: center;\"><span style=\"color: rgb(57, 112, 235); font-size: 36px;\"><strong>TIME</strong></span></p><p style=\"text-align: center;\"><span style=\"color: rgb(255, 255, 255);\"><img src=\"/images/upload/S20250811e0bd2f7c414df/ca11148fc2918.png\" class=\"fr-fin fr-dib\" style=\"width: 88px;\"></span><br></p><p style=\"text-align: center; line-height: 2;\"><span style=\"color: rgb(255, 255, 255);\"><span style=\"font-size: 18px;\">선행 품질관리, 선행 생산관리,</span></span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px;\"><span style=\"color: rgb(255, 255, 255);\">선행 납기관리</span></span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px;\"><br></span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(255, 255, 255); font-weight: bold; background: linear-gradient(to top, rgba(0, 123, 255, 0.3) 50%, transparent 50%); padding: 0px 4px;\">보다 완벽한 제품을 준비해내며 효율성과 안정성 을 극대화하고 신뢰 할 수 있는 공급망을 구축합니다.</span></p><p style=\"text-align: center; line-height: 2;\"><br></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text_bg_img\" style=\"background: url(/images/thumbnail/20250829/2401fc601eefc.jpg) no-repeat; background-size: cover;\"></div><div class=\"text_bg_color\" style=\"background-color: rgba(0, 0, 0, 0.7)\"></div><div class=\"text-table holder\"><div><h6 style=\"text-align: center;\"><br></h6><h6 style=\"text-align: center;\"><span style=\"color: rgb(255, 255, 255); font-size: 16px;\">Preceded time management</span></h6><p style=\"text-align: center;\"><span style=\"color: rgb(57, 112, 235); font-size: 36px;\"><strong>TIME</strong></span></p><p style=\"text-align: center;\"><span style=\"color: rgb(255, 255, 255);\"><img src=\"/images/upload/S20250811e0bd2f7c414df/ca11148fc2918.png\" class=\"fr-fin fr-dib\" style=\"width: 88px;\"></span><br></p><p style=\"text-align: center; line-height: 2;\"><span style=\"color: rgb(255, 255, 255);\"><span style=\"font-size: 18px;\">Prior quality control, prior production control, Prior delivery management</span></span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px;\"><br></span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(255, 255, 255); font-weight: bold; background: linear-gradient(to top, rgba(0, 123, 255, 0.3) 50%, transparent 50%); padding: 0px 4px;\">Complete products, efficient and stable supply chains.</span></p><p style=\"text-align: center; line-height: 2;\"><br></p><p style=\"text-align: center; line-height: 2;\"><br></p><p style=\"text-align: center; line-height: 2;\"><br></p></div></div>\n\t"
+    "ko": "선행된 시간 관리\nTIME\n선행 품질관리, 선행 생산관리,\n선행 납기관리\n보다 완벽한 제품을 준비해내며 효율성과 안정성 을 극대화하고 신뢰 할 수 있는 공급망을 구축합니다.",
+    "en": "Preceded time management\nTIME\nPrior quality control, prior production control, Prior delivery management\nComplete products, efficient and stable supply chains."
   },
   "company.philosophy#s2025091161e916b59099f/w202509110e7da42eec27c/src": {
     "ko": "/images/thumbnail/20250911/68ffc55b3ed20.png",
@@ -13599,29 +13440,17 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "ko": "",
     "en": ""
   },
-  "home#s20250811b5ffbb4730f67/visual[0]/bg": {
-    "ko": "/images/thumbnail/20250811/50e595a379834.jpg",
-    "en": "/images/thumbnail/20250811/50e595a379834.jpg"
-  },
-  "home#s20250811b5ffbb4730f67/visual[0]/html": {
-    "ko": "<p class=\"font1\" style=\"text-align: center; line-height: 1.5;\"><span style=\"font-size: 85px;\"><strong>더 나은&nbsp;</strong></span><span style=\"font-size: 85px;\"><strong>미래, 풍요로운 삶</strong></span></p><p class=\"font1\" style=\"text-align: center; line-height: 1.5;\"><span style=\"font-size: 85px;\"><strong>에코웨이브의 가치입니다.</strong></span></p><p style=\"line-height: 2; text-align: center;\"><br></p><h6 class=\"font2\" style=\"line-height: 1.5; text-align: center;\"><span style=\"font-size: 24px;\">우리의 비전은 자연과 조화롭게 번성하고 인류의 번영을 촉진하는</span></h6><h6 class=\"font2\" style=\"line-height: 1.5; text-align: center;\"><span style=\"font-size: 24px;\">지속 가능한 세상을 만드는 데 중점을 두고 있습니다.</span></h6><p style=\"text-align: center;\"><br></p>",
-    "en": "<p class=\"font1\" style=\"text-align: center; line-height: 1.5;\"><span style=\"font-size: 72px;\"><strong><span style=\"color: rgb(255, 255, 255);\">EcoWave,</span></strong></span></p><p class=\"font1\" style=\"text-align: center; line-height: 1.5;\"><span style=\"font-size: 72px;\"><strong><span style=\"color: rgb(255, 255, 255);\">for a better future and richer life.</span></strong></span></p><p style=\"line-height: 2; text-align: center;\"><br></p><h6 class=\"font2\" style=\"line-height: 1.5; text-align: center;\"><span style=\"font-size: 24px;\">Our vision fosters harmony with nature and human prosperity,</span></h6><h6 class=\"font2\" style=\"line-height: 1.5; text-align: center;\"><span style=\"font-size: 24px;\">creating a sustainable world.</span></h6>"
-  },
-  "home#s20250811b5ffbb4730f67/visual[1]/bg": {
-    "ko": "/images/thumbnail/20250811/b8cb7e0cebd15.jpg",
-    "en": "/images/thumbnail/20250811/b8cb7e0cebd15.jpg"
-  },
-  "home#s20250811b5ffbb4730f67/visual[1]/html": {
-    "ko": "<p class=\"font1\" style=\"text-align: center; line-height: 1.5;\"><span style=\"font-size: 75px;\"><strong>더 나은 미래, 풍요로운 삶</strong></span></p><p class=\"font1\" style=\"text-align: center; line-height: 1;\"><br></p><p class=\"font1\" style=\"text-align: center; line-height: 1.5;\"><span style=\"font-size: 75px;\"><strong>에코웨이브의 가치입니다.</strong></span></p><p style=\"line-height: 2; text-align: center;\"><br></p><h6 class=\"font2\" style=\"line-height: 2; text-align: center;\"><span style=\"font-size: 24px;\">우리의 비전은 자연과 조화롭게 번성하고 인류의 번영을 촉진하는</span></h6><h6 class=\"font2\" style=\"line-height: 2; text-align: center;\"><span style=\"font-size: 24px;\">지속 가능한 세상을 만드는 데 중점을 두고 있습니다.</span></h6><p style=\"text-align: center;\"><br></p>",
-    "en": "<p style=\"text-align: center; line-height: 1.5;\"><span style=\"font-size: 72px;\"><strong><span style=\"color: rgb(255, 255, 255);\">EcoWave,</span></strong></span></p><p style=\"text-align: center; line-height: 1.5;\"><span style=\"font-size: 72px;\"><strong><span style=\"color: rgb(255, 255, 255);\">for a better future and richer life.</span></strong></span></p><p style=\"line-height: 2; text-align: center;\"><br></p><h6 style=\"line-height: 1.5; text-align: center;\"><span style=\"font-size: 24px;\">Our vision fosters harmony with nature and human prosperity,</span></h6><h6 style=\"line-height: 1.5; text-align: center;\"><span style=\"font-size: 24px;\">creating a sustainable world.</span></h6><p style=\"text-align: center;\"><br></p>"
+  "home#s20250811b5ffbb4730f67/visual/slides": {
+    "ko": "[{\"bg\":\"/images/thumbnail/20250811/50e595a379834.jpg\",\"html\":\"더 나은\\n미래, 풍요로운 삶\\n에코웨이브의 가치입니다.\\n우리의 비전은 자연과 조화롭게 번성하고 인류의 번영을 촉진하는\\n지속 가능한 세상을 만드는 데 중점을 두고 있습니다.\"},{\"bg\":\"/images/thumbnail/20250811/b8cb7e0cebd15.jpg\",\"html\":\"더 나은 미래, 풍요로운 삶\\n에코웨이브의 가치입니다.\\n우리의 비전은 자연과 조화롭게 번성하고 인류의 번영을 촉진하는\\n지속 가능한 세상을 만드는 데 중점을 두고 있습니다.\"}]",
+    "en": "[{\"bg\":\"/images/thumbnail/20250811/50e595a379834.jpg\",\"html\":\"EcoWave,\\nfor a better future and richer life.\\nOur vision fosters harmony with nature and human prosperity,\\ncreating a sustainable world.\"},{\"bg\":\"/images/thumbnail/20250811/b8cb7e0cebd15.jpg\",\"html\":\"EcoWave,\\nfor a better future and richer life.\\nOur vision fosters harmony with nature and human prosperity,\\ncreating a sustainable world.\"}]"
   },
   "home#s202508119ee9efac0385c/w202508113d84762227376/html": {
     "ko": "",
     "en": ""
   },
   "home#s20250811004ea868d7376/w202508116077d50475951/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><h6 style=\"line-height: 2;\"><strong><span style=\"color: rgb(0, 0, 0); font-size: 48px; letter-spacing: 0px;\">건강하고 깨끗한 물, 에코웨이브가</span></strong></h6><p><strong><span style=\"letter-spacing: 0;\"><span style=\"color: rgb(0, 0, 0); font-size: 48px;\">고객과 함께&nbsp;</span></span><span style=\"color: rgb(52, 101, 222); font-size: 48px; letter-spacing: 0px;\">더 나은 미래를 만들어갑니다.&nbsp;</span></strong></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><h6 style=\"line-height: 2;\"><strong><span style=\"color: rgb(0, 0, 0); font-size: 48px; letter-spacing: 0px;\">Healthy water, Eco-wave &nbsp;</span></strong></h6><p><strong><span style=\"letter-spacing: 0;\"><span style=\"color: rgb(0, 0, 0); font-size: 48px;\">Together we create a&nbsp;</span></span><span style=\"color: rgb(52, 101, 222); font-size: 48px; letter-spacing: 0px;\">better future &nbsp;</span></strong></p></div></div>\n\t"
+    "ko": "건강하고 깨끗한 물, 에코웨이브가\n고객과 함께\n더 나은 미래를 만들어갑니다.",
+    "en": "Healthy water, Eco-wave\nTogether we create a\nbetter future"
   },
   "home#s20250811004ea868d7376/w20250811c8b38b2e2cde9/src": {
     "ko": "/images/thumbnail/20250811/c3512c9a0cd58.jpg",
@@ -13676,8 +13505,8 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "en": "\n\n  <link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200\">\n\n\n"
   },
   "home#s202508116d15f8202cd82/w20250811b716fff52cc61/html": {
-    "ko": "\n\t\t<div class=\"text-table \" style=\"display:flow-root;margin:15px 0;font-size:15px;\"><div><h6 style=\"text-align: center;\"><img src=\"/images/upload/S20250811e0bd2f7c414df/48fbd16b3a070.png\" class=\"fr-fin fr-dib\" style=\"width: 296px; display:block; margin:0 auto;\"></h6><p style=\"text-align: center; line-height: 2;\"><br></p><p style=\"text-align: center; line-height: 2;\"><span style=\"color: rgb(255, 255, 255); font-size: 18px; letter-spacing: 0px;\">에코웨이브는 깨끗한 물을 위한 기술 혁신과 친환경 가치 실현을 통해&nbsp;</span><span style=\"color: rgb(255, 255, 255); font-size: 18px; letter-spacing: 0px;\">보다 건강하고 지속 가능한 삶을 제안합니다.</span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"color: rgb(255, 255, 255); font-size: 18px; letter-spacing: 0px;\">고객의 라이프스타일에 최적화된 고품질 정수 솔루션으로&nbsp;</span><span style=\"color: rgb(255, 255, 255); font-size: 18px; letter-spacing: 0px;\">사람과 환경이 공존하는 미래를 만들어 갑니다.</span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: center;\"><img src=\"/images/upload/S20250811e0bd2f7c414df/48fbd16b3a070.png\" class=\"fr-fin fr-dib\" style=\"width: 296px;\"></h6><p style=\"text-align: center; line-height: 2;\"><br><span style=\"color: rgb(255, 255, 255); font-size: 18px; letter-spacing: 0px;\">EcoWave promotes a healthy, sustainable life with innovative water purification technology,</span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"color: rgb(255, 255, 255); font-size: 18px; letter-spacing: 0px;\">realizing eco-friendly values where people and nature coexist.</span></p><p style=\"text-align: center; line-height: 2;\"><br></p></div></div>\n\t"
+    "ko": "에코웨이브는 깨끗한 물을 위한 기술 혁신과 친환경 가치 실현을 통해\n보다 건강하고 지속 가능한 삶을 제안합니다.\n고객의 라이프스타일에 최적화된 고품질 정수 솔루션으로\n사람과 환경이 공존하는 미래를 만들어 갑니다.",
+    "en": "EcoWave promotes a healthy, sustainable life with innovative water purification technology,\nrealizing eco-friendly values where people and nature coexist."
   },
   "home#s202508116d15f8202cd82/w20250811ce94af53086e1/src": {
     "ko": "/images/thumbnail/20250828/a8abb36b1d18f.png",
@@ -13688,8 +13517,8 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "en": ""
   },
   "home#s20250811611f0c372c57a/w202508119108a47b15e11/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><h6 style=\"line-height: 2;\"><strong><span style=\"color: rgb(52, 101, 222); font-size: 48px; letter-spacing: 0px;\">친환경 기술혁신</span><span style=\"letter-spacing: 0;\"><span style=\"color: rgb(0, 0, 0); font-size: 48px;\">을 통한</span></span></strong></h6><h6 style=\"line-height: 2;\"><strong><span style=\"color: rgb(0, 0, 0); font-size: 48px; letter-spacing: 0px;\">에코웨이브의 지속 가능한 미래</span></strong></h6></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><h6 style=\"line-height: 2;\"><strong><span style=\"color: rgb(52, 101, 222); font-size: 48px; letter-spacing: 0px;\">Through eco-friendly technological innovation</span></strong></h6><h6 style=\"line-height: 2;\"><strong><span style=\"color: rgb(0, 0, 0); font-size: 48px; letter-spacing: 0px;\">The Sustainable Future of EcoWaves&nbsp;</span></strong></h6></div></div>\n\t"
+    "ko": "친환경 기술혁신\n을 통한\n에코웨이브의 지속 가능한 미래",
+    "en": "Through eco-friendly technological innovation\nThe Sustainable Future of EcoWaves"
   },
   "home#s20250811e48a3b857667a/w2025081110a9d2744f9fb/src": {
     "ko": "/images/thumbnail/20250811/b2bfd0819b1e7.jpg",
@@ -13700,8 +13529,8 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "en": ""
   },
   "home#s20250811e48a3b857667a/w2025081155a9d991c8dc5/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: center;\"><span style=\"font-size: 30px;\"><strong><span style=\"color: rgb(0, 0, 0);\">생활환경 솔루션</span></strong></span></h6><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(93, 93, 93);\">첨단 정수 필터 기술과 살균 모듈, 위생 솔루션을 기반으로</span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px;\"><span style=\"color: rgb(93, 93, 93);\">일상 속 물의 질을 향상시키는 친환경 제품을 개발하여</span></span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(93, 93, 93);\">깨끗하고 건강한 생활환경 구축에 앞장서겠습니다.</span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: center;\"><span style=\"font-size: 30px;\"><strong><span style=\"color: rgb(0, 0, 0);\">Living Solution&nbsp;</span></strong></span></h6><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(93, 93, 93);\">Advanced filters &amp; eco-products<br data-start=\"119\" data-end=\"122\">&nbsp;for cleaner, healthier water.</span></p></div></div>\n\t"
+    "ko": "생활환경 솔루션\n첨단 정수 필터 기술과 살균 모듈, 위생 솔루션을 기반으로\n일상 속 물의 질을 향상시키는 친환경 제품을 개발하여\n깨끗하고 건강한 생활환경 구축에 앞장서겠습니다.",
+    "en": "Living Solution\nAdvanced filters & eco-products\nfor cleaner, healthier water."
   },
   "home#s20250811e48a3b857667a/w20250811b881aa576382c/src": {
     "ko": "/images/thumbnail/20250811/482b1d289f2ef.jpg",
@@ -13712,8 +13541,8 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "en": ""
   },
   "home#s20250811e48a3b857667a/w20250811c5fb5f0d8fafd/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: center;\"><span style=\"font-size: 30px;\"><strong><span style=\"color: rgb(0, 0, 0);\">정수 소재 &amp; 스마트 부품</span></strong></span></h6><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(93, 93, 93);\">정수기 필터, 비데 필터, 샤워기 필터 등</span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px;\"><span style=\"color: rgb(93, 93, 93);\">고성능 정수 소재와 스마트 모듈 기반 부품을 통해</span></span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(93, 93, 93);\">지속 가능한 수처리 기술 솔루션을 제공하겠습니다.</span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: center;\"><span style=\"font-size: 30px;\"><strong><span style=\"color: rgb(0, 0, 0);\">Water &amp; Smart Parts</span></strong></span></h6><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(93, 93, 93);\">High-performance filters &amp; smart modules<br data-start=\"204\" data-end=\"207\">&nbsp;for sustainable solutions.</span></p></div></div>\n\t"
+    "ko": "정수 소재 & 스마트 부품\n정수기 필터, 비데 필터, 샤워기 필터 등\n고성능 정수 소재와 스마트 모듈 기반 부품을 통해\n지속 가능한 수처리 기술 솔루션을 제공하겠습니다.",
+    "en": "Water & Smart Parts\nHigh-performance filters & smart modules\nfor sustainable solutions."
   },
   "home#s20250811e48a3b857667a/w20250812aea22580e7e86/src": {
     "ko": "/images/thumbnail/20250812/b3ac0bbe894b9.jpg",
@@ -13724,20 +13553,20 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "en": ""
   },
   "home#s20250811e48a3b857667a/w202508119d8af42ac2987/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: center;\"><span style=\"font-size: 30px;\"><strong><span style=\"color: rgb(0, 0, 0);\">헬스 &amp; 워터케어</span></strong></span></h6><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(93, 93, 93);\">물이 곧 건강이라는 철학 아래,</span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px;\"><span style=\"color: rgb(93, 93, 93);\">에코웨이브는 인류의 건강한 삶을 위한 차세대 워터케어 제품과</span></span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(93, 93, 93);\">살균·위생 관리 기술을 지속적으로 개발해 나가겠습니다.</span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: center;\"><span style=\"font-size: 30px;\"><strong><span style=\"color: rgb(0, 0, 0);\">Health &amp; Care&nbsp;</span></strong></span></h6><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(93, 93, 93);\">EcoWave develops next-gen water care<br data-start=\"282\" data-end=\"285\">&nbsp;and hygiene technologies.</span></p></div></div>\n\t"
+    "ko": "헬스 & 워터케어\n물이 곧 건강이라는 철학 아래,\n에코웨이브는 인류의 건강한 삶을 위한 차세대 워터케어 제품과\n살균·위생 관리 기술을 지속적으로 개발해 나가겠습니다.",
+    "en": "Health & Care\nEcoWave develops next-gen water care\nand hygiene technologies."
   },
   "home#s20250811b220484e22b98/w202508127679af0442416/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: left;\"><strong><span style=\"color: rgb(255, 255, 255); font-size: 52px; letter-spacing: 0px;\">물을 깨끗하게, 사람을 건강하게</span></strong></h6><p style=\"text-align: left;\"><span style=\"color: rgb(255, 255, 255); font-size: 60px; letter-spacing: 0px;\"><em>Clean Water, Healthy People.</em></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: left;\"><span style=\"color: rgb(255, 255, 255); font-size: 60px; letter-spacing: 0px;\"><strong>Eco wave</strong></span></p><p style=\"text-align: left;\"><span style=\"color: rgb(255, 255, 255); font-size: 60px; letter-spacing: 0px;\"><em>Clean Water, Healthy People.</em></span></p></div></div>\n\t"
+    "ko": "물을 깨끗하게, 사람을 건강하게\nClean Water, Healthy People.",
+    "en": "Eco wave\nClean Water, Healthy People."
   },
   "home#s20250811b220484e22b98/w20250811ac1efba6e8535/src": {
     "ko": "https://www.youtube.com/embed/p1wiw6f1Twg?loop=1&rel=0&playlist=p1wiw6f1Twg&showinfo=0&controls=0&mute=1&autoplay=1&enablejsapi=1&origin=https%3A%2F%2Fimweb8701032505.imweb.me&widgetid=2&forigin=https%3A%2F%2Fimweb8701032505.imweb.me%2F&aoriginsup=1&vf=1",
     "en": "https://www.youtube.com/embed/p1wiw6f1Twg?loop=1&rel=0&playlist=p1wiw6f1Twg&showinfo=0&controls=0&mute=1&autoplay=1&enablejsapi=1&origin=https%3A%2F%2Fen.ecowavekorea.co.kr&widgetid=2&forigin=https%3A%2F%2Fen.ecowavekorea.co.kr%2F&aoriginsup=1&vf=1"
   },
   "home#s202508112787439deffdb/w2025081255820418f5e3f/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: center;\"><strong><span style=\"color: rgb(52, 101, 222); font-size: 20px;\">Headquarters &amp; Factory Locations&nbsp;</span></strong></h6><h6 style=\"line-height: 2; text-align: center;\"><strong><span style=\"color: rgb(0, 0, 0); font-size: 48px; letter-spacing: -1px;\">세계 속의 에코웨이브&nbsp;</span></strong></h6></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: center;\"><strong><span style=\"color: rgb(52, 101, 222); font-size: 20px;\">Headquarters &amp; Factory Locations&nbsp;</span></strong></h6><h6 style=\"line-height: 2; text-align: center;\"><strong><span style=\"color: rgb(0, 0, 0); font-size: 48px; letter-spacing: -1px;\">Eco Wave in the World&nbsp;</span></strong></h6></div></div>\n\t"
+    "ko": "Headquarters & Factory Locations\n세계 속의 에코웨이브",
+    "en": "Headquarters & Factory Locations\nEco Wave in the World"
   },
   "home#s202508112787439deffdb/w202508125d42dfa5c6d8a/src": {
     "ko": "/images/thumbnail/20250828/9bc64982daf80.jpg",
@@ -13748,24 +13577,24 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "en": ""
   },
   "home#s202508112787439deffdb/w202508128d2c07927c2ff/html": {
-    "ko": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: #ffffff\"></div><div class=\"text-table holder\"><div><h6 style=\"line-height: 1.5;\"><strong><span style=\"color: rgb(52, 101, 222); font-size: 36px;\">KOR</span><span style=\"color: rgb(52, 101, 222); font-size: 30px;\">&nbsp;</span></strong><span style=\"font-size: 20px;\">[KOREA]<br data-start=\"13\" data-end=\"16\" data-is-only-node=\"\">인천광역시 남동구 은봉로 14 영도빌딩 2동<br data-start=\"40\" data-end=\"43\">TEL: +82-32-812-1800 / Fax: +82-32-812-1804</span></h6></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: #ffffff\"></div><div class=\"text-table holder\"><div><h6 style=\"line-height: 1.5;\"><strong><span style=\"color: rgb(52, 101, 222); font-size: 36px;\">KOR</span><span style=\"color: rgb(52, 101, 222); font-size: 30px;\">&nbsp;</span></strong><span style=\"font-size: 20px;\">[KOREA]<br data-start=\"13\" data-end=\"16\" data-is-only-node=\"\">2-dong, Yeongdo Building, 14, Eunbong-ro, Namdong-gu, Incheon, Republic of Korea<br data-start=\"40\" data-end=\"43\">TEL: +82-32-812-1800 / Fax: +82-32-812-1804</span></h6></div></div>\n\t"
+    "ko": "KOR\n[KOREA]\n인천광역시 남동구 은봉로 14 영도빌딩 2동\nTEL: +82-32-812-1800 / Fax: +82-32-812-1804",
+    "en": "KOR\n[KOREA]\n2-dong, Yeongdo Building, 14, Eunbong-ro, Namdong-gu, Incheon, Republic of Korea\nTEL: +82-32-812-1800 / Fax: +82-32-812-1804"
   },
   "home#s202508112787439deffdb/w2025081223442f1bcc005/html": {
-    "ko": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: #ffffff\"></div><div class=\"text-table holder\"><div><h6 style=\"line-height: 2;\"><strong><span style=\"color: rgb(52, 101, 222); font-size: 36px;\">CHN</span><span style=\"color: rgb(52, 101, 222); font-size: 30px;\">&nbsp;</span></strong><span style=\"font-size: 20px;\">[CHINA]</span><span style=\"font-size: 16px;\"><br data-start=\"13\" data-end=\"16\" data-is-only-node=\"\"></span><span style=\"font-size: 20px;\">Hongfuiie NO.90 Yantai, Shandong, PR. China</span></h6></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: #ffffff\"></div><div class=\"text-table holder\"><div><h6 style=\"line-height: 2;\"><strong><span style=\"color: rgb(52, 101, 222); font-size: 36px;\">CHN</span><span style=\"color: rgb(52, 101, 222); font-size: 30px;\">&nbsp;</span></strong><span style=\"font-size: 20px;\">[CHINA]</span><span style=\"font-size: 16px;\"><br data-start=\"13\" data-end=\"16\" data-is-only-node=\"\"></span><span style=\"font-size: 20px;\">Hongfuiie NO.90 Yantai, Shandong, PR. China</span></h6></div></div>\n\t"
+    "ko": "CHN\n[CHINA]\nHongfuiie NO.90 Yantai, Shandong, PR. China",
+    "en": "CHN\n[CHINA]\nHongfuiie NO.90 Yantai, Shandong, PR. China"
   },
   "home#s202508112787439deffdb/w20250812061e68ea9a22d/html": {
-    "ko": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: #ffffff\"></div><div class=\"text-table holder\"><div><h6 style=\"line-height: 2;\"><strong><span style=\"color: rgb(52, 101, 222); font-size: 36px;\">KHM</span><span style=\"color: rgb(52, 101, 222); font-size: 30px;\">&nbsp;</span></strong><span style=\"font-size: 20px;\">[CAMBODIA] <br data-start=\"13\" data-end=\"16\" data-is-only-node=\"\">Tuol Kork Phnom Penh City</span></h6></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text_bg_color\" style=\"background-color: #ffffff\"></div><div class=\"text-table holder\"><div><h6 style=\"line-height: 2;\"><strong><span style=\"color: rgb(52, 101, 222); font-size: 36px;\">KHM</span><span style=\"color: rgb(52, 101, 222); font-size: 30px;\">&nbsp;</span></strong><span style=\"font-size: 20px;\">[CAMBODIA] <br data-start=\"13\" data-end=\"16\" data-is-only-node=\"\">Tuol Kork Phnom Penh City</span></h6></div></div>\n\t"
+    "ko": "KHM\n[CAMBODIA]\nTuol Kork Phnom Penh City",
+    "en": "KHM\n[CAMBODIA]\nTuol Kork Phnom Penh City"
   },
   "home#s202508112787439deffdb/w20250812b9c8cf9de62d9/html": {
     "ko": "",
     "en": ""
   },
   "home#s2025081139ff276cae8d6/w202508119c5dc9cae67eb/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(52, 101, 222); font-size: 20px;\">Notice</span></strong></h6><h6 style=\"line-height: 2;\"><strong><span style=\"color: rgb(0, 0, 0); font-size: 48px; letter-spacing: -1px;\">에코웨이브 이야기&nbsp;</span></strong></h6></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(52, 101, 222); font-size: 20px;\">News</span></strong></h6><h6 style=\"line-height: 2;\"><strong><span style=\"color: rgb(0, 0, 0); font-size: 48px; letter-spacing: -1px;\">The New Story of Ecowave &nbsp;</span></strong></h6></div></div>\n\t"
+    "ko": "Notice\n에코웨이브 이야기",
+    "en": "News\nThe New Story of Ecowave"
   },
   "home#s2025081139ff276cae8d6/w2025081232232779d83d2/text": {
     "ko": "",
@@ -13795,13 +13624,9 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "ko": "",
     "en": ""
   },
-  "home#s20250811f489e3443bdbe/w20250811379e3dc61aa7f/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p><img src=\"/images/upload/S20250811e0bd2f7c414df/f04049636b82b.png\" class=\"fr-fin fr-dib fr-fil\" style=\"width: 238px;\"></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><img src=\"/images/upload/S20250811e0bd2f7c414df/f04049636b82b.png\" class=\"fr-fin fr-dib fr-fil\" style=\"width: 238px;\"></p></div></div>\n\t"
-  },
   "home#s20250811f489e3443bdbe/w20250811c8ba21c61f272/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2;\"><span style=\"color: rgb(149, 149, 149); font-size: 14px;\">대표 : 김나연 &nbsp;</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">개인정보관리책임자 : 김나연 &nbsp;ㅣ &nbsp;문의 : ecowave_1800@naver.com</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">주소 : 인천광역시 남동구 은봉로 14 영도빌딩 2동</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">전화 : +82-32-812-1800 &nbsp;ㅣ &nbsp;팩스 : +82-32-812-1804</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><br></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Copyright ⓒ ECOWAVE. All Rights Reserved</span></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2;\"><span style=\"color: rgb(149, 149, 149); font-size: 14px;\">CEO : Choi Taeguk&nbsp;</span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Personal Information Management Officer : Kim nacyeon</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Inquiry : ecowave_1800@naver.com</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">ADDRESS : 2-dong, Yeongdo Building, 14, Eunbong-ro, Namdong-gu, Incheon, Republic of Korea</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">TEL : +82-32-812-1800 &nbsp;ㅣ &nbsp;FAX : +82-32-812-1804</span></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><br></span></p><p style=\"line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(149, 149, 149);\">Copyright ⓒ ECOWAVE. All Rights Reserved</span></span></p></div></div>\n\t"
+    "ko": "대표 : 김나연\n개인정보관리책임자 : 김나연 ㅣ 문의 : ecowave_1800@naver.com\n주소 : 인천광역시 남동구 은봉로 14 영도빌딩 2동\n전화 : +82-32-812-1800 ㅣ 팩스 : +82-32-812-1804\nCopyright ⓒ ECOWAVE. All Rights Reserved",
+    "en": "CEO : Choi Taeguk\nPersonal Information Management Officer : Kim nacyeon\nInquiry : ecowave_1800@naver.com\nADDRESS : 2-dong, Yeongdo Building, 14, Eunbong-ro, Namdong-gu, Incheon, Republic of Korea\nTEL : +82-32-812-1800 ㅣ FAX : +82-32-812-1804\nCopyright ⓒ ECOWAVE. All Rights Reserved"
   },
   "home#s20250811f489e3443bdbe/w202508114039c43732879/text": {
     "ko": "",
@@ -13812,28 +13637,28 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "en": "#doz_header"
   },
   "home#s20250811f489e3443bdbe/w20250919b68d158c2925e/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>에코</strong><strong>웨이</strong><strong>브</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Ecowave</strong></span></p></div></div>\n\t"
+    "ko": "에코\n웨이\n브",
+    "en": "Ecowave"
   },
   "home#s20250811f489e3443bdbe/w202509198aeb3bd046ac9/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216);\"><strong>연구개발</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>R&amp;D</strong></span></p></div></div>\n\t"
+    "ko": "연구개발",
+    "en": "R&D"
   },
   "home#s20250811f489e3443bdbe/w2025091955cb4ab654cac/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>제품소개</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Product</strong></span></p></div></div>\n\t"
+    "ko": "제품소개",
+    "en": "Product"
   },
   "home#s20250811f489e3443bdbe/w2025091988816c09014e4/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>뉴스룸</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>News</strong></span></p></div></div>\n\t"
+    "ko": "뉴스룸",
+    "en": "News"
   },
   "home#s20250811f489e3443bdbe/w20250919e76996cca8992/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"line-height: 2; text-align: left;\"><span style=\"color: rgb(216, 216, 216); font-size: 14px;\"><strong>고객지원</strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"color: rgb(216, 216, 216);\"><strong>Customer</strong></span></p></div></div>\n\t"
+    "ko": "고객지원",
+    "en": "Customer"
   },
   "news#s202508205198a0d766f60/w202508205b6f76d4a2c4d/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">더 건강하고 깨끗한 물을 만드는 고객과의 약속</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">에코웨이브의 새로운 소식을 전해드립니다.</span></strong></h6></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">Promise of cleaner, healthier water.<br data-start=\"81\" data-end=\"84\">EcoWave update for customers.</span></strong></h6></div></div>\n\t"
+    "ko": "더 건강하고 깨끗한 물을 만드는 고객과의 약속\n에코웨이브의 새로운 소식을 전해드립니다.",
+    "en": "Promise of cleaner, healthier water.\nEcoWave update for customers."
   },
   "news#s2025091161e916b59099f/w202509110e7da42eec27c/src": {
     "ko": "/images/thumbnail/20250911/68ffc55b3ed20.png",
@@ -13856,8 +13681,8 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "en": ""
   },
   "notices#s2025082036afa4e23fa8c/w202508203bef670019226/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px; letter-spacing: 0px;\">더 건강하고 깨끗한 물을 만드는 고객과의 약속</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px; letter-spacing: 0px;\">에코웨이브의 새로운 소식을 전해드립니다.</span></strong></h6></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px; letter-spacing: 0px;\">EcoWave promises cleaner, healthier water.</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px; letter-spacing: 0px;\">A new update for our customers.&nbsp;</span></strong></h6></div></div>\n\t"
+    "ko": "더 건강하고 깨끗한 물을 만드는 고객과의 약속\n에코웨이브의 새로운 소식을 전해드립니다.",
+    "en": "EcoWave promises cleaner, healthier water.\nA new update for our customers."
   },
   "notices#s2025100213c204b68c46f/w20251002853d352b9298d/html": {
     "ko": "\n\n\n\n\n\n\n\n"
@@ -13883,16 +13708,16 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "en": ""
   },
   "rnd.facilities#s202508207ea6e772a48a0/w20250820e4cafbac3320e/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">첨단 설비와 철저한 관리로</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">더 깨끗하고 안전한 물을 만듭니다.</span></strong></h6></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">Advanced facilities&nbsp;</span></strong><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">and strict management</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">create cleaner, safer water.</span></strong></h6></div></div>\n\t"
+    "ko": "첨단 설비와 철저한 관리로\n더 깨끗하고 안전한 물을 만듭니다.",
+    "en": "Advanced facilities\nand strict management\ncreate cleaner, safer water."
   },
   "rnd.facilities#s2025081165e9bc78b81eb/w2025082017159663bed3c/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center;\"><span style=\"font-size: 48px;\"><strong><span style=\"color: rgb(18, 18, 18);\">생산설비</span></strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center;\"><span style=\"font-size: 48px;\"><strong><span style=\"color: rgb(18, 18, 18);\">Production facilities</span></strong></span></p></div></div>\n\t"
+    "ko": "생산설비",
+    "en": "Production facilities"
   },
   "rnd.facilities#s2025081165e9bc78b81eb/w202508207cdb6535abb7d/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(81, 81, 81);\">건강하기 위해서 중요한 물, 소홀히 할 수 없습니다.</span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(81, 81, 81);\">여러분들이 안심하고 마실 수 있도록 깨끗하고 건강한 물만 만들겠다 약속합니다.</span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(81, 81, 81);\">Water, which is important to be healthy, cannot be neglected</span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(81, 81, 81);\">I'm going to make clean and healthy water so that you can drink with confidence I promise.</span></p></div></div>\n\t"
+    "ko": "건강하기 위해서 중요한 물, 소홀히 할 수 없습니다.\n여러분들이 안심하고 마실 수 있도록 깨끗하고 건강한 물만 만들겠다 약속합니다.",
+    "en": "Water, which is important to be healthy, cannot be neglected\nI'm going to make clean and healthy water so that you can drink with confidence I promise."
   },
   "rnd.facilities#s2025081165e9bc78b81eb/w202508206a03498027ef7/html": {
     "ko": "\n<div class=\"tab-menu\">\n  <div class=\"tab active\" onclick=\"openTab('tab1')\">생산설비</div>\n  <div class=\"tab\" onclick=\"openTab('tab2')\">검사설비</div>\n  <div class=\"tab\" onclick=\"openTab('tab3')\">생산설비(점검키트)</div>\n\n\n</div>",
@@ -13903,40 +13728,40 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "en": "\n\n\n\n<div id=\"tab1\" class=\"tab-content active\" style=\"display: block;\">\n  <div id=\"widgetbox1\"><div doz_type=\"widget\" id=\"w20250911e2bcc2d85ec6f\"><div class=\"_widget_data \" data-widget-name=\"갤러리\" data-widget-type=\"gallery2\" data-widget-anim=\"none\" data-widget-anim-duration=\"0.7\" data-widget-anim-delay=\"0\" data-widget-parent-is-mobile=\"N\">    <div class=\"widget _gallery_wrap \">\n                <div id=\"container_w20250911e2bcc2d85ec6f\" class=\"img_rendering grid_01 type_grid overlay_text hover_show_overlay container_border gallery2  \" style=\"padding-bottom: 0px; height: auto; margin: 0px -10px;\">\n            \n                \n                \n                \n                \n                \n                \n                \n                \n                \n                \n                \n                \n                \n                \n                \n                \n                \n                \n                \n                        <div class=\"_gallery_row gallery_row tabled\"><div class=\"_item item_gallary\" style=\"position: relative; padding: 10px;\" data-org=\"S20250811e0bd2f7c414df/7f8662b94beb8.jpg\">\n                    <div id=\"caption_29064710\" style=\"display:none\">\n                        <h4></h4><p></p>\n                    </div>\n\n                    <div class=\"item_container _item_container\"><div class=\"img_wrap _img_wrap  no_content\" id=\"gal_item_29064710_img\" style=\"background-image: url(&quot;/images/thumbnail/20250912/d6d30faf653d0.jpg&quot;); min-height: 347px;\" data-bg=\"url(/images/thumbnail/20250912/d6d30faf653d0.jpg)\" data-src=\"/images/thumbnail/20250912/0f480181c491a.jpg\" data-sub-html=\"#caption_29064710\" data-no=\"0\"></div><div class=\"text_wrap _text_wrap  _lightbox_item cursor_pointer\" id=\"gal_item_29064710\" data-src=\"/images/thumbnail/20250912/0f480181c491a.jpg\" data-sub-html=\"#caption_29064710\" style=\"height: 347px;\"><p class=\"title\"></p></div><div class=\"slide_overlay\"></div></div>                </div><div class=\"_item item_gallary\" style=\"position: relative; padding: 10px;\" data-org=\"S20250811e0bd2f7c414df/ddea3c0abb425.jpg\">\n                    <div id=\"caption_29064711\" style=\"display:none\">\n                        <h4></h4><p></p>\n                    </div>\n\n                    <div class=\"item_container _item_container\"><div class=\"img_wrap _img_wrap  no_content\" id=\"gal_item_29064711_img\" style=\"background-image: url(&quot;/images/thumbnail/20250912/75b69fe10ab03.jpg&quot;); min-height: 347px;\" data-bg=\"url(/images/thumbnail/20250912/75b69fe10ab03.jpg)\" data-src=\"/images/thumbnail/20250912/037cfe38afc60.jpg\" data-sub-html=\"#caption_29064711\" data-no=\"1\"></div><div class=\"text_wrap _text_wrap  _lightbox_item cursor_pointer\" id=\"gal_item_29064711\" data-src=\"/images/thumbnail/20250912/037cfe38afc60.jpg\" data-sub-html=\"#caption_29064711\" style=\"height: 347px;\"><p class=\"title\"></p></div><div class=\"slide_overlay\"></div></div>                </div><div class=\"_item item_gallary\" style=\"position: relative; padding: 10px;\" data-org=\"S20250811e0bd2f7c414df/32c2beb1f0980.jpg\">\n                    <div id=\"caption_29064712\" style=\"display:none\">\n                        <h4></h4><p></p>\n                    </div>\n\n                    <div class=\"item_container _item_container\"><div class=\"img_wrap _img_wrap  no_content\" id=\"gal_item_29064712_img\" style=\"background-image: url(&quot;/images/thumbnail/20250912/5d4dd2311940d.jpg&quot;); min-height: 347px;\" data-bg=\"url(/images/thumbnail/20250912/5d4dd2311940d.jpg)\" data-src=\"/images/thumbnail/20250912/28f123b3c409f.jpg\" data-sub-html=\"#caption_29064712\" data-no=\"2\"></div><div class=\"text_wrap _text_wrap  _lightbox_item cursor_pointer\" id=\"gal_item_29064712\" data-src=\"/images/thumbnail/20250912/28f123b3c409f.jpg\" data-sub-html=\"#caption_29064712\" style=\"height: 347px;\"><p class=\"title\"></p></div><div class=\"slide_overlay\"></div></div>                </div><div class=\"_item item_gallary\" style=\"position: relative; padding: 10px;\" data-org=\"S20250811e0bd2f7c414df/e4c18dcaa979c.jpg\">\n                    <div id=\"caption_29064713\" style=\"display:none\">\n                        <h4></h4><p></p>\n                    </div>\n\n                    <div class=\"item_container _item_container\"><div class=\"img_wrap _img_wrap  no_content\" id=\"gal_item_29064713_img\" style=\"background-image: url(&quot;/images/thumbnail/20250912/4b7aa5d32ecbd.jpg&quot;); min-height: 347px;\" data-bg=\"url(/images/thumbnail/20250912/4b7aa5d32ecbd.jpg)\" data-src=\"/images/thumbnail/20250912/67cece1b3e54f.jpg\" data-sub-html=\"#caption_29064713\" data-no=\"3\"></div><div class=\"text_wrap _text_wrap  _lightbox_item cursor_pointer\" id=\"gal_item_29064713\" data-src=\"/images/thumbnail/20250912/67cece1b3e54f.jpg\" data-sub-html=\"#caption_29064713\" style=\"height: 347px;\"><p class=\"title\"></p></div><div class=\"slide_overlay\"></div></div>                </div><div class=\"_item item_gallary\" style=\"position: relative; padding: 10px;\" data-org=\"S20250811e0bd2f7c414df/ebca2d226d31d.jpg\">\n                    <div id=\"caption_29064714\" style=\"display:none\">\n                        <h4></h4><p></p>\n                    </div>\n\n                    <div class=\"item_container _item_container\"><div class=\"img_wrap _img_wrap  no_content\" id=\"gal_item_29064714_img\" style=\"background-image: url(&quot;/images/thumbnail/20250912/b228b69e74da3.jpg&quot;); min-height: 347px;\" data-bg=\"url(/images/thumbnail/20250912/b228b69e74da3.jpg)\" data-src=\"/images/thumbnail/20250912/de058474bc986.jpg\" data-sub-html=\"#caption_29064714\" data-no=\"4\"></div><div class=\"text_wrap _text_wrap  _lightbox_item cursor_pointer\" id=\"gal_item_29064714\" data-src=\"/images/thumbnail/20250912/de058474bc986.jpg\" data-sub-html=\"#caption_29064714\" style=\"height: 347px;\"><p class=\"title\"></p></div><div class=\"slide_overlay\"></div></div>                </div></div><div class=\"_gallery_row gallery_row tabled\"><div class=\"_item item_gallary\" style=\"position: relative; padding: 10px;\" data-org=\"S20250811e0bd2f7c414df/4ac08f56d9e9d.jpg\">\n                    <div id=\"caption_29064715\" style=\"display:none\">\n                        <h4></h4><p></p>\n                    </div>\n\n                    <div class=\"item_container _item_container\"><div class=\"img_wrap _img_wrap  no_content\" id=\"gal_item_29064715_img\" style=\"background-image: url(&quot;/images/thumbnail/20250912/dba9eb362152a.jpg&quot;); min-height: 347px;\" data-bg=\"url(/images/thumbnail/20250912/dba9eb362152a.jpg)\" data-src=\"/images/thumbnail/20250912/90e94e42019f3.jpg\" data-sub-html=\"#caption_29064715\" data-no=\"5\"></div><div class=\"text_wrap _text_wrap  _lightbox_item cursor_pointer\" id=\"gal_item_29064715\" data-src=\"/images/thumbnail/20250912/90e94e42019f3.jpg\" data-sub-html=\"#caption_29064715\" style=\"height: 347px;\"><p class=\"title\"></p></div><div class=\"slide_overlay\"></div></div>                </div><div class=\"_item item_gallary\" style=\"position: relative; padding: 10px;\" data-org=\"S20250811e0bd2f7c414df/a6977204b9ac9.jpg\">\n                    <div id=\"caption_29064716\" style=\"display:none\">\n                        <h4></h4><p></p>\n                    </div>\n\n                    <div class=\"item_container _item_container\"><div class=\"img_wrap _img_wrap  no_content\" id=\"gal_item_29064716_img\" style=\"background-image: url(&quot;/images/thumbnail/20250912/afb70cbcc38ed.jpg&quot;); min-height: 347px;\" data-bg=\"url(/images/thumbnail/20250912/afb70cbcc38ed.jpg)\" data-src=\"/images/thumbnail/20250912/d06958db6f7d2.jpg\" data-sub-html=\"#caption_29064716\" data-no=\"6\"></div><div class=\"text_wrap _text_wrap  _lightbox_item cursor_pointer\" id=\"gal_item_29064716\" data-src=\"/images/thumbnail/20250912/d06958db6f7d2.jpg\" data-sub-html=\"#caption_29064716\" style=\"height: 347px;\"><p class=\"title\"></p></div><div class=\"slide_overlay\"></div></div>                </div><div class=\"_item item_gallary\" style=\"position: relative; padding: 10px;\" data-org=\"S20250811e0bd2f7c414df/8d061981d464f.jpg\">\n                    <div id=\"caption_29064717\" style=\"display:none\">\n                        <h4></h4><p></p>\n                    </div>\n\n                    <div class=\"item_container _item_container\"><div class=\"img_wrap _img_wrap  no_content\" id=\"gal_item_29064717_img\" style=\"background-image: url(&quot;/images/thumbnail/20250912/1f406f05f3269.jpg&quot;); min-height: 347px;\" data-bg=\"url(/images/thumbnail/20250912/1f406f05f3269.jpg)\" data-src=\"/images/thumbnail/20250912/70d641f2c9bf7.jpg\" data-sub-html=\"#caption_29064717\" data-no=\"7\"></div><div class=\"text_wrap _text_wrap  _lightbox_item cursor_pointer\" id=\"gal_item_29064717\" data-src=\"/images/thumbnail/20250912/70d641f2c9bf7.jpg\" data-sub-html=\"#caption_29064717\" style=\"height: 347px;\"><p class=\"title\"></p></div><div class=\"slide_overlay\"></div></div>                </div><div class=\"_item item_gallary\" style=\"position: relative; padding: 10px;\" data-org=\"S20250811e0bd2f7c414df/b6d186a463418.jpg\">\n                    <div id=\"caption_29064718\" style=\"display:none\">\n                        <h4></h4><p></p>\n                    </div>\n\n                    <div class=\"item_container _item_container\"><div class=\"img_wrap _img_wrap  no_content\" id=\"gal_item_29064718_img\" style=\"background-image: url(&quot;/images/thumbnail/20250912/873b008a7a696.jpg&quot;); min-height: 347px;\" data-bg=\"url(/images/thumbnail/20250912/873b008a7a696.jpg)\" data-src=\"/images/thumbnail/20250912/39dd3e56bf464.jpg\" data-sub-html=\"#caption_29064718\" data-no=\"8\"></div><div class=\"text_wrap _text_wrap  _lightbox_item cursor_pointer\" id=\"gal_item_29064718\" data-src=\"/images/thumbnail/20250912/39dd3e56bf464.jpg\" data-sub-html=\"#caption_29064718\" style=\"height: 347px;\"><p class=\"title\"></p></div><div class=\"slide_overlay\"></div></div>                </div><div class=\"_item item_gallary\" style=\"position: relative; padding: 10px;\" data-org=\"S20250811e0bd2f7c414df/b5c7c21daefac.jpg\">\n                    <div id=\"caption_29064719\" style=\"display:none\">\n                        <h4></h4><p></p>\n                    </div>\n\n                    <div class=\"item_container _item_container\"><div class=\"img_wrap _img_wrap  no_content\" id=\"gal_item_29064719_img\" style=\"background-image: url(&quot;/images/thumbnail/20250912/a7590831b9d4f.jpg&quot;); min-height: 347px;\" data-bg=\"url(/images/thumbnail/20250912/a7590831b9d4f.jpg)\" data-src=\"/images/thumbnail/20250912/31df6361fdc8e.jpg\" data-sub-html=\"#caption_29064719\" data-no=\"9\"></div><div class=\"text_wrap _text_wrap  _lightbox_item cursor_pointer\" id=\"gal_item_29064719\" data-src=\"/images/thumbnail/20250912/31df6361fdc8e.jpg\" data-sub-html=\"#caption_29064719\" style=\"height: 347px;\"><p class=\"title\"></p></div><div class=\"slide_overlay\"></div></div>                </div></div></div>\n        \n                    <div class=\"text-center\"><a href=\"javascript:;\" class=\"btn btn-primary _more_btn more_btn margin-top-xl\" style=\"display: none;\">More</a></div>\n            \n    </div>\n\n    \n\n            \n</div></div></div>\n</div>\n\n<div id=\"tab2\" class=\"tab-content\">\n  <div id=\"widgetbox2\"><div doz_type=\"widget\" id=\"w202509115cddbeb35de27\"><div class=\"_widget_data \" data-widget-name=\"갤러리\" data-widget-type=\"gallery2\" data-widget-anim=\"none\" data-widget-anim-duration=\"0.7\" data-widget-anim-delay=\"0\" data-widget-parent-is-mobile=\"N\">    <div class=\"widget _gallery_wrap \">\n                <div id=\"container_w202509115cddbeb35de27\" class=\"img_rendering grid_01 type_grid overlay_text hover_show_overlay container_border gallery2  \" style=\"padding-bottom: 0px; height: auto; margin: 0px -10px;\">\n            \n                \n                \n                \n                \n                \n                \n                \n                        <div class=\"_gallery_row gallery_row tabled\"><div class=\"_item item_gallary\" style=\"position: relative; padding: 10px;\" data-org=\"S20250811e0bd2f7c414df/9f110ac11da61.jpg\">\n                    <div id=\"caption_29064726\" style=\"display:none\">\n                        <h4></h4><p></p>\n                    </div>\n\n                    <div class=\"item_container _item_container\"><div class=\"img_wrap _img_wrap  no_content\" id=\"gal_item_29064726_img\" style=\"background-image: url(&quot;/images/thumbnail/20250912/1db7bba39f85a.jpg&quot;); min-height: 442px;\" data-bg=\"url(/images/thumbnail/20250912/1db7bba39f85a.jpg)\" data-src=\"/images/thumbnail/20250912/820b83b108140.jpg\" data-sub-html=\"#caption_29064726\" data-no=\"0\"></div><div class=\"text_wrap _text_wrap  _lightbox_item cursor_pointer\" id=\"gal_item_29064726\" data-src=\"/images/thumbnail/20250912/820b83b108140.jpg\" data-sub-html=\"#caption_29064726\" style=\"height: 442px;\"><p class=\"title\"></p></div><div class=\"slide_overlay\"></div></div>                </div><div class=\"_item item_gallary\" style=\"position: relative; padding: 10px;\" data-org=\"S20250811e0bd2f7c414df/fc084773faa53.jpg\">\n                    <div id=\"caption_29064729\" style=\"display:none\">\n                        <h4></h4><p></p>\n                    </div>\n\n                    <div class=\"item_container _item_container\"><div class=\"img_wrap _img_wrap  no_content\" id=\"gal_item_29064729_img\" style=\"background-image: url(&quot;/images/thumbnail/20250912/fea32ab4ba8c3.jpg&quot;); min-height: 442px;\" data-bg=\"url(/images/thumbnail/20250912/fea32ab4ba8c3.jpg)\" data-src=\"/images/thumbnail/20250912/c8b1fbb39f134.jpg\" data-sub-html=\"#caption_29064729\" data-no=\"1\"></div><div class=\"text_wrap _text_wrap  _lightbox_item cursor_pointer\" id=\"gal_item_29064729\" data-src=\"/images/thumbnail/20250912/c8b1fbb39f134.jpg\" data-sub-html=\"#caption_29064729\" style=\"height: 442px;\"><p class=\"title\"></p></div><div class=\"slide_overlay\"></div></div>                </div><div class=\"_item item_gallary\" style=\"position: relative; padding: 10px;\" data-org=\"S20250811e0bd2f7c414df/5667495610ab5.jpg\">\n                    <div id=\"caption_29064737\" style=\"display:none\">\n                        <h4></h4><p></p>\n                    </div>\n\n                    <div class=\"item_container _item_container\"><div class=\"img_wrap _img_wrap  no_content\" id=\"gal_item_29064737_img\" style=\"background-image: url(&quot;/images/thumbnail/20250912/743a19604b129.jpg&quot;); min-height: 442px;\" data-bg=\"url(/images/thumbnail/20250912/743a19604b129.jpg)\" data-src=\"/images/thumbnail/20250912/e010cd081394d.jpg\" data-sub-html=\"#caption_29064737\" data-no=\"2\"></div><div class=\"text_wrap _text_wrap  _lightbox_item cursor_pointer\" id=\"gal_item_29064737\" data-src=\"/images/thumbnail/20250912/e010cd081394d.jpg\" data-sub-html=\"#caption_29064737\" style=\"height: 442px;\"><p class=\"title\"></p></div><div class=\"slide_overlay\"></div></div>                </div><div class=\"_item item_gallary\" style=\"position: relative; padding: 10px;\" data-org=\"S20250811e0bd2f7c414df/537f196d5e4a0.jpg\">\n                    <div id=\"caption_29064743\" style=\"display:none\">\n                        <h4></h4><p></p>\n                    </div>\n\n                    <div class=\"item_container _item_container\"><div class=\"img_wrap _img_wrap  no_content\" id=\"gal_item_29064743_img\" style=\"background-image: url(&quot;/images/thumbnail/20250912/1284faa7318b3.jpg&quot;); min-height: 442px;\" data-bg=\"url(/images/thumbnail/20250912/1284faa7318b3.jpg)\" data-src=\"/images/thumbnail/20250912/9b9018156ad69.jpg\" data-sub-html=\"#caption_29064743\" data-no=\"3\"></div><div class=\"text_wrap _text_wrap  _lightbox_item cursor_pointer\" id=\"gal_item_29064743\" data-src=\"/images/thumbnail/20250912/9b9018156ad69.jpg\" data-sub-html=\"#caption_29064743\" style=\"height: 442px;\"><p class=\"title\"></p></div><div class=\"slide_overlay\"></div></div>                </div></div></div>\n        \n                    <div class=\"text-center\"><a href=\"javascript:;\" class=\"btn btn-primary _more_btn more_btn margin-top-xl\" style=\"display: none;\">More</a></div>\n            \n    </div>\n\n    \n\n            \n</div></div></div>\n</div>\n\n<div id=\"tab3\" class=\"tab-content\">\n  <div id=\"widgetbox3\"><div doz_type=\"widget\" id=\"w20250911702d530bc61d8\"><div class=\"_widget_data \" data-widget-name=\"갤러리\" data-widget-type=\"gallery2\" data-widget-anim=\"none\" data-widget-anim-duration=\"0.7\" data-widget-anim-delay=\"0\" data-widget-parent-is-mobile=\"N\">    <div class=\"widget _gallery_wrap \">\n                <div id=\"container_w20250911702d530bc61d8\" class=\"img_rendering grid_01 type_grid overlay_text hover_show_overlay container_border gallery2  \" style=\"padding-bottom: 0px; height: auto; margin: 0px -5px;\">\n            \n                \n                \n                \n                \n                \n                \n                \n                \n                \n                        <div class=\"_gallery_row gallery_row tabled\"><div class=\"_item item_gallary\" style=\"position: relative; padding: 5px;\" data-org=\"S20250811e0bd2f7c414df/b60568e7f9fa0.jpg\">\n                    <div id=\"caption_29064754\" style=\"display:none\">\n                        <h4></h4><p></p>\n                    </div>\n\n                    <div class=\"item_container _item_container\"><div class=\"img_wrap _img_wrap  no_content\" id=\"gal_item_29064754_img\" style=\"background-image: url(&quot;/images/thumbnail/20250912/d4840523dc3b9.jpg&quot;); min-height: 252px;\" data-bg=\"url(/images/thumbnail/20250912/d4840523dc3b9.jpg)\" data-src=\"/images/thumbnail/20250912/ce53988bddb5f.jpg\" data-sub-html=\"#caption_29064754\" data-no=\"0\"></div><div class=\"text_wrap _text_wrap  _lightbox_item cursor_pointer\" id=\"gal_item_29064754\" data-src=\"/images/thumbnail/20250912/ce53988bddb5f.jpg\" data-sub-html=\"#caption_29064754\" style=\"height: 252px;\"><p class=\"title\"></p></div><div class=\"slide_overlay\"></div></div>                </div><div class=\"_item item_gallary\" style=\"position: relative; padding: 5px;\" data-org=\"S20250811e0bd2f7c414df/2c88e72a8072d.jpg\">\n                    <div id=\"caption_29064759\" style=\"display:none\">\n                        <h4></h4><p></p>\n                    </div>\n\n                    <div class=\"item_container _item_container\"><div class=\"img_wrap _img_wrap  no_content\" id=\"gal_item_29064759_img\" style=\"background-image: url(&quot;/images/thumbnail/20250912/56f48d3cf6848.jpg&quot;); min-height: 252px;\" data-bg=\"url(/images/thumbnail/20250912/56f48d3cf6848.jpg)\" data-src=\"/images/thumbnail/20250912/219ee7c979616.jpg\" data-sub-html=\"#caption_29064759\" data-no=\"1\"></div><div class=\"text_wrap _text_wrap  _lightbox_item cursor_pointer\" id=\"gal_item_29064759\" data-src=\"/images/thumbnail/20250912/219ee7c979616.jpg\" data-sub-html=\"#caption_29064759\" style=\"height: 252px;\"><p class=\"title\"></p></div><div class=\"slide_overlay\"></div></div>                </div><div class=\"_item item_gallary\" style=\"position: relative; padding: 5px;\" data-org=\"S20250811e0bd2f7c414df/189ecdfdc3a05.jpg\">\n                    <div id=\"caption_29064761\" style=\"display:none\">\n                        <h4></h4><p></p>\n                    </div>\n\n                    <div class=\"item_container _item_container\"><div class=\"img_wrap _img_wrap  no_content\" id=\"gal_item_29064761_img\" style=\"background-image: url(&quot;/images/thumbnail/20250912/aab06d4f2e206.jpg&quot;); min-height: 252px;\" data-bg=\"url(/images/thumbnail/20250912/aab06d4f2e206.jpg)\" data-src=\"/images/thumbnail/20250912/17b13eb399da0.jpg\" data-sub-html=\"#caption_29064761\" data-no=\"2\"></div><div class=\"text_wrap _text_wrap  _lightbox_item cursor_pointer\" id=\"gal_item_29064761\" data-src=\"/images/thumbnail/20250912/17b13eb399da0.jpg\" data-sub-html=\"#caption_29064761\" style=\"height: 252px;\"><p class=\"title\"></p></div><div class=\"slide_overlay\"></div></div>                </div></div><div class=\"_gallery_row gallery_row tabled\"><div class=\"_item item_gallary\" style=\"position: relative; padding: 5px;\" data-org=\"S20250811e0bd2f7c414df/7d6fbbd6744b1.jpg\">\n                    <div id=\"caption_29064762\" style=\"display:none\">\n                        <h4></h4><p></p>\n                    </div>\n\n                    <div class=\"item_container _item_container\"><div class=\"img_wrap _img_wrap  no_content\" id=\"gal_item_29064762_img\" style=\"background-image: url(&quot;/images/thumbnail/20250912/cc89671a773eb.jpg&quot;); min-height: 252px;\" data-bg=\"url(/images/thumbnail/20250912/cc89671a773eb.jpg)\" data-src=\"/images/thumbnail/20250912/b4dbdef11bef3.jpg\" data-sub-html=\"#caption_29064762\" data-no=\"3\"></div><div class=\"text_wrap _text_wrap  _lightbox_item cursor_pointer\" id=\"gal_item_29064762\" data-src=\"/images/thumbnail/20250912/b4dbdef11bef3.jpg\" data-sub-html=\"#caption_29064762\" style=\"height: 252px;\"><p class=\"title\"></p></div><div class=\"slide_overlay\"></div></div>                </div><div class=\"_item item_gallary\" style=\"position: relative; padding: 5px;\" data-org=\"S20250811e0bd2f7c414df/f9bfba7c63c64.jpg\">\n                    <div id=\"caption_29064764\" style=\"display:none\">\n                        <h4></h4><p></p>\n                    </div>\n\n                    <div class=\"item_container _item_container\"><div class=\"img_wrap _img_wrap  no_content\" id=\"gal_item_29064764_img\" style=\"background-image: url(&quot;/images/thumbnail/20250912/fac4144c9b327.jpg&quot;); min-height: 252px;\" data-bg=\"url(/images/thumbnail/20250912/fac4144c9b327.jpg)\" data-src=\"/images/thumbnail/20250912/1bd8bd4c94b94.jpg\" data-sub-html=\"#caption_29064764\" data-no=\"4\"></div><div class=\"text_wrap _text_wrap  _lightbox_item cursor_pointer\" id=\"gal_item_29064764\" data-src=\"/images/thumbnail/20250912/1bd8bd4c94b94.jpg\" data-sub-html=\"#caption_29064764\" style=\"height: 252px;\"><p class=\"title\"></p></div><div class=\"slide_overlay\"></div></div>                </div><div class=\"dummy_col item_gallary _item _dummy_item\"></div></div></div>\n        \n                    <div class=\"text-center\"><a href=\"javascript:;\" class=\"btn btn-primary _more_btn more_btn margin-top-xl\" style=\"display: none;\">More</a></div>\n            \n    </div>\n\n    \n\n            \n</div></div></div>\n</div>\n\n\n\n\n"
   },
   "rnd.facilities#s20250829c25afe324e195/w2025082935a39e86acbcc/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center;\"><span style=\"font-size: 48px;\"><strong><span style=\"color: rgb(18, 18, 18);\">생산능력</span></strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center;\"><span style=\"font-size: 48px;\"><strong><span style=\"color: rgb(18, 18, 18);\">Production capacity&nbsp;</span></strong></span></p></div></div>\n\t"
+    "ko": "생산능력",
+    "en": "Production capacity"
   },
   "rnd.facilities#s20250829c25afe324e195/w20250829cd9176971c728/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center;\"><span style=\"font-size: 20px;\"><strong><span style=\"color: rgb(18, 18, 18);\">생산설비 </span></strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center;\"><span style=\"font-size: 20px;\"><strong><span style=\"color: rgb(18, 18, 18);\">Production facilities&nbsp;</span></strong></span></p></div></div>\n\t"
+    "ko": "생산설비",
+    "en": "Production facilities"
   },
   "rnd.facilities#s20250829c25afe324e195/w20250829bb21466f4e0f1/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><table class=\"tableHover tableHorizontal\" style=\"width: 100%;\"><tbody><tr><td style=\"width: 54.6758%; background-color: rgb(52, 101, 222);\"><div style=\"text-align: center; line-height: 1.5;\"><span style=\"font-size: 16px;\"><span style=\"line-height: 1.5; color: rgb(255, 255, 255);\">설비명</span></span></div></td><td style=\"width: 45.3242%; background-color: rgb(52, 101, 222);\"><div style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\"><span style=\"color: rgb(255, 255, 255);\">대 수</span></span></span></div></td></tr><tr><td style=\"width: 54.6758%; background-color: rgb(249, 249, 249);\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">회전융착기</span></span></h6></td><td style=\"width: 45.3242%;\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">3</span></span></h6></td></tr><tr><td class=\"fr-cell-fixed \" style=\"width: 54.6758%; background-color: rgb(249, 249, 249);\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">공압검사기</span></span></h6></td><td style=\"width: 45.3242%;\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">2</span></span></h6></td></tr><tr><td style=\"width: 54.6758%; background-color: rgb(249, 249, 249);\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">라벨부착기</span></span></h6></td><td style=\"width: 45.3242%;\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">3</span></span></h6></td></tr><tr><td style=\"width: 54.6758%; background-color: rgb(249, 249, 249);\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">수축포장기</span></span></h6></td><td style=\"width: 45.3242%;\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">2</span></span></h6></td></tr><tr><td style=\"width: 54.6758%; background-color: rgb(249, 249, 249);\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">잉크젯 인쇄기</span></span></h6></td><td style=\"width: 45.3242%;\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">2</span></span></h6></td></tr><tr><td class=\"fr-cell-handler \" style=\"width: 54.6758%; background-color: rgb(249, 249, 249);\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\"><strong><span style=\"color: rgb(52, 101, 222);\">Total</span></strong></span></span></h6></td><td style=\"width: 45.3242%;\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\"><strong><span style=\"color: rgb(52, 101, 222);\">12</span></strong></span></span></h6></td></tr></tbody></table></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><table class=\"tableHover tableHorizontal\" style=\"width: 100%;\"><tbody><tr><td style=\"width: 54.6758%; background-color: rgb(52, 101, 222);\"><div style=\"text-align: center; line-height: 1.5;\"><span style=\"font-size: 16px;\"><span style=\"line-height: 1.5; color: rgb(255, 255, 255);\">Facility name</span></span></div></td><td style=\"width: 45.3242%; background-color: rgb(52, 101, 222);\"><div style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\"><span style=\"color: rgb(255, 255, 255);\">Number </span></span></span></div></td></tr><tr><td style=\"width: 54.6758%; background-color: rgb(249, 249, 249);\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">Rotary fusion machine</span></span></h6></td><td style=\"width: 45.3242%;\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">3</span></span></h6></td></tr><tr><td style=\"width: 54.6758%; background-color: rgb(249, 249, 249);\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">Pneumatic tester&nbsp;</span></span></h6></td><td style=\"width: 45.3242%;\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">2</span></span></h6></td></tr><tr><td style=\"width: 54.6758%; background-color: rgb(249, 249, 249);\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">Labelling machine&nbsp;</span></span></h6></td><td style=\"width: 45.3242%;\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">3</span></span></h6></td></tr><tr><td style=\"width: 54.6758%; background-color: rgb(249, 249, 249);\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">Shrink-wrapping machine&nbsp;</span></span></h6></td><td style=\"width: 45.3242%;\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">2</span></span></h6></td></tr><tr><td style=\"width: 54.6758%; background-color: rgb(249, 249, 249);\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">Inkjet printing press&nbsp;</span></span></h6></td><td style=\"width: 45.3242%;\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">2</span></span></h6></td></tr><tr><td style=\"width: 54.6758%; background-color: rgb(249, 249, 249);\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\"><strong><span style=\"color: rgb(52, 101, 222);\">Total</span></strong></span></span></h6></td><td style=\"width: 45.3242%;\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\"><strong><span style=\"color: rgb(52, 101, 222);\">12</span></strong></span></span></h6></td></tr></tbody></table></div></div>\n\t"
+    "ko": "설비명\n대 수\n회전융착기\n3\n공압검사기\n2\n라벨부착기\n3\n수축포장기\n2\n잉크젯 인쇄기\n2\nTotal\n12",
+    "en": "Facility name\nNumber\nRotary fusion machine\n3\nPneumatic tester\n2\nLabelling machine\n3\nShrink-wrapping machine\n2\nInkjet printing press\n2\nTotal\n12"
   },
   "rnd.facilities#s20250829c25afe324e195/w20250829dc320d96d4f7e/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center;\"><span style=\"font-size: 20px;\"><strong><span style=\"color: rgb(18, 18, 18);\">측정 장비</span></strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center;\"><span style=\"font-size: 20px;\"><strong><span style=\"color: rgb(18, 18, 18);\">Measuring equipment</span></strong></span></p></div></div>\n\t"
+    "ko": "측정 장비",
+    "en": "Measuring equipment"
   },
   "rnd.facilities#s20250829c25afe324e195/w20250829370d74ba50fab/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><table class=\"tableHover tableHorizontal\" style=\"width: 100%;\"><tbody><tr><td style=\"width: 43.9469%; background-color: rgb(52, 101, 222);\"><div style=\"text-align: center;\"><span style=\"font-size: 16px;\"><span style=\"color: rgb(255, 255, 255);\">설비명</span></span></div></td><td style=\"width: 55.8012%; background-color: rgb(52, 101, 222);\"><div style=\"text-align: center;\"><span style=\"font-size: 16px;\"><span style=\"color: rgb(255, 255, 255);\">대 수</span></span></div></td></tr><tr><td class=\"fr-cell-fixed \" style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">잔류염소측정기</span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">탁도 측정기</span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">경도 측정기</span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">ORP 측정기</span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">TDS 측정기</span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">pH 측정기<br></span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">가우스 측정기 <br></span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td class=\"fr-cell-handler \" style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\"><strong><span style=\"color: rgb(52, 101, 222);\">Total</span></strong></span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\"><strong><span style=\"color: rgb(52, 101, 222);\">7</span></strong></span></span></div></td></tr></tbody></table></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><table class=\"tableHover tableHorizontal\" style=\"width: 100%;\"><tbody><tr><td style=\"width: 43.9469%; background-color: rgb(52, 101, 222);\"><div style=\"text-align: center;\"><span style=\"font-size: 16px;\"><span style=\"color: rgb(255, 255, 255);\">Facility name</span></span></div></td><td style=\"width: 55.8012%; background-color: rgb(52, 101, 222);\"><div style=\"text-align: center;\"><span style=\"font-size: 16px;\"><span style=\"color: rgb(255, 255, 255);\">Number</span></span></div></td></tr><tr><td style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">Residual chlorine meter&nbsp;</span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">Turbidity meter&nbsp;</span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">Hardness meter&nbsp;</span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">ORP measuring instrument&nbsp;</span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">TDS meter&nbsp;</span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">pH meter <br></span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">Gaussian measuring instrument &nbsp;<br></span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\"><strong><span style=\"color: rgb(52, 101, 222);\">Total</span></strong></span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\"><strong><span style=\"color: rgb(52, 101, 222);\">7</span></strong></span></span></div></td></tr></tbody></table></div></div>\n\t"
+    "ko": "설비명\n대 수\n잔류염소측정기\n1\n탁도 측정기\n1\n경도 측정기\n1\nORP 측정기\n1\nTDS 측정기\n1\npH 측정기\n1\n가우스 측정기\n1\nTotal\n7",
+    "en": "Facility name\nNumber\nResidual chlorine meter\n1\nTurbidity meter\n1\nHardness meter\n1\nORP measuring instrument\n1\nTDS meter\n1\npH meter\n1\nGaussian measuring instrument\n1\nTotal\n7"
   },
   "rnd.facilities#s20250829c25afe324e195/w20250829336d480a01019/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center;\"><span style=\"font-size: 20px;\"><strong><span style=\"color: rgb(18, 18, 18);\">테스트 장비 </span></strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center;\"><span style=\"font-size: 20px;\"><strong><span style=\"color: rgb(18, 18, 18);\">Test equipment</span></strong></span></p></div></div>\n\t"
+    "ko": "테스트 장비",
+    "en": "Test equipment"
   },
   "rnd.facilities#s20250829c25afe324e195/w202508298781405b23d22/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><table class=\"tableHorizontal tableHover\" style=\"width: 100%;\"><tbody><tr><td style=\"width: 43.9469%; background-color: rgb(52, 101, 222);\"><div style=\"text-align: center;\"><span style=\"font-size: 16px;\"><span style=\"color: rgb(255, 255, 255);\">설비명</span></span></div></td><td style=\"width: 55.8012%; background-color: rgb(52, 101, 222);\"><div style=\"text-align: center;\"><span style=\"font-size: 16px;\"><span style=\"color: rgb(255, 255, 255);\">대 수</span></span></div></td></tr><tr><td class=\"fr-cell-fixed \" style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">수압시험기&nbsp;</span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">공압시험기</span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">항온항습기</span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td class=\"fr-cell-handler \" style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\"><strong><span style=\"color: rgb(52, 101, 222);\">Total</span></strong></span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\"><strong><span style=\"color: rgb(52, 101, 222);\">3</span></strong></span></span></div></td></tr></tbody></table></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><table class=\"tableHorizontal tableHover\" style=\"width: 100%;\"><tbody><tr><td style=\"width: 43.9469%; background-color: rgb(52, 101, 222);\"><div style=\"text-align: center;\"><span style=\"font-size: 16px;\"><span style=\"color: rgb(255, 255, 255);\">Facility name</span></span></div></td><td style=\"width: 55.8012%; background-color: rgb(52, 101, 222);\"><div style=\"text-align: center;\"><span style=\"font-size: 16px;\"><span style=\"color: rgb(255, 255, 255);\">Number</span></span></div></td></tr><tr><td style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">Hydraulic tester&nbsp;</span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">Pneumatic tester&nbsp;</span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">Constant temperature and humidity&nbsp;</span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\">1</span></span></div></td></tr><tr><td style=\"width: 43.9469%; background-color: rgb(249, 249, 249);\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\"><strong><span style=\"color: rgb(52, 101, 222);\">Total</span></strong></span></span></div></td><td style=\"width: 55.8012%;\"><div style=\"text-align: center; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 16px;\"><strong><span style=\"color: rgb(52, 101, 222);\">3</span></strong></span></span></div></td></tr></tbody></table></div></div>\n\t"
+    "ko": "설비명\n대 수\n수압시험기\n1\n공압시험기\n1\n항온항습기\n1\nTotal\n3",
+    "en": "Facility name\nNumber\nHydraulic tester\n1\nPneumatic tester\n1\nConstant temperature and humidity\n1\nTotal\n3"
   },
   "rnd.facilities#s20250829c25afe324e195/w202508292eb257f4075b4/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center;\"><span style=\"font-size: 20px;\"><strong><span style=\"color: rgb(18, 18, 18);\">테스트 장비 </span></strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center;\"><span style=\"font-size: 20px;\"><strong><span style=\"color: rgb(18, 18, 18);\">Test equipment</span></strong></span></p></div></div>\n\t"
+    "ko": "테스트 장비",
+    "en": "Test equipment"
   },
   "rnd.facilities#s20250829c25afe324e195/w202508293b8acaf6df97a/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><table class=\"tableHorizontal tableHover\" style=\"width: 100%;\"><tbody><tr><td style=\"width: 42.2414%; background-color: rgb(52, 101, 222);\"><div style=\"text-align: center; line-height: 1.5;\"><span style=\"font-size: 16px;\"><span style=\"line-height: 1.5; color: rgb(255, 255, 255);\">생산능력</span></span></div></td><td style=\"width: 58.1034%; background-color: rgb(52, 101, 222);\"><div style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\"><span style=\"color: rgb(255, 255, 255);\">수 량</span></span></span></div></td></tr><tr><td class=\"fr-cell-fixed \" style=\"width: 42.2414%; background-color: rgb(249, 249, 249);\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">Units / hr</span></span></h6></td><td style=\"width: 58.1034%;\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">1,250 ea</span></span></h6></td></tr><tr><td style=\"width: 42.2414%; background-color: rgb(249, 249, 249);\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">Units / day / ( 8hr )&nbsp;</span></span></h6></td><td style=\"width: 58.1034%;\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">10,000 ea&nbsp;</span></span></h6></td></tr><tr><td class=\"fr-cell-handler \" style=\"width: 42.2414%; background-color: rgb(249, 249, 249);\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">Units / Month /\n( 25 day )</span></span></h6></td><td style=\"width: 58.1034%;\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">250,000 ea</span></span></h6></td></tr></tbody></table></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><table class=\"tableHorizontal tableHover\" style=\"width: 100%;\"><tbody><tr><td style=\"width: 42.2414%; background-color: rgb(52, 101, 222);\"><div style=\"text-align: center; line-height: 1.5;\"><span style=\"font-size: 16px;\"><span style=\"line-height: 1.5; color: rgb(255, 255, 255);\">Production capacity</span></span></div></td><td style=\"width: 58.1034%; background-color: rgb(52, 101, 222);\"><div style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\"><span style=\"color: rgb(255, 255, 255);\">Number</span></span></span></div></td></tr><tr><td style=\"width: 42.2414%; background-color: rgb(249, 249, 249);\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">Units / hr</span></span></h6></td><td style=\"width: 58.1034%;\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">1,250 ea</span></span></h6></td></tr><tr><td style=\"width: 42.2414%; background-color: rgb(249, 249, 249);\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">Units / day / ( 8hr )&nbsp;</span></span></h6></td><td style=\"width: 58.1034%;\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">10,000 ea&nbsp;</span></span></h6></td></tr><tr><td style=\"width: 42.2414%; background-color: rgb(249, 249, 249);\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">Units / Month /\n( 25 day )</span></span></h6></td><td style=\"width: 58.1034%;\"><h6 style=\"text-align: center; line-height: 1.5;\"><span style=\"line-height: 1.5;\"><span style=\"font-size: 16px;\">250,000 ea</span></span></h6></td></tr></tbody></table></div></div>\n\t"
+    "ko": "생산능력\n수 량\nUnits / hr\n1,250 ea\nUnits / day / ( 8hr )\n10,000 ea\nUnits / Month / ( 25 day )\n250,000 ea",
+    "en": "Production capacity\nNumber\nUnits / hr\n1,250 ea\nUnits / day / ( 8hr )\n10,000 ea\nUnits / Month / ( 25 day )\n250,000 ea"
   },
   "rnd.facilities#s2025091161e916b59099f/w202509110e7da42eec27c/src": {
     "ko": "/images/thumbnail/20250911/68ffc55b3ed20.png",
@@ -13959,8 +13784,8 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "en": ""
   },
   "rnd#s20250909caaa8544e0e70/w20250909b16e1f0580760/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">첨단 설비와 철저한 관리로</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">더 깨끗하고 안전한 물을 만듭니다.</span></strong></h6></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">Advanced facilities&nbsp;</span></strong><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">and strict management</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">create cleaner, safer water.</span></strong></h6></div></div>\n\t"
+    "ko": "첨단 설비와 철저한 관리로\n더 깨끗하고 안전한 물을 만듭니다.",
+    "en": "Advanced facilities\nand strict management\ncreate cleaner, safer water."
   },
   "rnd#s202509091799d895b62ea/w202509092bb83d593e678/src": {
     "ko": "/images/thumbnail/20250911/cacef61fc2561.jpg",
@@ -13971,8 +13796,8 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "en": ""
   },
   "rnd#s202509091799d895b62ea/w20250909a6322fa870d46/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><div class=\"table-responsive\"><table class=\"tableHorizontal _table_responsive table\" style=\"width: 100%; border-top:2px solid #3465de;\"><tbody><tr><td rowspan=\"3\" style=\"width: 19.8388%; vertical-align: top;\"><p style=\"text-align: left; line-height: 2;\"><span style=\"font-size: 22px; color: rgb(36, 36, 36);\"><strong><span style=\"line-height: 2;\">친환경·프리미엄</span></strong></span></p><p style=\"text-align: left; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 22px; color: rgb(36, 36, 36);\"><strong>수처리 기술력</strong></span></span></p></td><td style=\"width: 20.56%;\"><h6 style=\"text-align: left; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>다단계 정수 시스템</strong></span></span></h6></td><td style=\"width: 59.6%;\"><span style=\"line-height: 2; font-size: 16px;\">세디먼트, 프리카본, UF/RO/NF 멤브레인, 포스트카본 등 다양한 조합으로 현지 수질에 최적화된 맞춤형 필터 제공</span></td></tr><tr><td style=\"width: 20.56%;\"><h6 style=\"text-align: left; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>미네랄·알칼리 기능성 필터</strong></span></span></h6></td><td style=\"width: 59.6%;\"><span style=\"line-height: 2; font-size: 16px;\">단순 정수 기능을 넘어 미네랄 밸런싱과 알칼리화 기능으로 건강 가치를 강화</span></td></tr><tr><td style=\"width: 20.56%;\"><h6 style=\"text-align: left; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>비데·샤워·생활가전 필터</strong></span></span></h6></td><td style=\"width: 59.6%;\"><span style=\"line-height: 2; font-size: 16px;\">물 위생과 생활 품질을 높이는 응용 제품군(비데 필터, 비타민 샤워 필터, 살균 모듈 등) 보유.</span></td></tr></tbody></table></div></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><div class=\"table-responsive\"><table class=\"tableHorizontal _table_responsive table\" style=\"width: 100%; border-top:2px solid #3465de;\"><tbody><tr><td rowspan=\"3\" style=\"width: 19.8388%; vertical-align: top;\"><p style=\"text-align: left; line-height: 2;\"><span style=\"font-size: 22px; color: rgb(36, 36, 36);\"><strong><span style=\"line-height: 2;\">Eco-friendly</span></strong></span></p><p style=\"text-align: left; line-height: 2;\"><span style=\"font-size: 22px; color: rgb(36, 36, 36);\"><strong><span style=\"line-height: 2;\">premium water</span></strong></span></p><p style=\"text-align: left; line-height: 2;\"><span style=\"font-size: 22px; color: rgb(36, 36, 36);\"><strong><span style=\"line-height: 2;\">technology</span></strong></span></p></td><td style=\"width: 20.56%;\"><h6 style=\"text-align: left; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong><span style=\"line-height: 2;\">multi-level water purification system</span></strong><strong><span style=\"line-height: 2;\">&nbsp;</span></strong></span></h6></td><td style=\"width: 59.6%;\"><span style=\"line-height: 1; font-size: 16px;\">Custom filters optimized for local water quality using segment,</span><span style=\"line-height: 1;\"><span style=\"font-size: 16px;\"><br></span></span><span style=\"line-height: 1; font-size: 16px;\">pre-carbon, UF/RO/NF membranes, and post-carbon.</span><span style=\"line-height: 2; font-size: 16px;\">&nbsp;&nbsp;</span></td></tr><tr><td style=\"width: 20.56%;\"><h6 style=\"text-align: left; line-height: 1;\"><span style=\"line-height: 1;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>Mineral/alkali</strong></span></span></h6><h6 style=\"text-align: left; line-height: 1;\"><span style=\"line-height: 1;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>functional filters</strong></span></span><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>&nbsp;&nbsp;</strong></span></span></h6></td><td style=\"width: 59.6%;\"><span style=\"line-height: 2; font-size: 16px;\">Beyond simple water purification, mineral balancing and alkalization enhance health value&nbsp;</span></td></tr><tr><td style=\"width: 20.56%;\"><h6 style=\"text-align: left; line-height: 1;\"><span style=\"line-height: 1;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>Bidet,</strong><strong>shower,</strong></span></span></h6><h6 style=\"text-align: left; line-height: 1;\"><span style=\"line-height: 1;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>appliances filters</strong></span></span><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>&nbsp;&nbsp;</strong></span></span></h6></td><td style=\"width: 59.6%;\"><span style=\"line-height: 1; font-size: 16px;\">Have an application suite (vide filters, vitamin shower filters, sterilization modules, etc.)</span><br><span style=\"line-height: 1; font-size: 16px;\">that enhance water hygiene and quality of life.</span><span style=\"line-height: 2; font-size: 16px;\">&nbsp;</span></td></tr></tbody></table></div></div></div>\n\t"
+    "ko": "친환경·프리미엄\n수처리 기술력\n다단계 정수 시스템\n세디먼트, 프리카본, UF/RO/NF 멤브레인, 포스트카본 등 다양한 조합으로 현지 수질에 최적화된 맞춤형 필터 제공\n미네랄·알칼리 기능성 필터\n단순 정수 기능을 넘어 미네랄 밸런싱과 알칼리화 기능으로 건강 가치를 강화\n비데·샤워·생활가전 필터\n물 위생과 생활 품질을 높이는 응용 제품군(비데 필터, 비타민 샤워 필터, 살균 모듈 등) 보유.",
+    "en": "Eco-friendly\npremium water\ntechnology\nmulti-level water purification system\nCustom filters optimized for local water quality using segment,\npre-carbon, UF/RO/NF membranes, and post-carbon.\nMineral/alkali\nfunctional filters\nBeyond simple water purification, mineral balancing and alkalization enhance health value\nBidet,\nshower,\nappliances filters\nHave an application suite (vide filters, vitamin shower filters, sterilization modules, etc.)\nthat enhance water hygiene and quality of life."
   },
   "rnd#s202509091799d895b62ea/w20250909cd03ba9b09650/html": {
     "ko": "\n",
@@ -13987,8 +13812,8 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "en": ""
   },
   "rnd#s2025090972e449f7846e1/w20250909f986ae33491f9/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><table class=\"tableHorizontal\" style=\"width: 100%; border-top:2px solid #3465de;\"><tbody><tr><td colspan=\"2\" style=\"width: 19.9927%; vertical-align: top;\"><span style=\"line-height: 2;\"><span style=\"font-size: 22px; color: rgb(36, 36, 36);\"><strong>OEM/글로벌 협업 역량</strong></span></span></td></tr><tr><td style=\"width: 36.2602%;\"><h6 style=\"text-align: left; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>글로벌 대기업 공급 실적</strong></span></span></h6></td><td style=\"width: 63.7398%;\"><span style=\"line-height: 2; font-size: 16px;\">LG, 쿠쿠 등 주요 가전 브랜드에 OEM/ODM 납품 경험으로 품질 검증 완료.&nbsp;</span></td></tr><tr><td style=\"width: 36.2602%;\"><h6 style=\"text-align: left; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>폭넓은 제품 포트폴리오</strong></span></span></h6></td><td style=\"width: 63.7398%;\"><span style=\"line-height: 2; font-size: 16px;\">언더싱크 정수기, 슬림 정수기, LPS 센서, 전극 살균기 등 30종 이상의 제품 라인업을 통해 B2B 확장성 확보.&nbsp;</span></td></tr></tbody></table></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><table class=\"tableHorizontal\" style=\"width: 100%; border-top:2px solid #3465de;\"><tbody><tr><td colspan=\"2\" style=\"width: 19.9927%; vertical-align: top;\"><span style=\"line-height: 2;\"><span style=\"font-size: 22px; color: rgb(36, 36, 36);\"><strong>OEM/Global Collaboration Capabilities&nbsp;</strong></span></span></td></tr><tr><td style=\"width: 36.2602%;\"><h6 style=\"text-align: left; line-height: 1;\"><span style=\"line-height: 1;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>Global conglomerate supply performance</strong></span></span><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>&nbsp;</strong></span></span></h6></td><td style=\"width: 63.7398%;\"><span style=\"line-height: 1; font-size: 16px;\">OEM/ODM experience with LG, Cuckoo and other major brands ensures verified quality.</span><span style=\"line-height: 2; font-size: 16px;\">&nbsp;</span></td></tr><tr><td style=\"width: 36.2602%;\"><h6 style=\"text-align: left; line-height: 1;\"><span style=\"line-height: 1;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>Broad portfolio of products</strong></span></span><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>&nbsp;</strong></span></span></h6></td><td style=\"width: 63.7398%;\"><span style=\"line-height: 1; font-size: 16px;\">Over 30 products, from water purifiers to sterilizers, secure B2B scalability.</span><span style=\"line-height: 2; font-size: 16px;\">&nbsp;</span></td></tr></tbody></table></div></div>\n\t"
+    "ko": "OEM/글로벌 협업 역량\n글로벌 대기업 공급 실적\nLG, 쿠쿠 등 주요 가전 브랜드에 OEM/ODM 납품 경험으로 품질 검증 완료.\n폭넓은 제품 포트폴리오\n언더싱크 정수기, 슬림 정수기, LPS 센서, 전극 살균기 등 30종 이상의 제품 라인업을 통해 B2B 확장성 확보.",
+    "en": "OEM/Global Collaboration Capabilities\nGlobal conglomerate supply performance\nOEM/ODM experience with LG, Cuckoo and other major brands ensures verified quality.\nBroad portfolio of products\nOver 30 products, from water purifiers to sterilizers, secure B2B scalability."
   },
   "rnd#s2025090972e449f7846e1/w2025090999ac3275406dc/src": {
     "ko": "/images/thumbnail/20250909/368735646c29f.jpg",
@@ -13999,8 +13824,8 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "en": ""
   },
   "rnd#s2025090972e449f7846e1/w20250909cabf29c2126d9/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><table class=\"tableHorizontal\" style=\"width: 100%; border-top:2px solid #3465de;\"><tbody><tr><td colspan=\"2\" style=\"width: 19.9927%; vertical-align: top;\"><span style=\"line-height: 2;\"><span style=\"font-size: 22px; color: rgb(36, 36, 36);\"><strong>첨단 검사 및 품질 관리 체계</strong></span></span></td></tr><tr><td style=\"width: 36.2602%;\"><h6 style=\"text-align: left; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>정밀 검사 장비 구축</strong></span></span></h6></td><td style=\"width: 63.7398%;\"><span style=\"line-height: 2; font-size: 16px;\">잔류염소, 탁도, 경도, ORP, TDS, pH 등 수질 분석 장비와 내수압·열충격·반복내구 시험기 보유</span></td></tr><tr><td style=\"width: 36.2602%;\"><h6 style=\"text-align: left; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>체계적 품질 관리 프로세스</strong></span></span></h6></td><td style=\"width: 63.7398%;\"><span style=\"line-height: 2; font-size: 16px;\">선행품질·생산·납기 관리 시스템, IQC-LQC-OQC 전수 검사 체계 운영.</span></td></tr><tr><td style=\"width: 36.2602%;\"><h6 style=\"text-align: left; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>글로벌 Audit 대응 경험</strong></span></span></h6></td><td style=\"width: 63.7398%;\"><span style=\"font-size: 16px;\">까다로운 글로벌 파트너 품질 감사에도 통과할 수 있는 수준의 관리 역량 확보.</span><br></td></tr></tbody></table></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><table class=\"tableHorizontal\" style=\"width: 100%; border-top:2px solid #3465de;\"><tbody><tr><td colspan=\"2\" style=\"width: 19.9927%; vertical-align: top;\"><span style=\"line-height: 2;\"><span style=\"font-size: 22px; color: rgb(36, 36, 36);\"><strong>Advanced inspection and quality control systems&nbsp;</strong></span></span></td></tr><tr><td style=\"width: 36.0838%;\"><h6 style=\"text-align: left; line-height: 1;\"><span style=\"line-height: 1;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>Precision inspection equipment</strong></span></span><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>&nbsp;</strong></span></span></h6></td><td style=\"width: 63.9162%;\"><span style=\"line-height: 1; font-size: 16px;\">Water quality analysis (chlorine, turbidity, hardness, ORP, TDS, pH) and durability testers.</span><span style=\"line-height: 2; font-size: 16px;\">&nbsp;&nbsp;</span></td></tr><tr><td style=\"width: 36.0838%;\"><h6 style=\"text-align: left; line-height: 1;\"><span style=\"line-height: 1;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>Systematic quality management</strong></span></span><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>&nbsp;&nbsp;</strong></span></span></h6></td><td style=\"width: 63.9162%;\"><span style=\"line-height: 1; font-size: 16px;\">Production, delivery, and full inspection (IQC–LQC–OQC) systems.&nbsp;</span></td></tr><tr><td style=\"width: 36.0838%;\"><h6 style=\"text-align: left; line-height: 1;\"><span style=\"line-height: 1;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>Global audit&nbsp;</strong></span><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>response</strong></span></span><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>&nbsp;</strong></span></span></h6></td><td style=\"width: 63.9162%;\"><span style=\"font-size: 16px;\">Get the level of management capability to pass demanding global partner quality audits.&nbsp;</span></td></tr></tbody></table></div></div>\n\t"
+    "ko": "첨단 검사 및 품질 관리 체계\n정밀 검사 장비 구축\n잔류염소, 탁도, 경도, ORP, TDS, pH 등 수질 분석 장비와 내수압·열충격·반복내구 시험기 보유\n체계적 품질 관리 프로세스\n선행품질·생산·납기 관리 시스템, IQC-LQC-OQC 전수 검사 체계 운영.\n글로벌 Audit 대응 경험\n까다로운 글로벌 파트너 품질 감사에도 통과할 수 있는 수준의 관리 역량 확보.",
+    "en": "Advanced inspection and quality control systems\nPrecision inspection equipment\nWater quality analysis (chlorine, turbidity, hardness, ORP, TDS, pH) and durability testers.\nSystematic quality management\nProduction, delivery, and full inspection (IQC–LQC–OQC) systems.\nGlobal audit\nresponse\nGet the level of management capability to pass demanding global partner quality audits."
   },
   "rnd#s2025090972e449f7846e1/w2025090966fa71c862599/html": {
     "ko": "\n",
@@ -14015,8 +13840,8 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "en": ""
   },
   "rnd#s20250909b12fa8000068e/w202509093403364594dce/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><table class=\"tableHorizontal\" style=\"width: 100%; border-top:2px solid #3465de;\"><tbody><tr><td colspan=\"2\" style=\"width: 19.9927%; vertical-align: top;\"><span style=\"line-height: 2;\"><span style=\"font-size: 22px; color: rgb(36, 36, 36);\"><strong>스마트·살균 기술</strong></span></span></td></tr><tr><td style=\"width: 36.2602%; vertical-align: top;\"><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>전극 기반 전기분해 살균 모듈</strong></span></span><br></td><td style=\"width: 63.7398%;\"><span style=\"line-height: 2; font-size: 16px;\">물을 전기분해해 염소를 발생시키고,</span><br><span style=\"line-height: 2; font-size: 16px;\">정수기·비데·탱크 내부를 살균 가능.</span></td></tr><tr><td style=\"width: 36.2602%; vertical-align: top;\"><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>센서·IoT 확장성</strong></span></span></td><td style=\"width: 63.7398%;\"><span style=\"line-height: 2; font-size: 16px;\">저압 스위치(LPS) 및 IoT 연동 기술을 통해</span><br><span style=\"line-height: 2; font-size: 16px;\">수압·수질 변화를 실시간 감지, 스마트홈 시장과</span><br><span style=\"line-height: 2; font-size: 16px;\">연결될 수 있는 성장 가능성 보유.</span></td></tr></tbody></table></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><table class=\"tableHorizontal\" style=\"width: 100%; border-top:2px solid #3465de;\"><tbody><tr><td colspan=\"2\" style=\"width: 19.9927%; vertical-align: top;\"><span style=\"line-height: 2;\"><span style=\"font-size: 22px; color: rgb(36, 36, 36);\"><strong>Smart/sterilizing technology&nbsp;</strong></span></span></td></tr><tr><td style=\"width: 36.2602%; vertical-align: top;\"><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>Electrode</strong></span></span><br><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>sterilization module&nbsp;</strong></span></span></td><td style=\"width: 63.7398%;\"><span style=\"line-height: 1; font-size: 16px;\">Electrolyzes water to generate chlorine, sterilizing purifiers, bidets, and tanks.</span></td></tr><tr><td style=\"width: 36.2602%; vertical-align: top;\"><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>Sensor/IoT scalability</strong></span></span></td><td style=\"width: 63.7398%;\"><span style=\"line-height: 1; font-size: 16px;\">LPS and IoT tech enable real-time monitoring and smart home connectivity.&nbsp;</span></td></tr></tbody></table></div></div>\n\t"
+    "ko": "스마트·살균 기술\n전극 기반 전기분해 살균 모듈\n물을 전기분해해 염소를 발생시키고,\n정수기·비데·탱크 내부를 살균 가능.\n센서·IoT 확장성\n저압 스위치(LPS) 및 IoT 연동 기술을 통해\n수압·수질 변화를 실시간 감지, 스마트홈 시장과\n연결될 수 있는 성장 가능성 보유.",
+    "en": "Smart/sterilizing technology\nElectrode\nsterilization module\nElectrolyzes water to generate chlorine, sterilizing purifiers, bidets, and tanks.\nSensor/IoT scalability\nLPS and IoT tech enable real-time monitoring and smart home connectivity."
   },
   "rnd#s20250909b12fa8000068e/w2025090910fe01238de32/src": {
     "ko": "/images/thumbnail/20250909/98102c9df6b48.jpg",
@@ -14027,20 +13852,20 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "en": ""
   },
   "rnd#s20250909b12fa8000068e/w20250909aaff6976da0b4/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><table class=\"tableHorizontal\" style=\"width: 100%; border-top:2px solid #3465de;\"><tbody><tr><td colspan=\"2\" style=\"width: 19.9927%; vertical-align: top;\"><span style=\"line-height: 2;\"><span style=\"font-size: 22px; color: rgb(36, 36, 36);\"><strong>대량 생산 및 글로벌 공급망</strong></span></span></td></tr><tr><td style=\"width: 36.2602%; vertical-align: top;\"><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>대량 생산 능력</strong></span></span><p><br></p></td><td style=\"width: 63.7398%;\"><span style=\"font-size: 16px; line-height: 2;\">월 25만 개 생산 가능,<br>자동화 라인과 전문 인력으로<br>대규모 OEM 수요 대응 가능.</span></td></tr><tr><td style=\"width: 36.2602%; vertical-align: top;\"><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>글로벌 네트워크</strong></span></span><p><br></p></td><td style=\"width: 63.7398%;\"><span style=\"line-height: 2; font-size: 16px;\">한국 본사 외에도 중국·캄보디아 지사 운영으로</span><br><span style=\"line-height: 2; font-size: 16px;\">현지 시장 대응 및 공급망 최적화.</span></td></tr></tbody></table></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><table class=\"tableHorizontal\" style=\"width: 100%; border-top:2px solid #3465de;\"><tbody style=\"line-height: 1.15;\"><tr><td colspan=\"2\" style=\"width: 19.9927%; vertical-align: top;\"><span style=\"line-height: 2;\"><span style=\"font-size: 22px; color: rgb(36, 36, 36);\"><strong>Mass production and global supply chain&nbsp;</strong></span></span></td></tr><tr><td style=\"width: 36.2296%; vertical-align: middle;\"><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>Mass production capacity&nbsp;</strong></span></span></td><td style=\"width: 63.7704%;\"><span style=\"font-size: 16px; line-height: 1.5;\">250,000 units/month with automation and experts for large-scale OEM demand.</span><span style=\"font-size: 16px; line-height: 1;\">&nbsp;</span></td></tr><tr><td style=\"width: 36.2296%; vertical-align: top;\"><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>Global</strong></span></span><br><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>Network</strong></span></span></td><td style=\"width: 63.7704%;\"><span style=\"line-height: 1.5;\">Headquarters in Korea with offices in China and Cambodia for supply optimization.&nbsp;</span></td></tr></tbody></table></div></div>\n\t"
+    "ko": "대량 생산 및 글로벌 공급망\n대량 생산 능력\n월 25만 개 생산 가능,\n자동화 라인과 전문 인력으로\n대규모 OEM 수요 대응 가능.\n글로벌 네트워크\n한국 본사 외에도 중국·캄보디아 지사 운영으로\n현지 시장 대응 및 공급망 최적화.",
+    "en": "Mass production and global supply chain\nMass production capacity\n250,000 units/month with automation and experts for large-scale OEM demand.\nGlobal\nNetwork\nHeadquarters in Korea with offices in China and Cambodia for supply optimization."
   },
   "rnd#s20250909b12fa8000068e/w202509095cf036410413e/html": {
     "ko": "\n",
     "en": "\n"
   },
   "rnd#s2025090979d4f02da9a4c/w202509098378a31a7319e/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center;\"><span style=\"font-size: 48px;\"><strong><span style=\"color: rgb(18, 18, 18);\">투자자 핵심 USP 요약</span></strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center;\"><span style=\"font-size: 48px;\"><strong><span style=\"color: rgb(18, 18, 18);\">Investor Core USP Summary&nbsp;</span></strong></span></p></div></div>\n\t"
+    "ko": "투자자 핵심 USP 요약",
+    "en": "Investor Core USP Summary"
   },
   "rnd#s2025090979d4f02da9a4c/w20250909deb55b36523e5/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(81, 81, 81);\">건강하기 위해서 중요한 물, 소홀히 할 수 없습니다.</span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(81, 81, 81);\">여러분들이 안심하고 마실 수 있도록 깨끗하고 건강한 물만 만들겠다 약속합니다.</span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(81, 81, 81);\">Water is vital to health and must not be neglected.<br data-start=\"130\" data-end=\"133\">&nbsp;We promise clean, healthy water you can drink with confidence.</span></p></div></div>\n\t"
+    "ko": "건강하기 위해서 중요한 물, 소홀히 할 수 없습니다.\n여러분들이 안심하고 마실 수 있도록 깨끗하고 건강한 물만 만들겠다 약속합니다.",
+    "en": "Water is vital to health and must not be neglected.\nWe promise clean, healthy water you can drink with confidence."
   },
   "rnd#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[0].title": {
     "ko": "",
@@ -14143,12 +13968,12 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "en": ""
   },
   "rnd.patents#s2025082027290aa48803c/w20250820f45ae1e9a7239/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">첨단 설비와 철저한 관리로</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">더 깨끗하고 안전한 물을 만듭니다.</span></strong></h6></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">Advanced facilities&nbsp;</span></strong><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">and strict management</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">create cleaner, safer water.</span></strong></h6></div></div>\n\t"
+    "ko": "첨단 설비와 철저한 관리로\n더 깨끗하고 안전한 물을 만듭니다.",
+    "en": "Advanced facilities\nand strict management\ncreate cleaner, safer water."
   },
   "rnd.patents#s202508114d9bc90ceb876/w20250820275c6573162a6/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: left;\"><span style=\"font-size: 48px;\"><strong><span style=\"color: rgb(18, 18, 18);\">인증 현황</span></strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: left;\"><span style=\"font-size: 48px;\"><strong><span style=\"color: rgb(18, 18, 18);\">Certification Status&nbsp;</span></strong></span></p></div></div>\n\t"
+    "ko": "인증 현황",
+    "en": "Certification Status"
   },
   "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[0].title": {
     "ko": "인증서",
@@ -14369,8 +14194,8 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
   "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[13].org": {},
   "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[13].thumb": {},
   "rnd.patents#s202508114d9bc90ceb876/w2025082061b08b8c142c7/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: left;\"><span style=\"font-size: 48px;\"><strong><span style=\"color: rgb(18, 18, 18);\">기업 인증 및 특허 현황 </span></strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: left;\"><span style=\"font-size: 48px;\"><strong><span style=\"color: rgb(18, 18, 18);\">Corporate Certification and Patent Status &nbsp;&nbsp;</span></strong></span></p></div></div>\n\t"
+    "ko": "기업 인증 및 특허 현황",
+    "en": "Corporate Certification and Patent Status"
   },
   "rnd.patents#s202508114d9bc90ceb876/w20250820d0424c97beb80/items[0].title": {
     "ko": "인증서",
@@ -14437,8 +14262,8 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "en": "/images/thumbnail/20250912/690606711cdec.jpg"
   },
   "rnd.patents#s202508114d9bc90ceb876/w202508201caaa295b789a/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: left;\"><span style=\"font-size: 48px;\"><strong><span style=\"color: rgb(18, 18, 18);\">국제 인증 및 위촉 현황&nbsp;</span></strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: left;\"><span style=\"font-size: 48px;\"><strong><span style=\"color: rgb(18, 18, 18);\">International certification &amp; commissioning status&nbsp;</span></strong></span></p></div></div>\n\t"
+    "ko": "국제 인증 및 위촉 현황",
+    "en": "International certification & commissioning status"
   },
   "rnd.patents#s202508114d9bc90ceb876/w2025082013eb8cbe71ecd/items[0].title": {
     "ko": "인증서",
@@ -14525,8 +14350,8 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "en": ""
   },
   "rnd.technology#s20250909caaa8544e0e70/w20250909b16e1f0580760/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">첨단 설비와 철저한 관리로</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">더 깨끗하고 안전한 물을 만듭니다.</span></strong></h6></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">Advanced facilities&nbsp;</span></strong><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">and strict management</span></strong></h6><h6><strong><span style=\"color: rgb(255, 255, 255); font-size: 48px;\">create cleaner, safer water.</span></strong></h6></div></div>\n\t"
+    "ko": "첨단 설비와 철저한 관리로\n더 깨끗하고 안전한 물을 만듭니다.",
+    "en": "Advanced facilities\nand strict management\ncreate cleaner, safer water."
   },
   "rnd.technology#s202509091799d895b62ea/w202509092bb83d593e678/src": {
     "ko": "/images/thumbnail/20250911/cacef61fc2561.jpg",
@@ -14537,8 +14362,8 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "en": ""
   },
   "rnd.technology#s202509091799d895b62ea/w20250909a6322fa870d46/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><div class=\"table-responsive\"><table class=\"tableHorizontal _table_responsive table\" style=\"width: 100%; border-top:2px solid #3465de;\"><tbody><tr><td rowspan=\"3\" style=\"width: 19.8388%; vertical-align: top;\"><p style=\"text-align: left; line-height: 2;\"><span style=\"font-size: 22px; color: rgb(36, 36, 36);\"><strong><span style=\"line-height: 2;\">친환경·프리미엄</span></strong></span></p><p style=\"text-align: left; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 22px; color: rgb(36, 36, 36);\"><strong>수처리 기술력</strong></span></span></p></td><td style=\"width: 20.56%;\"><h6 style=\"text-align: left; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>다단계 정수 시스템</strong></span></span></h6></td><td style=\"width: 59.6%;\"><span style=\"line-height: 2; font-size: 16px;\">세디먼트, 프리카본, UF/RO/NF 멤브레인, 포스트카본 등 다양한 조합으로 현지 수질에 최적화된 맞춤형 필터 제공</span></td></tr><tr><td style=\"width: 20.56%;\"><h6 style=\"text-align: left; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>미네랄·알칼리 기능성 필터</strong></span></span></h6></td><td style=\"width: 59.6%;\"><span style=\"line-height: 2; font-size: 16px;\">단순 정수 기능을 넘어 미네랄 밸런싱과 알칼리화 기능으로 건강 가치를 강화</span></td></tr><tr><td style=\"width: 20.56%;\"><h6 style=\"text-align: left; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>비데·샤워·생활가전 필터</strong></span></span></h6></td><td style=\"width: 59.6%;\"><span style=\"line-height: 2; font-size: 16px;\">물 위생과 생활 품질을 높이는 응용 제품군(비데 필터, 비타민 샤워 필터, 살균 모듈 등) 보유.</span></td></tr></tbody></table></div></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><div class=\"table-responsive\"><table class=\"tableHorizontal _table_responsive table\" style=\"width: 100%; border-top:2px solid #3465de;\"><tbody><tr><td rowspan=\"3\" style=\"width: 19.8388%; vertical-align: top;\"><p style=\"text-align: left; line-height: 2;\"><span style=\"font-size: 22px; color: rgb(36, 36, 36);\"><strong><span style=\"line-height: 2;\">Eco-friendly</span></strong></span></p><p style=\"text-align: left; line-height: 2;\"><span style=\"font-size: 22px; color: rgb(36, 36, 36);\"><strong><span style=\"line-height: 2;\">premium water</span></strong></span></p><p style=\"text-align: left; line-height: 2;\"><span style=\"font-size: 22px; color: rgb(36, 36, 36);\"><strong><span style=\"line-height: 2;\">technology</span></strong></span></p></td><td style=\"width: 20.56%;\"><h6 style=\"text-align: left; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong><span style=\"line-height: 2;\">multi-level water purification system</span></strong><strong><span style=\"line-height: 2;\">&nbsp;</span></strong></span></h6></td><td style=\"width: 59.6%;\"><span style=\"line-height: 1; font-size: 16px;\">Custom filters optimized for local water quality using segment,</span><span style=\"line-height: 1;\"><span style=\"font-size: 16px;\"><br></span></span><span style=\"line-height: 1; font-size: 16px;\">pre-carbon, UF/RO/NF membranes, and post-carbon.</span><span style=\"line-height: 2; font-size: 16px;\">&nbsp;&nbsp;</span></td></tr><tr><td style=\"width: 20.56%;\"><h6 style=\"text-align: left; line-height: 1;\"><span style=\"line-height: 1;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>Mineral/alkali</strong></span></span></h6><h6 style=\"text-align: left; line-height: 1;\"><span style=\"line-height: 1;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>functional filters</strong></span></span><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>&nbsp;&nbsp;</strong></span></span></h6></td><td style=\"width: 59.6%;\"><span style=\"line-height: 2; font-size: 16px;\">Beyond simple water purification, mineral balancing and alkalization enhance health value&nbsp;</span></td></tr><tr><td style=\"width: 20.56%;\"><h6 style=\"text-align: left; line-height: 1;\"><span style=\"line-height: 1;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>Bidet,</strong><strong>shower,</strong></span></span></h6><h6 style=\"text-align: left; line-height: 1;\"><span style=\"line-height: 1;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>appliances filters</strong></span></span><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>&nbsp;&nbsp;</strong></span></span></h6></td><td style=\"width: 59.6%;\"><span style=\"line-height: 1; font-size: 16px;\">Have an application suite (vide filters, vitamin shower filters, sterilization modules, etc.)</span><br><span style=\"line-height: 1; font-size: 16px;\">that enhance water hygiene and quality of life.</span><span style=\"line-height: 2; font-size: 16px;\">&nbsp;</span></td></tr></tbody></table></div></div></div>\n\t"
+    "ko": "친환경·프리미엄\n수처리 기술력\n다단계 정수 시스템\n세디먼트, 프리카본, UF/RO/NF 멤브레인, 포스트카본 등 다양한 조합으로 현지 수질에 최적화된 맞춤형 필터 제공\n미네랄·알칼리 기능성 필터\n단순 정수 기능을 넘어 미네랄 밸런싱과 알칼리화 기능으로 건강 가치를 강화\n비데·샤워·생활가전 필터\n물 위생과 생활 품질을 높이는 응용 제품군(비데 필터, 비타민 샤워 필터, 살균 모듈 등) 보유.",
+    "en": "Eco-friendly\npremium water\ntechnology\nmulti-level water purification system\nCustom filters optimized for local water quality using segment,\npre-carbon, UF/RO/NF membranes, and post-carbon.\nMineral/alkali\nfunctional filters\nBeyond simple water purification, mineral balancing and alkalization enhance health value\nBidet,\nshower,\nappliances filters\nHave an application suite (vide filters, vitamin shower filters, sterilization modules, etc.)\nthat enhance water hygiene and quality of life."
   },
   "rnd.technology#s202509091799d895b62ea/w20250909cd03ba9b09650/html": {
     "ko": "\n",
@@ -14553,8 +14378,8 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "en": ""
   },
   "rnd.technology#s2025090972e449f7846e1/w20250909f986ae33491f9/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><table class=\"tableHorizontal\" style=\"width: 100%; border-top:2px solid #3465de;\"><tbody><tr><td colspan=\"2\" style=\"width: 19.9927%; vertical-align: top;\"><span style=\"line-height: 2;\"><span style=\"font-size: 22px; color: rgb(36, 36, 36);\"><strong>OEM/글로벌 협업 역량</strong></span></span></td></tr><tr><td style=\"width: 36.2602%;\"><h6 style=\"text-align: left; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>글로벌 대기업 공급 실적</strong></span></span></h6></td><td style=\"width: 63.7398%;\"><span style=\"line-height: 2; font-size: 16px;\">LG, 쿠쿠 등 주요 가전 브랜드에 OEM/ODM 납품 경험으로 품질 검증 완료.&nbsp;</span></td></tr><tr><td style=\"width: 36.2602%;\"><h6 style=\"text-align: left; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>폭넓은 제품 포트폴리오</strong></span></span></h6></td><td style=\"width: 63.7398%;\"><span style=\"line-height: 2; font-size: 16px;\">언더싱크 정수기, 슬림 정수기, LPS 센서, 전극 살균기 등 30종 이상의 제품 라인업을 통해 B2B 확장성 확보.&nbsp;</span></td></tr></tbody></table></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><table class=\"tableHorizontal\" style=\"width: 100%; border-top:2px solid #3465de;\"><tbody><tr><td colspan=\"2\" style=\"width: 19.9927%; vertical-align: top;\"><span style=\"line-height: 2;\"><span style=\"font-size: 22px; color: rgb(36, 36, 36);\"><strong>OEM/Global Collaboration Capabilities&nbsp;</strong></span></span></td></tr><tr><td style=\"width: 36.2602%;\"><h6 style=\"text-align: left; line-height: 1;\"><span style=\"line-height: 1;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>Global conglomerate supply performance</strong></span></span><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>&nbsp;</strong></span></span></h6></td><td style=\"width: 63.7398%;\"><span style=\"line-height: 1; font-size: 16px;\">OEM/ODM experience with LG, Cuckoo and other major brands ensures verified quality.</span><span style=\"line-height: 2; font-size: 16px;\">&nbsp;</span></td></tr><tr><td style=\"width: 36.2602%;\"><h6 style=\"text-align: left; line-height: 1;\"><span style=\"line-height: 1;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>Broad portfolio of products</strong></span></span><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>&nbsp;</strong></span></span></h6></td><td style=\"width: 63.7398%;\"><span style=\"line-height: 1; font-size: 16px;\">Over 30 products, from water purifiers to sterilizers, secure B2B scalability.</span><span style=\"line-height: 2; font-size: 16px;\">&nbsp;</span></td></tr></tbody></table></div></div>\n\t"
+    "ko": "OEM/글로벌 협업 역량\n글로벌 대기업 공급 실적\nLG, 쿠쿠 등 주요 가전 브랜드에 OEM/ODM 납품 경험으로 품질 검증 완료.\n폭넓은 제품 포트폴리오\n언더싱크 정수기, 슬림 정수기, LPS 센서, 전극 살균기 등 30종 이상의 제품 라인업을 통해 B2B 확장성 확보.",
+    "en": "OEM/Global Collaboration Capabilities\nGlobal conglomerate supply performance\nOEM/ODM experience with LG, Cuckoo and other major brands ensures verified quality.\nBroad portfolio of products\nOver 30 products, from water purifiers to sterilizers, secure B2B scalability."
   },
   "rnd.technology#s2025090972e449f7846e1/w2025090999ac3275406dc/src": {
     "ko": "/images/thumbnail/20250909/368735646c29f.jpg",
@@ -14565,8 +14390,8 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "en": ""
   },
   "rnd.technology#s2025090972e449f7846e1/w20250909cabf29c2126d9/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><table class=\"tableHorizontal\" style=\"width: 100%; border-top:2px solid #3465de;\"><tbody><tr><td colspan=\"2\" style=\"width: 19.9927%; vertical-align: top;\"><span style=\"line-height: 2;\"><span style=\"font-size: 22px; color: rgb(36, 36, 36);\"><strong>첨단 검사 및 품질 관리 체계</strong></span></span></td></tr><tr><td style=\"width: 36.2602%;\"><h6 style=\"text-align: left; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>정밀 검사 장비 구축</strong></span></span></h6></td><td style=\"width: 63.7398%;\"><span style=\"line-height: 2; font-size: 16px;\">잔류염소, 탁도, 경도, ORP, TDS, pH 등 수질 분석 장비와 내수압·열충격·반복내구 시험기 보유</span></td></tr><tr><td style=\"width: 36.2602%;\"><h6 style=\"text-align: left; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>체계적 품질 관리 프로세스</strong></span></span></h6></td><td style=\"width: 63.7398%;\"><span style=\"line-height: 2; font-size: 16px;\">선행품질·생산·납기 관리 시스템, IQC-LQC-OQC 전수 검사 체계 운영.</span></td></tr><tr><td style=\"width: 36.2602%;\"><h6 style=\"text-align: left; line-height: 2;\"><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>글로벌 Audit 대응 경험</strong></span></span></h6></td><td style=\"width: 63.7398%;\"><span style=\"font-size: 16px;\">까다로운 글로벌 파트너 품질 감사에도 통과할 수 있는 수준의 관리 역량 확보.</span><br></td></tr></tbody></table></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><table class=\"tableHorizontal\" style=\"width: 100%; border-top:2px solid #3465de;\"><tbody><tr><td colspan=\"2\" style=\"width: 19.9927%; vertical-align: top;\"><span style=\"line-height: 2;\"><span style=\"font-size: 22px; color: rgb(36, 36, 36);\"><strong>Advanced inspection and quality control systems&nbsp;</strong></span></span></td></tr><tr><td style=\"width: 36.0838%;\"><h6 style=\"text-align: left; line-height: 1;\"><span style=\"line-height: 1;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>Precision inspection equipment</strong></span></span><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>&nbsp;</strong></span></span></h6></td><td style=\"width: 63.9162%;\"><span style=\"line-height: 1; font-size: 16px;\">Water quality analysis (chlorine, turbidity, hardness, ORP, TDS, pH) and durability testers.</span><span style=\"line-height: 2; font-size: 16px;\">&nbsp;&nbsp;</span></td></tr><tr><td style=\"width: 36.0838%;\"><h6 style=\"text-align: left; line-height: 1;\"><span style=\"line-height: 1;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>Systematic quality management</strong></span></span><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>&nbsp;&nbsp;</strong></span></span></h6></td><td style=\"width: 63.9162%;\"><span style=\"line-height: 1; font-size: 16px;\">Production, delivery, and full inspection (IQC–LQC–OQC) systems.&nbsp;</span></td></tr><tr><td style=\"width: 36.0838%;\"><h6 style=\"text-align: left; line-height: 1;\"><span style=\"line-height: 1;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>Global audit&nbsp;</strong></span><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>response</strong></span></span><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>&nbsp;</strong></span></span></h6></td><td style=\"width: 63.9162%;\"><span style=\"font-size: 16px;\">Get the level of management capability to pass demanding global partner quality audits.&nbsp;</span></td></tr></tbody></table></div></div>\n\t"
+    "ko": "첨단 검사 및 품질 관리 체계\n정밀 검사 장비 구축\n잔류염소, 탁도, 경도, ORP, TDS, pH 등 수질 분석 장비와 내수압·열충격·반복내구 시험기 보유\n체계적 품질 관리 프로세스\n선행품질·생산·납기 관리 시스템, IQC-LQC-OQC 전수 검사 체계 운영.\n글로벌 Audit 대응 경험\n까다로운 글로벌 파트너 품질 감사에도 통과할 수 있는 수준의 관리 역량 확보.",
+    "en": "Advanced inspection and quality control systems\nPrecision inspection equipment\nWater quality analysis (chlorine, turbidity, hardness, ORP, TDS, pH) and durability testers.\nSystematic quality management\nProduction, delivery, and full inspection (IQC–LQC–OQC) systems.\nGlobal audit\nresponse\nGet the level of management capability to pass demanding global partner quality audits."
   },
   "rnd.technology#s2025090972e449f7846e1/w2025090966fa71c862599/html": {
     "ko": "\n",
@@ -14581,8 +14406,8 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "en": ""
   },
   "rnd.technology#s20250909b12fa8000068e/w202509093403364594dce/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><table class=\"tableHorizontal\" style=\"width: 100%; border-top:2px solid #3465de;\"><tbody><tr><td colspan=\"2\" style=\"width: 19.9927%; vertical-align: top;\"><span style=\"line-height: 2;\"><span style=\"font-size: 22px; color: rgb(36, 36, 36);\"><strong>스마트·살균 기술</strong></span></span></td></tr><tr><td style=\"width: 36.2602%; vertical-align: top;\"><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>전극 기반 전기분해 살균 모듈</strong></span></span><br></td><td style=\"width: 63.7398%;\"><span style=\"line-height: 2; font-size: 16px;\">물을 전기분해해 염소를 발생시키고,</span><br><span style=\"line-height: 2; font-size: 16px;\">정수기·비데·탱크 내부를 살균 가능.</span></td></tr><tr><td style=\"width: 36.2602%; vertical-align: top;\"><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>센서·IoT 확장성</strong></span></span></td><td style=\"width: 63.7398%;\"><span style=\"line-height: 2; font-size: 16px;\">저압 스위치(LPS) 및 IoT 연동 기술을 통해</span><br><span style=\"line-height: 2; font-size: 16px;\">수압·수질 변화를 실시간 감지, 스마트홈 시장과</span><br><span style=\"line-height: 2; font-size: 16px;\">연결될 수 있는 성장 가능성 보유.</span></td></tr></tbody></table></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><table class=\"tableHorizontal\" style=\"width: 100%; border-top:2px solid #3465de;\"><tbody><tr><td colspan=\"2\" style=\"width: 19.9927%; vertical-align: top;\"><span style=\"line-height: 2;\"><span style=\"font-size: 22px; color: rgb(36, 36, 36);\"><strong>Smart/sterilizing technology&nbsp;</strong></span></span></td></tr><tr><td style=\"width: 36.2602%; vertical-align: top;\"><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>Electrode</strong></span></span><br><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>sterilization module&nbsp;</strong></span></span></td><td style=\"width: 63.7398%;\"><span style=\"line-height: 1; font-size: 16px;\">Electrolyzes water to generate chlorine, sterilizing purifiers, bidets, and tanks.</span></td></tr><tr><td style=\"width: 36.2602%; vertical-align: top;\"><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>Sensor/IoT scalability</strong></span></span></td><td style=\"width: 63.7398%;\"><span style=\"line-height: 1; font-size: 16px;\">LPS and IoT tech enable real-time monitoring and smart home connectivity.&nbsp;</span></td></tr></tbody></table></div></div>\n\t"
+    "ko": "스마트·살균 기술\n전극 기반 전기분해 살균 모듈\n물을 전기분해해 염소를 발생시키고,\n정수기·비데·탱크 내부를 살균 가능.\n센서·IoT 확장성\n저압 스위치(LPS) 및 IoT 연동 기술을 통해\n수압·수질 변화를 실시간 감지, 스마트홈 시장과\n연결될 수 있는 성장 가능성 보유.",
+    "en": "Smart/sterilizing technology\nElectrode\nsterilization module\nElectrolyzes water to generate chlorine, sterilizing purifiers, bidets, and tanks.\nSensor/IoT scalability\nLPS and IoT tech enable real-time monitoring and smart home connectivity."
   },
   "rnd.technology#s20250909b12fa8000068e/w2025090910fe01238de32/src": {
     "ko": "/images/thumbnail/20250909/98102c9df6b48.jpg",
@@ -14593,20 +14418,20 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "en": ""
   },
   "rnd.technology#s20250909b12fa8000068e/w20250909aaff6976da0b4/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><table class=\"tableHorizontal\" style=\"width: 100%; border-top:2px solid #3465de;\"><tbody><tr><td colspan=\"2\" style=\"width: 19.9927%; vertical-align: top;\"><span style=\"line-height: 2;\"><span style=\"font-size: 22px; color: rgb(36, 36, 36);\"><strong>대량 생산 및 글로벌 공급망</strong></span></span></td></tr><tr><td style=\"width: 36.2602%; vertical-align: top;\"><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>대량 생산 능력</strong></span></span><p><br></p></td><td style=\"width: 63.7398%;\"><span style=\"font-size: 16px; line-height: 2;\">월 25만 개 생산 가능,<br>자동화 라인과 전문 인력으로<br>대규모 OEM 수요 대응 가능.</span></td></tr><tr><td style=\"width: 36.2602%; vertical-align: top;\"><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>글로벌 네트워크</strong></span></span><p><br></p></td><td style=\"width: 63.7398%;\"><span style=\"line-height: 2; font-size: 16px;\">한국 본사 외에도 중국·캄보디아 지사 운영으로</span><br><span style=\"line-height: 2; font-size: 16px;\">현지 시장 대응 및 공급망 최적화.</span></td></tr></tbody></table></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><table class=\"tableHorizontal\" style=\"width: 100%; border-top:2px solid #3465de;\"><tbody style=\"line-height: 1.15;\"><tr><td colspan=\"2\" style=\"width: 19.9927%; vertical-align: top;\"><span style=\"line-height: 2;\"><span style=\"font-size: 22px; color: rgb(36, 36, 36);\"><strong>Mass production and global supply chain&nbsp;</strong></span></span></td></tr><tr><td style=\"width: 36.2296%; vertical-align: middle;\"><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>Mass production capacity&nbsp;</strong></span></span></td><td style=\"width: 63.7704%;\"><span style=\"font-size: 16px; line-height: 1.5;\">250,000 units/month with automation and experts for large-scale OEM demand.</span><span style=\"font-size: 16px; line-height: 1;\">&nbsp;</span></td></tr><tr><td style=\"width: 36.2296%; vertical-align: top;\"><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>Global</strong></span></span><br><span style=\"line-height: 2;\"><span style=\"font-size: 18px; color: rgb(52, 101, 222);\"><strong>Network</strong></span></span></td><td style=\"width: 63.7704%;\"><span style=\"line-height: 1.5;\">Headquarters in Korea with offices in China and Cambodia for supply optimization.&nbsp;</span></td></tr></tbody></table></div></div>\n\t"
+    "ko": "대량 생산 및 글로벌 공급망\n대량 생산 능력\n월 25만 개 생산 가능,\n자동화 라인과 전문 인력으로\n대규모 OEM 수요 대응 가능.\n글로벌 네트워크\n한국 본사 외에도 중국·캄보디아 지사 운영으로\n현지 시장 대응 및 공급망 최적화.",
+    "en": "Mass production and global supply chain\nMass production capacity\n250,000 units/month with automation and experts for large-scale OEM demand.\nGlobal\nNetwork\nHeadquarters in Korea with offices in China and Cambodia for supply optimization."
   },
   "rnd.technology#s20250909b12fa8000068e/w202509095cf036410413e/html": {
     "ko": "\n",
     "en": "\n"
   },
   "rnd.technology#s2025090979d4f02da9a4c/w202509098378a31a7319e/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center;\"><span style=\"font-size: 48px;\"><strong><span style=\"color: rgb(18, 18, 18);\">투자자 핵심 USP 요약</span></strong></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center;\"><span style=\"font-size: 48px;\"><strong><span style=\"color: rgb(18, 18, 18);\">Investor Core USP Summary&nbsp;</span></strong></span></p></div></div>\n\t"
+    "ko": "투자자 핵심 USP 요약",
+    "en": "Investor Core USP Summary"
   },
   "rnd.technology#s2025090979d4f02da9a4c/w20250909deb55b36523e5/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(81, 81, 81);\">건강하기 위해서 중요한 물, 소홀히 할 수 없습니다.</span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(81, 81, 81);\">여러분들이 안심하고 마실 수 있도록 깨끗하고 건강한 물만 만들겠다 약속합니다.</span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(81, 81, 81);\">Water is vital to health and must not be neglected.<br data-start=\"130\" data-end=\"133\">&nbsp;We promise clean, healthy water you can drink with confidence.</span></p></div></div>\n\t"
+    "ko": "건강하기 위해서 중요한 물, 소홀히 할 수 없습니다.\n여러분들이 안심하고 마실 수 있도록 깨끗하고 건강한 물만 만들겠다 약속합니다.",
+    "en": "Water is vital to health and must not be neglected.\nWe promise clean, healthy water you can drink with confidence."
   },
   "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[0].title": {
     "ko": "",
@@ -14847,10 +14672,7 @@ export const CONTENT_DEF_MAP: Record<string, ContentDef> = Object.fromEntries(
 
 export const CONTENT_KEYS_BY_GROUP: Record<ContentGroup, string[]> = {
   "home": [
-    "home#s20250811b5ffbb4730f67/visual[0]/bg",
-    "home#s20250811b5ffbb4730f67/visual[0]/html",
-    "home#s20250811b5ffbb4730f67/visual[1]/bg",
-    "home#s20250811b5ffbb4730f67/visual[1]/html",
+    "home#s20250811b5ffbb4730f67/visual/slides",
     "home#s202508119ee9efac0385c/w202508113d84762227376/html",
     "home#s20250811004ea868d7376/w202508116077d50475951/html",
     "home#s20250811004ea868d7376/w20250811c8b38b2e2cde9/src",
@@ -15115,12 +14937,9 @@ export const CONTENT_KEYS_BY_GROUP: Record<ContentGroup, string[]> = {
     "company.global#s20250820da33f7f397fba/w202508201a58c7d614215/html",
     "company.global#s20250828182272ec01906/w20250828247c9904b6b1e/html",
     "company.global#s20250828182272ec01906/w2025082843a86201a5455/html",
-    "company.global#s20250828182272ec01906/w202508280b0ed4b9954c7/html",
     "company.global#s202509111ecee05a61770/w202509110c02a9a33a442/html",
     "company.global#s202508286e01c87027ecf/w20250828055c4220c2f68/html",
-    "company.global#s202508286e01c87027ecf/w20250828e62031634c512/html",
     "company.global#s202508286e01c87027ecf/w20250828de7deb233dbfa/html",
-    "company.global#s202508286e01c87027ecf/w202508281ace26521721b/html",
     "company.global#s2025091161e916b59099f/w202509110e7da42eec27c/src",
     "company.global#s2025091161e916b59099f/w202509110e7da42eec27c/alt",
     "company.global#s2025091161e916b59099f/w202509110e7da42eec27c/href",
@@ -15443,7 +15262,6 @@ export const CONTENT_KEYS_BY_GROUP: Record<ContentGroup, string[]> = {
     "site#nav/nav[4].children[0]/name"
   ],
   "common": [
-    "home#s20250811f489e3443bdbe/w20250811379e3dc61aa7f/html",
     "home#s20250811f489e3443bdbe/w20250811c8ba21c61f272/html",
     "home#s20250811f489e3443bdbe/w202508114039c43732879/text",
     "home#s20250811f489e3443bdbe/w202508114039c43732879/href",
@@ -15458,11 +15276,13 @@ export const CONTENT_KEYS_BY_GROUP: Record<ContentGroup, string[]> = {
 export const MAX_LENGTH: Record<ContentKind, number> = {
   "text": 500,
   "textarea": 20000,
+  "lines": 20000,
   "image": 2000,
   "url": 2000,
-  "list": 20000
+  "list": 20000,
+  "slides": 20000
 };
 
-export const CONTENT_KINDS: ContentKind[] = ["text", "textarea", "image", "url", "list"];
+export const CONTENT_KINDS: ContentKind[] = ["text","textarea","lines","image","url","list","slides"];
 
 export const CONTENT_GROUPS: ContentGroup[] = ["home","company","rnd","products","boards","site","common"];

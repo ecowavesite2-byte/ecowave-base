@@ -1,5 +1,6 @@
-import type { BoardContent, BoardPost, PageContent, SiteData, WidgetNode } from "../types";
-import { resolvePairedWidget, type ResolvedTarget } from "./pair";
+import type { BoardContent, BoardPost, HeroSlide, PageContent, Section, SiteData, WidgetNode } from "../types";
+import { resolvePairedSection, resolvePairedWidget, type ResolvedTarget } from "./pair";
+import { injectTextRuns } from "./text-runs";
 
 /**
  * Pure override application.
@@ -71,7 +72,11 @@ function deepClone<T>(value: T): T {
 function applyWidgetField(target: ResolvedTarget, field: string, value: string): void {
   switch (field) {
     case "html":
-      target.html = value;
+      // `lines` values are PLAIN TEXT: inject them into the widget's existing
+      // styled markup so the admin edits copy while the styles stay fixed. A
+      // value that already contains tags is a legacy raw-HTML override and is
+      // applied verbatim.
+      target.html = value.includes("<") ? value : injectTextRuns(target.html, value);
       return;
     case "bg":
       // hero slide image (`visual[i]/bg`)
@@ -117,6 +122,46 @@ function applyWidgetField(target: ResolvedTarget, field: string, value: string):
  * override is preserved exactly. `locale` is accepted for API symmetry (callers
  * load locale-scoped overrides); it does not affect the merge.
  */
+/** One entry of a `slides` override payload. */
+type SlideInput = { bg?: string | null; html?: string };
+
+/** Parse a `slides` override payload; `null` when malformed (silent no-op). */
+function parseSlides(value: string): SlideInput[] | null {
+  try {
+    const parsed: unknown = JSON.parse(value);
+    if (!Array.isArray(parsed)) return null;
+    return parsed
+      .filter((entry): entry is Record<string, unknown> => !!entry && typeof entry === "object")
+      .map((entry) => ({
+        bg: typeof entry.bg === "string" ? entry.bg : null,
+        html: typeof entry.html === "string" ? entry.html : "",
+      }));
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Replace a section's hero slide list from a parsed `slides` override. The
+ * authored slide at the same index supplies the styled markup (`html` values are
+ * plain text); slides added beyond the authored list reuse the last authored
+ * slide's styling, and `bgColor` is preserved per authored index.
+ */
+function applySlides(section: Section, slides: SlideInput[]): void {
+  // Never blank the hero: the UI prevents removing the last slide, but an API
+  // caller (or a stored legacy row) could send `[]` (Gate-2 F3).
+  if (slides.length === 0) return;
+  const original = Array.isArray(section.visual) ? section.visual : [];
+  section.visual = slides.map((slide, index) => {
+    const template = original[index]?.html ?? original[original.length - 1]?.html ?? "";
+    return {
+      bg: slide.bg ?? null,
+      bgColor: original[index]?.bgColor ?? null,
+      html: injectTextRuns(template, slide.html ?? ""),
+    };
+  });
+}
+
 /** Optional context for locale pairing (see `./pair`). */
 export interface ApplyPageOptions {
   /**
@@ -152,6 +197,15 @@ export function applyPageOverrides<T extends PageContent>(
     if (!parsed) continue;
     // Board/site keys (and other pages) address different documents.
     if (expectedPageKey && parsed.pageKey !== expectedPageKey) continue;
+
+    // Hero slide list (`<page>#<sectionId>/visual/slides`): replaces the whole
+    // `section.visual` array instead of one widget field.
+    if (parsed.field === "slides" && parsed.widgetId === "visual") {
+      const section = resolvePairedSection(clone, parsed, options.primaryPage ?? null);
+      const slides = section ? parseSlides(value) : null;
+      if (section && slides) applySlides(section, slides);
+      continue;
+    }
 
     const widget = resolvePairedWidget(clone, parsed, options.primaryPage ?? null);
     if (!widget) continue;

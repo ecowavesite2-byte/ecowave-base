@@ -99,6 +99,16 @@ describe("override coverage (every CONTENT_DEFS key, both locales)", () => {
 
         const kind = kindOf(def);
         const marker = `__COV_${index}_${locale}__`;
+        // Each kind has its own value contract:
+        //  - `slides`: JSON array, marker in both bg and text;
+        //  - `textarea`: raw HTML (code blocks are applied verbatim);
+        //  - everything else (`lines`, text, image, url, list, gallery): plain.
+        const value =
+          def.kind === "slides"
+            ? JSON.stringify([{ bg: `/${marker}.png`, html: marker }])
+            : def.kind === "textarea"
+              ? `<p>${marker}</p>`
+              : marker;
         let merged: unknown;
 
         try {
@@ -109,16 +119,16 @@ describe("override coverage (every CONTENT_DEFS key, both locales)", () => {
             }
             merged = applyBoardOverrides(
               getBoard(locale, def.pageKey),
-              { [def.key]: marker },
+              { [def.key]: value },
               def.pageKey,
               { fallbackName: "COV_FALLBACK" },
             );
           } else if (kind === "site") {
-            merged = applySiteOverrides(getSite(locale), { [def.key]: marker }, locale);
+            merged = applySiteOverrides(getSite(locale), { [def.key]: value }, locale);
           } else {
             const base = cachedPage(locale, def.pageKey);
             const primary = locale === "ko" ? null : cachedPage("ko", def.pageKey);
-            merged = applyPageOverrides(base, { [def.key]: marker }, locale, {
+            merged = applyPageOverrides(base, { [def.key]: value }, locale, {
               primaryPage: primary,
             });
           }
@@ -148,14 +158,16 @@ describe("override coverage (every CONTENT_DEFS key, both locales)", () => {
     }
 
     expect(failures).toEqual([]);
-    // 593 defs × 2 locales − 20 allowlisted applications (10 board-post +
+    // 586 defs × 2 locales − 20 allowlisted applications (10 board-post +
     // 10 EN positions with no structurally paired widget).
     // Dead sections are excluded from the registry by the generator: the footer
     // copies on non-home pages (SiteFooter renders home's) and the leading
     // page-title hero band of each channel (rebuilt as <PageHero> from nav).
+    // Markup-only text widgets (logo/structure html with no text nodes) are also
+    // excluded — a `lines` def there could only clobber the markup (Gate-2 F2).
     expect(allowlisted.length).toBe(20);
     expect(applied).toBe(CONTENT_DEFS.length * LOCALES.length - 20);
-    expect(applied).toBe(1166);
+    expect(applied).toBe(1152);
     expect(applied).toBe(expectedApplied);
   });
 
@@ -175,6 +187,38 @@ describe("override coverage (every CONTENT_DEFS key, both locales)", () => {
     // ko fast path still resolves by id with no primary tree.
     const mergedKo = applyPageOverrides(ko, { [key]: marker }, "ko");
     expect(JSON.stringify(mergedKo)).toContain(marker);
+  });
+
+  it("hero slides override replaces the list and supports added slides", () => {
+    const ko = getPage("ko", "home");
+    const key = "home#s20250811b5ffbb4730f67/visual/slides";
+    const payload = JSON.stringify([
+      { bg: "/a.jpg", html: "first" },
+      { bg: "/b.jpg", html: "second" },
+      { bg: "/c.jpg", html: "third" },
+    ]);
+
+    const merged = applyPageOverrides(ko, { [key]: payload }, "ko");
+    const hero = merged.sections.find((s) => s.id === "s20250811b5ffbb4730f67");
+    expect(hero?.visual?.map((s) => s.bg)).toEqual(["/a.jpg", "/b.jpg", "/c.jpg"]);
+    expect(hero?.visual?.length).toBe(3);
+    expect(hero?.visual?.[0].html).toContain("first");
+    expect(hero?.visual?.[2].html).toContain("third");
+    // an added slide reuses the last authored slide's styled template
+    expect(hero?.visual?.[2].html).toContain("<span");
+  });
+
+  it("ignores empty or shapeless slides payloads (never blanks the hero)", () => {
+    const ko = getPage("ko", "home");
+    const key = "home#s20250811b5ffbb4730f67/visual/slides";
+    const heroOf = (payload: string) =>
+      applyPageOverrides(ko, { [key]: payload }, "ko").sections.find(
+        (s) => s.id === "s20250811b5ffbb4730f67",
+      );
+
+    expect(heroOf("[]")?.visual?.length).toBe(2);
+    expect(heroOf(JSON.stringify([1, 2, 3]))?.visual?.length).toBe(2);
+    expect(heroOf("not json")?.visual?.length).toBe(2);
   });
 
   it("home ko/en structural parity", () => {

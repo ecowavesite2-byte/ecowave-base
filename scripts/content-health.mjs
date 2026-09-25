@@ -217,6 +217,15 @@ function findDanglingDefs(defs, pages) {
       continue;
     }
 
+    // Hero slide-list def (`<page>#<sectionId>/visual/slides`): ONE def replaces
+    // the whole `section.visual` array, so the target is the slide list itself.
+    if (def.widgetId === "visual" && def.field === "slides") {
+      if (!Array.isArray(section.visual) || section.visual.length === 0) {
+        dangling.push({ key: def.key, reason: "slides missing" });
+      }
+      continue;
+    }
+
     const found = sectionWidgets(section).some((w) => w.id === def.widgetId);
     if (!found) dangling.push({ key: def.key, reason: "widget missing" });
   }

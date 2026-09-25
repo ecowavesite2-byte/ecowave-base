@@ -181,6 +181,19 @@ export interface AdminDict {
     uneditableHint: (types: string) => string;
     /** Badge marking a def whose target widget/slide is missing from the crawl. */
     targetMissing: string;
+    /** Plain-text line editor (`lines`): one line per authored design line. */
+    linesHint: string;
+    /** Dynamic `slides` (hero slide list) editor. */
+    slidesAdd: string;
+    slidesRemove: string;
+    slidesMoveUp: string;
+    slidesMoveDown: string;
+    slidesImage: string;
+    slidesText: string;
+    slidesHint: string;
+    slidesInvalid: string;
+    /** Card header for slide `n` (1-based). */
+    slidesSlide: (n: number) => string;
   };
   /**
    * `/admin/boards` + `/admin/boards/<slug>` — the board picker, the per-board
@@ -448,9 +461,11 @@ const ko: AdminDict = {
     kinds: {
       text: "텍스트",
       textarea: "문단",
+      lines: "텍스트",
       image: "이미지",
       url: "링크",
       list: "목록",
+      slides: "슬라이드 목록",
     },
     fieldCount: (count) => `${count}개 필드`,
     save: "저장",
@@ -494,6 +509,16 @@ const ko: AdminDict = {
     unnamedSection: "이름 없는 섹션",
     uneditableHint: (types) => `편집할 수 없는 위젯: ${types}`,
     targetMissing: "대상 없음",
+    linesHint: "한 줄에 하나씩 입력하세요. 글자 크기·색 등 스타일은 원본 그대로 유지됩니다.",
+    slidesAdd: "슬라이드 추가",
+    slidesRemove: "삭제",
+    slidesMoveUp: "위로",
+    slidesMoveDown: "아래로",
+    slidesImage: "이미지",
+    slidesText: "문구",
+    slidesHint: "슬라이드는 모든 화면에 함께 적용됩니다. 문구는 한 줄에 하나씩.",
+    slidesInvalid: "저장된 값 형식이 올바르지 않습니다.",
+    slidesSlide: (n) => `슬라이드 ${n}`,
   },
   boards: {
     title: "게시판",
@@ -733,9 +758,11 @@ const en: AdminDict = {
     kinds: {
       text: "Text",
       textarea: "Paragraph",
+      lines: "Text",
       image: "Image",
       url: "Link",
       list: "List",
+      slides: "Slides",
     },
     fieldCount: (count) => `${count} fields`,
     save: "Save",
@@ -779,6 +806,16 @@ const en: AdminDict = {
     unnamedSection: "Unnamed section",
     uneditableHint: (types) => `Not editable here: ${types}`,
     targetMissing: "Target missing",
+    linesHint: "One line per design line. Sizes, colors and other styles stay fixed.",
+    slidesAdd: "Add slide",
+    slidesRemove: "Remove",
+    slidesMoveUp: "Move up",
+    slidesMoveDown: "Move down",
+    slidesImage: "Image",
+    slidesText: "Text",
+    slidesHint: "Slides apply to every screen. One line per line of copy.",
+    slidesInvalid: "The stored value is not valid JSON.",
+    slidesSlide: (n) => `Slide ${n}`,
   },
   boards: {
     title: "Boards",

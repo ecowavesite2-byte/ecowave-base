@@ -1,12 +1,17 @@
 /**
- * One-shot runtime verification for the home page editor rework:
- *   A) registry/API: home defs follow the page document order; hero/video/code/
- *      image-link defs exist; the footer lives in the `common` group
- *   B) override application: PUT ko/en hero text + a shared image link →
- *      the public `/` and `/en` render them; DELETE (empty PUT) reverts
- *   C) admin UI: `/admin/content?group=home` renders distinct section labels
- *      in document order, the hero card is editable, and an inline save lands
- *      on the public page
+ * One-shot runtime verification for the home editor + single-source rendering.
+ *
+ *   A) registry/API: home defs follow the page document order; hero exposes ONE
+ *      `visual/slides` list def (no per-slide scalar defs); plain-text `lines`
+ *      defs exist; the footer lives in the `common` group
+ *   B) `lines` apply: PUT plain text → `/` renders it with the ORIGINAL styling
+ *      (tags/styles preserved) → revert
+ *   C) `slides` apply: PUT a 3-slide JSON list → `/` renders 3 slides and the
+ *      added slide's copy → revert to the 2 authored slides
+ *   D) shared image link apply: ko+en → revert
+ *   E) admin UI: distinct section labels, hero label, common tab, the slides
+ *      list editor renders and "add slide" adds a card, and an inline `lines`
+ *      save lands on the public page
  *
  * Cleans up every override it writes. Prints one JSON report.
  * Usage: node scripts/audit/verify-home-editor.mjs
@@ -22,8 +27,12 @@ dotenvConfig({ path: [".env.local"], quiet: true });
 
 const PORT = 3124;
 const BASE = `http://127.0.0.1:${PORT}`;
-const MARK = `E2E-HERO-${Date.now()}`;
-const LINK_MARK = `https://example.com/e2e-${Date.now()}`;
+const STAMP = Date.now();
+const LINE_MARK = `E2E-LINE-${STAMP}`;
+const SLIDE_MARK = `E2E-SLIDE-${STAMP}`;
+const LINK_MARK = `https://example.com/e2e-${STAMP}`;
+const LINES_KEY = "home#s20250811004ea868d7376/w202508116077d50475951/html";
+const SLIDES_KEY = "home#s20250811b5ffbb4730f67/visual/slides";
 
 const dev = spawn("npx", ["next", "dev", "--port", String(PORT)], {
   shell: true,
@@ -53,7 +62,11 @@ const section = (name, data) => {
   if (!ok) pass = false;
 };
 
-const touched = [];
+/** markup shape of the hero: authored slides render one `.hero-slide` each */
+const countHeroSlides = async () => {
+  const html = await fetch(`${BASE}/`).then((r) => r.text());
+  return { html, count: (html.match(/class="hero-slide/g) ?? []).length };
+};
 
 try {
   const ready = await waitReady();
@@ -82,23 +95,18 @@ try {
     });
     return { status: res.status, body: await res.json().catch(() => ({})) };
   };
-  const putAndTrack = async (key, locale, value) => {
-    touched.push({ key, locale });
-    return put(key, locale, value);
-  };
-  const pageHas = async (path, needle) => {
-    const res = await fetch(`${BASE}${path}`);
-    return (await res.text()).includes(needle);
-  };
+  const revert = (key, locale = "ko") => put(key, locale, "");
+  const pageText = async (path) => fetch(`${BASE}${path}`).then((r) => r.text());
 
   /* --------------------------------------------------- A) registry/API shape */
   const homeKo = await getJson("/api/admin/registry?group=home&locale=ko");
   const commonKo = await getJson("/api/admin/registry?group=common&locale=ko");
   const defs = homeKo.defs ?? [];
   const keys = defs.map((d) => d.key);
-  const hasKey = (suffix) => keys.some((k) => k.endsWith(suffix));
+  const slidesDef = defs.find((d) => d.kind === "slides");
+  const linesDefs = defs.filter((d) => d.kind === "lines");
+  const legacyHeroDefs = keys.filter((k) => /visual\[\d+\]/.test(k));
 
-  // expected section order from the crawl
   const homeJson = JSON.parse(fs.readFileSync("content/ko/pages/home.json", "utf8"));
   const sectionOrder = new Map(homeJson.sections.map((s, i) => [s.id, i]));
   const seenSections = [];
@@ -109,54 +117,72 @@ try {
   const expectedOrder = [...seenSections].sort(
     (a, b) => (sectionOrder.get(a) ?? -1) - (sectionOrder.get(b) ?? -1),
   );
-  const orderOk =
-    seenSections.length > 0 &&
-    seenSections.every((id, i) => expectedOrder[i] === id);
 
   section("registryShape", {
-    homeDefCount: defs.length,
-    commonDefCount: (commonKo.defs ?? []).length,
-    heroBg: hasKey("visual[0]/bg"),
-    heroHtml: hasKey("visual[0]/html"),
-    heroMobile: hasKey("visual[1]/html"),
-    videoSrc: hasKey("w20250911e68c83742f745/src"),
-    codeHtml: keys.some((k) => k.includes("/html") && defs.find((d) => d.key === k)?.label?.ko?.startsWith("코드")),
-    imageHref: keys.some((k) => k.endsWith("/href") && defs.find((d) => d.key === k)?.label?.ko?.startsWith("이미지")),
+    slidesDefPresent: slidesDef?.key === SLIDES_KEY,
+    slidesDefKind: slidesDef?.kind === "slides",
+    linesDefsPresent: linesDefs.length > 0,
+    legacyHeroScalarDefsGone: legacyHeroDefs.length === 0,
     footerInCommon: (commonKo.defs ?? []).some((d) => d.sectionId === "s20250811f489e3443bdbe"),
     footerNotInHome: !defs.some((d) => d.sectionId === "s20250811f489e3443bdbe"),
-    documentOrder: orderOk,
-    sectionSequence: seenSections.map((id) => sectionOrder.get(id)),
-    expectedSequence: expectedOrder.map((id) => sectionOrder.get(id)),
+    documentOrder: seenSections.every((id, i) => expectedOrder[i] === id),
   });
 
-  /* ------------------------------------------------- B) override application */
-  const heroKey = keys.find((k) => k.includes("visual[0]/html"));
-  const linkKey = keys.find((k) => k.endsWith("/href") && defs.find((d) => d.key === k)?.label?.ko?.startsWith("이미지"));
+  /* ----------------------------------------------- B) plain-text `lines` apply */
+  const linesWrite = await put(LINES_KEY, "ko", `${LINE_MARK}-ONE\n${LINE_MARK}-TWO`);
+  const linesHtml = await pageText("/");
+  const linesApplied =
+    linesWrite.status === 200 && linesHtml.includes(`${LINE_MARK}-ONE`) && linesHtml.includes(`${LINE_MARK}-TWO`);
+  // styling must survive: the injected text stays inside the authored 48px span
+  const stylePreserved = new RegExp(`font-size: 48px[^>]*>[^<]*${LINE_MARK}-ONE`).test(linesHtml.replace(/<strong>/g, ""));
+  await revert(LINES_KEY);
+  const linesReverted = !(await pageText("/")).includes(LINE_MARK);
 
-  const heroWrite = heroKey ? await putAndTrack(heroKey, "ko", `<p>${MARK}</p>`) : { status: 0 };
-  const heroApplied = heroKey ? await pageHas("/", MARK) : false;
-  if (heroKey) await put(heroKey, "ko", ""); // revert
-  const heroReverted = heroKey ? !(await pageHas("/", MARK)) : false;
-
-  const linkWrite = linkKey ? await putAndTrack(linkKey, "ko", LINK_MARK) : { status: 0 };
-  const linkAppliedKo = linkKey ? await pageHas("/", LINK_MARK) : false;
-  const linkAppliedEn = linkKey ? await pageHas("/en", LINK_MARK) : false;
-  if (linkKey) await put(linkKey, "ko", ""); // revert
-  const linkReverted = linkKey ? !(await pageHas("/", LINK_MARK)) : false;
-
-  section("overrideApply", {
-    heroKeyFound: Boolean(heroKey),
-    heroWriteOk: heroWrite.status === 200,
-    heroApplied,
-    heroReverted,
-    linkKeyFound: Boolean(linkKey),
-    linkWriteOk: linkWrite.status === 200,
-    linkAppliedKo,
-    linkAppliedEn,
-    linkReverted,
+  section("linesApply", {
+    writeOk: linesWrite.status === 200,
+    linesApplied,
+    stylePreserved,
+    linesReverted,
   });
 
-  /* ------------------------------------------------------------- C) admin UI */
+  /* ---------------------------------------------------- C) `slides` list apply */
+  const slidesPayload = JSON.stringify([
+    { bg: "/images/thumbnail/20250811/50e595a379834.jpg", html: "slide one" },
+    { bg: "/images/thumbnail/20250811/b8cb7e0cebd15.jpg", html: "slide two" },
+    { bg: "/images/thumbnail/20250811/50e595a379834.jpg", html: `slide three ${SLIDE_MARK}` },
+  ]);
+  const slidesWrite = await put(SLIDES_KEY, "ko", slidesPayload);
+  const afterSlides = await countHeroSlides();
+  const slidesApplied = slidesWrite.status === 200 && afterSlides.count === 3 && afterSlides.html.includes(SLIDE_MARK);
+  await revert(SLIDES_KEY);
+  const afterRevert = await countHeroSlides();
+  const slidesReverted = afterRevert.count === 2 && !afterRevert.html.includes(SLIDE_MARK);
+
+  section("slidesApply", {
+    writeOk: slidesWrite.status === 200,
+    slideCount: afterSlides.count,
+    slidesApplied,
+    revertedSlideCount: afterRevert.count,
+    slidesReverted,
+  });
+
+  /* ------------------------------------------------- D) shared image href apply */
+  const linkDef = defs.find((d) => d.field === "href" && d.label.ko.startsWith("이미지"));
+  const linkWrite = linkDef ? await put(linkDef.key, "ko", LINK_MARK) : { status: 0 };
+  const linkKo = linkDef ? (await pageText("/")).includes(LINK_MARK) : false;
+  const linkEn = linkDef ? (await pageText("/en")).includes(LINK_MARK) : false;
+  if (linkDef) await revert(linkDef.key);
+  const linkReverted = linkDef ? !(await pageText("/")).includes(LINK_MARK) : false;
+
+  section("linkApply", {
+    linkDefFound: Boolean(linkDef),
+    writeOk: linkWrite.status === 200,
+    appliedKo: linkKo,
+    appliedEn: linkEn,
+    reverted: linkReverted,
+  });
+
+  /* ------------------------------------------------------------- E) admin UI */
   const browser = await chromium.launch();
   const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
   await page.context().addCookies([{ name: "ecowave_admin", value: sealed, url: BASE }]);
@@ -164,71 +190,72 @@ try {
   await page.waitForSelector("button[aria-expanded]", { timeout: 60000 });
   await page.waitForTimeout(1500);
 
-  const ui = await page.evaluate(() => {
-    const headers = [...document.querySelectorAll("button[aria-expanded]")];
-    const labels = headers.map(
+  const ui = await page.evaluate(() => ({
+    labels: [...document.querySelectorAll("button[aria-expanded]")].map(
       (h) => h.querySelector("span > span")?.textContent?.trim() ?? "",
-    );
-    const tabs = [...document.querySelectorAll("nav a")].map((a) => a.textContent.trim());
-    return { labels, tabs, count: headers.length };
-  });
+    ),
+    tabs: [...document.querySelectorAll("nav a")].map((a) => a.textContent.trim()),
+  }));
   const labels = ui.labels.filter(Boolean);
-  const uniqueLabels = new Set(labels);
+  const unique = new Set(labels);
 
-  // open the hero card and save an inline edit through the UI
+  // hero accordion → slides list editor
   const heroHeader = page.locator("button[aria-expanded]", { hasText: "메인 비주얼" }).first();
   const heroHeaderFound = (await heroHeader.count()) > 0;
-  let uiSaveApplied = false;
-  let uiSaveReverted = null;
-  if (heroHeaderFound && heroKey) {
+  let slidesEditorShown = false;
+  let addSlideGrewList = false;
+  if (heroHeaderFound) {
     await heroHeader.click();
     await page.waitForTimeout(800);
-    // the FieldRow card is the innermost div that carries both the key text and
-    // a textarea (the header-row div has no textarea; the body div has no key)
-    const card = page.locator('div:has(textarea):has-text("visual[0]/html")').last();
-    const textarea = card.locator("textarea").first();
-    await textarea.waitFor({ timeout: 15000 });
-    await textarea.fill(`<p>${MARK}-UI</p>`);
+    const addBtn = page.locator("button", { hasText: /슬라이드 추가|Add slide/ }).first();
+    slidesEditorShown = (await addBtn.count()) > 0;
+    const before = await page.locator("textarea").count();
+    if (slidesEditorShown) {
+      await addBtn.click();
+      await page.waitForTimeout(400);
+      addSlideGrewList = (await page.locator("textarea").count()) > before;
+    }
+  }
+
+  // lines accordion → inline plain-text save lands on the public page
+  const visionHeader = page.locator("button[aria-expanded]", { hasText: "건강하고 깨끗한 물" }).first();
+  let linesUiSaveApplied = false;
+  let linesUiSaveReverted = null;
+  if ((await visionHeader.count()) > 0) {
+    await visionHeader.click();
+    await page.waitForTimeout(800);
+    const field = page.locator('div:has(textarea):has-text("w202508116077d50475951")').last();
+    const area = field.locator("textarea").first();
+    await area.waitFor({ timeout: 15000 });
+    await area.fill(`${LINE_MARK}-UI`);
     await page.waitForTimeout(300);
-    const saveBtn = card.locator("button", { hasText: /저장|Save/ }).first();
     await Promise.all([
       page.waitForResponse(
         (r) => r.url().includes("/api/admin/registry") && r.request().method() === "PUT",
         { timeout: 20000 },
       ).catch(() => null),
-      saveBtn.click(),
+      field.locator("button", { hasText: /저장|Save/ }).first().click(),
     ]);
-    // wait for the public page to reflect the edit
-    for (let i = 0; i < 20 && !uiSaveApplied; i++) {
-      await page.waitForTimeout(1000);
-      uiSaveApplied = await pageHas("/", `${MARK}-UI`);
+    for (let i = 0; i < 20 && !linesUiSaveApplied; i++) {
+      await page.waitForTimeout(800);
+      linesUiSaveApplied = (await pageText("/")).includes(`${LINE_MARK}-UI`);
     }
-    touched.push({ key: heroKey, locale: "ko" });
-    await put(heroKey, "ko", "");
-    uiSaveReverted = !(await pageHas("/", MARK + "-UI"));
+    await revert(LINES_KEY);
+    linesUiSaveReverted = !(await pageText("/")).includes(`${LINE_MARK}-UI`);
   }
 
-  // the footer lives in its own `common` tab — it must NOT be in the home list
-  await page.goto(`${BASE}/admin/content?group=common`);
-  await page.waitForSelector("button[aria-expanded]", { timeout: 60000 });
-  await page.waitForTimeout(800);
-  const commonLabels = await page.evaluate(() =>
-    [...document.querySelectorAll("button[aria-expanded]")]
-      .map((h) => h.querySelector("span > span")?.textContent?.trim() ?? "")
-      .filter(Boolean),
-  );
-
   section("adminUi", {
-    accordionCount: ui.count,
-    labelsUnique: labels.length === uniqueLabels.size,
+    accordionCount: ui.labels.length,
+    labelsUnique: labels.length === unique.size,
     labelsIncludeHero: labels.some((l) => l.includes("메인 비주얼")),
     labelsExcludeFooter: !labels.some((l) => l.includes("푸터")),
     commonTabPresent: ui.tabs.some((t) => t === "공통" || /common/i.test(t)),
-    commonTabShowsFooter: commonLabels.some((l) => l.includes("푸터")),
     heroHeaderFound,
-    uiSaveApplied,
-    uiSaveReverted,
-    labelsSample: labels.slice(0, 10),
+    slidesEditorShown,
+    addSlideGrewList,
+    linesUiSaveApplied,
+    linesUiSaveReverted,
+    labelsSample: labels.slice(0, 8),
   });
 
   await browser.close();

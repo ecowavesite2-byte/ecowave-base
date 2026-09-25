@@ -60,15 +60,24 @@ describe("applyPageOverrides", () => {
   });
 
   it("changes exactly the targeted field and keeps the rest identical", () => {
+    // Use a scalar (image src) def: its value applies verbatim, so reverting it
+    // reproduces the input byte-for-byte — proof that no other node moved.
+    // (`lines` defs are deliberately NOT byte-exact on revert: the plain text is
+    // re-injected into the crawl markup, normalising entities/whitespace — see
+    // text-runs.test.ts for that contract.)
     const def = CONTENT_DEFS.find(
-      (d) => d.pageKey === "home" && d.field === "html" && typeof DEFAULT_VALUES[d.key]?.ko === "string",
+      (d) =>
+        d.pageKey === "home" &&
+        d.kind === "image" &&
+        typeof DEFAULT_VALUES[d.key]?.ko === "string" &&
+        (DEFAULT_VALUES[d.key]?.ko?.length ?? 0) > 0,
     );
     expect(def).toBeDefined();
 
     const original = DEFAULT_VALUES[def!.key].ko as string;
     const before = JSON.stringify(home);
 
-    const out = applyPageOverrides(home, { [def!.key]: "<p>patched</p>" }, "ko");
+    const out = applyPageOverrides(home, { [def!.key]: "/patched.jpg" }, "ko");
     expect(JSON.stringify(out)).not.toBe(before);
 
     // Reverting the one field through the same merge reproduces the input
@@ -98,7 +107,13 @@ describe("applyPageOverrides", () => {
         (d) =>
           pattern.test(d.field) &&
           typeof DEFAULT_VALUES[d.key]?.ko === "string" &&
-          readPage(d.pageKey) !== null,
+          readPage(d.pageKey) !== null &&
+          // `html` now spans two contracts: raw `textarea` (code blocks, applied
+          // verbatim) and `lines` (plain text injected into the crawl markup).
+          // Byte-round-trip the raw one here; the `lines` contract is covered by
+          // text-runs.test.ts and the coverage marker test.
+          (pattern.source !== "^html$" ||
+            (d.kind === "textarea" && DEFAULT_VALUES[d.key].ko!.includes("<"))),
       );
       expect(def, `no registry def for ${pattern}`).toBeDefined();
 

@@ -56,6 +56,7 @@ const LABELS = {
   codeBlock: { ko: "코드 블록", en: "Code block" },
   heroImage: { ko: "히어로 이미지", en: "Hero image" },
   heroText: { ko: "히어로 문구", en: "Hero text" },
+  heroSlides: { ko: "메인 비주얼 슬라이드", en: "Main visual slides" },
   menuTitle: { ko: "메뉴 제목", en: "Menu title" },
   navLabel: { ko: "내비게이션 라벨", en: "Nav label" },
   navSubLabel: { ko: "하위 내비게이션 라벨", en: "Nav sub-label" },
@@ -66,10 +67,15 @@ const LABELS = {
 const MAX_LENGTH = {
   text: 500,
   textarea: 20000,
+  lines: 20000,
   image: 2000,
   url: 2000,
   list: 20000,
+  slides: 20000,
 };
+
+/** Kinds emitted into `lib/content/registry.ts` (order = CONTENT_KINDS). */
+const KINDS = ["text", "textarea", "lines", "image", "url", "list", "slides"];
 
 /**
  * Sections the public renderers strip, so the admin must not expose their
@@ -266,6 +272,31 @@ function stripTags(html) {
     .replace(/&#39;/g, "'")
     .replace(/\s+/g, " ")
     .trim();
+}
+
+/**
+ * Plain-text runs of an html string — MIRROR of `extractTextRuns` in
+ * `lib/content/text-runs.ts`. This script is plain .mjs so the tokenizer is
+ * duplicated; keep both implementations in sync.
+ */
+function decodeEntities(value) {
+  return String(value ?? "")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'");
+}
+
+function textRuns(html) {
+  const out = [];
+  const parts = String(html ?? "").split(/(<[^>]*>)/g);
+  for (let i = 0; i < parts.length; i += 2) {
+    const text = decodeEntities(parts[i]).replace(/\s+/g, " ").trim();
+    if (text) out.push(text);
+  }
+  return out;
 }
 
 function truncate(value, max) {
@@ -485,22 +516,18 @@ function walkPages() {
         });
       }
 
-      // hero slides (`section.visual`) are not widget nodes, so they get their
-      // own defs: `home#<sectionId>/visual[i]/bg|html`.
-      if (Array.isArray(koSection.visual)) {
-        const enVisual = Array.isArray(enSection?.visual) ? enSection.visual : [];
-        for (let vi = 0; vi < koSection.visual.length; vi += 1) {
-          mapVisual({
-            pageKey,
-            group: sectionGroup,
-            sectionId: koSection.id,
-            section,
-            revalidate,
-            slideIndex: vi,
-            koSlide: koSection.visual[vi],
-            enSlide: enVisual[vi] ?? null,
-          });
-        }
+      // hero slides (`section.visual`) are not widget nodes: one `slides` def
+      // per visual section powers the add/remove/reorder editor.
+      if (Array.isArray(koSection.visual) && koSection.visual.length > 0) {
+        mapSlides({
+          pageKey,
+          group: sectionGroup,
+          sectionId: koSection.id,
+          section,
+          revalidate,
+          koSlides: koSection.visual,
+          enSlides: Array.isArray(enSection?.visual) ? enSection.visual : null,
+        });
       }
     }
   }
@@ -522,11 +549,22 @@ function mapWidget({
     case "text": {
       const koHtml = typeof koWidget.html === "string" ? koWidget.html : undefined;
       const enHtml = enWidget && typeof enWidget.html === "string" ? enWidget.html : undefined;
+      const koRuns = textRuns(koHtml);
+      // Markup-only text widgets (logo/structure html with no text nodes, e.g.
+      // the footer logo or company.global address blocks) must NOT become
+      // `lines` defs: the editor would have no lines to edit and a saved value
+      // would replace the markup with plain text (Gate-2 F2).
+      if (koRuns.length === 0 && typeof koHtml === "string" && koHtml.includes("<")) {
+        const key = `${type}:markup-only`;
+        unmappedWidgets[key] = (unmappedWidgets[key] ?? 0) + 1;
+        return;
+      }
+      const enRuns = enHtml !== undefined ? textRuns(enHtml) : null;
       addWidgetDef(
-        { ...base, field: "html", kind: "textarea", prefix: LABELS.text, section,
-          koValue: koHtml, enValue: enHtml },
-        truncate(stripTags(koHtml), 40) || undefined,
-        enSnippet(stripTags(enHtml)),
+        { ...base, field: "html", kind: "lines", prefix: LABELS.text, section,
+          koValue: koRuns.join("\n"), enValue: enRuns ? enRuns.join("\n") : undefined },
+        truncate(koRuns[0], 40) || undefined,
+        enRuns ? truncate(enRuns[0], 40) || "" : undefined,
       );
       return;
     }
@@ -647,27 +685,27 @@ function mapWidget({
 }
 
 /** Hero slides: `visual[i]` targets resolved by pair/merge at apply time. */
-function mapVisual({ pageKey, group, sectionId, section, revalidate, slideIndex, koSlide, enSlide }) {
-  const base = {
-    pageKey,
-    group,
-    sectionId,
-    widgetId: `visual[${slideIndex}]`,
-    revalidate,
-  };
-  const n = slideIndex + 1;
-  addWidgetDef(
-    { ...base, field: "bg", kind: "image", prefix: { ko: `${LABELS.heroImage.ko} ${n}`, en: `${LABELS.heroImage.en} ${n}` },
-      section, koValue: koSlide?.bg ?? undefined, enValue: enSlide?.bg },
-    basename(koSlide?.bg),
-    enBase(enSlide?.bg),
-  );
-  addWidgetDef(
-    { ...base, field: "html", kind: "textarea", prefix: { ko: `${LABELS.heroText.ko} ${n}`, en: `${LABELS.heroText.en} ${n}` },
-      section, koValue: koSlide?.html, enValue: enSlide?.html },
-    truncate(stripTags(koSlide?.html), 40) || undefined,
-    enSnippet(stripTags(enSlide?.html)),
-  );
+/**
+ * Hero slides: ONE `slides` def per visual section, so the admin can add,
+ * remove and reorder slides. The default is a JSON array of `{ bg, html }`
+ * where `html` holds the slide's plain-text runs; the runtime injects them back
+ * into the authored slide markup (see `applySlides` in lib/content/merge.ts).
+ */
+function mapSlides({ pageKey, group, sectionId, section, revalidate, koSlides, enSlides }) {
+  const base = { pageKey, group, sectionId, widgetId: "visual", revalidate };
+  const toSlide = (slide) => ({
+    bg: typeof slide?.bg === "string" ? slide.bg : null,
+    html: textRuns(slide?.html).join("\n"),
+  });
+  addDef({
+    ...base,
+    field: "slides",
+    kind: "slides",
+    label: { ko: LABELS.heroSlides.ko, en: LABELS.heroSlides.en },
+    section,
+    koValue: JSON.stringify((koSlides ?? []).map(toSlide)),
+    enValue: Array.isArray(enSlides) ? JSON.stringify(enSlides.map(toSlide)) : undefined,
+  });
 }
 
 // ---------------------------------------------------------------------------
@@ -804,7 +842,7 @@ function buildOutput(sorted) {
 
 `;
 
-  const types = `export type ContentKind = "text" | "textarea" | "image" | "url" | "list";
+  const types = `export type ContentKind = ${KINDS.map((kind) => JSON.stringify(kind)).join(" | ")};
 
 export type ContentGroup = ${GROUPS.map((g) => JSON.stringify(g)).join(" | ")};
 
@@ -840,7 +878,7 @@ export interface ContentDef {
     `${JSON.stringify(byGroup, null, 2)};\n\n` +
     `export const MAX_LENGTH: Record<ContentKind, number> = ` +
     `${JSON.stringify(MAX_LENGTH, null, 2)};\n\n` +
-    `export const CONTENT_KINDS: ContentKind[] = ["text", "textarea", "image", "url", "list"];\n\n` +
+    `export const CONTENT_KINDS: ContentKind[] = ${JSON.stringify(KINDS)};\n\n` +
     `export const CONTENT_GROUPS: ContentGroup[] = ${JSON.stringify(GROUPS)};\n`;
 
   return header + types + defsLiteral + defaultsLiteral + mapLiteral;

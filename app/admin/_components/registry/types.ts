@@ -12,7 +12,7 @@ import type { Section } from "@/lib/types";
 export type RegistryLocale = "ko" | "en";
 
 /** Kinds the registry actually defines. */
-export type RegistryKind = "text" | "textarea" | "image" | "url" | "list";
+export type RegistryKind = "text" | "textarea" | "lines" | "image" | "url" | "list" | "slides";
 
 export type SaveStatus = "idle" | "saving" | "saved" | "error";
 

@@ -46,6 +46,26 @@ function isValidMediaValue(value: string): boolean {
 }
 
 /**
+ * `slides` payloads are structured: a non-empty JSON array of
+ * `{ bg: string | null, html: string }`. Rejecting malformed/empty payloads at
+ * the API boundary keeps a bad request from blanking the hero (Gate-2 F3).
+ */
+function isValidSlidesPayload(value: string): boolean {
+  try {
+    const parsed: unknown = JSON.parse(value);
+    if (!Array.isArray(parsed) || parsed.length === 0) return false;
+    return parsed.every((entry) => {
+      if (!entry || typeof entry !== "object" || Array.isArray(entry)) return false;
+      const slide = entry as { bg?: unknown; html?: unknown };
+      const bgOk = slide.bg === null || typeof slide.bg === "string";
+      return bgOk && typeof slide.html === "string";
+    });
+  } catch {
+    return false;
+  }
+}
+
+/**
  * Invalidate the routes a def affects.
  *
  * `ContentDef.revalidate` (emitted by the registry generator) lists the routes in
@@ -121,6 +141,13 @@ export async function saveContent({
         message: `Invalid ${def.kind} value: use a relative "/..." path or an http(s) URL`,
       };
     }
+  }
+
+  if (def.kind === "slides" && trimmedLength > 0 && !isValidSlidesPayload(value)) {
+    return {
+      ok: false,
+      message: "Invalid slides payload: expected a non-empty JSON array of { bg, html }",
+    };
   }
 
   const prisma = getPrisma();

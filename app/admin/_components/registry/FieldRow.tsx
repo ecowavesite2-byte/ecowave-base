@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 
 import type { AdminDict } from "@/lib/admin/i18n";
 import ListField from "./ListField";
+import SlidesField from "./SlidesField";
 import type { LocalePair, RegistryDef, RegistryLocale, SaveStatus } from "./types";
 
 /**
@@ -29,7 +30,7 @@ const UPLOAD_BUTTON =
 
 const LANGS: RegistryLocale[] = ["ko", "en"];
 
-function ImageControl({
+export function ImageControl({
   draft,
   fallback,
   locale,
@@ -243,6 +244,51 @@ export default function FieldRow({
                 className={TEXTAREA}
               />
             </label>
+          ))}
+        </div>
+      );
+      break;
+    case "lines":
+      body = (
+        <div>
+          <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
+            {LANGS.map((lang) => (
+              <label key={lang} className="block min-w-0">
+                <span className="mb-1 block text-[12px] font-medium text-ink/70">
+                  {lang === "ko" ? t.ko : t.en}
+                </span>
+                <textarea
+                  rows={5}
+                  value={drafts[lang]}
+                  placeholder={codeDefaults[lang]}
+                  disabled={disabled}
+                  onChange={(event) => onDraft(lang, event.target.value)}
+                  className={TEXTAREA}
+                />
+              </label>
+            ))}
+          </div>
+          <p className="mt-1 text-[11px] text-muted">{t.linesHint}</p>
+        </div>
+      );
+      break;
+    case "slides":
+      body = (
+        <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
+          {LANGS.map((lang) => (
+            <div key={lang} className="min-w-0">
+              <span className="mb-1 block text-[12px] font-medium text-ink/70">
+                {lang === "ko" ? t.ko : t.en}
+              </span>
+              <SlidesField
+                value={drafts[lang]}
+                defaultValue={codeDefaults[lang]}
+                lang={lang}
+                disabled={disabled}
+                t={t}
+                onChange={(json) => onDraft(lang, json)}
+              />
+            </div>
           ))}
         </div>
       );
