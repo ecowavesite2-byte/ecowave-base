@@ -44,6 +44,9 @@ const LABELS = {
   text: { ko: "텍스트 블록", en: "Text block" },
   imageSrc: { ko: "이미지 경로", en: "Image source" },
   imageAlt: { ko: "이미지 대체 텍스트", en: "Image alt text" },
+  imageOverlay: { ko: "카드 제목/라벨", en: "Card title/label" },
+  locationCards: { ko: "위치 카드 목록", en: "Location cards" },
+  tickerPicks: { ko: "표시할 게시글", en: "Posts to show" },
   galleryItem: { ko: "갤러리 항목", en: "Gallery item" },
   itemTitle: { ko: "제목", en: "Title" },
   itemDesc: { ko: "설명", en: "Description" },
@@ -70,10 +73,13 @@ const MAX_LENGTH = {
   url: 2000,
   list: 20000,
   slides: 20000,
+  overlay: 5000,
+  cards: 20000,
+  picks: 2000,
 };
 
 /** Kinds emitted into `lib/content/registry.ts` (order = CONTENT_KINDS). */
-const KINDS = ["text", "textarea", "lines", "image", "url", "list", "slides"];
+const KINDS = ["text", "textarea", "lines", "image", "url", "list", "slides", "overlay", "cards", "picks"];
 
 /**
  * Sections the public renderers strip, so the admin must not expose their
@@ -116,6 +122,9 @@ function isPageHeroSection(section) {
  * missing. Keyed by section id; falls back to content-derived names.
  */
 const TICKER_SECTION_ID = "s2025081139ff276cae8d6";
+const LOCATIONS_SECTION_ID = "s202508112787439deffdb";
+/** The mobile back-to-top overlay is chrome, not content (image href sentinel). */
+const BACK_TO_TOP_HREF = "#doz_header";
 const SECTION_NAME_OVERRIDES = {
   [FOOTER_SECTION_ID]: { ko: "푸터", en: "Footer" },
   [TICKER_SECTION_ID]: { ko: "공지사항 티커", en: "Notice ticker" },
@@ -298,6 +307,27 @@ export function textRuns(html) {
   return out;
 }
 
+/**
+ * Per-run font sizes (px), inferred from the nearest preceding `font-size: Npx`
+ * tag — MIRROR of `extractRunSizes` in `lib/content/text-runs.ts` (same drift
+ * guard as `textRuns`). `0` marks an unknown size. Used to split hero slides
+ * into big title copy and small subtitle copy.
+ */
+export function extractRunSizes(html) {
+  const parts = String(html ?? "").split(/(<[^>]*>)/g);
+  let current = 0;
+  const sizes = [];
+  for (let i = 0; i < parts.length; i += 1) {
+    if (i % 2 === 1) {
+      const match = /font-size\s*:\s*([\d.]+)px/i.exec(parts[i]);
+      if (match) current = parseFloat(match[1]);
+    } else if (decodeEntities(parts[i]).replace(/\s+/g, " ").trim().length > 0) {
+      sizes.push(current);
+    }
+  }
+  return sizes;
+}
+
 function truncate(value, max) {
   const clean = String(value ?? "").replace(/\s+/g, " ").trim();
   return clean.length > max ? clean.slice(0, max - 1) + "…" : clean;
@@ -307,6 +337,55 @@ function basename(src) {
   const clean = String(src ?? "").split(/[?#]/)[0];
   const parts = clean.split("/");
   return parts[parts.length - 1] || clean;
+}
+
+/**
+ * Vision images store their overlay CARD MARKUP in `alt` (an `img-title` block
+ * with an `<h5>` label) rather than a plain alt string. Such a widget gets an
+ * `overlay` def (raw markup assigned verbatim) instead of a normal alt def.
+ */
+function isOverlayAlt(alt) {
+  return (
+    typeof alt === "string" && (alt.includes("img-title") || /<h5[\s>]/i.test(alt))
+  );
+}
+
+/** The `<h5>` label of an overlay alt, or `""` when absent. */
+function overlayTitle(alt) {
+  const match = /<h5[^>]*>([\s\S]*?)<\/h5>/i.exec(String(alt ?? ""));
+  return match ? stripTags(match[1]) : "";
+}
+
+/** Hero-slide title runs are the big type (font-size >= 40px); the rest is subtitle. */
+const SLIDE_TITLE_MIN_PX = 40;
+
+/**
+ * Split a slide's plain-text runs into `{ title, subtitle }` using the mirrored
+ * run-size classifier (`extractRunSizes`): title = runs with font-size >= 40px,
+ * subtitle = the remaining runs. Both keep document order, joined with `\n`
+ * (the `applySlideText` contract in lib/content/merge.ts).
+ */
+function splitSlideRuns(html) {
+  const runs = textRuns(html);
+  const sizes = extractRunSizes(html);
+  const title = [];
+  const subtitle = [];
+  runs.forEach((run, index) => {
+    ((sizes[index] ?? 0) >= SLIDE_TITLE_MIN_PX ? title : subtitle).push(run);
+  });
+  return { title: title.join("\n"), subtitle: subtitle.join("\n") };
+}
+
+/**
+ * A section that carries no editable content: only `code` widgets, or only the
+ * mobile back-to-top overlay (an image linking to `#doz_header`) — plus code.
+ * These are chrome, so they emit no defs.
+ */
+function isSkippedSection(widgets) {
+  if (widgets.length === 0) return false;
+  return widgets.every(
+    (w) => w.type === "code" || (w.type === "image" && w.href === BACK_TO_TOP_HREF),
+  );
 }
 
 function fmt(prefix, suffix) {
@@ -493,8 +572,36 @@ function walkPages() {
       const koWidgets = sectionWidgets(koSection);
       const enWidgets = enSection ? sectionWidgets(enSection) : [];
 
+      // Chrome sections (code-only, or the mobile back-to-top overlay) emit
+      // nothing: code and the back-to-top image are not admin-editable.
+      if (isSkippedSection(koWidgets)) {
+        const key = "back-to-top:skipped";
+        unmappedWidgets[key] = (unmappedWidgets[key] ?? 0) + 1;
+        continue;
+      }
+
+      // Home locations: the text widgets AFTER the first are the holder cards,
+      // emitted as ONE `cards` list def further down instead of per-widget defs.
+      const isHomeLocations = pageKey === "home" && koSection.id === LOCATIONS_SECTION_ID;
+      const isHomeTicker = pageKey === "home" && koSection.id === TICKER_SECTION_ID;
+      const cardWidgetIds = new Set();
+      if (isHomeLocations) {
+        // Mirror `applyCards` (lib/content/merge.ts): the heading is the FIRST
+        // text widget with non-empty html; the remaining non-empty text widgets
+        // are the cards. A positional first widget that carries only empty/
+        // markupless html must not be mistaken for the heading.
+        const textWidgets = koWidgets.filter(
+          (w) =>
+            w.type === "text" &&
+            typeof w.html === "string" &&
+            w.html.trim().length > 0,
+        );
+        for (const widget of textWidgets.slice(1)) cardWidgetIds.add(widget.id);
+      }
+
       for (let wi = 0; wi < koWidgets.length; wi += 1) {
         const koWidget = koWidgets[wi];
+        if (cardWidgetIds.has(koWidget.id)) continue;
         let enWidget = enWidgets[wi] ?? null;
         if (enWidget && enWidget.type !== koWidget.type) {
           warnings.push(
@@ -512,6 +619,28 @@ function walkPages() {
           revalidate,
           koWidget,
           enWidget,
+        });
+      }
+
+      if (isHomeLocations) {
+        mapLocationCards({
+          pageKey,
+          group: sectionGroup,
+          sectionId: koSection.id,
+          section,
+          revalidate,
+          koWidgets,
+          enWidgets,
+        });
+      }
+
+      if (isHomeTicker) {
+        mapTickerPicks({
+          pageKey,
+          group: sectionGroup,
+          sectionId: koSection.id,
+          section,
+          revalidate,
         });
       }
 
@@ -559,6 +688,29 @@ function mapWidget({
         return;
       }
       const enRuns = enHtml !== undefined ? textRuns(enHtml) : null;
+
+      // Home text blocks are split into an editable title (first styled run)
+      // and description (the remaining runs) so the two design lines are edited
+      // separately; single-run blocks, the shared footer (`common`) and
+      // non-home pages keep ONE `html` def (the footer wordmark/copyright are
+      // layout runs, not a title/description pair).
+      if (pageKey === "home" && group !== "common" && koRuns.length >= 2) {
+        addWidgetDef(
+          { ...base, field: "title", kind: "lines", prefix: LABELS.itemTitle, section,
+            koValue: koRuns[0], enValue: enRuns ? enRuns[0] : undefined },
+          truncate(koRuns[0], 40),
+          enRuns ? truncate(enRuns[0], 40) || "" : undefined,
+        );
+        addWidgetDef(
+          { ...base, field: "desc", kind: "lines", prefix: LABELS.itemDesc, section,
+            koValue: koRuns.slice(1).join("\n"),
+            enValue: enRuns ? enRuns.slice(1).join("\n") : undefined },
+          truncate(koRuns[1], 40),
+          enRuns ? truncate(enRuns[1], 40) || "" : undefined,
+        );
+        return;
+      }
+
       addWidgetDef(
         { ...base, field: "html", kind: "lines", prefix: LABELS.text, section,
           koValue: koRuns.join("\n"), enValue: enRuns ? enRuns.join("\n") : undefined },
@@ -583,19 +735,20 @@ function mapWidget({
         basename(koWidget.src),
         enBase(enWidget?.src),
       );
-      addWidgetDef(
-        { ...base, field: "alt", kind: "text", prefix: LABELS.imageAlt, section,
-          koValue: koWidget.alt, enValue: enWidget?.alt },
-        truncate(koWidget.alt, 40) || basename(koWidget.src),
-        enWidget ? enSnippet(enWidget.alt) || enBase(enWidget.src) : undefined,
-      );
-      // linked images: the click target is editable too
-      if (typeof koWidget.href === "string" && koWidget.href) {
+      // Vision cards store their overlay markup in `alt`; only then is it an
+      // editable field (assigned verbatim via the `overlay` kind). Plain image
+      // alt text and image links stay hard-coded.
+      if (isOverlayAlt(koWidget.alt)) {
+        const koTitle = overlayTitle(koWidget.alt) || basename(koWidget.src);
+        const enTitle =
+          enWidget && isOverlayAlt(enWidget.alt)
+            ? overlayTitle(enWidget.alt) || basename(enWidget.src)
+            : undefined;
         addWidgetDef(
-          { ...base, field: "href", kind: "url", prefix: LABELS.imageHref, section,
-            koValue: koWidget.href, enValue: enWidget?.href },
-          truncate(koWidget.href, 40),
-          enSnippet(enWidget?.href),
+          { ...base, field: "alt", kind: "overlay", prefix: LABELS.imageOverlay, section,
+            koValue: koWidget.alt, enValue: enWidget?.alt },
+          koTitle,
+          enTitle,
         );
       }
       return;
@@ -606,12 +759,6 @@ function mapWidget({
           koValue: koWidget.text, enValue: enWidget?.text },
         truncate(koWidget.text, 40),
         enSnippet(enWidget?.text),
-      );
-      addWidgetDef(
-        { ...base, field: "href", kind: "url", prefix: LABELS.buttonHref, section,
-          koValue: koWidget.href, enValue: enWidget?.href },
-        "",
-        enWidget ? "" : undefined,
       );
       return;
     }
@@ -667,14 +814,8 @@ function mapWidget({
       return;
     }
     case "code": {
-      const koHtml = typeof koWidget.html === "string" ? koWidget.html : undefined;
-      const enHtml = enWidget && typeof enWidget.html === "string" ? enWidget.html : undefined;
-      addWidgetDef(
-        { ...base, field: "html", kind: "textarea", prefix: LABELS.codeBlock, section,
-          koValue: koHtml, enValue: enHtml },
-        truncate(stripTags(koHtml), 40) || undefined,
-        enSnippet(stripTags(enHtml)),
-      );
+      // Code embeds are not admin content: never emit a def (they are chrome).
+      unmappedWidgets[`${type}:skipped`] = (unmappedWidgets[`${type}:skipped`] ?? 0) + 1;
       return;
     }
     default: {
@@ -683,19 +824,19 @@ function mapWidget({
   }
 }
 
-/** Hero slides: `visual[i]` targets resolved by pair/merge at apply time. */
 /**
  * Hero slides: ONE `slides` def per visual section, so the admin can add,
- * remove and reorder slides. The default is a JSON array of `{ bg, html }`
- * where `html` holds the slide's plain-text runs; the runtime injects them back
- * into the authored slide markup (see `applySlides` in lib/content/merge.ts).
+ * remove and reorder slides. The default is a JSON array of `{ bg, title,
+ * subtitle }`: `title` holds the big runs (>= 40px) and `subtitle` the rest;
+ * the runtime injects them back into the authored slide markup (see
+ * `applySlides` in lib/content/merge.ts).
  */
 function mapSlides({ pageKey, group, sectionId, section, revalidate, koSlides, enSlides }) {
   const base = { pageKey, group, sectionId, widgetId: "visual", revalidate };
-  const toSlide = (slide) => ({
-    bg: typeof slide?.bg === "string" ? slide.bg : null,
-    html: textRuns(slide?.html).join("\n"),
-  });
+  const toSlide = (slide) => {
+    const { title, subtitle } = splitSlideRuns(slide?.html);
+    return { bg: typeof slide?.bg === "string" ? slide.bg : null, title, subtitle };
+  };
   addDef({
     ...base,
     field: "slides",
@@ -704,6 +845,76 @@ function mapSlides({ pageKey, group, sectionId, section, revalidate, koSlides, e
     section,
     koValue: JSON.stringify((koSlides ?? []).map(toSlide)),
     enValue: Array.isArray(enSlides) ? JSON.stringify(enSlides.map(toSlide)) : undefined,
+  });
+}
+
+/**
+ * ONE `cards` list def for the home locations section: the holder text widgets
+ * (every `text` widget after the heading) become `[{ lines: [...] }]`. The EN
+ * value mirrors the EN section's widgets at the same indices (positional
+ * pairing — see `resolvePairedSection` in lib/content/pair.ts).
+ */
+function mapLocationCards({ pageKey, group, sectionId, section, revalidate, koWidgets, enWidgets }) {
+  // Same rule as `applyCards`: heading = first text widget with non-empty html,
+  // cards = the remaining non-empty text widgets (positional pairing with EN).
+  const textEntries = koWidgets
+    .map((widget, index) => ({ widget, index }))
+    .filter(
+      (entry) =>
+        entry.widget.type === "text" &&
+        typeof entry.widget.html === "string" &&
+        entry.widget.html.trim().length > 0,
+    );
+  const cardEntries = textEntries.slice(1); // first non-empty text = heading
+  if (cardEntries.length === 0) return;
+
+  const koValue = JSON.stringify(
+    cardEntries.map((entry) => ({ lines: textRuns(entry.widget.html) })),
+  );
+  let enValue;
+  if (enWidgets.length > 0) {
+    const enCards = cardEntries.map((entry) => {
+      const enWidget = enWidgets[entry.index];
+      return {
+        lines: enWidget && enWidget.type === "text" ? textRuns(enWidget.html) : [],
+      };
+    });
+    enValue = JSON.stringify(enCards);
+  }
+
+  addDef({
+    pageKey,
+    group,
+    sectionId,
+    widgetId: "cards",
+    field: "cards",
+    kind: "cards",
+    label: { ko: LABELS.locationCards.ko, en: LABELS.locationCards.en },
+    section,
+    revalidate,
+    koValue,
+    enValue,
+  });
+}
+
+/**
+ * ONE `picks` def for the home notice ticker: which board + posts the renderer
+ * should show. The default (empty idxs) means "first 4 news" (renderer fallback).
+ */
+function mapTickerPicks({ pageKey, group, sectionId, section, revalidate }) {
+  const value = JSON.stringify({ board: "news", idxs: [] });
+  addDef({
+    pageKey,
+    group,
+    sectionId,
+    widgetId: "picks",
+    field: "picks",
+    kind: "picks",
+    label: { ko: LABELS.tickerPicks.ko, en: LABELS.tickerPicks.en },
+    section,
+    revalidate,
+    koValue: value,
+    enValue: value,
   });
 }
 

@@ -226,6 +226,15 @@ function findDanglingDefs(defs, pages) {
       continue;
     }
 
+    // Section-scoped list defs (`/cards/cards`, `/picks/picks`): the section is
+    // the target and it exists (checked above) — there is no widget to look up.
+    if (
+      (def.widgetId === "cards" && def.field === "cards") ||
+      (def.widgetId === "picks" && def.field === "picks")
+    ) {
+      continue;
+    }
+
     const found = sectionWidgets(section).some((w) => w.id === def.widgetId);
     if (!found) dangling.push({ key: def.key, reason: "widget missing" });
   }

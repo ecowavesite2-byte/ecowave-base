@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { extractTextRuns, injectTextRuns } from "../text-runs";
+import { extractRunSizes, extractTextRuns, injectTextRuns } from "../text-runs";
 
 /**
  * The `lines` kind stores one plain-text line per styled text node. These tests
@@ -55,10 +55,31 @@ describe("text-runs", () => {
     expect(extractTextRuns(out)).toEqual(["A", "B", "C D"]);
   });
 
-  it("escapes markup so plain text can never inject tags", () => {
-    const out = injectTextRuns("<p><span>x</span></p>", "<script> & y");
-    expect(out).toContain("&lt;script&gt; &amp; y");
-    expect(out).not.toContain("<script>");
+  it("keeps authored inline HTML but escapes bare angle brackets", () => {
+    const out = injectTextRuns("<p><span>x</span></p>", "<b>bold</b> & pH < 7");
+    expect(out).toContain("<b>bold</b>");
+    expect(out).toContain("&amp; pH &lt; 7");
+  });
+
+  it("injects into a run range and leaves the other runs untouched", () => {
+    const html = `<p><span>A</span></p><p><span>B</span></p><p><span>C</span></p>`;
+    const titleOnly = injectTextRuns(html, "TITLE", { start: 0, end: 0 });
+    expect(extractTextRuns(titleOnly)).toEqual(["TITLE", "B", "C"]);
+
+    const descOnly = injectTextRuns(html, "D1\nD2", { start: 1 });
+    expect(extractTextRuns(descOnly)).toEqual(["A", "D1", "D2"]);
+
+    // extra range lines fold into the last in-range run
+    const folded = injectTextRuns(html, "D1\nD2\nD3", { start: 1, end: 1 });
+    expect(extractTextRuns(folded)).toEqual(["A", "D1 D2 D3", "C"]);
+  });
+
+  it("infers per-run font sizes for slide title/subtitle splits", () => {
+    const html =
+      `<p><span style="font-size: 85px;"><strong>BIG</strong></span></p>` +
+      `<p><span style="font-size: 24px;">small one</span><span style="font-size: 24px;">small two</span></p>`;
+    expect(extractRunSizes(html)).toEqual([85, 24, 24]);
+    expect(extractTextRuns(html)).toEqual(["BIG", "small one", "small two"]);
   });
 
   it("round-trips the crawled markup exactly", () => {

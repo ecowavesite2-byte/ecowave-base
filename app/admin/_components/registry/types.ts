@@ -12,7 +12,17 @@ import type { Section } from "@/lib/types";
 export type RegistryLocale = "ko" | "en";
 
 /** Kinds the registry actually defines. */
-export type RegistryKind = "text" | "textarea" | "lines" | "image" | "url" | "list" | "slides";
+export type RegistryKind =
+  | "text"
+  | "textarea"
+  | "lines"
+  | "image"
+  | "url"
+  | "list"
+  | "slides"
+  | "overlay"
+  | "cards"
+  | "picks";
 
 export type SaveStatus = "idle" | "saving" | "saved" | "error";
 
@@ -56,3 +66,19 @@ export interface PageTree {
 
 /** `pageKey` → crawled page sections (read-only preview source). */
 export type TreesMap = Record<string, PageTree>;
+
+/** Compact board post option handed to the `picks` editor (server-loaded). */
+export interface BoardPostOption {
+  idx: string;
+  title: string;
+  date: string | null;
+}
+
+/** Selectable posts for both ticker boards (capped server-side). */
+export interface BoardOptions {
+  news: BoardPostOption[];
+  notices: BoardPostOption[];
+}
+
+/** Per content-locale board options (news/notices idx sets differ per locale). */
+export type BoardPostsMap = Record<RegistryLocale, BoardOptions>;

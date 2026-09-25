@@ -108,14 +108,92 @@ describe("saveContent validation (no DB)", () => {
   });
 
   it("returns the not-configured message when DATABASE_URL is unset", async () => {
-    const def = defOfKind("textarea");
+    const def = defOfKind("lines");
     const result = await saveContent({ key: def.key, locale: "ko", value: "<p>hi</p>", actor });
     expect(result).toEqual({ ok: false, message: DB_NOT_CONFIGURED_MESSAGE });
   });
 
   it("returns the not-configured message for an empty (revert) value too", async () => {
-    const def = defOfKind("textarea");
+    const def = defOfKind("lines");
     const result = await saveContent({ key: def.key, locale: "ko", value: "   ", actor });
+    expect(result).toEqual({ ok: false, message: DB_NOT_CONFIGURED_MESSAGE });
+  });
+});
+
+describe("saveContent structured payload validation (no DB)", () => {
+  it("rejects malformed/empty slides payloads", async () => {
+    const def = defOfKind("slides");
+    const bad = [
+      "[]", // empty list would blank the hero
+      "{}", // not an array
+      "not json",
+      '[{"subtitle":"b"}]', // missing title
+      '[{"title":"t","subtitle":"s"},{"title":5}]', // title not a string
+      '[{"bg":1,"title":"t"}]', // bg neither null nor string
+      '[{"title":"t","subtitle":["x"]}]', // subtitle not a string
+    ];
+    for (const value of bad) {
+      const result = await saveContent({ key: def.key, locale: "ko", value, actor });
+      expect(result.ok, `should reject: ${value}`).toBe(false);
+      expect(result.message).toContain("Invalid slides payload");
+    }
+  });
+
+  it("accepts a well-formed slides payload (then reports the missing DB)", async () => {
+    const def = defOfKind("slides");
+    const value = JSON.stringify([
+      { bg: null, title: "Big", subtitle: "Small" },
+      { bg: "/images/hero.jpg", title: "Title only", subtitle: "Sub" },
+    ]);
+    const result = await saveContent({ key: def.key, locale: "ko", value, actor });
+    expect(result).toEqual({ ok: false, message: DB_NOT_CONFIGURED_MESSAGE });
+  });
+
+  it("rejects malformed/empty cards payloads", async () => {
+    const def = defOfKind("cards");
+    const bad = [
+      "[]", // a cards list must not be emptied
+      "{}", // not an array
+      "not json",
+      "[{}]", // missing lines
+      '[{"lines":"x"}]', // lines not an array
+      '[{"lines":[1]}]', // non-string line
+    ];
+    for (const value of bad) {
+      const result = await saveContent({ key: def.key, locale: "ko", value, actor });
+      expect(result.ok, `should reject: ${value}`).toBe(false);
+      expect(result.message).toContain("Invalid cards payload");
+    }
+  });
+
+  it("accepts a well-formed cards payload (then reports the missing DB)", async () => {
+    const def = defOfKind("cards");
+    const value = JSON.stringify([{ lines: ["KOR", "[KOREA]", "Incheon"] }]);
+    const result = await saveContent({ key: def.key, locale: "ko", value, actor });
+    expect(result).toEqual({ ok: false, message: DB_NOT_CONFIGURED_MESSAGE });
+  });
+
+  it("rejects malformed/empty picks payloads", async () => {
+    const def = defOfKind("picks");
+    const bad = [
+      "{}", // missing board + idxs
+      "not json",
+      '{"board":"support","idxs":["1"]}', // unknown board
+      '{"board":"news"}', // missing idxs
+      '{"board":"news","idxs":[]}', // empty idxs
+      '{"board":"notices","idxs":[{}]}', // non-string/number idx
+    ];
+    for (const value of bad) {
+      const result = await saveContent({ key: def.key, locale: "ko", value, actor });
+      expect(result.ok, `should reject: ${value}`).toBe(false);
+      expect(result.message).toContain("Invalid picks payload");
+    }
+  });
+
+  it("accepts a well-formed picks payload (then reports the missing DB)", async () => {
+    const def = defOfKind("picks");
+    const value = JSON.stringify({ board: "news", idxs: ["101", "102"] });
+    const result = await saveContent({ key: def.key, locale: "ko", value, actor });
     expect(result).toEqual({ ok: false, message: DB_NOT_CONFIGURED_MESSAGE });
   });
 });
@@ -157,7 +235,7 @@ describe("saveContent writes (fake Prisma)", () => {
   it("writes only the given locale for non-url fields", async () => {
     const { upsert, prisma } = makeFakePrisma();
     getPrismaMock.mockReturnValue(prisma as never);
-    const def = defOfKind("textarea");
+    const def = defOfKind("lines");
 
     const result = await saveContent({ key: def.key, locale: "en", value: "<p>x</p>", actor });
 
@@ -169,7 +247,7 @@ describe("saveContent writes (fake Prisma)", () => {
   it("revalidates the def routes after a successful write", async () => {
     const { prisma } = makeFakePrisma();
     getPrismaMock.mockReturnValue(prisma as never);
-    const def = defOfKind("textarea");
+    const def = defOfKind("lines");
 
     await saveContent({ key: def.key, locale: "ko", value: "<p>x</p>", actor });
 

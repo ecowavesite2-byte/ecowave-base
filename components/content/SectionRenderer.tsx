@@ -6,6 +6,7 @@ import GallerySlider from "@/components/content/GallerySlider";
 import type { ColNode, Node, RowNode, Section, WidgetNode } from "@/lib/types";
 import { defaultLocale, localeHref, type Locale } from "@/lib/i18n";
 import { routeForSource } from "@/lib/routes";
+import { parseOverlayAlt } from "@/lib/content/overlay-alt";
 
 /* ---------------- helpers ---------------- */
 
@@ -69,17 +70,6 @@ function isRow(n: Node): n is RowNode {
   return n.kind === "row";
 }
 
-function decodeEntities(s: string): string {
-  return s
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">")
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'")
-    .replace(/&amp;/g, "&");
-}
-
-const stripTags = (s: string) => s.replace(/<[^>]+>/g, "").replace(/&nbsp;/g, " ").trim();
-
 /**
  * Residual #1: imweb's `.table-responsive` wrapper is `overflow-x:auto` with
  * `nowrap` cells, so the authored 991px R&D table scrolls inside the 360px
@@ -119,45 +109,6 @@ function fixResponsiveTables(html: string): string {
   // rnd §3 1270 -> 1378 (orig 1371), §4 1239 -> 1323 (orig 1316) and the §2
   // table 221 -> 281 = the original exactly (rows 94/93/93).
   return /class="[^"]*\btableHorizontal\b/.test(out) ? TABLE_HORIZONTAL_MOBILE_CSS + out : out;
-}
-
-/**
- * Image widgets carry overlay labels encoded in their `alt` attribute in two
- * authored shapes (both measured live on the home originals):
- *
- *  - desktop `img-title` (home §2 pc pillar cards):
- *      `<div class="img-title"><div class="top-t"><P>Company</P></div><h5>회사소개</h5></div>
- *       <span class="material-symbols-outlined">add</span>`
- *    → label "Company" (18px) ABOVE title "회사소개" (40px) plus a 30px "+".
- *  - mobile (home §회사소개 mobile_section pillar cards):
- *      `<h5>회사소개</h5><span>Company</span>`
- *    → title "회사소개" (25px) ABOVE label "Company" (18px), no "+".
- *
- * Both are visible **at rest** on the original (`.overlay` scrim
- * rgba(0,0,0,0.3) opacity 1 + white labels), not hover-only. The `layout`
- * field selects the label order / type scale / alignment.
- */
-function parseImageAlt(alt?: string): {
-  label: string;
-  title: string;
-  plus: boolean;
-  layout: "desktop" | "mobile" | "none";
-  hasOverlay: boolean;
-} {
-  if (!alt) return { label: "", title: "", plus: false, layout: "none", hasOverlay: false };
-  const html = decodeEntities(alt);
-  if (/img-title/i.test(html)) {
-    const label = stripTags(html.match(/top-t[^>]*>\s*<p[^>]*>([\s\S]*?)<\/p>/i)?.[1] || "");
-    const title = stripTags(html.match(/<h5[^>]*>([\s\S]*?)<\/h5>/i)?.[1] || "");
-    const plus = /material-symbols-outlined/i.test(html);
-    return { label, title, plus, layout: "desktop", hasOverlay: true };
-  }
-  // mobile pillar cards: `<h5>회사소개</h5><span>Company</span>` (the en locale
-  // sometimes omits the English `<span>`)
-  const title = stripTags(html.match(/<h5[^>]*>([\s\S]*?)<\/h5>/i)?.[1] || "");
-  if (!title) return { label: "", title: "", plus: false, layout: "none", hasOverlay: false };
-  const spans = [...html.matchAll(/<span[^>]*>([\s\S]*?)<\/span>/gi)].map((m) => stripTags(m[1])).filter(Boolean);
-  return { label: spans[0] || "", title, plus: false, layout: "mobile", hasOverlay: true };
 }
 
 /* ---------------- widgets ---------------- */
@@ -265,7 +216,7 @@ export function GalleryCard({
 
 function ImageWidget({ w, locale, mobileBox = false }: { w: WidgetNode; locale: Locale; mobileBox?: boolean }) {
   const h = num(w.boxStyle, "height");
-  const { label, title, plus, layout, hasOverlay } = parseImageAlt(w.alt);
+  const { label, title, plus, layout, hasOverlay } = parseOverlayAlt(w.alt);
   // opt-in `hover_scale` widgets (see HOVER_SCALE_WIDGET_IDS). The effect itself
   // lives in globals.css, hooked on this attribute; only the plain `img` branch
   // implements it because every crawled `hover_scale` widget is `alt:""` (no
@@ -1024,6 +975,15 @@ function WidgetContent({ w, locale, mobileBox = false }: { w: WidgetNode; locale
       return clean ? <div dangerouslySetInnerHTML={{ __html: clean }} /> : null;
     }
     case "video": {
+      // Uploaded video FILE (any origin) → native player at every width. A file
+      // source must win over the crawled iframe: the crawled widget still carries
+      // its raw `<iframe>` in `html`, so this check runs BEFORE any html/iframe
+      // logic. Non-file sources (YouTube) keep the iframe + raw-html paths below
+      // untouched.
+      const videoSrc = w.src || "";
+      if (/\.(mp4|webm|ogv|mov)(?:[?#]|$)/i.test(videoSrc)) {
+        return <video src={videoSrc} controls playsInline className="aspect-video w-full object-cover" />;
+      }
       // Below 992 the crawled desktop holder (pinned to a 703px height) is
       // re-fit to 16:9 by the `.video-fit` rule in globals.css, so ONE iframe
       // serves every width. (An earlier dual-layer kept a hidden duplicate

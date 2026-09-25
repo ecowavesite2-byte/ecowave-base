@@ -3,9 +3,18 @@
 import { useRef, useState } from "react";
 
 import type { AdminDict } from "@/lib/admin/i18n";
+import CardsField from "./CardsField";
 import ListField from "./ListField";
+import OverlayField from "./OverlayField";
+import PicksField from "./PicksField";
 import SlidesField from "./SlidesField";
-import type { LocalePair, RegistryDef, RegistryLocale, SaveStatus } from "./types";
+import type {
+  BoardPostsMap,
+  LocalePair,
+  RegistryDef,
+  RegistryLocale,
+  SaveStatus,
+} from "./types";
 
 /**
  * One editable registry field: a card with per-language controls, a
@@ -27,8 +36,76 @@ const SAVE_BUTTON =
   "inline-flex h-[32px] items-center rounded-[3px] bg-accent px-4 text-[13px] font-medium text-white transition-colors hover:bg-accent/90 disabled:cursor-not-allowed disabled:opacity-50";
 const UPLOAD_BUTTON =
   "inline-flex h-[40px] shrink-0 cursor-pointer items-center rounded-[3px] border border-black/10 bg-white px-3 text-[12px] text-ink transition-colors hover:border-accent hover:text-accent";
+const RESET_BUTTON =
+  "inline-flex h-[28px] items-center rounded-[3px] border border-black/10 bg-white px-2.5 text-[11px] text-muted transition-colors hover:border-accent hover:text-accent disabled:opacity-50";
 
 const LANGS: RegistryLocale[] = ["ko", "en"];
+const EMPTY_BOARD_OPTIONS: BoardPostsMap = {
+  ko: { news: [], notices: [] },
+  en: { news: [], notices: [] },
+};
+
+/**
+ * Upload control for the video-source `url` def: posts the file to the shared
+ * registry upload route (which accepts video up to 50 MB) and writes the
+ * returned URL into the field. No preview (video).
+ */
+function VideoUploadButton({
+  disabled,
+  t,
+  onUploaded,
+}: {
+  disabled: boolean;
+  t: AdminDict["content"];
+  onUploaded: (url: string) => void;
+}) {
+  const fileRef = useRef<HTMLInputElement>(null);
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState(false);
+
+  async function upload(file: File) {
+    setUploading(true);
+    setUploadError(false);
+    try {
+      const form = new FormData();
+      form.append("file", file);
+      const response = await fetch("/api/admin/registry/upload", { method: "POST", body: form });
+      const data = (await response.json().catch(() => ({}))) as { url?: unknown };
+      if (!response.ok || typeof data.url !== "string") {
+        setUploadError(true);
+        return;
+      }
+      onUploaded(data.url);
+    } catch {
+      setUploadError(true);
+    } finally {
+      setUploading(false);
+      if (fileRef.current) fileRef.current.value = "";
+    }
+  }
+
+  return (
+    <div className="shrink-0">
+      <label
+        data-testid="video-upload"
+        className={`${UPLOAD_BUTTON} ${disabled || uploading ? "pointer-events-none opacity-50" : ""}`}
+      >
+        {uploading ? t.videoUploading : t.videoUpload}
+        <input
+          ref={fileRef}
+          type="file"
+          accept="video/mp4,video/webm,video/ogg,video/quicktime"
+          className="hidden"
+          onChange={(event) => {
+            const file = event.target.files?.[0];
+            if (file) void upload(file);
+          }}
+        />
+      </label>
+      {uploadError ? <p className="mt-1 text-[11px] text-red-600">{t.videoUploadFailed}</p> : null}
+    </div>
+  );
+}
 
 export function ImageControl({
   draft,
@@ -108,6 +185,19 @@ export function ImageControl({
           <span className="text-[11px] text-muted">{t.imagePreview}</span>
         </div>
       ) : null}
+      {draft ? (
+        <div className="mt-2">
+          <button
+            type="button"
+            data-testid="image-reset"
+            disabled={disabled}
+            onClick={() => onChange("")}
+            className={RESET_BUTTON}
+          >
+            {t.imageReset}
+          </button>
+        </div>
+      ) : null}
     </div>
   );
 }
@@ -123,6 +213,7 @@ export default function FieldRow({
   disabled,
   targetMissing = false,
   t,
+  boardPosts = EMPTY_BOARD_OPTIONS,
   onDraft,
   onSave,
 }: {
@@ -140,6 +231,8 @@ export default function FieldRow({
   /** The def's target widget/slide is absent from the crawled section. */
   targetMissing?: boolean;
   t: AdminDict["content"];
+  /** Server-loaded board posts for the `picks` editor, keyed by locale. */
+  boardPosts?: BoardPostsMap;
   onDraft: (locale: RegistryLocale, value: string) => void;
   onSave: () => void;
 }) {
@@ -191,17 +284,27 @@ export default function FieldRow({
     case "url":
       body = (
         <div>
-          <input
-            type="text"
-            value={drafts.ko}
-            placeholder={codeDefaults.ko || t.urlPlaceholder}
-            disabled={disabled}
-            onChange={(event) => {
-              onDraft("ko", event.target.value);
-              onDraft("en", event.target.value);
-            }}
-            className={`${INPUT} font-mono text-[12px]`}
-          />
+          <div className="flex items-start gap-2">
+            <input
+              type="text"
+              value={drafts.ko}
+              placeholder={codeDefaults.ko || t.urlPlaceholder}
+              disabled={disabled}
+              onChange={(event) => {
+                onDraft("ko", event.target.value);
+                onDraft("en", event.target.value);
+              }}
+              className={`${INPUT} font-mono text-[12px]`}
+            />
+            <VideoUploadButton
+              disabled={disabled}
+              t={t}
+              onUploaded={(url) => {
+                onDraft("ko", url);
+                onDraft("en", url);
+              }}
+            />
+          </div>
           <p className="mt-1 text-[11px] text-muted">{t.sharedUrlNote}</p>
         </div>
       );
@@ -284,6 +387,67 @@ export default function FieldRow({
                 value={drafts[lang]}
                 defaultValue={codeDefaults[lang]}
                 lang={lang}
+                disabled={disabled}
+                t={t}
+                onChange={(json) => onDraft(lang, json)}
+              />
+            </div>
+          ))}
+        </div>
+      );
+      break;
+    case "overlay":
+      body = (
+        <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
+          {LANGS.map((lang) => (
+            <div key={lang} className="min-w-0">
+              <span className="mb-1 block text-[12px] font-medium text-ink/70">
+                {lang === "ko" ? t.ko : t.en}
+              </span>
+              <OverlayField
+                value={drafts[lang]}
+                defaultValue={codeDefaults[lang]}
+                disabled={disabled}
+                t={t}
+                onChange={(alt) => onDraft(lang, alt)}
+              />
+            </div>
+          ))}
+        </div>
+      );
+      break;
+    case "cards":
+      body = (
+        <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
+          {LANGS.map((lang) => (
+            <div key={lang} className="min-w-0">
+              <span className="mb-1 block text-[12px] font-medium text-ink/70">
+                {lang === "ko" ? t.ko : t.en}
+              </span>
+              <CardsField
+                value={drafts[lang]}
+                defaultValue={codeDefaults[lang]}
+                disabled={disabled}
+                t={t}
+                onChange={(json) => onDraft(lang, json)}
+              />
+            </div>
+          ))}
+        </div>
+      );
+      break;
+    case "picks":
+      body = (
+        <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
+          {LANGS.map((lang) => (
+            <div key={lang} className="min-w-0">
+              <span className="mb-1 block text-[12px] font-medium text-ink/70">
+                {lang === "ko" ? t.ko : t.en}
+              </span>
+              <PicksField
+                value={drafts[lang]}
+                defaultValue={codeDefaults[lang]}
+                options={boardPosts[lang] ?? EMPTY_BOARD_OPTIONS[lang]}
                 disabled={disabled}
                 t={t}
                 onChange={(json) => onDraft(lang, json)}

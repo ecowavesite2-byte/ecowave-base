@@ -11,6 +11,7 @@ import FieldRow from "./FieldRow";
 import GroupTabs from "./GroupTabs";
 import SectionPreview from "./SectionPreview";
 import type {
+  BoardPostsMap,
   DefaultsMap,
   LocalePair,
   RegistryDef,
@@ -128,6 +129,9 @@ function uneditableWidgetTypes(section: Section | undefined, defs: RegistryDef[]
  */
 function defTargetMissing(section: Section | undefined, def: RegistryDef): boolean {
   if (!section) return false;
+  // `cards`/`picks` are section-level synthetic defs (they set `section.cards` /
+  // `section.picks`, not a widget field), so they never match the widget walk.
+  if (def.widgetId === "cards" || def.widgetId === "picks") return false;
   const visual = VISUAL_WIDGET.exec(def.widgetId);
   if (visual) {
     const index = Number(visual[1]);
@@ -147,12 +151,15 @@ export default function RegistryEditor({
   groups,
   defaults,
   trees,
+  boardPosts,
 }: {
   locale: AdminLocale;
   initialGroup: string;
   groups: string[];
   defaults: DefaultsMap;
   trees: TreesMap;
+  /** Server-loaded board posts for the `picks` editor (per content locale). */
+  boardPosts: BoardPostsMap;
 }) {
   const t = adminDict[locale].content;
 
@@ -506,6 +513,7 @@ export default function RegistryEditor({
                             disabled={!dbConfigured}
                             targetMissing={defTargetMissing(koTreeSection, def)}
                             t={t}
+                            boardPosts={boardPosts}
                             onDraft={(lang, value) => setDraft(def.key, lang, value)}
                             onSave={() => void save(def)}
                           />

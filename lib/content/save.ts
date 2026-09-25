@@ -47,8 +47,9 @@ function isValidMediaValue(value: string): boolean {
 
 /**
  * `slides` payloads are structured: a non-empty JSON array of
- * `{ bg: string | null, html: string }`. Rejecting malformed/empty payloads at
- * the API boundary keeps a bad request from blanking the hero (Gate-2 F3).
+ * `{ bg: string | null, title: string, subtitle?: string }`. Rejecting
+ * malformed/empty payloads at the API boundary keeps a bad request from
+ * blanking the hero (Gate-2 F3).
  */
 function isValidSlidesPayload(value: string): boolean {
   try {
@@ -56,10 +57,42 @@ function isValidSlidesPayload(value: string): boolean {
     if (!Array.isArray(parsed) || parsed.length === 0) return false;
     return parsed.every((entry) => {
       if (!entry || typeof entry !== "object" || Array.isArray(entry)) return false;
-      const slide = entry as { bg?: unknown; html?: unknown };
+      const slide = entry as { bg?: unknown; title?: unknown; subtitle?: unknown };
       const bgOk = slide.bg === null || typeof slide.bg === "string";
-      return bgOk && typeof slide.html === "string";
+      const titleOk = typeof slide.title === "string";
+      const subtitleOk = slide.subtitle === undefined || typeof slide.subtitle === "string";
+      return bgOk && titleOk && subtitleOk;
     });
+  } catch {
+    return false;
+  }
+}
+
+/** `cards` payloads: a non-empty JSON array of `{ lines: string[] }`. */
+function isValidCardsPayload(value: string): boolean {
+  try {
+    const parsed: unknown = JSON.parse(value);
+    if (!Array.isArray(parsed) || parsed.length === 0) return false;
+    return parsed.every((entry) => {
+      if (!entry || typeof entry !== "object" || Array.isArray(entry)) return false;
+      const lines = (entry as { lines?: unknown }).lines;
+      return Array.isArray(lines) && lines.every((line) => typeof line === "string");
+    });
+  } catch {
+    return false;
+  }
+}
+
+/** `picks` payloads: `{ board: "news" | "notices", idxs: string[] }` (non-empty). */
+function isValidPicksPayload(value: string): boolean {
+  try {
+    const parsed = JSON.parse(value) as { board?: unknown; idxs?: unknown };
+    if (parsed?.board !== "news" && parsed?.board !== "notices") return false;
+    return (
+      Array.isArray(parsed.idxs) &&
+      parsed.idxs.length > 0 &&
+      parsed.idxs.every((idx) => typeof idx === "string" || typeof idx === "number")
+    );
   } catch {
     return false;
   }
@@ -146,7 +179,21 @@ export async function saveContent({
   if (def.kind === "slides" && trimmedLength > 0 && !isValidSlidesPayload(value)) {
     return {
       ok: false,
-      message: "Invalid slides payload: expected a non-empty JSON array of { bg, html }",
+      message: "Invalid slides payload: expected a non-empty JSON array of { bg, title, subtitle }",
+    };
+  }
+
+  if (def.kind === "cards" && trimmedLength > 0 && !isValidCardsPayload(value)) {
+    return {
+      ok: false,
+      message: "Invalid cards payload: expected a non-empty JSON array of { lines }",
+    };
+  }
+
+  if (def.kind === "picks" && trimmedLength > 0 && !isValidPicksPayload(value)) {
+    return {
+      ok: false,
+      message: "Invalid picks payload: expected { board, idxs }",
     };
   }
 

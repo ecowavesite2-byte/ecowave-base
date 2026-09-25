@@ -31,7 +31,10 @@ const STAMP = Date.now();
 const LINE_MARK = `E2E-LINE-${STAMP}`;
 const SLIDE_MARK = `E2E-SLIDE-${STAMP}`;
 const LINK_MARK = `https://example.com/e2e-${STAMP}`;
-const LINES_KEY = "home#s20250811004ea868d7376/w202508116077d50475951/html";
+// Home text widgets with >=2 runs are split into `title` (run 0) + `desc`
+// (runs 1..n) — the vision heading widget is the canonical case.
+const TITLE_KEY = "home#s20250811004ea868d7376/w202508116077d50475951/title";
+const DESC_KEY = "home#s20250811004ea868d7376/w202508116077d50475951/desc";
 const SLIDES_KEY = "home#s20250811b5ffbb4730f67/visual/slides";
 
 const dev = spawn("npx", ["next", "dev", "--port", String(PORT)], {
@@ -126,20 +129,37 @@ try {
     footerInCommon: (commonKo.defs ?? []).some((d) => d.sectionId === "s20250811f489e3443bdbe"),
     footerNotInHome: !defs.some((d) => d.sectionId === "s20250811f489e3443bdbe"),
     documentOrder: seenSections.every((id, i) => expectedOrder[i] === id),
+    // Phase 4 model cleanups
+    noCodeDefs: !defs.some((d) => d.kind === "textarea"),
+    noHrefDefs: !defs.some((d) => d.field === "href"),
+    singleUrlDef: defs.filter((d) => d.kind === "url").length === 1,
+    overlayCards: defs.filter((d) => d.kind === "overlay").length === 4,
+    cardsDefPresent: defs.some((d) => d.kind === "cards"),
+    picksDefPresent: defs.some((d) => d.kind === "picks"),
+    backToTopGone: !defs.some((d) => d.sectionId === "s2025091161e916b59099f"),
   });
 
   /* ----------------------------------------------- B) plain-text `lines` apply */
-  const linesWrite = await put(LINES_KEY, "ko", `${LINE_MARK}-ONE\n${LINE_MARK}-TWO`);
+  const titleWrite = await put(TITLE_KEY, "ko", `${LINE_MARK}-TITLE`);
+  const descWrite = await put(DESC_KEY, "ko", `${LINE_MARK}-DESC-1\n${LINE_MARK}-DESC-2`);
   const linesHtml = await pageText("/");
   const linesApplied =
-    linesWrite.status === 200 && linesHtml.includes(`${LINE_MARK}-ONE`) && linesHtml.includes(`${LINE_MARK}-TWO`);
+    titleWrite.status === 200 &&
+    descWrite.status === 200 &&
+    linesHtml.includes(`${LINE_MARK}-TITLE`) &&
+    linesHtml.includes(`${LINE_MARK}-DESC-1`) &&
+    linesHtml.includes(`${LINE_MARK}-DESC-2`);
   // styling must survive: the injected text stays inside the authored 48px span
-  const stylePreserved = new RegExp(`font-size: 48px[^>]*>[^<]*${LINE_MARK}-ONE`).test(linesHtml.replace(/<strong>/g, ""));
-  await revert(LINES_KEY);
+  const stylePreserved = new RegExp(`font-size: 48px[^>]*>[^<]*${LINE_MARK}-TITLE`).test(
+    linesHtml.replace(/<strong>/g, ""),
+  );
+  await revert(TITLE_KEY);
+  await revert(DESC_KEY);
   const linesReverted = !(await pageText("/")).includes(LINE_MARK);
 
   section("linesApply", {
-    writeOk: linesWrite.status === 200,
+    titleWriteOk: titleWrite.status === 200,
+    descWriteOk: descWrite.status === 200,
     linesApplied,
     stylePreserved,
     linesReverted,
@@ -147,9 +167,9 @@ try {
 
   /* ---------------------------------------------------- C) `slides` list apply */
   const slidesPayload = JSON.stringify([
-    { bg: "/images/thumbnail/20250811/50e595a379834.jpg", html: "slide one" },
-    { bg: "/images/thumbnail/20250811/b8cb7e0cebd15.jpg", html: "slide two" },
-    { bg: "/images/thumbnail/20250811/50e595a379834.jpg", html: `slide three ${SLIDE_MARK}` },
+    { bg: "/images/thumbnail/20250811/50e595a379834.jpg", title: "slide one", subtitle: "sub one" },
+    { bg: "/images/thumbnail/20250811/b8cb7e0cebd15.jpg", title: "slide two", subtitle: "sub two" },
+    { bg: "/images/thumbnail/20250811/50e595a379834.jpg", title: `slide three ${SLIDE_MARK}`, subtitle: "" },
   ]);
   const slidesWrite = await put(SLIDES_KEY, "ko", slidesPayload);
   const afterSlides = await countHeroSlides();
@@ -166,20 +186,70 @@ try {
     slidesReverted,
   });
 
-  /* ------------------------------------------------- D) shared image href apply */
-  const linkDef = defs.find((d) => d.field === "href" && d.label.ko.startsWith("이미지"));
-  const linkWrite = linkDef ? await put(linkDef.key, "ko", LINK_MARK) : { status: 0 };
-  const linkKo = linkDef ? (await pageText("/")).includes(LINK_MARK) : false;
-  const linkEn = linkDef ? (await pageText("/en")).includes(LINK_MARK) : false;
-  if (linkDef) await revert(linkDef.key);
-  const linkReverted = linkDef ? !(await pageText("/")).includes(LINK_MARK) : false;
+  /* ------------------------------------------------- D) structured overrides */
+  // Overlay cards (vision): raw alt markup values replace the card label/title.
+  const overlayDef = defs.find((d) => d.kind === "overlay");
+  const overlayAlt =
+    `<div class="img-title"><div class="t-wrap"><div class="top-t"><P>${SLIDE_MARK}-LBL</P></div>` +
+    `<h5>${SLIDE_MARK}-TTL</h5></div></div>`;
+  const overlayWrite = overlayDef ? await put(overlayDef.key, "ko", overlayAlt) : { status: 0 };
+  const overlayHtml = await pageText("/");
+  const overlayApplied =
+    !!overlayDef && overlayWrite.status === 200 && overlayHtml.includes(`${SLIDE_MARK}-TTL`);
+  if (overlayDef) await revert(overlayDef.key);
+  const overlayReverted = !(await pageText("/")).includes(`${SLIDE_MARK}-TTL`);
 
-  section("linkApply", {
-    linkDefFound: Boolean(linkDef),
-    writeOk: linkWrite.status === 200,
-    appliedKo: linkKo,
-    appliedEn: linkEn,
-    reverted: linkReverted,
+  // Location cards: an N-entry list restructures the rendered card nodes.
+  const cardsDef = defs.find((d) => d.kind === "cards");
+  const cardsPayload = JSON.stringify([
+    { lines: ["CARD ONE"] },
+    { lines: ["CARD TWO"] },
+    { lines: ["CARD THREE"] },
+    { lines: [`CARD FOUR ${SLIDE_MARK}`] },
+  ]);
+  const cardsWrite = cardsDef ? await put(cardsDef.key, "ko", cardsPayload) : { status: 0 };
+  const cardsHtml = await pageText("/");
+  const cardsApplied = !!cardsDef && cardsWrite.status === 200 && cardsHtml.includes(`CARD FOUR ${SLIDE_MARK}`);
+  if (cardsDef) await revert(cardsDef.key);
+  const cardsReverted = !(await pageText("/")).includes(`CARD FOUR ${SLIDE_MARK}`);
+
+  // Ticker picks: board + explicit post ids drive the rendered posts.
+  const picksDef = defs.find((d) => d.kind === "picks");
+  const newsJson = JSON.parse(fs.readFileSync("content/ko/boards/news.json", "utf8"));
+  const firstNews = newsJson.posts?.[0];
+  const picksPayload = firstNews
+    ? JSON.stringify({ board: "news", idxs: [firstNews.idx] })
+    : null;
+  const picksWrite = picksDef && picksPayload ? await put(picksDef.key, "ko", picksPayload) : { status: 0 };
+  const picksHtml = picksPayload ? await pageText("/") : "";
+  const picksApplied = !!firstNews && picksWrite.status === 200 && picksHtml.includes(firstNews.title.slice(0, 12));
+  if (picksDef) await revert(picksDef.key);
+
+  // Video file source (F2): a file path renders the native player despite the
+  // crawled `w.html` iframe being present.
+  const videoDef = defs.find((d) => d.kind === "url");
+  const videoWrite = videoDef ? await put(videoDef.key, "ko", "/uploads/e2e-test.mp4") : { status: 0 };
+  const videoHtml = videoWrite.status === 200 ? await pageText("/") : "";
+  const videoApplied = videoWrite.status === 200 && /<video[^>]*e2e-test\.mp4/.test(videoHtml);
+  if (videoDef) await revert(videoDef.key);
+  const videoReverted = !(await pageText("/")).includes("e2e-test.mp4");
+
+  section("structuredOverrides", {
+    overlayDefFound: Boolean(overlayDef),
+    overlayWriteOk: overlayWrite.status === 200,
+    overlayApplied,
+    overlayReverted,
+    cardsDefFound: Boolean(cardsDef),
+    cardsWriteOk: cardsWrite.status === 200,
+    cardsApplied,
+    cardsReverted,
+    picksDefFound: Boolean(picksDef),
+    picksWriteOk: picksWrite.status === 200,
+    picksApplied,
+    videoDefFound: Boolean(videoDef),
+    videoWriteOk: videoWrite.status === 200,
+    videoApplied,
+    videoReverted,
   });
 
   /* ------------------------------------------------------------- E) admin UI */
@@ -204,16 +274,46 @@ try {
   const heroHeaderFound = (await heroHeader.count()) > 0;
   let slidesEditorShown = false;
   let addSlideGrewList = false;
+  let slidesPrefilled = false;
+  let slidesUiSaveApplied = false;
+  let slidesUiSaveReverted = null;
   if (heroHeaderFound) {
     await heroHeader.click();
     await page.waitForTimeout(800);
     const addBtn = page.locator("button", { hasText: /슬라이드 추가|Add slide/ }).first();
     slidesEditorShown = (await addBtn.count()) > 0;
-    const before = await page.locator("textarea").count();
-    if (slidesEditorShown) {
-      await addBtn.click();
-      await page.waitForTimeout(400);
-      addSlideGrewList = (await page.locator("textarea").count()) > before;
+    // F1 regression guard: the authored default must PRE-FILL the big/small text
+    const firstTitle = page.locator('[data-testid="slide-title"]').first();
+    const firstSubtitle = page.locator('[data-testid="slide-subtitle"]').first();
+    if ((await firstTitle.count()) > 0 && (await firstSubtitle.count()) > 0) {
+      const titleValue = await firstTitle.inputValue();
+      const subtitleValue = await firstSubtitle.inputValue();
+      slidesPrefilled = titleValue.trim().length > 0 && subtitleValue.trim().length > 0;
+
+      const before = await page.locator("textarea").count();
+      if (slidesEditorShown) {
+        await addBtn.click();
+        await page.waitForTimeout(400);
+        addSlideGrewList = (await page.locator("textarea").count()) > before;
+      }
+
+      // UI round-trip: edit the big text, save, assert it lands on `/`
+      await firstTitle.fill(`${SLIDE_MARK}-UI`);
+      await page.waitForTimeout(300);
+      const slidesRow = page.locator('div:has(textarea):has-text("visual/slides")').last();
+      await Promise.all([
+        page.waitForResponse(
+          (r) => r.url().includes("/api/admin/registry") && r.request().method() === "PUT",
+          { timeout: 20000 },
+        ).catch(() => null),
+        slidesRow.locator("button", { hasText: /저장|Save/ }).first().click(),
+      ]);
+      for (let i = 0; i < 20 && !slidesUiSaveApplied; i++) {
+        await page.waitForTimeout(800);
+        slidesUiSaveApplied = (await pageText("/")).includes(`${SLIDE_MARK}-UI`);
+      }
+      await revert(SLIDES_KEY);
+      slidesUiSaveReverted = !(await pageText("/")).includes(`${SLIDE_MARK}-UI`);
     }
   }
 
@@ -224,7 +324,8 @@ try {
   if ((await visionHeader.count()) > 0) {
     await visionHeader.click();
     await page.waitForTimeout(800);
-    const field = page.locator('div:has(textarea):has-text("w202508116077d50475951")').last();
+    // the title card carries the widget id + `/title` in its key line
+    const field = page.locator('div:has(textarea):has-text("w202508116077d50475951/title")').last();
     const area = field.locator("textarea").first();
     await area.waitFor({ timeout: 15000 });
     await area.fill(`${LINE_MARK}-UI`);
@@ -240,9 +341,26 @@ try {
       await page.waitForTimeout(800);
       linesUiSaveApplied = (await pageText("/")).includes(`${LINE_MARK}-UI`);
     }
-    await revert(LINES_KEY);
+    await revert(TITLE_KEY);
+    await revert(DESC_KEY);
     linesUiSaveReverted = !(await pageText("/")).includes(`${LINE_MARK}-UI`);
   }
+
+  // structured editors render with their testids (open each accordion in turn)
+  const editorPresence = { overlay: false, cards: false, picks: false, videoUpload: false };
+  const openAndCheck = async (labelText, testid, key) => {
+    const header = page.locator("button[aria-expanded]", { hasText: labelText }).first();
+    if ((await header.count()) === 0) return;
+    if ((await header.getAttribute("aria-expanded")) !== "true") {
+      await header.click();
+      await page.waitForTimeout(700);
+    }
+    editorPresence[key] = (await page.locator(`[data-testid="${testid}"]`).count()) > 0;
+  };
+  await openAndCheck("건강하고 깨끗한 물", "overlay-field", "overlay");
+  await openAndCheck("Headquarters", "cards-editor", "cards");
+  await openAndCheck("공지사항 티커", "picks-editor", "picks");
+  await openAndCheck("물을 깨끗하게", "video-upload", "videoUpload");
 
   section("adminUi", {
     accordionCount: ui.labels.length,
@@ -253,8 +371,15 @@ try {
     heroHeaderFound,
     slidesEditorShown,
     addSlideGrewList,
+    slidesPrefilled,
+    slidesUiSaveApplied,
+    slidesUiSaveReverted,
     linesUiSaveApplied,
     linesUiSaveReverted,
+    overlayEditorShown: editorPresence.overlay,
+    cardsEditorShown: editorPresence.cards,
+    picksEditorShown: editorPresence.picks,
+    videoUploadShown: editorPresence.videoUpload,
     labelsSample: labels.slice(0, 8),
   });
 

@@ -59,11 +59,21 @@ export type HeroSlide = {
   html: string;
 };
 
+/** One location holder card (home locations section; admin-editable list). */
+export type LocationCard = { lines: string[] };
+
+/** Ticker post selection (home notice ticker). */
+export type TickerPicks = { board: "news" | "notices"; idxs: string[] };
+
 export type Section = {
   id: string;
   cls?: string;
   /** visual hero slides (homepage visual_section) */
   visual?: HeroSlide[];
+  /** data-driven location cards (override); crawled markup is the default */
+  cards?: LocationCard[];
+  /** ticker post picks (override); first 4 news is the default */
+  picks?: TickerPicks;
   bg: string | null;
   /** original `.section_bg.fixed_bg_wrap` — pin the bg to the viewport */
   bgFixed?: boolean;

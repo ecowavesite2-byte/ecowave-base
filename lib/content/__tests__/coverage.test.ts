@@ -49,23 +49,6 @@ const ALLOWLIST: Record<string, string> = {
   // No structurally paired EN widget (ko/en type mismatch recorded by the generator).
   "company.about#s20250811457daf6e58a2c/w20250918684332dc780e7/html@en": NO_EN_COUNTERPART,
   "company.about#s20250918e40b7f78d4437/w20250918bf11a5c9a5e10/html@en": NO_EN_COUNTERPART,
-  // company.philosophy: the EN twins of these PC sections omit their trailing
-  // `code` widget (KO 8/5 widgets, EN 6/4) — no widget sits at the paired index.
-  "company.philosophy#s202508119eca72dc669e0/w202508119eca72dc669e0lbl/html@en": NO_EN_COUNTERPART,
-  "company.philosophy#s202508280e68f158799c2/w202508280e68f158799c2lbl/html@en": NO_EN_COUNTERPART,
-  // notices: section `…68c46f` holds `code,form,padding` in KO but `form,code,padding`
-  // in EN — the generator records code↔form type mismatches at both indices, so the
-  // KO `code` widget has no positionally paired EN widget.
-  "notices#s2025100213c204b68c46f/w20251002853d352b9298d/html@en": NO_EN_COUNTERPART,
-  // support: the KO page has only 5 sections while EN has 8 (the EN tree adds the
-  // two page-hero sections and a form/code section), so section indices 2/3 pair
-  // against unrelated EN sections (`padding,text,padding` / `padding,board`) —
-  // no widget sits at the paired index/type.
-  "support#s2025091161e916b59099f/w202509110e7da42eec27c/href@en": NO_EN_COUNTERPART,
-  "support#s2025091161e916b59099f/w20250911712afbc03dd48/html@en": NO_EN_COUNTERPART,
-  "support#s202508251581659561ee1/w2025082575878708b2b14/html@en": NO_EN_COUNTERPART,
-  "support#s2025091161e916b59099f/w202509110e7da42eec27c/alt@en": NO_EN_COUNTERPART,
-  "support#s2025091161e916b59099f/w202509110e7da42eec27c/src@en": NO_EN_COUNTERPART,
 };
 
 type DefKind = "page" | "site" | "board";
@@ -110,10 +93,14 @@ describe("override coverage (every CONTENT_DEFS key, both locales)", () => {
         //  - everything else (`lines`, text, image, url, list, gallery): plain.
         const value =
           def.kind === "slides"
-            ? JSON.stringify([{ bg: `/${marker}.png`, html: marker }])
-            : def.kind === "textarea"
-              ? `<p>${marker}</p>`
-              : marker;
+            ? JSON.stringify([{ bg: `/${marker}.png`, title: marker, subtitle: "" }])
+            : def.kind === "cards"
+              ? JSON.stringify([{ lines: [marker] }])
+              : def.kind === "picks"
+                ? JSON.stringify({ board: "news", idxs: [marker] })
+                : def.kind === "overlay" || def.kind === "textarea"
+                  ? `<p>${marker}</p>`
+                  : marker;
         let merged: unknown;
 
         try {
@@ -164,16 +151,15 @@ describe("override coverage (every CONTENT_DEFS key, both locales)", () => {
     }
 
     expect(failures).toEqual([]);
-    // 586 defs × 2 locales − 20 allowlisted applications (10 board-post +
-    // 10 EN positions with no structurally paired widget).
+    // 472 defs × 2 locales − 12 allowlisted applications (5 board-post entries
+    // count once per locale + 2 EN positions with no structurally paired widget).
     // Dead sections are excluded from the registry by the generator: the footer
-    // copies on non-home pages (SiteFooter renders home's) and the leading
-    // page-title hero band of each channel (rebuilt as <PageHero> from nav).
-    // Markup-only text widgets (logo/structure html with no text nodes) are also
-    // excluded — a `lines` def there could only clobber the markup (Gate-2 F2).
-    expect(allowlisted.length).toBe(20);
-    expect(applied).toBe(CONTENT_DEFS.length * LOCALES.length - 20);
-    expect(applied).toBe(1152);
+    // copies on non-home pages (SiteFooter renders home's), the leading
+    // page-title hero band of each channel (rebuilt as <PageHero> from nav),
+    // code widgets, markup-only text widgets and the mobile back-to-top section.
+    expect(allowlisted.length).toBe(12);
+    expect(applied).toBe(CONTENT_DEFS.length * LOCALES.length - 12);
+    expect(applied).toBe(932);
     expect(applied).toBe(expectedApplied);
   });
 
@@ -199,17 +185,18 @@ describe("override coverage (every CONTENT_DEFS key, both locales)", () => {
     const ko = getPage("ko", "home");
     const key = "home#s20250811b5ffbb4730f67/visual/slides";
     const payload = JSON.stringify([
-      { bg: "/a.jpg", html: "first" },
-      { bg: "/b.jpg", html: "second" },
-      { bg: "/c.jpg", html: "third" },
+      { bg: "/a.jpg", title: "first title", subtitle: "first sub" },
+      { bg: "/b.jpg", title: "second title", subtitle: "second sub" },
+      { bg: "/c.jpg", title: "third title", subtitle: "third sub" },
     ]);
 
     const merged = applyPageOverrides(ko, { [key]: payload }, "ko");
     const hero = merged.sections.find((s) => s.id === "s20250811b5ffbb4730f67");
     expect(hero?.visual?.map((s) => s.bg)).toEqual(["/a.jpg", "/b.jpg", "/c.jpg"]);
     expect(hero?.visual?.length).toBe(3);
-    expect(hero?.visual?.[0].html).toContain("first");
-    expect(hero?.visual?.[2].html).toContain("third");
+    expect(hero?.visual?.[0].html).toContain("first title");
+    expect(hero?.visual?.[0].html).toContain("first sub");
+    expect(hero?.visual?.[2].html).toContain("third title");
     // an added slide reuses the last authored slide's styled template
     expect(hero?.visual?.[2].html).toContain("<span");
   });

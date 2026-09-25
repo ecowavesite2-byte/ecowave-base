@@ -89,13 +89,11 @@ describe("applyPageOverrides", () => {
     expect(JSON.stringify(home)).toBe(before);
   });
 
-  it("round-trips html, src, alt, text, href and gallery item fields", () => {
+  it("round-trips src, alt, text and gallery item fields", () => {
     const fields = [
-      /^html$/,
       /^src$/,
       /^alt$/,
       /^text$/,
-      /^href$/,
       /^items\[\d+\]\.title$/,
       /^items\[\d+\]\.desc$/,
       /^items\[\d+\]\.org$/,
@@ -108,12 +106,9 @@ describe("applyPageOverrides", () => {
           pattern.test(d.field) &&
           typeof DEFAULT_VALUES[d.key]?.ko === "string" &&
           readPage(d.pageKey) !== null &&
-          // `html` now spans two contracts: raw `textarea` (code blocks, applied
-          // verbatim) and `lines` (plain text injected into the crawl markup).
-          // Byte-round-trip the raw one here; the `lines` contract is covered by
-          // text-runs.test.ts and the coverage marker test.
-          (pattern.source !== "^html$" ||
-            (d.kind === "textarea" && DEFAULT_VALUES[d.key].ko!.includes("<"))),
+          // `html` is no longer a raw field (code defs were removed); `alt`
+          // now exists only as the raw `overlay` kind.
+          (pattern.source !== "^alt$" || d.kind === "overlay"),
       );
       expect(def, `no registry def for ${pattern}`).toBeDefined();
 
@@ -131,23 +126,24 @@ describe("applyPageOverrides", () => {
   });
 
   it("uses the def kind to choose raw HTML vs plain-text injection (Gate-2 F4)", () => {
-    const linesKey = "home#s20250811004ea868d7376/w202508116077d50475951/html";
-    const codeKey = "home#s20250811004ea868d7376/w2025081108d44efc92e85/html";
+    const titleDef = CONTENT_DEFS.find((d) => d.pageKey === "home" && d.field === "title");
+    const overlayDef = CONTENT_DEFS.find((d) => d.pageKey === "home" && d.kind === "overlay");
+    expect(titleDef).toBeDefined();
+    expect(overlayDef).toBeDefined();
 
     // A `lines` value containing "<" is plain text: it is injected/escaped, not
-    // applied as markup, and the authored 48px span survives.
-    const lines = applyPageOverrides(home, { [linesKey]: "pH < 7" }, "ko", {
-      kinds: { [linesKey]: "lines" },
+    // applied as markup.
+    const lines = applyPageOverrides(home, { [titleDef!.key]: "pH < 7" }, "ko", {
+      kinds: { [titleDef!.key]: "lines" },
     });
     const linesJson = JSON.stringify(lines);
     expect(linesJson).toContain("pH &lt; 7");
-    expect(linesJson).toContain("font-size: 48px");
 
-    // A `textarea` (code) value is raw HTML and wins verbatim.
-    const raw = applyPageOverrides(home, { [codeKey]: "<p>raw</p>" }, "ko", {
-      kinds: { [codeKey]: "textarea" },
+    // An `overlay` value is raw alt markup and wins verbatim.
+    const raw = applyPageOverrides(home, { [overlayDef!.key]: '<p class="x">raw</p>' }, "ko", {
+      kinds: { [overlayDef!.key]: "overlay" },
     });
-    expect(JSON.stringify(raw)).toContain("<p>raw</p>");
+    expect(JSON.stringify(raw)).toContain('<p class=\\"x\\">raw</p>');
   });
 
   it("ignores unknown, malformed and out-of-range keys", () => {

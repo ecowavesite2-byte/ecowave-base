@@ -1,6 +1,12 @@
 import { getAdminLocale } from "../../_components/adminLocale";
 import RegistryEditor from "../../_components/registry/RegistryEditor";
-import type { DefaultsMap, PageTree, TreesMap } from "../../_components/registry/types";
+import type {
+  BoardPostOption,
+  BoardPostsMap,
+  DefaultsMap,
+  PageTree,
+  TreesMap,
+} from "../../_components/registry/types";
 import {
   CONTENT_DEFS,
   CONTENT_GROUPS,
@@ -8,7 +14,8 @@ import {
   type ContentGroup,
 } from "@/lib/content/registry";
 import { getPage } from "@/lib/content/read";
-import type { Section } from "@/lib/types";
+import { getResolvedBoard } from "@/lib/content/resolved";
+import type { BoardPost, Section } from "@/lib/types";
 
 export const metadata = { title: "Content" };
 
@@ -32,6 +39,43 @@ function safeSections(locale: "ko" | "en", pageKey: string): Section[] | null {
   } catch {
     return null;
   }
+}
+
+const EMPTY_BOARD_POSTS: BoardPostsMap = {
+  ko: { news: [], notices: [] },
+  en: { news: [], notices: [] },
+};
+
+/** Compact server-side post options for the ticker `picks` editor (cap 50). */
+function compactPosts(posts: BoardPost[]): BoardPostOption[] {
+  return posts.slice(0, 50).map((post) => ({
+    idx: post.idx,
+    title: post.title,
+    date: post.date,
+  }));
+}
+
+/**
+ * Board options for both ticker boards, per CONTENT locale (post ids differ
+ * between KO and EN, so each editor column needs its own set). Only loaded for
+ * the home group, which is the only place a `picks` def exists.
+ */
+async function loadBoardPosts(): Promise<BoardPostsMap> {
+  const langs = ["ko", "en"] as const;
+  const out: BoardPostsMap = {
+    ko: { news: [], notices: [] },
+    en: { news: [], notices: [] },
+  };
+  await Promise.all(
+    langs.map(async (lang) => {
+      const [news, notices] = await Promise.all([
+        getResolvedBoard(lang, "news"),
+        getResolvedBoard(lang, "notices"),
+      ]);
+      out[lang] = { news: compactPosts(news.posts), notices: compactPosts(notices.posts) };
+    }),
+  );
+  return out;
 }
 
 export default async function ContentRegistryPage({
@@ -67,6 +111,10 @@ export default async function ContentRegistryPage({
     trees[def.pageKey] = tree;
   }
 
+  // Board options exist for the home ticker `picks` def only. Other groups skip
+  // the (DB-backed) board reads entirely.
+  const boardPosts = group === "home" ? await loadBoardPosts() : EMPTY_BOARD_POSTS;
+
   return (
     <RegistryEditor
       locale={locale}
@@ -74,6 +122,7 @@ export default async function ContentRegistryPage({
       groups={[...CONTENT_GROUPS]}
       defaults={defaults}
       trees={trees}
+      boardPosts={boardPosts}
     />
   );
 }

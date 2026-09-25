@@ -10,13 +10,14 @@ import type { RegistryLocale } from "./types";
  * Dynamic `slides` editor — the home hero slide list.
  *
  * The value is a JSON array stored as one override string:
- *   `[{ bg: string | null, html: string }]`
- * where `html` holds the plain-text lines for that slide (`\n`-separated, no
- * HTML). Empty `value` reverts to the code default; every mutation re-serializes
- * the WHOLE list so the runtime always replaces `section.visual` atomically.
+ *   `[{ bg: string | null, title: string, subtitle: string }]`
+ * where `title` holds the big copy lines and `subtitle` the small ones
+ * (`\n`-separated plain text or inline HTML). Empty `value` reverts to the code
+ * default; every mutation re-serializes the WHOLE list so the runtime always
+ * replaces `section.visual` atomically.
  */
 
-type Slide = { bg: string | null; html: string };
+type Slide = { bg: string | null; title: string; subtitle: string };
 
 /** Parse the stored JSON; `null` means "malformed" (caller falls back). */
 function parseSlides(json: string): Slide[] | null {
@@ -30,7 +31,8 @@ function parseSlides(json: string): Slide[] | null {
           : {};
       return {
         bg: typeof record.bg === "string" ? record.bg : null,
-        html: typeof record.html === "string" ? record.html : "",
+        title: typeof record.title === "string" ? record.title : "",
+        subtitle: typeof record.subtitle === "string" ? record.subtitle : "",
       };
     });
   } catch {
@@ -91,14 +93,14 @@ export default function SlidesField({
     commit(next);
   };
 
-  const add = () => commit([...slides, { bg: "", html: "" }]);
+  const add = () => commit([...slides, { bg: "", title: "", subtitle: "" }]);
 
   return (
     <div className="space-y-2">
       {invalid ? <p className="text-[11px] text-amber-600">{t.slidesInvalid}</p> : null}
 
       {slides.map((slide, index) => (
-        <div key={index} className={CARD}>
+        <div key={index} data-testid="slide-card" className={CARD}>
           <div className="flex items-center gap-1.5">
             <span className="min-w-0 flex-1 truncate text-[13px] font-medium text-ink">
               {t.slidesSlide(index + 1)}
@@ -146,12 +148,24 @@ export default function SlidesField({
               />
             </div>
             <label className="block min-w-0">
-              <span className="mb-1 block text-[11px] text-muted">{t.slidesText}</span>
+              <span className="mb-1 block text-[11px] text-muted">{t.slidesTitle}</span>
               <textarea
-                rows={3}
-                value={slide.html}
+                data-testid="slide-title"
+                rows={2}
+                value={slide.title}
                 disabled={disabled}
-                onChange={(event) => update(index, { html: event.target.value })}
+                onChange={(event) => update(index, { title: event.target.value })}
+                className={TEXTAREA}
+              />
+            </label>
+            <label className="block min-w-0">
+              <span className="mb-1 block text-[11px] text-muted">{t.slidesSubtitle}</span>
+              <textarea
+                data-testid="slide-subtitle"
+                rows={3}
+                value={slide.subtitle}
+                disabled={disabled}
+                onChange={(event) => update(index, { subtitle: event.target.value })}
                 className={TEXTAREA}
               />
             </label>

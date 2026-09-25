@@ -157,6 +157,31 @@ export interface AdminDict {
     imageUploadFailed: string;
     imagePreview: string;
     imageClear: string;
+    /** Clears the image override (revert to the code default). */
+    imageReset: string;
+    /** Video upload control for the video-source `url` def. */
+    videoUpload: string;
+    videoUploading: string;
+    videoUploadFailed: string;
+    /** `overlay` (vision card label/title) editor. */
+    overlayLabel: string;
+    overlayTitle: string;
+    overlayHint: string;
+    /** Shown when the stored/default alt carries no overlay markup to edit. */
+    overlayInvalid: string;
+    /** `cards` (location card list) editor. */
+    cardsCard: (n: number) => string;
+    cardsAdd: string;
+    cardsRemove: string;
+    cardsMoveUp: string;
+    cardsMoveDown: string;
+    cardsHint: string;
+    /** `picks` (ticker board post selection) editor. */
+    picksBoard: string;
+    picksBoardNews: string;
+    picksBoardNotices: string;
+    picksHint: string;
+    picksNoPosts: string;
     /** Dynamic `list` editor. */
     listItems: (count: number) => string;
     listEmpty: string;
@@ -189,7 +214,10 @@ export interface AdminDict {
     slidesMoveUp: string;
     slidesMoveDown: string;
     slidesImage: string;
-    slidesText: string;
+    /** Big hero title copy of one slide. */
+    slidesTitle: string;
+    /** Small subtitle copy of one slide. */
+    slidesSubtitle: string;
     slidesHint: string;
     slidesInvalid: string;
     /** Card header for slide `n` (1-based). */
@@ -466,6 +494,9 @@ const ko: AdminDict = {
       url: "링크",
       list: "목록",
       slides: "슬라이드 목록",
+      overlay: "카드 제목/라벨",
+      cards: "위치 카드",
+      picks: "표시할 게시글",
     },
     fieldCount: (count) => `${count}개 필드`,
     save: "저장",
@@ -486,6 +517,25 @@ const ko: AdminDict = {
     imageUploadFailed: "업로드 실패",
     imagePreview: "미리보기",
     imageClear: "선택 취소",
+    imageReset: "기본값으로 초기화",
+    videoUpload: "동영상 업로드",
+    videoUploading: "업로드 중…",
+    videoUploadFailed: "업로드 실패",
+    overlayLabel: "라벨",
+    overlayTitle: "제목",
+    overlayHint: "라벨·제목을 모두 비우면 기존 카드 문구가 유지됩니다.",
+    overlayInvalid: "이 카드에는 편집할 오버레이 문구가 없습니다.",
+    cardsCard: (n) => `카드 ${n}`,
+    cardsAdd: "카드 추가",
+    cardsRemove: "삭제",
+    cardsMoveUp: "위로",
+    cardsMoveDown: "아래로",
+    cardsHint: "카드마다 한 줄에 하나씩 입력하세요. <b>처럼 HTML 태그를 섞어도 됩니다.",
+    picksBoard: "게시판",
+    picksBoardNews: "뉴스",
+    picksBoardNotices: "공지사항",
+    picksHint: "선택한 게시글이 순서대로 표시됩니다. 아무것도 선택하지 않으면 최신 4개가 표시됩니다.",
+    picksNoPosts: "표시할 게시글이 없습니다.",
     listItems: (count) => `${count}개 항목`,
     listEmpty: "항목이 없습니다. 아래 버튼으로 추가하세요.",
     listAdd: "항목 추가",
@@ -509,14 +559,17 @@ const ko: AdminDict = {
     unnamedSection: "이름 없는 섹션",
     uneditableHint: (types) => `편집할 수 없는 위젯: ${types}`,
     targetMissing: "대상 없음",
-    linesHint: "한 줄에 하나씩 입력하세요. 글자 크기·색 등 스타일은 원본 그대로 유지됩니다.",
+    linesHint:
+      "한 줄에 하나씩 입력하세요. 텍스트만 입력하거나 <b>처럼 HTML 태그를 섞어도 됩니다. 글자 크기·색 등 기본 스타일은 유지됩니다.",
     slidesAdd: "슬라이드 추가",
     slidesRemove: "삭제",
     slidesMoveUp: "위로",
     slidesMoveDown: "아래로",
     slidesImage: "이미지",
-    slidesText: "문구",
-    slidesHint: "슬라이드는 모든 화면에 함께 적용됩니다. 문구는 한 줄에 하나씩.",
+    slidesTitle: "큰 문구",
+    slidesSubtitle: "작은 문구",
+    slidesHint:
+      "슬라이드는 모든 화면에 함께 적용됩니다. 큰 문구·작은 문구는 각각 한 줄에 하나씩 입력하세요.",
     slidesInvalid: "저장된 값 형식이 올바르지 않습니다.",
     slidesSlide: (n) => `슬라이드 ${n}`,
   },
@@ -763,6 +816,9 @@ const en: AdminDict = {
       url: "Link",
       list: "List",
       slides: "Slides",
+      overlay: "Card label & title",
+      cards: "Location cards",
+      picks: "Posts to show",
     },
     fieldCount: (count) => `${count} fields`,
     save: "Save",
@@ -783,6 +839,25 @@ const en: AdminDict = {
     imageUploadFailed: "Upload failed",
     imagePreview: "Preview",
     imageClear: "Clear",
+    imageReset: "Reset to default",
+    videoUpload: "Upload video",
+    videoUploading: "Uploading…",
+    videoUploadFailed: "Upload failed",
+    overlayLabel: "Label",
+    overlayTitle: "Title",
+    overlayHint: "If both label and title are empty, the existing card copy is kept.",
+    overlayInvalid: "This card has no overlay copy to edit.",
+    cardsCard: (n) => `Card ${n}`,
+    cardsAdd: "Add card",
+    cardsRemove: "Remove",
+    cardsMoveUp: "Move up",
+    cardsMoveDown: "Move down",
+    cardsHint: "One line per design line in each card. HTML tags like <b> are allowed.",
+    picksBoard: "Board",
+    picksBoardNews: "News",
+    picksBoardNotices: "Notices",
+    picksHint: "Selected posts are shown in order. With nothing selected, the latest four are used.",
+    picksNoPosts: "No posts to choose from.",
     listItems: (count) => `${count} items`,
     listEmpty: "No items yet. Add one below.",
     listAdd: "Add item",
@@ -806,14 +881,16 @@ const en: AdminDict = {
     unnamedSection: "Unnamed section",
     uneditableHint: (types) => `Not editable here: ${types}`,
     targetMissing: "Target missing",
-    linesHint: "One line per design line. Sizes, colors and other styles stay fixed.",
+    linesHint:
+      "One line per design line. Enter plain text, or mix in HTML tags like <b>. Font sizes, colors and other base styles stay fixed.",
     slidesAdd: "Add slide",
     slidesRemove: "Remove",
     slidesMoveUp: "Move up",
     slidesMoveDown: "Move down",
     slidesImage: "Image",
-    slidesText: "Text",
-    slidesHint: "Slides apply to every screen. One line per line of copy.",
+    slidesTitle: "Big text",
+    slidesSubtitle: "Small text",
+    slidesHint: "Slides apply to every screen. Enter one line per line in each text box.",
     slidesInvalid: "The stored value is not valid JSON.",
     slidesSlide: (n) => `Slide ${n}`,
   },

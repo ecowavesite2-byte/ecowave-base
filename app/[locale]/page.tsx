@@ -3,7 +3,7 @@ import HeroCarousel from "@/components/sections/home/HeroCarousel";
 import SectionRenderer, { Rows, MOBILE_SECTION } from "@/components/content/SectionRenderer";
 import { getResolvedBoard, getResolvedPage } from "@/lib/content/resolved";
 import { isLocale, defaultLocale, localeHref } from "@/lib/i18n";
-import type { ColNode, Node, PageContent, RowNode } from "@/lib/types";
+import type { BoardPost, ColNode, Node, PageContent, RowNode } from "@/lib/types";
 
 const FOOTER_SECTION_ID = "s20250811f489e3443bdbe";
 const TICKER_SECTION_ID = "s2025081139ff276cae8d6";
@@ -59,6 +59,24 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       )
     : [];
   const tickerHeaderRow = tickerHeaderRows.find((r) => r.h === 116);
+  // Ticker post selection: a `picks` override lists board post ids to render in
+  // that exact order (missing ids skipped); without one the ticker keeps the
+  // historic first four news posts. The chosen board is only fetched when it is
+  // not the already-resolved `news`.
+  const tickerPicks = tickerSec?.picks;
+  let tickerPosts: BoardPost[];
+  if (tickerPicks?.idxs?.length) {
+    const board = tickerPicks.board === "news" ? news : await getResolvedBoard(l, tickerPicks.board);
+    const byIdx = new Map(board.posts.map((post) => [post.idx, post]));
+    tickerPosts = tickerPicks.idxs
+      .map((idx) => byIdx.get(idx))
+      .filter((post): post is BoardPost => post !== undefined);
+  } else {
+    tickerPosts = news.posts.slice(0, 4);
+  }
+  // Stale picks (deleted ids / board mismatch) can resolve to zero posts; fall
+  // back to the latest news so the ticker never renders empty.
+  if (tickerPosts.length === 0) tickerPosts = news.posts.slice(0, 4);
   const rest = page.sections.filter((s) => !s.visual && s.id !== TICKER_SECTION_ID && s.id !== FOOTER_SECTION_ID);
 
   return (
@@ -123,9 +141,9 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                   (probe: first `._post_item_wrap` computes opacity 1,
                   animation-name none, visibility visible); the previous local
                   staggered `fadeInUp` had no counterpart. */}
-              {news.posts.slice(0, 4).map((p, i) => (
+              {tickerPosts.map((p, i) => (
                 <div key={p.idx} className={`w-1/2 p-[7.5px] lg:w-auto lg:flex-1 lg:p-[15px] ${i >= 2 ? " hidden lg:block" : ""}`}>
-                  <Link href={localeHref(l, `/news/${p.idx}`)} className="group block h-[283px] overflow-hidden bg-white lg:h-auto lg:overflow-visible">
+                  <Link href={localeHref(l, `/${tickerPicks?.board ?? "news"}/${p.idx}`)} className="group block h-[283px] overflow-hidden bg-white lg:h-auto lg:overflow-visible">
                     <div className="relative h-[142px] w-full overflow-hidden lg:h-[179px]">
                       {p.thumb && (
                         // eslint-disable-next-line @next/next/no-img-element
