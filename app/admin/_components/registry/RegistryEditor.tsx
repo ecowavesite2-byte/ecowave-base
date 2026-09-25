@@ -246,6 +246,12 @@ export default function RegistryEditor({
 
   const openItem = items.find((item) => item.key === openSection) ?? null;
 
+  /** Override key → kind, so the preview applies the same `html` contract as the runtime. */
+  const overrideKinds = useMemo(
+    () => Object.fromEntries(defs.map((def) => [def.key, def.kind])),
+    [defs],
+  );
+
   /** Default for a locale; an effective value equal to it means "no override". */
   function baseline(key: string, lang: RegistryLocale): string {
     const effective = values[key]?.[lang] ?? "";
@@ -362,7 +368,7 @@ export default function RegistryEditor({
     const resolveSection = (ko: Section, en: Section[] | null): Section | null => {
       if (previewLang === "ko") {
         const page: PageContent = { key: openItem.pageKey, sourceUrl: "", title: "", sections: [ko] };
-        return applyPageOverrides(page, draftOverrides, "ko").sections[0] ?? null;
+        return applyPageOverrides(page, draftOverrides, "ko", { kinds: overrideKinds }).sections[0] ?? null;
       }
       if (!en) return null;
       const index = koTree.indexOf(ko);
@@ -370,7 +376,7 @@ export default function RegistryEditor({
       if (!enSection) return null;
       const primary: PageContent = { key: openItem.pageKey, sourceUrl: "", title: "", sections: [ko] };
       const page: PageContent = { key: openItem.pageKey, sourceUrl: "", title: "", sections: [enSection] };
-      return applyPageOverrides(page, draftOverrides, "en", { primaryPage: primary }).sections[0] ?? null;
+      return applyPageOverrides(page, draftOverrides, "en", { primaryPage: primary, kinds: overrideKinds }).sections[0] ?? null;
     };
 
     try {
@@ -379,7 +385,7 @@ export default function RegistryEditor({
     } catch {
       return { kind: "unavailable" };
     }
-  }, [openItem, trees, draftOverrides, previewLang]);
+  }, [openItem, trees, draftOverrides, previewLang, overrideKinds]);
 
   const pageLabels = t.pageLabels as Record<string, string | undefined>;
 

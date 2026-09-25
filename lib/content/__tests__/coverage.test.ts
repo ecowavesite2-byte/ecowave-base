@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { PageContent } from "../../types";
-import { CONTENT_DEFS } from "../registry";
+import { CONTENT_DEFS, CONTENT_DEF_MAP } from "../registry";
 import { applyBoardOverrides, applyPageOverrides, applySiteOverrides } from "../merge";
 import { sectionWidgets } from "../pair";
 import { getBoard, getPage, getSite } from "../read";
@@ -19,6 +19,11 @@ import { getBoard, getPage, getSite } from "../read";
 
 type Locale = "ko" | "en";
 const LOCALES: Locale[] = ["ko", "en"];
+
+/** key → kind, so the harness exercises the same `html` contract as runtime. */
+const KINDS: Record<string, string> = Object.fromEntries(
+  Object.values(CONTENT_DEF_MAP).map((def) => [def.key, def.kind]),
+);
 
 const NO_EN_COUNTERPART =
   "no structurally paired EN widget (ko/en type mismatch recorded by the generator)";
@@ -130,6 +135,7 @@ describe("override coverage (every CONTENT_DEFS key, both locales)", () => {
             const primary = locale === "ko" ? null : cachedPage("ko", def.pageKey);
             merged = applyPageOverrides(base, { [def.key]: value }, locale, {
               primaryPage: primary,
+              kinds: KINDS,
             });
           }
         } catch (error) {

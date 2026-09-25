@@ -130,6 +130,26 @@ describe("applyPageOverrides", () => {
     }
   });
 
+  it("uses the def kind to choose raw HTML vs plain-text injection (Gate-2 F4)", () => {
+    const linesKey = "home#s20250811004ea868d7376/w202508116077d50475951/html";
+    const codeKey = "home#s20250811004ea868d7376/w2025081108d44efc92e85/html";
+
+    // A `lines` value containing "<" is plain text: it is injected/escaped, not
+    // applied as markup, and the authored 48px span survives.
+    const lines = applyPageOverrides(home, { [linesKey]: "pH < 7" }, "ko", {
+      kinds: { [linesKey]: "lines" },
+    });
+    const linesJson = JSON.stringify(lines);
+    expect(linesJson).toContain("pH &lt; 7");
+    expect(linesJson).toContain("font-size: 48px");
+
+    // A `textarea` (code) value is raw HTML and wins verbatim.
+    const raw = applyPageOverrides(home, { [codeKey]: "<p>raw</p>" }, "ko", {
+      kinds: { [codeKey]: "textarea" },
+    });
+    expect(JSON.stringify(raw)).toContain("<p>raw</p>");
+  });
+
   it("ignores unknown, malformed and out-of-range keys", () => {
     const out = applyPageOverrides(
       home,

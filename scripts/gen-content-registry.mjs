@@ -11,7 +11,7 @@
 
 import fs from "node:fs";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
@@ -54,8 +54,6 @@ const LABELS = {
   imageHref: { ko: "이미지 링크", en: "Image link" },
   videoSrc: { ko: "동영상 URL", en: "Video URL" },
   codeBlock: { ko: "코드 블록", en: "Code block" },
-  heroImage: { ko: "히어로 이미지", en: "Hero image" },
-  heroText: { ko: "히어로 문구", en: "Hero text" },
   heroSlides: { ko: "메인 비주얼 슬라이드", en: "Main visual slides" },
   menuTitle: { ko: "메뉴 제목", en: "Menu title" },
   navLabel: { ko: "내비게이션 라벨", en: "Nav label" },
@@ -277,9 +275,10 @@ function stripTags(html) {
 /**
  * Plain-text runs of an html string — MIRROR of `extractTextRuns` in
  * `lib/content/text-runs.ts`. This script is plain .mjs so the tokenizer is
- * duplicated; keep both implementations in sync.
+ * duplicated; `lib/content/__tests__/registry-tokenizer.test.ts` asserts parity
+ * on crawled fixtures so the two can never silently drift.
  */
-function decodeEntities(value) {
+export function decodeEntities(value) {
   return String(value ?? "")
     .replace(/&nbsp;/g, " ")
     .replace(/&amp;/g, "&")
@@ -289,7 +288,7 @@ function decodeEntities(value) {
     .replace(/&#39;/g, "'");
 }
 
-function textRuns(html) {
+export function textRuns(html) {
   const out = [];
   const parts = String(html ?? "").split(/(<[^>]*>)/g);
   for (let i = 0; i < parts.length; i += 2) {
@@ -935,7 +934,6 @@ function main() {
     return Math.max(max, (value?.ko?.length ?? 0), (value?.en?.length ?? 0));
   }, 0);
 
-  console.log(`wrote ${path.relative(ROOT, OUT_FILE)}`);
   console.log(`  CONTENT_DEFS: ${sorted.length}`);
   console.log(`  by group: ${JSON.stringify(byGroup)}`);
   console.log(`  by kind: ${JSON.stringify(byKind)}`);
@@ -950,4 +948,10 @@ function main() {
   }
 }
 
-main();
+// Run only when invoked directly (`node scripts/gen-content-registry.mjs`);
+// importing the module (e.g. the tokenizer parity test) must have no side
+// effects.
+const isDirectRun =
+  !!process.argv[1] &&
+  import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href;
+if (isDirectRun) main();

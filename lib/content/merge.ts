@@ -1,5 +1,5 @@
-import type { BoardContent, BoardPost, HeroSlide, PageContent, Section, SiteData, WidgetNode } from "../types";
-import { resolvePairedSection, resolvePairedWidget, type ResolvedTarget } from "./pair";
+import type { BoardContent, BoardPost, PageContent, Section, SiteData, WidgetNode } from "../types";
+import { resolvePairedSection, resolvePairedWidget } from "./pair";
 import { injectTextRuns } from "./text-runs";
 
 /**
@@ -69,30 +69,26 @@ function deepClone<T>(value: T): T {
  * `target` is a widget node or a hero slide (`visual[i]`); fields not valid for
  * the resolved target are ignored.
  */
-function applyWidgetField(target: ResolvedTarget, field: string, value: string): void {
+function applyWidgetField(widget: WidgetNode, field: string, value: string, rawHtml: boolean): void {
   switch (field) {
     case "html":
-      // `lines` values are PLAIN TEXT: inject them into the widget's existing
-      // styled markup so the admin edits copy while the styles stay fixed. A
-      // value that already contains tags is a legacy raw-HTML override and is
-      // applied verbatim.
-      target.html = value.includes("<") ? value : injectTextRuns(target.html, value);
-      return;
-    case "bg":
-      // hero slide image (`visual[i]/bg`)
-      if ("bg" in target) target.bg = value;
+      // `lines` fields are PLAIN TEXT: inject the value into the widget's
+      // existing styled markup so admins edit copy while styles stay fixed.
+      // `textarea` (code) fields are raw HTML and apply verbatim; the caller
+      // decides which contract applies via `rawHtml` (Gate-2 F4).
+      widget.html = rawHtml ? value : injectTextRuns(widget.html, value);
       return;
     case "src":
-      (target as WidgetNode).src = value;
+      widget.src = value;
       return;
     case "alt":
-      (target as WidgetNode).alt = value;
+      widget.alt = value;
       return;
     case "text":
-      (target as WidgetNode).text = value;
+      widget.text = value;
       return;
     case "href":
-      (target as WidgetNode).href = value;
+      widget.href = value;
       return;
     default:
       break;
@@ -103,7 +99,7 @@ function applyWidgetField(target: ResolvedTarget, field: string, value: string):
 
   const index = Number(match[1]);
   const prop = match[2] as "title" | "desc" | "org" | "thumb";
-  const items = "items" in target ? target.items : undefined;
+  const items = widget.items;
   if (!Array.isArray(items) || index < 0 || index >= items.length) return;
 
   const item = items[index];
@@ -146,6 +142,10 @@ function parseSlides(value: string): SlideInput[] | null {
  * authored slide at the same index supplies the styled markup (`html` values are
  * plain text); slides added beyond the authored list reuse the last authored
  * slide's styling, and `bgColor` is preserved per authored index.
+ *
+ * Reorder maps the template by POSITION, not identity: the EN authored slide 2
+ * has slightly different markup (no font classes), so moving slides re-injects
+ * the text into the destination template — accepted (Gate-2 F5).
  */
 function applySlides(section: Section, slides: SlideInput[]): void {
   // Never blank the hero: the UI prevents removing the last slide, but an API
@@ -169,6 +169,13 @@ export interface ApplyPageOptions {
    * pair target widgets in a non-primary locale; ignored on the ko fast path.
    */
   primaryPage?: PageContent | null;
+  /**
+   * Override key → registry kind (`lines`, `textarea`, `image`, `slides`, …).
+   * The applier needs it for the `html` contract: `lines` values are ALWAYS
+   * injected as plain text, `textarea` values are raw HTML. Without a map the
+   * legacy `value.includes("<")` heuristic is used (Gate-2 F4).
+   */
+  kinds?: Record<string, string>;
 }
 
 /**
@@ -210,7 +217,15 @@ export function applyPageOverrides<T extends PageContent>(
     const widget = resolvePairedWidget(clone, parsed, options.primaryPage ?? null);
     if (!widget) continue;
 
-    applyWidgetField(widget, parsed.field, value);  }
+    // Kind-aware `html` contract (Gate-2 F4): a `lines` value is always plain
+    // text injected into the styled markup (so text like "pH < 7" is escaped,
+    // not treated as HTML); `textarea` is raw HTML. Unknown kinds keep the
+    // legacy heuristic.
+    const kind = options.kinds?.[key];
+    const rawHtml =
+      kind === "lines" ? false : kind === "textarea" ? true : value.includes("<");
+
+    applyWidgetField(widget, parsed.field, value, rawHtml);  }
 
   return clone;
 }

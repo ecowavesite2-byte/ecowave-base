@@ -5,6 +5,15 @@ import { loadBoardPosts } from "./board-store";
 import { loadOverrides } from "./db";
 import { applyBoardOverrides, applyPageOverrides, applySiteOverrides } from "./merge";
 import { getBoard, getPage, getSite } from "./read";
+import { CONTENT_DEF_MAP } from "./registry";
+
+/**
+ * Override key → registry kind, built once. The applier uses it to choose the
+ * `html` contract (`lines` → plain-text injection, `textarea` → raw HTML).
+ */
+const OVERRIDE_KINDS: Record<string, string> = Object.fromEntries(
+  Object.values(CONTENT_DEF_MAP).map((def) => [def.key, def.kind]),
+);
 
 /**
  * Permanent render-time content funnel: code defaults (file store) with
@@ -54,10 +63,10 @@ export async function getResolvedPage(locale: Locale, key: string): Promise<Page
     } catch {
       primaryPage = null;
     }
-    return applyPageOverrides(base, overrides, locale, { primaryPage });
+    return applyPageOverrides(base, overrides, locale, { primaryPage, kinds: OVERRIDE_KINDS });
   }
 
-  return applyPageOverrides(base, overrides, locale);
+  return applyPageOverrides(base, overrides, locale, { kinds: OVERRIDE_KINDS });
 }
 
 /** Site data with any nav-label overrides applied (base object is never mutated). */
