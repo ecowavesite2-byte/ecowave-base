@@ -223,6 +223,10 @@ function ImageWidget({ w, locale, mobileBox = false }: { w: WidgetNode; locale: 
   // overlay). The wrapper already clips (`overflow-hidden`), matching the
   // original `._img_box { overflow: hidden }`.
   const hoverScale = hoverScaleFor(w);
+  // curated per-widget portrait rendition shown below 992 (see MOBILE_IMAGE_SRC);
+  // overlay cards paint the image as a background layer, so this only applies to
+  // the plain `img` branch.
+  const mobileSrc = hasOverlay ? undefined : MOBILE_IMAGE_SRC[w.id];
 
   // S1: imweb's scroll-to-top button (`.btn_top a[href="#doz_header"]`) is
   // crawled with `width:0;height:0;margin:21px auto`; the runtime then paints
@@ -389,9 +393,14 @@ function ImageWidget({ w, locale, mobileBox = false }: { w: WidgetNode; locale: 
     cropVars["--fit-w"] = `${parseFloat(authoredWidth)}px`;
     cropClass.push("w-full", IMG_FIT_DESKTOP_W);
   }
-  const imgClass = `block${desktopSized ? " " + IMG_DESKTOP_MAX_NONE : ""}${desktopHeight ? " " + IMG_DESKTOP_HEIGHT : ""}${
-    cropClass.length ? " " + cropClass.join(" ") : ""
-  }`;
+  // Below 992 the authored band is swapped for the portrait mobile rendition
+  // (see MOBILE_IMAGE_SRC). The authored inline `display` (here `inline-block`,
+  // kept verbatim for desktop) beats a plain `hidden` class, so the mobile hide
+  // must be `!important`; at >=992 both classes are inert and the authored
+  // inline `display` applies unchanged.
+  const imgClass = `${mobileSrc ? "max-[991.98px]:hidden! min-[992px]:block" : "block"}${
+    desktopSized ? " " + IMG_DESKTOP_MAX_NONE : ""
+  }${desktopHeight ? " " + IMG_DESKTOP_HEIGHT : ""}${cropClass.length ? " " + cropClass.join(" ") : ""}`;
   const imgStyle: React.CSSProperties =
     desktopHeight || Object.keys(cropVars).length
       ? ({ ...inlineStyle, ...(desktopHeight ? { ["--img-h"]: desktopHeight } : {}), ...cropVars } as React.CSSProperties)
@@ -408,6 +417,19 @@ function ImageWidget({ w, locale, mobileBox = false }: { w: WidgetNode; locale: 
       data-lightbox-src={LIGHTBOX_IMAGE_SRC[w.id]}
     />
   );
+
+  // item 5 (home polish) — the portrait mobile rendition of the mission badge
+  // band. It fills the column below 992 and yields to the authored wide band at
+  // >=992. No inline crop styles: the source is authored for the mobile column.
+  const mobileImg = mobileSrc ? (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={mobileSrc}
+      alt={title || w.alt || ""}
+      className="block h-auto w-full min-[992px]:hidden"
+      loading="lazy"
+    />
+  ) : null;
 
   const body =
     hasOverlay && (label || title) ? (
@@ -487,7 +509,7 @@ function ImageWidget({ w, locale, mobileBox = false }: { w: WidgetNode; locale: 
         data-hover-scale={hoverScale ? "1" : undefined}
         style={h ? ({ ["--box-h" as string]: `${h}px` } as React.CSSProperties) : undefined}
       >
-        {w.src && img}
+        {w.src && (mobileImg ? <>{mobileImg}{img}</> : img)}
       </div>
     );
 
@@ -658,6 +680,29 @@ function hoverScaleFor(w: WidgetNode): boolean {
 const LIGHTBOX_IMAGE_SRC: Record<string, string> = {
   w202509117eecb693b3fc9: "/images/upload/S20250811e0bd2f7c414df/5f5d2323340f1.png",
   w2025082844061a0c9a3b2: "/images/upload/S20250811e0bd2f7c414df/81722d7e2a42a.png",
+};
+
+/**
+ * Home §4 mission — ECOWAVE badge-band mobile rendition.
+ *
+ * The canonical band is ONE wide bitmap (`a8abb36b1d18f.png`, 1920x535) with the
+ * five value captions baked into the pixels. At 390 it renders ~360px wide (a
+ * ~5.3x downscale), so the captions collapse to ~5-6px and are unreadable. The
+ * live original served a dedicated portrait rendition of the same band on
+ * mobile (`69966451ca00b.png`, 905x1757, 2-column stacked layout of the same
+ * five badges); the single-source migration dropped it.
+ *
+ * Restore it by swapping renditions per breakpoint: below 992 the portrait
+ * image fills the column (`w-full h-auto`, captions ~11px at 390), at >=992 the
+ * authored wide band returns untouched. The crawl persisted the mobile image as
+ * a zero-size `width:0;height:0` placeholder, so there is no data field to key
+ * on — the widget id is the stable discriminator (same pattern as
+ * `LIGHTBOX_IMAGE_SRC` / `HOVER_SCALE_WIDGET_IDS`). The admin still owns the
+ * desktop `src`; this map only supplies the fixed mobile rendition.
+ */
+const MOBILE_IMAGE_SRC: Record<string, string> = {
+  // ko home §4 mission badge band (`w20250811ce94af53086e1`)
+  w20250811ce94af53086e1: "/images/thumbnail/20250911/69966451ca00b.png",
 };
 
 export function Widget({
