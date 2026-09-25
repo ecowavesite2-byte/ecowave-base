@@ -656,6 +656,10 @@ const HOVER_SCALE_WIDGET_IDS = new Set([
   "w2025081110a9d2744f9fb",
   "w20250811b881aa576382c",
   "w20250812aea22580e7e86",
+  // home §company EN twins — same three pillar photos
+  "w2025091104fe925608dd7",
+  "w20250911159dea4c214d7",
+  "w20250911f580662be2ff1",
   // company.about — 우리 일상 속에서 만나는 에코웨이브 feature photo
   "w2025091840bd06b2a6c1d",
   // company.philosophy §비전 — the reported image
@@ -703,6 +707,9 @@ const LIGHTBOX_IMAGE_SRC: Record<string, string> = {
 const MOBILE_IMAGE_SRC: Record<string, string> = {
   // ko home §4 mission badge band (`w20250811ce94af53086e1`)
   w20250811ce94af53086e1: "/images/thumbnail/20250911/69966451ca00b.png",
+  // en home §4 mission badge band (`w20250911fbd73e60e36d9`) — the EN mobile
+  // twin's portrait rendition, recovered from the baseline crawl.
+  w20250911fbd73e60e36d9: "/images/thumbnail/20250918/22698d11a0ae4.png",
 };
 
 export function Widget({
@@ -1495,6 +1502,7 @@ const STICKY_ASIDE_SECTION_IDS = new Set([
  */
 const MAP_HOLDER_SECTION_IDS = new Set([
   "s202508112787439deffdb", // home §7 Headquarters & Factory Locations (ko)
+  "s20250911049658b2b95c4", // home §7 Headquarters & Factory Locations (en)
 ]);
 
 /**
@@ -1508,19 +1516,7 @@ const HOME_TYPE_SECTION_IDS = new Set([
   "s20250911c5a2da998fd0e", // en mission (18px x2)
   "s20250911384d83602d212", // en solutions (18px x3)
   "s20250911049658b2b95c4", // en locations (16px x1)
-  "s20250911f1b271a6a41b6", // en video (60px x2)
-]);
-
-/**
- * Sections that clip horizontal bleed. The KO ticker is clipped by its bespoke
- * renderer in `app/[locale]/page.tsx` (`overflow-x-clip`); its EN twin has a
- * different crawl id and renders through this generic path, where the crawled
- * `newest` board gallery's -15px card gutters poked the document 15px wide at
- * 390/768 (pre-existing, measured against the baseline screenshots). Mirror the
- * KO treatment for the EN ticker id.
- */
-const CLIPX_SECTION_IDS = new Set([
-  "s2025091179ab5c168be2c", // en home ticker (newest board gallery gutters)
+  "s20250911f1b271a6a41b6", // en video (52px + 60px)
 ]);
 
 /**
@@ -1759,13 +1755,11 @@ export default function SectionRenderer({
         const mapHolder = MAP_HOLDER_SECTION_IDS.has(sec.id);
         // item 4: home-scoped authored-span downscale (globals.css `data-home-type`)
         const homeType = HOME_TYPE_SECTION_IDS.has(sec.id);
-        // sections whose horizontal bleed must be clipped (EN ticker gallery)
-        const clipX = CLIPX_SECTION_IDS.has(sec.id);
         const aside = (sec as unknown as { aside?: AsideBlock }).aside;
         return (
           <section
             key={sec.id}
-            className={`${backToTop ? BACK_TO_TOP_CLASS : "relative"}${visibility ? " " + visibility : ""}${pcAtMobile ? " pc-at-mobile" : ""}${clipX ? " overflow-x-clip" : ""}`}
+            className={`${backToTop ? BACK_TO_TOP_CLASS : "relative"}${visibility ? " " + visibility : ""}${pcAtMobile ? " pc-at-mobile" : ""}`}
             // globals.css hook (globals lane): `section[data-vgutter="0"] .spacer`
             // at <=1023px halves the spacer height, which imweb does for
             // `grid_v_gutter_0` sections (no `.inside .widget` gutter to fold in).

@@ -1,10 +1,9 @@
 import { Rows } from "@/components/content/SectionRenderer";
 import { getResolvedPage, getResolvedSite } from "@/lib/content/resolved";
 import { localeHref, type Locale } from "@/lib/i18n";
+import { isFooterSection } from "@/lib/page-hero";
 import { routeForSource } from "@/lib/routes";
 import type { Node, WidgetNode } from "@/lib/types";
-
-const FOOTER_SECTION_ID = "s20250811f489e3443bdbe";
 
 /**
  * Site footer rendered from the crawled footer section rows (identical on
@@ -15,7 +14,7 @@ const FOOTER_SECTION_ID = "s20250811f489e3443bdbe";
  */
 export default async function SiteFooter({ locale }: { locale: Locale }) {
   const page = await getResolvedPage(locale, "home");
-  const sec = page.sections.find((s) => s.id === FOOTER_SECTION_ID);
+  const sec = page.sections.find(isFooterSection);
   if (!sec) return null;
 
   const rows = structuredClone(sec.rows) as Node[];
@@ -23,8 +22,12 @@ export default async function SiteFooter({ locale }: { locale: Locale }) {
   for (const n of rows) {
     if (n.kind !== "row") continue;
     for (const col of n.cols) {
-      if (col.grid !== "5") continue;
-      const sitemapRow = col.children.filter((c) => c.kind === "row")[1];
+      // The sitemap column is the one whose rows hold the per-group link
+      // columns (>=2 of them). KO and EN give it different grid widths (the EN
+      // crawl puts logo/info on grid 5 and the sitemap on grid 7, the KO
+      // footer the reverse), so match the structure, not `grid === "5"` — an id
+      // fix alone would otherwise inject the sub-links into EN's logo column.
+      const sitemapRow = col.children.find((c) => c.kind === "row" && c.cols.length > 1);
       if (!sitemapRow || sitemapRow.kind !== "row") continue;
       sitemapRow.cols.forEach((smcol, i) => {
         const links = nav[i]?.children || [];
@@ -65,8 +68,10 @@ export default async function SiteFooter({ locale }: { locale: Locale }) {
        * 5-column sitemap column as `.col-dz-5` with w=0/h=0 (its rows carry
        * `hidden-xs`, i.e. display:none below imweb's 992px breakpoint). The
        * desktop footer keeps that column, so hide it only below 992px. The
-       * selector targets the one grid-5 col in the footer (nested sitemap
-       * columns are grid-1 and carry no `col-span-5` class).
+       * selector targets the sitemap column structurally — the one whose direct
+       * row holds the >=2 link columns — because its grid width differs by
+       * locale (grid-5 on KO, grid-7 on EN; a `col-span-5` selector would hide
+       * EN's logo/info column instead).
        *
        * Live-verified (2026-09-23) that imweb's `.hidden-xs` flips at 992, NOT
        * bootstrap's 767: the original's 12 `.hidden-xs` footer rows compute
@@ -78,7 +83,7 @@ export default async function SiteFooter({ locale }: { locale: Locale }) {
        */}
       <style>{`
         @media (max-width: 991.98px) {
-          [data-footer] .imweb-col.lg\\:col-span-5 { display: none; }
+          [data-footer] .imweb-col:has(> .imweb-row > .imweb-col + .imweb-col) { display: none; }
         }
       `}</style>
       {/* imweb `.inside` insets the footer band 16px below its top on mobile;

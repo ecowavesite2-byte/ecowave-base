@@ -3,10 +3,8 @@ import HeroCarousel from "@/components/sections/home/HeroCarousel";
 import SectionRenderer, { Rows, MOBILE_SECTION } from "@/components/content/SectionRenderer";
 import { getResolvedBoard, getResolvedPage } from "@/lib/content/resolved";
 import { isLocale, defaultLocale, localeHref } from "@/lib/i18n";
-import type { BoardPost, ColNode, Node, PageContent, RowNode } from "@/lib/types";
-
-const FOOTER_SECTION_ID = "s20250811f489e3443bdbe";
-const TICKER_SECTION_ID = "s2025081139ff276cae8d6";
+import { isFooterSection } from "@/lib/page-hero";
+import type { BoardPost, ColNode, Node, PageContent, RowNode, Section } from "@/lib/types";
 
 /**
  * Mobile heights of the ticker's padding widgets, measured live at 390 on the
@@ -42,6 +40,20 @@ function colHasButton(col: ColNode): boolean {
   return walk(col.children);
 }
 
+/**
+ * Locale-agnostic ticker detection: the home notice ticker is the section
+ * embedding a `newest` board widget (exactly one such widget site-wide). The
+ * KO and EN crawls give the section different ids, so an id check only matched
+ * KO and let the EN ticker fall through to the generic SectionRenderer stream.
+ */
+function containsNewestWidget(sec: Section): boolean {
+  const walk = (nodes: Node[]): boolean =>
+    nodes.some((n) =>
+      n.kind === "widget" ? n.type === "newest" : n.kind === "row" ? n.cols.some((c) => walk(c.children)) : walk(n.children),
+    );
+  return walk(sec.rows);
+}
+
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const l = isLocale(locale) ? locale : defaultLocale;
@@ -52,7 +64,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   // through SectionRenderer, which resolves the pc/mobile visibility per
   // breakpoint (RC1)
   const heroSec = page.sections.find((s) => s.visual && !MOBILE_SECTION.test(s.cls || ""));
-  const tickerSec = page.sections.find((s) => s.id === TICKER_SECTION_ID);
+  const tickerSec = page.sections.find(containsNewestWidget);
   const tickerHeaderRows: RowNode[] = tickerSec
     ? tickerSec.rows.filter(
         (r): r is RowNode => r.kind === "row" && (r.h === 126 || r.h === 116 || r.h === 39),
@@ -77,7 +89,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   // Stale picks (deleted ids / board mismatch) can resolve to zero posts; fall
   // back to the latest news so the ticker never renders empty.
   if (tickerPosts.length === 0) tickerPosts = news.posts.slice(0, 4);
-  const rest = page.sections.filter((s) => !s.visual && s.id !== TICKER_SECTION_ID && s.id !== FOOTER_SECTION_ID);
+  const rest = page.sections.filter((s) => !s.visual && !containsNewestWidget(s) && !isFooterSection(s));
 
   return (
     <main>
@@ -142,7 +154,13 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                   animation-name none, visibility visible); the previous local
                   staggered `fadeInUp` had no counterpart. */}
               {tickerPosts.map((p, i) => (
-                <div key={p.idx} className={`w-1/2 p-[7.5px] lg:w-auto lg:flex-1 lg:p-[15px] ${i >= 2 ? " hidden lg:block" : ""}`}>
+                // `min-w-0`: the title uses `truncate` (nowrap), so each flex
+                // item's automatic min-width is its full title width. Longer EN
+                // titles otherwise gave unequal `flex-1` widths and wrapped the
+                // 4th card onto a second row (band 632 vs the 327 original);
+                // min-w-0 lets flex-1 equalize all cards on one row (KO titles
+                // are short enough that the auto minimum never bit).
+                <div key={p.idx} className={`w-1/2 min-w-0 p-[7.5px] lg:w-auto lg:flex-1 lg:p-[15px] ${i >= 2 ? " hidden lg:block" : ""}`}>
                   <Link href={localeHref(l, `/${tickerPicks?.board ?? "news"}/${p.idx}`)} className="group block h-[283px] overflow-hidden bg-white lg:h-auto lg:overflow-visible">
                     <div className="relative h-[142px] w-full overflow-hidden lg:h-[179px]">
                       {p.thumb && (

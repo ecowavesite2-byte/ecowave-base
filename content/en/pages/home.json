@@ -10,12 +10,12 @@
         {
           "bg": "/images/thumbnail/20250811/50e595a379834.jpg",
           "bgColor": "#dddddd",
-          "html": "<p class=\"font1\" style=\"text-align: center; line-height: 1.5;\"><span style=\"font-size: 72px;\"><strong><span style=\"color: rgb(255, 255, 255);\">EcoWave,</span></strong></span></p><p class=\"font1\" style=\"text-align: center; line-height: 1.5;\"><span style=\"font-size: 72px;\"><strong><span style=\"color: rgb(255, 255, 255);\">for a better future and richer life.</span></strong></span></p><p style=\"line-height: 2; text-align: center;\"><br></p><h6 class=\"font2\" style=\"line-height: 1.5; text-align: center;\"><span style=\"font-size: 24px;\">Our vision fosters harmony with nature and human prosperity,</span></h6><h6 class=\"font2\" style=\"line-height: 1.5; text-align: center;\"><span style=\"font-size: 24px;\">creating a sustainable world.</span></h6>"
+          "html": "<p class=\"font1\" style=\"text-align: center; line-height: 1.5;\"><span style=\"font-size: 85px;\"><strong><span style=\"color: rgb(255, 255, 255);\">EcoWave,</span></strong></span></p><p class=\"font1\" style=\"text-align: center; line-height: 1.5;\"><span style=\"font-size: 85px;\"><strong><span style=\"color: rgb(255, 255, 255);\">for a better future and richer life.</span></strong></span></p><p style=\"line-height: 2; text-align: center;\"><br></p><h6 class=\"font2\" style=\"line-height: 1.5; text-align: center;\"><span style=\"font-size: 24px;\">Our vision fosters harmony with nature and human prosperity,</span></h6><h6 class=\"font2\" style=\"line-height: 1.5; text-align: center;\"><span style=\"font-size: 24px;\">creating a sustainable world.</span></h6>"
         },
         {
           "bg": "/images/thumbnail/20250811/b8cb7e0cebd15.jpg",
           "bgColor": "#dddddd",
-          "html": "<p style=\"text-align: center; line-height: 1.5;\"><span style=\"font-size: 72px;\"><strong><span style=\"color: rgb(255, 255, 255);\">EcoWave,</span></strong></span></p><p style=\"text-align: center; line-height: 1.5;\"><span style=\"font-size: 72px;\"><strong><span style=\"color: rgb(255, 255, 255);\">for a better future and richer life.</span></strong></span></p><p style=\"line-height: 2; text-align: center;\"><br></p><h6 style=\"line-height: 1.5; text-align: center;\"><span style=\"font-size: 24px;\">Our vision fosters harmony with nature and human prosperity,</span></h6><h6 style=\"line-height: 1.5; text-align: center;\"><span style=\"font-size: 24px;\">creating a sustainable world.</span></h6><p style=\"text-align: center;\"><br></p>"
+          "html": "<p style=\"text-align: center; line-height: 1.5;\"><span style=\"font-size: 75px;\"><strong><span style=\"color: rgb(255, 255, 255);\">EcoWave,</span></strong></span></p><p style=\"text-align: center; line-height: 1.5;\"><span style=\"font-size: 75px;\"><strong><span style=\"color: rgb(255, 255, 255);\">for a better future and richer life.</span></strong></span></p><p style=\"line-height: 2; text-align: center;\"><br></p><h6 style=\"line-height: 1.5; text-align: center;\"><span style=\"font-size: 24px;\">Our vision fosters harmony with nature and human prosperity,</span></h6><h6 style=\"line-height: 1.5; text-align: center;\"><span style=\"font-size: 24px;\">creating a sustainable world.</span></h6><p style=\"text-align: center;\"><br></p>"
         }
       ],
       "bg": null,
@@ -301,6 +301,7 @@
       "id": "s20250911c5a2da998fd0e",
       "cls": "section_wrap side_basic",
       "bg": "/images/thumbnail/20250811/4caae6f166af6.jpg",
+      "bgFixed": true,
       "bgStyle": "background-image:url('/images/thumbnail/20250811/4caae6f166af6.jpg'); background-position:50% 50%;  background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
       "bgColor": "rgba(0, 0, 0, 0.35)",
       "secStyle": "; ; background-color:rgba(0, 0, 0, 0.35);;",
@@ -331,7 +332,7 @@
           "kind": "row",
           "grid": "12",
           "w": 1280,
-          "h": 231,
+          "h": 201,
           "pad": 15,
           "cols": [
             {
@@ -342,7 +343,7 @@
                   "kind": "widget",
                   "id": "w2025091155849fca36783",
                   "type": "text",
-                  "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: center;\"><img src=\"/images/upload/S20250811e0bd2f7c414df/48fbd16b3a070.png\" class=\"fr-fin fr-dib\" style=\"width: 296px;\"></h6><p style=\"text-align: center; line-height: 2;\"><br><span style=\"color: rgb(255, 255, 255); font-size: 18px; letter-spacing: 0px;\">EcoWave promotes a healthy, sustainable life with innovative water purification technology,</span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"color: rgb(255, 255, 255); font-size: 18px; letter-spacing: 0px;\">realizing eco-friendly values where people and nature coexist.</span></p><p style=\"text-align: center; line-height: 2;\"><br></p></div></div>\n\t",
+                  "html": "\n\t\t<div class=\"text-table \" style=\"display:flow-root;margin:15px 0;font-size:15px;\"><div><h6 style=\"text-align: center;\"><img src=\"/images/upload/S20250811e0bd2f7c414df/48fbd16b3a070.png\" class=\"fr-fin fr-dib\" style=\"width: 296px;\"></h6><p style=\"text-align: center; line-height: 2;\"><br><span style=\"color: rgb(255, 255, 255); font-size: 18px; letter-spacing: 0px;\">EcoWave promotes a healthy, sustainable life with innovative water purification technology,</span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"color: rgb(255, 255, 255); font-size: 18px; letter-spacing: 0px;\">realizing eco-friendly values where people and nature coexist.</span></p><p style=\"text-align: center; line-height: 2;\"><br></p></div></div>\n\t",
                   "anim": "none",
                   "animDur": "0.7",
                   "animDelay": "0"
@@ -355,7 +356,7 @@
           "kind": "row",
           "grid": "12",
           "w": 1280,
-          "h": 406,
+          "h": 378,
           "pad": 15,
           "cols": [
             {
@@ -370,7 +371,7 @@
                   "alt": "",
                   "hoverBg": "/images/thumbnail/20250917/e1931484261b8.png",
                   "boxStyle": "",
-                  "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 1250px; height: 348px; margin: 14px auto;",
+                  "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 1250px; height: 348px; margin-left: auto; margin-right: auto;",
                   "anim": "fadeInUp",
                   "animDur": "1.2",
                   "animDelay": "0.3"
@@ -437,7 +438,7 @@
           "kind": "row",
           "grid": "12",
           "w": 1040,
-          "h": 206,
+          "h": 147,
           "pad": 0,
           "cols": [
             {
@@ -494,7 +495,7 @@
           "kind": "row",
           "grid": "12",
           "w": 1070,
-          "h": 724,
+          "h": 814,
           "pad": 15,
           "cols": [
             {
@@ -552,7 +553,7 @@
                 {
                   "kind": "row",
                   "grid": "4",
-                  "h": 116,
+                  "h": 236,
                   "pad": 15,
                   "cols": [
                     {
@@ -629,7 +630,7 @@
                 {
                   "kind": "row",
                   "grid": "4",
-                  "h": 146,
+                  "h": 206,
                   "pad": 15,
                   "cols": [
                     {
@@ -673,7 +674,7 @@
                           "alt": "",
                           "hoverBg": "/images/thumbnail/20250812/b3ac0bbe894b9.jpg",
                           "boxStyle": "height: 548px;",
-                          "imgStyle": "visibility: visible; image-rendering: -webkit-optimize-contrast; display: block; width: auto; height: 100%; margin-top: 0px; margin-left: -74.8178px;",
+                          "imgStyle": "visibility: visible; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 327px; height: 376px; margin: 86px auto;",
                           "anim": "none",
                           "animDur": "0.7",
                           "animDelay": "0"
@@ -706,7 +707,7 @@
                 {
                   "kind": "row",
                   "grid": "4",
-                  "h": 116,
+                  "h": 206,
                   "pad": 15,
                   "cols": [
                     {
@@ -788,7 +789,7 @@
           "kind": "row",
           "grid": "12",
           "w": 1280,
-          "h": 162,
+          "h": 189,
           "pad": 15,
           "cols": [
             {
@@ -799,7 +800,7 @@
                   "kind": "widget",
                   "id": "w20250911f3e8bfbc5bd27",
                   "type": "text",
-                  "html": "\n\t\t<div class=\"text-table \"><div><p style=\"text-align: left;\"><span style=\"color: rgb(255, 255, 255); font-size: 60px; letter-spacing: 0px;\"><strong>Eco wave</strong></span></p><p style=\"text-align: left;\"><span style=\"color: rgb(255, 255, 255); font-size: 60px; letter-spacing: 0px;\"><em>Clean Water, Healthy People.</em></span></p></div></div>\n\t",
+                  "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: left;\"><strong><span style=\"color: rgb(255, 255, 255); font-size: 52px; letter-spacing: 0px;\">Eco wave</span></strong></h6><p style=\"text-align: left;\"><span style=\"color: rgb(255, 255, 255); font-size: 60px; letter-spacing: 0px;\"><em>Clean Water, Healthy People.</em></span></p></div></div>\n\t",
                   "anim": "fadeInUp",
                   "animDur": "1.2",
                   "animDelay": "0.3"
@@ -915,7 +916,7 @@
           "kind": "row",
           "grid": "12",
           "w": 1160,
-          "h": 639,
+          "h": 610,
           "pad": 0,
           "cols": [
             {
@@ -1233,7 +1234,7 @@
           "kind": "row",
           "grid": "12",
           "w": 1040,
-          "h": 358,
+          "h": 310,
           "pad": 0,
           "cols": [
             {
@@ -1396,7 +1397,7 @@
           "kind": "row",
           "grid": "12",
           "w": 1280,
-          "h": 374,
+          "h": 350,
           "pad": 15,
           "cols": [
             {
