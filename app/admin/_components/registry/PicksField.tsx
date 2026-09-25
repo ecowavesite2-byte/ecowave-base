@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import type { AdminDict } from "@/lib/admin/i18n";
 import type { BoardOptions } from "./types";
@@ -59,6 +59,18 @@ export default function PicksField({
   const source = isDefault ? defaultValue : value;
   const parsed = parsePicks(source);
   const [board, setBoard] = useState<Board>(parsed.board);
+
+  // Re-sync when the STORED payload's board changes externally (reload/undo).
+  // Guarded by the last observed value: clearing a selection writes "" which
+  // falls back to the default board, and that must not fight an in-progress
+  // board switch.
+  const lastParsedBoard = useRef(parsed.board);
+  useEffect(() => {
+    if (lastParsedBoard.current !== parsed.board) {
+      lastParsedBoard.current = parsed.board;
+      setBoard(parsed.board);
+    }
+  }, [parsed.board]);
 
   const idxs = parsed.idxs;
   const posts = options[board];

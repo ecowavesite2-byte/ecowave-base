@@ -144,13 +144,22 @@ function parseSlides(value: string): SlideInput[] | null {
   try {
     const parsed: unknown = JSON.parse(value);
     if (!Array.isArray(parsed)) return null;
-    return parsed
-      .filter((entry): entry is Record<string, unknown> => !!entry && typeof entry === "object")
-      .map((entry) => ({
-        bg: typeof entry.bg === "string" ? entry.bg : null,
-        title: typeof entry.title === "string" ? entry.title : "",
-        subtitle: typeof entry.subtitle === "string" ? entry.subtitle : "",
-      }));
+    const slides: SlideInput[] = [];
+    for (const entry of parsed) {
+      if (!entry || typeof entry !== "object" || Array.isArray(entry)) return null;
+      const slide = entry as { bg?: unknown; title?: unknown; subtitle?: unknown };
+      // A slide without a string title is garbage (only reachable by direct DB
+      // inserts — the API validator requires one); no-op rather than blank copy.
+      if (typeof slide.title !== "string") return null;
+      if (slide.bg !== undefined && slide.bg !== null && typeof slide.bg !== "string") return null;
+      if (slide.subtitle !== undefined && typeof slide.subtitle !== "string") return null;
+      slides.push({
+        bg: typeof slide.bg === "string" ? slide.bg : null,
+        title: slide.title,
+        subtitle: typeof slide.subtitle === "string" ? slide.subtitle : "",
+      });
+    }
+    return slides;
   } catch {
     return null;
   }
@@ -161,13 +170,16 @@ function parseCards(value: string): LocationCard[] | null {
   try {
     const parsed: unknown = JSON.parse(value);
     if (!Array.isArray(parsed) || parsed.length === 0) return null;
-    return parsed
-      .filter((entry): entry is Record<string, unknown> => !!entry && typeof entry === "object")
-      .map((entry) => ({
-        lines: Array.isArray(entry.lines)
-          ? entry.lines.filter((line): line is string => typeof line === "string")
-          : [],
-      }));
+    const cards: LocationCard[] = [];
+    for (const entry of parsed) {
+      if (!entry || typeof entry !== "object" || Array.isArray(entry)) return null;
+      const lines = (entry as { lines?: unknown }).lines;
+      // Require the real shape: a missing/non-string `lines` must not silently
+      // clear a card (direct-DB inserts only; the API validator requires it).
+      if (!Array.isArray(lines) || !lines.every((line) => typeof line === "string")) return null;
+      cards.push({ lines });
+    }
+    return cards;
   } catch {
     return null;
   }
@@ -342,14 +354,13 @@ function injectCloneLines(node: Node, lines: string[]): void {
  *    (`<id>__card<i>`) and stack it immediately after the last card;
  *  - missing cards remove the extra blocks plus an adjacent padding-only block
  *    (following sibling first, else preceding) so no dangling separator remains;
- *  - no card widgets / unknown shapes: only `section.cards` is set, nothing else.
+ *  - no card widgets / unknown shapes: no-op (the crawled layout stays).
  *
  * Overrides must never break rendering, so this never throws.
  */
 export function applyCards(section: Section, cards: LocationCard[]): void {
   try {
     if (!section || !Array.isArray(cards)) return;
-    section.cards = cards;
     if (cards.length === 0) return;
 
     const located: LocatedWidget[] = [];
@@ -458,15 +469,12 @@ export function applyPageOverrides<T extends PageContent>(
       continue;
     }
 
-    // Location card list (`<page>#<sectionId>/cards/cards`): a data-driven card
-    // list the renderer uses INSTEAD of the crawled holder widgets.
+    // Location card list (`<page>#<sectionId>/cards/cards`): restructures the
+    // cloned card nodes (add/remove/reorder) instead of one widget field.
     if (parsed.field === "cards" && parsed.widgetId === "cards") {
       const section = resolvePairedSection(clone, parsed, options.primaryPage ?? null);
       const cards = section ? parseCards(value) : null;
-      if (section && cards) {
-        applyCards(section, cards);
-        section.cards = cards;
-      }
+      if (section && cards) applyCards(section, cards);
       continue;
     }
 

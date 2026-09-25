@@ -129,9 +129,11 @@ function uneditableWidgetTypes(section: Section | undefined, defs: RegistryDef[]
  */
 function defTargetMissing(section: Section | undefined, def: RegistryDef): boolean {
   if (!section) return false;
-  // `cards`/`picks` are section-level synthetic defs (they set `section.cards` /
-  // `section.picks`, not a widget field), so they never match the widget walk.
-  if (def.widgetId === "cards" || def.widgetId === "picks") return false;
+  // Section-level synthetic defs never match the widget walk: `cards`/`picks`
+  // rewrite the section, and `visual` (the slides list def) rewrites the hero.
+  if (def.widgetId === "cards" || def.widgetId === "picks" || def.widgetId === "visual") {
+    return false;
+  }
   const visual = VISUAL_WIDGET.exec(def.widgetId);
   if (visual) {
     const index = Number(visual[1]);

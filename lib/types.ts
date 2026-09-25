@@ -70,8 +70,6 @@ export type Section = {
   cls?: string;
   /** visual hero slides (homepage visual_section) */
   visual?: HeroSlide[];
-  /** data-driven location cards (override); crawled markup is the default */
-  cards?: LocationCard[];
   /** ticker post picks (override); first 4 news is the default */
   picks?: TickerPicks;
   bg: string | null;
