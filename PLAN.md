@@ -64,6 +64,13 @@ editor → boards editor → drafts + preview → media library/uploads → site
 Writes are atomic with revision snapshots + an append-only audit log; uploaded media is content-hashed
 and served read-only via `/media/...`.
 
+The **content editor lane** is registry-based: `lib/content/registry.ts` (auto-generated, one def per
+editable field, emitted in page document order) + the Postgres `page_content` override store, edited at
+`/admin/content` and applied at render time by `lib/content/merge.ts` (`pair.ts` handles KO↔EN
+widget/section pairing). Field-level rules — text/HTML behaviour, image upload/reset, structured lists
+(hero slides, location cards, ticker picks), locale-parity rules, responsive-layout rules, and the
+verification commands — are documented in **`README.md` → “Content model & admin editing rules”**.
+
 **Operations, environment variables, backup/restore, and the build/serve order are documented in
 `README.md`** (the runbook). Key rule: never run `next build` while `next start` is serving — stop,
 build, start.
@@ -173,6 +180,9 @@ reveal/animation end-state normalization.
 
 ### Remaining work (documented with measurements)
 
+**Superseded:** the home page's mobile channel was intentionally replaced by a single-source
+responsive model (2026-09-25) — home mobile residuals below refer to the pre-migration baseline.
+
 1. Home ±24 px compensation items (page body now +14 vs original); §5 slider + hero bands remain
    carousel-phase artifacts.
 2. Mobile coordinated typography for the excluded pages (about/history/rnd/patents/facilities) — the
@@ -180,7 +190,9 @@ reveal/animation end-state normalization.
    section-aware application.
 3. `rnd` §2 +4 px — crawler row-partition artifact (extra padding widget) interacting with the global
    `.spacer` formula; needs a crawler-side fix.
-4. EN channel: remaining band ids / EN philosophy downscale need an EN-side validation pass.
+4. EN channel: the **home** KO/EN parity pass is done (locale-agnostic ticker/footer detection +
+   mirrored layout metrics + EN feature-map ids; probe `scripts/audit/measure-home-locales.mjs`).
+   Other channels' remaining band ids / EN philosophy downscale still need an EN-side validation pass.
 5. Header probe-pairing signature items (empty logo anchor vs the original's dropdown anchor) — inert.
 
 Full detail, evidence index and per-wave validation tables live in `design/audit/DEEP-UI-AUDIT.md`.
