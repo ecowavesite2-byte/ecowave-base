@@ -48,11 +48,10 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   const page: PageContent = await getResolvedPage(l, "home");
   const news = await getResolvedBoard(l, "news");
 
-  // the visual hero (desktop + mobile slide sets) is rebuilt by HeroCarousel;
-  // every other section — pc and mobile — renders through SectionRenderer,
-  // which resolves the pc/mobile visibility per breakpoint (RC1)
+  // the visual hero is rebuilt by HeroCarousel; every other section renders
+  // through SectionRenderer, which resolves the pc/mobile visibility per
+  // breakpoint (RC1)
   const heroSec = page.sections.find((s) => s.visual && !MOBILE_SECTION.test(s.cls || ""));
-  const mobileHeroSec = page.sections.find((s) => s.visual && MOBILE_SECTION.test(s.cls || ""));
   const tickerSec = page.sections.find((s) => s.id === TICKER_SECTION_ID);
   const tickerHeaderRows: RowNode[] = tickerSec
     ? tickerSec.rows.filter(
@@ -65,7 +64,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   return (
     <main>
       {/* hero */}
-      {heroSec?.visual && <HeroCarousel slides={heroSec.visual} mobileSlides={mobileHeroSec?.visual} />}
+      {heroSec?.visual && <HeroCarousel slides={heroSec.visual} />}
 
       {/* all content sections from the crawl (row widths, hover cards, reveal anims) */}
       <SectionRenderer sections={rest} locale={l} />

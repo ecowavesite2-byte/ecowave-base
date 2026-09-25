@@ -31,3 +31,6 @@ data/
 *.sqlite*
 public/uploads/
 .openchamber/
+
+# deepwork session state (local only)
+.slim/deepwork/

@@ -5914,8 +5914,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "bg",
     "kind": "image",
     "section": {
-      "ko": "PC · 메인 비주얼",
-      "en": "PC · Main visual"
+      "ko": "메인 비주얼",
+      "en": "Main visual"
     },
     "label": {
       "ko": "히어로 이미지 1 · 50e595a379834.jpg",
@@ -5935,8 +5935,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "html",
     "kind": "textarea",
     "section": {
-      "ko": "PC · 메인 비주얼",
-      "en": "PC · Main visual"
+      "ko": "메인 비주얼",
+      "en": "Main visual"
     },
     "label": {
       "ko": "히어로 문구 1 · 더 나은 미래, 풍요로운 삶 에코웨이브의 가치입니다. 우리의 비전은 자…",
@@ -5956,8 +5956,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "bg",
     "kind": "image",
     "section": {
-      "ko": "PC · 메인 비주얼",
-      "en": "PC · Main visual"
+      "ko": "메인 비주얼",
+      "en": "Main visual"
     },
     "label": {
       "ko": "히어로 이미지 2 · b8cb7e0cebd15.jpg",
@@ -5977,390 +5977,12 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "html",
     "kind": "textarea",
     "section": {
-      "ko": "PC · 메인 비주얼",
-      "en": "PC · Main visual"
+      "ko": "메인 비주얼",
+      "en": "Main visual"
     },
     "label": {
       "ko": "히어로 문구 2 · 더 나은 미래, 풍요로운 삶 에코웨이브의 가치입니다. 우리의 비전은 자…",
       "en": "Hero text 2 · EcoWave, for a better future and richer…"
-    },
-    "revalidate": [
-      "/",
-      "/en"
-    ]
-  },
-  {
-    "key": "home#s20250911a14bac08f598c/visual[0]/bg",
-    "group": "home",
-    "pageKey": "home",
-    "sectionId": "s20250911a14bac08f598c",
-    "widgetId": "visual[0]",
-    "field": "bg",
-    "kind": "image",
-    "section": {
-      "ko": "모바일 · 메인 비주얼",
-      "en": "Mobile · Main visual"
-    },
-    "label": {
-      "ko": "히어로 이미지 1 · 970dcddcb1e4b.jpg",
-      "en": "Hero image 1 · 970dcddcb1e4b.jpg"
-    },
-    "revalidate": [
-      "/",
-      "/en"
-    ]
-  },
-  {
-    "key": "home#s20250911a14bac08f598c/visual[0]/html",
-    "group": "home",
-    "pageKey": "home",
-    "sectionId": "s20250911a14bac08f598c",
-    "widgetId": "visual[0]",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "모바일 · 메인 비주얼",
-      "en": "Mobile · Main visual"
-    },
-    "label": {
-      "ko": "히어로 문구 1 · 더 나은 미래, 풍요로운 삶 에코웨이브의 가치입니다. 우리의 비전은 자…",
-      "en": "Hero text 1 · EcoWave, for a better future and rich l…"
-    },
-    "revalidate": [
-      "/",
-      "/en"
-    ]
-  },
-  {
-    "key": "home#s20250911a14bac08f598c/visual[1]/bg",
-    "group": "home",
-    "pageKey": "home",
-    "sectionId": "s20250911a14bac08f598c",
-    "widgetId": "visual[1]",
-    "field": "bg",
-    "kind": "image",
-    "section": {
-      "ko": "모바일 · 메인 비주얼",
-      "en": "Mobile · Main visual"
-    },
-    "label": {
-      "ko": "히어로 이미지 2 · 9e7f05e2844fc.jpg",
-      "en": "Hero image 2 · 9e7f05e2844fc.jpg"
-    },
-    "revalidate": [
-      "/",
-      "/en"
-    ]
-  },
-  {
-    "key": "home#s20250911a14bac08f598c/visual[1]/html",
-    "group": "home",
-    "pageKey": "home",
-    "sectionId": "s20250911a14bac08f598c",
-    "widgetId": "visual[1]",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "모바일 · 메인 비주얼",
-      "en": "Mobile · Main visual"
-    },
-    "label": {
-      "ko": "히어로 문구 2 · 더 나은 미래, 풍요로운 삶 에코웨이브의 가치입니다. 우리의 비전은 자…",
-      "en": "Hero text 2 · EcoWave, for a better future and rich l…"
-    },
-    "revalidate": [
-      "/",
-      "/en"
-    ]
-  },
-  {
-    "key": "home#s20250911c5c5fd5e57c26/w2025091161bea948f6bee/html",
-    "group": "home",
-    "pageKey": "home",
-    "sectionId": "s20250911c5c5fd5e57c26",
-    "widgetId": "w2025091161bea948f6bee",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "모바일 · 건강하고 깨끗한 물, 에코웨이브가 고객과 함께 더 나은 미래…",
-      "en": "Mobile · Healthywater, Eco-wave Together w…"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 건강하고 깨끗한 물, 에코웨이브가 고객과 함께 더 나은 미래를 만들어갑…",
-      "en": "Text block · Healthywater, Eco-wave Together we crea…"
-    },
-    "revalidate": [
-      "/",
-      "/en"
-    ]
-  },
-  {
-    "key": "home#s20250911281117781b494/w202509119ecb84eb6e940/src",
-    "group": "home",
-    "pageKey": "home",
-    "sectionId": "s20250911281117781b494",
-    "widgetId": "w202509119ecb84eb6e940",
-    "field": "src",
-    "kind": "image",
-    "section": {
-      "ko": "모바일 · <h5>회사소개</h5><span>Company</span>",
-      "en": "Mobile · <h5>Company</h5>"
-    },
-    "label": {
-      "ko": "이미지 경로 · 55a9cffce4f94.jpg",
-      "en": "Image source · 55a9cffce4f94.jpg"
-    },
-    "revalidate": [
-      "/",
-      "/en"
-    ]
-  },
-  {
-    "key": "home#s20250911281117781b494/w202509119ecb84eb6e940/alt",
-    "group": "home",
-    "pageKey": "home",
-    "sectionId": "s20250911281117781b494",
-    "widgetId": "w202509119ecb84eb6e940",
-    "field": "alt",
-    "kind": "text",
-    "section": {
-      "ko": "모바일 · <h5>회사소개</h5><span>Company</span>",
-      "en": "Mobile · <h5>Company</h5>"
-    },
-    "label": {
-      "ko": "이미지 대체 텍스트 · <h5>회사소개</h5><span>Company</span>",
-      "en": "Image alt text · <h5>Company</h5>"
-    },
-    "revalidate": [
-      "/",
-      "/en"
-    ]
-  },
-  {
-    "key": "home#s20250911281117781b494/w202509119ecb84eb6e940/href",
-    "group": "home",
-    "pageKey": "home",
-    "sectionId": "s20250911281117781b494",
-    "widgetId": "w202509119ecb84eb6e940",
-    "field": "href",
-    "kind": "url",
-    "section": {
-      "ko": "모바일 · <h5>회사소개</h5><span>Company</span>",
-      "en": "Mobile · <h5>Company</h5>"
-    },
-    "label": {
-      "ko": "이미지 링크 · /17",
-      "en": "Image link · /17"
-    },
-    "revalidate": [
-      "/",
-      "/en"
-    ]
-  },
-  {
-    "key": "home#s20250911281117781b494/w2025091149bbbec8e797d/src",
-    "group": "home",
-    "pageKey": "home",
-    "sectionId": "s20250911281117781b494",
-    "widgetId": "w2025091149bbbec8e797d",
-    "field": "src",
-    "kind": "image",
-    "section": {
-      "ko": "모바일 · <h5>회사소개</h5><span>Company</span>",
-      "en": "Mobile · <h5>Company</h5>"
-    },
-    "label": {
-      "ko": "이미지 경로 · aabafe51067b6.jpg",
-      "en": "Image source · aabafe51067b6.jpg"
-    },
-    "revalidate": [
-      "/",
-      "/en"
-    ]
-  },
-  {
-    "key": "home#s20250911281117781b494/w2025091149bbbec8e797d/alt",
-    "group": "home",
-    "pageKey": "home",
-    "sectionId": "s20250911281117781b494",
-    "widgetId": "w2025091149bbbec8e797d",
-    "field": "alt",
-    "kind": "text",
-    "section": {
-      "ko": "모바일 · <h5>회사소개</h5><span>Company</span>",
-      "en": "Mobile · <h5>Company</h5>"
-    },
-    "label": {
-      "ko": "이미지 대체 텍스트 · <h5>연구개발</h5><span>R&D</span>",
-      "en": "Image alt text · <h5>R&D</h5>"
-    },
-    "revalidate": [
-      "/",
-      "/en"
-    ]
-  },
-  {
-    "key": "home#s20250911281117781b494/w2025091149bbbec8e797d/href",
-    "group": "home",
-    "pageKey": "home",
-    "sectionId": "s20250911281117781b494",
-    "widgetId": "w2025091149bbbec8e797d",
-    "field": "href",
-    "kind": "url",
-    "section": {
-      "ko": "모바일 · <h5>회사소개</h5><span>Company</span>",
-      "en": "Mobile · <h5>Company</h5>"
-    },
-    "label": {
-      "ko": "이미지 링크 · /21",
-      "en": "Image link · /21"
-    },
-    "revalidate": [
-      "/",
-      "/en"
-    ]
-  },
-  {
-    "key": "home#s20250911281117781b494/w20250911cb710bccd6323/src",
-    "group": "home",
-    "pageKey": "home",
-    "sectionId": "s20250911281117781b494",
-    "widgetId": "w20250911cb710bccd6323",
-    "field": "src",
-    "kind": "image",
-    "section": {
-      "ko": "모바일 · <h5>회사소개</h5><span>Company</span>",
-      "en": "Mobile · <h5>Company</h5>"
-    },
-    "label": {
-      "ko": "이미지 경로 · 84fff7d77ffff.jpg",
-      "en": "Image source · 84fff7d77ffff.jpg"
-    },
-    "revalidate": [
-      "/",
-      "/en"
-    ]
-  },
-  {
-    "key": "home#s20250911281117781b494/w20250911cb710bccd6323/alt",
-    "group": "home",
-    "pageKey": "home",
-    "sectionId": "s20250911281117781b494",
-    "widgetId": "w20250911cb710bccd6323",
-    "field": "alt",
-    "kind": "text",
-    "section": {
-      "ko": "모바일 · <h5>회사소개</h5><span>Company</span>",
-      "en": "Mobile · <h5>Company</h5>"
-    },
-    "label": {
-      "ko": "이미지 대체 텍스트 · <h5>제품소개</h5><span>Products</span>",
-      "en": "Image alt text · <h5>Products</h5>"
-    },
-    "revalidate": [
-      "/",
-      "/en"
-    ]
-  },
-  {
-    "key": "home#s20250911281117781b494/w20250911cb710bccd6323/href",
-    "group": "home",
-    "pageKey": "home",
-    "sectionId": "s20250911281117781b494",
-    "widgetId": "w20250911cb710bccd6323",
-    "field": "href",
-    "kind": "url",
-    "section": {
-      "ko": "모바일 · <h5>회사소개</h5><span>Company</span>",
-      "en": "Mobile · <h5>Company</h5>"
-    },
-    "label": {
-      "ko": "이미지 링크 · /32",
-      "en": "Image link · /32"
-    },
-    "revalidate": [
-      "/",
-      "/en"
-    ]
-  },
-  {
-    "key": "home#s20250911281117781b494/w20250911edd80efa0562b/src",
-    "group": "home",
-    "pageKey": "home",
-    "sectionId": "s20250911281117781b494",
-    "widgetId": "w20250911edd80efa0562b",
-    "field": "src",
-    "kind": "image",
-    "section": {
-      "ko": "모바일 · <h5>회사소개</h5><span>Company</span>",
-      "en": "Mobile · <h5>Company</h5>"
-    },
-    "label": {
-      "ko": "이미지 경로 · 41c848eb0d74e.jpg",
-      "en": "Image source · 41c848eb0d74e.jpg"
-    },
-    "revalidate": [
-      "/",
-      "/en"
-    ]
-  },
-  {
-    "key": "home#s20250911281117781b494/w20250911edd80efa0562b/alt",
-    "group": "home",
-    "pageKey": "home",
-    "sectionId": "s20250911281117781b494",
-    "widgetId": "w20250911edd80efa0562b",
-    "field": "alt",
-    "kind": "text",
-    "section": {
-      "ko": "모바일 · <h5>회사소개</h5><span>Company</span>",
-      "en": "Mobile · <h5>Company</h5>"
-    },
-    "label": {
-      "ko": "이미지 대체 텍스트 · <h5>홍보센터</h5><span>PR Center</span>",
-      "en": "Image alt text · <h5>News</h5>"
-    },
-    "revalidate": [
-      "/",
-      "/en"
-    ]
-  },
-  {
-    "key": "home#s20250911281117781b494/w20250911edd80efa0562b/href",
-    "group": "home",
-    "pageKey": "home",
-    "sectionId": "s20250911281117781b494",
-    "widgetId": "w20250911edd80efa0562b",
-    "field": "href",
-    "kind": "url",
-    "section": {
-      "ko": "모바일 · <h5>회사소개</h5><span>Company</span>",
-      "en": "Mobile · <h5>Company</h5>"
-    },
-    "label": {
-      "ko": "이미지 링크 · /27",
-      "en": "Image link · /27"
-    },
-    "revalidate": [
-      "/",
-      "/en"
-    ]
-  },
-  {
-    "key": "home#s20250911281117781b494/w2025091106eb6f453ead4/html",
-    "group": "home",
-    "pageKey": "home",
-    "sectionId": "s20250911281117781b494",
-    "widgetId": "w2025091106eb6f453ead4",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "모바일 · <h5>회사소개</h5><span>Company</span>",
-      "en": "Mobile · <h5>Company</h5>"
-    },
-    "label": {
-      "ko": "코드 블록",
-      "en": "Code block"
     },
     "revalidate": [
       "/",
@@ -6376,75 +5998,12 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "html",
     "kind": "textarea",
     "section": {
-      "ko": "PC · 코드 블록",
-      "en": "PC · Code block"
+      "ko": "코드 블록",
+      "en": "Code block"
     },
     "label": {
       "ko": "코드 블록",
       "en": "Code block"
-    },
-    "revalidate": [
-      "/",
-      "/en"
-    ]
-  },
-  {
-    "key": "home#s20250911e7c6ef8d60c18/w20250911f6299fc147ec0/html",
-    "group": "home",
-    "pageKey": "home",
-    "sectionId": "s20250911e7c6ef8d60c18",
-    "widgetId": "w20250911f6299fc147ec0",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "모바일 · 에코웨이브는 깨끗한 물을 위한 기술 혁신과 친환경 가치 실현…",
-      "en": "Mobile · EcoWave promotes a healthy, susta…"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 에코웨이브는 깨끗한 물을 위한 기술 혁신과 친환경 가치 실현을 통해 보…",
-      "en": "Text block · EcoWave promotes a healthy, sustainable…"
-    },
-    "revalidate": [
-      "/",
-      "/en"
-    ]
-  },
-  {
-    "key": "home#s20250911e7c6ef8d60c18/w202509114ffe0e1166af8/src",
-    "group": "home",
-    "pageKey": "home",
-    "sectionId": "s20250911e7c6ef8d60c18",
-    "widgetId": "w202509114ffe0e1166af8",
-    "field": "src",
-    "kind": "image",
-    "section": {
-      "ko": "모바일 · 에코웨이브는 깨끗한 물을 위한 기술 혁신과 친환경 가치 실현…",
-      "en": "Mobile · EcoWave promotes a healthy, susta…"
-    },
-    "label": {
-      "ko": "이미지 경로 · 69966451ca00b.png",
-      "en": "Image source · 22698d11a0ae4.png"
-    },
-    "revalidate": [
-      "/",
-      "/en"
-    ]
-  },
-  {
-    "key": "home#s20250911e7c6ef8d60c18/w202509114ffe0e1166af8/alt",
-    "group": "home",
-    "pageKey": "home",
-    "sectionId": "s20250911e7c6ef8d60c18",
-    "widgetId": "w202509114ffe0e1166af8",
-    "field": "alt",
-    "kind": "text",
-    "section": {
-      "ko": "모바일 · 에코웨이브는 깨끗한 물을 위한 기술 혁신과 친환경 가치 실현…",
-      "en": "Mobile · EcoWave promotes a healthy, susta…"
-    },
-    "label": {
-      "ko": "이미지 대체 텍스트 · 69966451ca00b.png",
-      "en": "Image alt text · 22698d11a0ae4.png"
     },
     "revalidate": [
       "/",
@@ -6460,8 +6019,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "html",
     "kind": "textarea",
     "section": {
-      "ko": "PC · 건강하고 깨끗한 물, 에코웨이브가 고객과 함께 더 나은 미래…",
-      "en": "PC · Healthy water, Eco-wave Together …"
+      "ko": "건강하고 깨끗한 물, 에코웨이브가 고객과 함께 더 나은 미래…",
+      "en": "Healthy water, Eco-wave Together …"
     },
     "label": {
       "ko": "텍스트 블록 · 건강하고 깨끗한 물, 에코웨이브가 고객과 함께 더 나은 미래를 만들어갑…",
@@ -6481,8 +6040,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "src",
     "kind": "image",
     "section": {
-      "ko": "PC · 건강하고 깨끗한 물, 에코웨이브가 고객과 함께 더 나은 미래…",
-      "en": "PC · Healthy water, Eco-wave Together …"
+      "ko": "건강하고 깨끗한 물, 에코웨이브가 고객과 함께 더 나은 미래…",
+      "en": "Healthy water, Eco-wave Together …"
     },
     "label": {
       "ko": "이미지 경로 · c3512c9a0cd58.jpg",
@@ -6502,8 +6061,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "alt",
     "kind": "text",
     "section": {
-      "ko": "PC · 건강하고 깨끗한 물, 에코웨이브가 고객과 함께 더 나은 미래…",
-      "en": "PC · Healthy water, Eco-wave Together …"
+      "ko": "건강하고 깨끗한 물, 에코웨이브가 고객과 함께 더 나은 미래…",
+      "en": "Healthy water, Eco-wave Together …"
     },
     "label": {
       "ko": "이미지 대체 텍스트 · <div class=\"img-title\"><div class=\"t-wr…",
@@ -6523,8 +6082,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "href",
     "kind": "url",
     "section": {
-      "ko": "PC · 건강하고 깨끗한 물, 에코웨이브가 고객과 함께 더 나은 미래…",
-      "en": "PC · Healthy water, Eco-wave Together …"
+      "ko": "건강하고 깨끗한 물, 에코웨이브가 고객과 함께 더 나은 미래…",
+      "en": "Healthy water, Eco-wave Together …"
     },
     "label": {
       "ko": "이미지 링크 · /17",
@@ -6544,8 +6103,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "src",
     "kind": "image",
     "section": {
-      "ko": "PC · 건강하고 깨끗한 물, 에코웨이브가 고객과 함께 더 나은 미래…",
-      "en": "PC · Healthy water, Eco-wave Together …"
+      "ko": "건강하고 깨끗한 물, 에코웨이브가 고객과 함께 더 나은 미래…",
+      "en": "Healthy water, Eco-wave Together …"
     },
     "label": {
       "ko": "이미지 경로 · e67827527be17.jpg",
@@ -6565,8 +6124,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "alt",
     "kind": "text",
     "section": {
-      "ko": "PC · 건강하고 깨끗한 물, 에코웨이브가 고객과 함께 더 나은 미래…",
-      "en": "PC · Healthy water, Eco-wave Together …"
+      "ko": "건강하고 깨끗한 물, 에코웨이브가 고객과 함께 더 나은 미래…",
+      "en": "Healthy water, Eco-wave Together …"
     },
     "label": {
       "ko": "이미지 대체 텍스트 · <div class=\"img-title\"><div class=\"t-wr…",
@@ -6586,8 +6145,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "href",
     "kind": "url",
     "section": {
-      "ko": "PC · 건강하고 깨끗한 물, 에코웨이브가 고객과 함께 더 나은 미래…",
-      "en": "PC · Healthy water, Eco-wave Together …"
+      "ko": "건강하고 깨끗한 물, 에코웨이브가 고객과 함께 더 나은 미래…",
+      "en": "Healthy water, Eco-wave Together …"
     },
     "label": {
       "ko": "이미지 링크 · /21",
@@ -6607,8 +6166,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "src",
     "kind": "image",
     "section": {
-      "ko": "PC · 건강하고 깨끗한 물, 에코웨이브가 고객과 함께 더 나은 미래…",
-      "en": "PC · Healthy water, Eco-wave Together …"
+      "ko": "건강하고 깨끗한 물, 에코웨이브가 고객과 함께 더 나은 미래…",
+      "en": "Healthy water, Eco-wave Together …"
     },
     "label": {
       "ko": "이미지 경로 · 49a097a7d0ffc.jpg",
@@ -6628,8 +6187,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "alt",
     "kind": "text",
     "section": {
-      "ko": "PC · 건강하고 깨끗한 물, 에코웨이브가 고객과 함께 더 나은 미래…",
-      "en": "PC · Healthy water, Eco-wave Together …"
+      "ko": "건강하고 깨끗한 물, 에코웨이브가 고객과 함께 더 나은 미래…",
+      "en": "Healthy water, Eco-wave Together …"
     },
     "label": {
       "ko": "이미지 대체 텍스트 · <div class=\"img-title\"><div class=\"t-wr…",
@@ -6649,8 +6208,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "href",
     "kind": "url",
     "section": {
-      "ko": "PC · 건강하고 깨끗한 물, 에코웨이브가 고객과 함께 더 나은 미래…",
-      "en": "PC · Healthy water, Eco-wave Together …"
+      "ko": "건강하고 깨끗한 물, 에코웨이브가 고객과 함께 더 나은 미래…",
+      "en": "Healthy water, Eco-wave Together …"
     },
     "label": {
       "ko": "이미지 링크 · /32",
@@ -6670,8 +6229,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "src",
     "kind": "image",
     "section": {
-      "ko": "PC · 건강하고 깨끗한 물, 에코웨이브가 고객과 함께 더 나은 미래…",
-      "en": "PC · Healthy water, Eco-wave Together …"
+      "ko": "건강하고 깨끗한 물, 에코웨이브가 고객과 함께 더 나은 미래…",
+      "en": "Healthy water, Eco-wave Together …"
     },
     "label": {
       "ko": "이미지 경로 · bd400cb7e2ba9.jpg",
@@ -6691,8 +6250,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "alt",
     "kind": "text",
     "section": {
-      "ko": "PC · 건강하고 깨끗한 물, 에코웨이브가 고객과 함께 더 나은 미래…",
-      "en": "PC · Healthy water, Eco-wave Together …"
+      "ko": "건강하고 깨끗한 물, 에코웨이브가 고객과 함께 더 나은 미래…",
+      "en": "Healthy water, Eco-wave Together …"
     },
     "label": {
       "ko": "이미지 대체 텍스트 · <div class=\"img-title\"><div class=\"t-wr…",
@@ -6712,8 +6271,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "href",
     "kind": "url",
     "section": {
-      "ko": "PC · 건강하고 깨끗한 물, 에코웨이브가 고객과 함께 더 나은 미래…",
-      "en": "PC · Healthy water, Eco-wave Together …"
+      "ko": "건강하고 깨끗한 물, 에코웨이브가 고객과 함께 더 나은 미래…",
+      "en": "Healthy water, Eco-wave Together …"
     },
     "label": {
       "ko": "이미지 링크 · /26",
@@ -6733,8 +6292,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "html",
     "kind": "textarea",
     "section": {
-      "ko": "PC · 건강하고 깨끗한 물, 에코웨이브가 고객과 함께 더 나은 미래…",
-      "en": "PC · Healthy water, Eco-wave Together …"
+      "ko": "건강하고 깨끗한 물, 에코웨이브가 고객과 함께 더 나은 미래…",
+      "en": "Healthy water, Eco-wave Together …"
     },
     "label": {
       "ko": "코드 블록",
@@ -6754,8 +6313,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "html",
     "kind": "textarea",
     "section": {
-      "ko": "PC · 에코웨이브는 깨끗한 물을 위한 기술 혁신과 친환경 가치 실현…",
-      "en": "PC · EcoWave promotes a healthy, susta…"
+      "ko": "에코웨이브는 깨끗한 물을 위한 기술 혁신과 친환경 가치 실현…",
+      "en": "EcoWave promotes a healthy, susta…"
     },
     "label": {
       "ko": "텍스트 블록 · 에코웨이브는 깨끗한 물을 위한 기술 혁신과 친환경 가치 실현을 통해 보…",
@@ -6775,8 +6334,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "src",
     "kind": "image",
     "section": {
-      "ko": "PC · 에코웨이브는 깨끗한 물을 위한 기술 혁신과 친환경 가치 실현…",
-      "en": "PC · EcoWave promotes a healthy, susta…"
+      "ko": "에코웨이브는 깨끗한 물을 위한 기술 혁신과 친환경 가치 실현…",
+      "en": "EcoWave promotes a healthy, susta…"
     },
     "label": {
       "ko": "이미지 경로 · a8abb36b1d18f.png",
@@ -6796,8 +6355,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "alt",
     "kind": "text",
     "section": {
-      "ko": "PC · 에코웨이브는 깨끗한 물을 위한 기술 혁신과 친환경 가치 실현…",
-      "en": "PC · EcoWave promotes a healthy, susta…"
+      "ko": "에코웨이브는 깨끗한 물을 위한 기술 혁신과 친환경 가치 실현…",
+      "en": "EcoWave promotes a healthy, susta…"
     },
     "label": {
       "ko": "이미지 대체 텍스트 · a8abb36b1d18f.png",
@@ -6817,8 +6376,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "html",
     "kind": "textarea",
     "section": {
-      "ko": "PC · 친환경 기술혁신 을 통한 에코웨이브의 지속 가능한 미래",
-      "en": "PC · Through eco-friendly technologica…"
+      "ko": "친환경 기술혁신 을 통한 에코웨이브의 지속 가능한 미래",
+      "en": "Through eco-friendly technologica…"
     },
     "label": {
       "ko": "텍스트 블록 · 친환경 기술혁신 을 통한 에코웨이브의 지속 가능한 미래",
@@ -6838,8 +6397,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "src",
     "kind": "image",
     "section": {
-      "ko": "PC · 생활환경 솔루션 첨단 정수 필터 기술과 살균 모듈, 위생 솔…",
-      "en": "PC · Living Solution Advanced filters …"
+      "ko": "생활환경 솔루션 첨단 정수 필터 기술과 살균 모듈, 위생 솔…",
+      "en": "Living Solution Advanced filters …"
     },
     "label": {
       "ko": "이미지 경로 · b2bfd0819b1e7.jpg",
@@ -6859,8 +6418,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "alt",
     "kind": "text",
     "section": {
-      "ko": "PC · 생활환경 솔루션 첨단 정수 필터 기술과 살균 모듈, 위생 솔…",
-      "en": "PC · Living Solution Advanced filters …"
+      "ko": "생활환경 솔루션 첨단 정수 필터 기술과 살균 모듈, 위생 솔…",
+      "en": "Living Solution Advanced filters …"
     },
     "label": {
       "ko": "이미지 대체 텍스트 · b2bfd0819b1e7.jpg",
@@ -6880,8 +6439,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "html",
     "kind": "textarea",
     "section": {
-      "ko": "PC · 생활환경 솔루션 첨단 정수 필터 기술과 살균 모듈, 위생 솔…",
-      "en": "PC · Living Solution Advanced filters …"
+      "ko": "생활환경 솔루션 첨단 정수 필터 기술과 살균 모듈, 위생 솔…",
+      "en": "Living Solution Advanced filters …"
     },
     "label": {
       "ko": "텍스트 블록 · 생활환경 솔루션 첨단 정수 필터 기술과 살균 모듈, 위생 솔루션을 기반…",
@@ -6901,8 +6460,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "src",
     "kind": "image",
     "section": {
-      "ko": "PC · 생활환경 솔루션 첨단 정수 필터 기술과 살균 모듈, 위생 솔…",
-      "en": "PC · Living Solution Advanced filters …"
+      "ko": "생활환경 솔루션 첨단 정수 필터 기술과 살균 모듈, 위생 솔…",
+      "en": "Living Solution Advanced filters …"
     },
     "label": {
       "ko": "이미지 경로 · 482b1d289f2ef.jpg",
@@ -6922,8 +6481,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "alt",
     "kind": "text",
     "section": {
-      "ko": "PC · 생활환경 솔루션 첨단 정수 필터 기술과 살균 모듈, 위생 솔…",
-      "en": "PC · Living Solution Advanced filters …"
+      "ko": "생활환경 솔루션 첨단 정수 필터 기술과 살균 모듈, 위생 솔…",
+      "en": "Living Solution Advanced filters …"
     },
     "label": {
       "ko": "이미지 대체 텍스트 · 482b1d289f2ef.jpg",
@@ -6943,8 +6502,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "html",
     "kind": "textarea",
     "section": {
-      "ko": "PC · 생활환경 솔루션 첨단 정수 필터 기술과 살균 모듈, 위생 솔…",
-      "en": "PC · Living Solution Advanced filters …"
+      "ko": "생활환경 솔루션 첨단 정수 필터 기술과 살균 모듈, 위생 솔…",
+      "en": "Living Solution Advanced filters …"
     },
     "label": {
       "ko": "텍스트 블록 · 정수 소재 & 스마트 부품 정수기 필터, 비데 필터, 샤워기 필터 등 …",
@@ -6964,8 +6523,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "src",
     "kind": "image",
     "section": {
-      "ko": "PC · 생활환경 솔루션 첨단 정수 필터 기술과 살균 모듈, 위생 솔…",
-      "en": "PC · Living Solution Advanced filters …"
+      "ko": "생활환경 솔루션 첨단 정수 필터 기술과 살균 모듈, 위생 솔…",
+      "en": "Living Solution Advanced filters …"
     },
     "label": {
       "ko": "이미지 경로 · b3ac0bbe894b9.jpg",
@@ -6985,8 +6544,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "alt",
     "kind": "text",
     "section": {
-      "ko": "PC · 생활환경 솔루션 첨단 정수 필터 기술과 살균 모듈, 위생 솔…",
-      "en": "PC · Living Solution Advanced filters …"
+      "ko": "생활환경 솔루션 첨단 정수 필터 기술과 살균 모듈, 위생 솔…",
+      "en": "Living Solution Advanced filters …"
     },
     "label": {
       "ko": "이미지 대체 텍스트 · b3ac0bbe894b9.jpg",
@@ -7006,306 +6565,12 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "html",
     "kind": "textarea",
     "section": {
-      "ko": "PC · 생활환경 솔루션 첨단 정수 필터 기술과 살균 모듈, 위생 솔…",
-      "en": "PC · Living Solution Advanced filters …"
+      "ko": "생활환경 솔루션 첨단 정수 필터 기술과 살균 모듈, 위생 솔…",
+      "en": "Living Solution Advanced filters …"
     },
     "label": {
       "ko": "텍스트 블록 · 헬스 & 워터케어 물이 곧 건강이라는 철학 아래, 에코웨이브는 인류의 …",
       "en": "Text block · Health & Care EcoWave develops next-gen…"
-    },
-    "revalidate": [
-      "/",
-      "/en"
-    ]
-  },
-  {
-    "key": "home#s20250911db56ac49110f4/w20250911b19e5033093cd/items[0].title",
-    "group": "home",
-    "pageKey": "home",
-    "sectionId": "s20250911db56ac49110f4",
-    "widgetId": "w20250911b19e5033093cd",
-    "field": "items[0].title",
-    "kind": "text",
-    "section": {
-      "ko": "모바일 · 갤러리",
-      "en": "Mobile · Gallery"
-    },
-    "label": {
-      "ko": "갤러리 항목 1 · 생활환경 솔루션",
-      "en": "Gallery item 1 · Living environment solution"
-    },
-    "revalidate": [
-      "/",
-      "/en"
-    ]
-  },
-  {
-    "key": "home#s20250911db56ac49110f4/w20250911b19e5033093cd/items[0].desc",
-    "group": "home",
-    "pageKey": "home",
-    "sectionId": "s20250911db56ac49110f4",
-    "widgetId": "w20250911b19e5033093cd",
-    "field": "items[0].desc",
-    "kind": "text",
-    "section": {
-      "ko": "모바일 · 갤러리",
-      "en": "Mobile · Gallery"
-    },
-    "label": {
-      "ko": "설명 · 첨단 정수 필터 기술과 살균 모듈, 위생 솔루션을 기반으로 일상 속 물…",
-      "en": "Description · Based on advanced water filter technolo…"
-    },
-    "revalidate": [
-      "/",
-      "/en"
-    ]
-  },
-  {
-    "key": "home#s20250911db56ac49110f4/w20250911b19e5033093cd/items[0].org",
-    "group": "home",
-    "pageKey": "home",
-    "sectionId": "s20250911db56ac49110f4",
-    "widgetId": "w20250911b19e5033093cd",
-    "field": "items[0].org",
-    "kind": "image",
-    "section": {
-      "ko": "모바일 · 갤러리",
-      "en": "Mobile · Gallery"
-    },
-    "label": {
-      "ko": "원본 이미지 · 4d2e3e220d22d.jpg",
-      "en": "Original image · 103b4117866d1.jpg"
-    },
-    "revalidate": [
-      "/",
-      "/en"
-    ]
-  },
-  {
-    "key": "home#s20250911db56ac49110f4/w20250911b19e5033093cd/items[0].thumb",
-    "group": "home",
-    "pageKey": "home",
-    "sectionId": "s20250911db56ac49110f4",
-    "widgetId": "w20250911b19e5033093cd",
-    "field": "items[0].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "모바일 · 갤러리",
-      "en": "Mobile · Gallery"
-    },
-    "label": {
-      "ko": "썸네일 · f75da9b8974bc.jpg",
-      "en": "Thumbnail · c7c22113f7320.jpg"
-    },
-    "revalidate": [
-      "/",
-      "/en"
-    ]
-  },
-  {
-    "key": "home#s20250911db56ac49110f4/w20250911b19e5033093cd/items[1].title",
-    "group": "home",
-    "pageKey": "home",
-    "sectionId": "s20250911db56ac49110f4",
-    "widgetId": "w20250911b19e5033093cd",
-    "field": "items[1].title",
-    "kind": "text",
-    "section": {
-      "ko": "모바일 · 갤러리",
-      "en": "Mobile · Gallery"
-    },
-    "label": {
-      "ko": "갤러리 항목 2 · 정수 소재 & 스마트 부품",
-      "en": "Gallery item 2 · Water Purification Material & Smart Par…"
-    },
-    "revalidate": [
-      "/",
-      "/en"
-    ]
-  },
-  {
-    "key": "home#s20250911db56ac49110f4/w20250911b19e5033093cd/items[1].desc",
-    "group": "home",
-    "pageKey": "home",
-    "sectionId": "s20250911db56ac49110f4",
-    "widgetId": "w20250911b19e5033093cd",
-    "field": "items[1].desc",
-    "kind": "text",
-    "section": {
-      "ko": "모바일 · 갤러리",
-      "en": "Mobile · Gallery"
-    },
-    "label": {
-      "ko": "설명 · 정수기 필터, 비데 필터, 샤워기 필터 등 고성능 정수 소재와 스마트 …",
-      "en": "Description · Water purifier filter, bidet filter, sh…"
-    },
-    "revalidate": [
-      "/",
-      "/en"
-    ]
-  },
-  {
-    "key": "home#s20250911db56ac49110f4/w20250911b19e5033093cd/items[1].org",
-    "group": "home",
-    "pageKey": "home",
-    "sectionId": "s20250911db56ac49110f4",
-    "widgetId": "w20250911b19e5033093cd",
-    "field": "items[1].org",
-    "kind": "image",
-    "section": {
-      "ko": "모바일 · 갤러리",
-      "en": "Mobile · Gallery"
-    },
-    "label": {
-      "ko": "원본 이미지 · 5bd36b31e62b3.jpg",
-      "en": "Original image · 9591f79fa906c.jpg"
-    },
-    "revalidate": [
-      "/",
-      "/en"
-    ]
-  },
-  {
-    "key": "home#s20250911db56ac49110f4/w20250911b19e5033093cd/items[1].thumb",
-    "group": "home",
-    "pageKey": "home",
-    "sectionId": "s20250911db56ac49110f4",
-    "widgetId": "w20250911b19e5033093cd",
-    "field": "items[1].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "모바일 · 갤러리",
-      "en": "Mobile · Gallery"
-    },
-    "label": {
-      "ko": "썸네일 · 9edb3205c1901.jpg",
-      "en": "Thumbnail · 6daa021a1175d.jpg"
-    },
-    "revalidate": [
-      "/",
-      "/en"
-    ]
-  },
-  {
-    "key": "home#s20250911db56ac49110f4/w20250911b19e5033093cd/items[2].title",
-    "group": "home",
-    "pageKey": "home",
-    "sectionId": "s20250911db56ac49110f4",
-    "widgetId": "w20250911b19e5033093cd",
-    "field": "items[2].title",
-    "kind": "text",
-    "section": {
-      "ko": "모바일 · 갤러리",
-      "en": "Mobile · Gallery"
-    },
-    "label": {
-      "ko": "갤러리 항목 3 · 헬스 & 워터케어",
-      "en": "Gallery item 3 · Health & Water Care"
-    },
-    "revalidate": [
-      "/",
-      "/en"
-    ]
-  },
-  {
-    "key": "home#s20250911db56ac49110f4/w20250911b19e5033093cd/items[2].desc",
-    "group": "home",
-    "pageKey": "home",
-    "sectionId": "s20250911db56ac49110f4",
-    "widgetId": "w20250911b19e5033093cd",
-    "field": "items[2].desc",
-    "kind": "text",
-    "section": {
-      "ko": "모바일 · 갤러리",
-      "en": "Mobile · Gallery"
-    },
-    "label": {
-      "ko": "설명 · 물이 곧 건강이라는 철학 아래, 에코웨이브는 인류의 건강한 삶을 위한 …",
-      "en": "Description · Under the philosophy that water is heal…"
-    },
-    "revalidate": [
-      "/",
-      "/en"
-    ]
-  },
-  {
-    "key": "home#s20250911db56ac49110f4/w20250911b19e5033093cd/items[2].org",
-    "group": "home",
-    "pageKey": "home",
-    "sectionId": "s20250911db56ac49110f4",
-    "widgetId": "w20250911b19e5033093cd",
-    "field": "items[2].org",
-    "kind": "image",
-    "section": {
-      "ko": "모바일 · 갤러리",
-      "en": "Mobile · Gallery"
-    },
-    "label": {
-      "ko": "원본 이미지 · 9068ff5bdaa9b.jpg",
-      "en": "Original image · d91a8367993e4.jpg"
-    },
-    "revalidate": [
-      "/",
-      "/en"
-    ]
-  },
-  {
-    "key": "home#s20250911db56ac49110f4/w20250911b19e5033093cd/items[2].thumb",
-    "group": "home",
-    "pageKey": "home",
-    "sectionId": "s20250911db56ac49110f4",
-    "widgetId": "w20250911b19e5033093cd",
-    "field": "items[2].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "모바일 · 갤러리",
-      "en": "Mobile · Gallery"
-    },
-    "label": {
-      "ko": "썸네일 · b7d61ce6e6529.jpg",
-      "en": "Thumbnail · 41f1f0b290d36.jpg"
-    },
-    "revalidate": [
-      "/",
-      "/en"
-    ]
-  },
-  {
-    "key": "home#s20250911ce32ed6fec574/w2025091171a83a2df2488/html",
-    "group": "home",
-    "pageKey": "home",
-    "sectionId": "s20250911ce32ed6fec574",
-    "widgetId": "w2025091171a83a2df2488",
-    "field": "html",
-    "kind": "textarea",
-    "section": {
-      "ko": "모바일 · 물을 깨끗하게, 사람을 건강하게 Clean Water, He…",
-      "en": "Mobile · Ecowave Clean Water, Healthy Peop…"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 물을 깨끗하게, 사람을 건강하게 Clean Water, Healthy …",
-      "en": "Text block · Ecowave Clean Water, Healthy People."
-    },
-    "revalidate": [
-      "/",
-      "/en"
-    ]
-  },
-  {
-    "key": "home#s20250911ce32ed6fec574/w20250911e68c83742f745/src",
-    "group": "home",
-    "pageKey": "home",
-    "sectionId": "s20250911ce32ed6fec574",
-    "widgetId": "w20250911e68c83742f745",
-    "field": "src",
-    "kind": "url",
-    "section": {
-      "ko": "모바일 · 물을 깨끗하게, 사람을 건강하게 Clean Water, He…",
-      "en": "Mobile · Ecowave Clean Water, Healthy Peop…"
-    },
-    "label": {
-      "ko": "동영상 URL · https://www.youtube.com/embed/p1wiw6f1T…",
-      "en": "Video URL · https://www.youtube.com/embed/p1wiw6f1T…"
     },
     "revalidate": [
       "/",
@@ -7321,8 +6586,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "html",
     "kind": "textarea",
     "section": {
-      "ko": "PC · 물을 깨끗하게, 사람을 건강하게 Clean Water, He…",
-      "en": "PC · Eco wave Clean Water, Healthy Peo…"
+      "ko": "물을 깨끗하게, 사람을 건강하게 Clean Water, He…",
+      "en": "Eco wave Clean Water, Healthy Peo…"
     },
     "label": {
       "ko": "텍스트 블록 · 물을 깨끗하게, 사람을 건강하게 Clean Water, Healthy …",
@@ -7342,8 +6607,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "src",
     "kind": "url",
     "section": {
-      "ko": "PC · 물을 깨끗하게, 사람을 건강하게 Clean Water, He…",
-      "en": "PC · Eco wave Clean Water, Healthy Peo…"
+      "ko": "물을 깨끗하게, 사람을 건강하게 Clean Water, He…",
+      "en": "Eco wave Clean Water, Healthy Peo…"
     },
     "label": {
       "ko": "동영상 URL · https://www.youtube.com/embed/p1wiw6f1T…",
@@ -7363,8 +6628,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "html",
     "kind": "textarea",
     "section": {
-      "ko": "PC · Headquarters & Factory Locations …",
-      "en": "PC · Headquarters & Factory Locations …"
+      "ko": "Headquarters & Factory Locations …",
+      "en": "Headquarters & Factory Locations …"
     },
     "label": {
       "ko": "텍스트 블록 · Headquarters & Factory Locations 세계 속의 …",
@@ -7384,8 +6649,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "src",
     "kind": "image",
     "section": {
-      "ko": "PC · Headquarters & Factory Locations …",
-      "en": "PC · Headquarters & Factory Locations …"
+      "ko": "Headquarters & Factory Locations …",
+      "en": "Headquarters & Factory Locations …"
     },
     "label": {
       "ko": "이미지 경로 · 9bc64982daf80.jpg",
@@ -7405,8 +6670,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "alt",
     "kind": "text",
     "section": {
-      "ko": "PC · Headquarters & Factory Locations …",
-      "en": "PC · Headquarters & Factory Locations …"
+      "ko": "Headquarters & Factory Locations …",
+      "en": "Headquarters & Factory Locations …"
     },
     "label": {
       "ko": "이미지 대체 텍스트 · 9bc64982daf80.jpg",
@@ -7426,8 +6691,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "html",
     "kind": "textarea",
     "section": {
-      "ko": "PC · Headquarters & Factory Locations …",
-      "en": "PC · Headquarters & Factory Locations …"
+      "ko": "Headquarters & Factory Locations …",
+      "en": "Headquarters & Factory Locations …"
     },
     "label": {
       "ko": "텍스트 블록 · KOR [KOREA] 인천광역시 남동구 은봉로 14 영도빌딩 2동 TE…",
@@ -7447,8 +6712,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "html",
     "kind": "textarea",
     "section": {
-      "ko": "PC · Headquarters & Factory Locations …",
-      "en": "PC · Headquarters & Factory Locations …"
+      "ko": "Headquarters & Factory Locations …",
+      "en": "Headquarters & Factory Locations …"
     },
     "label": {
       "ko": "텍스트 블록 · CHN [CHINA] Hongfuiie NO.90 Yantai, Sha…",
@@ -7468,8 +6733,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "html",
     "kind": "textarea",
     "section": {
-      "ko": "PC · Headquarters & Factory Locations …",
-      "en": "PC · Headquarters & Factory Locations …"
+      "ko": "Headquarters & Factory Locations …",
+      "en": "Headquarters & Factory Locations …"
     },
     "label": {
       "ko": "텍스트 블록 · KHM [CAMBODIA] Tuol Kork Phnom Penh City",
@@ -7489,8 +6754,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "html",
     "kind": "textarea",
     "section": {
-      "ko": "PC · Headquarters & Factory Locations …",
-      "en": "PC · Headquarters & Factory Locations …"
+      "ko": "Headquarters & Factory Locations …",
+      "en": "Headquarters & Factory Locations …"
     },
     "label": {
       "ko": "코드 블록",
@@ -7510,8 +6775,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "html",
     "kind": "textarea",
     "section": {
-      "ko": "PC · 공지사항 티커",
-      "en": "PC · Notice ticker"
+      "ko": "공지사항 티커",
+      "en": "Notice ticker"
     },
     "label": {
       "ko": "텍스트 블록 · Notice 에코웨이브 이야기",
@@ -7531,8 +6796,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "text",
     "kind": "text",
     "section": {
-      "ko": "PC · 공지사항 티커",
-      "en": "PC · Notice ticker"
+      "ko": "공지사항 티커",
+      "en": "Notice ticker"
     },
     "label": {
       "ko": "버튼 텍스트",
@@ -7552,8 +6817,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "href",
     "kind": "url",
     "section": {
-      "ko": "PC · 공지사항 티커",
-      "en": "PC · Notice ticker"
+      "ko": "공지사항 티커",
+      "en": "Notice ticker"
     },
     "label": {
       "ko": "버튼 링크",
@@ -7657,8 +6922,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "html",
     "kind": "textarea",
     "section": {
-      "ko": "PC · 코드 블록 (2)",
-      "en": "PC · Code block (2)"
+      "ko": "코드 블록 (2)",
+      "en": "Code block (2)"
     },
     "label": {
       "ko": "코드 블록",
@@ -7678,8 +6943,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "html",
     "kind": "textarea",
     "section": {
-      "ko": "PC · 푸터",
-      "en": "PC · Footer"
+      "ko": "푸터",
+      "en": "Footer"
     },
     "label": {
       "ko": "텍스트 블록",
@@ -7699,8 +6964,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "html",
     "kind": "textarea",
     "section": {
-      "ko": "PC · 푸터",
-      "en": "PC · Footer"
+      "ko": "푸터",
+      "en": "Footer"
     },
     "label": {
       "ko": "텍스트 블록 · 대표 : 김나연 개인정보관리책임자 : 김나연 ㅣ 문의 : ecowave…",
@@ -7720,8 +6985,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "text",
     "kind": "text",
     "section": {
-      "ko": "PC · 푸터",
-      "en": "PC · Footer"
+      "ko": "푸터",
+      "en": "Footer"
     },
     "label": {
       "ko": "버튼 텍스트",
@@ -7741,8 +7006,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "href",
     "kind": "url",
     "section": {
-      "ko": "PC · 푸터",
-      "en": "PC · Footer"
+      "ko": "푸터",
+      "en": "Footer"
     },
     "label": {
       "ko": "버튼 링크",
@@ -7762,8 +7027,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "html",
     "kind": "textarea",
     "section": {
-      "ko": "PC · 푸터",
-      "en": "PC · Footer"
+      "ko": "푸터",
+      "en": "Footer"
     },
     "label": {
       "ko": "텍스트 블록 · 에코 웨이 브",
@@ -7783,8 +7048,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "html",
     "kind": "textarea",
     "section": {
-      "ko": "PC · 푸터",
-      "en": "PC · Footer"
+      "ko": "푸터",
+      "en": "Footer"
     },
     "label": {
       "ko": "텍스트 블록 · 연구개발",
@@ -7804,8 +7069,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "html",
     "kind": "textarea",
     "section": {
-      "ko": "PC · 푸터",
-      "en": "PC · Footer"
+      "ko": "푸터",
+      "en": "Footer"
     },
     "label": {
       "ko": "텍스트 블록 · 제품소개",
@@ -7825,8 +7090,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "html",
     "kind": "textarea",
     "section": {
-      "ko": "PC · 푸터",
-      "en": "PC · Footer"
+      "ko": "푸터",
+      "en": "Footer"
     },
     "label": {
       "ko": "텍스트 블록 · 뉴스룸",
@@ -7846,8 +7111,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "html",
     "kind": "textarea",
     "section": {
-      "ko": "PC · 푸터",
-      "en": "PC · Footer"
+      "ko": "푸터",
+      "en": "Footer"
     },
     "label": {
       "ko": "텍스트 블록 · 고객지원",
@@ -14350,91 +13615,7 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "ko": "<p class=\"font1\" style=\"text-align: center; line-height: 1.5;\"><span style=\"font-size: 75px;\"><strong>더 나은 미래, 풍요로운 삶</strong></span></p><p class=\"font1\" style=\"text-align: center; line-height: 1;\"><br></p><p class=\"font1\" style=\"text-align: center; line-height: 1.5;\"><span style=\"font-size: 75px;\"><strong>에코웨이브의 가치입니다.</strong></span></p><p style=\"line-height: 2; text-align: center;\"><br></p><h6 class=\"font2\" style=\"line-height: 2; text-align: center;\"><span style=\"font-size: 24px;\">우리의 비전은 자연과 조화롭게 번성하고 인류의 번영을 촉진하는</span></h6><h6 class=\"font2\" style=\"line-height: 2; text-align: center;\"><span style=\"font-size: 24px;\">지속 가능한 세상을 만드는 데 중점을 두고 있습니다.</span></h6><p style=\"text-align: center;\"><br></p>",
     "en": "<p style=\"text-align: center; line-height: 1.5;\"><span style=\"font-size: 72px;\"><strong><span style=\"color: rgb(255, 255, 255);\">EcoWave,</span></strong></span></p><p style=\"text-align: center; line-height: 1.5;\"><span style=\"font-size: 72px;\"><strong><span style=\"color: rgb(255, 255, 255);\">for a better future and richer life.</span></strong></span></p><p style=\"line-height: 2; text-align: center;\"><br></p><h6 style=\"line-height: 1.5; text-align: center;\"><span style=\"font-size: 24px;\">Our vision fosters harmony with nature and human prosperity,</span></h6><h6 style=\"line-height: 1.5; text-align: center;\"><span style=\"font-size: 24px;\">creating a sustainable world.</span></h6><p style=\"text-align: center;\"><br></p>"
   },
-  "home#s20250911a14bac08f598c/visual[0]/bg": {
-    "ko": "/images/thumbnail/20250911/970dcddcb1e4b.jpg",
-    "en": "/images/thumbnail/20250911/970dcddcb1e4b.jpg"
-  },
-  "home#s20250911a14bac08f598c/visual[0]/html": {
-    "ko": "<p class=\"font1\" style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 26px;\"><strong>더 나은 미래, 풍요로운 삶</strong></span></p><p class=\"font1\" style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 26px;\"><strong>에코웨이브의 가치입니다.</strong></span></p><h6 class=\"font2\" style=\"line-height: 1.5; text-align: center;\"><span style=\"font-size: 16px;\">우리의 비전은 자연과 조화롭게 번성하고</span></h6><h6 class=\"font2\" style=\"line-height: 1.5; text-align: center;\"><span style=\"font-size: 16px;\">인류의 번영을 촉진하는</span></h6><h6 class=\"font2\" style=\"line-height: 1.5; text-align: center;\"><span style=\"font-size: 16px;\">지속 가능한 세상을 만드는 데 중점을 두고 있습니다.</span></h6>",
-    "en": "<p class=\"font1\" style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 24px;\"><strong><span style=\"letter-spacing: -1px;\">EcoWave,</span></strong></span></p><p class=\"font1\" style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 24px;\"><strong><span style=\"letter-spacing: -1px;\">for a better future and rich life.</span></strong></span></p><h6 style=\"line-height: 1; text-align: center;\"><span style=\"font-size: 12px;\">Our vision fosters harmony with nature and human prosperity,</span></h6><h6 style=\"line-height: 1; text-align: center;\"><span style=\"font-size: 12px;\">creating a sustainable world.</span></h6>"
-  },
-  "home#s20250911a14bac08f598c/visual[1]/bg": {
-    "ko": "/images/thumbnail/20250911/9e7f05e2844fc.jpg",
-    "en": "/images/thumbnail/20250911/9e7f05e2844fc.jpg"
-  },
-  "home#s20250911a14bac08f598c/visual[1]/html": {
-    "ko": "<p class=\"font1\" style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 26px;\"><strong>더 나은 미래, 풍요로운 삶</strong></span></p><p class=\"font1\" style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 26px;\"><strong>에코웨이브의 가치입니다.</strong></span></p><h6 class=\"font2\" style=\"line-height: 1.5; text-align: center;\"><span style=\"font-size: 16px;\">우리의 비전은 자연과 조화롭게 번성하고</span></h6><h6 class=\"font2\" style=\"line-height: 1.5; text-align: center;\"><span style=\"font-size: 16px;\">인류의 번영을 촉진하는</span></h6><h6 class=\"font2\" style=\"line-height: 1.5; text-align: center;\"><span style=\"font-size: 16px;\">지속 가능한 세상을 만드는 데 중점을 두고 있습니다.</span></h6>",
-    "en": "<p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 24px;\"><strong><span style=\"letter-spacing: -1px;\">EcoWave,</span></strong></span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 24px;\"><strong><span style=\"letter-spacing: -1px;\">for a better future and rich life.</span></strong></span></p><h6 style=\"line-height: 1; text-align: center;\"><span style=\"font-size: 12px;\">Our vision fosters harmony with nature and human prosperity,</span></h6><h6 style=\"line-height: 1; text-align: center;\"><span style=\"font-size: 12px;\">creating a sustainable world.</span></h6>"
-  },
-  "home#s20250911c5c5fd5e57c26/w2025091161bea948f6bee/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><h6 style=\"line-height: 2;\"><strong><span style=\"color: rgb(0, 0, 0); font-size: 26px; letter-spacing: 0px;\">건강하고 깨끗한 물,</span></strong></h6><h6 style=\"line-height: 2;\"><span style=\"font-size: 26px;\"><strong><span style=\"color: rgb(0, 0, 0); letter-spacing: 0px;\">에코웨이브가&nbsp;</span></strong><strong><span style=\"letter-spacing: 0;\"><span style=\"color: rgb(0, 0, 0);\">고객과 함께</span></span></strong></span></h6><h6 style=\"line-height: 2;\"><span style=\"font-size: 26px;\"><strong><span style=\"color: rgb(52, 101, 222); letter-spacing: 0px;\">더 나은 미래를&nbsp;</span></strong></span><strong><span style=\"color: rgb(52, 101, 222); font-size: 26px; letter-spacing: 0px;\">만들어갑니다. </span></strong></h6></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><h6 style=\"line-height: 1;\"><strong><span style=\"color: rgb(0, 0, 0); font-size: 20px; letter-spacing: 0px;\">Healthywater, Eco-wave</span></strong></h6><h6 style=\"line-height: 1;\"><span style=\"font-size: 20px;\"><strong><span style=\"color: rgb(0, 0, 0); letter-spacing: 0px;\">Together we create a&nbsp;</span></strong></span><strong><span style=\"color: rgb(52, 101, 222); font-size: 20px; letter-spacing: 0px;\">better future</span></strong></h6></div></div>\n\t"
-  },
-  "home#s20250911281117781b494/w202509119ecb84eb6e940/src": {
-    "ko": "/images/thumbnail/20250911/55a9cffce4f94.jpg",
-    "en": "/images/thumbnail/20250911/55a9cffce4f94.jpg"
-  },
-  "home#s20250911281117781b494/w202509119ecb84eb6e940/alt": {
-    "ko": "<h5>회사소개</h5><span>Company</span>",
-    "en": "<h5>Company</h5>"
-  },
-  "home#s20250911281117781b494/w202509119ecb84eb6e940/href": {
-    "ko": "/17",
-    "en": "/17"
-  },
-  "home#s20250911281117781b494/w2025091149bbbec8e797d/src": {
-    "ko": "/images/thumbnail/20250911/aabafe51067b6.jpg",
-    "en": "/images/thumbnail/20250911/aabafe51067b6.jpg"
-  },
-  "home#s20250911281117781b494/w2025091149bbbec8e797d/alt": {
-    "ko": "<h5>연구개발</h5><span>R&D</span>",
-    "en": "<h5>R&D</h5>"
-  },
-  "home#s20250911281117781b494/w2025091149bbbec8e797d/href": {
-    "ko": "/21",
-    "en": "/21"
-  },
-  "home#s20250911281117781b494/w20250911cb710bccd6323/src": {
-    "ko": "/images/thumbnail/20250911/84fff7d77ffff.jpg",
-    "en": "/images/thumbnail/20250911/84fff7d77ffff.jpg"
-  },
-  "home#s20250911281117781b494/w20250911cb710bccd6323/alt": {
-    "ko": "<h5>제품소개</h5><span>Products</span>",
-    "en": "<h5>Products</h5>"
-  },
-  "home#s20250911281117781b494/w20250911cb710bccd6323/href": {
-    "ko": "/32",
-    "en": "/32"
-  },
-  "home#s20250911281117781b494/w20250911edd80efa0562b/src": {
-    "ko": "/images/thumbnail/20250911/41c848eb0d74e.jpg",
-    "en": "/images/thumbnail/20250911/41c848eb0d74e.jpg"
-  },
-  "home#s20250911281117781b494/w20250911edd80efa0562b/alt": {
-    "ko": "<h5>홍보센터</h5><span>PR Center</span>",
-    "en": "<h5>News</h5>"
-  },
-  "home#s20250911281117781b494/w20250911edd80efa0562b/href": {
-    "ko": "/27",
-    "en": "/27"
-  },
-  "home#s20250911281117781b494/w2025091106eb6f453ead4/html": {
-    "ko": "",
-    "en": ""
-  },
   "home#s202508119ee9efac0385c/w202508113d84762227376/html": {
-    "ko": "",
-    "en": ""
-  },
-  "home#s20250911e7c6ef8d60c18/w20250911f6299fc147ec0/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: center;\"><img src=\"/images/upload/S20250811e0bd2f7c414df/48fbd16b3a070.png\" class=\"fr-fin fr-dib\" style=\"width: 266px;\"></h6><p style=\"text-align: center; line-height: 2;\"><br></p><p style=\"text-align: center; line-height: 2;\"><span style=\"color: rgb(255, 255, 255); font-size: 14px; letter-spacing: 0px;\">에코웨이브는 깨끗한 물을 위한 기술 혁신과 친환경 가치 실현을 통해&nbsp;</span><span style=\"font-size: 14px;\"><span style=\"color: rgb(255, 255, 255); letter-spacing: 0px;\">보다 건강하고 지속 가능한 삶을 제안합니다.</span></span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(255, 255, 255); letter-spacing: 0px;\">고객의 라이프스타일에 최적화된 고품질 정수 솔루션으로&nbsp;</span></span><span style=\"color: rgb(255, 255, 255); font-size: 14px; letter-spacing: 0px;\">사람과 환경이 공존하는 미래를 만들어 갑니다.</span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: center;\"><img src=\"/images/upload/S20250811e0bd2f7c414df/48fbd16b3a070.png\" class=\"fr-fin fr-dib\" style=\"width: 266px;\"></h6><p style=\"text-align: center;\"><br></p><p style=\"text-align: center;\"><span style=\"color: rgb(255, 255, 255);\">EcoWave promotes a healthy,</span></p><p style=\"text-align: center;\"><span style=\"color: rgb(255, 255, 255);\">sustainable life with innovative water purification technology,&nbsp;</span><span style=\"color: rgb(255, 255, 255);\">realizing eco-friendly values where people and nature coexist.</span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(255, 255, 255); letter-spacing: 0px;\">&nbsp;</span></span></p></div></div>\n\t"
-  },
-  "home#s20250911e7c6ef8d60c18/w202509114ffe0e1166af8/src": {
-    "ko": "/images/thumbnail/20250911/69966451ca00b.png",
-    "en": "/images/thumbnail/20250918/22698d11a0ae4.png"
-  },
-  "home#s20250911e7c6ef8d60c18/w202509114ffe0e1166af8/alt": {
     "ko": "",
     "en": ""
   },
@@ -14545,62 +13726,6 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
   "home#s20250811e48a3b857667a/w202508119d8af42ac2987/html": {
     "ko": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: center;\"><span style=\"font-size: 30px;\"><strong><span style=\"color: rgb(0, 0, 0);\">헬스 &amp; 워터케어</span></strong></span></h6><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(93, 93, 93);\">물이 곧 건강이라는 철학 아래,</span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px;\"><span style=\"color: rgb(93, 93, 93);\">에코웨이브는 인류의 건강한 삶을 위한 차세대 워터케어 제품과</span></span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(93, 93, 93);\">살균·위생 관리 기술을 지속적으로 개발해 나가겠습니다.</span></p></div></div>\n\t",
     "en": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: center;\"><span style=\"font-size: 30px;\"><strong><span style=\"color: rgb(0, 0, 0);\">Health &amp; Care&nbsp;</span></strong></span></h6><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 18px; color: rgb(93, 93, 93);\">EcoWave develops next-gen water care<br data-start=\"282\" data-end=\"285\">&nbsp;and hygiene technologies.</span></p></div></div>\n\t"
-  },
-  "home#s20250911db56ac49110f4/w20250911b19e5033093cd/items[0].title": {
-    "ko": "생활환경 솔루션",
-    "en": "Living environment solution"
-  },
-  "home#s20250911db56ac49110f4/w20250911b19e5033093cd/items[0].desc": {
-    "ko": "첨단 정수 필터 기술과 살균 모듈, 위생 솔루션을 기반으로 일상 속 물의 질을 향상시키는 친환경 제품을 개발하여 깨끗하고 건강한 생활환경 구축에 앞장서겠습니다.",
-    "en": "Based on advanced water filter technology, sterilization modules, and hygiene solutions By developing eco-friendly products that improve the quality of water in everyday life We will take the lead in building a clean and healthy living environment."
-  },
-  "home#s20250911db56ac49110f4/w20250911b19e5033093cd/items[0].org": {
-    "ko": "/images/upload/S20250811e0bd2f7c414df/4d2e3e220d22d.jpg",
-    "en": "/images/upload/S20250811e0bd2f7c414df/103b4117866d1.jpg"
-  },
-  "home#s20250911db56ac49110f4/w20250911b19e5033093cd/items[0].thumb": {
-    "ko": "/images/thumbnail/20250911/f75da9b8974bc.jpg",
-    "en": "/images/thumbnail/20250912/c7c22113f7320.jpg"
-  },
-  "home#s20250911db56ac49110f4/w20250911b19e5033093cd/items[1].title": {
-    "ko": "정수 소재 & 스마트 부품",
-    "en": "Water Purification Material & Smart Parts"
-  },
-  "home#s20250911db56ac49110f4/w20250911b19e5033093cd/items[1].desc": {
-    "ko": "정수기 필터, 비데 필터, 샤워기 필터 등 고성능 정수 소재와 스마트 모듈 기반 부품을 통해 지속 가능한 수처리 기술 솔루션을 제공하겠습니다.",
-    "en": "Water purifier filter, bidet filter, shower filter, etc High-performance water-based materials and smart module-based components We will provide you with a sustainable water treatment technology solution."
-  },
-  "home#s20250911db56ac49110f4/w20250911b19e5033093cd/items[1].org": {
-    "ko": "/images/upload/S20250811e0bd2f7c414df/5bd36b31e62b3.jpg",
-    "en": "/images/upload/S20250811e0bd2f7c414df/9591f79fa906c.jpg"
-  },
-  "home#s20250911db56ac49110f4/w20250911b19e5033093cd/items[1].thumb": {
-    "ko": "/images/thumbnail/20250911/9edb3205c1901.jpg",
-    "en": "/images/thumbnail/20250912/6daa021a1175d.jpg"
-  },
-  "home#s20250911db56ac49110f4/w20250911b19e5033093cd/items[2].title": {
-    "ko": "헬스 & 워터케어",
-    "en": "Health & Water Care"
-  },
-  "home#s20250911db56ac49110f4/w20250911b19e5033093cd/items[2].desc": {
-    "ko": "물이 곧 건강이라는 철학 아래, 에코웨이브는 인류의 건강한 삶을 위한 차세대 워터케어 제품과 살균·위생 관리 기술을 지속적으로 개발해 나가겠습니다.",
-    "en": "Under the philosophy that water is health, EcoWave is a new generation of water care products for the healthy life of mankind We will continue to develop sterilization and hygiene management technologies."
-  },
-  "home#s20250911db56ac49110f4/w20250911b19e5033093cd/items[2].org": {
-    "ko": "/images/upload/S20250811e0bd2f7c414df/9068ff5bdaa9b.jpg",
-    "en": "/images/upload/S20250811e0bd2f7c414df/d91a8367993e4.jpg"
-  },
-  "home#s20250911db56ac49110f4/w20250911b19e5033093cd/items[2].thumb": {
-    "ko": "/images/thumbnail/20250911/b7d61ce6e6529.jpg",
-    "en": "/images/thumbnail/20250912/41f1f0b290d36.jpg"
-  },
-  "home#s20250911ce32ed6fec574/w2025091171a83a2df2488/html": {
-    "ko": "\n\t\t<div class=\"text-table \"><div><p><span style=\"font-size: 26px;\"><strong><span style=\"color: rgb(255, 255, 255);\">물을 깨끗하게, 사람을 건강하게</span></strong></span></p><p><span style=\"font-size: 26px;\"><em><span style=\"color: rgb(255, 255, 255);\">Clean Water, Healthy People.</span></em></span></p></div></div>\n\t",
-    "en": "\n\t\t<div class=\"text-table \"><div><p><span style=\"font-size: 30px;\"><span style=\"color: rgb(255, 255, 255);\">Ecowave</span></span></p><p><span style=\"font-size: 26px;\"><em><span style=\"color: rgb(255, 255, 255);\">Clean Water, Healthy People.</span></em></span></p></div></div>\n\t"
-  },
-  "home#s20250911ce32ed6fec574/w20250911e68c83742f745/src": {
-    "ko": "https://www.youtube.com/embed/p1wiw6f1Twg?loop=1&rel=0&playlist=p1wiw6f1Twg&showinfo=0&controls=0&mute=1&autoplay=1&enablejsapi=1&origin=https%3A%2F%2Fimweb8701032505.imweb.me&widgetid=1&forigin=https%3A%2F%2Fimweb8701032505.imweb.me%2F&aoriginsup=1&vf=1",
-    "en": "https://www.youtube.com/embed/p1wiw6f1Twg?loop=1&rel=0&playlist=p1wiw6f1Twg&showinfo=0&controls=0&mute=1&autoplay=1&enablejsapi=1&origin=https%3A%2F%2Fen.ecowavekorea.co.kr&widgetid=1&forigin=https%3A%2F%2Fen.ecowavekorea.co.kr%2F&aoriginsup=1&vf=1"
   },
   "home#s20250811b220484e22b98/w202508127679af0442416/html": {
     "ko": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: left;\"><strong><span style=\"color: rgb(255, 255, 255); font-size: 52px; letter-spacing: 0px;\">물을 깨끗하게, 사람을 건강하게</span></strong></h6><p style=\"text-align: left;\"><span style=\"color: rgb(255, 255, 255); font-size: 60px; letter-spacing: 0px;\"><em>Clean Water, Healthy People.</em></span></p></div></div>\n\t",
@@ -15726,28 +14851,7 @@ export const CONTENT_KEYS_BY_GROUP: Record<ContentGroup, string[]> = {
     "home#s20250811b5ffbb4730f67/visual[0]/html",
     "home#s20250811b5ffbb4730f67/visual[1]/bg",
     "home#s20250811b5ffbb4730f67/visual[1]/html",
-    "home#s20250911a14bac08f598c/visual[0]/bg",
-    "home#s20250911a14bac08f598c/visual[0]/html",
-    "home#s20250911a14bac08f598c/visual[1]/bg",
-    "home#s20250911a14bac08f598c/visual[1]/html",
-    "home#s20250911c5c5fd5e57c26/w2025091161bea948f6bee/html",
-    "home#s20250911281117781b494/w202509119ecb84eb6e940/src",
-    "home#s20250911281117781b494/w202509119ecb84eb6e940/alt",
-    "home#s20250911281117781b494/w202509119ecb84eb6e940/href",
-    "home#s20250911281117781b494/w2025091149bbbec8e797d/src",
-    "home#s20250911281117781b494/w2025091149bbbec8e797d/alt",
-    "home#s20250911281117781b494/w2025091149bbbec8e797d/href",
-    "home#s20250911281117781b494/w20250911cb710bccd6323/src",
-    "home#s20250911281117781b494/w20250911cb710bccd6323/alt",
-    "home#s20250911281117781b494/w20250911cb710bccd6323/href",
-    "home#s20250911281117781b494/w20250911edd80efa0562b/src",
-    "home#s20250911281117781b494/w20250911edd80efa0562b/alt",
-    "home#s20250911281117781b494/w20250911edd80efa0562b/href",
-    "home#s20250911281117781b494/w2025091106eb6f453ead4/html",
     "home#s202508119ee9efac0385c/w202508113d84762227376/html",
-    "home#s20250911e7c6ef8d60c18/w20250911f6299fc147ec0/html",
-    "home#s20250911e7c6ef8d60c18/w202509114ffe0e1166af8/src",
-    "home#s20250911e7c6ef8d60c18/w202509114ffe0e1166af8/alt",
     "home#s20250811004ea868d7376/w202508116077d50475951/html",
     "home#s20250811004ea868d7376/w20250811c8b38b2e2cde9/src",
     "home#s20250811004ea868d7376/w20250811c8b38b2e2cde9/alt",
@@ -15775,20 +14879,6 @@ export const CONTENT_KEYS_BY_GROUP: Record<ContentGroup, string[]> = {
     "home#s20250811e48a3b857667a/w20250812aea22580e7e86/src",
     "home#s20250811e48a3b857667a/w20250812aea22580e7e86/alt",
     "home#s20250811e48a3b857667a/w202508119d8af42ac2987/html",
-    "home#s20250911db56ac49110f4/w20250911b19e5033093cd/items[0].title",
-    "home#s20250911db56ac49110f4/w20250911b19e5033093cd/items[0].desc",
-    "home#s20250911db56ac49110f4/w20250911b19e5033093cd/items[0].org",
-    "home#s20250911db56ac49110f4/w20250911b19e5033093cd/items[0].thumb",
-    "home#s20250911db56ac49110f4/w20250911b19e5033093cd/items[1].title",
-    "home#s20250911db56ac49110f4/w20250911b19e5033093cd/items[1].desc",
-    "home#s20250911db56ac49110f4/w20250911b19e5033093cd/items[1].org",
-    "home#s20250911db56ac49110f4/w20250911b19e5033093cd/items[1].thumb",
-    "home#s20250911db56ac49110f4/w20250911b19e5033093cd/items[2].title",
-    "home#s20250911db56ac49110f4/w20250911b19e5033093cd/items[2].desc",
-    "home#s20250911db56ac49110f4/w20250911b19e5033093cd/items[2].org",
-    "home#s20250911db56ac49110f4/w20250911b19e5033093cd/items[2].thumb",
-    "home#s20250911ce32ed6fec574/w2025091171a83a2df2488/html",
-    "home#s20250911ce32ed6fec574/w20250911e68c83742f745/src",
     "home#s20250811b220484e22b98/w202508127679af0442416/html",
     "home#s20250811b220484e22b98/w20250811ac1efba6e8535/src",
     "home#s202508112787439deffdb/w2025081255820418f5e3f/html",

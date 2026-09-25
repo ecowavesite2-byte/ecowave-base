@@ -491,6 +491,63 @@ a {
   }
 }
 
+/* Gate-0 cond 3 / item 4 — home-scoped authored-span mobile downscale, scoped to
+   the SectionRenderer `data-home-type` hook (the eight home section ids, ko+en;
+   see HOME_TYPE_SECTION_IDS in components/content/SectionRenderer.tsx). The
+   global SC2 map (48/36/30/22/20, above) deliberately does not carry the
+   18/16px body sizes or the video 52/60px headline: extending it globally
+   regressed company.about/history/philosophy/rnd (see the SC2 note). imweb's
+   pc-at-mobile runtime measures 18->15 (mission/solutions), 16->14 (locations
+   address lines) and the video headline 52/60->26 at 390 — matching the dropped
+   mobile twins. Allowlisted so every other page/section is 0-change; desktop
+   (>=992) untouched. */
+@media (max-width: 991px) {
+  section[data-home-type="1"] .rich-text span[style*="font-size: 18px"] {
+    font-size: 15px !important;
+  }
+  section[data-home-type="1"] .rich-text span[style*="font-size: 16px"] {
+    font-size: 14px !important;
+  }
+  section[data-home-type="1"] .rich-text span[style*="font-size: 60px"],
+  section[data-home-type="1"] .rich-text span[style*="font-size: 52px"] {
+    font-size: 26px !important;
+    line-height: 1.2 !important;
+  }
+}
+
+/* Home hero copy mobile downscale (item 4/6). The canonical hero slides author
+   the desktop 85px/75px (ko) and 72px (en) display spans plus a 24px subtitle;
+   the dropped mobile twin measured 26px title / 16px subtitle on the 356px
+   band. Scoped to `.hero-carousel` (this component owns the CSS hook) so no
+   other page's display type moves. Desktop (>=992) untouched. */
+@media (max-width: 991px) {
+  .hero-carousel .rich-text span[style*="font-size: 85px"],
+  .hero-carousel .rich-text span[style*="font-size: 75px"],
+  .hero-carousel .rich-text span[style*="font-size: 72px"] {
+    font-size: 26px !important;
+    line-height: 1.4 !important;
+  }
+  .hero-carousel .rich-text span[style*="font-size: 24px"] {
+    font-size: 16px !important;
+    line-height: 1.5 !important;
+  }
+}
+
+/* video widget: the crawled desktop video holder pins a 703.125px height; at
+   mobile re-fit the raw holder to 16:9 so a single iframe serves every width
+   (replaces the earlier hidden duplicate embed that fetched the same YouTube
+   source twice). Desktop (>=992) keeps the authored height byte-identically. */
+@media (max-width: 991px) {
+  .video-fit .img_box {
+    height: auto !important;
+    aspect-ratio: 16 / 9;
+  }
+  .video-fit iframe {
+    width: 100% !important;
+    height: 100% !important;
+  }
+}
+
 /* vertical spacers extracted from imweb padding widgets; scale down on mobile.
    S5: imweb's mobile runtime renders a padding widget at half its desktop
    height PLUS the 15px `.inside .widget` row margin (measured: 74->52,

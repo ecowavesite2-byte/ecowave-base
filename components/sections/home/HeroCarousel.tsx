@@ -9,9 +9,10 @@ export type HeroSlide = { bg: string | null; bgColor: string | null; html: strin
  * Full-screen hero carousel (imweb visual_section) with auto-fade slides.
  * Desktop fills the viewport; the original mobile visual section is a fixed
  * 356px band at 390px (measured), so the section height is per-breakpoint.
- * The crawl holds separate desktop + mobile visual sections — slides are
- * paired by index and each layer only renders on its breakpoint, so mobile
- * shows the 26px mobile copy and desktop the 85px copy.
+ * Since the single-source migration there is ONE slide list (the canonical
+ * desktop set); it renders at every width, with the display type downscaled
+ * below 992 by the `.hero-carousel` rule in `app/globals.css` (85/75/72 -> 26,
+ * 24 -> 16) and the desktop image cropped into the 356px band.
  *
  * The `.hero-slide.is-active` hook (see `app/globals.css`) drives the desktop
  * text entrance (`visualAnimation` on `.font1`/`.font2`). The class is toggled
@@ -20,13 +21,7 @@ export type HeroSlide = { bg: string | null; bgColor: string | null; html: strin
  * first load. The whole block is `min-width:992px` scoped (the original's rule
  * is on the desktop hero section id), so the mobile hero stays animation-free.
  */
-export default function HeroCarousel({
-  slides,
-  mobileSlides = [],
-}: {
-  slides: HeroSlide[];
-  mobileSlides?: HeroSlide[];
-}) {
+export default function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
   const [idx, setIdx] = useState(0);
   useEffect(() => {
     if (slides.length <= 1) return;
@@ -34,43 +29,35 @@ export default function HeroCarousel({
     return () => clearInterval(t);
   }, [slides.length]);
 
-  const layers: { cls: string; items: HeroSlide[] }[] = [
-    { cls: "hidden min-[992px]:block", items: slides },
-    {
-      cls: "min-[992px]:hidden",
-      items: slides.map((s, i) => mobileSlides[i] || s),
-    },
-  ];
-
   return (
     <section className="hero-carousel relative h-[356px] w-full overflow-hidden min-[992px]:h-[100svh] min-[992px]:min-h-[560px]">
-      {layers.map((layer) => (
-        <div key={layer.cls} className={`absolute inset-0 ${layer.cls}`}>
-          {layer.items.map((s, i) => (
+      {slides.map((s, i) => (
+        <div
+          key={i}
+          className={`hero-slide absolute inset-0 transition-opacity duration-700 ease-[ease] ${
+            i === idx ? "is-active opacity-100" : "pointer-events-none opacity-0"
+          }`}
+        >
+          {s.bgColor && <div className="absolute inset-0" style={{ backgroundColor: s.bgColor }} aria-hidden />}
+          {s.bg && (
             <div
-              key={i}
-              className={`hero-slide absolute inset-0 transition-opacity duration-700 ease-[ease] ${
-                i === idx ? "is-active opacity-100" : "pointer-events-none opacity-0"
-              }`}
-            >
-              {s.bgColor && <div className="absolute inset-0" style={{ backgroundColor: s.bgColor }} aria-hidden />}
-              {s.bg && (
-                <div
-                  className="absolute inset-0 bg-cover bg-center"
-                  style={{ backgroundImage: `url(${s.bg})` }}
-                  aria-hidden
-                />
-              )}
-              {/* slide dim overlay, matches the original .op layer */}
-              <div className="absolute inset-0" style={{ backgroundColor: "rgba(0,0,0,0.19)" }} aria-hidden />
-              <div className="relative flex h-full items-start justify-center px-6 pt-[87px] min-[992px]:items-center min-[992px]:pt-[88px]">
-                <RichText
-                  html={s.html}
-                  className="max-w-[1200px] text-center [&_p]:text-center [&_p]:text-white [&_span]:text-white [&_strong]:text-white [&_h6_span]:!text-white [&_h6]:text-white"
-                />
-              </div>
-            </div>
-          ))}
+              // item 6 — the authored mobile band crops the desktop image; nudge
+              // the cover position above the vertical centre at mobile so the
+              // subject is not clipped out of the short 356px band. Desktop keeps
+              // the measured `center` framing.
+              className="absolute inset-0 bg-cover bg-[center_38%] min-[992px]:bg-center"
+              style={{ backgroundImage: `url(${s.bg})` }}
+              aria-hidden
+            />
+          )}
+          {/* slide dim overlay, matches the original .op layer */}
+          <div className="absolute inset-0" style={{ backgroundColor: "rgba(0,0,0,0.19)" }} aria-hidden />
+          <div className="relative flex h-full items-start justify-center px-6 pt-[87px] min-[992px]:items-center min-[992px]:pt-[88px]">
+            <RichText
+              html={s.html}
+              className="max-w-[1200px] text-center [&_p]:text-center [&_p]:text-white [&_span]:text-white [&_strong]:text-white [&_h6_span]:!text-white [&_h6]:text-white"
+            />
+          </div>
         </div>
       ))}
       {slides.length > 1 && (

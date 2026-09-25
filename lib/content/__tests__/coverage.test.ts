@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import type { PageContent } from "../../types";
 import { CONTENT_DEFS } from "../registry";
 import { applyBoardOverrides, applyPageOverrides, applySiteOverrides } from "../merge";
+import { sectionWidgets } from "../pair";
 import { getBoard, getPage, getSite } from "../read";
 
 /**
@@ -43,6 +44,21 @@ const ALLOWLIST: Record<string, string> = {
   // No structurally paired EN widget (ko/en type mismatch recorded by the generator).
   "company.about#s20250811457daf6e58a2c/w20250918684332dc780e7/html@en": NO_EN_COUNTERPART,
   "company.about#s20250918e40b7f78d4437/w20250918bf11a5c9a5e10/html@en": NO_EN_COUNTERPART,
+  // company.philosophy: the EN twins of these PC sections omit their trailing
+  // `code` widget (KO 8/5 widgets, EN 6/4) — no widget sits at the paired index.
+  "company.philosophy#s202508119eca72dc669e0/w202508119eca72dc669e0lbl/html@en": NO_EN_COUNTERPART,
+  "company.philosophy#s202508280e68f158799c2/w202508280e68f158799c2lbl/html@en": NO_EN_COUNTERPART,
+  // notices: section `…68c46f` holds `code,form,padding` in KO but `form,code,padding`
+  // in EN — the generator records code↔form type mismatches at both indices, so the
+  // KO `code` widget has no positionally paired EN widget.
+  "notices#s2025100213c204b68c46f/w20251002853d352b9298d/html@en": NO_EN_COUNTERPART,
+  // support: the KO page has only 5 sections while EN has 8 (the EN tree adds the
+  // two page-hero sections and a form/code section), so section indices 2/3 pair
+  // against unrelated EN sections (`padding,text,padding` / `padding,board`) —
+  // no widget sits at the paired index/type.
+  "support#s2025091161e916b59099f/w202509110e7da42eec27c/href@en": NO_EN_COUNTERPART,
+  "support#s2025091161e916b59099f/w20250911712afbc03dd48/html@en": NO_EN_COUNTERPART,
+  "support#s202508251581659561ee1/w2025082575878708b2b14/html@en": NO_EN_COUNTERPART,
   "support#s2025091161e916b59099f/w202509110e7da42eec27c/alt@en": NO_EN_COUNTERPART,
   "support#s2025091161e916b59099f/w202509110e7da42eec27c/src@en": NO_EN_COUNTERPART,
 };
@@ -132,13 +148,14 @@ describe("override coverage (every CONTENT_DEFS key, both locales)", () => {
     }
 
     expect(failures).toEqual([]);
-    // 549 defs × 2 locales − 14 allowlisted applications (10 board-post + 4 EN).
+    // 593 defs × 2 locales − 20 allowlisted applications (10 board-post +
+    // 10 EN positions with no structurally paired widget).
     // Dead sections are excluded from the registry by the generator: the footer
     // copies on non-home pages (SiteFooter renders home's) and the leading
     // page-title hero band of each channel (rebuilt as <PageHero> from nav).
-    expect(allowlisted.length).toBe(14);
-    expect(applied).toBe(CONTENT_DEFS.length * LOCALES.length - 14);
-    expect(applied).toBe(1084);
+    expect(allowlisted.length).toBe(20);
+    expect(applied).toBe(CONTENT_DEFS.length * LOCALES.length - 20);
+    expect(applied).toBe(1166);
     expect(applied).toBe(expectedApplied);
   });
 
@@ -158,5 +175,30 @@ describe("override coverage (every CONTENT_DEFS key, both locales)", () => {
     // ko fast path still resolves by id with no primary tree.
     const mergedKo = applyPageOverrides(ko, { [key]: marker }, "ko");
     expect(JSON.stringify(mergedKo)).toContain(marker);
+  });
+
+  it("home ko/en structural parity", () => {
+    // The registry keys are generated from KO and EN is paired positionally, so
+    // a one-sided home edit (e.g. dropping a mobile-variant section from only one
+    // locale) silently corrupts EN defaults. Guard the invariant directly.
+    const ko = getPage("ko", "home");
+    const en = getPage("en", "home");
+
+    expect(en.sections.length).toBe(ko.sections.length);
+
+    ko.sections.forEach((koSection, index) => {
+      const enSection = en.sections[index];
+      expect(enSection, `home sections diverge at index ${index}`).toBeDefined();
+
+      // same section index → same widget kind/type sequence
+      const koTypes = sectionWidgets(koSection).map((w) => w.type);
+      const enTypes = sectionWidgets(enSection).map((w) => w.type);
+      expect(enTypes, `home section ${index} widget types`).toEqual(koTypes);
+
+      // hero slides are not widget nodes; they pair by index too
+      const koSlides = koSection.visual?.length ?? 0;
+      const enSlides = enSection.visual?.length ?? 0;
+      expect(enSlides, `home section ${index} visual slide count`).toBe(koSlides);
+    });
   });
 });

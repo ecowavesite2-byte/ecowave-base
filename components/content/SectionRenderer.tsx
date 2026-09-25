@@ -366,6 +366,45 @@ function ImageWidget({ w, locale, mobileBox = false }: { w: WidgetNode; locale: 
     delete inlineStyle["margin-top"];
     delete inlineStyle["margin-bottom"];
   }
+  // Gate-0 cond 2 / item 1 — breakpoint-gated crop neutralization. imweb's
+  // desktop runtime paints these card images `width:auto; height:100%` plus a
+  // large negative `margin-left` inside a fixed-height box (home §3 solutions
+  // `s20250811e48a3b857667a`: `-74.8178px` in a 548px box). Applied below 992
+  // the image is a huge, left-shifted slice clipped by its box (and the box
+  // height was already desktop-gated, so the column collapsed). Below 992 drop
+  // the offset/height and fit the column (`w-full h-auto`); restore the crop at
+  // >=992 through the literal classes + `--crop-ml`/`--crop-mr` vars. The
+  // authored inline styles are moved, never deleted at >=992 (Gate-0 cond 2).
+  // Gated to the `width:auto` + (`height:100%` or negative margin) shape so the
+  // `width:auto; height:NNNpx` images (company.organization etc.) keep their
+  // existing `--img-h` path untouched.
+  // Cross-page check (Gate-1 LOW): the only non-home matches are company.about
+  // `#3` (a `mobile_section`, already neutralized by the pre-existing
+  // `mobileBox && isMobileCrop` branch) and `#4` (`mobile_hide`, never rendered
+  // below 992), so this branch is effectively home-scoped today.
+  const cropML = /(?:^|;)\s*margin-left\s*:\s*(-[\d.]+)px/.exec(w.imgStyle || "")?.[1];
+  const cropMR = /(?:^|;)\s*margin-right\s*:\s*(-[\d.]+)px/.exec(w.imgStyle || "")?.[1];
+  const cropWidthAuto = /(?:^|;)\s*width\s*:\s*auto/.test(w.imgStyle || "");
+  const cropHeightFull = /(?:^|;)\s*height\s*:\s*100%/.test(w.imgStyle || "");
+  const isFillCrop = cropWidthAuto && (cropHeightFull || !!cropML || !!cropMR);
+  const cropClass: string[] = [];
+  const cropVars: Record<string, string> = {};
+  if (isFillCrop) {
+    delete inlineStyle.width;
+    delete inlineStyle.height;
+    delete inlineStyle["margin-left"];
+    delete inlineStyle["margin-right"];
+    cropClass.push("w-full", "h-auto", IMG_CROP_DESKTOP_W);
+    if (cropHeightFull) cropClass.push(IMG_CROP_DESKTOP_H);
+    if (cropML) {
+      cropVars["--crop-ml"] = `${cropML}px`;
+      cropClass.push(IMG_CROP_DESKTOP_ML);
+    }
+    if (cropMR) {
+      cropVars["--crop-mr"] = `${cropMR}px`;
+      cropClass.push(IMG_CROP_DESKTOP_MR);
+    }
+  }
   // RC5: source desktop-pixel dimensions must stay unclamped at >=992 (the
   // images are deliberate crops), but below 992 they overflow the 390 column.
   // Re-apply the desktop max-width/height only at >=992 and let the mobile
@@ -382,10 +421,30 @@ function ImageWidget({ w, locale, mobileBox = false }: { w: WidgetNode; locale: 
       delete inlineStyle.height;
     }
   }
-  const imgClass = `block${desktopSized ? " " + IMG_DESKTOP_MAX_NONE : ""}${desktopHeight ? " " + IMG_DESKTOP_HEIGHT : ""}`;
-  const imgStyle = desktopHeight
-    ? ({ ...inlineStyle, ["--img-h" as string]: desktopHeight } as React.CSSProperties)
-    : inlineStyle;
+  // Gate-1 obs finding — KO home solutions card 3 (`w20250812aea22580e7e86`:
+  // `display:inline-block; width:327px; height:376px; margin:86px auto`). Below
+  // 992 the preflight max-width clamp cannot re-fit a 327px image inside a wider
+  // column, so at 768 it rendered as a left-aligned 326px sliver while its EN
+  // twin (the `width:auto;height:100%` crop shape handled by `isFillCrop`)
+  // filled the column. Small authored fixed-width card images fill the column
+  // below 992; the authored width is restored at >=992 through `--fit-w` (height
+  // already restored through `--img-h` above). Site-wide image-shape census: an
+  // authored px width < 500 occurs only on this widget.
+  const authoredWidth = /(?:^|;)\s*width\s*:\s*([\d.]+)px/.exec(w.imgStyle || "")?.[1];
+  const fitSmallCard =
+    desktopSized && authoredWidth !== undefined && parseFloat(authoredWidth) < 500;
+  if (fitSmallCard) {
+    delete inlineStyle.width;
+    cropVars["--fit-w"] = `${parseFloat(authoredWidth)}px`;
+    cropClass.push("w-full", IMG_FIT_DESKTOP_W);
+  }
+  const imgClass = `block${desktopSized ? " " + IMG_DESKTOP_MAX_NONE : ""}${desktopHeight ? " " + IMG_DESKTOP_HEIGHT : ""}${
+    cropClass.length ? " " + cropClass.join(" ") : ""
+  }`;
+  const imgStyle: React.CSSProperties =
+    desktopHeight || Object.keys(cropVars).length
+      ? ({ ...inlineStyle, ...(desktopHeight ? { ["--img-h"]: desktopHeight } : {}), ...cropVars } as React.CSSProperties)
+      : inlineStyle;
 
   const img = (
     // eslint-disable-next-line @next/next/no-img-element
@@ -410,9 +469,17 @@ function ImageWidget({ w, locale, mobileBox = false }: { w: WidgetNode; locale: 
       // centred in the 179px band).
       <div
         className={`group relative w-full overflow-hidden bg-soft ${
-          layout === "desktop" ? "rounded-[20px]" : "rounded-[7px]"
+          layout === "desktop"
+            ? `rounded-[7px] min-[992px]:rounded-[20px] ${OVERLAY_DESKTOP_SIZE} ${OVERLAY_MOBILE_GAP}`
+            : "rounded-[7px]"
         }`}
-        style={h ? { height: h } : undefined}
+        style={
+          layout === "desktop" && h
+            ? ({ ["--overlay-h" as string]: `${h}px` } as React.CSSProperties)
+            : h
+              ? { height: h }
+              : undefined
+        }
       >
         {w.src && (
           <div
@@ -431,12 +498,22 @@ function ImageWidget({ w, locale, mobileBox = false }: { w: WidgetNode; locale: 
         {/* measured `.overlay` layer, visible at rest */}
         <div className="absolute inset-0 bg-[rgba(0,0,0,0.3)]" aria-hidden />
         {layout === "desktop" ? (
-          <div className="absolute inset-0 flex flex-col items-center justify-center px-5">
-            <div className="w-[114px] text-left">
-              {label && <p className="text-[18px] leading-[1.2] text-white">{label}</p>}
-              {title && <h3 className="mt-[9px] text-[40px] leading-[1.2] font-bold text-white">{title}</h3>}
+          // item 2 — responsive overlay: below 992 the label/title sit bottom-left
+          // on the 2:1 band with a 15/25px scale (the old mobile twin's 179px band
+          // used a 25px title + no "+"); at >=992 the authored 18/40px centred
+          // 114px block and the 30px "+" are restored unchanged.
+          <div className="absolute inset-0 flex flex-col items-start justify-end px-5 pb-5 min-[992px]:items-center min-[992px]:justify-center min-[992px]:pb-0 min-[992px]:px-5">
+            <div className="w-full text-left min-[992px]:w-[114px]">
+              {label && (
+                <p className="text-[15px] leading-[1.2] text-white min-[992px]:text-[18px]">{label}</p>
+              )}
+              {title && (
+                <h3 className="mt-[6px] text-[25px] leading-[1.2] font-bold text-white min-[992px]:mt-[9px] min-[992px]:text-[40px]">
+                  {title}
+                </h3>
+              )}
               {plus && (
-                <span className="mt-[12px] block text-[30px] leading-none text-white">
+                <span className="mt-[12px] hidden text-[30px] leading-none text-white min-[992px]:block">
                   <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                     <path d="M12 5v14M5 12h14" />
                   </svg>
@@ -946,21 +1023,18 @@ function WidgetContent({ w, locale, mobileBox = false }: { w: WidgetNode; locale
       const clean = fixResponsiveTables((w.html || "").replace(/<link[^>]*>/g, "").trim());
       return clean ? <div dangerouslySetInnerHTML={{ __html: clean }} /> : null;
     }
-    case "video":
-      // MB5: a `mobile_section` video is injected by imweb's mobile runtime and
-      // sized to the 16:9 holder (measured on the live original, home section
-      // s20250911ce32ed6fec574: `.img_box`/iframe = 360x202.5). The crawled
-      // `html` is the pre-JS 0-height holder, so it renders nothing locally.
-      // Render the iframe directly for mobile sections; the pc `mobile_hide`
-      // video (desktop channel) keeps the html path byte-identical.
-      if (mobileBox && w.src) {
-        return <iframe src={w.src} className="aspect-video w-full" allowFullScreen title="video" />;
+    case "video": {
+      // Below 992 the crawled desktop holder (pinned to a 703px height) is
+      // re-fit to 16:9 by the `.video-fit` rule in globals.css, so ONE iframe
+      // serves every width. (An earlier dual-layer kept a hidden duplicate
+      // iframe that still fetched the same YouTube embed at every width.)
+      if (!w.html) {
+        return w.src ? (
+          <iframe src={w.src} className="aspect-video w-full" allowFullScreen title="video" />
+        ) : null;
       }
-      return w.html ? (
-        <div dangerouslySetInnerHTML={{ __html: w.html }} />
-      ) : w.src ? (
-        <iframe src={w.src} className="aspect-video w-full" allowFullScreen title="video" />
-      ) : null;
+      return <div className="video-fit" dangerouslySetInnerHTML={{ __html: w.html }} />;
+    }
     case "button": {
       const html = w.html || "";
       const isTop = w.href === "#doz_header" || /icon-arrow-up/.test(html);
@@ -1197,6 +1271,29 @@ const MOBILE_ONLY_CLASS = "min-[992px]:hidden";
 const DESKTOP_ONLY_CLASS = "hidden min-[992px]:block";
 const IMG_DESKTOP_MAX_NONE = "min-[992px]:max-w-none";
 const IMG_DESKTOP_HEIGHT = "min-[992px]:h-[var(--img-h)]";
+/**
+ * Gate-0 cond 2 — breakpoint-gated crop restore (see ImageWidget's `isFillCrop`).
+ * imweb paints these card images `width:auto; height:100%` plus a negative
+ * `margin-left` inside a fixed-height box. Below 992 they must fit the column
+ * (`w-full h-auto`); at >=992 the authored crop geometry is re-applied through
+ * these literal classes + the `--crop-ml` / `--crop-mr` CSS vars, so desktop is
+ * byte-identical. Mirrors the `--img-h` / IMG_DESKTOP_HEIGHT pattern.
+ */
+const IMG_CROP_DESKTOP_W = "min-[992px]:w-auto";
+const IMG_CROP_DESKTOP_H = "min-[992px]:h-full";
+const IMG_CROP_DESKTOP_ML = "min-[992px]:ml-[var(--crop-ml)]";
+const IMG_CROP_DESKTOP_MR = "min-[992px]:mr-[var(--crop-mr)]";
+/** Authored fixed width restored at >=992 for small card images (`--fit-w`). */
+const IMG_FIT_DESKTOP_W = "min-[992px]:w-[var(--fit-w)]";
+/**
+ * item 2 — vision overlay card sizing. The desktop cards hard-code a 319px box
+ * (`.overlay` height) which previously applied at every width, turning the 4-card
+ * row into a ~1.3k px fixed-height column at 390. Below 992 the card is a
+ * full-width 2:1 band (the old mobile twin measured a 179px band at 360 wide);
+ * at >=992 the authored 319px height is restored via `--overlay-h`.
+ */
+const OVERLAY_DESKTOP_SIZE = "aspect-[2/1] min-[992px]:aspect-auto min-[992px]:h-[var(--overlay-h)]";
+const OVERLAY_MOBILE_GAP = "max-[991.98px]:mb-[10px]";
 /**
  * RC5: the crawl's fixed `boxStyle` height is a desktop measurement. Keep it at
  * >=992 via a CSS var, but let the mobile box size to the clamped image (imweb
@@ -1451,6 +1548,32 @@ const MAP_HOLDER_SECTION_IDS = new Set([
 ]);
 
 /**
+ * item 4 hook — home-scoped authored-span mobile downscale (see below).
+ */
+const HOME_TYPE_SECTION_IDS = new Set([
+  "s202508116d15f8202cd82", // ko mission (18px x4)
+  "s20250811e48a3b857667a", // ko solutions (18px x9)
+  "s202508112787439deffdb", // ko locations (16px x1)
+  "s20250811b220484e22b98", // ko video (52px + 60px)
+  "s20250911c5a2da998fd0e", // en mission (18px x2)
+  "s20250911384d83602d212", // en solutions (18px x3)
+  "s20250911049658b2b95c4", // en locations (16px x1)
+  "s20250911f1b271a6a41b6", // en video (60px x2)
+]);
+
+/**
+ * Sections that clip horizontal bleed. The KO ticker is clipped by its bespoke
+ * renderer in `app/[locale]/page.tsx` (`overflow-x-clip`); its EN twin has a
+ * different crawl id and renders through this generic path, where the crawled
+ * `newest` board gallery's -15px card gutters poked the document 15px wide at
+ * 390/768 (pre-existing, measured against the baseline screenshots). Mirror the
+ * KO treatment for the EN ticker id.
+ */
+const CLIPX_SECTION_IDS = new Set([
+  "s2025091179ab5c168be2c", // en home ticker (newest board gallery gutters)
+]);
+
+/**
  * item 1 — mobile 48px-span line-height hook (`data-mh6`).
  *
  * imweb gives inline-sized text spans an `!important` line-height keyed by
@@ -1686,11 +1809,15 @@ export default function SectionRenderer({
         const ph48 = PH48_SECTION_IDS.has(sec.id);
         // item 2: home §7 holder box model (globals.css `data-mapholder`)
         const mapHolder = MAP_HOLDER_SECTION_IDS.has(sec.id);
+        // item 4: home-scoped authored-span downscale (globals.css `data-home-type`)
+        const homeType = HOME_TYPE_SECTION_IDS.has(sec.id);
+        // sections whose horizontal bleed must be clipped (EN ticker gallery)
+        const clipX = CLIPX_SECTION_IDS.has(sec.id);
         const aside = (sec as unknown as { aside?: AsideBlock }).aside;
         return (
           <section
             key={sec.id}
-            className={`${backToTop ? BACK_TO_TOP_CLASS : "relative"}${visibility ? " " + visibility : ""}${pcAtMobile ? " pc-at-mobile" : ""}`}
+            className={`${backToTop ? BACK_TO_TOP_CLASS : "relative"}${visibility ? " " + visibility : ""}${pcAtMobile ? " pc-at-mobile" : ""}${clipX ? " overflow-x-clip" : ""}`}
             // globals.css hook (globals lane): `section[data-vgutter="0"] .spacer`
             // at <=1023px halves the spacer height, which imweb does for
             // `grid_v_gutter_0` sections (no `.inside .widget` gutter to fold in).
@@ -1712,16 +1839,22 @@ export default function SectionRenderer({
             // item 2 hook (globals.css): home §7 holder box model
             // (wrapper 0 15px + holder 20px 50px + mobile span 1.2).
             data-mapholder={mapHolder ? "1" : undefined}
+            // item 4 hook (globals.css): home-scoped authored-span downscale
+            // (18->15, 16->14, 52/60->26) for the measured home section allowlist.
+            data-home-type={homeType ? "1" : undefined}
           >
             {(sec.bg || urlFromStyle(sec.bgStyle)) && (
               <div
-                className="absolute inset-0 bg-cover bg-center"
+                // imweb `.section_bg.fixed_bg_wrap` heroes pin the image to the
+                // viewport (computed background-attachment: fixed); the visible
+                // crop is ~79.6% vs ~50% when scrolled, so match the original.
+                // Gate-0/item 5: that is a desktop measurement — `fixed` inside a
+                // short, stacked mobile section pins a viewport-sized slice and
+                // reads as a broken band. Keep fixed at >=992 via `min-[992px]:bg-fixed`
+                // and let mobile scroll normally.
+                className={`absolute inset-0 bg-cover bg-center${sec.bgFixed ? " min-[992px]:bg-fixed" : ""}`}
                 style={{
                   backgroundImage: `url(${sec.bg || urlFromStyle(sec.bgStyle)})`,
-                  // imweb `.section_bg.fixed_bg_wrap` heroes pin the image to the
-                  // viewport (computed background-attachment: fixed); the visible
-                  // crop is ~79.6% vs ~50% when scrolled, so match the original.
-                  ...(sec.bgFixed ? { backgroundAttachment: "fixed" } : {}),
                 }}
                 aria-hidden
               />

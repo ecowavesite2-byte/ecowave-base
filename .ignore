@@ -1,0 +1,4 @@
+# allow OpenCode to read deepwork state
+!.slim/deepwork/
+!.slim/deepwork/**
+

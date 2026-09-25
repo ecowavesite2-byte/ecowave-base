@@ -5,7 +5,7 @@
   "sections": [
     {
       "id": "s20250811b5ffbb4730f67",
-      "cls": "section_wrap visual_section  pc_section   mobile_hide   section_first _section_first   ",
+      "cls": "section_wrap visual_section section_first _section_first",
       "visual": [
         {
           "bg": "/images/thumbnail/20250811/50e595a379834.jpg",
@@ -25,239 +25,8 @@
       "rows": []
     },
     {
-      "id": "s20250911a14bac08f598c",
-      "cls": "section_wrap visual_section  mobile_section     mobile_section_first  ",
-      "visual": [
-        {
-          "bg": "/images/thumbnail/20250911/970dcddcb1e4b.jpg",
-          "bgColor": "#dddddd",
-          "html": "<p class=\"font1\" style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 26px;\"><strong>더 나은 미래, 풍요로운 삶</strong></span></p><p class=\"font1\" style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 26px;\"><strong>에코웨이브의 가치입니다.</strong></span></p><h6 class=\"font2\" style=\"line-height: 1.5; text-align: center;\"><span style=\"font-size: 16px;\">우리의 비전은 자연과 조화롭게 번성하고</span></h6><h6 class=\"font2\" style=\"line-height: 1.5; text-align: center;\"><span style=\"font-size: 16px;\">인류의 번영을 촉진하는</span></h6><h6 class=\"font2\" style=\"line-height: 1.5; text-align: center;\"><span style=\"font-size: 16px;\">지속 가능한 세상을 만드는 데 중점을 두고 있습니다.</span></h6>"
-        },
-        {
-          "bg": "/images/thumbnail/20250911/9e7f05e2844fc.jpg",
-          "bgColor": "#dddddd",
-          "html": "<p class=\"font1\" style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 26px;\"><strong>더 나은 미래, 풍요로운 삶</strong></span></p><p class=\"font1\" style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 26px;\"><strong>에코웨이브의 가치입니다.</strong></span></p><h6 class=\"font2\" style=\"line-height: 1.5; text-align: center;\"><span style=\"font-size: 16px;\">우리의 비전은 자연과 조화롭게 번성하고</span></h6><h6 class=\"font2\" style=\"line-height: 1.5; text-align: center;\"><span style=\"font-size: 16px;\">인류의 번영을 촉진하는</span></h6><h6 class=\"font2\" style=\"line-height: 1.5; text-align: center;\"><span style=\"font-size: 16px;\">지속 가능한 세상을 만드는 데 중점을 두고 있습니다.</span></h6>"
-        }
-      ],
-      "bg": null,
-      "bgStyle": "",
-      "bgColor": null,
-      "secStyle": "",
-      "rows": []
-    },
-    {
-      "id": "s20250911c5c5fd5e57c26",
-      "cls": "section_wrap  mobile_section       side_basic     ",
-      "bg": null,
-      "bgStyle": "   background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
-      "bgColor": null,
-      "secStyle": "; ; ;",
-      "rows": [
-        {
-          "kind": "row",
-          "grid": "12",
-          "pad": 0,
-          "cols": [
-            {
-              "kind": "col",
-              "grid": "12",
-              "children": [
-                {
-                  "kind": "widget",
-                  "id": "w20250911d2320de9595d0",
-                  "type": "padding",
-                  "html": "<div class=\"widget padding\" data-height=\"77\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w20250911d2320de9595d0\" style=\"width:100%; min-height:1px; height:77px; \"></div>\n</div>\n",
-                  "_h": 77
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "kind": "row",
-          "grid": "12",
-          "pad": 0,
-          "cols": [
-            {
-              "kind": "col",
-              "grid": "12",
-              "children": [
-                {
-                  "kind": "widget",
-                  "id": "w2025091161bea948f6bee",
-                  "type": "text",
-                  "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"line-height: 2;\"><strong><span style=\"color: rgb(0, 0, 0); font-size: 26px; letter-spacing: 0px;\">건강하고 깨끗한 물,</span></strong></h6><h6 style=\"line-height: 2;\"><span style=\"font-size: 26px;\"><strong><span style=\"color: rgb(0, 0, 0); letter-spacing: 0px;\">에코웨이브가&nbsp;</span></strong><strong><span style=\"letter-spacing: 0;\"><span style=\"color: rgb(0, 0, 0);\">고객과 함께</span></span></strong></span></h6><h6 style=\"line-height: 2;\"><span style=\"font-size: 26px;\"><strong><span style=\"color: rgb(52, 101, 222); letter-spacing: 0px;\">더 나은 미래를&nbsp;</span></strong></span><strong><span style=\"color: rgb(52, 101, 222); font-size: 26px; letter-spacing: 0px;\">만들어갑니다. </span></strong></h6></div></div>\n\t",
-                  "anim": "none",
-                  "animDur": "0.7",
-                  "animDelay": "0"
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "s20250911281117781b494",
-      "cls": "section_wrap  mobile_section       side_basic     ",
-      "bg": null,
-      "bgStyle": "   background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
-      "bgColor": null,
-      "secStyle": "; ; ;",
-      "rows": [
-        {
-          "kind": "row",
-          "grid": "12",
-          "pad": 0,
-          "cols": [
-            {
-              "kind": "col",
-              "grid": "12",
-              "children": [
-                {
-                  "kind": "widget",
-                  "id": "w202509119ecb84eb6e940",
-                  "type": "image",
-                  "src": "/images/thumbnail/20250911/55a9cffce4f94.jpg",
-                  "alt": "<h5>회사소개</h5><span>Company</span>",
-                  "href": "/17",
-                  "hoverBg": "/images/thumbnail/20250911/55a9cffce4f94.jpg",
-                  "boxStyle": "height: 179px;",
-                  "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: block; width: auto; height: 100%; margin-top: 0px; margin-left: -66.7081px;",
-                  "anim": "fadeInUp",
-                  "animDur": "1.2",
-                  "animDelay": "0.3"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "kind": "row",
-          "grid": "12",
-          "pad": 0,
-          "cols": [
-            {
-              "kind": "col",
-              "grid": "12",
-              "children": [
-                {
-                  "kind": "widget",
-                  "id": "w2025091149bbbec8e797d",
-                  "type": "image",
-                  "src": "/images/thumbnail/20250911/aabafe51067b6.jpg",
-                  "alt": "<h5>연구개발</h5><span>R&D</span>",
-                  "href": "/21",
-                  "hoverBg": "/images/thumbnail/20250911/aabafe51067b6.jpg",
-                  "boxStyle": "height: 179px;",
-                  "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: block; width: auto; height: 100%; margin-top: 0px; margin-left: -66.7081px;",
-                  "anim": "fadeInUp",
-                  "animDur": "1.2",
-                  "animDelay": "0.3"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "kind": "row",
-          "grid": "12",
-          "pad": 0,
-          "cols": [
-            {
-              "kind": "col",
-              "grid": "12",
-              "children": [
-                {
-                  "kind": "widget",
-                  "id": "w20250911cb710bccd6323",
-                  "type": "image",
-                  "src": "/images/thumbnail/20250911/84fff7d77ffff.jpg",
-                  "alt": "<h5>제품소개</h5><span>Products</span>",
-                  "href": "/32",
-                  "hoverBg": "/images/thumbnail/20250911/84fff7d77ffff.jpg",
-                  "boxStyle": "height: 179px;",
-                  "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: block; width: auto; height: 100%; margin-top: 0px; margin-left: -66.7081px;",
-                  "anim": "fadeInUp",
-                  "animDur": "1.2",
-                  "animDelay": "0.3"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "kind": "row",
-          "grid": "12",
-          "pad": 0,
-          "cols": [
-            {
-              "kind": "col",
-              "grid": "12",
-              "children": [
-                {
-                  "kind": "widget",
-                  "id": "w20250911edd80efa0562b",
-                  "type": "image",
-                  "src": "/images/thumbnail/20250911/41c848eb0d74e.jpg",
-                  "alt": "<h5>홍보센터</h5><span>PR Center</span>",
-                  "href": "/27",
-                  "hoverBg": "/images/thumbnail/20250911/41c848eb0d74e.jpg",
-                  "boxStyle": "height: 179px;",
-                  "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: block; width: auto; height: 100%; margin-top: 0px; margin-left: -66.7081px;",
-                  "anim": "fadeInUp",
-                  "animDur": "1.2",
-                  "animDelay": "0.3"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "kind": "row",
-          "grid": "12",
-          "pad": 0,
-          "cols": [
-            {
-              "kind": "col",
-              "grid": "12",
-              "children": [
-                {
-                  "kind": "widget",
-                  "id": "w2025091106eb6f453ead4",
-                  "type": "code",
-                  "html": "",
-                  "anim": "none"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "kind": "row",
-          "grid": "12",
-          "pad": 0,
-          "cols": [
-            {
-              "kind": "col",
-              "grid": "12",
-              "children": [
-                {
-                  "kind": "widget",
-                  "id": "w20250911ca33952203670",
-                  "type": "padding",
-                  "html": "<div class=\"widget padding\" data-height=\"91\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w20250911ca33952203670\" style=\"width:100%; min-height:1px; height:91px; \"></div>\n</div>\n",
-                  "_h": 91
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
       "id": "s202508119ee9efac0385c",
-      "cls": "section_wrap  pc_section   mobile_hide      side_     ",
+      "cls": "section_wrap side_",
       "bg": null,
       "bgStyle": "   background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
       "bgColor": null,
@@ -287,106 +56,8 @@
       ]
     },
     {
-      "id": "s20250911e7c6ef8d60c18",
-      "cls": "section_wrap  mobile_section       side_basic     ",
-      "bg": "/images/thumbnail/20250911/c1299fb1a30d8.jpg",
-      "bgStyle": "background-image:url('/images/thumbnail/20250911/c1299fb1a30d8.jpg'); background-position:50% 50%;  background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
-      "bgColor": "rgba(0, 0, 0, 0.3)",
-      "secStyle": "; ; background-color:rgba(0, 0, 0, 0.3);;",
-      "rows": [
-        {
-          "kind": "row",
-          "grid": "12",
-          "pad": 0,
-          "cols": [
-            {
-              "kind": "col",
-              "grid": "12",
-              "children": [
-                {
-                  "kind": "widget",
-                  "id": "w2025091177efcd2e0d657",
-                  "type": "padding",
-                  "html": "<div class=\"widget padding\" data-height=\"44\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w2025091177efcd2e0d657\" style=\"width:100%; min-height:1px; height:44px; \"></div>\n</div>\n",
-                  "_h": 44
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "kind": "row",
-          "grid": "12",
-          "pad": 0,
-          "cols": [
-            {
-              "kind": "col",
-              "grid": "12",
-              "children": [
-                {
-                  "kind": "widget",
-                  "id": "w20250911f6299fc147ec0",
-                  "type": "text",
-                  "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: center;\"><img src=\"/images/upload/S20250811e0bd2f7c414df/48fbd16b3a070.png\" class=\"fr-fin fr-dib\" style=\"width: 266px;\"></h6><p style=\"text-align: center; line-height: 2;\"><br></p><p style=\"text-align: center; line-height: 2;\"><span style=\"color: rgb(255, 255, 255); font-size: 14px; letter-spacing: 0px;\">에코웨이브는 깨끗한 물을 위한 기술 혁신과 친환경 가치 실현을 통해&nbsp;</span><span style=\"font-size: 14px;\"><span style=\"color: rgb(255, 255, 255); letter-spacing: 0px;\">보다 건강하고 지속 가능한 삶을 제안합니다.</span></span></p><p style=\"text-align: center; line-height: 2;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(255, 255, 255); letter-spacing: 0px;\">고객의 라이프스타일에 최적화된 고품질 정수 솔루션으로&nbsp;</span></span><span style=\"color: rgb(255, 255, 255); font-size: 14px; letter-spacing: 0px;\">사람과 환경이 공존하는 미래를 만들어 갑니다.</span></p></div></div>\n\t",
-                  "anim": "none",
-                  "animDur": "0.7",
-                  "animDelay": "0"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "kind": "row",
-          "grid": "12",
-          "pad": 0,
-          "cols": [
-            {
-              "kind": "col",
-              "grid": "12",
-              "children": [
-                {
-                  "kind": "widget",
-                  "id": "w202509114ffe0e1166af8",
-                  "type": "image",
-                  "src": "/images/thumbnail/20250911/69966451ca00b.png",
-                  "alt": "",
-                  "hoverBg": "/images/thumbnail/20250911/69966451ca00b.png",
-                  "boxStyle": "",
-                  "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 0px; height: 0px; margin-left: auto; margin-right: auto;",
-                  "anim": "fadeInUp",
-                  "animDur": "1.2",
-                  "animDelay": "0.3"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "kind": "row",
-          "grid": "12",
-          "pad": 0,
-          "cols": [
-            {
-              "kind": "col",
-              "grid": "12",
-              "children": [
-                {
-                  "kind": "widget",
-                  "id": "w20250911c2ecd043bd4fe",
-                  "type": "padding",
-                  "html": "<div class=\"widget padding\" data-height=\"30\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w20250911c2ecd043bd4fe\" style=\"width:100%; min-height:1px; height:30px; \"></div>\n</div>\n",
-                  "_h": 30
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
       "id": "s20250811ba4c7cabd299e",
-      "cls": "section_wrap  pc_section   mobile_hide      side_basic grid_gutter_0 grid_v_gutter_0 extend_section   ",
+      "cls": "section_wrap side_basic grid_gutter_0 grid_v_gutter_0 extend_section",
       "bg": null,
       "bgStyle": "   background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
       "bgColor": null,
@@ -440,7 +111,7 @@
     },
     {
       "id": "s20250811004ea868d7376",
-      "cls": "section_wrap  pc_section   mobile_hide      side_basic grid_gutter_15 grid_v_gutter_0 extend_section   ",
+      "cls": "section_wrap side_basic grid_gutter_15 grid_v_gutter_0 extend_section",
       "bg": null,
       "bgStyle": "   background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
       "bgColor": null,
@@ -628,7 +299,7 @@
     },
     {
       "id": "s202508116d15f8202cd82",
-      "cls": "section_wrap  pc_section   mobile_hide      side_basic     ",
+      "cls": "section_wrap side_basic",
       "bg": "/images/thumbnail/20250811/4caae6f166af6.jpg",
       "bgFixed": true,
       "bgStyle": "background-image:url('/images/thumbnail/20250811/4caae6f166af6.jpg'); background-position:50% 50%;  background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
@@ -735,7 +406,7 @@
     },
     {
       "id": "s20250811611f0c372c57a",
-      "cls": "section_wrap  pc_section       side_basic grid_gutter_0 grid_v_gutter_0 extend_section   ",
+      "cls": "section_wrap side_basic grid_gutter_0 grid_v_gutter_0 extend_section",
       "bg": null,
       "bgStyle": "   background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
       "bgColor": null,
@@ -814,7 +485,7 @@
     },
     {
       "id": "s20250811e48a3b857667a",
-      "cls": "section_wrap  pc_section   mobile_hide      side_basic grid_gutter_15 grid_v_gutter_0 extend_section   ",
+      "cls": "section_wrap side_basic grid_gutter_15 grid_v_gutter_0 extend_section",
       "bg": null,
       "bgStyle": "   background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
       "bgColor": null,
@@ -1085,178 +756,8 @@
       ]
     },
     {
-      "id": "s20250911db56ac49110f4",
-      "cls": "section_wrap  mobile_section       side_basic     ",
-      "bg": null,
-      "bgStyle": "   background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
-      "bgColor": null,
-      "secStyle": "; ; ;",
-      "rows": [
-        {
-          "kind": "row",
-          "grid": "12",
-          "pad": 0,
-          "cols": [
-            {
-              "kind": "col",
-              "grid": "12",
-              "children": [
-                {
-                  "kind": "widget",
-                  "id": "w20250911b19e5033093cd",
-                  "type": "gallery2",
-                  "layout": "slide",
-                  "anim": "none",
-                  "animDur": "0.7",
-                  "animDelay": "0",
-                  "gridN": null,
-                  "itemW": 0,
-                  "itemH": 0,
-                  "items": [
-                    {
-                      "org": "/images/upload/S20250811e0bd2f7c414df/4d2e3e220d22d.jpg",
-                      "thumb": "/images/thumbnail/20250911/f75da9b8974bc.jpg",
-                      "title": "생활환경 솔루션",
-                      "desc": "첨단 정수 필터 기술과 살균 모듈, 위생 솔루션을 기반으로 일상 속 물의 질을 향상시키는 친환경 제품을 개발하여 깨끗하고 건강한 생활환경 구축에 앞장서겠습니다."
-                    },
-                    {
-                      "org": "/images/upload/S20250811e0bd2f7c414df/5bd36b31e62b3.jpg",
-                      "thumb": "/images/thumbnail/20250911/9edb3205c1901.jpg",
-                      "title": "정수 소재 & 스마트 부품",
-                      "desc": "정수기 필터, 비데 필터, 샤워기 필터 등 고성능 정수 소재와 스마트 모듈 기반 부품을 통해 지속 가능한 수처리 기술 솔루션을 제공하겠습니다."
-                    },
-                    {
-                      "org": "/images/upload/S20250811e0bd2f7c414df/9068ff5bdaa9b.jpg",
-                      "thumb": "/images/thumbnail/20250911/b7d61ce6e6529.jpg",
-                      "title": "헬스 & 워터케어",
-                      "desc": "물이 곧 건강이라는 철학 아래, 에코웨이브는 인류의 건강한 삶을 위한 차세대 워터케어 제품과 살균·위생 관리 기술을 지속적으로 개발해 나가겠습니다."
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "kind": "row",
-          "grid": "12",
-          "pad": 0,
-          "cols": [
-            {
-              "kind": "col",
-              "grid": "12",
-              "children": [
-                {
-                  "kind": "widget",
-                  "id": "w20250911fb6c4197850f1",
-                  "type": "padding",
-                  "html": "<div class=\"widget padding\" data-height=\"30\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w20250911fb6c4197850f1\" style=\"width:100%; min-height:1px; height:30px; \"></div>\n</div>\n",
-                  "_h": 30
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "s20250911ce32ed6fec574",
-      "cls": "section_wrap  mobile_section       side_basic     ",
-      "bg": "/images/thumbnail/20250911/8aed4b00b9978.jpg",
-      "bgStyle": "background-image:url('/images/thumbnail/20250911/8aed4b00b9978.jpg'); background-position:50% 50%;  background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
-      "bgColor": null,
-      "secStyle": "; ; ;",
-      "rows": [
-        {
-          "kind": "row",
-          "grid": "12",
-          "pad": 0,
-          "cols": [
-            {
-              "kind": "col",
-              "grid": "12",
-              "children": [
-                {
-                  "kind": "widget",
-                  "id": "w20250911e533a51df0964",
-                  "type": "padding",
-                  "html": "<div class=\"widget padding\" data-height=\"45\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w20250911e533a51df0964\" style=\"width:100%; min-height:1px; height:45px; \"></div>\n</div>\n",
-                  "_h": 45
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "kind": "row",
-          "grid": "12",
-          "pad": 0,
-          "cols": [
-            {
-              "kind": "col",
-              "grid": "12",
-              "children": [
-                {
-                  "kind": "widget",
-                  "id": "w2025091171a83a2df2488",
-                  "type": "text",
-                  "html": "\n\t\t<div class=\"text-table \"><div><p><span style=\"font-size: 26px;\"><strong><span style=\"color: rgb(255, 255, 255);\">물을 깨끗하게, 사람을 건강하게</span></strong></span></p><p><span style=\"font-size: 26px;\"><em><span style=\"color: rgb(255, 255, 255);\">Clean Water, Healthy People.</span></em></span></p></div></div>\n\t",
-                  "anim": "none",
-                  "animDur": "0.7",
-                  "animDelay": "0"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "kind": "row",
-          "grid": "12",
-          "pad": 0,
-          "cols": [
-            {
-              "kind": "col",
-              "grid": "12",
-              "children": [
-                {
-                  "kind": "widget",
-                  "id": "w20250911e68c83742f745",
-                  "type": "video",
-                  "src": "https://www.youtube.com/embed/p1wiw6f1Twg?loop=1&rel=0&playlist=p1wiw6f1Twg&showinfo=0&controls=0&mute=1&autoplay=1&enablejsapi=1&origin=https%3A%2F%2Fimweb8701032505.imweb.me&widgetid=1&forigin=https%3A%2F%2Fimweb8701032505.imweb.me%2F&aoriginsup=1&vf=1",
-                  "html": "\t<div id=\"video_w20250911e68c83742f745\" class=\"widget movie _video_wrap \" style=\"position: relative\">\n\t\t<div style=\"overflow: hidden; text-align: center; height: 0px;\" id=\"img_box_w20250911e68c83742f745\" class=\"img_box _img_box holder\" data-vimeo-id=\"p1wiw6f1Twg\" data-vimeo-defer=\"\"><div class=\"play-icon _cover_layer\" style=\"display: none; \" onmouseover=\";\"><span class=\"show_btn\" onclick=\"site_video_list['w20250911e68c83742f745'].play()\"><i></i></span></div><iframe class=\"_img\" id=\"img_w20250911e68c83742f745\" src=\"https://www.youtube.com/embed/p1wiw6f1Twg?loop=1&amp;rel=0&amp;playlist=p1wiw6f1Twg&amp;showinfo=0&amp;controls=0&amp;mute=1&amp;autoplay=1&amp;enablejsapi=1&amp;origin=https%3A%2F%2Fimweb8701032505.imweb.me&amp;widgetid=1&amp;forigin=https%3A%2F%2Fimweb8701032505.imweb.me%2F&amp;aoriginsup=1&amp;vf=1\" style=\"display: block; width: 100%; margin: 0px; height: 100%;\" frameborder=\"0\" allowfullscreen=\"\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" title=\"main\" width=\"640\" height=\"360\"></iframe></div>\t</div>\n\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t",
-                  "anim": "none",
-                  "animDur": "0.7",
-                  "animDelay": "0"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "kind": "row",
-          "grid": "12",
-          "pad": 0,
-          "cols": [
-            {
-              "kind": "col",
-              "grid": "12",
-              "children": [
-                {
-                  "kind": "widget",
-                  "id": "w2025091143d6795541b7f",
-                  "type": "padding",
-                  "html": "<div class=\"widget padding\" data-height=\"101\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w2025091143d6795541b7f\" style=\"width:100%; min-height:1px; height:101px; \"></div>\n</div>\n",
-                  "_h": 101
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
       "id": "s20250811b220484e22b98",
-      "cls": "section_wrap  pc_section   mobile_hide      side_basic     ",
+      "cls": "section_wrap side_basic",
       "bg": "/images/thumbnail/20250811/dc0347431277a.jpg",
       "bgStyle": "background-image:url('/images/thumbnail/20250811/dc0347431277a.jpg'); background-position:50% 50%;  background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
       "bgColor": null,
@@ -1381,7 +882,7 @@
     },
     {
       "id": "s202508112787439deffdb",
-      "cls": "section_wrap  pc_section       side_basic grid_gutter_0 grid_v_gutter_0 extend_section   ",
+      "cls": "section_wrap side_basic grid_gutter_0 grid_v_gutter_0 extend_section",
       "bg": null,
       "bgStyle": " background-position:50% 50%;  background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
       "bgColor": "rgba(247, 247, 247, 0)",
@@ -1603,7 +1104,7 @@
     },
     {
       "id": "s2025081139ff276cae8d6",
-      "cls": "section_wrap  pc_section       side_basic grid_gutter_0 grid_v_gutter_0 extend_section   ",
+      "cls": "section_wrap side_basic grid_gutter_0 grid_v_gutter_0 extend_section",
       "bg": null,
       "bgStyle": "   background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
       "bgColor": "#f7f7f7",
@@ -1776,7 +1277,7 @@
     },
     {
       "id": "s2025091161e916b59099f",
-      "cls": "section_wrap  mobile_section       side_basic     ",
+      "cls": "section_wrap mobile_section side_basic",
       "bg": null,
       "bgStyle": "   background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
       "bgColor": null,
@@ -1833,7 +1334,7 @@
     },
     {
       "id": "s202508251581659561ee1",
-      "cls": "section_wrap  pc_section       side_basic     ",
+      "cls": "section_wrap side_basic",
       "bg": null,
       "bgStyle": "   background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
       "bgColor": null,
@@ -1864,7 +1365,7 @@
     },
     {
       "id": "s20250811f489e3443bdbe",
-      "cls": "section_wrap  pc_section       side_basic     ",
+      "cls": "section_wrap side_basic",
       "bg": null,
       "bgStyle": "   background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
       "bgColor": "#000",
