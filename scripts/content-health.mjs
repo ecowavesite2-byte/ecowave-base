@@ -15,7 +15,12 @@
  *   2. Coverage (INFO)          — content-bearing widgets (`text`, `menu_title`,
  *                                  `image`, `button`, `gallery2`, `video`,
  *                                  `code`) that have no def at all, grouped by
- *                                  page. Informational only.
+ *                                  page. Informational only. Intentionally
+ *                                  non-editable widgets are excluded: `code`
+ *                                  embeds, the mobile back-to-top image
+ *                                  (`href="#doz_header"`), and the location-card
+ *                                  texts already covered by a section-scoped
+ *                                  `cards` def (all but the section's first text).
  *   3. Stored overrides (ERROR) — keys in the Postgres `page_content` table that
  *                                  are neither a valid board key nor present in
  *                                  the defs' key set. Only runs when
@@ -245,12 +250,34 @@ function findCoverage(defs, pages) {
   const defined = new Set(
     defs.map((def) => `${def.pageKey}\u0000${def.sectionId}\u0000${def.widgetId}`),
   );
+  // Section-scoped `cards` defs (`<page>#<sectionId>/cards/cards`) replace the
+  // whole location list; the def binds to the section (not to a widget), so the
+  // text widgets it covers would otherwise all be reported as uncovered.
+  const cardsSections = new Set(
+    defs
+      .filter((def) => def.widgetId === "cards" && def.field === "cards")
+      .map((def) => `${def.pageKey}\u0000${def.sectionId}`),
+  );
   const coverage = [];
   for (const [pageKey, page] of pages) {
     for (const section of page.sections ?? []) {
+      const hasCardsDef = cardsSections.has(`${pageKey}\u0000${section.id}`);
+      let seenCardText = false;
       for (const widget of sectionWidgets(section)) {
         if (!CONTENT_WIDGET_TYPES.has(widget.type)) continue;
         if (!hasContent(widget)) continue;
+        // `code` widgets are raw embed markup, not user content — the override
+        // generator skips them, so they can never have a def (pure noise here).
+        if (widget.type === "code") continue;
+        // The mobile back-to-top image (`href="#doz_header"`) is chrome, not
+        // editable content; the generator skips it too.
+        if (widget.type === "image" && widget.href === "#doz_header") continue;
+        // A section carrying a `cards` def covers every text widget after the
+        // first one (the heading); only that first text widget is reported.
+        if (hasCardsDef && widget.type === "text") {
+          if (seenCardText) continue;
+          seenCardText = true;
+        }
         const id = `${pageKey}\u0000${section.id}\u0000${widget.id}`;
         if (defined.has(id)) continue;
         coverage.push({

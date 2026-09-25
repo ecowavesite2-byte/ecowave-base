@@ -105,7 +105,8 @@ channels, widget CSS gaps, board/detail template differences).
 4. **Wave 4** — scoped `data-mh6` 48px line-height, patents cert-grid + facilities mobile geometry,
    hero `[&_p]` white, **Tailwind candidate-mangling fix** (static class + `${…}` adjacency silently
    dropped `min-[992px]:auto-rows-…` → desktop patents +36px).
-5. **Wave 5** — home mobile section bands (`MOBILE_SECTION_BAND` allowlist; §2/§3/§4 exact),
+5. **Wave 5** — home mobile section bands (§2/§3/§4 exact; the `MOBILE_SECTION_BAND`
+   allowlist was removed in Phase 5 once the mobile sections were dropped),
    `_hiddenXs` flag, desktop-scoped rich-text typography (−40.5 % desktop TYPE signatures, 0 height
    change), EN rnd §2 band id.
 6. **Wave 6** — scoped philosophy mobile downscale (`data-rtm`), home §7 holder box model

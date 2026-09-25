@@ -667,7 +667,6 @@ export function Widget({
   vGutter = false,
   mobileBox = false,
   topBand = false,
-  mobileBand = false,
 }: {
   w: WidgetNode;
   locale?: Locale;
@@ -677,8 +676,6 @@ export function Widget({
   mobileBox?: boolean;
   /** this widget's section is in TOP_BAND_SECTION_IDS; band its top-level widgets at mobile */
   topBand?: boolean;
-  /** this widget's section is in MOBILE_SECTION_BAND_IDS; band all its widgets at mobile */
-  mobileBand?: boolean;
 }) {
   const content = w.type === "padding" ? renderPadding(w) : WidgetContent({ w, locale, mobileBox });
   if (!content) return null;
@@ -712,13 +709,11 @@ export function Widget({
           : topBand
             ? WIDGET_TOP_BAND
             : ""
-      : mobileBox && mobileBand
-        ? MOBILE_SECTION_BAND
-        : !mobileBox && vGutter && nested && w.type === "text" && !/text_bg_color/.test(w.html || "")
-          ? NESTED_TEXT_BAND
-          : !mobileBox && vGutter && topBand && !nested && w.type !== "padding"
-            ? WIDGET_TOP_BAND
-            : "";
+      : !mobileBox && vGutter && nested && w.type === "text" && !/text_bg_color/.test(w.html || "")
+        ? NESTED_TEXT_BAND
+        : !mobileBox && vGutter && topBand && !nested && w.type !== "padding"
+          ? WIDGET_TOP_BAND
+          : "";
   const tagged = (
     <div data-widget-type={w.type} data-widget-id={w.id} className={margin || undefined}>
       {content}
@@ -839,7 +834,7 @@ function WidgetContent({ w, locale, mobileBox = false }: { w: WidgetNode; locale
         // galleries (company.about) keep the existing fixed-width hover card.
         if (mobileBox) {
           return (
-            <GallerySlider count={items.length} autoplayMs={w.id === HOME_MOBILE_SLIDER_ID ? 5000 : 0}>
+            <GallerySlider count={items.length} autoplayMs={0}>
               {items.map((it, i) => (
                 <figure key={i} className="w-full shrink-0 snap-start">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -1065,7 +1060,6 @@ export function Rows({
   vGutter = false,
   mobileBox = false,
   topBand = false,
-  mobileBand = false,
 }: {
   rows: Node[];
   locale?: Locale;
@@ -1077,23 +1071,21 @@ export function Rows({
   mobileBox?: boolean;
   /** propagate the TOP_BAND_SECTION_IDS flag to top-level widgets */
   topBand?: boolean;
-  /** propagate the MOBILE_SECTION_BAND_IDS flag to the mobile section's widgets */
-  mobileBand?: boolean;
 }) {
   const out: React.ReactNode[] = [];
   rows.forEach((n, i) => {
     if (isRow(n)) {
-      out.push(<Row key={i} r={n} locale={locale} nested={nested} wdepth={wdepth + 1} vGutter={vGutter} mobileBox={mobileBox} topBand={topBand} mobileBand={mobileBand} />);
+      out.push(<Row key={i} r={n} locale={locale} nested={nested} wdepth={wdepth + 1} vGutter={vGutter} mobileBox={mobileBox} topBand={topBand} />);
     } else if (isWidget(n)) {
       out.push(
         <div key={i}>
-          <Widget w={n} locale={locale} nested={wdepth > 0} vGutter={vGutter} mobileBox={mobileBox} topBand={topBand} mobileBand={mobileBand} />
+          <Widget w={n} locale={locale} nested={wdepth > 0} vGutter={vGutter} mobileBox={mobileBox} topBand={topBand} />
         </div>,
       );
     } else if (n.kind === "col") {
       out.push(
         <div key={i} className={colClass(n.grid)}>
-          <Rows rows={n.children} locale={locale} nested={nested} wdepth={wdepth} vGutter={vGutter} mobileBox={mobileBox} topBand={topBand} mobileBand={mobileBand} />
+          <Rows rows={n.children} locale={locale} nested={nested} wdepth={wdepth} vGutter={vGutter} mobileBox={mobileBox} topBand={topBand} />
         </div>,
       );
     }
@@ -1110,7 +1102,6 @@ export function Row({
   mobileInset = false,
   mobileBox = false,
   topBand = false,
-  mobileBand = false,
 }: {
   r: RowNode;
   locale?: Locale;
@@ -1130,8 +1121,6 @@ export function Row({
   mobileBox?: boolean;
   /** propagate the TOP_BAND_SECTION_IDS flag to top-level widgets */
   topBand?: boolean;
-  /** propagate the MOBILE_SECTION_BAND_IDS flag to the mobile section's widgets */
-  mobileBand?: boolean;
 }) {
   const rowVars: React.CSSProperties = {};
   if (!nested && r.w) (rowVars as Record<string, string>)["--row-w"] = `${r.w}px`;
@@ -1158,7 +1147,7 @@ export function Row({
     <div className={`imweb-row grid grid-cols-1 ${fiveCol ? "lg:grid-cols-5" : "lg:grid-cols-12"}${hiddenXs ? " hidden-xs" : ""}`} style={rowVars}>
       {cols.map((c, i) => (
         <div key={i} className={`imweb-col ${fiveCol ? "" : SPAN_CLASS[c.span] || colClass(c.grid)}`}>
-          <Rows rows={c.children} locale={locale} nested wdepth={wdepth} vGutter={vGutter} mobileBox={mobileBox} topBand={topBand} mobileBand={mobileBand} />
+          <Rows rows={c.children} locale={locale} nested wdepth={wdepth} vGutter={vGutter} mobileBox={mobileBox} topBand={topBand} />
         </div>
       ))}
     </div>
@@ -1349,20 +1338,6 @@ const TOP_BAND_SECTION_IDS = new Set([
 ]);
 
 /**
- * Home §5 mobile slider (`s20250911db56ac49110f4`, gallery2 `layout:"slide"`).
- * The crawl stores no gallery autoplay config, so the measured value is pinned
- * here: the original's authored gallery config for this widget is
- * `"effect":"slide","effect_wait":"5","effect_time":"0.2","show_paging":"Y",
- * "auto_change":"Y","effect_loop":"Y"` → one full slide per 5000ms, looping,
- * dots paging, no arrows at mobile. This widget opts in here; company.about's
- * plain slide gallery opts in separately (`ABOUT_PLAIN_SLIDER_ID`, see
- * `design/audit/pages-motion-audit.md` C2); captioned galleries stay manual.
- * Durable path: have the crawler persist `auto_change`/`effect_wait` on the
- * widget and read it here (mirrors the `animDir` migration note).
- */
-const HOME_MOBILE_SLIDER_ID = "w20250911b19e5033093cd";
-
-/**
  * company.about plain slide gallery (`w20250918b0ab58de4000e`, 21 items).
  *
  * The live original initializes this one as an owl carousel with
@@ -1373,39 +1348,9 @@ const HOME_MOBILE_SLIDER_ID = "w20250911b19e5033093cd";
  * The sibling captioned gallery (`w20250918692bb854e97af`) does NOT autoplay
  * (`effect_wait:"0"`; only the init-correcting dot change was observed), so
  * only this widget opts in. Durable path: persist the gallery
- * `auto_change`/`effect_wait` config on the crawl (mirrors HOME_MOBILE_SLIDER_ID).
+ * `auto_change`/`effect_wait` config on the crawl.
  */
 const ABOUT_PLAIN_SLIDER_ID = "w20250918b0ab58de4000e";
-
-/**
- * Mobile-authored (`mobile_section`) widget band (7.5px each side).
- *
- * imweb gives every `.inside .widget` a `margin: 7.5px 0` at 390; the rebuild
- * already applies it to IMAGE widgets of a mobile section (Widget's `mobileBox`
- * branch) but not to the padding / text / video / gallery widgets. Measured live
- * at 390 on the home originals (per-widget margins): §회사소개 padding 91 →
- * 7.5/7.5; §에코웨이브는 padding 44 + text + padding 30; §생활환경 gallery 507 +
- * padding 30; §물을 깨끗하게 padding 45 + text + video + padding 101 — every one
- * `7.5px 0` on the original and `0` locally, which is exactly the reported
- * section deficits (−15 / −45 / −23 / −62).
- *
- * A GLOBAL mobile band is unsafe: measured it regresses company.about §3 by +30
- * and company.global §3 by +30 (those mobile sections' text widgets already run
- * ~+30 tall locally, so the band alone overshoots) and lifts home §1 by +30 (its
- * text runs +48 tall). Scoped to the measured home sections via this allowlist
- * (the TOP_BAND_SECTION_IDS pattern). The EN home mobile sections were measured
- * too (same 7.5px margins on the originals; §2 867→882 exact, §6 416→476 exact)
- * but are deliberately NOT listable: the EN home is currently +651 on its §3
- * from an unrelated full-width image bug, and the band would lift that section
- * further, so EN home is left untouched pending that fix.
- */
-const MOBILE_SECTION_BAND = "mt-[7.5px] mb-[7.5px]";
-const MOBILE_SECTION_BAND_IDS = new Set([
-  "s20250911281117781b494", // home §회사소개 (ko mobile)
-  "s20250911e7c6ef8d60c18", // home §에코웨이브는 깨끗한 물을… (ko mobile)
-  "s20250911db56ac49110f4", // home §생활환경 솔루션 slider (ko mobile)
-  "s20250911ce32ed6fec574", // home §물을 깨끗하게… (ko mobile)
-]);
 
 /**
  * item 1 — company.philosophy mobile rich-text downscale (coordinated set).
@@ -1758,8 +1703,6 @@ export default function SectionRenderer({
         const vGutter = !/(^|\s)grid_v_gutter_0(\s|$)/.test(cls);
         // the measured top-level band applies to a fixed set of pc sections only
         const topBand = TOP_BAND_SECTION_IDS.has(sec.id);
-        // the mobile-authored widget band applies to a fixed set of home sections
-        const mobileBand = MOBILE_SECTION_BAND_IDS.has(sec.id);
         // item 1: mobile 48px-span line-height hook (globals.css `data-mh6`)
         const mh6 = sectionHasMh6Spans(sec);
         // item 1: philosophy mobile rich-text downscale (globals.css `data-rtm`)
@@ -1853,7 +1796,6 @@ export default function SectionRenderer({
                       mobileInset={mobileOnly}
                       mobileBox={mobileOnly}
                       topBand={topBand}
-                      mobileBand={mobileBand}
                     />
                   ))}
               </div>
