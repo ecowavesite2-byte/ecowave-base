@@ -14,7 +14,10 @@ export default function InquiryForm({ locale }: { locale: Locale }) {
   const t = labels[locale];
   const [fileName, setFileName] = useState("");
   const [done, setDone] = useState(false);
+  const [pending, setPending] = useState(false);
+  const [error, setError] = useState("");
   const fileRef = useRef<HTMLInputElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
     if (!done) return;
@@ -43,10 +46,43 @@ export default function InquiryForm({ locale }: { locale: Locale }) {
   return (
     <>
       <form
+        ref={formRef}
         className="mx-auto max-w-[250px] min-[992px]:max-w-none"
-        onSubmit={(e) => {
+        onSubmit={async (e) => {
           e.preventDefault();
-          setDone(true);
+          setError("");
+          const fd = new FormData(e.currentTarget);
+          const payload = {
+            company: String(fd.get("company") ?? ""),
+            contact: String(fd.get("contact") ?? ""),
+            phone: String(fd.get("phone") ?? ""),
+            email: String(fd.get("email") ?? ""),
+            address: String(fd.get("address") ?? ""),
+            products: fd.getAll("products").map(String),
+            productsEtc: String(fd.get("products_etc") ?? ""),
+            oem: fd.getAll("oem").map(String),
+            message: String(fd.get("inquiry") ?? ""),
+            fileName,
+            locale,
+            consent: fd.get("consent") === "true",
+          };
+          setPending(true);
+          try {
+            const res = await fetch("/api/inquiry", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(payload),
+            });
+            const data: { ok?: boolean; error?: string } = await res.json().catch(() => ({}));
+            if (!res.ok || !data.ok) throw new Error(data.error || `HTTP ${res.status}`);
+            setDone(true);
+            formRef.current?.reset();
+            setFileName("");
+          } catch {
+            setError(t.error);
+          } finally {
+            setPending(false);
+          }
         }}
       >
         {/* 2-col grid: company/contact, phone/email */}
@@ -192,7 +228,7 @@ export default function InquiryForm({ locale }: { locale: Locale }) {
             ))}
           </div>
           <label className="mt-[19px] flex cursor-pointer items-center gap-2 text-[15px] text-ink min-[992px]:mt-3">
-            <input type="checkbox" required className="h-4 w-4 accent-[#3465de]" />
+            <input type="checkbox" name="consent" value="true" required className="h-4 w-4 accent-[#3465de]" />
             {t.agree}
           </label>
         </div>
@@ -201,10 +237,16 @@ export default function InquiryForm({ locale }: { locale: Locale }) {
         <div className="mt-[35px] text-center min-[992px]:mt-10">
           <button
             type="submit"
+            disabled={pending}
             className="h-[51px] w-[195px] bg-[#363636] text-[20px] text-white transition-colors hover:bg-accent"
           >
-            {t.submit}
+            {pending ? t.submitting : t.submit}
           </button>
+          {error ? (
+            <p role="alert" className="mt-3 text-[14px] text-[#ee3a3a]">
+              {error}
+            </p>
+          ) : null}
         </div>
       </form>
 

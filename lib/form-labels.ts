@@ -34,7 +34,9 @@ export const labels = {
     "agree": "개인정보 수집 및 이용에 동의합니다.",
     "submit": "문의하기",
     "success": "정상적으로 접수되었습니다",
-    "confirm": "확인"
+    "confirm": "확인",
+    "submitting": "접수 중…",
+    "error": "접수에 실패했습니다. 잠시 후 다시 시도해 주세요."
   },
   "en": {
     "company": "Company name",
@@ -69,6 +71,8 @@ export const labels = {
     "agree": "I have read and agree to the terms and conditions and privacy policy.",
     "submit": "Contact us",
     "success": "Your response has been successfully submitted.",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "submitting": "Submitting…",
+    "error": "Submission failed. Please try again."
   }
 } as const;

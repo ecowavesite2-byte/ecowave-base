@@ -9,6 +9,7 @@ export type UIStrings = {
     prev: string;
     next: string;
     noPosts: string;
+    noResults: string;
     all: string;
   };
   common: { search: string; home: string };
@@ -24,6 +25,7 @@ const dict: Record<Locale, UIStrings> = {
       prev: "이전글",
       next: "다음글",
       noPosts: "등록된 글이 없습니다.",
+      noResults: "검색 결과가 없습니다.",
       all: "전체",
     },
     common: {
@@ -40,6 +42,7 @@ const dict: Record<Locale, UIStrings> = {
       prev: "Prev",
       next: "Next",
       noPosts: "No posts.",
+      noResults: "No results found.",
       all: "All",
     },
     common: {

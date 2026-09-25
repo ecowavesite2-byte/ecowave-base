@@ -58,3 +58,24 @@ model BoardPost {
   @@index([slug, locale, sortOrder])
   @@map("board_post")
 }
+
+model Inquiry {
+  id          String   @id @default(cuid())
+  locale      String   @default("ko")
+  company     String
+  contact     String
+  phone       String
+  email       String
+  address     String?
+  products    String[] @default([])
+  productsEtc String?
+  oem         String[] @default([])
+  message     String?
+  fileName    String?
+  consent     Boolean  @default(true)
+  status      String   @default("new")
+  createdAt   DateTime @default(now())
+
+  @@index([createdAt])
+  @@map("inquiry")
+}

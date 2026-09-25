@@ -78,6 +78,7 @@ export interface AdminDict {
       flowell: string;
     };
     settings: string;
+    inquiries: string;
   };
   dashboard: {
     contentOverrides: string;
@@ -258,6 +259,45 @@ export interface AdminDict {
       cancel: string;
     };
   };
+  /**
+   * `/admin/inquiries` + `/admin/inquiries/<id>` — public inquiry form intake
+   * (read-only list + detail). Follows the admin UI locale.
+   */
+  inquiries: {
+    title: string;
+    blurb: string;
+    dbNotice: string;
+    empty: string;
+    backLabel: string;
+    none: string;
+    columns: {
+      received: string;
+      company: string;
+      contact: string;
+      phone: string;
+      email: string;
+      products: string;
+      file: string;
+    };
+    detail: {
+      company: string;
+      contact: string;
+      phone: string;
+      email: string;
+      address: string;
+      products: string;
+      productsEtc: string;
+      oem: string;
+      message: string;
+      consent: string;
+      locale: string;
+      file: string;
+      status: string;
+      createdAt: string;
+      yes: string;
+      no: string;
+    };
+  };
 }
 
 /** Registry `?group=` ids → sidebar label keys (order = sidebar order). */
@@ -318,6 +358,7 @@ const ko: AdminDict = {
       flowell: "플로웰",
     },
     settings: "사이트 설정",
+    inquiries: "문의 내역",
   },
   dashboard: {
     contentOverrides: "페이지 콘텐츠 덮어쓰기",
@@ -528,6 +569,42 @@ const ko: AdminDict = {
       cancel: "취소",
     },
   },
+  inquiries: {
+    title: "문의 내역",
+    blurb: "홈페이지 문의 폼으로 접수된 내용을 확인합니다.",
+    dbNotice:
+      "데이터베이스가 설정되지 않았습니다 (DATABASE_URL 없음). 문의 내역을 불러올 수 없습니다.",
+    empty: "접수된 문의가 없습니다.",
+    backLabel: "문의 내역",
+    none: "—",
+    columns: {
+      received: "접수일시",
+      company: "업체명",
+      contact: "담당자",
+      phone: "연락처",
+      email: "이메일",
+      products: "제품 / OEM",
+      file: "첨부파일",
+    },
+    detail: {
+      company: "업체명",
+      contact: "담당자",
+      phone: "연락처",
+      email: "이메일",
+      address: "주소",
+      products: "개발/생산제품",
+      productsEtc: "기타 제품",
+      oem: "OEM/ODM",
+      message: "개발내용",
+      consent: "개인정보 동의",
+      locale: "언어",
+      file: "첨부파일",
+      status: "상태",
+      createdAt: "접수일시",
+      yes: "동의",
+      no: "미동의",
+    },
+  },
 };
 
 const en: AdminDict = {
@@ -563,6 +640,7 @@ const en: AdminDict = {
       flowell: "Flowell",
     },
     settings: "Site settings",
+    inquiries: "Inquiries",
   },
   dashboard: {
     contentOverrides: "Page content overrides",
@@ -770,6 +848,42 @@ const en: AdminDict = {
       save: "Save",
       saving: "Saving…",
       cancel: "Cancel",
+    },
+  },
+  inquiries: {
+    title: "Inquiries",
+    blurb: "Messages received through the public inquiry form.",
+    dbNotice:
+      "Database is not configured (DATABASE_URL missing). Inquiry history is unavailable.",
+    empty: "No inquiries yet.",
+    backLabel: "Inquiries",
+    none: "—",
+    columns: {
+      received: "Received",
+      company: "Company",
+      contact: "Contact",
+      phone: "Phone",
+      email: "Email",
+      products: "Products / OEM",
+      file: "Attachment",
+    },
+    detail: {
+      company: "Company",
+      contact: "Contact",
+      phone: "Phone",
+      email: "Email",
+      address: "Address",
+      products: "Products",
+      productsEtc: "Other products",
+      oem: "OEM/ODM",
+      message: "Message",
+      consent: "Privacy consent",
+      locale: "Language",
+      file: "Attachment",
+      status: "Status",
+      createdAt: "Received",
+      yes: "Agreed",
+      no: "Not agreed",
     },
   },
 };

@@ -77,7 +77,10 @@ function buildGroups(locale: AdminLocale): SidebarGroup[] {
     {
       key: "manage",
       label: t.nav.managementGroup,
-      entries: [{ href: "/admin/settings", label: t.nav.settings }],
+      entries: [
+        { href: "/admin/settings", label: t.nav.settings },
+        { href: "/admin/inquiries", label: t.nav.inquiries },
+      ],
     },
   ];
 }

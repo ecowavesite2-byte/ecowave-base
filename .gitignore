@@ -17,6 +17,7 @@ src/generated/
 
 # local tooling artifacts
 .playwright-mcp
+.opencode/
 .DS_Store
 
 # regenerable design references (scripts/crawl/measure.mjs + shoot-rebuilt.mjs)

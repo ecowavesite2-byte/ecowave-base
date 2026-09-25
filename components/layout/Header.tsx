@@ -264,7 +264,12 @@ export default function Header({ locale, nav, logo, logoScrolled, langLabelKo, l
                         {item.name}
                       </Link>
                       {item.children.length > 0 && (
-                        <div className="invisible absolute left-full top-0 z-50 opacity-0 transition-all duration-300 ease-[ease] group-hover/sub:visible group-hover/sub:opacity-100">
+                        /* The original's "…" menu is right-aligned and its item
+                           flyouts open to the LEFT (live-measured at 1440: the
+                           뉴스룸 flyout sits at x1003-1163, immediately left of
+                           the x1163-1323 more_list). `left-full` pushed them
+                           off the right screen edge. */
+                        <div className="invisible absolute right-full top-0 z-50 opacity-0 transition-all duration-300 ease-[ease] group-hover/sub:visible group-hover/sub:opacity-100">
                           <DropList items={item.children} locale={locale} />
                         </div>
                       )}

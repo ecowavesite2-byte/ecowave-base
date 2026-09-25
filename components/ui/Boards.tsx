@@ -16,10 +16,16 @@ export type BoardListItem = {
 export function BoardHeader({
   name,
   count,
+  action,
+  keyword,
   searchLabel = "Search",
 }: {
   name: string;
-  count: number;
+  count?: number | null;
+  /** board base path the search GET form posts to */
+  action: string;
+  /** current search term (echoed back into the input) */
+  keyword?: string;
   searchLabel?: string;
 }) {
   return (
@@ -27,30 +33,48 @@ export function BoardHeader({
       <header className="text-[15px] text-[#363636]">
         {/* live orig count `<em>`: 15px font with a standalone line-height —
             34px desktop / 18px mobile (imweb `.table_top em`); the inherited
-            1.6 body box (24px) was the only mismatch. */}
-        {name} <em className="not-italic leading-[18px] min-[992px]:leading-[34px]">{count}</em>
+            1.6 body box (24px) was the only mismatch. An empty search result
+            hides the number (measured original: heading = board name only). */}
+        {count != null ? (
+          <>
+            {name}{" "}
+            <em className="not-italic leading-[18px] min-[992px]:leading-[34px]">{count}</em>
+          </>
+        ) : (
+          name
+        )}
       </header>
-      <div className="relative">
+      {/* imweb `<form class="input-group" action="" method="get">` with hidden
+          `keyword_type=all` + text `keyword`; posts `?keyword_type=all&keyword=…`
+          back to the same board page. The magnifier is the submit button. */}
+      <form action={action} method="get" className="relative">
+        <input type="hidden" name="keyword_type" value="all" />
         <input
           type="text"
+          name="keyword"
+          defaultValue={keyword}
           placeholder={searchLabel}
           title={searchLabel}
           className="h-[34px] w-full border border-line bg-white px-3 pr-9 text-[13px] text-body placeholder:text-muted focus:border-accent focus:outline-none sm:w-[220px]"
-          readOnly
         />
-        <svg
+        <button
+          type="submit"
+          aria-label={searchLabel}
           className="absolute right-3 top-1/2 -translate-y-1/2"
-          width="14"
-          height="14"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="#959595"
-          strokeWidth="2"
         >
-          <circle cx="11" cy="11" r="7" />
-          <path d="M20 20l-3.5-3.5" />
-        </svg>
-      </div>
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#959595"
+            strokeWidth="2"
+          >
+            <circle cx="11" cy="11" r="7" />
+            <path d="M20 20l-3.5-3.5" />
+          </svg>
+        </button>
+      </form>
     </div>
   );
 }
@@ -249,13 +273,16 @@ export function Pagination({
 }) {
   if (totalPages <= 1) return null;
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+  // a search-filtered board carries `?keyword_type=…&keyword=…` on basePath, so
+  // append `&page=` when a query is already present (mirrors ProductPagination)
+  const sep = basePath.includes("?") ? "&" : "?";
   const btn =
     "flex h-[34px] min-w-[34px] items-center justify-center border border-[#ddd] bg-white px-2 text-[14px] transition duration-300";
   return (
     <nav className="mt-10 flex items-center justify-center gap-[5px]" aria-label="페이지네이션">
       {page > 1 && (
         <Link
-          href={page === 2 ? basePath : `${basePath}?page=${page - 1}`}
+          href={page === 2 ? basePath : `${basePath}${sep}page=${page - 1}`}
           className={`${btn} text-body hover:border-accent hover:text-accent`}
           aria-label="이전 페이지"
         >
@@ -267,7 +294,7 @@ export function Pagination({
       {pages.map((p) => (
         <Link
           key={p}
-          href={p === 1 ? basePath : `${basePath}?page=${p}`}
+          href={p === 1 ? basePath : `${basePath}${sep}page=${p}`}
           aria-current={p === page ? "page" : undefined}
           className={
             p === page
@@ -280,7 +307,7 @@ export function Pagination({
       ))}
       {page < totalPages && (
         <Link
-          href={`${basePath}?page=${page + 1}`}
+          href={`${basePath}${sep}page=${page + 1}`}
           className={`${btn} text-body hover:border-accent hover:text-accent`}
           aria-label="다음 페이지"
         >
