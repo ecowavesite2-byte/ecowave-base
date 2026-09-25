@@ -5,12 +5,14 @@ import { useEffect, useMemo, useState } from "react";
 import { applyPageOverrides } from "@/lib/content/merge";
 import { sectionWidgets } from "@/lib/content/pair";
 import { MOBILE_SECTION } from "@/components/content/SectionRenderer";
+import { isNoticeTickerSection } from "@/components/sections/home/NoticeTicker";
 import { adminDict, type AdminLocale } from "@/lib/admin/i18n";
-import type { PageContent, Section } from "@/lib/types";
+import type { BoardPost, PageContent, Section } from "@/lib/types";
 import FieldRow from "./FieldRow";
 import GroupTabs from "./GroupTabs";
 import SectionPreview from "./SectionPreview";
 import type {
+  BoardPostOption,
   BoardPostsMap,
   DefaultsMap,
   LocalePair,
@@ -49,6 +51,7 @@ interface AccordionItem {
 
 type PreviewState =
   | { kind: "ok"; section: Section }
+  | { kind: "ticker"; section: Section; posts: BoardPost[] }
   | { kind: "board" }
   | { kind: "mobile" }
   | { kind: "chrome" }
@@ -145,6 +148,40 @@ function defTargetMissing(section: Section | undefined, def: RegistryDef): boole
 /** `s20250811004ea868d7376` → `s2025081…d7376` (first 8 chars + `…` + last 5). */
 function truncateSectionId(id: string): string {
   return id.length > 14 ? `${id.slice(0, 8)}…${id.slice(-5)}` : id;
+}
+
+/** Parse a `picks` draft/effective payload (`{ board, idxs }`); always usable. */
+function parsePicksDraft(json: string): { board: "news" | "notices"; idxs: string[] } {
+  try {
+    const raw = JSON.parse(json) as { board?: unknown; idxs?: unknown };
+    return {
+      board: raw?.board === "notices" ? "notices" : "news",
+      idxs: Array.isArray(raw?.idxs)
+        ? raw.idxs
+            .filter((idx): idx is string | number => typeof idx === "string" || typeof idx === "number")
+            .map(String)
+        : [],
+    };
+  } catch {
+    return { board: "news", idxs: [] };
+  }
+}
+
+/**
+ * Compact `BoardPostOption` (idx/title/date only) → the fuller shape
+ * `NoticeTicker` renders. The admin page only ships the option columns, so the
+ * preview card shows the real title/date but no thumb/excerpt.
+ */
+function toBoardPost(option: BoardPostOption): BoardPost {
+  return {
+    idx: option.idx,
+    title: option.title,
+    excerpt: option.excerpt ?? "",
+    thumb: option.thumb ?? null,
+    isNotice: false,
+    date: option.date,
+    views: null,
+  };
 }
 
 export default function RegistryEditor({
@@ -390,11 +427,36 @@ export default function RegistryEditor({
 
     try {
       const section = resolveSection(koSection, tree.en);
-      return section ? { kind: "ok", section } : { kind: "unavailable" };
+      if (!section) return { kind: "unavailable" };
+      // Bespoke ticker: `SectionRenderer` has no `newest` case, so the raw
+      // crawled HTML would stack the cards and never reflect the picks draft.
+      // Render the real `NoticeTicker` with posts computed from the PICKS DRAFT
+      // (effective value when the draft is empty) so toggling a checkbox in the
+      // editor updates the pane live.
+      if (isNoticeTickerSection(section)) {
+        const options = boardPosts[previewLang] ?? { news: [], notices: [] };
+        const picksDef = defs.find((def) => def.kind === "picks");
+        const draft = picksDef ? drafts[picksDef.key]?.[previewLang]?.trim() ?? "" : "";
+        const effective = picksDef ? values[picksDef.key]?.[previewLang] ?? "" : "";
+        const picks = parsePicksDraft(draft || effective);
+        let posts: BoardPost[] = [];
+        if (picks.idxs.length > 0) {
+          const pool = picks.board === "notices" ? options.notices : options.news;
+          const byIdx = new Map(pool.map((post) => [post.idx, post]));
+          posts = picks.idxs
+            .map((idx) => byIdx.get(idx))
+            .filter((post): post is BoardPostOption => post !== undefined)
+            .map(toBoardPost);
+        }
+        // Unset/empty/stale selection: keep the runtime default (first 4 news).
+        if (posts.length === 0) posts = options.news.slice(0, 4).map(toBoardPost);
+        return { kind: "ticker", section, posts };
+      }
+      return { kind: "ok", section };
     } catch {
       return { kind: "unavailable" };
     }
-  }, [openItem, trees, draftOverrides, previewLang, overrideKinds]);
+  }, [openItem, trees, draftOverrides, previewLang, overrideKinds, defs, drafts, values, boardPosts]);
 
   const pageLabels = t.pageLabels as Record<string, string | undefined>;
 
@@ -566,6 +628,12 @@ export default function RegistryEditor({
             <div className="max-h-[78vh] overflow-y-auto">
               {preview?.kind === "ok" ? (
                 <SectionPreview section={preview.section} locale={previewLang} />
+              ) : preview?.kind === "ticker" ? (
+                <SectionPreview
+                  section={preview.section}
+                  locale={previewLang}
+                  tickerPosts={preview.posts}
+                />
               ) : (
                 <p className="px-3 py-8 text-center text-[12px] text-muted">
                   {preview?.kind === "board"

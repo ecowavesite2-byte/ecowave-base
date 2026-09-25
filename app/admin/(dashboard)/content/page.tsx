@@ -52,6 +52,8 @@ function compactPosts(posts: BoardPost[]): BoardPostOption[] {
     idx: post.idx,
     title: post.title,
     date: post.date,
+    thumb: post.thumb ?? null,
+    excerpt: post.excerpt ?? "",
   }));
 }
 

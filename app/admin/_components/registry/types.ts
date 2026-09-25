@@ -72,6 +72,9 @@ export interface BoardPostOption {
   idx: string;
   title: string;
   date: string | null;
+  /** Preview fidelity: lets the ticker preview render the real card image/body. */
+  thumb?: string | null;
+  excerpt?: string;
 }
 
 /** Selectable posts for both ticker boards (capped server-side). */

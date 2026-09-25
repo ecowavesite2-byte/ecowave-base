@@ -4,8 +4,9 @@ import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "re
 
 import SectionRenderer from "@/components/content/SectionRenderer";
 import HeroCarousel from "@/components/sections/home/HeroCarousel";
+import NoticeTicker, { isNoticeTickerSection } from "@/components/sections/home/NoticeTicker";
 import type { Locale } from "@/lib/i18n";
-import type { Section } from "@/lib/types";
+import type { BoardPost, Section } from "@/lib/types";
 
 /** `useLayoutEffect` in the browser (no flash), `useEffect` during SSR (no warning). */
 const useIsomorphicLayoutEffect = typeof window === "undefined" ? useEffect : useLayoutEffect;
@@ -74,13 +75,18 @@ export function ScaledDesktop({ children }: { children: ReactNode }) {
 export default function SectionPreview({
   section,
   locale,
+  tickerPosts,
 }: {
   section: Section;
   locale: Locale;
+  /** Live picks for the notice ticker (falls back to an empty list). */
+  tickerPosts?: BoardPost[];
 }) {
   return (
     <ScaledDesktop>
-      {section.visual?.length ? (
+      {isNoticeTickerSection(section) ? (
+        <NoticeTicker section={section} posts={tickerPosts ?? []} locale={locale} />
+      ) : section.visual?.length ? (
         <HeroCarousel slides={section.visual} />
       ) : (
         <SectionRenderer sections={[section]} locale={locale} />

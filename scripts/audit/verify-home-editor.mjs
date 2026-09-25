@@ -362,6 +362,45 @@ try {
   await openAndCheck("공지사항 티커", "picks-editor", "picks");
   await openAndCheck("물을 깨끗하게", "video-upload", "videoUpload");
 
+  // notice-ticker preview: bespoke .ticker-notice with the cards on ONE row,
+  // and toggling a pick must update the preview live.
+  let tickerPreviewShown = false;
+  let tickerCardsOnOneRow = false;
+  let tickerPreviewUpdates = false;
+  {
+    const header = page.locator("button[aria-expanded]", { hasText: "공지사항 티커" }).first();
+    if ((await header.count()) > 0) {
+      if ((await header.getAttribute("aria-expanded")) !== "true") {
+        await header.click();
+        await page.waitForTimeout(700);
+      }
+      tickerPreviewShown = (await page.locator("aside .ticker-notice").count()) > 0;
+      const rects = await page.evaluate(() => {
+        const preview = document.querySelector("aside .ticker-notice");
+        if (!preview) return [];
+        return [...preview.querySelectorAll("a.group.block")].slice(0, 4).map((el) => {
+          const r = el.getBoundingClientRect();
+          return { x: Math.round(r.x), y: Math.round(r.y) };
+        });
+      });
+      if (rects.length >= 4) {
+        tickerCardsOnOneRow =
+          new Set(rects.map((r) => r.y)).size === 1 && new Set(rects.map((r) => r.x)).size === rects.length;
+      }
+      const titlesOf = () =>
+        page.evaluate(() =>
+          [...document.querySelectorAll("aside .ticker-notice h3")].map((h) => h.textContent.trim()).join("|"),
+        );
+      const titlesBefore = await titlesOf();
+      const firstPost = page.locator('[data-testid="picks-editor"] input[type="checkbox"]').first();
+      if ((await firstPost.count()) > 0) {
+        await firstPost.click();
+        await page.waitForTimeout(700);
+        tickerPreviewUpdates = (await titlesOf()) !== titlesBefore;
+      }
+    }
+  }
+
   section("adminUi", {
     accordionCount: ui.labels.length,
     labelsUnique: labels.length === unique.size,
@@ -380,6 +419,9 @@ try {
     cardsEditorShown: editorPresence.cards,
     picksEditorShown: editorPresence.picks,
     videoUploadShown: editorPresence.videoUpload,
+    tickerPreviewShown,
+    tickerCardsOnOneRow,
+    tickerPreviewUpdates,
     labelsSample: labels.slice(0, 8),
   });
 
