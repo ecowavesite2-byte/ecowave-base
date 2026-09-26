@@ -25,19 +25,18 @@ const KINDS: Record<string, string> = Object.fromEntries(
   Object.values(CONTENT_DEF_MAP).map((def) => [def.key, def.kind]),
 );
 
-const NO_EN_COUNTERPART =
-  "no structurally paired EN widget (ko/en type mismatch recorded by the generator)";
-
 /**
  * key (all locales) or `key@locale` → reason.
  *
  * Allowlisted classes:
  *  - board `posts` keys: posts are a COLLECTION override stored in `board_post`,
  *    not a `page_content` list value, so there is nothing for the appliers to do
- *    with this key (board `name` keys DO apply via `applyBoardOverrides`);
- *  - EN positions with no structurally paired widget: the generator pairs EN by
- *    index/type and recorded a ko/en type mismatch here, so no EN default exists
- *    and the EN side correctly inherits the KO default.
+ *    with this key (board `name` keys DO apply via `applyBoardOverrides`).
+ *
+ * EN positions with no structurally paired widget no longer need an allowlist:
+ * the generator and `resolvePairedWidget` both ignore contentless widget types
+ * (padding/hr/code) when pairing, so a decorative widget cannot shift alignment
+ * and every EN default now applies.
  */
 const ALLOWLIST: Record<string, string> = {
   "news#board/news/posts": "posts are stored in board_post (collection override), not a page_content list value",
@@ -45,10 +44,6 @@ const ALLOWLIST: Record<string, string> = {
   "products.clean-b#board/products.clean-b/posts": "posts are stored in board_post (collection override), not a page_content list value",
   "products.eco-wave#board/products.eco-wave/posts": "posts are stored in board_post (collection override), not a page_content list value",
   "products.flowell#board/products.flowell/posts": "posts are stored in board_post (collection override), not a page_content list value",
-
-  // No structurally paired EN widget (ko/en type mismatch recorded by the generator).
-  "company.about#s20250811457daf6e58a2c/w20250918684332dc780e7/html@en": NO_EN_COUNTERPART,
-  "company.about#s20250918e40b7f78d4437/w20250918bf11a5c9a5e10/html@en": NO_EN_COUNTERPART,
 };
 
 type DefKind = "page" | "site" | "board";
@@ -98,9 +93,27 @@ describe("override coverage (every CONTENT_DEFS key, both locales)", () => {
               ? JSON.stringify([{ lines: [marker] }])
               : def.kind === "picks"
                 ? JSON.stringify({ board: "news", idxs: [marker] })
-                : def.kind === "overlay" || def.kind === "textarea"
-                  ? `<p>${marker}</p>`
-                  : marker;
+                : def.kind === "eras"
+                  ? JSON.stringify([
+                      {
+                        range: marker,
+                        tagline: marker,
+                        image: `/${marker}.png`,
+                        years: [{ year: marker, items: [marker] }],
+                      },
+                    ])
+                  : def.kind === "locations"
+                    ? JSON.stringify([
+                        {
+                          badge: marker,
+                          city: marker,
+                          address: marker,
+                          mapSrc: `https://example.com/${marker}`,
+                        },
+                      ])
+                    : def.kind === "overlay" || def.kind === "textarea"
+                      ? `<p>${marker}</p>`
+                      : marker;
         let merged: unknown;
 
         try {
@@ -151,15 +164,21 @@ describe("override coverage (every CONTENT_DEFS key, both locales)", () => {
     }
 
     expect(failures).toEqual([]);
-    // 472 defs × 2 locales − 12 allowlisted applications (5 board-post entries
-    // count once per locale + 2 EN positions with no structurally paired widget).
+    // 463 defs × 2 locales − 10 allowlisted applications (5 board-post keys
+    // count once per locale).
     // Dead sections are excluded from the registry by the generator: the footer
     // copies on non-home pages (SiteFooter renders home's), the leading
     // page-title hero band of each channel (rebuilt as <PageHero> from nav),
-    // code widgets, markup-only text widgets and the mobile back-to-top section.
-    expect(allowlisted.length).toBe(12);
-    expect(applied).toBe(CONTENT_DEFS.length * LOCALES.length - 12);
-    expect(applied).toBe(932);
+    // code widgets, markup-only text widgets, the mobile back-to-top section,
+    // the removed mobile-variant sections of the company channel and the
+    // non-canonical copies of the shared company intro band (only `company.ceo`'s
+    // is live; the renderer swaps its rows into every other company page, and the
+    // root `company` key is an alias that emits no defs at all). The superseded
+    // per-widget history era and branch defs are replaced by one `eras` and one
+    // `locations` def respectively.
+    expect(allowlisted.length).toBe(10);
+    expect(applied).toBe(CONTENT_DEFS.length * LOCALES.length - 10);
+    expect(applied).toBe(916);
     expect(applied).toBe(expectedApplied);
   });
 

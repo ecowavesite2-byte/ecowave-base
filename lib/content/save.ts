@@ -99,6 +99,69 @@ function isValidPicksPayload(value: string): boolean {
 }
 
 /**
+ * `eras` payloads: a non-empty JSON array of
+ * `{ range, tagline, image, years: [{ year, items: string[] }] }`. Rejecting
+ * malformed payloads at the boundary keeps a bad request from splicing the
+ * history timeline into a broken page.
+ */
+function isValidErasPayload(value: string): boolean {
+  try {
+    const parsed: unknown = JSON.parse(value);
+    if (!Array.isArray(parsed) || parsed.length === 0) return false;
+    return parsed.every((entry) => {
+      if (!entry || typeof entry !== "object" || Array.isArray(entry)) return false;
+      const era = entry as {
+        range?: unknown;
+        tagline?: unknown;
+        image?: unknown;
+        years?: unknown;
+      };
+      if (typeof era.range !== "string") return false;
+      if (typeof era.tagline !== "string") return false;
+      if (typeof era.image !== "string") return false;
+      if (!Array.isArray(era.years)) return false;
+      return era.years.every((yearEntry) => {
+        if (!yearEntry || typeof yearEntry !== "object" || Array.isArray(yearEntry)) return false;
+        const year = yearEntry as { year?: unknown; items?: unknown };
+        if (typeof year.year !== "string") return false;
+        return Array.isArray(year.items) && year.items.every((item) => typeof item === "string");
+      });
+    });
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * `locations` payloads: a non-empty JSON array of
+ * `{ badge, city, address, mapSrc }`. A non-empty `mapSrc` must be a valid media
+ * value (relative path or http(s) URL).
+ */
+function isValidLocationsPayload(value: string): boolean {
+  try {
+    const parsed: unknown = JSON.parse(value);
+    if (!Array.isArray(parsed) || parsed.length === 0) return false;
+    return parsed.every((entry) => {
+      if (!entry || typeof entry !== "object" || Array.isArray(entry)) return false;
+      const location = entry as {
+        badge?: unknown;
+        city?: unknown;
+        address?: unknown;
+        mapSrc?: unknown;
+      };
+      if (typeof location.badge !== "string") return false;
+      if (typeof location.city !== "string") return false;
+      if (typeof location.address !== "string") return false;
+      if (typeof location.mapSrc !== "string") return false;
+      if (location.mapSrc.trim().length > 0 && !isValidMediaValue(location.mapSrc)) return false;
+      return true;
+    });
+  } catch {
+    return false;
+  }
+}
+
+/**
  * Invalidate the routes a def affects.
  *
  * `ContentDef.revalidate` (emitted by the registry generator) lists the routes in
@@ -167,7 +230,7 @@ export async function saveContent({
     };
   }
 
-  if ((def.kind === "image" || def.kind === "url") && trimmedLength > 0) {
+  if ((def.kind === "image" || def.kind === "url" || def.kind === "embed") && trimmedLength > 0) {
     if (!isValidMediaValue(value)) {
       return {
         ok: false,
@@ -194,6 +257,22 @@ export async function saveContent({
     return {
       ok: false,
       message: "Invalid picks payload: expected { board, idxs }",
+    };
+  }
+
+  if (def.kind === "eras" && trimmedLength > 0 && !isValidErasPayload(value)) {
+    return {
+      ok: false,
+      message:
+        "Invalid eras payload: expected a non-empty JSON array of { range, tagline, image, years }",
+    };
+  }
+
+  if (def.kind === "locations" && trimmedLength > 0 && !isValidLocationsPayload(value)) {
+    return {
+      ok: false,
+      message:
+        "Invalid locations payload: expected a non-empty JSON array of { badge, city, address, mapSrc }",
     };
   }
 

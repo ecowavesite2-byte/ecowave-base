@@ -45,6 +45,15 @@ export interface PairRef {
   widgetId: string;
 }
 
+/**
+ * Widget types skipped when pairing KO ↔ EN positionally: they carry no
+ * overridable content (padding spacers, horizontal rules, raw code embeds), so
+ * they must not shift the alignment of the editable widgets around them.
+ * Mirrors `PAIR_IGNORED_TYPES` in scripts/gen-content-registry.mjs (a unit test
+ * asserts the two sets stay identical).
+ */
+export const PAIR_IGNORED_TYPES = new Set(["padding", "hr", "code"]);
+
 function findWidgetInSection(section: Section, widgetId: string): WidgetNode | null {
   return sectionWidgets(section).find((widget) => widget.id === widgetId) ?? null;
 }
@@ -101,14 +110,19 @@ export function resolvePairedWidget(
   const sectionIndex = primarySections.findIndex((section) => section?.id === ref.sectionId);
   if (sectionIndex < 0) return null;
 
-  const primaryWidgets = sectionWidgets(primarySections[sectionIndex]);
+  const primaryWidgets = sectionWidgets(primarySections[sectionIndex]).filter(
+    (widget) => !PAIR_IGNORED_TYPES.has(widget.type),
+  );
   const widgetIndex = primaryWidgets.findIndex((widget) => widget.id === ref.widgetId);
   if (widgetIndex < 0) return null;
 
   const targetSection = (target.sections ?? [])[sectionIndex];
   if (!targetSection) return null;
 
-  const targetWidget = sectionWidgets(targetSection)[widgetIndex] ?? null;
+  const targetWidgets = sectionWidgets(targetSection).filter(
+    (widget) => !PAIR_IGNORED_TYPES.has(widget.type),
+  );
+  const targetWidget = targetWidgets[widgetIndex] ?? null;
   if (!targetWidget) return null;
   if (targetWidget.type !== primaryWidgets[widgetIndex].type) return null;
 

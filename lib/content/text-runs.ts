@@ -30,6 +30,13 @@ const EDGE_TRAIL = /(?:\s|&nbsp;|&#160;)*$/;
 /** A line containing a real html tag (vs a bare "<" like "pH < 7"). */
 const TAG_RE = /<[a-z][^>]*>/i;
 
+/**
+ * Zero-width characters (ZWSP/ZWNJ/ZWJ/BOM) are invisible copy no admin can
+ * edit; they are stripped from run detection so a node holding only them is not
+ * treated as a run. The authored bytes stay in the markup untouched.
+ */
+const ZERO_WIDTH = /[\u200B\u200C\u200D\uFEFF]/g;
+
 function decodeEntities(value: string): string {
   return value
     .replace(/&nbsp;/g, " ")
@@ -38,6 +45,11 @@ function decodeEntities(value: string): string {
     .replace(/&gt;/g, ">")
     .replace(/&quot;/g, '"')
     .replace(/&#39;/g, "'");
+}
+
+/** Decode + drop zero-width characters + collapse whitespace; the run value. */
+function normalizeRun(value: string): string {
+  return decodeEntities(value).replace(ZERO_WIDTH, "").replace(/\s+/g, " ").trim();
 }
 
 function encodeText(value: string): string {
@@ -55,9 +67,9 @@ function encodeLine(line: string): string {
   return parts.map((part, index) => (index % 2 === 1 ? part : encodeText(part))).join("");
 }
 
-/** Is this text node anything but whitespace/entities? */
+/** Is this text node anything but whitespace/entities/zero-width characters? */
 function isRun(node: string): boolean {
-  return decodeEntities(node).replace(/\s+/g, " ").trim().length > 0;
+  return normalizeRun(node).length > 0;
 }
 
 /**
@@ -68,7 +80,7 @@ export function extractTextRuns(html: string | null | undefined): string[] {
   const parts = String(html ?? "").split(TOKEN);
   const runs: string[] = [];
   for (let i = 0; i < parts.length; i += 2) {
-    if (isRun(parts[i])) runs.push(decodeEntities(parts[i]).replace(/\s+/g, " ").trim());
+    if (isRun(parts[i])) runs.push(normalizeRun(parts[i]));
   }
   return runs;
 }

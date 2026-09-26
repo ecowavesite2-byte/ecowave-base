@@ -13,6 +13,12 @@ function readPage(pageKey: string): PageContent | null {
   return JSON.parse(fs.readFileSync(file, "utf8")) as PageContent;
 }
 
+function readLocalePage(locale: "ko" | "en", pageKey: string): PageContent | null {
+  const file = path.join(ROOT, "content", locale, "pages", `${pageKey}.json`);
+  if (!fs.existsSync(file)) return null;
+  return JSON.parse(fs.readFileSync(file, "utf8")) as PageContent;
+}
+
 const home = readPage("home") as PageContent;
 
 describe("parseRegistryKey", () => {
@@ -165,6 +171,83 @@ describe("applyPageOverrides", () => {
     expect(def).toBeDefined();
     const out = applyPageOverrides(home, { [def!.key]: "[]" }, "ko");
     expect(out).toEqual(home);
+  });
+});
+
+describe("applyPageOverrides embedded media (img/iframe src)", () => {
+  const imgDef = CONTENT_DEFS.find(
+    (d) => d.pageKey === "company.about" && /^img\[\d+\]\.src$/.test(d.field),
+  );
+  const iframeDef = CONTENT_DEFS.find(
+    (d) => d.pageKey === "company.global" && /^iframe\[\d+\]\.src$/.test(d.field),
+  );
+
+  it("replaces the nth img src for ko and for en (positional primary pairing)", () => {
+    expect(imgDef).toBeDefined();
+    const ko = readLocalePage("ko", "company.about") as PageContent;
+    const en = readLocalePage("en", "company.about") as PageContent;
+
+    const marker = "/patched-embed.png";
+    const mergedKo = applyPageOverrides(ko, { [imgDef!.key]: marker }, "ko");
+    expect(JSON.stringify(mergedKo)).toContain(marker);
+    expect(JSON.stringify(mergedKo)).not.toBe(JSON.stringify(ko));
+
+    // The KO widget id is absent from the EN tree; pairing must still land it.
+    const mergedEn = applyPageOverrides(en, { [imgDef!.key]: marker }, "en", {
+      primaryPage: ko,
+    });
+    expect(JSON.stringify(mergedEn)).toContain(marker);
+    expect(JSON.stringify(en)).not.toContain(marker);
+  });
+
+  it("coexists with the widget's `lines` html override in either order", () => {
+    expect(imgDef).toBeDefined();
+    const ko = readLocalePage("ko", "company.about") as PageContent;
+    const htmlKey = imgDef!.key.replace(/img\[\d+\]\.src$/, "html");
+    expect(CONTENT_DEFS.some((d) => d.key === htmlKey)).toBe(true);
+
+    const embed = "/coexist-embed.png";
+    const copy = "COEXIST COPY";
+
+    const embedFirst = applyPageOverrides(ko, { [imgDef!.key]: embed }, "ko");
+    const bothA = applyPageOverrides(embedFirst, { [htmlKey]: copy }, "ko", {
+      kinds: { [htmlKey]: "lines" },
+    });
+    expect(JSON.stringify(bothA)).toContain(embed);
+    expect(JSON.stringify(bothA)).toContain(copy);
+
+    const linesFirst = applyPageOverrides(ko, { [htmlKey]: copy }, "ko", {
+      kinds: { [htmlKey]: "lines" },
+    });
+    const bothB = applyPageOverrides(linesFirst, { [imgDef!.key]: embed }, "ko");
+    expect(JSON.stringify(bothB)).toContain(embed);
+    expect(JSON.stringify(bothB)).toContain(copy);
+    // injectTextRuns never rewrites tags, so the embed survives the lines pass.
+    expect(bothB).toEqual(bothA);
+  });
+
+  it("applies an iframe src override", () => {
+    expect(iframeDef).toBeDefined();
+    const ko = readLocalePage("ko", "company.global") as PageContent;
+    const marker = "https://example.com/embed";
+    const merged = applyPageOverrides(ko, { [iframeDef!.key]: marker }, "ko");
+    expect(JSON.stringify(merged)).toContain(marker);
+  });
+
+  it("no-ops for an out-of-range embed index", () => {
+    expect(imgDef).toBeDefined();
+    const ko = readLocalePage("ko", "company.about") as PageContent;
+    const outOfRange = imgDef!.key.replace(/img\[(\d+)\]\.src$/, "img[99].src");
+    const out = applyPageOverrides(ko, { [outOfRange]: "/never.png" }, "ko");
+    expect(out).toEqual(ko);
+    expect(JSON.stringify(out)).not.toContain("/never.png");
+  });
+
+  it("gives a markup-only iframe widget an iframe def but no lines def", () => {
+    expect(iframeDef).toBeDefined();
+    const widgetDefs = CONTENT_DEFS.filter((d) => d.widgetId === iframeDef!.widgetId);
+    expect(widgetDefs.map((d) => d.field)).toEqual(["iframe[0].src"]);
+    expect(widgetDefs.some((d) => d.field === "html")).toBe(false);
   });
 });
 

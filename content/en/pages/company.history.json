@@ -303,62 +303,6 @@
       ]
     },
     {
-      "id": "s202509116a177a73d9cdb",
-      "cls": "section_wrap  mobile_section       side_basic     ",
-      "bg": null,
-      "bgStyle": "   background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
-      "bgColor": null,
-      "secStyle": "; ; ;",
-      "rows": [
-        {
-          "kind": "row",
-          "grid": "12",
-          "pad": 0,
-          "cols": [
-            {
-              "kind": "col",
-              "grid": "12",
-              "children": [
-                {
-                  "kind": "widget",
-                  "id": "w2025091102e6ba4f1edc4",
-                  "type": "padding",
-                  "html": "<div class=\"widget padding\" data-height=\"43\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w2025091102e6ba4f1edc4\" style=\"width:100%; min-height:1px; height:43px; \"></div>\n</div>\n",
-                  "_h": 43
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "kind": "row",
-          "grid": "12",
-          "pad": 0,
-          "cols": [
-            {
-              "kind": "col",
-              "grid": "12",
-              "children": [
-                {
-                  "kind": "widget",
-                  "id": "w2025091134a13906f3307",
-                  "type": "image",
-                  "src": "/images/thumbnail/20250911/8a464767025fa.jpg",
-                  "alt": "",
-                  "hoverBg": "/images/thumbnail/20250911/8a464767025fa.jpg",
-                  "boxStyle": "",
-                  "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 0px; height: 0px; margin-left: auto; margin-right: auto;",
-                  "anim": "fadeIn",
-                  "animDur": "1.2",
-                  "animDelay": "0.3"
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
       "id": "s20250911bad9c985a650f",
       "aside": {
         "pt": 121,
@@ -489,42 +433,6 @@
       ]
     },
     {
-      "id": "s20250911034a2836eaeac",
-      "cls": "section_wrap  mobile_section       side_basic     ",
-      "bg": null,
-      "bgStyle": "   background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
-      "bgColor": null,
-      "secStyle": "; ; ;",
-      "rows": [
-        {
-          "kind": "row",
-          "grid": "12",
-          "pad": 0,
-          "cols": [
-            {
-              "kind": "col",
-              "grid": "12",
-              "children": [
-                {
-                  "kind": "widget",
-                  "id": "w202509114967ade68930a",
-                  "type": "image",
-                  "src": "/images/thumbnail/20250911/3a403d278f3ca.jpg",
-                  "alt": "",
-                  "hoverBg": "/images/thumbnail/20250911/3a403d278f3ca.jpg",
-                  "boxStyle": "",
-                  "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 0px; height: 0px; margin-left: auto; margin-right: auto;",
-                  "anim": "fadeIn",
-                  "animDur": "1.2",
-                  "animDelay": "0.3"
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
       "id": "s202509119a200517d0b1e",
       "aside": {
         "pt": 121,
@@ -647,42 +555,6 @@
                   "type": "padding",
                   "html": "<div class=\"widget padding\" data-height=\"74\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w2025091136bc4b7da37b7\" style=\"width:100%; min-height:1px; height:74px; \"></div>\n</div>\n",
                   "_h": 74
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "s20250911a860dc22da3e1",
-      "cls": "section_wrap  mobile_section       side_basic     ",
-      "bg": null,
-      "bgStyle": "   background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
-      "bgColor": null,
-      "secStyle": "; ; ;",
-      "rows": [
-        {
-          "kind": "row",
-          "grid": "12",
-          "pad": 0,
-          "cols": [
-            {
-              "kind": "col",
-              "grid": "12",
-              "children": [
-                {
-                  "kind": "widget",
-                  "id": "w20250911106da0631374a",
-                  "type": "image",
-                  "src": "/images/thumbnail/20250911/f4ac0f6dcab6e.jpg",
-                  "alt": "",
-                  "hoverBg": "/images/thumbnail/20250911/f4ac0f6dcab6e.jpg",
-                  "boxStyle": "",
-                  "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: inline-block; width: 0px; height: 0px; margin-left: auto; margin-right: auto;",
-                  "anim": "fadeIn",
-                  "animDur": "1.2",
-                  "animDelay": "0.3"
                 }
               ]
             }

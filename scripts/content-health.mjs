@@ -58,6 +58,14 @@ const DEFAULTS_CLOSE = "\n};";
 const BOARD_KEY_RE = /^([^#]+)#board\/\1\/(?:name|posts)$/;
 const VISUAL_ID_RE = /^visual\[(\d+)\]$/;
 
+/**
+ * Mirrors `PAGE_ALIASES` in lib/content/paths.ts (scripts/ is not TS): pageKeys
+ * whose file is a crawl artifact served by another pageKey at runtime. The
+ * generator emits no defs for them, so their widgets can never be covered —
+ * skip the whole file in the coverage walk instead of flagging every widget.
+ */
+const PAGE_ALIASES = { company: "company.ceo" };
+
 /** Widget types that carry editable content (decorative/board-driven excluded). */
 const CONTENT_WIDGET_TYPES = new Set([
   "text",
@@ -166,6 +174,14 @@ function sectionWidgets(section) {
   return out;
 }
 
+/** A company.history era section (`side_left` whose aside carries an image). */
+function isEraSection(section) {
+  if (!/\bside_left\b/.test(section.cls || "")) return false;
+  const aside = [];
+  if (section.aside) collectWidgets(section.aside.items ?? [], aside);
+  return aside.some((widget) => widget.type === "image");
+}
+
 function stripTags(html) {
   return String(html ?? "")
     .replace(/<[^>]*>/g, " ")
@@ -231,11 +247,14 @@ function findDanglingDefs(defs, pages) {
       continue;
     }
 
-    // Section-scoped list defs (`/cards/cards`, `/picks/picks`): the section is
-    // the target and it exists (checked above) — there is no widget to look up.
+    // Section-scoped list defs (`/cards/cards`, `/picks/picks`, `/eras/eras`,
+    // `/locations/locations`): the section is the target and it exists (checked
+    // above) — there is no widget to look up.
     if (
       (def.widgetId === "cards" && def.field === "cards") ||
-      (def.widgetId === "picks" && def.field === "picks")
+      (def.widgetId === "picks" && def.field === "picks") ||
+      (def.widgetId === "eras" && def.field === "eras") ||
+      (def.widgetId === "locations" && def.field === "locations")
     ) {
       continue;
     }
@@ -258,9 +277,27 @@ function findCoverage(defs, pages) {
       .filter((def) => def.widgetId === "cards" && def.field === "cards")
       .map((def) => `${def.pageKey}\u0000${def.sectionId}`),
   );
+  // A page-level `eras` def covers every era section's widgets; a `locations`
+  // def covers the branches section's widgets (name + map), which bind to no
+  // per-widget defs of their own.
+  const erasPages = new Set(
+    defs
+      .filter((def) => def.widgetId === "eras" && def.field === "eras")
+      .map((def) => def.pageKey),
+  );
+  const locationSections = new Set(
+    defs
+      .filter((def) => def.widgetId === "locations" && def.field === "locations")
+      .map((def) => `${def.pageKey}\u0000${def.sectionId}`),
+  );
   const coverage = [];
   for (const [pageKey, page] of pages) {
+    // Alias page files (`company`) render another page's tree and emit no defs.
+    if (PAGE_ALIASES[pageKey]) continue;
     for (const section of page.sections ?? []) {
+      // Covered wholesale by a structured def anchored elsewhere/here.
+      if (erasPages.has(pageKey) && isEraSection(section)) continue;
+      if (locationSections.has(`${pageKey}\u0000${section.id}`)) continue;
       const hasCardsDef = cardsSections.has(`${pageKey}\u0000${section.id}`);
       let seenCardText = false;
       for (const widget of sectionWidgets(section)) {

@@ -74,22 +74,31 @@ export function ScaledDesktop({ children }: { children: ReactNode }) {
  */
 export default function SectionPreview({
   section,
+  sections,
   locale,
   tickerPosts,
 }: {
-  section: Section;
+  /** A single section (default preview path). */
+  section?: Section;
+  /**
+   * A full draft-applied section list (structured `eras`/`locations` previews,
+   * which restructure the whole page). Takes precedence over `section`.
+   */
+  sections?: Section[];
   locale: Locale;
   /** Live picks for the notice ticker (falls back to an empty list). */
   tickerPosts?: BoardPost[];
 }) {
+  const full = Array.isArray(sections) && sections.length > 0;
+  const single = section;
   return (
     <ScaledDesktop>
-      {isNoticeTickerSection(section) ? (
-        <NoticeTicker section={section} posts={tickerPosts ?? []} locale={locale} />
-      ) : section.visual?.length ? (
-        <HeroCarousel slides={section.visual} />
+      {!full && single && isNoticeTickerSection(single) ? (
+        <NoticeTicker section={single} posts={tickerPosts ?? []} locale={locale} />
+      ) : !full && single?.visual?.length ? (
+        <HeroCarousel slides={single.visual} />
       ) : (
-        <SectionRenderer sections={[section]} locale={locale} />
+        <SectionRenderer sections={full ? sections! : single ? [single] : []} locale={locale} />
       )}
     </ScaledDesktop>
   );

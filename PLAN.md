@@ -48,7 +48,9 @@ Old numeric URLs 301-redirect to the semantic routes (`next.config.ts`). Content
 - Crawler (`scripts/crawl/`) snapshots the original DOM/CSS into content JSON (inline styles preserved —
   a CMS-style schema migration would destroy fidelity), mirrors 523 assets, and records metrics.
 - Rebuild renders the crawled sections via `components/content/SectionRenderer.tsx` with imweb's
-  per-breakpoint channels (`pc_section mobile_hide` vs `mobile_section`), 992px breakpoint.
+  per-breakpoint channels (`pc_section mobile_hide` vs `mobile_section`), 992px breakpoint. (Later
+  replaced by a single-source responsive model; the mobile-only variant sections were removed from
+  the company channel — see §5 "Remaining work".)
 - Boards (news/notices/products) render from static JSON; rich-HTML posts via `BoardDetailShell` +
   `PostDetail`.
 - Decisions: no member/auth logic from imweb; client owns content; EN content was later ported
@@ -65,7 +67,8 @@ Writes are atomic with revision snapshots + an append-only audit log; uploaded m
 and served read-only via `/media/...`.
 
 The **content editor lane** is registry-based: `lib/content/registry.ts` (auto-generated, one def per
-editable field, emitted in page document order) + the Postgres `page_content` override store, edited at
+editable field, emitted in nav/route order with document order preserved within a page) + the Postgres
+`page_content` override store, edited at
 `/admin/content` and applied at render time by `lib/content/merge.ts` (`pair.ts` handles KO↔EN
 widget/section pairing). Field-level rules — text/HTML behaviour, image upload/reset, structured lists
 (hero slides, location cards, ticker picks), locale-parity rules, responsive-layout rules, and the
@@ -180,12 +183,16 @@ reveal/animation end-state normalization.
 
 ### Remaining work (documented with measurements)
 
-**Superseded:** the home page's mobile channel was intentionally replaced by a single-source
-responsive model (2026-09-25) — home mobile residuals below refer to the pre-migration baseline.
+**Superseded:** the mobile channel was intentionally replaced by a single-source responsive model
+(2026-09-25) — the home page first, then the company channel (about/history/global), whose
+mobile-only variant sections were deleted and whose history era photos now surface through the
+responsive asides + `MOBILE_IMAGE_SRC` portrait renditions. Mobile residuals below refer to the
+pre-migration baseline.
 
 1. Home ±24 px compensation items (page body now +14 vs original); §5 slider + hero bands remain
    carousel-phase artifacts.
-2. Mobile coordinated typography for the excluded pages (about/history/rnd/patents/facilities) — the
+2. Mobile coordinated typography for the not-yet-swept pages (rnd/patents/facilities; about/history
+   are now single-source but their responsive typography pass is unverified) — the
    per-element-correct set moves those page heights beyond the ±10 px guard and needs per-page
    section-aware application.
 3. `rnd` §2 +4 px — crawler row-partition artifact (extra padding widget) interacting with the global

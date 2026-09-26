@@ -5,7 +5,7 @@
 // table stores only overrides keyed by (key, locale); `DEFAULT_VALUES` below is
 // what the app falls back to when no override exists.
 
-export type ContentKind = "text" | "textarea" | "lines" | "image" | "url" | "list" | "slides" | "overlay" | "cards" | "picks";
+export type ContentKind = "text" | "textarea" | "lines" | "image" | "url" | "list" | "slides" | "overlay" | "cards" | "picks" | "embed" | "eras" | "locations";
 
 export type ContentGroup = "home" | "company" | "rnd" | "products" | "boards" | "site" | "common";
 
@@ -22,4797 +22,11 @@ export interface ContentDef {
   label: { ko: string; en: string };
   /** Routes to invalidate when this default changes. */
   revalidate: string[];
+  /** Rendered on every page of its channel from this one def (shared intro band). */
+  shared?: boolean;
 }
 
 export const CONTENT_DEFS: ContentDef[] = [
-  {
-    "key": "company#s202508206321c39177601/w20250820e1c08ac226481/html",
-    "group": "company",
-    "pageKey": "company",
-    "sectionId": "s202508206321c39177601",
-    "widgetId": "w20250820e1c08ac226481",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 더 건강하고 깨끗한 물을 만드는 고객과의 약속 에코웨이브를 …",
-      "en": "PC · EcoWave promises healthier, clean…"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 더 건강하고 깨끗한 물을 만드는 고객과의 약속",
-      "en": "Text block · EcoWave promises healthier,"
-    },
-    "revalidate": [
-      "/company",
-      "/en/company"
-    ]
-  },
-  {
-    "key": "company#s20250811fd0a82675a6bc/w20250909fe979998d4590/html",
-    "group": "company",
-    "pageKey": "company",
-    "sectionId": "s20250811fd0a82675a6bc",
-    "widgetId": "w20250909fe979998d4590",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 에코웨이브 홈페이지를 찾아주신 모든 분들께 진심으로 감사를 …",
-      "en": "PC · Thank you sincerely for visiting …"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 에코웨이브",
-      "en": "Text block · Thank you sincerely"
-    },
-    "revalidate": [
-      "/company",
-      "/en/company"
-    ]
-  },
-  {
-    "key": "company#s20250811fd0a82675a6bc/w20250909edc32b5a0f8ec/html",
-    "group": "company",
-    "pageKey": "company",
-    "sectionId": "s20250811fd0a82675a6bc",
-    "widgetId": "w20250909edc32b5a0f8ec",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 에코웨이브 홈페이지를 찾아주신 모든 분들께 진심으로 감사를 …",
-      "en": "PC · Thank you sincerely for visiting …"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 존경하는 여러분께,",
-      "en": "Text block · To all you respect, EcoWave says,"
-    },
-    "revalidate": [
-      "/company",
-      "/en/company"
-    ]
-  },
-  {
-    "key": "company#s20250811fd0a82675a6bc/w20250909f454e7a9b1143/html",
-    "group": "company",
-    "pageKey": "company",
-    "sectionId": "s20250811fd0a82675a6bc",
-    "widgetId": "w20250909f454e7a9b1143",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 에코웨이브 홈페이지를 찾아주신 모든 분들께 진심으로 감사를 …",
-      "en": "PC · Thank you sincerely for visiting …"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 에코웨이브 대표",
-      "en": "Text block · Representative of EcoWave,"
-    },
-    "revalidate": [
-      "/company",
-      "/en/company"
-    ]
-  },
-  {
-    "key": "company.about#s20250821eb14df6d34580/w20250821770900c60669c/html",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250821eb14df6d34580",
-    "widgetId": "w20250821770900c60669c",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 더 건강하고 깨끗한 물을 만드는 고객과의 약속 에코웨이브를 …",
-      "en": "PC · EcoWave promises healthier, clean…"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 더 건강하고 깨끗한 물을 만드는 고객과의 약속",
-      "en": "Text block · EcoWave promises healthier,"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s202509191b81eb54a6991/w202509191cf358c2625d5/src",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s202509191b81eb54a6991",
-    "widgetId": "w202509191cf358c2625d5",
-    "field": "src",
-    "kind": "image",
-    "section": {
-      "ko": "모바일 · 깨끗한 물, 건강한 삶을 만드는 에코웨이브",
-      "en": "Mobile · Clean water, making a healthy lif…"
-    },
-    "label": {
-      "ko": "이미지 경로 · 196f5234277f5.jpg",
-      "en": "Image source · 67a21a7c80b5f.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s202509191b81eb54a6991/w20250919f67f88afd25af/html",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s202509191b81eb54a6991",
-    "widgetId": "w20250919f67f88afd25af",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "모바일 · 깨끗한 물, 건강한 삶을 만드는 에코웨이브",
-      "en": "Mobile · Clean water, making a healthy lif…"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 깨끗한 물,",
-      "en": "Text block · Clean water,"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s202509191b81eb54a6991/w20250919473898f523ab7/html",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s202509191b81eb54a6991",
-    "widgetId": "w20250919473898f523ab7",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "모바일 · 깨끗한 물, 건강한 삶을 만드는 에코웨이브",
-      "en": "Mobile · Clean water, making a healthy lif…"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 맑고 깨끗한 물이 생활의 기본이자 건강의 근원이라는 믿음을 바탕으로,",
-      "en": "Text block · Based on the belief that clear and clea…"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250811457daf6e58a2c/w2025091840bd06b2a6c1d/src",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250811457daf6e58a2c",
-    "widgetId": "w2025091840bd06b2a6c1d",
-    "field": "src",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 깨끗한 물, 건강한 삶을 만드는 에코웨이브",
-      "en": "PC · Clean water, making a healthy lif…"
-    },
-    "label": {
-      "ko": "이미지 경로 · 5cda7b9aa9b6e.jpg",
-      "en": "Image source · 4b6a298c59f93.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250811457daf6e58a2c/w202509187c7529a0c38c3/html",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250811457daf6e58a2c",
-    "widgetId": "w202509187c7529a0c38c3",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 깨끗한 물, 건강한 삶을 만드는 에코웨이브",
-      "en": "PC · Clean water, making a healthy lif…"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 깨끗한 물,",
-      "en": "Text block · Based on the belief that clear and clea…"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250811457daf6e58a2c/w20250918684332dc780e7/html",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250811457daf6e58a2c",
-    "widgetId": "w20250918684332dc780e7",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 깨끗한 물, 건강한 삶을 만드는 에코웨이브",
-      "en": "PC · Clean water, making a healthy lif…"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 맑고 깨끗한 물이 생활의 기본이자 건강의 근원이라는 믿음을 바탕으로,",
-      "en": "텍스트 블록 · 맑고 깨끗한 물이 생활의 기본이자 건강의 근원이라는 믿음을 바탕으로,"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918e40b7f78d4437/w20250918f607bbed181f6/html",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918e40b7f78d4437",
-    "widgetId": "w20250918f607bbed181f6",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 에코웨이브 기술력",
-      "en": "PC · Eco-wave technology"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 에코웨이브",
-      "en": "Text block · Eco-wave technology"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918e40b7f78d4437/w20250918907bfdecbaebd/html",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918e40b7f78d4437",
-    "widgetId": "w20250918907bfdecbaebd",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 에코웨이브 기술력",
-      "en": "PC · Eco-wave technology"
-    },
-    "label": {
-      "ko": "텍스트 블록 · POINT 01",
-      "en": "Text block · POINT 02"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918e40b7f78d4437/w2025091834b55c4354127/html",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918e40b7f78d4437",
-    "widgetId": "w2025091834b55c4354127",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 에코웨이브 기술력",
-      "en": "PC · Eco-wave technology"
-    },
-    "label": {
-      "ko": "텍스트 블록 · POINT 02",
-      "en": "Text block · POINT 03"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918e40b7f78d4437/w202509189da0d6c8fdca9/html",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918e40b7f78d4437",
-    "widgetId": "w202509189da0d6c8fdca9",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 에코웨이브 기술력",
-      "en": "PC · Eco-wave technology"
-    },
-    "label": {
-      "ko": "텍스트 블록 · POINT 03",
-      "en": "Text block · POINT 04"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918e40b7f78d4437/w20250918491b988a3f900/html",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918e40b7f78d4437",
-    "widgetId": "w20250918491b988a3f900",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 에코웨이브 기술력",
-      "en": "PC · Eco-wave technology"
-    },
-    "label": {
-      "ko": "텍스트 블록 · POINT 04",
-      "en": "Text block · POINT 05"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918e40b7f78d4437/w20250918bf11a5c9a5e10/html",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918e40b7f78d4437",
-    "widgetId": "w20250918bf11a5c9a5e10",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 에코웨이브 기술력",
-      "en": "PC · Eco-wave technology"
-    },
-    "label": {
-      "ko": "텍스트 블록 · POINT 05",
-      "en": "텍스트 블록 · POINT 05"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s202508119a2e8fe21b47a/w20250918fb56c1bc5ba1c/html",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s202508119a2e8fe21b47a",
-    "widgetId": "w20250918fb56c1bc5ba1c",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 에코웨이브가 만드는 건강한 생활 솔루션",
-      "en": "PC · EcoWave's Healthy Living Solution"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 에코웨이브가 만드는 건강한 생활 솔루션",
-      "en": "Text block · EcoWave's Healthy Living Solution"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s202508119a2e8fe21b47a/w20250918824e703adf63a/html",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s202508119a2e8fe21b47a",
-    "widgetId": "w20250918824e703adf63a",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 에코웨이브가 만드는 건강한 생활 솔루션",
-      "en": "PC · EcoWave's Healthy Living Solution"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 에코웨이브는 깨끗한 물과 안전한 환경을 바탕으로, 일상 속에서 더 건강…",
-      "en": "Text block · Based on clean water and a safe environ…"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[0].title",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s202508119a2e8fe21b47a",
-    "widgetId": "w20250918692bb854e97af",
-    "field": "items[0].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 에코웨이브가 만드는 건강한 생활 솔루션",
-      "en": "PC · EcoWave's Healthy Living Solution"
-    },
-    "label": {
-      "ko": "갤러리 항목 1 · 3단계 필터(8인치)",
-      "en": "Gallery item 1 · 3-step filter (8 inches)"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[0].desc",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s202508119a2e8fe21b47a",
-    "widgetId": "w20250918692bb854e97af",
-    "field": "items[0].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 에코웨이브가 만드는 건강한 생활 솔루션",
-      "en": "PC · EcoWave's Healthy Living Solution"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[0].org",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s202508119a2e8fe21b47a",
-    "widgetId": "w20250918692bb854e97af",
-    "field": "items[0].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 에코웨이브가 만드는 건강한 생활 솔루션",
-      "en": "PC · EcoWave's Healthy Living Solution"
-    },
-    "label": {
-      "ko": "원본 이미지 · 07c6371ff3736.jpg",
-      "en": "Original image · 26736dcacdf4f.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[0].thumb",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s202508119a2e8fe21b47a",
-    "widgetId": "w20250918692bb854e97af",
-    "field": "items[0].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 에코웨이브가 만드는 건강한 생활 솔루션",
-      "en": "PC · EcoWave's Healthy Living Solution"
-    },
-    "label": {
-      "ko": "썸네일 · b14428f4516ca.jpg",
-      "en": "Thumbnail · 741f4fcc9da3a.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[1].title",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s202508119a2e8fe21b47a",
-    "widgetId": "w20250918692bb854e97af",
-    "field": "items[1].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 에코웨이브가 만드는 건강한 생활 솔루션",
-      "en": "PC · EcoWave's Healthy Living Solution"
-    },
-    "label": {
-      "ko": "갤러리 항목 2 · Bidet Filters (6인치)",
-      "en": "Gallery item 2 · Bidet Filters (6 inches)"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[1].desc",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s202508119a2e8fe21b47a",
-    "widgetId": "w20250918692bb854e97af",
-    "field": "items[1].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 에코웨이브가 만드는 건강한 생활 솔루션",
-      "en": "PC · EcoWave's Healthy Living Solution"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[1].org",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s202508119a2e8fe21b47a",
-    "widgetId": "w20250918692bb854e97af",
-    "field": "items[1].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 에코웨이브가 만드는 건강한 생활 솔루션",
-      "en": "PC · EcoWave's Healthy Living Solution"
-    },
-    "label": {
-      "ko": "원본 이미지 · 39fa8af77cc42.jpg",
-      "en": "Original image · 033f013e1521b.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[1].thumb",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s202508119a2e8fe21b47a",
-    "widgetId": "w20250918692bb854e97af",
-    "field": "items[1].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 에코웨이브가 만드는 건강한 생활 솔루션",
-      "en": "PC · EcoWave's Healthy Living Solution"
-    },
-    "label": {
-      "ko": "썸네일 · 4982d3cdfc5d3.jpg",
-      "en": "Thumbnail · 8fd1d2bcb6333.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[2].title",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s202508119a2e8fe21b47a",
-    "widgetId": "w20250918692bb854e97af",
-    "field": "items[2].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 에코웨이브가 만드는 건강한 생활 솔루션",
-      "en": "PC · EcoWave's Healthy Living Solution"
-    },
-    "label": {
-      "ko": "갤러리 항목 3 · Bidet Filters (6인치)",
-      "en": "Gallery item 3 · Bidet Filters (6 inches)"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[2].desc",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s202508119a2e8fe21b47a",
-    "widgetId": "w20250918692bb854e97af",
-    "field": "items[2].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 에코웨이브가 만드는 건강한 생활 솔루션",
-      "en": "PC · EcoWave's Healthy Living Solution"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[2].org",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s202508119a2e8fe21b47a",
-    "widgetId": "w20250918692bb854e97af",
-    "field": "items[2].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 에코웨이브가 만드는 건강한 생활 솔루션",
-      "en": "PC · EcoWave's Healthy Living Solution"
-    },
-    "label": {
-      "ko": "원본 이미지 · 4275edc60f765.jpg",
-      "en": "Original image · c6140a41fb014.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[2].thumb",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s202508119a2e8fe21b47a",
-    "widgetId": "w20250918692bb854e97af",
-    "field": "items[2].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 에코웨이브가 만드는 건강한 생활 솔루션",
-      "en": "PC · EcoWave's Healthy Living Solution"
-    },
-    "label": {
-      "ko": "썸네일 · 9436cbf2ab384.jpg",
-      "en": "Thumbnail · e5a2e1dfe346f.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[3].title",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s202508119a2e8fe21b47a",
-    "widgetId": "w20250918692bb854e97af",
-    "field": "items[3].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 에코웨이브가 만드는 건강한 생활 솔루션",
-      "en": "PC · EcoWave's Healthy Living Solution"
-    },
-    "label": {
-      "ko": "갤러리 항목 4 · 에코웨이브 필터 시스템(언더싱크)",
-      "en": "Gallery item 4 · Eco-wave filter system (under-sink)"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[3].desc",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s202508119a2e8fe21b47a",
-    "widgetId": "w20250918692bb854e97af",
-    "field": "items[3].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 에코웨이브가 만드는 건강한 생활 솔루션",
-      "en": "PC · EcoWave's Healthy Living Solution"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[3].org",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s202508119a2e8fe21b47a",
-    "widgetId": "w20250918692bb854e97af",
-    "field": "items[3].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 에코웨이브가 만드는 건강한 생활 솔루션",
-      "en": "PC · EcoWave's Healthy Living Solution"
-    },
-    "label": {
-      "ko": "원본 이미지 · 9c05648643bd4.jpg",
-      "en": "Original image · fcbb5e016841d.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[3].thumb",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s202508119a2e8fe21b47a",
-    "widgetId": "w20250918692bb854e97af",
-    "field": "items[3].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 에코웨이브가 만드는 건강한 생활 솔루션",
-      "en": "PC · EcoWave's Healthy Living Solution"
-    },
-    "label": {
-      "ko": "썸네일 · 6629d86e8d60f.jpg",
-      "en": "Thumbnail · 8ee6252c505cb.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[4].title",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s202508119a2e8fe21b47a",
-    "widgetId": "w20250918692bb854e97af",
-    "field": "items[4].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 에코웨이브가 만드는 건강한 생활 솔루션",
-      "en": "PC · EcoWave's Healthy Living Solution"
-    },
-    "label": {
-      "ko": "갤러리 항목 5 · 자가관리 키트",
-      "en": "Gallery item 5 · Self-care kit"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[4].desc",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s202508119a2e8fe21b47a",
-    "widgetId": "w20250918692bb854e97af",
-    "field": "items[4].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 에코웨이브가 만드는 건강한 생활 솔루션",
-      "en": "PC · EcoWave's Healthy Living Solution"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[4].org",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s202508119a2e8fe21b47a",
-    "widgetId": "w20250918692bb854e97af",
-    "field": "items[4].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 에코웨이브가 만드는 건강한 생활 솔루션",
-      "en": "PC · EcoWave's Healthy Living Solution"
-    },
-    "label": {
-      "ko": "원본 이미지 · 87f263f1b1186.jpg",
-      "en": "Original image · f5898e66f9f04.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[4].thumb",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s202508119a2e8fe21b47a",
-    "widgetId": "w20250918692bb854e97af",
-    "field": "items[4].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 에코웨이브가 만드는 건강한 생활 솔루션",
-      "en": "PC · EcoWave's Healthy Living Solution"
-    },
-    "label": {
-      "ko": "썸네일 · 8e729116fcc93.jpg",
-      "en": "Thumbnail · aaf0d0d9b12ea.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[5].title",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s202508119a2e8fe21b47a",
-    "widgetId": "w20250918692bb854e97af",
-    "field": "items[5].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 에코웨이브가 만드는 건강한 생활 솔루션",
-      "en": "PC · EcoWave's Healthy Living Solution"
-    },
-    "label": {
-      "ko": "갤러리 항목 6 · 기능성 필터 (마이크로, 이온수지, FOF)",
-      "en": "Gallery item 6 · Functional filters (micro, ion resin, F…"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[5].desc",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s202508119a2e8fe21b47a",
-    "widgetId": "w20250918692bb854e97af",
-    "field": "items[5].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 에코웨이브가 만드는 건강한 생활 솔루션",
-      "en": "PC · EcoWave's Healthy Living Solution"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[5].org",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s202508119a2e8fe21b47a",
-    "widgetId": "w20250918692bb854e97af",
-    "field": "items[5].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 에코웨이브가 만드는 건강한 생활 솔루션",
-      "en": "PC · EcoWave's Healthy Living Solution"
-    },
-    "label": {
-      "ko": "원본 이미지 · 2b82b126b4605.jpg",
-      "en": "Original image · cf35efcc925b4.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[5].thumb",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s202508119a2e8fe21b47a",
-    "widgetId": "w20250918692bb854e97af",
-    "field": "items[5].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 에코웨이브가 만드는 건강한 생활 솔루션",
-      "en": "PC · EcoWave's Healthy Living Solution"
-    },
-    "label": {
-      "ko": "썸네일 · 7d0f500fef969.jpg",
-      "en": "Thumbnail · 4976463a9771b.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[6].title",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s202508119a2e8fe21b47a",
-    "widgetId": "w20250918692bb854e97af",
-    "field": "items[6].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 에코웨이브가 만드는 건강한 생활 솔루션",
-      "en": "PC · EcoWave's Healthy Living Solution"
-    },
-    "label": {
-      "ko": "갤러리 항목 7 · 서비스 점검 키트",
-      "en": "Gallery item 7 · Service Check Kit"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[6].desc",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s202508119a2e8fe21b47a",
-    "widgetId": "w20250918692bb854e97af",
-    "field": "items[6].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 에코웨이브가 만드는 건강한 생활 솔루션",
-      "en": "PC · EcoWave's Healthy Living Solution"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[6].org",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s202508119a2e8fe21b47a",
-    "widgetId": "w20250918692bb854e97af",
-    "field": "items[6].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 에코웨이브가 만드는 건강한 생활 솔루션",
-      "en": "PC · EcoWave's Healthy Living Solution"
-    },
-    "label": {
-      "ko": "원본 이미지 · f598757321983.jpg",
-      "en": "Original image · 1e223c0ac5e00.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[6].thumb",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s202508119a2e8fe21b47a",
-    "widgetId": "w20250918692bb854e97af",
-    "field": "items[6].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 에코웨이브가 만드는 건강한 생활 솔루션",
-      "en": "PC · EcoWave's Healthy Living Solution"
-    },
-    "label": {
-      "ko": "썸네일 · 4fcbf0231d0a6.jpg",
-      "en": "Thumbnail · 84e45dec147d7.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918c54b2950e2f1a/w202509182e2d041573010/html",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918c54b2950e2f1a",
-    "widgetId": "w202509182e2d041573010",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 깨끗한 물을 위한 에코웨이브의 토탈 솔루션",
-      "en": "PC · EcoWave's Total Solution for Clea…"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 깨끗한 물을 위한 에코웨이브의 토탈 솔루션",
-      "en": "Text block · EcoWave's Total Solution for Clean Water"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918c54b2950e2f1a/w20250918b4546d15749bb/html",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918c54b2950e2f1a",
-    "widgetId": "w20250918b4546d15749bb",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 깨끗한 물을 위한 에코웨이브의 토탈 솔루션",
-      "en": "PC · EcoWave's Total Solution for Clea…"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 정수기에서 필터, 살균 기술과 부품까지,",
-      "en": "Text block · From water purifiers to filters to ster…"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918c54b2950e2f1a/w2025091858b5ee5de7c2a/items[0].title",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918c54b2950e2f1a",
-    "widgetId": "w2025091858b5ee5de7c2a",
-    "field": "items[0].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 깨끗한 물을 위한 에코웨이브의 토탈 솔루션",
-      "en": "PC · EcoWave's Total Solution for Clea…"
-    },
-    "label": {
-      "ko": "갤러리 항목 1",
-      "en": "Gallery item 1"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918c54b2950e2f1a/w2025091858b5ee5de7c2a/items[0].desc",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918c54b2950e2f1a",
-    "widgetId": "w2025091858b5ee5de7c2a",
-    "field": "items[0].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 깨끗한 물을 위한 에코웨이브의 토탈 솔루션",
-      "en": "PC · EcoWave's Total Solution for Clea…"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918c54b2950e2f1a/w2025091858b5ee5de7c2a/items[0].org",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918c54b2950e2f1a",
-    "widgetId": "w2025091858b5ee5de7c2a",
-    "field": "items[0].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 깨끗한 물을 위한 에코웨이브의 토탈 솔루션",
-      "en": "PC · EcoWave's Total Solution for Clea…"
-    },
-    "label": {
-      "ko": "원본 이미지 · 416a2b81583bf.png",
-      "en": "Original image · c798df4385130.png"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918c54b2950e2f1a/w2025091858b5ee5de7c2a/items[0].thumb",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918c54b2950e2f1a",
-    "widgetId": "w2025091858b5ee5de7c2a",
-    "field": "items[0].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 깨끗한 물을 위한 에코웨이브의 토탈 솔루션",
-      "en": "PC · EcoWave's Total Solution for Clea…"
-    },
-    "label": {
-      "ko": "썸네일 · 881fc3b930c03.png",
-      "en": "Thumbnail · 44b50acf631e4.png"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918c54b2950e2f1a/w2025091858b5ee5de7c2a/items[1].title",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918c54b2950e2f1a",
-    "widgetId": "w2025091858b5ee5de7c2a",
-    "field": "items[1].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 깨끗한 물을 위한 에코웨이브의 토탈 솔루션",
-      "en": "PC · EcoWave's Total Solution for Clea…"
-    },
-    "label": {
-      "ko": "갤러리 항목 2",
-      "en": "Gallery item 2"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918c54b2950e2f1a/w2025091858b5ee5de7c2a/items[1].desc",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918c54b2950e2f1a",
-    "widgetId": "w2025091858b5ee5de7c2a",
-    "field": "items[1].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 깨끗한 물을 위한 에코웨이브의 토탈 솔루션",
-      "en": "PC · EcoWave's Total Solution for Clea…"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918c54b2950e2f1a/w2025091858b5ee5de7c2a/items[1].org",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918c54b2950e2f1a",
-    "widgetId": "w2025091858b5ee5de7c2a",
-    "field": "items[1].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 깨끗한 물을 위한 에코웨이브의 토탈 솔루션",
-      "en": "PC · EcoWave's Total Solution for Clea…"
-    },
-    "label": {
-      "ko": "원본 이미지 · 859265f4b0cb7.png",
-      "en": "Original image · d69e16cad888c.png"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918c54b2950e2f1a/w2025091858b5ee5de7c2a/items[1].thumb",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918c54b2950e2f1a",
-    "widgetId": "w2025091858b5ee5de7c2a",
-    "field": "items[1].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 깨끗한 물을 위한 에코웨이브의 토탈 솔루션",
-      "en": "PC · EcoWave's Total Solution for Clea…"
-    },
-    "label": {
-      "ko": "썸네일 · b792dd91e01e2.png",
-      "en": "Thumbnail · d231d63afb0ff.png"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918c54b2950e2f1a/w2025091858b5ee5de7c2a/items[2].title",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918c54b2950e2f1a",
-    "widgetId": "w2025091858b5ee5de7c2a",
-    "field": "items[2].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 깨끗한 물을 위한 에코웨이브의 토탈 솔루션",
-      "en": "PC · EcoWave's Total Solution for Clea…"
-    },
-    "label": {
-      "ko": "갤러리 항목 3",
-      "en": "Gallery item 3"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918c54b2950e2f1a/w2025091858b5ee5de7c2a/items[2].desc",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918c54b2950e2f1a",
-    "widgetId": "w2025091858b5ee5de7c2a",
-    "field": "items[2].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 깨끗한 물을 위한 에코웨이브의 토탈 솔루션",
-      "en": "PC · EcoWave's Total Solution for Clea…"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918c54b2950e2f1a/w2025091858b5ee5de7c2a/items[2].org",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918c54b2950e2f1a",
-    "widgetId": "w2025091858b5ee5de7c2a",
-    "field": "items[2].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 깨끗한 물을 위한 에코웨이브의 토탈 솔루션",
-      "en": "PC · EcoWave's Total Solution for Clea…"
-    },
-    "label": {
-      "ko": "원본 이미지 · 8b657e9949db3.png",
-      "en": "Original image · 941e13ebf8647.png"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918c54b2950e2f1a/w2025091858b5ee5de7c2a/items[2].thumb",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918c54b2950e2f1a",
-    "widgetId": "w2025091858b5ee5de7c2a",
-    "field": "items[2].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 깨끗한 물을 위한 에코웨이브의 토탈 솔루션",
-      "en": "PC · EcoWave's Total Solution for Clea…"
-    },
-    "label": {
-      "ko": "썸네일 · 05763a3e17f34.png",
-      "en": "Thumbnail · 57347e5413270.png"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918c54b2950e2f1a/w2025091858b5ee5de7c2a/items[3].title",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918c54b2950e2f1a",
-    "widgetId": "w2025091858b5ee5de7c2a",
-    "field": "items[3].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 깨끗한 물을 위한 에코웨이브의 토탈 솔루션",
-      "en": "PC · EcoWave's Total Solution for Clea…"
-    },
-    "label": {
-      "ko": "갤러리 항목 4",
-      "en": "Gallery item 4"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918c54b2950e2f1a/w2025091858b5ee5de7c2a/items[3].desc",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918c54b2950e2f1a",
-    "widgetId": "w2025091858b5ee5de7c2a",
-    "field": "items[3].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 깨끗한 물을 위한 에코웨이브의 토탈 솔루션",
-      "en": "PC · EcoWave's Total Solution for Clea…"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918c54b2950e2f1a/w2025091858b5ee5de7c2a/items[3].org",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918c54b2950e2f1a",
-    "widgetId": "w2025091858b5ee5de7c2a",
-    "field": "items[3].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 깨끗한 물을 위한 에코웨이브의 토탈 솔루션",
-      "en": "PC · EcoWave's Total Solution for Clea…"
-    },
-    "label": {
-      "ko": "원본 이미지 · 51f85bef4c1fe.png",
-      "en": "Original image · f0ec521b79f7b.png"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918c54b2950e2f1a/w2025091858b5ee5de7c2a/items[3].thumb",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918c54b2950e2f1a",
-    "widgetId": "w2025091858b5ee5de7c2a",
-    "field": "items[3].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 깨끗한 물을 위한 에코웨이브의 토탈 솔루션",
-      "en": "PC · EcoWave's Total Solution for Clea…"
-    },
-    "label": {
-      "ko": "썸네일 · 06056650a1d79.png",
-      "en": "Thumbnail · c9e7f12eb3608.png"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918c54b2950e2f1a/w2025091858b5ee5de7c2a/items[4].title",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918c54b2950e2f1a",
-    "widgetId": "w2025091858b5ee5de7c2a",
-    "field": "items[4].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 깨끗한 물을 위한 에코웨이브의 토탈 솔루션",
-      "en": "PC · EcoWave's Total Solution for Clea…"
-    },
-    "label": {
-      "ko": "갤러리 항목 5",
-      "en": "Gallery item 5"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918c54b2950e2f1a/w2025091858b5ee5de7c2a/items[4].desc",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918c54b2950e2f1a",
-    "widgetId": "w2025091858b5ee5de7c2a",
-    "field": "items[4].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 깨끗한 물을 위한 에코웨이브의 토탈 솔루션",
-      "en": "PC · EcoWave's Total Solution for Clea…"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918c54b2950e2f1a/w2025091858b5ee5de7c2a/items[4].org",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918c54b2950e2f1a",
-    "widgetId": "w2025091858b5ee5de7c2a",
-    "field": "items[4].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 깨끗한 물을 위한 에코웨이브의 토탈 솔루션",
-      "en": "PC · EcoWave's Total Solution for Clea…"
-    },
-    "label": {
-      "ko": "원본 이미지 · 250c37f0a02db.png",
-      "en": "Original image · 730678990350e.png"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918c54b2950e2f1a/w2025091858b5ee5de7c2a/items[4].thumb",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918c54b2950e2f1a",
-    "widgetId": "w2025091858b5ee5de7c2a",
-    "field": "items[4].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 깨끗한 물을 위한 에코웨이브의 토탈 솔루션",
-      "en": "PC · EcoWave's Total Solution for Clea…"
-    },
-    "label": {
-      "ko": "썸네일 · fe00e6210425a.png",
-      "en": "Thumbnail · 12fcc0fa3899a.png"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918c5a18b62c8acd/w20250919d3f58a52c151b/html",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918c5a18b62c8acd",
-    "widgetId": "w20250919d3f58a52c151b",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 우리 일상 속에서 만나는 에코웨이브",
-      "en": "PC · Eco wave that we meet in our dail…"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 우리 일상 속에서 만나는 에코웨이브",
-      "en": "Text block · Eco wave that we meet in our daily lives"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918c5a18b62c8acd/w20250919eb33a28196229/html",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918c5a18b62c8acd",
-    "widgetId": "w20250919eb33a28196229",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 우리 일상 속에서 만나는 에코웨이브",
-      "en": "PC · Eco wave that we meet in our dail…"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 정수기",
-      "en": "Text block · Water purifier"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918c5a18b62c8acd/w20250919a06813f5e869d/html",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918c5a18b62c8acd",
-    "widgetId": "w20250919a06813f5e869d",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 우리 일상 속에서 만나는 에코웨이브",
-      "en": "PC · Eco wave that we meet in our dail…"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 정수 필터",
-      "en": "Text block · Water filter"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918c5a18b62c8acd/w202509196d95887d0ea56/html",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918c5a18b62c8acd",
-    "widgetId": "w202509196d95887d0ea56",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 우리 일상 속에서 만나는 에코웨이브",
-      "en": "PC · Eco wave that we meet in our dail…"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 비데 필터",
-      "en": "Text block · Bidet filter"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918c5a18b62c8acd/w2025091937ef9567e5c28/html",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918c5a18b62c8acd",
-    "widgetId": "w2025091937ef9567e5c28",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 우리 일상 속에서 만나는 에코웨이브",
-      "en": "PC · Eco wave that we meet in our dail…"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 샤워·비타민 필터",
-      "en": "Text block · Shower/Vitamin Filter"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918c5a18b62c8acd/w2025091911917416765db/html",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918c5a18b62c8acd",
-    "widgetId": "w2025091911917416765db",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 우리 일상 속에서 만나는 에코웨이브",
-      "en": "PC · Eco wave that we meet in our dail…"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 살균 모듈",
-      "en": "Text block · Sterilization module"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918c5a18b62c8acd/w20250919752cb4c4b07f1/html",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918c5a18b62c8acd",
-    "widgetId": "w20250919752cb4c4b07f1",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 우리 일상 속에서 만나는 에코웨이브",
-      "en": "PC · Eco wave that we meet in our dail…"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 부품 & 액세서리",
-      "en": "Text block · Parts & Accessories"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918c66e7987eaeca/html",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918c66e7987eaeca",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 기준은 높게, 품질은 정확하게",
-      "en": "Text block · High standards, high quality"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[0].title",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[0].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "갤러리 항목 1",
-      "en": "Gallery item 1"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[0].desc",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[0].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[0].org",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[0].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "원본 이미지 · 3665df0d9742a.jpg",
-      "en": "Original image · 258218a1d9645.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[0].thumb",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[0].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "썸네일 · 94472c44c840d.jpg",
-      "en": "Thumbnail · 599f72c275c1e.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[1].title",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[1].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "갤러리 항목 2",
-      "en": "Gallery item 2"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[1].desc",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[1].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[1].org",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[1].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "원본 이미지 · b8403e7e03382.jpg",
-      "en": "Original image · 01a3de82cb814.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[1].thumb",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[1].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "썸네일 · 9c0d6fa00f1cf.jpg",
-      "en": "Thumbnail · 15afa292d1a1c.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[2].title",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[2].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "갤러리 항목 3",
-      "en": "Gallery item 3"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[2].desc",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[2].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[2].org",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[2].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "원본 이미지 · e532a0ce7ef80.jpg",
-      "en": "Original image · 5bff6f0337c2b.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[2].thumb",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[2].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "썸네일 · 8b58b4b95f151.jpg",
-      "en": "Thumbnail · 04e244c9d84cf.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[3].title",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[3].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "갤러리 항목 4",
-      "en": "Gallery item 4"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[3].desc",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[3].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[3].org",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[3].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "원본 이미지 · b2fbf44c6f631.jpg",
-      "en": "Original image · e2e1250f0479e.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[3].thumb",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[3].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "썸네일 · 81838957e5493.jpg",
-      "en": "Thumbnail · 93de7321891c8.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[4].title",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[4].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "갤러리 항목 5",
-      "en": "Gallery item 5"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[4].desc",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[4].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[4].org",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[4].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "원본 이미지 · d5fc28c480258.jpg",
-      "en": "Original image · 4500a3f85f387.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[4].thumb",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[4].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "썸네일 · a1b7f6895d5cb.jpg",
-      "en": "Thumbnail · 0f0423a56aa52.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[5].title",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[5].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "갤러리 항목 6",
-      "en": "Gallery item 6"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[5].desc",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[5].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[5].org",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[5].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "원본 이미지 · 13f19b262d6c6.jpg",
-      "en": "Original image · a9fec84e8ee47.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[5].thumb",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[5].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "썸네일 · 4e5d9afc00bb7.jpg",
-      "en": "Thumbnail · 17205303b8334.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[6].title",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[6].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "갤러리 항목 7",
-      "en": "Gallery item 7"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[6].desc",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[6].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[6].org",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[6].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "원본 이미지 · b2b39a743a061.jpg",
-      "en": "Original image · d69711041674d.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[6].thumb",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[6].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "썸네일 · 14b4f80b77ade.jpg",
-      "en": "Thumbnail · aad67e5810ea2.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[7].title",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[7].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "갤러리 항목 8",
-      "en": "Gallery item 8"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[7].desc",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[7].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[7].org",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[7].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "원본 이미지 · 821539e8bc48b.jpg",
-      "en": "Original image · 2ca909dab0d30.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[7].thumb",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[7].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "썸네일 · c54342098fcbb.jpg",
-      "en": "Thumbnail · 0411aad36f75d.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[8].title",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[8].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "갤러리 항목 9",
-      "en": "Gallery item 9"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[8].desc",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[8].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[8].org",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[8].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "원본 이미지 · 301c6da8e99b9.jpg",
-      "en": "Original image · c992c030e3a4e.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[8].thumb",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[8].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "썸네일 · 487db6ef740bb.jpg",
-      "en": "Thumbnail · 3c69f6ba229db.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[9].title",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[9].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "갤러리 항목 10",
-      "en": "Gallery item 10"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[9].desc",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[9].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[9].org",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[9].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "원본 이미지 · cc856220892ee.jpg",
-      "en": "Original image · 49674edb87542.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[9].thumb",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[9].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "썸네일 · c6b6d16ca4d6d.jpg",
-      "en": "Thumbnail · 6fc33c4627233.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[10].title",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[10].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "갤러리 항목 11",
-      "en": "Gallery item 11"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[10].desc",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[10].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[10].org",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[10].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "원본 이미지 · 3901951441377.jpg",
-      "en": "Original image · 2eab635b124c1.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[10].thumb",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[10].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "썸네일 · cb8004d4d485f.jpg",
-      "en": "Thumbnail · 7025959a99f06.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[11].title",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[11].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "갤러리 항목 12",
-      "en": "Gallery item 12"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[11].desc",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[11].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[11].org",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[11].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "원본 이미지 · a6d66bdab2827.jpg",
-      "en": "Original image · 7bd9f37e2e1e6.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[11].thumb",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[11].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "썸네일 · 8bbb29a44f5a8.jpg",
-      "en": "Thumbnail · 69a69fdd3a226.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[12].title",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[12].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "갤러리 항목 13",
-      "en": "Gallery item 13"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[12].desc",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[12].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[12].org",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[12].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "원본 이미지 · 1ee9c37155967.jpg",
-      "en": "Original image · 7d6b54e7320dd.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[12].thumb",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[12].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "썸네일 · 0cc8dec9a285d.jpg",
-      "en": "Thumbnail · f8636cff646fa.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[13].title",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[13].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "갤러리 항목 14",
-      "en": "Gallery item 14"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[13].desc",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[13].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[13].org",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[13].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "원본 이미지 · 8f784e1d174da.jpg",
-      "en": "Original image · d42f839da9282.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[13].thumb",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[13].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "썸네일 · ed88d9663e02d.jpg",
-      "en": "Thumbnail · b42e40d69935c.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[14].title",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[14].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "갤러리 항목 15",
-      "en": "Gallery item 15"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[14].desc",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[14].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[14].org",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[14].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "원본 이미지 · ce0c7512e305e.jpg",
-      "en": "Original image · 8101b4a41836e.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[14].thumb",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[14].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "썸네일 · 3f613ac301e81.jpg",
-      "en": "Thumbnail · 2f93b6f8fcc89.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[15].title",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[15].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "갤러리 항목 16",
-      "en": "Gallery item 16"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[15].desc",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[15].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[15].org",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[15].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "원본 이미지 · c147e2542c4fe.jpg",
-      "en": "Original image · fa68eabe4a97b.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[15].thumb",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[15].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "썸네일 · 69bf4f5ea4d87.jpg",
-      "en": "Thumbnail · d0bf8786d99e0.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[16].title",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[16].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "갤러리 항목 17",
-      "en": "Gallery item 17"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[16].desc",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[16].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[16].org",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[16].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "원본 이미지 · fd7d94c547432.jpg",
-      "en": "Original image · 342b98ceb8bfa.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[16].thumb",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[16].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "썸네일 · faa5d352065f3.jpg",
-      "en": "Thumbnail · 5c6e1f879e44e.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[17].title",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[17].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "갤러리 항목 18",
-      "en": "Gallery item 18"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[17].desc",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[17].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[17].org",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[17].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "원본 이미지 · f716f2957d1e4.jpg",
-      "en": "Original image · b2436ea247641.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[17].thumb",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[17].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "썸네일 · ec78cfcb1698c.jpg",
-      "en": "Thumbnail · 2a46aac69fa27.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[18].title",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[18].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "갤러리 항목 19",
-      "en": "Gallery item 19"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[18].desc",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[18].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[18].org",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[18].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "원본 이미지 · cbefd1ea103ed.jpg",
-      "en": "Original image · f639a91845b84.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[18].thumb",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[18].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "썸네일 · 6c049c9b9a525.jpg",
-      "en": "Thumbnail · 7da5f656d76cd.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[19].title",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[19].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "갤러리 항목 20",
-      "en": "Gallery item 20"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[19].desc",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[19].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[19].org",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[19].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "원본 이미지 · 8c53fd2fc6efe.jpg",
-      "en": "Original image · 4134fa5b9870b.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[19].thumb",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[19].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "썸네일 · 4ee916102ad02.jpg",
-      "en": "Thumbnail · 5229e84678b9b.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[20].title",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[20].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "갤러리 항목 21",
-      "en": "Gallery item 21"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[20].desc",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[20].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[20].org",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[20].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "원본 이미지 · 24cc2608376ae.jpg",
-      "en": "Original image · 97138f35c452b.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[20].thumb",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ab81858502f9e",
-    "widgetId": "w20250918b0ab58de4000e",
-    "field": "items[20].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 기준은 높게, 품질은 정확하게",
-      "en": "PC · High standards, high quality"
-    },
-    "label": {
-      "ko": "썸네일 · f5c5d02f4d26a.jpg",
-      "en": "Thumbnail · e2748fd376a57.jpg"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ffd77075d76ea/w20250919f5460109361d6/html",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ffd77075d76ea",
-    "widgetId": "w20250919f5460109361d6",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · R&D & MANUFACTURING 연구개발부터 글로벌 공급…",
-      "en": "PC · R&D & MANUFACTURING From R&D to g…"
-    },
-    "label": {
-      "ko": "텍스트 블록 · R&D & MANUFACTURING",
-      "en": "Text block · R&D & MANUFACTURING"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ffd77075d76ea/w202509190fd35e33e86f8/items[0].title",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ffd77075d76ea",
-    "widgetId": "w202509190fd35e33e86f8",
-    "field": "items[0].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · R&D & MANUFACTURING 연구개발부터 글로벌 공급…",
-      "en": "PC · R&D & MANUFACTURING From R&D to g…"
-    },
-    "label": {
-      "ko": "갤러리 항목 1 · 연구소(R&D CENTER)",
-      "en": "Gallery item 1 · R&D CENTER"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ffd77075d76ea/w202509190fd35e33e86f8/items[0].desc",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ffd77075d76ea",
-    "widgetId": "w202509190fd35e33e86f8",
-    "field": "items[0].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · R&D & MANUFACTURING 연구개발부터 글로벌 공급…",
-      "en": "PC · R&D & MANUFACTURING From R&D to g…"
-    },
-    "label": {
-      "ko": "설명 · 혁신 기술 연구와 개발",
-      "en": "Description · Research and Development of Innovative …"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ffd77075d76ea/w202509190fd35e33e86f8/items[0].org",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ffd77075d76ea",
-    "widgetId": "w202509190fd35e33e86f8",
-    "field": "items[0].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · R&D & MANUFACTURING 연구개발부터 글로벌 공급…",
-      "en": "PC · R&D & MANUFACTURING From R&D to g…"
-    },
-    "label": {
-      "ko": "원본 이미지 · 40b09beae8930.png",
-      "en": "Original image · 3da27f8b900c6.png"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ffd77075d76ea/w202509190fd35e33e86f8/items[0].thumb",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ffd77075d76ea",
-    "widgetId": "w202509190fd35e33e86f8",
-    "field": "items[0].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · R&D & MANUFACTURING 연구개발부터 글로벌 공급…",
-      "en": "PC · R&D & MANUFACTURING From R&D to g…"
-    },
-    "label": {
-      "ko": "썸네일 · a81deb53df899.png",
-      "en": "Thumbnail · c8c155461a383.png"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ffd77075d76ea/w202509190fd35e33e86f8/items[1].title",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ffd77075d76ea",
-    "widgetId": "w202509190fd35e33e86f8",
-    "field": "items[1].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · R&D & MANUFACTURING 연구개발부터 글로벌 공급…",
-      "en": "PC · R&D & MANUFACTURING From R&D to g…"
-    },
-    "label": {
-      "ko": "갤러리 항목 2 · 성분 개발",
-      "en": "Gallery item 2 · Ingredient Development"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ffd77075d76ea/w202509190fd35e33e86f8/items[1].desc",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ffd77075d76ea",
-    "widgetId": "w202509190fd35e33e86f8",
-    "field": "items[1].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · R&D & MANUFACTURING 연구개발부터 글로벌 공급…",
-      "en": "PC · R&D & MANUFACTURING From R&D to g…"
-    },
-    "label": {
-      "ko": "설명 · 고성능 필터 설계와 소재 개발",
-      "en": "Description · High Performance Filter Design and Mate…"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ffd77075d76ea/w202509190fd35e33e86f8/items[1].org",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ffd77075d76ea",
-    "widgetId": "w202509190fd35e33e86f8",
-    "field": "items[1].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · R&D & MANUFACTURING 연구개발부터 글로벌 공급…",
-      "en": "PC · R&D & MANUFACTURING From R&D to g…"
-    },
-    "label": {
-      "ko": "원본 이미지 · 3f2014670ef36.png",
-      "en": "Original image · fd29f6460aebc.png"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ffd77075d76ea/w202509190fd35e33e86f8/items[1].thumb",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ffd77075d76ea",
-    "widgetId": "w202509190fd35e33e86f8",
-    "field": "items[1].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · R&D & MANUFACTURING 연구개발부터 글로벌 공급…",
-      "en": "PC · R&D & MANUFACTURING From R&D to g…"
-    },
-    "label": {
-      "ko": "썸네일 · a6032e71e42af.png",
-      "en": "Thumbnail · f9a3b2f3a46d7.png"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ffd77075d76ea/w202509190fd35e33e86f8/items[2].title",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ffd77075d76ea",
-    "widgetId": "w202509190fd35e33e86f8",
-    "field": "items[2].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · R&D & MANUFACTURING 연구개발부터 글로벌 공급…",
-      "en": "PC · R&D & MANUFACTURING From R&D to g…"
-    },
-    "label": {
-      "ko": "갤러리 항목 3 · 샘플링 & 테스트",
-      "en": "Gallery item 3 · Sampling & Testing"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ffd77075d76ea/w202509190fd35e33e86f8/items[2].desc",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ffd77075d76ea",
-    "widgetId": "w202509190fd35e33e86f8",
-    "field": "items[2].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · R&D & MANUFACTURING 연구개발부터 글로벌 공급…",
-      "en": "PC · R&D & MANUFACTURING From R&D to g…"
-    },
-    "label": {
-      "ko": "설명 · 정밀 품질 검사와 성능 검증",
-      "en": "Description · Precision Quality Inspection and Perfor…"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ffd77075d76ea/w202509190fd35e33e86f8/items[2].org",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ffd77075d76ea",
-    "widgetId": "w202509190fd35e33e86f8",
-    "field": "items[2].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · R&D & MANUFACTURING 연구개발부터 글로벌 공급…",
-      "en": "PC · R&D & MANUFACTURING From R&D to g…"
-    },
-    "label": {
-      "ko": "원본 이미지 · cd3eb850b947b.png",
-      "en": "Original image · 5febb1531d73f.png"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ffd77075d76ea/w202509190fd35e33e86f8/items[2].thumb",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ffd77075d76ea",
-    "widgetId": "w202509190fd35e33e86f8",
-    "field": "items[2].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · R&D & MANUFACTURING 연구개발부터 글로벌 공급…",
-      "en": "PC · R&D & MANUFACTURING From R&D to g…"
-    },
-    "label": {
-      "ko": "썸네일 · e3f83fce3d512.png",
-      "en": "Thumbnail · 49bbdefcafc6e.png"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ffd77075d76ea/w202509190fd35e33e86f8/items[3].title",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ffd77075d76ea",
-    "widgetId": "w202509190fd35e33e86f8",
-    "field": "items[3].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · R&D & MANUFACTURING 연구개발부터 글로벌 공급…",
-      "en": "PC · R&D & MANUFACTURING From R&D to g…"
-    },
-    "label": {
-      "ko": "갤러리 항목 4 · 자체 생산 공장",
-      "en": "Gallery item 4 · Self-produced factory"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ffd77075d76ea/w202509190fd35e33e86f8/items[3].desc",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ffd77075d76ea",
-    "widgetId": "w202509190fd35e33e86f8",
-    "field": "items[3].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · R&D & MANUFACTURING 연구개발부터 글로벌 공급…",
-      "en": "PC · R&D & MANUFACTURING From R&D to g…"
-    },
-    "label": {
-      "ko": "설명 · 대량 생산 설비와 글로벌 생산 거점",
-      "en": "Description · Mass production facilities and global p…"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ffd77075d76ea/w202509190fd35e33e86f8/items[3].org",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ffd77075d76ea",
-    "widgetId": "w202509190fd35e33e86f8",
-    "field": "items[3].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · R&D & MANUFACTURING 연구개발부터 글로벌 공급…",
-      "en": "PC · R&D & MANUFACTURING From R&D to g…"
-    },
-    "label": {
-      "ko": "원본 이미지 · a72b339448569.png",
-      "en": "Original image · f33d3c116cf67.png"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ffd77075d76ea/w202509190fd35e33e86f8/items[3].thumb",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ffd77075d76ea",
-    "widgetId": "w202509190fd35e33e86f8",
-    "field": "items[3].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · R&D & MANUFACTURING 연구개발부터 글로벌 공급…",
-      "en": "PC · R&D & MANUFACTURING From R&D to g…"
-    },
-    "label": {
-      "ko": "썸네일 · 3fe5bed7f8ddb.png",
-      "en": "Thumbnail · e248fb5ebbd8d.png"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ffd77075d76ea/w202509190fd35e33e86f8/items[4].title",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ffd77075d76ea",
-    "widgetId": "w202509190fd35e33e86f8",
-    "field": "items[4].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · R&D & MANUFACTURING 연구개발부터 글로벌 공급…",
-      "en": "PC · R&D & MANUFACTURING From R&D to g…"
-    },
-    "label": {
-      "ko": "갤러리 항목 5 · 품질 관리",
-      "en": "Gallery item 5 · Quality control"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ffd77075d76ea/w202509190fd35e33e86f8/items[4].desc",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ffd77075d76ea",
-    "widgetId": "w202509190fd35e33e86f8",
-    "field": "items[4].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · R&D & MANUFACTURING 연구개발부터 글로벌 공급…",
-      "en": "PC · R&D & MANUFACTURING From R&D to g…"
-    },
-    "label": {
-      "ko": "설명 · 국제 기준 품질 관리 체계",
-      "en": "Description · International Standard Quality Control …"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ffd77075d76ea/w202509190fd35e33e86f8/items[4].org",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ffd77075d76ea",
-    "widgetId": "w202509190fd35e33e86f8",
-    "field": "items[4].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · R&D & MANUFACTURING 연구개발부터 글로벌 공급…",
-      "en": "PC · R&D & MANUFACTURING From R&D to g…"
-    },
-    "label": {
-      "ko": "원본 이미지 · ff2735935dfa3.png",
-      "en": "Original image · 561d335c0fe6b.png"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ffd77075d76ea/w202509190fd35e33e86f8/items[4].thumb",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ffd77075d76ea",
-    "widgetId": "w202509190fd35e33e86f8",
-    "field": "items[4].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · R&D & MANUFACTURING 연구개발부터 글로벌 공급…",
-      "en": "PC · R&D & MANUFACTURING From R&D to g…"
-    },
-    "label": {
-      "ko": "썸네일 · 02e031ef339d2.png",
-      "en": "Thumbnail · f58ee0ed8ebe9.png"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ffd77075d76ea/w202509190fd35e33e86f8/items[5].title",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ffd77075d76ea",
-    "widgetId": "w202509190fd35e33e86f8",
-    "field": "items[5].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · R&D & MANUFACTURING 연구개발부터 글로벌 공급…",
-      "en": "PC · R&D & MANUFACTURING From R&D to g…"
-    },
-    "label": {
-      "ko": "갤러리 항목 6 · 글로벌 공급(OEM/ODM)",
-      "en": "Gallery item 6 · Global Supply (OEM/ODM)"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ffd77075d76ea/w202509190fd35e33e86f8/items[5].desc",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ffd77075d76ea",
-    "widgetId": "w202509190fd35e33e86f8",
-    "field": "items[5].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · R&D & MANUFACTURING 연구개발부터 글로벌 공급…",
-      "en": "PC · R&D & MANUFACTURING From R&D to g…"
-    },
-    "label": {
-      "ko": "설명 · 파트너 협력과 글로벌 공급망",
-      "en": "Description · Partner cooperation and global supply c…"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ffd77075d76ea/w202509190fd35e33e86f8/items[5].org",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ffd77075d76ea",
-    "widgetId": "w202509190fd35e33e86f8",
-    "field": "items[5].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · R&D & MANUFACTURING 연구개발부터 글로벌 공급…",
-      "en": "PC · R&D & MANUFACTURING From R&D to g…"
-    },
-    "label": {
-      "ko": "원본 이미지 · 1c0933f976759.png",
-      "en": "Original image · 2c4119149d954.png"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s20250918ffd77075d76ea/w202509190fd35e33e86f8/items[5].thumb",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s20250918ffd77075d76ea",
-    "widgetId": "w202509190fd35e33e86f8",
-    "field": "items[5].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · R&D & MANUFACTURING 연구개발부터 글로벌 공급…",
-      "en": "PC · R&D & MANUFACTURING From R&D to g…"
-    },
-    "label": {
-      "ko": "썸네일 · 275d80e22c9da.png",
-      "en": "Thumbnail · 1bafb2b5e4196.png"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s202509180d5f2b5ede2b3/w2025091860d26840abbc7/html",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s202509180d5f2b5ede2b3",
-    "widgetId": "w2025091860d26840abbc7",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · Headquarters & Factory Locations …",
-      "en": "PC · Headquarters & Factory Locations …"
-    },
-    "label": {
-      "ko": "텍스트 블록 · Headquarters & Factory Locations",
-      "en": "Text block · Headquarters & Factory Locations"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s202509180d5f2b5ede2b3/w20250918c7cf1698ddcc4/src",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s202509180d5f2b5ede2b3",
-    "widgetId": "w20250918c7cf1698ddcc4",
-    "field": "src",
-    "kind": "image",
-    "section": {
-      "ko": "PC · Headquarters & Factory Locations …",
-      "en": "PC · Headquarters & Factory Locations …"
-    },
-    "label": {
-      "ko": "이미지 경로 · 9bc64982daf80.jpg",
-      "en": "Image source · 51be646ff4140.png"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s202509180d5f2b5ede2b3/w2025091886eece88ff0c0/html",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s202509180d5f2b5ede2b3",
-    "widgetId": "w2025091886eece88ff0c0",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · Headquarters & Factory Locations …",
-      "en": "PC · Headquarters & Factory Locations …"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 한국본사",
-      "en": "Text block · Korean headquarters"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s202509180d5f2b5ede2b3/w20250919ad2bb4e856fba/html",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s202509180d5f2b5ede2b3",
-    "widgetId": "w20250919ad2bb4e856fba",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · Headquarters & Factory Locations …",
-      "en": "PC · Headquarters & Factory Locations …"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 중국 제조공장",
-      "en": "Text block · Chinese manufacturing plant"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.about#s202509180d5f2b5ede2b3/w20250919aa8199dc628c3/html",
-    "group": "company",
-    "pageKey": "company.about",
-    "sectionId": "s202509180d5f2b5ede2b3",
-    "widgetId": "w20250919aa8199dc628c3",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · Headquarters & Factory Locations …",
-      "en": "PC · Headquarters & Factory Locations …"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 캄보디아 오피스",
-      "en": "Text block · Cambodian Office"
-    },
-    "revalidate": [
-      "/company/about",
-      "/en/company/about"
-    ]
-  },
-  {
-    "key": "company.ceo#s202508206321c39177601/w20250820e1c08ac226481/html",
-    "group": "company",
-    "pageKey": "company.ceo",
-    "sectionId": "s202508206321c39177601",
-    "widgetId": "w20250820e1c08ac226481",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 더 건강하고 깨끗한 물을 만드는 고객과의 약속 에코웨이브를 …",
-      "en": "PC · EcoWave promises healthier, clean…"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 더 건강하고 깨끗한 물을 만드는 고객과의 약속",
-      "en": "Text block · EcoWave promises healthier,"
-    },
-    "revalidate": [
-      "/company/ceo",
-      "/en/company/ceo"
-    ]
-  },
-  {
-    "key": "company.ceo#s20250811fd0a82675a6bc/w20250909fe979998d4590/html",
-    "group": "company",
-    "pageKey": "company.ceo",
-    "sectionId": "s20250811fd0a82675a6bc",
-    "widgetId": "w20250909fe979998d4590",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 에코웨이브 홈페이지를 찾아주신 모든 분들께 진심으로 감사를 …",
-      "en": "PC · Thank you sincerely for visiting …"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 에코웨이브",
-      "en": "Text block · Thank you sincerely"
-    },
-    "revalidate": [
-      "/company/ceo",
-      "/en/company/ceo"
-    ]
-  },
-  {
-    "key": "company.ceo#s20250811fd0a82675a6bc/w20250909edc32b5a0f8ec/html",
-    "group": "company",
-    "pageKey": "company.ceo",
-    "sectionId": "s20250811fd0a82675a6bc",
-    "widgetId": "w20250909edc32b5a0f8ec",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 에코웨이브 홈페이지를 찾아주신 모든 분들께 진심으로 감사를 …",
-      "en": "PC · Thank you sincerely for visiting …"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 존경하는 여러분께,",
-      "en": "Text block · To all you respect, EcoWave says,"
-    },
-    "revalidate": [
-      "/company/ceo",
-      "/en/company/ceo"
-    ]
-  },
-  {
-    "key": "company.ceo#s20250811fd0a82675a6bc/w20250909f454e7a9b1143/html",
-    "group": "company",
-    "pageKey": "company.ceo",
-    "sectionId": "s20250811fd0a82675a6bc",
-    "widgetId": "w20250909f454e7a9b1143",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 에코웨이브 홈페이지를 찾아주신 모든 분들께 진심으로 감사를 …",
-      "en": "PC · Thank you sincerely for visiting …"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 에코웨이브 대표",
-      "en": "Text block · Representative of EcoWave,"
-    },
-    "revalidate": [
-      "/company/ceo",
-      "/en/company/ceo"
-    ]
-  },
-  {
-    "key": "company.global#s20250820da33f7f397fba/w202508201a58c7d614215/html",
-    "group": "company",
-    "pageKey": "company.global",
-    "sectionId": "s20250820da33f7f397fba",
-    "widgetId": "w202508201a58c7d614215",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 더 건강하고 깨끗한 물을 만드는 고객과의 약속 에코웨이브를 …",
-      "en": "PC · EcoWave promises healthier, clean…"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 더 건강하고 깨끗한 물을 만드는 고객과의 약속",
-      "en": "Text block · EcoWave promises healthier,"
-    },
-    "revalidate": [
-      "/company/global",
-      "/en/company/global"
-    ]
-  },
-  {
-    "key": "company.global#s20250828182272ec01906/w20250828247c9904b6b1e/html",
-    "group": "company",
-    "pageKey": "company.global",
-    "sectionId": "s20250828182272ec01906",
-    "widgetId": "w20250828247c9904b6b1e",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 에코웨이브 본사 인천광역시 남동구 은봉로 14 영도빌딩 2동",
-      "en": "PC · EcoWave Headquarters 2-dong, Yeon…"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 에코웨이브 본사",
-      "en": "Text block · EcoWave Headquarters"
-    },
-    "revalidate": [
-      "/company/global",
-      "/en/company/global"
-    ]
-  },
-  {
-    "key": "company.global#s20250828182272ec01906/w2025082843a86201a5455/html",
-    "group": "company",
-    "pageKey": "company.global",
-    "sectionId": "s20250828182272ec01906",
-    "widgetId": "w2025082843a86201a5455",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 에코웨이브 본사 인천광역시 남동구 은봉로 14 영도빌딩 2동",
-      "en": "PC · EcoWave Headquarters 2-dong, Yeon…"
-    },
-    "label": {
-      "ko": "텍스트 블록 · TEL",
-      "en": "Text block · TEL"
-    },
-    "revalidate": [
-      "/company/global",
-      "/en/company/global"
-    ]
-  },
-  {
-    "key": "company.global#s202509111ecee05a61770/w202509110c02a9a33a442/html",
-    "group": "company",
-    "pageKey": "company.global",
-    "sectionId": "s202509111ecee05a61770",
-    "widgetId": "w202509110c02a9a33a442",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "모바일 · TEL +82-32-812-1800 FAX +82-32-81…",
-      "en": "Mobile · TEL +82-32-812-1800 FAX +82-32-81…"
-    },
-    "label": {
-      "ko": "텍스트 블록 · TEL",
-      "en": "Text block · TEL"
-    },
-    "revalidate": [
-      "/company/global",
-      "/en/company/global"
-    ]
-  },
-  {
-    "key": "company.global#s202508286e01c87027ecf/w20250828055c4220c2f68/html",
-    "group": "company",
-    "pageKey": "company.global",
-    "sectionId": "s202508286e01c87027ecf",
-    "widgetId": "w20250828055c4220c2f68",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 중국 지사 상하이 옌타이 시티 Hongfuiie NO.90 …",
-      "en": "PC · China branch Yantai City, Shangha…"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 중국 지사",
-      "en": "Text block · China branch"
-    },
-    "revalidate": [
-      "/company/global",
-      "/en/company/global"
-    ]
-  },
-  {
-    "key": "company.global#s202508286e01c87027ecf/w20250828de7deb233dbfa/html",
-    "group": "company",
-    "pageKey": "company.global",
-    "sectionId": "s202508286e01c87027ecf",
-    "widgetId": "w20250828de7deb233dbfa",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 중국 지사 상하이 옌타이 시티 Hongfuiie NO.90 …",
-      "en": "PC · China branch Yantai City, Shangha…"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 캄보디아 지사",
-      "en": "Text block · Cambodian branch"
-    },
-    "revalidate": [
-      "/company/global",
-      "/en/company/global"
-    ]
-  },
-  {
-    "key": "company.history#s2025081109284c6634db6/w2025081119c3906474684/html",
-    "group": "company",
-    "pageKey": "company.history",
-    "sectionId": "s2025081109284c6634db6",
-    "widgetId": "w2025081119c3906474684",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 더 건강하고 깨끗한 물을 만드는 고객과의 약속 에코웨이브를 …",
-      "en": "PC · EcoWave promises healthier, clean…"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 더 건강하고 깨끗한 물을 만드는 고객과의 약속",
-      "en": "Text block · EcoWave promises healthier,"
-    },
-    "revalidate": [
-      "/company/history",
-      "/en/company/history"
-    ]
-  },
-  {
-    "key": "company.history#s20250911d986b4b4130eb/w202509117601025aae8ff/src",
-    "group": "company",
-    "pageKey": "company.history",
-    "sectionId": "s20250911d986b4b4130eb",
-    "widgetId": "w202509117601025aae8ff",
-    "field": "src",
-    "kind": "image",
-    "section": {
-      "ko": "모바일 · 8a464767025fa.jpg",
-      "en": "Mobile · 8a464767025fa.jpg"
-    },
-    "label": {
-      "ko": "이미지 경로 · 8a464767025fa.jpg",
-      "en": "Image source · 8a464767025fa.jpg"
-    },
-    "revalidate": [
-      "/company/history",
-      "/en/company/history"
-    ]
-  },
-  {
-    "key": "company.history#s20250811d0a0980d730fb/w2025082800cb79b620e9f/html",
-    "group": "company",
-    "pageKey": "company.history",
-    "sectionId": "s20250811d0a0980d730fb",
-    "widgetId": "w2025082800cb79b620e9f",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 2020 - 2023 에코웨이브의 지속적 ​ 인 혁 ​ 신 …",
-      "en": "PC · 2020 - 2023 ECO-WAVE Continuous i…"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 2020 - 2023",
-      "en": "Text block · 2020 - 2023"
-    },
-    "revalidate": [
-      "/company/history",
-      "/en/company/history"
-    ]
-  },
-  {
-    "key": "company.history#s20250811d0a0980d730fb/w202508283581492aaba5b/html",
-    "group": "company",
-    "pageKey": "company.history",
-    "sectionId": "s20250811d0a0980d730fb",
-    "widgetId": "w202508283581492aaba5b",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 2020 - 2023 에코웨이브의 지속적 ​ 인 혁 ​ 신 …",
-      "en": "PC · 2020 - 2023 ECO-WAVE Continuous i…"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 2025",
-      "en": "Text block · 2025"
-    },
-    "revalidate": [
-      "/company/history",
-      "/en/company/history"
-    ]
-  },
-  {
-    "key": "company.history#s20250811d0a0980d730fb/w20250828e2f457614fd1a/src",
-    "group": "company",
-    "pageKey": "company.history",
-    "sectionId": "s20250811d0a0980d730fb",
-    "widgetId": "w20250828e2f457614fd1a",
-    "field": "src",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 2020 - 2023 에코웨이브의 지속적 ​ 인 혁 ​ 신 …",
-      "en": "PC · 2020 - 2023 ECO-WAVE Continuous i…"
-    },
-    "label": {
-      "ko": "이미지 경로 · 6b14cd3e03e4b.jpg",
-      "en": "Image source · 6b14cd3e03e4b.jpg"
-    },
-    "revalidate": [
-      "/company/history",
-      "/en/company/history"
-    ]
-  },
-  {
-    "key": "company.history#s202509113e3a9a552b0c7/w202509111eabf738e9f9f/src",
-    "group": "company",
-    "pageKey": "company.history",
-    "sectionId": "s202509113e3a9a552b0c7",
-    "widgetId": "w202509111eabf738e9f9f",
-    "field": "src",
-    "kind": "image",
-    "section": {
-      "ko": "모바일 · 3a403d278f3ca.jpg",
-      "en": "Mobile · 3a403d278f3ca.jpg"
-    },
-    "label": {
-      "ko": "이미지 경로 · 3a403d278f3ca.jpg",
-      "en": "Image source · 3a403d278f3ca.jpg"
-    },
-    "revalidate": [
-      "/company/history",
-      "/en/company/history"
-    ]
-  },
-  {
-    "key": "company.history#s20250828fe85691f33b65/w20250828e83ff2674ace5/html",
-    "group": "company",
-    "pageKey": "company.history",
-    "sectionId": "s20250828fe85691f33b65",
-    "widgetId": "w20250828e83ff2674ace5",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 2015 - 2019 에코웨이브의 기술 과 서비스의 융합",
-      "en": "PC · 2015 - 2019 ECO-WAVE convergence …"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 2015 - 2019",
-      "en": "Text block · 2015 - 2019"
-    },
-    "revalidate": [
-      "/company/history",
-      "/en/company/history"
-    ]
-  },
-  {
-    "key": "company.history#s20250828fe85691f33b65/w2025082812223844d5d61/html",
-    "group": "company",
-    "pageKey": "company.history",
-    "sectionId": "s20250828fe85691f33b65",
-    "widgetId": "w2025082812223844d5d61",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 2015 - 2019 에코웨이브의 기술 과 서비스의 융합",
-      "en": "PC · 2015 - 2019 ECO-WAVE convergence …"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 2019",
-      "en": "Text block · 2019"
-    },
-    "revalidate": [
-      "/company/history",
-      "/en/company/history"
-    ]
-  },
-  {
-    "key": "company.history#s20250828fe85691f33b65/w202508289a08701d84b65/src",
-    "group": "company",
-    "pageKey": "company.history",
-    "sectionId": "s20250828fe85691f33b65",
-    "widgetId": "w202508289a08701d84b65",
-    "field": "src",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 2015 - 2019 에코웨이브의 기술 과 서비스의 융합",
-      "en": "PC · 2015 - 2019 ECO-WAVE convergence …"
-    },
-    "label": {
-      "ko": "이미지 경로 · a183e714076fb.jpg",
-      "en": "Image source · a183e714076fb.jpg"
-    },
-    "revalidate": [
-      "/company/history",
-      "/en/company/history"
-    ]
-  },
-  {
-    "key": "company.history#s2025091169f925490d127/w2025091118beac108f780/src",
-    "group": "company",
-    "pageKey": "company.history",
-    "sectionId": "s2025091169f925490d127",
-    "widgetId": "w2025091118beac108f780",
-    "field": "src",
-    "kind": "image",
-    "section": {
-      "ko": "모바일 · f4ac0f6dcab6e.jpg",
-      "en": "Mobile · f4ac0f6dcab6e.jpg"
-    },
-    "label": {
-      "ko": "이미지 경로 · f4ac0f6dcab6e.jpg",
-      "en": "Image source · f4ac0f6dcab6e.jpg"
-    },
-    "revalidate": [
-      "/company/history",
-      "/en/company/history"
-    ]
-  },
-  {
-    "key": "company.history#s2025082848202431448dd/w20250828ed4c25cde1fa0/html",
-    "group": "company",
-    "pageKey": "company.history",
-    "sectionId": "s2025082848202431448dd",
-    "widgetId": "w20250828ed4c25cde1fa0",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 2010 - 2014 에코웨이브의 고객과 함께한 신뢰의 역사",
-      "en": "PC · 2010 - 2014 ECO-WAVE a history of…"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 2010 - 2014",
-      "en": "Text block · 2010 - 2014"
-    },
-    "revalidate": [
-      "/company/history",
-      "/en/company/history"
-    ]
-  },
-  {
-    "key": "company.history#s2025082848202431448dd/w202508288b50dcc1f5d69/html",
-    "group": "company",
-    "pageKey": "company.history",
-    "sectionId": "s2025082848202431448dd",
-    "widgetId": "w202508288b50dcc1f5d69",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 2010 - 2014 에코웨이브의 고객과 함께한 신뢰의 역사",
-      "en": "PC · 2010 - 2014 ECO-WAVE a history of…"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 2014",
-      "en": "Text block · 2014"
-    },
-    "revalidate": [
-      "/company/history",
-      "/en/company/history"
-    ]
-  },
-  {
-    "key": "company.history#s2025082848202431448dd/w202508280039b649ce648/src",
-    "group": "company",
-    "pageKey": "company.history",
-    "sectionId": "s2025082848202431448dd",
-    "widgetId": "w202508280039b649ce648",
-    "field": "src",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 2010 - 2014 에코웨이브의 고객과 함께한 신뢰의 역사",
-      "en": "PC · 2010 - 2014 ECO-WAVE a history of…"
-    },
-    "label": {
-      "ko": "이미지 경로 · d7b2a8a54d3e2.jpg",
-      "en": "Image source · d7b2a8a54d3e2.jpg"
-    },
-    "revalidate": [
-      "/company/history",
-      "/en/company/history"
-    ]
-  },
-  {
-    "key": "company.organization#s2025082815dd6babdb335/w202508282e3a21059f88e/html",
-    "group": "company",
-    "pageKey": "company.organization",
-    "sectionId": "s2025082815dd6babdb335",
-    "widgetId": "w202508282e3a21059f88e",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 더 건강하고 깨끗한 물을 만드는 고객과의 약속 에코웨이브를 …",
-      "en": "PC · EcoWave promises healthier, clean…"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 더 건강하고 깨끗한 물을 만드는 고객과의 약속",
-      "en": "Text block · EcoWave promises healthier,"
-    },
-    "revalidate": [
-      "/company/organization",
-      "/en/company/organization"
-    ]
-  },
-  {
-    "key": "company.organization#s20250828f005be7f3c16a/w2025082844061a0c9a3b2/src",
-    "group": "company",
-    "pageKey": "company.organization",
-    "sectionId": "s20250828f005be7f3c16a",
-    "widgetId": "w2025082844061a0c9a3b2",
-    "field": "src",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 5045189daef5d.png",
-      "en": "PC · f24a835bf7fae.png"
-    },
-    "label": {
-      "ko": "이미지 경로 · 5045189daef5d.png",
-      "en": "Image source · f24a835bf7fae.png"
-    },
-    "revalidate": [
-      "/company/organization",
-      "/en/company/organization"
-    ]
-  },
-  {
-    "key": "company.philosophy#s20250821af3858f799ed0/w20250821cacc4fa0b7888/html",
-    "group": "company",
-    "pageKey": "company.philosophy",
-    "sectionId": "s20250821af3858f799ed0",
-    "widgetId": "w20250821cacc4fa0b7888",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 더 건강하고 깨끗한 물을 만드는 고객과의 약속 에코웨이브를 …",
-      "en": "PC · EcoWave promises healthier, clean…"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 더 건강하고 깨끗한 물을 만드는 고객과의 약속",
-      "en": "Text block · EcoWave promises healthier,"
-    },
-    "revalidate": [
-      "/company/philosophy",
-      "/en/company/philosophy"
-    ]
-  },
-  {
-    "key": "company.philosophy#s202508119eca72dc669e0/w20250828318841133c7bc/html",
-    "group": "company",
-    "pageKey": "company.philosophy",
-    "sectionId": "s202508119eca72dc669e0",
-    "widgetId": "w20250828318841133c7bc",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · Mission",
-      "en": "PC · Mission"
-    },
-    "label": {
-      "ko": "텍스트 블록 · Mission",
-      "en": "Text block · Mission"
-    },
-    "revalidate": [
-      "/company/philosophy",
-      "/en/company/philosophy"
-    ]
-  },
-  {
-    "key": "company.philosophy#s202508119eca72dc669e0/w2025082880e9f1cd594e5/html",
-    "group": "company",
-    "pageKey": "company.philosophy",
-    "sectionId": "s202508119eca72dc669e0",
-    "widgetId": "w2025082880e9f1cd594e5",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · Mission",
-      "en": "PC · Mission"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 물을 깨끗하게, 사람을 건강하게",
-      "en": "Text block · Clean water, healthy people."
-    },
-    "revalidate": [
-      "/company/philosophy",
-      "/en/company/philosophy"
-    ]
-  },
-  {
-    "key": "company.philosophy#s202508119eca72dc669e0/w202508286148935689b29/html",
-    "group": "company",
-    "pageKey": "company.philosophy",
-    "sectionId": "s202508119eca72dc669e0",
-    "widgetId": "w202508286148935689b29",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · Mission",
-      "en": "PC · Mission"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 건강한 약속",
-      "en": "Text block · Healthy promise"
-    },
-    "revalidate": [
-      "/company/philosophy",
-      "/en/company/philosophy"
-    ]
-  },
-  {
-    "key": "company.philosophy#s202508119eca72dc669e0/w202508285a7385a21e446/html",
-    "group": "company",
-    "pageKey": "company.philosophy",
-    "sectionId": "s202508119eca72dc669e0",
-    "widgetId": "w202508285a7385a21e446",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · Mission",
-      "en": "PC · Mission"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 더 건강하고 깨끗한 물을 만드는 고객과의 약속",
-      "en": "Text block · We promise cleaner water"
-    },
-    "revalidate": [
-      "/company/philosophy",
-      "/en/company/philosophy"
-    ]
-  },
-  {
-    "key": "company.philosophy#s202508280e68f158799c2/w202508280d2f1669e2789/html",
-    "group": "company",
-    "pageKey": "company.philosophy",
-    "sectionId": "s202508280e68f158799c2",
-    "widgetId": "w202508280d2f1669e2789",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · Environment Design Management",
-      "en": "PC · Environment Design Management"
-    },
-    "label": {
-      "ko": "텍스트 블록 · Environment Design Management",
-      "en": "Text block · Environment Design Management"
-    },
-    "revalidate": [
-      "/company/philosophy",
-      "/en/company/philosophy"
-    ]
-  },
-  {
-    "key": "company.philosophy#s202508280e68f158799c2/w202508289fc0c0165c025/src",
-    "group": "company",
-    "pageKey": "company.philosophy",
-    "sectionId": "s202508280e68f158799c2",
-    "widgetId": "w202508289fc0c0165c025",
-    "field": "src",
-    "kind": "image",
-    "section": {
-      "ko": "PC · Environment Design Management",
-      "en": "PC · Environment Design Management"
-    },
-    "label": {
-      "ko": "이미지 경로 · 3241669643c6e.jpg",
-      "en": "Image source · 3241669643c6e.jpg"
-    },
-    "revalidate": [
-      "/company/philosophy",
-      "/en/company/philosophy"
-    ]
-  },
-  {
-    "key": "company.philosophy#s202508280e68f158799c2/w202508281ce9cfb92c9a4/html",
-    "group": "company",
-    "pageKey": "company.philosophy",
-    "sectionId": "s202508280e68f158799c2",
-    "widgetId": "w202508281ce9cfb92c9a4",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · Environment Design Management",
-      "en": "PC · Environment Design Management"
-    },
-    "label": {
-      "ko": "텍스트 블록 · Environment Design Management / 환경 디자인관리",
-      "en": "Text block · Environment Design Management"
-    },
-    "revalidate": [
-      "/company/philosophy",
-      "/en/company/philosophy"
-    ]
-  },
-  {
-    "key": "company.philosophy#s20250829e04e5ce09ea7e/w202508295885a3029f0c2/html",
-    "group": "company",
-    "pageKey": "company.philosophy",
-    "sectionId": "s20250829e04e5ce09ea7e",
-    "widgetId": "w202508295885a3029f0c2",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 3단계 서비스",
-      "en": "PC · Three-step service"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 3단계 서비스",
-      "en": "Text block · Three-step service"
-    },
-    "revalidate": [
-      "/company/philosophy",
-      "/en/company/philosophy"
-    ]
-  },
-  {
-    "key": "company.philosophy#s20250829e04e5ce09ea7e/w2025082996725d2a2d20e/html",
-    "group": "company",
-    "pageKey": "company.philosophy",
-    "sectionId": "s20250829e04e5ce09ea7e",
-    "widgetId": "w2025082996725d2a2d20e",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 3단계 서비스",
-      "en": "PC · Three-step service"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 차별화된 아이디어",
-      "en": "Text block · Differentiated idea"
-    },
-    "revalidate": [
-      "/company/philosophy",
-      "/en/company/philosophy"
-    ]
-  },
-  {
-    "key": "company.philosophy#s20250829e04e5ce09ea7e/w202508291aa62a1ed03bb/html",
-    "group": "company",
-    "pageKey": "company.philosophy",
-    "sectionId": "s20250829e04e5ce09ea7e",
-    "widgetId": "w202508291aa62a1ed03bb",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 3단계 서비스",
-      "en": "PC · Three-step service"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 최고의 품질",
-      "en": "Text block · Highest quality"
-    },
-    "revalidate": [
-      "/company/philosophy",
-      "/en/company/philosophy"
-    ]
-  },
-  {
-    "key": "company.philosophy#s20250829e04e5ce09ea7e/w202508297535663fbc7e0/html",
-    "group": "company",
-    "pageKey": "company.philosophy",
-    "sectionId": "s20250829e04e5ce09ea7e",
-    "widgetId": "w202508297535663fbc7e0",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 3단계 서비스",
-      "en": "PC · Three-step service"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 선행된 시간 관리",
-      "en": "Text block · Preceded time management"
-    },
-    "revalidate": [
-      "/company/philosophy",
-      "/en/company/philosophy"
-    ]
-  },
   {
     "key": "home#s20250811b5ffbb4730f67/visual/slides",
     "group": "home",
@@ -4843,8 +57,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "title",
     "kind": "lines",
     "section": {
-      "ko": "건강하고 깨끗한 물, 에코웨이브가 고객과 함께 더 나은 미래…",
-      "en": "Healthy water, Eco-wave Together …"
+      "ko": "건강하고 깨끗한 물, 에코웨이브가 고객과 함께 더 나은…",
+      "en": "Healthy water, Eco-wave Together…"
     },
     "label": {
       "ko": "제목 · 건강하고 깨끗한 물, 에코웨이브가",
@@ -4864,8 +78,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "desc",
     "kind": "lines",
     "section": {
-      "ko": "건강하고 깨끗한 물, 에코웨이브가 고객과 함께 더 나은 미래…",
-      "en": "Healthy water, Eco-wave Together …"
+      "ko": "건강하고 깨끗한 물, 에코웨이브가 고객과 함께 더 나은…",
+      "en": "Healthy water, Eco-wave Together…"
     },
     "label": {
       "ko": "설명 · 고객과 함께",
@@ -4885,8 +99,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "src",
     "kind": "image",
     "section": {
-      "ko": "건강하고 깨끗한 물, 에코웨이브가 고객과 함께 더 나은 미래…",
-      "en": "Healthy water, Eco-wave Together …"
+      "ko": "건강하고 깨끗한 물, 에코웨이브가 고객과 함께 더 나은…",
+      "en": "Healthy water, Eco-wave Together…"
     },
     "label": {
       "ko": "이미지 경로 · c3512c9a0cd58.jpg",
@@ -4906,8 +120,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "alt",
     "kind": "overlay",
     "section": {
-      "ko": "건강하고 깨끗한 물, 에코웨이브가 고객과 함께 더 나은 미래…",
-      "en": "Healthy water, Eco-wave Together …"
+      "ko": "건강하고 깨끗한 물, 에코웨이브가 고객과 함께 더 나은…",
+      "en": "Healthy water, Eco-wave Together…"
     },
     "label": {
       "ko": "카드 제목/라벨 · 회사소개",
@@ -4927,8 +141,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "src",
     "kind": "image",
     "section": {
-      "ko": "건강하고 깨끗한 물, 에코웨이브가 고객과 함께 더 나은 미래…",
-      "en": "Healthy water, Eco-wave Together …"
+      "ko": "건강하고 깨끗한 물, 에코웨이브가 고객과 함께 더 나은…",
+      "en": "Healthy water, Eco-wave Together…"
     },
     "label": {
       "ko": "이미지 경로 · e67827527be17.jpg",
@@ -4948,8 +162,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "alt",
     "kind": "overlay",
     "section": {
-      "ko": "건강하고 깨끗한 물, 에코웨이브가 고객과 함께 더 나은 미래…",
-      "en": "Healthy water, Eco-wave Together …"
+      "ko": "건강하고 깨끗한 물, 에코웨이브가 고객과 함께 더 나은…",
+      "en": "Healthy water, Eco-wave Together…"
     },
     "label": {
       "ko": "카드 제목/라벨 · 연구개발",
@@ -4969,8 +183,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "src",
     "kind": "image",
     "section": {
-      "ko": "건강하고 깨끗한 물, 에코웨이브가 고객과 함께 더 나은 미래…",
-      "en": "Healthy water, Eco-wave Together …"
+      "ko": "건강하고 깨끗한 물, 에코웨이브가 고객과 함께 더 나은…",
+      "en": "Healthy water, Eco-wave Together…"
     },
     "label": {
       "ko": "이미지 경로 · 49a097a7d0ffc.jpg",
@@ -4990,8 +204,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "alt",
     "kind": "overlay",
     "section": {
-      "ko": "건강하고 깨끗한 물, 에코웨이브가 고객과 함께 더 나은 미래…",
-      "en": "Healthy water, Eco-wave Together …"
+      "ko": "건강하고 깨끗한 물, 에코웨이브가 고객과 함께 더 나은…",
+      "en": "Healthy water, Eco-wave Together…"
     },
     "label": {
       "ko": "카드 제목/라벨 · 제품소개",
@@ -5011,8 +225,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "src",
     "kind": "image",
     "section": {
-      "ko": "건강하고 깨끗한 물, 에코웨이브가 고객과 함께 더 나은 미래…",
-      "en": "Healthy water, Eco-wave Together …"
+      "ko": "건강하고 깨끗한 물, 에코웨이브가 고객과 함께 더 나은…",
+      "en": "Healthy water, Eco-wave Together…"
     },
     "label": {
       "ko": "이미지 경로 · bd400cb7e2ba9.jpg",
@@ -5032,12 +246,33 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "alt",
     "kind": "overlay",
     "section": {
-      "ko": "건강하고 깨끗한 물, 에코웨이브가 고객과 함께 더 나은 미래…",
-      "en": "Healthy water, Eco-wave Together …"
+      "ko": "건강하고 깨끗한 물, 에코웨이브가 고객과 함께 더 나은…",
+      "en": "Healthy water, Eco-wave Together…"
     },
     "label": {
       "ko": "카드 제목/라벨 · 홍보센터",
       "en": "Card title/label · News"
+    },
+    "revalidate": [
+      "/",
+      "/en"
+    ]
+  },
+  {
+    "key": "home#s202508116d15f8202cd82/w20250811b716fff52cc61/img[0].src",
+    "group": "home",
+    "pageKey": "home",
+    "sectionId": "s202508116d15f8202cd82",
+    "widgetId": "w20250811b716fff52cc61",
+    "field": "img[0].src",
+    "kind": "image",
+    "section": {
+      "ko": "에코웨이브는 깨끗한 물을 위한 기술 혁신과 친환경 가치…",
+      "en": "EcoWave promotes a healthy,…"
+    },
+    "label": {
+      "ko": "임베드 URL · 48fbd16b3a070.png",
+      "en": "Embed URL · 48fbd16b3a070.png"
     },
     "revalidate": [
       "/",
@@ -5053,12 +288,12 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "title",
     "kind": "lines",
     "section": {
-      "ko": "에코웨이브는 깨끗한 물을 위한 기술 혁신과 친환경 가치 실현…",
-      "en": "EcoWave promotes a healthy, susta…"
+      "ko": "에코웨이브는 깨끗한 물을 위한 기술 혁신과 친환경 가치…",
+      "en": "EcoWave promotes a healthy,…"
     },
     "label": {
       "ko": "제목 · 에코웨이브는 깨끗한 물을 위한 기술 혁신과 친환경 가치 실현을 통해",
-      "en": "Title · EcoWave promotes a healthy, sustainable…"
+      "en": "Title · EcoWave promotes a healthy,…"
     },
     "revalidate": [
       "/",
@@ -5074,12 +309,12 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "desc",
     "kind": "lines",
     "section": {
-      "ko": "에코웨이브는 깨끗한 물을 위한 기술 혁신과 친환경 가치 실현…",
-      "en": "EcoWave promotes a healthy, susta…"
+      "ko": "에코웨이브는 깨끗한 물을 위한 기술 혁신과 친환경 가치…",
+      "en": "EcoWave promotes a healthy,…"
     },
     "label": {
       "ko": "설명 · 보다 건강하고 지속 가능한 삶을 제안합니다.",
-      "en": "Description · realizing eco-friendly values where peo…"
+      "en": "Description · realizing eco-friendly values where…"
     },
     "revalidate": [
       "/",
@@ -5095,8 +330,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "src",
     "kind": "image",
     "section": {
-      "ko": "에코웨이브는 깨끗한 물을 위한 기술 혁신과 친환경 가치 실현…",
-      "en": "EcoWave promotes a healthy, susta…"
+      "ko": "에코웨이브는 깨끗한 물을 위한 기술 혁신과 친환경 가치…",
+      "en": "EcoWave promotes a healthy,…"
     },
     "label": {
       "ko": "이미지 경로 · a8abb36b1d18f.png",
@@ -5117,11 +352,11 @@ export const CONTENT_DEFS: ContentDef[] = [
     "kind": "lines",
     "section": {
       "ko": "친환경 기술혁신 을 통한 에코웨이브의 지속 가능한 미래",
-      "en": "Through eco-friendly technologica…"
+      "en": "Through eco-friendly…"
     },
     "label": {
       "ko": "제목 · 친환경 기술혁신",
-      "en": "Title · Through eco-friendly technological inno…"
+      "en": "Title · Through eco-friendly technological…"
     },
     "revalidate": [
       "/",
@@ -5138,7 +373,7 @@ export const CONTENT_DEFS: ContentDef[] = [
     "kind": "lines",
     "section": {
       "ko": "친환경 기술혁신 을 통한 에코웨이브의 지속 가능한 미래",
-      "en": "Through eco-friendly technologica…"
+      "en": "Through eco-friendly…"
     },
     "label": {
       "ko": "설명 · 을 통한",
@@ -5158,8 +393,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "src",
     "kind": "image",
     "section": {
-      "ko": "생활환경 솔루션 첨단 정수 필터 기술과 살균 모듈, 위생 솔…",
-      "en": "Living Solution Advanced filters …"
+      "ko": "생활환경 솔루션 첨단 정수 필터 기술과 살균 모듈, 위생…",
+      "en": "Living Solution Advanced filters…"
     },
     "label": {
       "ko": "이미지 경로 · b2bfd0819b1e7.jpg",
@@ -5179,8 +414,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "title",
     "kind": "lines",
     "section": {
-      "ko": "생활환경 솔루션 첨단 정수 필터 기술과 살균 모듈, 위생 솔…",
-      "en": "Living Solution Advanced filters …"
+      "ko": "생활환경 솔루션 첨단 정수 필터 기술과 살균 모듈, 위생…",
+      "en": "Living Solution Advanced filters…"
     },
     "label": {
       "ko": "제목 · 생활환경 솔루션",
@@ -5200,8 +435,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "desc",
     "kind": "lines",
     "section": {
-      "ko": "생활환경 솔루션 첨단 정수 필터 기술과 살균 모듈, 위생 솔…",
-      "en": "Living Solution Advanced filters …"
+      "ko": "생활환경 솔루션 첨단 정수 필터 기술과 살균 모듈, 위생…",
+      "en": "Living Solution Advanced filters…"
     },
     "label": {
       "ko": "설명 · 첨단 정수 필터 기술과 살균 모듈, 위생 솔루션을 기반으로",
@@ -5221,8 +456,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "src",
     "kind": "image",
     "section": {
-      "ko": "생활환경 솔루션 첨단 정수 필터 기술과 살균 모듈, 위생 솔…",
-      "en": "Living Solution Advanced filters …"
+      "ko": "생활환경 솔루션 첨단 정수 필터 기술과 살균 모듈, 위생…",
+      "en": "Living Solution Advanced filters…"
     },
     "label": {
       "ko": "이미지 경로 · 482b1d289f2ef.jpg",
@@ -5242,8 +477,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "title",
     "kind": "lines",
     "section": {
-      "ko": "생활환경 솔루션 첨단 정수 필터 기술과 살균 모듈, 위생 솔…",
-      "en": "Living Solution Advanced filters …"
+      "ko": "생활환경 솔루션 첨단 정수 필터 기술과 살균 모듈, 위생…",
+      "en": "Living Solution Advanced filters…"
     },
     "label": {
       "ko": "제목 · 정수 소재 & 스마트 부품",
@@ -5263,8 +498,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "desc",
     "kind": "lines",
     "section": {
-      "ko": "생활환경 솔루션 첨단 정수 필터 기술과 살균 모듈, 위생 솔…",
-      "en": "Living Solution Advanced filters …"
+      "ko": "생활환경 솔루션 첨단 정수 필터 기술과 살균 모듈, 위생…",
+      "en": "Living Solution Advanced filters…"
     },
     "label": {
       "ko": "설명 · 정수기 필터, 비데 필터, 샤워기 필터 등",
@@ -5284,8 +519,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "src",
     "kind": "image",
     "section": {
-      "ko": "생활환경 솔루션 첨단 정수 필터 기술과 살균 모듈, 위생 솔…",
-      "en": "Living Solution Advanced filters …"
+      "ko": "생활환경 솔루션 첨단 정수 필터 기술과 살균 모듈, 위생…",
+      "en": "Living Solution Advanced filters…"
     },
     "label": {
       "ko": "이미지 경로 · b3ac0bbe894b9.jpg",
@@ -5305,8 +540,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "title",
     "kind": "lines",
     "section": {
-      "ko": "생활환경 솔루션 첨단 정수 필터 기술과 살균 모듈, 위생 솔…",
-      "en": "Living Solution Advanced filters …"
+      "ko": "생활환경 솔루션 첨단 정수 필터 기술과 살균 모듈, 위생…",
+      "en": "Living Solution Advanced filters…"
     },
     "label": {
       "ko": "제목 · 헬스 & 워터케어",
@@ -5326,8 +561,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "desc",
     "kind": "lines",
     "section": {
-      "ko": "생활환경 솔루션 첨단 정수 필터 기술과 살균 모듈, 위생 솔…",
-      "en": "Living Solution Advanced filters …"
+      "ko": "생활환경 솔루션 첨단 정수 필터 기술과 살균 모듈, 위생…",
+      "en": "Living Solution Advanced filters…"
     },
     "label": {
       "ko": "설명 · 물이 곧 건강이라는 철학 아래,",
@@ -5347,8 +582,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "title",
     "kind": "lines",
     "section": {
-      "ko": "물을 깨끗하게, 사람을 건강하게 Clean Water, He…",
-      "en": "Eco wave Clean Water, Healthy Peo…"
+      "ko": "물을 깨끗하게, 사람을 건강하게 Clean Water,…",
+      "en": "Eco wave Clean Water, Healthy…"
     },
     "label": {
       "ko": "제목 · 물을 깨끗하게, 사람을 건강하게",
@@ -5368,8 +603,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "desc",
     "kind": "lines",
     "section": {
-      "ko": "물을 깨끗하게, 사람을 건강하게 Clean Water, He…",
-      "en": "Eco wave Clean Water, Healthy Peo…"
+      "ko": "물을 깨끗하게, 사람을 건강하게 Clean Water,…",
+      "en": "Eco wave Clean Water, Healthy…"
     },
     "label": {
       "ko": "설명 · Clean Water, Healthy People.",
@@ -5389,8 +624,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "src",
     "kind": "url",
     "section": {
-      "ko": "물을 깨끗하게, 사람을 건강하게 Clean Water, He…",
-      "en": "Eco wave Clean Water, Healthy Peo…"
+      "ko": "물을 깨끗하게, 사람을 건강하게 Clean Water,…",
+      "en": "Eco wave Clean Water, Healthy…"
     },
     "label": {
       "ko": "동영상 URL · https://www.youtube.com/embed/p1wiw6f1T…",
@@ -5410,8 +645,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "title",
     "kind": "lines",
     "section": {
-      "ko": "Headquarters & Factory Locations …",
-      "en": "Headquarters & Factory Locations …"
+      "ko": "Headquarters & Factory Locations…",
+      "en": "Headquarters & Factory Locations…"
     },
     "label": {
       "ko": "제목 · Headquarters & Factory Locations",
@@ -5431,8 +666,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "desc",
     "kind": "lines",
     "section": {
-      "ko": "Headquarters & Factory Locations …",
-      "en": "Headquarters & Factory Locations …"
+      "ko": "Headquarters & Factory Locations…",
+      "en": "Headquarters & Factory Locations…"
     },
     "label": {
       "ko": "설명 · 세계 속의 에코웨이브",
@@ -5452,8 +687,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "src",
     "kind": "image",
     "section": {
-      "ko": "Headquarters & Factory Locations …",
-      "en": "Headquarters & Factory Locations …"
+      "ko": "Headquarters & Factory Locations…",
+      "en": "Headquarters & Factory Locations…"
     },
     "label": {
       "ko": "이미지 경로 · 9bc64982daf80.jpg",
@@ -5473,8 +708,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "cards",
     "kind": "cards",
     "section": {
-      "ko": "Headquarters & Factory Locations …",
-      "en": "Headquarters & Factory Locations …"
+      "ko": "Headquarters & Factory Locations…",
+      "en": "Headquarters & Factory Locations…"
     },
     "label": {
       "ko": "위치 카드 목록",
@@ -5563,6 +798,27 @@ export const CONTENT_DEFS: ContentDef[] = [
     "label": {
       "ko": "표시할 게시글",
       "en": "Posts to show"
+    },
+    "revalidate": [
+      "/",
+      "/en"
+    ]
+  },
+  {
+    "key": "home#s20250811f489e3443bdbe/w20250811379e3dc61aa7f/img[0].src",
+    "group": "common",
+    "pageKey": "home",
+    "sectionId": "s20250811f489e3443bdbe",
+    "widgetId": "w20250811379e3dc61aa7f",
+    "field": "img[0].src",
+    "kind": "image",
+    "section": {
+      "ko": "푸터",
+      "en": "Footer"
+    },
+    "label": {
+      "ko": "임베드 URL · f04049636b82b.png",
+      "en": "Embed URL · f04049636b82b.png"
     },
     "revalidate": [
       "/",
@@ -5717,6 +973,8154 @@ export const CONTENT_DEFS: ContentDef[] = [
     ]
   },
   {
+    "key": "company.ceo#s202508206321c39177601/w20250820e1c08ac226481/html",
+    "group": "company",
+    "pageKey": "company.ceo",
+    "sectionId": "s202508206321c39177601",
+    "widgetId": "w20250820e1c08ac226481",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "회사 소개 인트로 (모든 회사 페이지 공통)",
+      "en": "Company intro (shared by all company pages)"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 더 건강하고 깨끗한 물을 만드는 고객과의 약속",
+      "en": "Text block · EcoWave promises healthier,"
+    },
+    "revalidate": [
+      "/company",
+      "/en/company",
+      "/company/ceo",
+      "/en/company/ceo",
+      "/company/about",
+      "/en/company/about",
+      "/company/philosophy",
+      "/en/company/philosophy",
+      "/company/history",
+      "/en/company/history",
+      "/company/organization",
+      "/en/company/organization",
+      "/company/global",
+      "/en/company/global"
+    ],
+    "shared": true
+  },
+  {
+    "key": "company.ceo#s20250811fd0a82675a6bc/w20250909fe979998d4590/img[0].src",
+    "group": "company",
+    "pageKey": "company.ceo",
+    "sectionId": "s20250811fd0a82675a6bc",
+    "widgetId": "w20250909fe979998d4590",
+    "field": "img[0].src",
+    "kind": "image",
+    "section": {
+      "ko": "에코웨이브 홈페이지를 찾아주신 모든 분들께 진심으로 감사를…",
+      "en": "Thank you sincerely for visiting…"
+    },
+    "label": {
+      "ko": "임베드 URL · a4521d6c5d4c5.png",
+      "en": "Embed URL · a4521d6c5d4c5.png"
+    },
+    "revalidate": [
+      "/company/ceo",
+      "/en/company/ceo",
+      "/company",
+      "/en/company"
+    ]
+  },
+  {
+    "key": "company.ceo#s20250811fd0a82675a6bc/w20250909fe979998d4590/html",
+    "group": "company",
+    "pageKey": "company.ceo",
+    "sectionId": "s20250811fd0a82675a6bc",
+    "widgetId": "w20250909fe979998d4590",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "에코웨이브 홈페이지를 찾아주신 모든 분들께 진심으로 감사를…",
+      "en": "Thank you sincerely for visiting…"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 에코웨이브",
+      "en": "Text block · Thank you sincerely"
+    },
+    "revalidate": [
+      "/company/ceo",
+      "/en/company/ceo",
+      "/company",
+      "/en/company"
+    ]
+  },
+  {
+    "key": "company.ceo#s20250811fd0a82675a6bc/w20250909edc32b5a0f8ec/html",
+    "group": "company",
+    "pageKey": "company.ceo",
+    "sectionId": "s20250811fd0a82675a6bc",
+    "widgetId": "w20250909edc32b5a0f8ec",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "에코웨이브 홈페이지를 찾아주신 모든 분들께 진심으로 감사를…",
+      "en": "Thank you sincerely for visiting…"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 존경하는 여러분께,",
+      "en": "Text block · To all you respect, EcoWave says,"
+    },
+    "revalidate": [
+      "/company/ceo",
+      "/en/company/ceo",
+      "/company",
+      "/en/company"
+    ]
+  },
+  {
+    "key": "company.ceo#s20250811fd0a82675a6bc/w20250909f454e7a9b1143/html",
+    "group": "company",
+    "pageKey": "company.ceo",
+    "sectionId": "s20250811fd0a82675a6bc",
+    "widgetId": "w20250909f454e7a9b1143",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "에코웨이브 홈페이지를 찾아주신 모든 분들께 진심으로 감사를…",
+      "en": "Thank you sincerely for visiting…"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 에코웨이브 대표",
+      "en": "Text block · Representative of EcoWave,"
+    },
+    "revalidate": [
+      "/company/ceo",
+      "/en/company/ceo",
+      "/company",
+      "/en/company"
+    ]
+  },
+  {
+    "key": "company.about#s20250811457daf6e58a2c/w2025091840bd06b2a6c1d/src",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250811457daf6e58a2c",
+    "widgetId": "w2025091840bd06b2a6c1d",
+    "field": "src",
+    "kind": "image",
+    "section": {
+      "ko": "깨끗한 물, 건강한 삶을 만드는 에코웨이브",
+      "en": "Clean water, making a healthy…"
+    },
+    "label": {
+      "ko": "이미지 경로 · 5cda7b9aa9b6e.jpg",
+      "en": "Image source · 4b6a298c59f93.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250811457daf6e58a2c/w202509187c7529a0c38c3/html",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250811457daf6e58a2c",
+    "widgetId": "w202509187c7529a0c38c3",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "깨끗한 물, 건강한 삶을 만드는 에코웨이브",
+      "en": "Clean water, making a healthy…"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 깨끗한 물,",
+      "en": "Text block · Clean water,"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250811457daf6e58a2c/w20250918684332dc780e7/html",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250811457daf6e58a2c",
+    "widgetId": "w20250918684332dc780e7",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "깨끗한 물, 건강한 삶을 만드는 에코웨이브",
+      "en": "Clean water, making a healthy…"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 맑고 깨끗한 물이 생활의 기본이자 건강의 근원이라는 믿음을 바탕으로,",
+      "en": "Text block · Based on the belief that clear and…"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918e40b7f78d4437/w20250918f607bbed181f6/html",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918e40b7f78d4437",
+    "widgetId": "w20250918f607bbed181f6",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "에코웨이브 기술력",
+      "en": "Eco-wave technology"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 에코웨이브",
+      "en": "Text block · Eco-wave technology"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918e40b7f78d4437/w20250918907bfdecbaebd/html",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918e40b7f78d4437",
+    "widgetId": "w20250918907bfdecbaebd",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "에코웨이브 기술력",
+      "en": "Eco-wave technology"
+    },
+    "label": {
+      "ko": "텍스트 블록 · POINT 01",
+      "en": "Text block · POINT 01"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918e40b7f78d4437/w2025091834b55c4354127/html",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918e40b7f78d4437",
+    "widgetId": "w2025091834b55c4354127",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "에코웨이브 기술력",
+      "en": "Eco-wave technology"
+    },
+    "label": {
+      "ko": "텍스트 블록 · POINT 02",
+      "en": "Text block · POINT 02"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918e40b7f78d4437/w202509189da0d6c8fdca9/html",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918e40b7f78d4437",
+    "widgetId": "w202509189da0d6c8fdca9",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "에코웨이브 기술력",
+      "en": "Eco-wave technology"
+    },
+    "label": {
+      "ko": "텍스트 블록 · POINT 03",
+      "en": "Text block · POINT 03"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918e40b7f78d4437/w20250918491b988a3f900/html",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918e40b7f78d4437",
+    "widgetId": "w20250918491b988a3f900",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "에코웨이브 기술력",
+      "en": "Eco-wave technology"
+    },
+    "label": {
+      "ko": "텍스트 블록 · POINT 04",
+      "en": "Text block · POINT 04"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918e40b7f78d4437/w20250918bf11a5c9a5e10/html",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918e40b7f78d4437",
+    "widgetId": "w20250918bf11a5c9a5e10",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "에코웨이브 기술력",
+      "en": "Eco-wave technology"
+    },
+    "label": {
+      "ko": "텍스트 블록 · POINT 05",
+      "en": "Text block · POINT 05"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s202508119a2e8fe21b47a/w20250918fb56c1bc5ba1c/html",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s202508119a2e8fe21b47a",
+    "widgetId": "w20250918fb56c1bc5ba1c",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "에코웨이브가 만드는 건강한 생활 솔루션",
+      "en": "EcoWave's Healthy Living Solution"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 에코웨이브가 만드는 건강한 생활 솔루션",
+      "en": "Text block · EcoWave's Healthy Living Solution"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s202508119a2e8fe21b47a/w20250918824e703adf63a/html",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s202508119a2e8fe21b47a",
+    "widgetId": "w20250918824e703adf63a",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "에코웨이브가 만드는 건강한 생활 솔루션",
+      "en": "EcoWave's Healthy Living Solution"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 에코웨이브는 깨끗한 물과 안전한 환경을 바탕으로, 일상 속에서 더…",
+      "en": "Text block · Based on clean water and a safe…"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[0].title",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s202508119a2e8fe21b47a",
+    "widgetId": "w20250918692bb854e97af",
+    "field": "items[0].title",
+    "kind": "text",
+    "section": {
+      "ko": "에코웨이브가 만드는 건강한 생활 솔루션",
+      "en": "EcoWave's Healthy Living Solution"
+    },
+    "label": {
+      "ko": "갤러리 항목 1 · 3단계 필터(8인치)",
+      "en": "Gallery item 1 · 3-step filter (8 inches)"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[0].desc",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s202508119a2e8fe21b47a",
+    "widgetId": "w20250918692bb854e97af",
+    "field": "items[0].desc",
+    "kind": "text",
+    "section": {
+      "ko": "에코웨이브가 만드는 건강한 생활 솔루션",
+      "en": "EcoWave's Healthy Living Solution"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[0].org",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s202508119a2e8fe21b47a",
+    "widgetId": "w20250918692bb854e97af",
+    "field": "items[0].org",
+    "kind": "image",
+    "section": {
+      "ko": "에코웨이브가 만드는 건강한 생활 솔루션",
+      "en": "EcoWave's Healthy Living Solution"
+    },
+    "label": {
+      "ko": "원본 이미지 · 07c6371ff3736.jpg",
+      "en": "Original image · 26736dcacdf4f.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[0].thumb",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s202508119a2e8fe21b47a",
+    "widgetId": "w20250918692bb854e97af",
+    "field": "items[0].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "에코웨이브가 만드는 건강한 생활 솔루션",
+      "en": "EcoWave's Healthy Living Solution"
+    },
+    "label": {
+      "ko": "썸네일 · b14428f4516ca.jpg",
+      "en": "Thumbnail · 741f4fcc9da3a.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[1].title",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s202508119a2e8fe21b47a",
+    "widgetId": "w20250918692bb854e97af",
+    "field": "items[1].title",
+    "kind": "text",
+    "section": {
+      "ko": "에코웨이브가 만드는 건강한 생활 솔루션",
+      "en": "EcoWave's Healthy Living Solution"
+    },
+    "label": {
+      "ko": "갤러리 항목 2 · Bidet Filters (6인치)",
+      "en": "Gallery item 2 · Bidet Filters (6 inches)"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[1].desc",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s202508119a2e8fe21b47a",
+    "widgetId": "w20250918692bb854e97af",
+    "field": "items[1].desc",
+    "kind": "text",
+    "section": {
+      "ko": "에코웨이브가 만드는 건강한 생활 솔루션",
+      "en": "EcoWave's Healthy Living Solution"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[1].org",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s202508119a2e8fe21b47a",
+    "widgetId": "w20250918692bb854e97af",
+    "field": "items[1].org",
+    "kind": "image",
+    "section": {
+      "ko": "에코웨이브가 만드는 건강한 생활 솔루션",
+      "en": "EcoWave's Healthy Living Solution"
+    },
+    "label": {
+      "ko": "원본 이미지 · 39fa8af77cc42.jpg",
+      "en": "Original image · 033f013e1521b.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[1].thumb",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s202508119a2e8fe21b47a",
+    "widgetId": "w20250918692bb854e97af",
+    "field": "items[1].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "에코웨이브가 만드는 건강한 생활 솔루션",
+      "en": "EcoWave's Healthy Living Solution"
+    },
+    "label": {
+      "ko": "썸네일 · 4982d3cdfc5d3.jpg",
+      "en": "Thumbnail · 8fd1d2bcb6333.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[2].title",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s202508119a2e8fe21b47a",
+    "widgetId": "w20250918692bb854e97af",
+    "field": "items[2].title",
+    "kind": "text",
+    "section": {
+      "ko": "에코웨이브가 만드는 건강한 생활 솔루션",
+      "en": "EcoWave's Healthy Living Solution"
+    },
+    "label": {
+      "ko": "갤러리 항목 3 · Bidet Filters (6인치)",
+      "en": "Gallery item 3 · Bidet Filters (6 inches)"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[2].desc",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s202508119a2e8fe21b47a",
+    "widgetId": "w20250918692bb854e97af",
+    "field": "items[2].desc",
+    "kind": "text",
+    "section": {
+      "ko": "에코웨이브가 만드는 건강한 생활 솔루션",
+      "en": "EcoWave's Healthy Living Solution"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[2].org",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s202508119a2e8fe21b47a",
+    "widgetId": "w20250918692bb854e97af",
+    "field": "items[2].org",
+    "kind": "image",
+    "section": {
+      "ko": "에코웨이브가 만드는 건강한 생활 솔루션",
+      "en": "EcoWave's Healthy Living Solution"
+    },
+    "label": {
+      "ko": "원본 이미지 · 4275edc60f765.jpg",
+      "en": "Original image · c6140a41fb014.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[2].thumb",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s202508119a2e8fe21b47a",
+    "widgetId": "w20250918692bb854e97af",
+    "field": "items[2].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "에코웨이브가 만드는 건강한 생활 솔루션",
+      "en": "EcoWave's Healthy Living Solution"
+    },
+    "label": {
+      "ko": "썸네일 · 9436cbf2ab384.jpg",
+      "en": "Thumbnail · e5a2e1dfe346f.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[3].title",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s202508119a2e8fe21b47a",
+    "widgetId": "w20250918692bb854e97af",
+    "field": "items[3].title",
+    "kind": "text",
+    "section": {
+      "ko": "에코웨이브가 만드는 건강한 생활 솔루션",
+      "en": "EcoWave's Healthy Living Solution"
+    },
+    "label": {
+      "ko": "갤러리 항목 4 · 에코웨이브 필터 시스템(언더싱크)",
+      "en": "Gallery item 4 · Eco-wave filter system (under-sink)"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[3].desc",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s202508119a2e8fe21b47a",
+    "widgetId": "w20250918692bb854e97af",
+    "field": "items[3].desc",
+    "kind": "text",
+    "section": {
+      "ko": "에코웨이브가 만드는 건강한 생활 솔루션",
+      "en": "EcoWave's Healthy Living Solution"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[3].org",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s202508119a2e8fe21b47a",
+    "widgetId": "w20250918692bb854e97af",
+    "field": "items[3].org",
+    "kind": "image",
+    "section": {
+      "ko": "에코웨이브가 만드는 건강한 생활 솔루션",
+      "en": "EcoWave's Healthy Living Solution"
+    },
+    "label": {
+      "ko": "원본 이미지 · 9c05648643bd4.jpg",
+      "en": "Original image · fcbb5e016841d.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[3].thumb",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s202508119a2e8fe21b47a",
+    "widgetId": "w20250918692bb854e97af",
+    "field": "items[3].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "에코웨이브가 만드는 건강한 생활 솔루션",
+      "en": "EcoWave's Healthy Living Solution"
+    },
+    "label": {
+      "ko": "썸네일 · 6629d86e8d60f.jpg",
+      "en": "Thumbnail · 8ee6252c505cb.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[4].title",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s202508119a2e8fe21b47a",
+    "widgetId": "w20250918692bb854e97af",
+    "field": "items[4].title",
+    "kind": "text",
+    "section": {
+      "ko": "에코웨이브가 만드는 건강한 생활 솔루션",
+      "en": "EcoWave's Healthy Living Solution"
+    },
+    "label": {
+      "ko": "갤러리 항목 5 · 자가관리 키트",
+      "en": "Gallery item 5 · Self-care kit"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[4].desc",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s202508119a2e8fe21b47a",
+    "widgetId": "w20250918692bb854e97af",
+    "field": "items[4].desc",
+    "kind": "text",
+    "section": {
+      "ko": "에코웨이브가 만드는 건강한 생활 솔루션",
+      "en": "EcoWave's Healthy Living Solution"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[4].org",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s202508119a2e8fe21b47a",
+    "widgetId": "w20250918692bb854e97af",
+    "field": "items[4].org",
+    "kind": "image",
+    "section": {
+      "ko": "에코웨이브가 만드는 건강한 생활 솔루션",
+      "en": "EcoWave's Healthy Living Solution"
+    },
+    "label": {
+      "ko": "원본 이미지 · 87f263f1b1186.jpg",
+      "en": "Original image · f5898e66f9f04.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[4].thumb",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s202508119a2e8fe21b47a",
+    "widgetId": "w20250918692bb854e97af",
+    "field": "items[4].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "에코웨이브가 만드는 건강한 생활 솔루션",
+      "en": "EcoWave's Healthy Living Solution"
+    },
+    "label": {
+      "ko": "썸네일 · 8e729116fcc93.jpg",
+      "en": "Thumbnail · aaf0d0d9b12ea.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[5].title",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s202508119a2e8fe21b47a",
+    "widgetId": "w20250918692bb854e97af",
+    "field": "items[5].title",
+    "kind": "text",
+    "section": {
+      "ko": "에코웨이브가 만드는 건강한 생활 솔루션",
+      "en": "EcoWave's Healthy Living Solution"
+    },
+    "label": {
+      "ko": "갤러리 항목 6 · 기능성 필터 (마이크로, 이온수지, FOF)",
+      "en": "Gallery item 6 · Functional filters (micro, ion resin,…"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[5].desc",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s202508119a2e8fe21b47a",
+    "widgetId": "w20250918692bb854e97af",
+    "field": "items[5].desc",
+    "kind": "text",
+    "section": {
+      "ko": "에코웨이브가 만드는 건강한 생활 솔루션",
+      "en": "EcoWave's Healthy Living Solution"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[5].org",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s202508119a2e8fe21b47a",
+    "widgetId": "w20250918692bb854e97af",
+    "field": "items[5].org",
+    "kind": "image",
+    "section": {
+      "ko": "에코웨이브가 만드는 건강한 생활 솔루션",
+      "en": "EcoWave's Healthy Living Solution"
+    },
+    "label": {
+      "ko": "원본 이미지 · 2b82b126b4605.jpg",
+      "en": "Original image · cf35efcc925b4.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[5].thumb",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s202508119a2e8fe21b47a",
+    "widgetId": "w20250918692bb854e97af",
+    "field": "items[5].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "에코웨이브가 만드는 건강한 생활 솔루션",
+      "en": "EcoWave's Healthy Living Solution"
+    },
+    "label": {
+      "ko": "썸네일 · 7d0f500fef969.jpg",
+      "en": "Thumbnail · 4976463a9771b.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[6].title",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s202508119a2e8fe21b47a",
+    "widgetId": "w20250918692bb854e97af",
+    "field": "items[6].title",
+    "kind": "text",
+    "section": {
+      "ko": "에코웨이브가 만드는 건강한 생활 솔루션",
+      "en": "EcoWave's Healthy Living Solution"
+    },
+    "label": {
+      "ko": "갤러리 항목 7 · 서비스 점검 키트",
+      "en": "Gallery item 7 · Service Check Kit"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[6].desc",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s202508119a2e8fe21b47a",
+    "widgetId": "w20250918692bb854e97af",
+    "field": "items[6].desc",
+    "kind": "text",
+    "section": {
+      "ko": "에코웨이브가 만드는 건강한 생활 솔루션",
+      "en": "EcoWave's Healthy Living Solution"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[6].org",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s202508119a2e8fe21b47a",
+    "widgetId": "w20250918692bb854e97af",
+    "field": "items[6].org",
+    "kind": "image",
+    "section": {
+      "ko": "에코웨이브가 만드는 건강한 생활 솔루션",
+      "en": "EcoWave's Healthy Living Solution"
+    },
+    "label": {
+      "ko": "원본 이미지 · f598757321983.jpg",
+      "en": "Original image · 1e223c0ac5e00.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/items[6].thumb",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s202508119a2e8fe21b47a",
+    "widgetId": "w20250918692bb854e97af",
+    "field": "items[6].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "에코웨이브가 만드는 건강한 생활 솔루션",
+      "en": "EcoWave's Healthy Living Solution"
+    },
+    "label": {
+      "ko": "썸네일 · 4fcbf0231d0a6.jpg",
+      "en": "Thumbnail · 84e45dec147d7.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918c54b2950e2f1a/w202509182e2d041573010/html",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918c54b2950e2f1a",
+    "widgetId": "w202509182e2d041573010",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "깨끗한 물을 위한 에코웨이브의 토탈 솔루션",
+      "en": "EcoWave's Total Solution for…"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 깨끗한 물을 위한 에코웨이브의 토탈 솔루션",
+      "en": "Text block · EcoWave's Total Solution for Clean Water"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918c54b2950e2f1a/w20250918b4546d15749bb/html",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918c54b2950e2f1a",
+    "widgetId": "w20250918b4546d15749bb",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "깨끗한 물을 위한 에코웨이브의 토탈 솔루션",
+      "en": "EcoWave's Total Solution for…"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 정수기에서 필터, 살균 기술과 부품까지,",
+      "en": "Text block · From water purifiers to filters to…"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918c54b2950e2f1a/w2025091858b5ee5de7c2a/items[0].title",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918c54b2950e2f1a",
+    "widgetId": "w2025091858b5ee5de7c2a",
+    "field": "items[0].title",
+    "kind": "text",
+    "section": {
+      "ko": "깨끗한 물을 위한 에코웨이브의 토탈 솔루션",
+      "en": "EcoWave's Total Solution for…"
+    },
+    "label": {
+      "ko": "갤러리 항목 1",
+      "en": "Gallery item 1"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918c54b2950e2f1a/w2025091858b5ee5de7c2a/items[0].desc",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918c54b2950e2f1a",
+    "widgetId": "w2025091858b5ee5de7c2a",
+    "field": "items[0].desc",
+    "kind": "text",
+    "section": {
+      "ko": "깨끗한 물을 위한 에코웨이브의 토탈 솔루션",
+      "en": "EcoWave's Total Solution for…"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918c54b2950e2f1a/w2025091858b5ee5de7c2a/items[0].org",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918c54b2950e2f1a",
+    "widgetId": "w2025091858b5ee5de7c2a",
+    "field": "items[0].org",
+    "kind": "image",
+    "section": {
+      "ko": "깨끗한 물을 위한 에코웨이브의 토탈 솔루션",
+      "en": "EcoWave's Total Solution for…"
+    },
+    "label": {
+      "ko": "원본 이미지 · 416a2b81583bf.png",
+      "en": "Original image · c798df4385130.png"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918c54b2950e2f1a/w2025091858b5ee5de7c2a/items[0].thumb",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918c54b2950e2f1a",
+    "widgetId": "w2025091858b5ee5de7c2a",
+    "field": "items[0].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "깨끗한 물을 위한 에코웨이브의 토탈 솔루션",
+      "en": "EcoWave's Total Solution for…"
+    },
+    "label": {
+      "ko": "썸네일 · 881fc3b930c03.png",
+      "en": "Thumbnail · 44b50acf631e4.png"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918c54b2950e2f1a/w2025091858b5ee5de7c2a/items[1].title",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918c54b2950e2f1a",
+    "widgetId": "w2025091858b5ee5de7c2a",
+    "field": "items[1].title",
+    "kind": "text",
+    "section": {
+      "ko": "깨끗한 물을 위한 에코웨이브의 토탈 솔루션",
+      "en": "EcoWave's Total Solution for…"
+    },
+    "label": {
+      "ko": "갤러리 항목 2",
+      "en": "Gallery item 2"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918c54b2950e2f1a/w2025091858b5ee5de7c2a/items[1].desc",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918c54b2950e2f1a",
+    "widgetId": "w2025091858b5ee5de7c2a",
+    "field": "items[1].desc",
+    "kind": "text",
+    "section": {
+      "ko": "깨끗한 물을 위한 에코웨이브의 토탈 솔루션",
+      "en": "EcoWave's Total Solution for…"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918c54b2950e2f1a/w2025091858b5ee5de7c2a/items[1].org",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918c54b2950e2f1a",
+    "widgetId": "w2025091858b5ee5de7c2a",
+    "field": "items[1].org",
+    "kind": "image",
+    "section": {
+      "ko": "깨끗한 물을 위한 에코웨이브의 토탈 솔루션",
+      "en": "EcoWave's Total Solution for…"
+    },
+    "label": {
+      "ko": "원본 이미지 · 859265f4b0cb7.png",
+      "en": "Original image · d69e16cad888c.png"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918c54b2950e2f1a/w2025091858b5ee5de7c2a/items[1].thumb",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918c54b2950e2f1a",
+    "widgetId": "w2025091858b5ee5de7c2a",
+    "field": "items[1].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "깨끗한 물을 위한 에코웨이브의 토탈 솔루션",
+      "en": "EcoWave's Total Solution for…"
+    },
+    "label": {
+      "ko": "썸네일 · b792dd91e01e2.png",
+      "en": "Thumbnail · d231d63afb0ff.png"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918c54b2950e2f1a/w2025091858b5ee5de7c2a/items[2].title",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918c54b2950e2f1a",
+    "widgetId": "w2025091858b5ee5de7c2a",
+    "field": "items[2].title",
+    "kind": "text",
+    "section": {
+      "ko": "깨끗한 물을 위한 에코웨이브의 토탈 솔루션",
+      "en": "EcoWave's Total Solution for…"
+    },
+    "label": {
+      "ko": "갤러리 항목 3",
+      "en": "Gallery item 3"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918c54b2950e2f1a/w2025091858b5ee5de7c2a/items[2].desc",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918c54b2950e2f1a",
+    "widgetId": "w2025091858b5ee5de7c2a",
+    "field": "items[2].desc",
+    "kind": "text",
+    "section": {
+      "ko": "깨끗한 물을 위한 에코웨이브의 토탈 솔루션",
+      "en": "EcoWave's Total Solution for…"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918c54b2950e2f1a/w2025091858b5ee5de7c2a/items[2].org",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918c54b2950e2f1a",
+    "widgetId": "w2025091858b5ee5de7c2a",
+    "field": "items[2].org",
+    "kind": "image",
+    "section": {
+      "ko": "깨끗한 물을 위한 에코웨이브의 토탈 솔루션",
+      "en": "EcoWave's Total Solution for…"
+    },
+    "label": {
+      "ko": "원본 이미지 · 8b657e9949db3.png",
+      "en": "Original image · 941e13ebf8647.png"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918c54b2950e2f1a/w2025091858b5ee5de7c2a/items[2].thumb",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918c54b2950e2f1a",
+    "widgetId": "w2025091858b5ee5de7c2a",
+    "field": "items[2].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "깨끗한 물을 위한 에코웨이브의 토탈 솔루션",
+      "en": "EcoWave's Total Solution for…"
+    },
+    "label": {
+      "ko": "썸네일 · 05763a3e17f34.png",
+      "en": "Thumbnail · 57347e5413270.png"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918c54b2950e2f1a/w2025091858b5ee5de7c2a/items[3].title",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918c54b2950e2f1a",
+    "widgetId": "w2025091858b5ee5de7c2a",
+    "field": "items[3].title",
+    "kind": "text",
+    "section": {
+      "ko": "깨끗한 물을 위한 에코웨이브의 토탈 솔루션",
+      "en": "EcoWave's Total Solution for…"
+    },
+    "label": {
+      "ko": "갤러리 항목 4",
+      "en": "Gallery item 4"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918c54b2950e2f1a/w2025091858b5ee5de7c2a/items[3].desc",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918c54b2950e2f1a",
+    "widgetId": "w2025091858b5ee5de7c2a",
+    "field": "items[3].desc",
+    "kind": "text",
+    "section": {
+      "ko": "깨끗한 물을 위한 에코웨이브의 토탈 솔루션",
+      "en": "EcoWave's Total Solution for…"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918c54b2950e2f1a/w2025091858b5ee5de7c2a/items[3].org",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918c54b2950e2f1a",
+    "widgetId": "w2025091858b5ee5de7c2a",
+    "field": "items[3].org",
+    "kind": "image",
+    "section": {
+      "ko": "깨끗한 물을 위한 에코웨이브의 토탈 솔루션",
+      "en": "EcoWave's Total Solution for…"
+    },
+    "label": {
+      "ko": "원본 이미지 · 51f85bef4c1fe.png",
+      "en": "Original image · f0ec521b79f7b.png"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918c54b2950e2f1a/w2025091858b5ee5de7c2a/items[3].thumb",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918c54b2950e2f1a",
+    "widgetId": "w2025091858b5ee5de7c2a",
+    "field": "items[3].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "깨끗한 물을 위한 에코웨이브의 토탈 솔루션",
+      "en": "EcoWave's Total Solution for…"
+    },
+    "label": {
+      "ko": "썸네일 · 06056650a1d79.png",
+      "en": "Thumbnail · c9e7f12eb3608.png"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918c54b2950e2f1a/w2025091858b5ee5de7c2a/items[4].title",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918c54b2950e2f1a",
+    "widgetId": "w2025091858b5ee5de7c2a",
+    "field": "items[4].title",
+    "kind": "text",
+    "section": {
+      "ko": "깨끗한 물을 위한 에코웨이브의 토탈 솔루션",
+      "en": "EcoWave's Total Solution for…"
+    },
+    "label": {
+      "ko": "갤러리 항목 5",
+      "en": "Gallery item 5"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918c54b2950e2f1a/w2025091858b5ee5de7c2a/items[4].desc",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918c54b2950e2f1a",
+    "widgetId": "w2025091858b5ee5de7c2a",
+    "field": "items[4].desc",
+    "kind": "text",
+    "section": {
+      "ko": "깨끗한 물을 위한 에코웨이브의 토탈 솔루션",
+      "en": "EcoWave's Total Solution for…"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918c54b2950e2f1a/w2025091858b5ee5de7c2a/items[4].org",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918c54b2950e2f1a",
+    "widgetId": "w2025091858b5ee5de7c2a",
+    "field": "items[4].org",
+    "kind": "image",
+    "section": {
+      "ko": "깨끗한 물을 위한 에코웨이브의 토탈 솔루션",
+      "en": "EcoWave's Total Solution for…"
+    },
+    "label": {
+      "ko": "원본 이미지 · 250c37f0a02db.png",
+      "en": "Original image · 730678990350e.png"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918c54b2950e2f1a/w2025091858b5ee5de7c2a/items[4].thumb",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918c54b2950e2f1a",
+    "widgetId": "w2025091858b5ee5de7c2a",
+    "field": "items[4].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "깨끗한 물을 위한 에코웨이브의 토탈 솔루션",
+      "en": "EcoWave's Total Solution for…"
+    },
+    "label": {
+      "ko": "썸네일 · fe00e6210425a.png",
+      "en": "Thumbnail · 12fcc0fa3899a.png"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918c5a18b62c8acd/w20250919d3f58a52c151b/html",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918c5a18b62c8acd",
+    "widgetId": "w20250919d3f58a52c151b",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "우리 일상 속에서 만나는 에코웨이브",
+      "en": "Eco wave that we meet in our…"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 우리 일상 속에서 만나는 에코웨이브",
+      "en": "Text block · Eco wave that we meet in our daily lives"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918c5a18b62c8acd/w20250919eb33a28196229/img[0].src",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918c5a18b62c8acd",
+    "widgetId": "w20250919eb33a28196229",
+    "field": "img[0].src",
+    "kind": "image",
+    "section": {
+      "ko": "우리 일상 속에서 만나는 에코웨이브",
+      "en": "Eco wave that we meet in our…"
+    },
+    "label": {
+      "ko": "임베드 URL · 1b9f9b2c85d9a.jpg",
+      "en": "Embed URL · 1b9f9b2c85d9a.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918c5a18b62c8acd/w20250919eb33a28196229/html",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918c5a18b62c8acd",
+    "widgetId": "w20250919eb33a28196229",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "우리 일상 속에서 만나는 에코웨이브",
+      "en": "Eco wave that we meet in our…"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 정수기",
+      "en": "Text block · Water purifier"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918c5a18b62c8acd/w20250919a06813f5e869d/img[0].src",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918c5a18b62c8acd",
+    "widgetId": "w20250919a06813f5e869d",
+    "field": "img[0].src",
+    "kind": "image",
+    "section": {
+      "ko": "우리 일상 속에서 만나는 에코웨이브",
+      "en": "Eco wave that we meet in our…"
+    },
+    "label": {
+      "ko": "임베드 URL · e7b42395cc54b.jpg",
+      "en": "Embed URL · e7b42395cc54b.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918c5a18b62c8acd/w20250919a06813f5e869d/html",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918c5a18b62c8acd",
+    "widgetId": "w20250919a06813f5e869d",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "우리 일상 속에서 만나는 에코웨이브",
+      "en": "Eco wave that we meet in our…"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 정수 필터",
+      "en": "Text block · Water filter"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918c5a18b62c8acd/w202509196d95887d0ea56/img[0].src",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918c5a18b62c8acd",
+    "widgetId": "w202509196d95887d0ea56",
+    "field": "img[0].src",
+    "kind": "image",
+    "section": {
+      "ko": "우리 일상 속에서 만나는 에코웨이브",
+      "en": "Eco wave that we meet in our…"
+    },
+    "label": {
+      "ko": "임베드 URL · 115b10efe54e3.jpg",
+      "en": "Embed URL · 115b10efe54e3.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918c5a18b62c8acd/w202509196d95887d0ea56/html",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918c5a18b62c8acd",
+    "widgetId": "w202509196d95887d0ea56",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "우리 일상 속에서 만나는 에코웨이브",
+      "en": "Eco wave that we meet in our…"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 비데 필터",
+      "en": "Text block · Bidet filter"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918c5a18b62c8acd/w2025091937ef9567e5c28/img[0].src",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918c5a18b62c8acd",
+    "widgetId": "w2025091937ef9567e5c28",
+    "field": "img[0].src",
+    "kind": "image",
+    "section": {
+      "ko": "우리 일상 속에서 만나는 에코웨이브",
+      "en": "Eco wave that we meet in our…"
+    },
+    "label": {
+      "ko": "임베드 URL · f6a0015ce78bf.jpg",
+      "en": "Embed URL · f6a0015ce78bf.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918c5a18b62c8acd/w2025091937ef9567e5c28/html",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918c5a18b62c8acd",
+    "widgetId": "w2025091937ef9567e5c28",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "우리 일상 속에서 만나는 에코웨이브",
+      "en": "Eco wave that we meet in our…"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 샤워·비타민 필터",
+      "en": "Text block · Shower/Vitamin Filter"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918c5a18b62c8acd/w2025091911917416765db/img[0].src",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918c5a18b62c8acd",
+    "widgetId": "w2025091911917416765db",
+    "field": "img[0].src",
+    "kind": "image",
+    "section": {
+      "ko": "우리 일상 속에서 만나는 에코웨이브",
+      "en": "Eco wave that we meet in our…"
+    },
+    "label": {
+      "ko": "임베드 URL · 1b9f9b2c85d9a.jpg",
+      "en": "Embed URL · 1b9f9b2c85d9a.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918c5a18b62c8acd/w2025091911917416765db/html",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918c5a18b62c8acd",
+    "widgetId": "w2025091911917416765db",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "우리 일상 속에서 만나는 에코웨이브",
+      "en": "Eco wave that we meet in our…"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 살균 모듈",
+      "en": "Text block · Sterilization module"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918c5a18b62c8acd/w20250919752cb4c4b07f1/img[0].src",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918c5a18b62c8acd",
+    "widgetId": "w20250919752cb4c4b07f1",
+    "field": "img[0].src",
+    "kind": "image",
+    "section": {
+      "ko": "우리 일상 속에서 만나는 에코웨이브",
+      "en": "Eco wave that we meet in our…"
+    },
+    "label": {
+      "ko": "임베드 URL · 938b9b68a8715.jpg",
+      "en": "Embed URL · 938b9b68a8715.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918c5a18b62c8acd/w20250919752cb4c4b07f1/html",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918c5a18b62c8acd",
+    "widgetId": "w20250919752cb4c4b07f1",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "우리 일상 속에서 만나는 에코웨이브",
+      "en": "Eco wave that we meet in our…"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 부품 & 액세서리",
+      "en": "Text block · Parts & Accessories"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918c66e7987eaeca/html",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918c66e7987eaeca",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 기준은 높게, 품질은 정확하게",
+      "en": "Text block · High standards, high quality"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[0].title",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[0].title",
+    "kind": "text",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "갤러리 항목 1",
+      "en": "Gallery item 1"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[0].desc",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[0].desc",
+    "kind": "text",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[0].org",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[0].org",
+    "kind": "image",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "원본 이미지 · 3665df0d9742a.jpg",
+      "en": "Original image · 258218a1d9645.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[0].thumb",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[0].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "썸네일 · 94472c44c840d.jpg",
+      "en": "Thumbnail · 599f72c275c1e.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[1].title",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[1].title",
+    "kind": "text",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "갤러리 항목 2",
+      "en": "Gallery item 2"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[1].desc",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[1].desc",
+    "kind": "text",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[1].org",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[1].org",
+    "kind": "image",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "원본 이미지 · b8403e7e03382.jpg",
+      "en": "Original image · 01a3de82cb814.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[1].thumb",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[1].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "썸네일 · 9c0d6fa00f1cf.jpg",
+      "en": "Thumbnail · 15afa292d1a1c.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[2].title",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[2].title",
+    "kind": "text",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "갤러리 항목 3",
+      "en": "Gallery item 3"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[2].desc",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[2].desc",
+    "kind": "text",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[2].org",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[2].org",
+    "kind": "image",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "원본 이미지 · e532a0ce7ef80.jpg",
+      "en": "Original image · 5bff6f0337c2b.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[2].thumb",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[2].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "썸네일 · 8b58b4b95f151.jpg",
+      "en": "Thumbnail · 04e244c9d84cf.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[3].title",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[3].title",
+    "kind": "text",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "갤러리 항목 4",
+      "en": "Gallery item 4"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[3].desc",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[3].desc",
+    "kind": "text",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[3].org",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[3].org",
+    "kind": "image",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "원본 이미지 · b2fbf44c6f631.jpg",
+      "en": "Original image · e2e1250f0479e.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[3].thumb",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[3].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "썸네일 · 81838957e5493.jpg",
+      "en": "Thumbnail · 93de7321891c8.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[4].title",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[4].title",
+    "kind": "text",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "갤러리 항목 5",
+      "en": "Gallery item 5"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[4].desc",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[4].desc",
+    "kind": "text",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[4].org",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[4].org",
+    "kind": "image",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "원본 이미지 · d5fc28c480258.jpg",
+      "en": "Original image · 4500a3f85f387.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[4].thumb",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[4].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "썸네일 · a1b7f6895d5cb.jpg",
+      "en": "Thumbnail · 0f0423a56aa52.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[5].title",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[5].title",
+    "kind": "text",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "갤러리 항목 6",
+      "en": "Gallery item 6"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[5].desc",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[5].desc",
+    "kind": "text",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[5].org",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[5].org",
+    "kind": "image",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "원본 이미지 · 13f19b262d6c6.jpg",
+      "en": "Original image · a9fec84e8ee47.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[5].thumb",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[5].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "썸네일 · 4e5d9afc00bb7.jpg",
+      "en": "Thumbnail · 17205303b8334.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[6].title",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[6].title",
+    "kind": "text",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "갤러리 항목 7",
+      "en": "Gallery item 7"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[6].desc",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[6].desc",
+    "kind": "text",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[6].org",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[6].org",
+    "kind": "image",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "원본 이미지 · b2b39a743a061.jpg",
+      "en": "Original image · d69711041674d.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[6].thumb",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[6].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "썸네일 · 14b4f80b77ade.jpg",
+      "en": "Thumbnail · aad67e5810ea2.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[7].title",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[7].title",
+    "kind": "text",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "갤러리 항목 8",
+      "en": "Gallery item 8"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[7].desc",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[7].desc",
+    "kind": "text",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[7].org",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[7].org",
+    "kind": "image",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "원본 이미지 · 821539e8bc48b.jpg",
+      "en": "Original image · 2ca909dab0d30.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[7].thumb",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[7].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "썸네일 · c54342098fcbb.jpg",
+      "en": "Thumbnail · 0411aad36f75d.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[8].title",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[8].title",
+    "kind": "text",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "갤러리 항목 9",
+      "en": "Gallery item 9"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[8].desc",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[8].desc",
+    "kind": "text",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[8].org",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[8].org",
+    "kind": "image",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "원본 이미지 · 301c6da8e99b9.jpg",
+      "en": "Original image · c992c030e3a4e.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[8].thumb",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[8].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "썸네일 · 487db6ef740bb.jpg",
+      "en": "Thumbnail · 3c69f6ba229db.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[9].title",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[9].title",
+    "kind": "text",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "갤러리 항목 10",
+      "en": "Gallery item 10"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[9].desc",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[9].desc",
+    "kind": "text",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[9].org",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[9].org",
+    "kind": "image",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "원본 이미지 · cc856220892ee.jpg",
+      "en": "Original image · 49674edb87542.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[9].thumb",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[9].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "썸네일 · c6b6d16ca4d6d.jpg",
+      "en": "Thumbnail · 6fc33c4627233.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[10].title",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[10].title",
+    "kind": "text",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "갤러리 항목 11",
+      "en": "Gallery item 11"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[10].desc",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[10].desc",
+    "kind": "text",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[10].org",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[10].org",
+    "kind": "image",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "원본 이미지 · 3901951441377.jpg",
+      "en": "Original image · 2eab635b124c1.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[10].thumb",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[10].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "썸네일 · cb8004d4d485f.jpg",
+      "en": "Thumbnail · 7025959a99f06.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[11].title",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[11].title",
+    "kind": "text",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "갤러리 항목 12",
+      "en": "Gallery item 12"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[11].desc",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[11].desc",
+    "kind": "text",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[11].org",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[11].org",
+    "kind": "image",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "원본 이미지 · a6d66bdab2827.jpg",
+      "en": "Original image · 7bd9f37e2e1e6.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[11].thumb",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[11].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "썸네일 · 8bbb29a44f5a8.jpg",
+      "en": "Thumbnail · 69a69fdd3a226.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[12].title",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[12].title",
+    "kind": "text",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "갤러리 항목 13",
+      "en": "Gallery item 13"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[12].desc",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[12].desc",
+    "kind": "text",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[12].org",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[12].org",
+    "kind": "image",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "원본 이미지 · 1ee9c37155967.jpg",
+      "en": "Original image · 7d6b54e7320dd.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[12].thumb",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[12].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "썸네일 · 0cc8dec9a285d.jpg",
+      "en": "Thumbnail · f8636cff646fa.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[13].title",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[13].title",
+    "kind": "text",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "갤러리 항목 14",
+      "en": "Gallery item 14"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[13].desc",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[13].desc",
+    "kind": "text",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[13].org",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[13].org",
+    "kind": "image",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "원본 이미지 · 8f784e1d174da.jpg",
+      "en": "Original image · d42f839da9282.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[13].thumb",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[13].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "썸네일 · ed88d9663e02d.jpg",
+      "en": "Thumbnail · b42e40d69935c.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[14].title",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[14].title",
+    "kind": "text",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "갤러리 항목 15",
+      "en": "Gallery item 15"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[14].desc",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[14].desc",
+    "kind": "text",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[14].org",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[14].org",
+    "kind": "image",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "원본 이미지 · ce0c7512e305e.jpg",
+      "en": "Original image · 8101b4a41836e.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[14].thumb",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[14].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "썸네일 · 3f613ac301e81.jpg",
+      "en": "Thumbnail · 2f93b6f8fcc89.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[15].title",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[15].title",
+    "kind": "text",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "갤러리 항목 16",
+      "en": "Gallery item 16"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[15].desc",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[15].desc",
+    "kind": "text",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[15].org",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[15].org",
+    "kind": "image",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "원본 이미지 · c147e2542c4fe.jpg",
+      "en": "Original image · fa68eabe4a97b.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[15].thumb",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[15].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "썸네일 · 69bf4f5ea4d87.jpg",
+      "en": "Thumbnail · d0bf8786d99e0.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[16].title",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[16].title",
+    "kind": "text",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "갤러리 항목 17",
+      "en": "Gallery item 17"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[16].desc",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[16].desc",
+    "kind": "text",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[16].org",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[16].org",
+    "kind": "image",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "원본 이미지 · fd7d94c547432.jpg",
+      "en": "Original image · 342b98ceb8bfa.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[16].thumb",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[16].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "썸네일 · faa5d352065f3.jpg",
+      "en": "Thumbnail · 5c6e1f879e44e.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[17].title",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[17].title",
+    "kind": "text",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "갤러리 항목 18",
+      "en": "Gallery item 18"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[17].desc",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[17].desc",
+    "kind": "text",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[17].org",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[17].org",
+    "kind": "image",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "원본 이미지 · f716f2957d1e4.jpg",
+      "en": "Original image · b2436ea247641.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[17].thumb",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[17].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "썸네일 · ec78cfcb1698c.jpg",
+      "en": "Thumbnail · 2a46aac69fa27.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[18].title",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[18].title",
+    "kind": "text",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "갤러리 항목 19",
+      "en": "Gallery item 19"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[18].desc",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[18].desc",
+    "kind": "text",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[18].org",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[18].org",
+    "kind": "image",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "원본 이미지 · cbefd1ea103ed.jpg",
+      "en": "Original image · f639a91845b84.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[18].thumb",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[18].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "썸네일 · 6c049c9b9a525.jpg",
+      "en": "Thumbnail · 7da5f656d76cd.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[19].title",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[19].title",
+    "kind": "text",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "갤러리 항목 20",
+      "en": "Gallery item 20"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[19].desc",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[19].desc",
+    "kind": "text",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[19].org",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[19].org",
+    "kind": "image",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "원본 이미지 · 8c53fd2fc6efe.jpg",
+      "en": "Original image · 4134fa5b9870b.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[19].thumb",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[19].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "썸네일 · 4ee916102ad02.jpg",
+      "en": "Thumbnail · 5229e84678b9b.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[20].title",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[20].title",
+    "kind": "text",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "갤러리 항목 21",
+      "en": "Gallery item 21"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[20].desc",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[20].desc",
+    "kind": "text",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[20].org",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[20].org",
+    "kind": "image",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "원본 이미지 · 24cc2608376ae.jpg",
+      "en": "Original image · 97138f35c452b.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[20].thumb",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ab81858502f9e",
+    "widgetId": "w20250918b0ab58de4000e",
+    "field": "items[20].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "기준은 높게, 품질은 정확하게",
+      "en": "High standards, high quality"
+    },
+    "label": {
+      "ko": "썸네일 · f5c5d02f4d26a.jpg",
+      "en": "Thumbnail · e2748fd376a57.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ffd77075d76ea/w20250919f5460109361d6/html",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ffd77075d76ea",
+    "widgetId": "w20250919f5460109361d6",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "R&D & MANUFACTURING 연구개발부터 글로벌…",
+      "en": "R&D & MANUFACTURING From R&D to…"
+    },
+    "label": {
+      "ko": "텍스트 블록 · R&D & MANUFACTURING",
+      "en": "Text block · R&D & MANUFACTURING"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ffd77075d76ea/w202509190fd35e33e86f8/items[0].title",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ffd77075d76ea",
+    "widgetId": "w202509190fd35e33e86f8",
+    "field": "items[0].title",
+    "kind": "text",
+    "section": {
+      "ko": "R&D & MANUFACTURING 연구개발부터 글로벌…",
+      "en": "R&D & MANUFACTURING From R&D to…"
+    },
+    "label": {
+      "ko": "갤러리 항목 1 · 연구소(R&D CENTER)",
+      "en": "Gallery item 1 · R&D CENTER"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ffd77075d76ea/w202509190fd35e33e86f8/items[0].desc",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ffd77075d76ea",
+    "widgetId": "w202509190fd35e33e86f8",
+    "field": "items[0].desc",
+    "kind": "text",
+    "section": {
+      "ko": "R&D & MANUFACTURING 연구개발부터 글로벌…",
+      "en": "R&D & MANUFACTURING From R&D to…"
+    },
+    "label": {
+      "ko": "설명 · 혁신 기술 연구와 개발",
+      "en": "Description · Research and Development of Innovative…"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ffd77075d76ea/w202509190fd35e33e86f8/items[0].org",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ffd77075d76ea",
+    "widgetId": "w202509190fd35e33e86f8",
+    "field": "items[0].org",
+    "kind": "image",
+    "section": {
+      "ko": "R&D & MANUFACTURING 연구개발부터 글로벌…",
+      "en": "R&D & MANUFACTURING From R&D to…"
+    },
+    "label": {
+      "ko": "원본 이미지 · 40b09beae8930.png",
+      "en": "Original image · 3da27f8b900c6.png"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ffd77075d76ea/w202509190fd35e33e86f8/items[0].thumb",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ffd77075d76ea",
+    "widgetId": "w202509190fd35e33e86f8",
+    "field": "items[0].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "R&D & MANUFACTURING 연구개발부터 글로벌…",
+      "en": "R&D & MANUFACTURING From R&D to…"
+    },
+    "label": {
+      "ko": "썸네일 · a81deb53df899.png",
+      "en": "Thumbnail · c8c155461a383.png"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ffd77075d76ea/w202509190fd35e33e86f8/items[1].title",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ffd77075d76ea",
+    "widgetId": "w202509190fd35e33e86f8",
+    "field": "items[1].title",
+    "kind": "text",
+    "section": {
+      "ko": "R&D & MANUFACTURING 연구개발부터 글로벌…",
+      "en": "R&D & MANUFACTURING From R&D to…"
+    },
+    "label": {
+      "ko": "갤러리 항목 2 · 성분 개발",
+      "en": "Gallery item 2 · Ingredient Development"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ffd77075d76ea/w202509190fd35e33e86f8/items[1].desc",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ffd77075d76ea",
+    "widgetId": "w202509190fd35e33e86f8",
+    "field": "items[1].desc",
+    "kind": "text",
+    "section": {
+      "ko": "R&D & MANUFACTURING 연구개발부터 글로벌…",
+      "en": "R&D & MANUFACTURING From R&D to…"
+    },
+    "label": {
+      "ko": "설명 · 고성능 필터 설계와 소재 개발",
+      "en": "Description · High Performance Filter Design and…"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ffd77075d76ea/w202509190fd35e33e86f8/items[1].org",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ffd77075d76ea",
+    "widgetId": "w202509190fd35e33e86f8",
+    "field": "items[1].org",
+    "kind": "image",
+    "section": {
+      "ko": "R&D & MANUFACTURING 연구개발부터 글로벌…",
+      "en": "R&D & MANUFACTURING From R&D to…"
+    },
+    "label": {
+      "ko": "원본 이미지 · 3f2014670ef36.png",
+      "en": "Original image · fd29f6460aebc.png"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ffd77075d76ea/w202509190fd35e33e86f8/items[1].thumb",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ffd77075d76ea",
+    "widgetId": "w202509190fd35e33e86f8",
+    "field": "items[1].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "R&D & MANUFACTURING 연구개발부터 글로벌…",
+      "en": "R&D & MANUFACTURING From R&D to…"
+    },
+    "label": {
+      "ko": "썸네일 · a6032e71e42af.png",
+      "en": "Thumbnail · f9a3b2f3a46d7.png"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ffd77075d76ea/w202509190fd35e33e86f8/items[2].title",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ffd77075d76ea",
+    "widgetId": "w202509190fd35e33e86f8",
+    "field": "items[2].title",
+    "kind": "text",
+    "section": {
+      "ko": "R&D & MANUFACTURING 연구개발부터 글로벌…",
+      "en": "R&D & MANUFACTURING From R&D to…"
+    },
+    "label": {
+      "ko": "갤러리 항목 3 · 샘플링 & 테스트",
+      "en": "Gallery item 3 · Sampling & Testing"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ffd77075d76ea/w202509190fd35e33e86f8/items[2].desc",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ffd77075d76ea",
+    "widgetId": "w202509190fd35e33e86f8",
+    "field": "items[2].desc",
+    "kind": "text",
+    "section": {
+      "ko": "R&D & MANUFACTURING 연구개발부터 글로벌…",
+      "en": "R&D & MANUFACTURING From R&D to…"
+    },
+    "label": {
+      "ko": "설명 · 정밀 품질 검사와 성능 검증",
+      "en": "Description · Precision Quality Inspection and…"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ffd77075d76ea/w202509190fd35e33e86f8/items[2].org",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ffd77075d76ea",
+    "widgetId": "w202509190fd35e33e86f8",
+    "field": "items[2].org",
+    "kind": "image",
+    "section": {
+      "ko": "R&D & MANUFACTURING 연구개발부터 글로벌…",
+      "en": "R&D & MANUFACTURING From R&D to…"
+    },
+    "label": {
+      "ko": "원본 이미지 · cd3eb850b947b.png",
+      "en": "Original image · 5febb1531d73f.png"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ffd77075d76ea/w202509190fd35e33e86f8/items[2].thumb",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ffd77075d76ea",
+    "widgetId": "w202509190fd35e33e86f8",
+    "field": "items[2].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "R&D & MANUFACTURING 연구개발부터 글로벌…",
+      "en": "R&D & MANUFACTURING From R&D to…"
+    },
+    "label": {
+      "ko": "썸네일 · e3f83fce3d512.png",
+      "en": "Thumbnail · 49bbdefcafc6e.png"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ffd77075d76ea/w202509190fd35e33e86f8/items[3].title",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ffd77075d76ea",
+    "widgetId": "w202509190fd35e33e86f8",
+    "field": "items[3].title",
+    "kind": "text",
+    "section": {
+      "ko": "R&D & MANUFACTURING 연구개발부터 글로벌…",
+      "en": "R&D & MANUFACTURING From R&D to…"
+    },
+    "label": {
+      "ko": "갤러리 항목 4 · 자체 생산 공장",
+      "en": "Gallery item 4 · Self-produced factory"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ffd77075d76ea/w202509190fd35e33e86f8/items[3].desc",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ffd77075d76ea",
+    "widgetId": "w202509190fd35e33e86f8",
+    "field": "items[3].desc",
+    "kind": "text",
+    "section": {
+      "ko": "R&D & MANUFACTURING 연구개발부터 글로벌…",
+      "en": "R&D & MANUFACTURING From R&D to…"
+    },
+    "label": {
+      "ko": "설명 · 대량 생산 설비와 글로벌 생산 거점",
+      "en": "Description · Mass production facilities and global…"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ffd77075d76ea/w202509190fd35e33e86f8/items[3].org",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ffd77075d76ea",
+    "widgetId": "w202509190fd35e33e86f8",
+    "field": "items[3].org",
+    "kind": "image",
+    "section": {
+      "ko": "R&D & MANUFACTURING 연구개발부터 글로벌…",
+      "en": "R&D & MANUFACTURING From R&D to…"
+    },
+    "label": {
+      "ko": "원본 이미지 · a72b339448569.png",
+      "en": "Original image · f33d3c116cf67.png"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ffd77075d76ea/w202509190fd35e33e86f8/items[3].thumb",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ffd77075d76ea",
+    "widgetId": "w202509190fd35e33e86f8",
+    "field": "items[3].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "R&D & MANUFACTURING 연구개발부터 글로벌…",
+      "en": "R&D & MANUFACTURING From R&D to…"
+    },
+    "label": {
+      "ko": "썸네일 · 3fe5bed7f8ddb.png",
+      "en": "Thumbnail · e248fb5ebbd8d.png"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ffd77075d76ea/w202509190fd35e33e86f8/items[4].title",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ffd77075d76ea",
+    "widgetId": "w202509190fd35e33e86f8",
+    "field": "items[4].title",
+    "kind": "text",
+    "section": {
+      "ko": "R&D & MANUFACTURING 연구개발부터 글로벌…",
+      "en": "R&D & MANUFACTURING From R&D to…"
+    },
+    "label": {
+      "ko": "갤러리 항목 5 · 품질 관리",
+      "en": "Gallery item 5 · Quality control"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ffd77075d76ea/w202509190fd35e33e86f8/items[4].desc",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ffd77075d76ea",
+    "widgetId": "w202509190fd35e33e86f8",
+    "field": "items[4].desc",
+    "kind": "text",
+    "section": {
+      "ko": "R&D & MANUFACTURING 연구개발부터 글로벌…",
+      "en": "R&D & MANUFACTURING From R&D to…"
+    },
+    "label": {
+      "ko": "설명 · 국제 기준 품질 관리 체계",
+      "en": "Description · International Standard Quality Control…"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ffd77075d76ea/w202509190fd35e33e86f8/items[4].org",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ffd77075d76ea",
+    "widgetId": "w202509190fd35e33e86f8",
+    "field": "items[4].org",
+    "kind": "image",
+    "section": {
+      "ko": "R&D & MANUFACTURING 연구개발부터 글로벌…",
+      "en": "R&D & MANUFACTURING From R&D to…"
+    },
+    "label": {
+      "ko": "원본 이미지 · ff2735935dfa3.png",
+      "en": "Original image · 561d335c0fe6b.png"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ffd77075d76ea/w202509190fd35e33e86f8/items[4].thumb",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ffd77075d76ea",
+    "widgetId": "w202509190fd35e33e86f8",
+    "field": "items[4].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "R&D & MANUFACTURING 연구개발부터 글로벌…",
+      "en": "R&D & MANUFACTURING From R&D to…"
+    },
+    "label": {
+      "ko": "썸네일 · 02e031ef339d2.png",
+      "en": "Thumbnail · f58ee0ed8ebe9.png"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ffd77075d76ea/w202509190fd35e33e86f8/items[5].title",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ffd77075d76ea",
+    "widgetId": "w202509190fd35e33e86f8",
+    "field": "items[5].title",
+    "kind": "text",
+    "section": {
+      "ko": "R&D & MANUFACTURING 연구개발부터 글로벌…",
+      "en": "R&D & MANUFACTURING From R&D to…"
+    },
+    "label": {
+      "ko": "갤러리 항목 6 · 글로벌 공급(OEM/ODM)",
+      "en": "Gallery item 6 · Global Supply (OEM/ODM)"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ffd77075d76ea/w202509190fd35e33e86f8/items[5].desc",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ffd77075d76ea",
+    "widgetId": "w202509190fd35e33e86f8",
+    "field": "items[5].desc",
+    "kind": "text",
+    "section": {
+      "ko": "R&D & MANUFACTURING 연구개발부터 글로벌…",
+      "en": "R&D & MANUFACTURING From R&D to…"
+    },
+    "label": {
+      "ko": "설명 · 파트너 협력과 글로벌 공급망",
+      "en": "Description · Partner cooperation and global supply…"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ffd77075d76ea/w202509190fd35e33e86f8/items[5].org",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ffd77075d76ea",
+    "widgetId": "w202509190fd35e33e86f8",
+    "field": "items[5].org",
+    "kind": "image",
+    "section": {
+      "ko": "R&D & MANUFACTURING 연구개발부터 글로벌…",
+      "en": "R&D & MANUFACTURING From R&D to…"
+    },
+    "label": {
+      "ko": "원본 이미지 · 1c0933f976759.png",
+      "en": "Original image · 2c4119149d954.png"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s20250918ffd77075d76ea/w202509190fd35e33e86f8/items[5].thumb",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s20250918ffd77075d76ea",
+    "widgetId": "w202509190fd35e33e86f8",
+    "field": "items[5].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "R&D & MANUFACTURING 연구개발부터 글로벌…",
+      "en": "R&D & MANUFACTURING From R&D to…"
+    },
+    "label": {
+      "ko": "썸네일 · 275d80e22c9da.png",
+      "en": "Thumbnail · 1bafb2b5e4196.png"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s202509180d5f2b5ede2b3/w2025091860d26840abbc7/html",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s202509180d5f2b5ede2b3",
+    "widgetId": "w2025091860d26840abbc7",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "Headquarters & Factory Locations…",
+      "en": "Headquarters & Factory Locations…"
+    },
+    "label": {
+      "ko": "텍스트 블록 · Headquarters & Factory Locations",
+      "en": "Text block · Headquarters & Factory Locations"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s202509180d5f2b5ede2b3/w20250918c7cf1698ddcc4/src",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s202509180d5f2b5ede2b3",
+    "widgetId": "w20250918c7cf1698ddcc4",
+    "field": "src",
+    "kind": "image",
+    "section": {
+      "ko": "Headquarters & Factory Locations…",
+      "en": "Headquarters & Factory Locations…"
+    },
+    "label": {
+      "ko": "이미지 경로 · 9bc64982daf80.jpg",
+      "en": "Image source · 51be646ff4140.png"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s202509180d5f2b5ede2b3/w2025091886eece88ff0c0/img[0].src",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s202509180d5f2b5ede2b3",
+    "widgetId": "w2025091886eece88ff0c0",
+    "field": "img[0].src",
+    "kind": "image",
+    "section": {
+      "ko": "Headquarters & Factory Locations…",
+      "en": "Headquarters & Factory Locations…"
+    },
+    "label": {
+      "ko": "임베드 URL · 780da2c850799.png",
+      "en": "Embed URL · 780da2c850799.png"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s202509180d5f2b5ede2b3/w2025091886eece88ff0c0/html",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s202509180d5f2b5ede2b3",
+    "widgetId": "w2025091886eece88ff0c0",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "Headquarters & Factory Locations…",
+      "en": "Headquarters & Factory Locations…"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 한국본사",
+      "en": "Text block · Korean headquarters"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s202509180d5f2b5ede2b3/w20250919ad2bb4e856fba/img[0].src",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s202509180d5f2b5ede2b3",
+    "widgetId": "w20250919ad2bb4e856fba",
+    "field": "img[0].src",
+    "kind": "image",
+    "section": {
+      "ko": "Headquarters & Factory Locations…",
+      "en": "Headquarters & Factory Locations…"
+    },
+    "label": {
+      "ko": "임베드 URL · 780da2c850799.png",
+      "en": "Embed URL · 780da2c850799.png"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s202509180d5f2b5ede2b3/w20250919ad2bb4e856fba/html",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s202509180d5f2b5ede2b3",
+    "widgetId": "w20250919ad2bb4e856fba",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "Headquarters & Factory Locations…",
+      "en": "Headquarters & Factory Locations…"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 중국 제조공장",
+      "en": "Text block · Chinese manufacturing plant"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s202509180d5f2b5ede2b3/w20250919aa8199dc628c3/img[0].src",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s202509180d5f2b5ede2b3",
+    "widgetId": "w20250919aa8199dc628c3",
+    "field": "img[0].src",
+    "kind": "image",
+    "section": {
+      "ko": "Headquarters & Factory Locations…",
+      "en": "Headquarters & Factory Locations…"
+    },
+    "label": {
+      "ko": "임베드 URL · 780da2c850799.png",
+      "en": "Embed URL · 780da2c850799.png"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s202509180d5f2b5ede2b3/w20250919aa8199dc628c3/html",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s202509180d5f2b5ede2b3",
+    "widgetId": "w20250919aa8199dc628c3",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "Headquarters & Factory Locations…",
+      "en": "Headquarters & Factory Locations…"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 캄보디아 오피스",
+      "en": "Text block · Cambodian Office"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.philosophy#s202508119eca72dc669e0/w20250828318841133c7bc/html",
+    "group": "company",
+    "pageKey": "company.philosophy",
+    "sectionId": "s202508119eca72dc669e0",
+    "widgetId": "w20250828318841133c7bc",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "Mission",
+      "en": "Mission"
+    },
+    "label": {
+      "ko": "텍스트 블록 · Mission",
+      "en": "Text block · Mission"
+    },
+    "revalidate": [
+      "/company/philosophy",
+      "/en/company/philosophy"
+    ]
+  },
+  {
+    "key": "company.philosophy#s202508119eca72dc669e0/w2025082880e9f1cd594e5/html",
+    "group": "company",
+    "pageKey": "company.philosophy",
+    "sectionId": "s202508119eca72dc669e0",
+    "widgetId": "w2025082880e9f1cd594e5",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "Mission",
+      "en": "Mission"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 물을 깨끗하게, 사람을 건강하게",
+      "en": "Text block · Clean water, healthy people."
+    },
+    "revalidate": [
+      "/company/philosophy",
+      "/en/company/philosophy"
+    ]
+  },
+  {
+    "key": "company.philosophy#s202508119eca72dc669e0/w202508286148935689b29/html",
+    "group": "company",
+    "pageKey": "company.philosophy",
+    "sectionId": "s202508119eca72dc669e0",
+    "widgetId": "w202508286148935689b29",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "Mission",
+      "en": "Mission"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 건강한 약속",
+      "en": "Text block · Healthy promise"
+    },
+    "revalidate": [
+      "/company/philosophy",
+      "/en/company/philosophy"
+    ]
+  },
+  {
+    "key": "company.philosophy#s202508119eca72dc669e0/w202508285a7385a21e446/html",
+    "group": "company",
+    "pageKey": "company.philosophy",
+    "sectionId": "s202508119eca72dc669e0",
+    "widgetId": "w202508285a7385a21e446",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "Mission",
+      "en": "Mission"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 더 건강하고 깨끗한 물을 만드는 고객과의 약속",
+      "en": "Text block · We promise cleaner water"
+    },
+    "revalidate": [
+      "/company/philosophy",
+      "/en/company/philosophy"
+    ]
+  },
+  {
+    "key": "company.philosophy#s202508280e68f158799c2/w202508280d2f1669e2789/html",
+    "group": "company",
+    "pageKey": "company.philosophy",
+    "sectionId": "s202508280e68f158799c2",
+    "widgetId": "w202508280d2f1669e2789",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "Environment Design Management",
+      "en": "Environment Design Management"
+    },
+    "label": {
+      "ko": "텍스트 블록 · Environment Design Management",
+      "en": "Text block · Environment Design Management"
+    },
+    "revalidate": [
+      "/company/philosophy",
+      "/en/company/philosophy"
+    ]
+  },
+  {
+    "key": "company.philosophy#s202508280e68f158799c2/w202508289fc0c0165c025/src",
+    "group": "company",
+    "pageKey": "company.philosophy",
+    "sectionId": "s202508280e68f158799c2",
+    "widgetId": "w202508289fc0c0165c025",
+    "field": "src",
+    "kind": "image",
+    "section": {
+      "ko": "Environment Design Management",
+      "en": "Environment Design Management"
+    },
+    "label": {
+      "ko": "이미지 경로 · 3241669643c6e.jpg",
+      "en": "Image source · 3241669643c6e.jpg"
+    },
+    "revalidate": [
+      "/company/philosophy",
+      "/en/company/philosophy"
+    ]
+  },
+  {
+    "key": "company.philosophy#s202508280e68f158799c2/w202508281ce9cfb92c9a4/html",
+    "group": "company",
+    "pageKey": "company.philosophy",
+    "sectionId": "s202508280e68f158799c2",
+    "widgetId": "w202508281ce9cfb92c9a4",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "Environment Design Management",
+      "en": "Environment Design Management"
+    },
+    "label": {
+      "ko": "텍스트 블록 · Environment Design Management / 환경 디자인관리",
+      "en": "Text block · Environment Design Management"
+    },
+    "revalidate": [
+      "/company/philosophy",
+      "/en/company/philosophy"
+    ]
+  },
+  {
+    "key": "company.philosophy#s20250829e04e5ce09ea7e/w202508295885a3029f0c2/html",
+    "group": "company",
+    "pageKey": "company.philosophy",
+    "sectionId": "s20250829e04e5ce09ea7e",
+    "widgetId": "w202508295885a3029f0c2",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "3단계 서비스",
+      "en": "Three-step service"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 3단계 서비스",
+      "en": "Text block · Three-step service"
+    },
+    "revalidate": [
+      "/company/philosophy",
+      "/en/company/philosophy"
+    ]
+  },
+  {
+    "key": "company.philosophy#s20250829e04e5ce09ea7e/w2025082996725d2a2d20e/img[0].src",
+    "group": "company",
+    "pageKey": "company.philosophy",
+    "sectionId": "s20250829e04e5ce09ea7e",
+    "widgetId": "w2025082996725d2a2d20e",
+    "field": "img[0].src",
+    "kind": "image",
+    "section": {
+      "ko": "3단계 서비스",
+      "en": "Three-step service"
+    },
+    "label": {
+      "ko": "임베드 URL · 879858cb2c258.png",
+      "en": "Embed URL · 879858cb2c258.png"
+    },
+    "revalidate": [
+      "/company/philosophy",
+      "/en/company/philosophy"
+    ]
+  },
+  {
+    "key": "company.philosophy#s20250829e04e5ce09ea7e/w2025082996725d2a2d20e/html",
+    "group": "company",
+    "pageKey": "company.philosophy",
+    "sectionId": "s20250829e04e5ce09ea7e",
+    "widgetId": "w2025082996725d2a2d20e",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "3단계 서비스",
+      "en": "Three-step service"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 차별화된 아이디어",
+      "en": "Text block · Differentiated idea"
+    },
+    "revalidate": [
+      "/company/philosophy",
+      "/en/company/philosophy"
+    ]
+  },
+  {
+    "key": "company.philosophy#s20250829e04e5ce09ea7e/w202508291aa62a1ed03bb/img[0].src",
+    "group": "company",
+    "pageKey": "company.philosophy",
+    "sectionId": "s20250829e04e5ce09ea7e",
+    "widgetId": "w202508291aa62a1ed03bb",
+    "field": "img[0].src",
+    "kind": "image",
+    "section": {
+      "ko": "3단계 서비스",
+      "en": "Three-step service"
+    },
+    "label": {
+      "ko": "임베드 URL · cd34a22b71f69.png",
+      "en": "Embed URL · cd34a22b71f69.png"
+    },
+    "revalidate": [
+      "/company/philosophy",
+      "/en/company/philosophy"
+    ]
+  },
+  {
+    "key": "company.philosophy#s20250829e04e5ce09ea7e/w202508291aa62a1ed03bb/html",
+    "group": "company",
+    "pageKey": "company.philosophy",
+    "sectionId": "s20250829e04e5ce09ea7e",
+    "widgetId": "w202508291aa62a1ed03bb",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "3단계 서비스",
+      "en": "Three-step service"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 최고의 품질",
+      "en": "Text block · Highest quality"
+    },
+    "revalidate": [
+      "/company/philosophy",
+      "/en/company/philosophy"
+    ]
+  },
+  {
+    "key": "company.philosophy#s20250829e04e5ce09ea7e/w202508297535663fbc7e0/img[0].src",
+    "group": "company",
+    "pageKey": "company.philosophy",
+    "sectionId": "s20250829e04e5ce09ea7e",
+    "widgetId": "w202508297535663fbc7e0",
+    "field": "img[0].src",
+    "kind": "image",
+    "section": {
+      "ko": "3단계 서비스",
+      "en": "Three-step service"
+    },
+    "label": {
+      "ko": "임베드 URL · ca11148fc2918.png",
+      "en": "Embed URL · ca11148fc2918.png"
+    },
+    "revalidate": [
+      "/company/philosophy",
+      "/en/company/philosophy"
+    ]
+  },
+  {
+    "key": "company.philosophy#s20250829e04e5ce09ea7e/w202508297535663fbc7e0/html",
+    "group": "company",
+    "pageKey": "company.philosophy",
+    "sectionId": "s20250829e04e5ce09ea7e",
+    "widgetId": "w202508297535663fbc7e0",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "3단계 서비스",
+      "en": "Three-step service"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 선행된 시간 관리",
+      "en": "Text block · Preceded time management"
+    },
+    "revalidate": [
+      "/company/philosophy",
+      "/en/company/philosophy"
+    ]
+  },
+  {
+    "key": "company.history#s20250811d0a0980d730fb/eras/eras",
+    "group": "company",
+    "pageKey": "company.history",
+    "sectionId": "s20250811d0a0980d730fb",
+    "widgetId": "eras",
+    "field": "eras",
+    "kind": "eras",
+    "section": {
+      "ko": "2020 - 2023 에코웨이브의 지속적인 혁신 과 성장",
+      "en": "2020 - 2023 ECO-WAVE Continuous…"
+    },
+    "label": {
+      "ko": "연혁",
+      "en": "History eras"
+    },
+    "revalidate": [
+      "/company/history",
+      "/en/company/history"
+    ]
+  },
+  {
+    "key": "company.organization#s20250828f005be7f3c16a/w2025082844061a0c9a3b2/src",
+    "group": "company",
+    "pageKey": "company.organization",
+    "sectionId": "s20250828f005be7f3c16a",
+    "widgetId": "w2025082844061a0c9a3b2",
+    "field": "src",
+    "kind": "image",
+    "section": {
+      "ko": "이미지",
+      "en": "Image"
+    },
+    "label": {
+      "ko": "이미지 경로 · 5045189daef5d.png",
+      "en": "Image source · f24a835bf7fae.png"
+    },
+    "revalidate": [
+      "/company/organization",
+      "/en/company/organization"
+    ]
+  },
+  {
+    "key": "company.global#s20250828182272ec01906/w20250828247c9904b6b1e/html",
+    "group": "company",
+    "pageKey": "company.global",
+    "sectionId": "s20250828182272ec01906",
+    "widgetId": "w20250828247c9904b6b1e",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "에코웨이브 본사 인천광역시 남동구 은봉로 14 영도빌딩 2동",
+      "en": "EcoWave Headquarters 2-dong,…"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 에코웨이브 본사",
+      "en": "Text block · EcoWave Headquarters"
+    },
+    "revalidate": [
+      "/company/global",
+      "/en/company/global"
+    ]
+  },
+  {
+    "key": "company.global#s20250828182272ec01906/w2025082843a86201a5455/html",
+    "group": "company",
+    "pageKey": "company.global",
+    "sectionId": "s20250828182272ec01906",
+    "widgetId": "w2025082843a86201a5455",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "에코웨이브 본사 인천광역시 남동구 은봉로 14 영도빌딩 2동",
+      "en": "EcoWave Headquarters 2-dong,…"
+    },
+    "label": {
+      "ko": "텍스트 블록 · TEL",
+      "en": "Text block · TEL"
+    },
+    "revalidate": [
+      "/company/global",
+      "/en/company/global"
+    ]
+  },
+  {
+    "key": "company.global#s20250828182272ec01906/w202508280b0ed4b9954c7/iframe[0].src",
+    "group": "company",
+    "pageKey": "company.global",
+    "sectionId": "s20250828182272ec01906",
+    "widgetId": "w202508280b0ed4b9954c7",
+    "field": "iframe[0].src",
+    "kind": "embed",
+    "section": {
+      "ko": "에코웨이브 본사 인천광역시 남동구 은봉로 14 영도빌딩 2동",
+      "en": "EcoWave Headquarters 2-dong,…"
+    },
+    "label": {
+      "ko": "임베드 URL · https://www.google.com/maps/embed?pb=!1…",
+      "en": "Embed URL · https://www.google.com/maps/embed?pb=!1…"
+    },
+    "revalidate": [
+      "/company/global",
+      "/en/company/global"
+    ]
+  },
+  {
+    "key": "company.global#s202508286e01c87027ecf/locations/locations",
+    "group": "company",
+    "pageKey": "company.global",
+    "sectionId": "s202508286e01c87027ecf",
+    "widgetId": "locations",
+    "field": "locations",
+    "kind": "locations",
+    "section": {
+      "ko": "중국 지사 상하이 옌타이 시티 Hongfuiie NO.90…",
+      "en": "China branch Yantai City,…"
+    },
+    "label": {
+      "ko": "지사 목록",
+      "en": "Branch locations"
+    },
+    "revalidate": [
+      "/company/global",
+      "/en/company/global"
+    ]
+  },
+  {
+    "key": "rnd#s20250909caaa8544e0e70/w20250909b16e1f0580760/html",
+    "group": "rnd",
+    "pageKey": "rnd",
+    "sectionId": "s20250909caaa8544e0e70",
+    "widgetId": "w20250909b16e1f0580760",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "첨단 설비와 철저한 관리로 더 깨끗하고 안전한 물을 만듭니다.",
+      "en": "Advanced facilities and strict…"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 첨단 설비와 철저한 관리로",
+      "en": "Text block · Advanced facilities"
+    },
+    "revalidate": [
+      "/rnd",
+      "/en/rnd"
+    ]
+  },
+  {
+    "key": "rnd#s202509091799d895b62ea/w202509092bb83d593e678/src",
+    "group": "rnd",
+    "pageKey": "rnd",
+    "sectionId": "s202509091799d895b62ea",
+    "widgetId": "w202509092bb83d593e678",
+    "field": "src",
+    "kind": "image",
+    "section": {
+      "ko": "친환경·프리미엄 수처리 기술력 다단계 정수 시스템…",
+      "en": "Eco-friendly premium water…"
+    },
+    "label": {
+      "ko": "이미지 경로 · cacef61fc2561.jpg",
+      "en": "Image source · cacef61fc2561.jpg"
+    },
+    "revalidate": [
+      "/rnd",
+      "/en/rnd"
+    ]
+  },
+  {
+    "key": "rnd#s202509091799d895b62ea/w20250909a6322fa870d46/html",
+    "group": "rnd",
+    "pageKey": "rnd",
+    "sectionId": "s202509091799d895b62ea",
+    "widgetId": "w20250909a6322fa870d46",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "친환경·프리미엄 수처리 기술력 다단계 정수 시스템…",
+      "en": "Eco-friendly premium water…"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 친환경·프리미엄",
+      "en": "Text block · Eco-friendly"
+    },
+    "revalidate": [
+      "/rnd",
+      "/en/rnd"
+    ]
+  },
+  {
+    "key": "rnd#s2025090972e449f7846e1/w20250909743cf5b3c0201/src",
+    "group": "rnd",
+    "pageKey": "rnd",
+    "sectionId": "s2025090972e449f7846e1",
+    "widgetId": "w20250909743cf5b3c0201",
+    "field": "src",
+    "kind": "image",
+    "section": {
+      "ko": "OEM/글로벌 협업 역량 글로벌 대기업 공급 실적 LG,…",
+      "en": "OEM/Global Collaboration…"
+    },
+    "label": {
+      "ko": "이미지 경로 · a354e4d098fc6.jpg",
+      "en": "Image source · a354e4d098fc6.jpg"
+    },
+    "revalidate": [
+      "/rnd",
+      "/en/rnd"
+    ]
+  },
+  {
+    "key": "rnd#s2025090972e449f7846e1/w20250909f986ae33491f9/html",
+    "group": "rnd",
+    "pageKey": "rnd",
+    "sectionId": "s2025090972e449f7846e1",
+    "widgetId": "w20250909f986ae33491f9",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "OEM/글로벌 협업 역량 글로벌 대기업 공급 실적 LG,…",
+      "en": "OEM/Global Collaboration…"
+    },
+    "label": {
+      "ko": "텍스트 블록 · OEM/글로벌 협업 역량",
+      "en": "Text block · OEM/Global Collaboration Capabilities"
+    },
+    "revalidate": [
+      "/rnd",
+      "/en/rnd"
+    ]
+  },
+  {
+    "key": "rnd#s2025090972e449f7846e1/w2025090999ac3275406dc/src",
+    "group": "rnd",
+    "pageKey": "rnd",
+    "sectionId": "s2025090972e449f7846e1",
+    "widgetId": "w2025090999ac3275406dc",
+    "field": "src",
+    "kind": "image",
+    "section": {
+      "ko": "OEM/글로벌 협업 역량 글로벌 대기업 공급 실적 LG,…",
+      "en": "OEM/Global Collaboration…"
+    },
+    "label": {
+      "ko": "이미지 경로 · 368735646c29f.jpg",
+      "en": "Image source · 368735646c29f.jpg"
+    },
+    "revalidate": [
+      "/rnd",
+      "/en/rnd"
+    ]
+  },
+  {
+    "key": "rnd#s2025090972e449f7846e1/w20250909cabf29c2126d9/html",
+    "group": "rnd",
+    "pageKey": "rnd",
+    "sectionId": "s2025090972e449f7846e1",
+    "widgetId": "w20250909cabf29c2126d9",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "OEM/글로벌 협업 역량 글로벌 대기업 공급 실적 LG,…",
+      "en": "OEM/Global Collaboration…"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 첨단 검사 및 품질 관리 체계",
+      "en": "Text block · Advanced inspection and quality…"
+    },
+    "revalidate": [
+      "/rnd",
+      "/en/rnd"
+    ]
+  },
+  {
+    "key": "rnd#s20250909b12fa8000068e/w20250909dbdd88bc19258/src",
+    "group": "rnd",
+    "pageKey": "rnd",
+    "sectionId": "s20250909b12fa8000068e",
+    "widgetId": "w20250909dbdd88bc19258",
+    "field": "src",
+    "kind": "image",
+    "section": {
+      "ko": "스마트·살균 기술 전극 기반 전기분해 살균 모듈 물을…",
+      "en": "Smart/sterilizing technology…"
+    },
+    "label": {
+      "ko": "이미지 경로 · d7de0a7f09580.jpg",
+      "en": "Image source · d7de0a7f09580.jpg"
+    },
+    "revalidate": [
+      "/rnd",
+      "/en/rnd"
+    ]
+  },
+  {
+    "key": "rnd#s20250909b12fa8000068e/w202509093403364594dce/html",
+    "group": "rnd",
+    "pageKey": "rnd",
+    "sectionId": "s20250909b12fa8000068e",
+    "widgetId": "w202509093403364594dce",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "스마트·살균 기술 전극 기반 전기분해 살균 모듈 물을…",
+      "en": "Smart/sterilizing technology…"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 스마트·살균 기술",
+      "en": "Text block · Smart/sterilizing technology"
+    },
+    "revalidate": [
+      "/rnd",
+      "/en/rnd"
+    ]
+  },
+  {
+    "key": "rnd#s20250909b12fa8000068e/w2025090910fe01238de32/src",
+    "group": "rnd",
+    "pageKey": "rnd",
+    "sectionId": "s20250909b12fa8000068e",
+    "widgetId": "w2025090910fe01238de32",
+    "field": "src",
+    "kind": "image",
+    "section": {
+      "ko": "스마트·살균 기술 전극 기반 전기분해 살균 모듈 물을…",
+      "en": "Smart/sterilizing technology…"
+    },
+    "label": {
+      "ko": "이미지 경로 · 98102c9df6b48.jpg",
+      "en": "Image source · 98102c9df6b48.jpg"
+    },
+    "revalidate": [
+      "/rnd",
+      "/en/rnd"
+    ]
+  },
+  {
+    "key": "rnd#s20250909b12fa8000068e/w20250909aaff6976da0b4/html",
+    "group": "rnd",
+    "pageKey": "rnd",
+    "sectionId": "s20250909b12fa8000068e",
+    "widgetId": "w20250909aaff6976da0b4",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "스마트·살균 기술 전극 기반 전기분해 살균 모듈 물을…",
+      "en": "Smart/sterilizing technology…"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 대량 생산 및 글로벌 공급망",
+      "en": "Text block · Mass production and global supply chain"
+    },
+    "revalidate": [
+      "/rnd",
+      "/en/rnd"
+    ]
+  },
+  {
+    "key": "rnd#s2025090979d4f02da9a4c/w202509098378a31a7319e/html",
+    "group": "rnd",
+    "pageKey": "rnd",
+    "sectionId": "s2025090979d4f02da9a4c",
+    "widgetId": "w202509098378a31a7319e",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "투자자 핵심 USP 요약",
+      "en": "Investor Core USP Summary"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 투자자 핵심 USP 요약",
+      "en": "Text block · Investor Core USP Summary"
+    },
+    "revalidate": [
+      "/rnd",
+      "/en/rnd"
+    ]
+  },
+  {
+    "key": "rnd#s2025090979d4f02da9a4c/w20250909deb55b36523e5/html",
+    "group": "rnd",
+    "pageKey": "rnd",
+    "sectionId": "s2025090979d4f02da9a4c",
+    "widgetId": "w20250909deb55b36523e5",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "투자자 핵심 USP 요약",
+      "en": "Investor Core USP Summary"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 건강하기 위해서 중요한 물, 소홀히 할 수 없습니다.",
+      "en": "Text block · Water is vital to health and must not…"
+    },
+    "revalidate": [
+      "/rnd",
+      "/en/rnd"
+    ]
+  },
+  {
+    "key": "rnd#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[0].title",
+    "group": "rnd",
+    "pageKey": "rnd",
+    "sectionId": "s2025090979d4f02da9a4c",
+    "widgetId": "w20250909f44806a14d131",
+    "field": "items[0].title",
+    "kind": "text",
+    "section": {
+      "ko": "투자자 핵심 USP 요약",
+      "en": "Investor Core USP Summary"
+    },
+    "label": {
+      "ko": "갤러리 항목 1",
+      "en": "Gallery item 1"
+    },
+    "revalidate": [
+      "/rnd",
+      "/en/rnd"
+    ]
+  },
+  {
+    "key": "rnd#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[0].desc",
+    "group": "rnd",
+    "pageKey": "rnd",
+    "sectionId": "s2025090979d4f02da9a4c",
+    "widgetId": "w20250909f44806a14d131",
+    "field": "items[0].desc",
+    "kind": "text",
+    "section": {
+      "ko": "투자자 핵심 USP 요약",
+      "en": "Investor Core USP Summary"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/rnd",
+      "/en/rnd"
+    ]
+  },
+  {
+    "key": "rnd#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[0].org",
+    "group": "rnd",
+    "pageKey": "rnd",
+    "sectionId": "s2025090979d4f02da9a4c",
+    "widgetId": "w20250909f44806a14d131",
+    "field": "items[0].org",
+    "kind": "image",
+    "section": {
+      "ko": "투자자 핵심 USP 요약",
+      "en": "Investor Core USP Summary"
+    },
+    "label": {
+      "ko": "원본 이미지 · 3761750bfc322.png",
+      "en": "Original image · cdb1e24f6ebe1.png"
+    },
+    "revalidate": [
+      "/rnd",
+      "/en/rnd"
+    ]
+  },
+  {
+    "key": "rnd#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[0].thumb",
+    "group": "rnd",
+    "pageKey": "rnd",
+    "sectionId": "s2025090979d4f02da9a4c",
+    "widgetId": "w20250909f44806a14d131",
+    "field": "items[0].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "투자자 핵심 USP 요약",
+      "en": "Investor Core USP Summary"
+    },
+    "label": {
+      "ko": "썸네일 · 573cf99e3c5b9.png",
+      "en": "Thumbnail · 1baeac9915602.png"
+    },
+    "revalidate": [
+      "/rnd",
+      "/en/rnd"
+    ]
+  },
+  {
+    "key": "rnd#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[1].title",
+    "group": "rnd",
+    "pageKey": "rnd",
+    "sectionId": "s2025090979d4f02da9a4c",
+    "widgetId": "w20250909f44806a14d131",
+    "field": "items[1].title",
+    "kind": "text",
+    "section": {
+      "ko": "투자자 핵심 USP 요약",
+      "en": "Investor Core USP Summary"
+    },
+    "label": {
+      "ko": "갤러리 항목 2",
+      "en": "Gallery item 2"
+    },
+    "revalidate": [
+      "/rnd",
+      "/en/rnd"
+    ]
+  },
+  {
+    "key": "rnd#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[1].desc",
+    "group": "rnd",
+    "pageKey": "rnd",
+    "sectionId": "s2025090979d4f02da9a4c",
+    "widgetId": "w20250909f44806a14d131",
+    "field": "items[1].desc",
+    "kind": "text",
+    "section": {
+      "ko": "투자자 핵심 USP 요약",
+      "en": "Investor Core USP Summary"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/rnd",
+      "/en/rnd"
+    ]
+  },
+  {
+    "key": "rnd#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[1].org",
+    "group": "rnd",
+    "pageKey": "rnd",
+    "sectionId": "s2025090979d4f02da9a4c",
+    "widgetId": "w20250909f44806a14d131",
+    "field": "items[1].org",
+    "kind": "image",
+    "section": {
+      "ko": "투자자 핵심 USP 요약",
+      "en": "Investor Core USP Summary"
+    },
+    "label": {
+      "ko": "원본 이미지 · 0b870a15d41c0.png",
+      "en": "Original image · e599b51b44230.png"
+    },
+    "revalidate": [
+      "/rnd",
+      "/en/rnd"
+    ]
+  },
+  {
+    "key": "rnd#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[1].thumb",
+    "group": "rnd",
+    "pageKey": "rnd",
+    "sectionId": "s2025090979d4f02da9a4c",
+    "widgetId": "w20250909f44806a14d131",
+    "field": "items[1].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "투자자 핵심 USP 요약",
+      "en": "Investor Core USP Summary"
+    },
+    "label": {
+      "ko": "썸네일 · a44de73d0ad9d.png",
+      "en": "Thumbnail · 6925cacf72ef8.png"
+    },
+    "revalidate": [
+      "/rnd",
+      "/en/rnd"
+    ]
+  },
+  {
+    "key": "rnd#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[2].title",
+    "group": "rnd",
+    "pageKey": "rnd",
+    "sectionId": "s2025090979d4f02da9a4c",
+    "widgetId": "w20250909f44806a14d131",
+    "field": "items[2].title",
+    "kind": "text",
+    "section": {
+      "ko": "투자자 핵심 USP 요약",
+      "en": "Investor Core USP Summary"
+    },
+    "label": {
+      "ko": "갤러리 항목 3",
+      "en": "Gallery item 3"
+    },
+    "revalidate": [
+      "/rnd",
+      "/en/rnd"
+    ]
+  },
+  {
+    "key": "rnd#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[2].desc",
+    "group": "rnd",
+    "pageKey": "rnd",
+    "sectionId": "s2025090979d4f02da9a4c",
+    "widgetId": "w20250909f44806a14d131",
+    "field": "items[2].desc",
+    "kind": "text",
+    "section": {
+      "ko": "투자자 핵심 USP 요약",
+      "en": "Investor Core USP Summary"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/rnd",
+      "/en/rnd"
+    ]
+  },
+  {
+    "key": "rnd#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[2].org",
+    "group": "rnd",
+    "pageKey": "rnd",
+    "sectionId": "s2025090979d4f02da9a4c",
+    "widgetId": "w20250909f44806a14d131",
+    "field": "items[2].org",
+    "kind": "image",
+    "section": {
+      "ko": "투자자 핵심 USP 요약",
+      "en": "Investor Core USP Summary"
+    },
+    "label": {
+      "ko": "원본 이미지 · 07acdffabdc33.png",
+      "en": "Original image · 4779b22f463f4.png"
+    },
+    "revalidate": [
+      "/rnd",
+      "/en/rnd"
+    ]
+  },
+  {
+    "key": "rnd#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[2].thumb",
+    "group": "rnd",
+    "pageKey": "rnd",
+    "sectionId": "s2025090979d4f02da9a4c",
+    "widgetId": "w20250909f44806a14d131",
+    "field": "items[2].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "투자자 핵심 USP 요약",
+      "en": "Investor Core USP Summary"
+    },
+    "label": {
+      "ko": "썸네일 · 0bd08d1aa30c1.png",
+      "en": "Thumbnail · 263f8d6760009.png"
+    },
+    "revalidate": [
+      "/rnd",
+      "/en/rnd"
+    ]
+  },
+  {
+    "key": "rnd#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[3].title",
+    "group": "rnd",
+    "pageKey": "rnd",
+    "sectionId": "s2025090979d4f02da9a4c",
+    "widgetId": "w20250909f44806a14d131",
+    "field": "items[3].title",
+    "kind": "text",
+    "section": {
+      "ko": "투자자 핵심 USP 요약",
+      "en": "Investor Core USP Summary"
+    },
+    "label": {
+      "ko": "갤러리 항목 4",
+      "en": "Gallery item 4"
+    },
+    "revalidate": [
+      "/rnd",
+      "/en/rnd"
+    ]
+  },
+  {
+    "key": "rnd#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[3].desc",
+    "group": "rnd",
+    "pageKey": "rnd",
+    "sectionId": "s2025090979d4f02da9a4c",
+    "widgetId": "w20250909f44806a14d131",
+    "field": "items[3].desc",
+    "kind": "text",
+    "section": {
+      "ko": "투자자 핵심 USP 요약",
+      "en": "Investor Core USP Summary"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/rnd",
+      "/en/rnd"
+    ]
+  },
+  {
+    "key": "rnd#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[3].org",
+    "group": "rnd",
+    "pageKey": "rnd",
+    "sectionId": "s2025090979d4f02da9a4c",
+    "widgetId": "w20250909f44806a14d131",
+    "field": "items[3].org",
+    "kind": "image",
+    "section": {
+      "ko": "투자자 핵심 USP 요약",
+      "en": "Investor Core USP Summary"
+    },
+    "label": {
+      "ko": "원본 이미지 · 726d3d98ac7b2.png",
+      "en": "Original image · df58c3da9f186.png"
+    },
+    "revalidate": [
+      "/rnd",
+      "/en/rnd"
+    ]
+  },
+  {
+    "key": "rnd#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[3].thumb",
+    "group": "rnd",
+    "pageKey": "rnd",
+    "sectionId": "s2025090979d4f02da9a4c",
+    "widgetId": "w20250909f44806a14d131",
+    "field": "items[3].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "투자자 핵심 USP 요약",
+      "en": "Investor Core USP Summary"
+    },
+    "label": {
+      "ko": "썸네일 · 5a9eb3caf501d.png",
+      "en": "Thumbnail · 4773e68872052.png"
+    },
+    "revalidate": [
+      "/rnd",
+      "/en/rnd"
+    ]
+  },
+  {
+    "key": "rnd#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[4].title",
+    "group": "rnd",
+    "pageKey": "rnd",
+    "sectionId": "s2025090979d4f02da9a4c",
+    "widgetId": "w20250909f44806a14d131",
+    "field": "items[4].title",
+    "kind": "text",
+    "section": {
+      "ko": "투자자 핵심 USP 요약",
+      "en": "Investor Core USP Summary"
+    },
+    "label": {
+      "ko": "갤러리 항목 5",
+      "en": "Gallery item 5"
+    },
+    "revalidate": [
+      "/rnd",
+      "/en/rnd"
+    ]
+  },
+  {
+    "key": "rnd#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[4].desc",
+    "group": "rnd",
+    "pageKey": "rnd",
+    "sectionId": "s2025090979d4f02da9a4c",
+    "widgetId": "w20250909f44806a14d131",
+    "field": "items[4].desc",
+    "kind": "text",
+    "section": {
+      "ko": "투자자 핵심 USP 요약",
+      "en": "Investor Core USP Summary"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/rnd",
+      "/en/rnd"
+    ]
+  },
+  {
+    "key": "rnd#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[4].org",
+    "group": "rnd",
+    "pageKey": "rnd",
+    "sectionId": "s2025090979d4f02da9a4c",
+    "widgetId": "w20250909f44806a14d131",
+    "field": "items[4].org",
+    "kind": "image",
+    "section": {
+      "ko": "투자자 핵심 USP 요약",
+      "en": "Investor Core USP Summary"
+    },
+    "label": {
+      "ko": "원본 이미지 · 5a24a322e6701.png",
+      "en": "Original image · df12bf2a62722.png"
+    },
+    "revalidate": [
+      "/rnd",
+      "/en/rnd"
+    ]
+  },
+  {
+    "key": "rnd#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[4].thumb",
+    "group": "rnd",
+    "pageKey": "rnd",
+    "sectionId": "s2025090979d4f02da9a4c",
+    "widgetId": "w20250909f44806a14d131",
+    "field": "items[4].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "투자자 핵심 USP 요약",
+      "en": "Investor Core USP Summary"
+    },
+    "label": {
+      "ko": "썸네일 · 44a84773be892.png",
+      "en": "Thumbnail · 7e2be8834091a.png"
+    },
+    "revalidate": [
+      "/rnd",
+      "/en/rnd"
+    ]
+  },
+  {
+    "key": "rnd.technology#s20250909caaa8544e0e70/w20250909b16e1f0580760/html",
+    "group": "rnd",
+    "pageKey": "rnd.technology",
+    "sectionId": "s20250909caaa8544e0e70",
+    "widgetId": "w20250909b16e1f0580760",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "첨단 설비와 철저한 관리로 더 깨끗하고 안전한 물을 만듭니다.",
+      "en": "Advanced facilities and strict…"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 첨단 설비와 철저한 관리로",
+      "en": "Text block · Advanced facilities"
+    },
+    "revalidate": [
+      "/rnd/technology",
+      "/en/rnd/technology"
+    ]
+  },
+  {
+    "key": "rnd.technology#s202509091799d895b62ea/w202509092bb83d593e678/src",
+    "group": "rnd",
+    "pageKey": "rnd.technology",
+    "sectionId": "s202509091799d895b62ea",
+    "widgetId": "w202509092bb83d593e678",
+    "field": "src",
+    "kind": "image",
+    "section": {
+      "ko": "친환경·프리미엄 수처리 기술력 다단계 정수 시스템…",
+      "en": "Eco-friendly premium water…"
+    },
+    "label": {
+      "ko": "이미지 경로 · cacef61fc2561.jpg",
+      "en": "Image source · cacef61fc2561.jpg"
+    },
+    "revalidate": [
+      "/rnd/technology",
+      "/en/rnd/technology"
+    ]
+  },
+  {
+    "key": "rnd.technology#s202509091799d895b62ea/w20250909a6322fa870d46/html",
+    "group": "rnd",
+    "pageKey": "rnd.technology",
+    "sectionId": "s202509091799d895b62ea",
+    "widgetId": "w20250909a6322fa870d46",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "친환경·프리미엄 수처리 기술력 다단계 정수 시스템…",
+      "en": "Eco-friendly premium water…"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 친환경·프리미엄",
+      "en": "Text block · Eco-friendly"
+    },
+    "revalidate": [
+      "/rnd/technology",
+      "/en/rnd/technology"
+    ]
+  },
+  {
+    "key": "rnd.technology#s2025090972e449f7846e1/w20250909743cf5b3c0201/src",
+    "group": "rnd",
+    "pageKey": "rnd.technology",
+    "sectionId": "s2025090972e449f7846e1",
+    "widgetId": "w20250909743cf5b3c0201",
+    "field": "src",
+    "kind": "image",
+    "section": {
+      "ko": "OEM/글로벌 협업 역량 글로벌 대기업 공급 실적 LG,…",
+      "en": "OEM/Global Collaboration…"
+    },
+    "label": {
+      "ko": "이미지 경로 · a354e4d098fc6.jpg",
+      "en": "Image source · a354e4d098fc6.jpg"
+    },
+    "revalidate": [
+      "/rnd/technology",
+      "/en/rnd/technology"
+    ]
+  },
+  {
+    "key": "rnd.technology#s2025090972e449f7846e1/w20250909f986ae33491f9/html",
+    "group": "rnd",
+    "pageKey": "rnd.technology",
+    "sectionId": "s2025090972e449f7846e1",
+    "widgetId": "w20250909f986ae33491f9",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "OEM/글로벌 협업 역량 글로벌 대기업 공급 실적 LG,…",
+      "en": "OEM/Global Collaboration…"
+    },
+    "label": {
+      "ko": "텍스트 블록 · OEM/글로벌 협업 역량",
+      "en": "Text block · OEM/Global Collaboration Capabilities"
+    },
+    "revalidate": [
+      "/rnd/technology",
+      "/en/rnd/technology"
+    ]
+  },
+  {
+    "key": "rnd.technology#s2025090972e449f7846e1/w2025090999ac3275406dc/src",
+    "group": "rnd",
+    "pageKey": "rnd.technology",
+    "sectionId": "s2025090972e449f7846e1",
+    "widgetId": "w2025090999ac3275406dc",
+    "field": "src",
+    "kind": "image",
+    "section": {
+      "ko": "OEM/글로벌 협업 역량 글로벌 대기업 공급 실적 LG,…",
+      "en": "OEM/Global Collaboration…"
+    },
+    "label": {
+      "ko": "이미지 경로 · 368735646c29f.jpg",
+      "en": "Image source · 368735646c29f.jpg"
+    },
+    "revalidate": [
+      "/rnd/technology",
+      "/en/rnd/technology"
+    ]
+  },
+  {
+    "key": "rnd.technology#s2025090972e449f7846e1/w20250909cabf29c2126d9/html",
+    "group": "rnd",
+    "pageKey": "rnd.technology",
+    "sectionId": "s2025090972e449f7846e1",
+    "widgetId": "w20250909cabf29c2126d9",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "OEM/글로벌 협업 역량 글로벌 대기업 공급 실적 LG,…",
+      "en": "OEM/Global Collaboration…"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 첨단 검사 및 품질 관리 체계",
+      "en": "Text block · Advanced inspection and quality…"
+    },
+    "revalidate": [
+      "/rnd/technology",
+      "/en/rnd/technology"
+    ]
+  },
+  {
+    "key": "rnd.technology#s20250909b12fa8000068e/w20250909dbdd88bc19258/src",
+    "group": "rnd",
+    "pageKey": "rnd.technology",
+    "sectionId": "s20250909b12fa8000068e",
+    "widgetId": "w20250909dbdd88bc19258",
+    "field": "src",
+    "kind": "image",
+    "section": {
+      "ko": "스마트·살균 기술 전극 기반 전기분해 살균 모듈 물을…",
+      "en": "Smart/sterilizing technology…"
+    },
+    "label": {
+      "ko": "이미지 경로 · d7de0a7f09580.jpg",
+      "en": "Image source · d7de0a7f09580.jpg"
+    },
+    "revalidate": [
+      "/rnd/technology",
+      "/en/rnd/technology"
+    ]
+  },
+  {
+    "key": "rnd.technology#s20250909b12fa8000068e/w202509093403364594dce/html",
+    "group": "rnd",
+    "pageKey": "rnd.technology",
+    "sectionId": "s20250909b12fa8000068e",
+    "widgetId": "w202509093403364594dce",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "스마트·살균 기술 전극 기반 전기분해 살균 모듈 물을…",
+      "en": "Smart/sterilizing technology…"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 스마트·살균 기술",
+      "en": "Text block · Smart/sterilizing technology"
+    },
+    "revalidate": [
+      "/rnd/technology",
+      "/en/rnd/technology"
+    ]
+  },
+  {
+    "key": "rnd.technology#s20250909b12fa8000068e/w2025090910fe01238de32/src",
+    "group": "rnd",
+    "pageKey": "rnd.technology",
+    "sectionId": "s20250909b12fa8000068e",
+    "widgetId": "w2025090910fe01238de32",
+    "field": "src",
+    "kind": "image",
+    "section": {
+      "ko": "스마트·살균 기술 전극 기반 전기분해 살균 모듈 물을…",
+      "en": "Smart/sterilizing technology…"
+    },
+    "label": {
+      "ko": "이미지 경로 · 98102c9df6b48.jpg",
+      "en": "Image source · 98102c9df6b48.jpg"
+    },
+    "revalidate": [
+      "/rnd/technology",
+      "/en/rnd/technology"
+    ]
+  },
+  {
+    "key": "rnd.technology#s20250909b12fa8000068e/w20250909aaff6976da0b4/html",
+    "group": "rnd",
+    "pageKey": "rnd.technology",
+    "sectionId": "s20250909b12fa8000068e",
+    "widgetId": "w20250909aaff6976da0b4",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "스마트·살균 기술 전극 기반 전기분해 살균 모듈 물을…",
+      "en": "Smart/sterilizing technology…"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 대량 생산 및 글로벌 공급망",
+      "en": "Text block · Mass production and global supply chain"
+    },
+    "revalidate": [
+      "/rnd/technology",
+      "/en/rnd/technology"
+    ]
+  },
+  {
+    "key": "rnd.technology#s2025090979d4f02da9a4c/w202509098378a31a7319e/html",
+    "group": "rnd",
+    "pageKey": "rnd.technology",
+    "sectionId": "s2025090979d4f02da9a4c",
+    "widgetId": "w202509098378a31a7319e",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "투자자 핵심 USP 요약",
+      "en": "Investor Core USP Summary"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 투자자 핵심 USP 요약",
+      "en": "Text block · Investor Core USP Summary"
+    },
+    "revalidate": [
+      "/rnd/technology",
+      "/en/rnd/technology"
+    ]
+  },
+  {
+    "key": "rnd.technology#s2025090979d4f02da9a4c/w20250909deb55b36523e5/html",
+    "group": "rnd",
+    "pageKey": "rnd.technology",
+    "sectionId": "s2025090979d4f02da9a4c",
+    "widgetId": "w20250909deb55b36523e5",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "투자자 핵심 USP 요약",
+      "en": "Investor Core USP Summary"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 건강하기 위해서 중요한 물, 소홀히 할 수 없습니다.",
+      "en": "Text block · Water is vital to health and must not…"
+    },
+    "revalidate": [
+      "/rnd/technology",
+      "/en/rnd/technology"
+    ]
+  },
+  {
+    "key": "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[0].title",
+    "group": "rnd",
+    "pageKey": "rnd.technology",
+    "sectionId": "s2025090979d4f02da9a4c",
+    "widgetId": "w20250909f44806a14d131",
+    "field": "items[0].title",
+    "kind": "text",
+    "section": {
+      "ko": "투자자 핵심 USP 요약",
+      "en": "Investor Core USP Summary"
+    },
+    "label": {
+      "ko": "갤러리 항목 1",
+      "en": "Gallery item 1"
+    },
+    "revalidate": [
+      "/rnd/technology",
+      "/en/rnd/technology"
+    ]
+  },
+  {
+    "key": "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[0].desc",
+    "group": "rnd",
+    "pageKey": "rnd.technology",
+    "sectionId": "s2025090979d4f02da9a4c",
+    "widgetId": "w20250909f44806a14d131",
+    "field": "items[0].desc",
+    "kind": "text",
+    "section": {
+      "ko": "투자자 핵심 USP 요약",
+      "en": "Investor Core USP Summary"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/rnd/technology",
+      "/en/rnd/technology"
+    ]
+  },
+  {
+    "key": "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[0].org",
+    "group": "rnd",
+    "pageKey": "rnd.technology",
+    "sectionId": "s2025090979d4f02da9a4c",
+    "widgetId": "w20250909f44806a14d131",
+    "field": "items[0].org",
+    "kind": "image",
+    "section": {
+      "ko": "투자자 핵심 USP 요약",
+      "en": "Investor Core USP Summary"
+    },
+    "label": {
+      "ko": "원본 이미지 · 3761750bfc322.png",
+      "en": "Original image · cdb1e24f6ebe1.png"
+    },
+    "revalidate": [
+      "/rnd/technology",
+      "/en/rnd/technology"
+    ]
+  },
+  {
+    "key": "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[0].thumb",
+    "group": "rnd",
+    "pageKey": "rnd.technology",
+    "sectionId": "s2025090979d4f02da9a4c",
+    "widgetId": "w20250909f44806a14d131",
+    "field": "items[0].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "투자자 핵심 USP 요약",
+      "en": "Investor Core USP Summary"
+    },
+    "label": {
+      "ko": "썸네일 · 573cf99e3c5b9.png",
+      "en": "Thumbnail · 1baeac9915602.png"
+    },
+    "revalidate": [
+      "/rnd/technology",
+      "/en/rnd/technology"
+    ]
+  },
+  {
+    "key": "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[1].title",
+    "group": "rnd",
+    "pageKey": "rnd.technology",
+    "sectionId": "s2025090979d4f02da9a4c",
+    "widgetId": "w20250909f44806a14d131",
+    "field": "items[1].title",
+    "kind": "text",
+    "section": {
+      "ko": "투자자 핵심 USP 요약",
+      "en": "Investor Core USP Summary"
+    },
+    "label": {
+      "ko": "갤러리 항목 2",
+      "en": "Gallery item 2"
+    },
+    "revalidate": [
+      "/rnd/technology",
+      "/en/rnd/technology"
+    ]
+  },
+  {
+    "key": "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[1].desc",
+    "group": "rnd",
+    "pageKey": "rnd.technology",
+    "sectionId": "s2025090979d4f02da9a4c",
+    "widgetId": "w20250909f44806a14d131",
+    "field": "items[1].desc",
+    "kind": "text",
+    "section": {
+      "ko": "투자자 핵심 USP 요약",
+      "en": "Investor Core USP Summary"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/rnd/technology",
+      "/en/rnd/technology"
+    ]
+  },
+  {
+    "key": "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[1].org",
+    "group": "rnd",
+    "pageKey": "rnd.technology",
+    "sectionId": "s2025090979d4f02da9a4c",
+    "widgetId": "w20250909f44806a14d131",
+    "field": "items[1].org",
+    "kind": "image",
+    "section": {
+      "ko": "투자자 핵심 USP 요약",
+      "en": "Investor Core USP Summary"
+    },
+    "label": {
+      "ko": "원본 이미지 · 0b870a15d41c0.png",
+      "en": "Original image · e599b51b44230.png"
+    },
+    "revalidate": [
+      "/rnd/technology",
+      "/en/rnd/technology"
+    ]
+  },
+  {
+    "key": "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[1].thumb",
+    "group": "rnd",
+    "pageKey": "rnd.technology",
+    "sectionId": "s2025090979d4f02da9a4c",
+    "widgetId": "w20250909f44806a14d131",
+    "field": "items[1].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "투자자 핵심 USP 요약",
+      "en": "Investor Core USP Summary"
+    },
+    "label": {
+      "ko": "썸네일 · a44de73d0ad9d.png",
+      "en": "Thumbnail · 6925cacf72ef8.png"
+    },
+    "revalidate": [
+      "/rnd/technology",
+      "/en/rnd/technology"
+    ]
+  },
+  {
+    "key": "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[2].title",
+    "group": "rnd",
+    "pageKey": "rnd.technology",
+    "sectionId": "s2025090979d4f02da9a4c",
+    "widgetId": "w20250909f44806a14d131",
+    "field": "items[2].title",
+    "kind": "text",
+    "section": {
+      "ko": "투자자 핵심 USP 요약",
+      "en": "Investor Core USP Summary"
+    },
+    "label": {
+      "ko": "갤러리 항목 3",
+      "en": "Gallery item 3"
+    },
+    "revalidate": [
+      "/rnd/technology",
+      "/en/rnd/technology"
+    ]
+  },
+  {
+    "key": "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[2].desc",
+    "group": "rnd",
+    "pageKey": "rnd.technology",
+    "sectionId": "s2025090979d4f02da9a4c",
+    "widgetId": "w20250909f44806a14d131",
+    "field": "items[2].desc",
+    "kind": "text",
+    "section": {
+      "ko": "투자자 핵심 USP 요약",
+      "en": "Investor Core USP Summary"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/rnd/technology",
+      "/en/rnd/technology"
+    ]
+  },
+  {
+    "key": "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[2].org",
+    "group": "rnd",
+    "pageKey": "rnd.technology",
+    "sectionId": "s2025090979d4f02da9a4c",
+    "widgetId": "w20250909f44806a14d131",
+    "field": "items[2].org",
+    "kind": "image",
+    "section": {
+      "ko": "투자자 핵심 USP 요약",
+      "en": "Investor Core USP Summary"
+    },
+    "label": {
+      "ko": "원본 이미지 · 07acdffabdc33.png",
+      "en": "Original image · 4779b22f463f4.png"
+    },
+    "revalidate": [
+      "/rnd/technology",
+      "/en/rnd/technology"
+    ]
+  },
+  {
+    "key": "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[2].thumb",
+    "group": "rnd",
+    "pageKey": "rnd.technology",
+    "sectionId": "s2025090979d4f02da9a4c",
+    "widgetId": "w20250909f44806a14d131",
+    "field": "items[2].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "투자자 핵심 USP 요약",
+      "en": "Investor Core USP Summary"
+    },
+    "label": {
+      "ko": "썸네일 · 0bd08d1aa30c1.png",
+      "en": "Thumbnail · 263f8d6760009.png"
+    },
+    "revalidate": [
+      "/rnd/technology",
+      "/en/rnd/technology"
+    ]
+  },
+  {
+    "key": "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[3].title",
+    "group": "rnd",
+    "pageKey": "rnd.technology",
+    "sectionId": "s2025090979d4f02da9a4c",
+    "widgetId": "w20250909f44806a14d131",
+    "field": "items[3].title",
+    "kind": "text",
+    "section": {
+      "ko": "투자자 핵심 USP 요약",
+      "en": "Investor Core USP Summary"
+    },
+    "label": {
+      "ko": "갤러리 항목 4",
+      "en": "Gallery item 4"
+    },
+    "revalidate": [
+      "/rnd/technology",
+      "/en/rnd/technology"
+    ]
+  },
+  {
+    "key": "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[3].desc",
+    "group": "rnd",
+    "pageKey": "rnd.technology",
+    "sectionId": "s2025090979d4f02da9a4c",
+    "widgetId": "w20250909f44806a14d131",
+    "field": "items[3].desc",
+    "kind": "text",
+    "section": {
+      "ko": "투자자 핵심 USP 요약",
+      "en": "Investor Core USP Summary"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/rnd/technology",
+      "/en/rnd/technology"
+    ]
+  },
+  {
+    "key": "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[3].org",
+    "group": "rnd",
+    "pageKey": "rnd.technology",
+    "sectionId": "s2025090979d4f02da9a4c",
+    "widgetId": "w20250909f44806a14d131",
+    "field": "items[3].org",
+    "kind": "image",
+    "section": {
+      "ko": "투자자 핵심 USP 요약",
+      "en": "Investor Core USP Summary"
+    },
+    "label": {
+      "ko": "원본 이미지 · 726d3d98ac7b2.png",
+      "en": "Original image · df58c3da9f186.png"
+    },
+    "revalidate": [
+      "/rnd/technology",
+      "/en/rnd/technology"
+    ]
+  },
+  {
+    "key": "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[3].thumb",
+    "group": "rnd",
+    "pageKey": "rnd.technology",
+    "sectionId": "s2025090979d4f02da9a4c",
+    "widgetId": "w20250909f44806a14d131",
+    "field": "items[3].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "투자자 핵심 USP 요약",
+      "en": "Investor Core USP Summary"
+    },
+    "label": {
+      "ko": "썸네일 · 5a9eb3caf501d.png",
+      "en": "Thumbnail · 4773e68872052.png"
+    },
+    "revalidate": [
+      "/rnd/technology",
+      "/en/rnd/technology"
+    ]
+  },
+  {
+    "key": "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[4].title",
+    "group": "rnd",
+    "pageKey": "rnd.technology",
+    "sectionId": "s2025090979d4f02da9a4c",
+    "widgetId": "w20250909f44806a14d131",
+    "field": "items[4].title",
+    "kind": "text",
+    "section": {
+      "ko": "투자자 핵심 USP 요약",
+      "en": "Investor Core USP Summary"
+    },
+    "label": {
+      "ko": "갤러리 항목 5",
+      "en": "Gallery item 5"
+    },
+    "revalidate": [
+      "/rnd/technology",
+      "/en/rnd/technology"
+    ]
+  },
+  {
+    "key": "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[4].desc",
+    "group": "rnd",
+    "pageKey": "rnd.technology",
+    "sectionId": "s2025090979d4f02da9a4c",
+    "widgetId": "w20250909f44806a14d131",
+    "field": "items[4].desc",
+    "kind": "text",
+    "section": {
+      "ko": "투자자 핵심 USP 요약",
+      "en": "Investor Core USP Summary"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/rnd/technology",
+      "/en/rnd/technology"
+    ]
+  },
+  {
+    "key": "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[4].org",
+    "group": "rnd",
+    "pageKey": "rnd.technology",
+    "sectionId": "s2025090979d4f02da9a4c",
+    "widgetId": "w20250909f44806a14d131",
+    "field": "items[4].org",
+    "kind": "image",
+    "section": {
+      "ko": "투자자 핵심 USP 요약",
+      "en": "Investor Core USP Summary"
+    },
+    "label": {
+      "ko": "원본 이미지 · 5a24a322e6701.png",
+      "en": "Original image · df12bf2a62722.png"
+    },
+    "revalidate": [
+      "/rnd/technology",
+      "/en/rnd/technology"
+    ]
+  },
+  {
+    "key": "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[4].thumb",
+    "group": "rnd",
+    "pageKey": "rnd.technology",
+    "sectionId": "s2025090979d4f02da9a4c",
+    "widgetId": "w20250909f44806a14d131",
+    "field": "items[4].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "투자자 핵심 USP 요약",
+      "en": "Investor Core USP Summary"
+    },
+    "label": {
+      "ko": "썸네일 · 44a84773be892.png",
+      "en": "Thumbnail · 7e2be8834091a.png"
+    },
+    "revalidate": [
+      "/rnd/technology",
+      "/en/rnd/technology"
+    ]
+  },
+  {
+    "key": "rnd.patents#s2025082027290aa48803c/w20250820f45ae1e9a7239/html",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s2025082027290aa48803c",
+    "widgetId": "w20250820f45ae1e9a7239",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "첨단 설비와 철저한 관리로 더 깨끗하고 안전한 물을 만듭니다.",
+      "en": "Advanced facilities and strict…"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 첨단 설비와 철저한 관리로",
+      "en": "Text block · Advanced facilities"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820275c6573162a6/html",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820275c6573162a6",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 인증 현황",
+      "en": "Text block · Certification Status"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[0].title",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820eeffb853be62c",
+    "field": "items[0].title",
+    "kind": "text",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "갤러리 항목 1 · 인증서",
+      "en": "Gallery item 1 · International Industrial Certification"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[0].desc",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820eeffb853be62c",
+    "field": "items[0].desc",
+    "kind": "text",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[0].org",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820eeffb853be62c",
+    "field": "items[0].org",
+    "kind": "image",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "원본 이미지 · c8d5190e41b1f.jpg",
+      "en": "Original image · 1faf82abe3127.jpg"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[0].thumb",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820eeffb853be62c",
+    "field": "items[0].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "썸네일 · 9a95c683986c8.jpg",
+      "en": "Thumbnail · 9161f80ef9871.jpg"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[1].title",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820eeffb853be62c",
+    "field": "items[1].title",
+    "kind": "text",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "갤러리 항목 2 · 인증서",
+      "en": "Gallery item 2 · International Industrial Certification"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[1].desc",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820eeffb853be62c",
+    "field": "items[1].desc",
+    "kind": "text",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[1].org",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820eeffb853be62c",
+    "field": "items[1].org",
+    "kind": "image",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "원본 이미지 · 58a853514a525.jpg",
+      "en": "Original image · 177b49aaf1e73.jpg"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[1].thumb",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820eeffb853be62c",
+    "field": "items[1].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "썸네일 · ee052bc3eb342.jpg",
+      "en": "Thumbnail · 561aa5f8ae402.jpg"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[2].title",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820eeffb853be62c",
+    "field": "items[2].title",
+    "kind": "text",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "갤러리 항목 3 · 인증서",
+      "en": "Gallery item 3 · Productivity Management System"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[2].desc",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820eeffb853be62c",
+    "field": "items[2].desc",
+    "kind": "text",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[2].org",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820eeffb853be62c",
+    "field": "items[2].org",
+    "kind": "image",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "원본 이미지 · 5bb535abaf124.jpg",
+      "en": "Original image · 5a6c4e41b0314.jpg"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[2].thumb",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820eeffb853be62c",
+    "field": "items[2].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "썸네일 · 971878a02ac38.jpg",
+      "en": "Thumbnail · 0ed4260d7c598.jpg"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[3].title",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820eeffb853be62c",
+    "field": "items[3].title",
+    "kind": "text",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "갤러리 항목 4 · 인증서",
+      "en": "Gallery item 4 · Corporate R&D Center"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[3].desc",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820eeffb853be62c",
+    "field": "items[3].desc",
+    "kind": "text",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[3].org",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820eeffb853be62c",
+    "field": "items[3].org",
+    "kind": "image",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "원본 이미지 · cf1b9c8b7a1be.jpg",
+      "en": "Original image · 26664d8e42f37.jpg"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[3].thumb",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820eeffb853be62c",
+    "field": "items[3].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "썸네일 · a24f0701580cf.jpg",
+      "en": "Thumbnail · 0bdcb9920d564.jpg"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[4].title",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820eeffb853be62c",
+    "field": "items[4].title",
+    "kind": "text",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "갤러리 항목 5 · 인증서",
+      "en": "Gallery item 5 · Certificate of Membership"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[4].desc",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820eeffb853be62c",
+    "field": "items[4].desc",
+    "kind": "text",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[4].org",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820eeffb853be62c",
+    "field": "items[4].org",
+    "kind": "image",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "원본 이미지 · 03791077c615d.jpg",
+      "en": "Original image · 4c603c6cc4e62.jpg"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[4].thumb",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820eeffb853be62c",
+    "field": "items[4].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "썸네일 · 8ca3363782c58.jpg",
+      "en": "Thumbnail · c40e0b755d6b8.jpg"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[5].title",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820eeffb853be62c",
+    "field": "items[5].title",
+    "kind": "text",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "갤러리 항목 6 · 인증서",
+      "en": "Gallery item 6 · Promising Export SME Certificate"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[5].desc",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820eeffb853be62c",
+    "field": "items[5].desc",
+    "kind": "text",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[5].org",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820eeffb853be62c",
+    "field": "items[5].org",
+    "kind": "image",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "원본 이미지 · af075c622465a.jpg",
+      "en": "Original image · 4ee743efc4431.jpg"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[5].thumb",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820eeffb853be62c",
+    "field": "items[5].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "썸네일 · 6ca8821913fe2.jpg",
+      "en": "Thumbnail · 2fa4140091449.jpg"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[6].title",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820eeffb853be62c",
+    "field": "items[6].title",
+    "kind": "text",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "갤러리 항목 7 · 인증서",
+      "en": "Gallery item 7 · Main-Biz"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[6].desc",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820eeffb853be62c",
+    "field": "items[6].desc",
+    "kind": "text",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[6].org",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820eeffb853be62c",
+    "field": "items[6].org",
+    "kind": "image",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "원본 이미지 · b86ce1506ce54.jpg",
+      "en": "Original image · 5055a43c5b9b0.jpg"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[6].thumb",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820eeffb853be62c",
+    "field": "items[6].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "썸네일 · 260c75f8ed1ca.jpg",
+      "en": "Thumbnail · 07e7d6f142b92.jpg"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[7].title",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820eeffb853be62c",
+    "field": "items[7].title",
+    "kind": "text",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "갤러리 항목 8 · 인증서",
+      "en": "Gallery item 8 · Venture Business Certification"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[7].desc",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820eeffb853be62c",
+    "field": "items[7].desc",
+    "kind": "text",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[7].org",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820eeffb853be62c",
+    "field": "items[7].org",
+    "kind": "image",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "원본 이미지 · 963ff61e2e165.jpg",
+      "en": "Original image · 74dea20d44210.jpg"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[7].thumb",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820eeffb853be62c",
+    "field": "items[7].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "썸네일 · deaa64ac95f22.jpg",
+      "en": "Thumbnail · 0538081fd487e.jpg"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[8].title",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820eeffb853be62c",
+    "field": "items[8].title",
+    "kind": "text",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "갤러리 항목 9 · 인증서",
+      "en": "Gallery item 9 · Korea International Trade Association…"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[8].desc",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820eeffb853be62c",
+    "field": "items[8].desc",
+    "kind": "text",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[8].org",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820eeffb853be62c",
+    "field": "items[8].org",
+    "kind": "image",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "원본 이미지 · 6f9f88b1838f7.jpg",
+      "en": "Original image · 144c7b808212f.jpg"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[8].thumb",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820eeffb853be62c",
+    "field": "items[8].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "썸네일 · 05df3a62db503.jpg",
+      "en": "Thumbnail · 8a154afe44775.jpg"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[9].title",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820eeffb853be62c",
+    "field": "items[9].title",
+    "kind": "text",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "갤러리 항목 10 · 인증서",
+      "en": "Gallery item 10 · Korean Intellectual Property Office"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[9].desc",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820eeffb853be62c",
+    "field": "items[9].desc",
+    "kind": "text",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[9].org",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820eeffb853be62c",
+    "field": "items[9].org",
+    "kind": "image",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "원본 이미지 · ee228f179036c.jpg",
+      "en": "Original image · dda9a843ed3f3.jpg"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[9].thumb",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820eeffb853be62c",
+    "field": "items[9].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "썸네일 · b7fd1aa1f7a98.jpg",
+      "en": "Thumbnail · 630c7c00c849a.jpg"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[10].title",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820eeffb853be62c",
+    "field": "items[10].title",
+    "kind": "text",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "갤러리 항목 11 · 인증서",
+      "en": "Gallery item 11 · KCL test report"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[10].desc",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820eeffb853be62c",
+    "field": "items[10].desc",
+    "kind": "text",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[10].org",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820eeffb853be62c",
+    "field": "items[10].org",
+    "kind": "image",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "원본 이미지 · 25cbdc27f0127.jpg",
+      "en": "Original image · fa8b27fc7a68b.jpg"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[10].thumb",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820eeffb853be62c",
+    "field": "items[10].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "썸네일 · 3baa0847efb8f.jpg",
+      "en": "Thumbnail · 9d9739393efdd.jpg"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[11].title",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820eeffb853be62c",
+    "field": "items[11].title",
+    "kind": "text",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "갤러리 항목 12 · 인증서",
+      "en": "Gallery item 12 · Water Puritier Quality Certificate"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[11].desc",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820eeffb853be62c",
+    "field": "items[11].desc",
+    "kind": "text",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[11].org",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820eeffb853be62c",
+    "field": "items[11].org",
+    "kind": "image",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "원본 이미지 · ca69ef5a336fa.jpg",
+      "en": "Original image · 7817d27e2ab9b.jpg"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[11].thumb",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820eeffb853be62c",
+    "field": "items[11].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "썸네일 · a2c99a5cf505d.jpg",
+      "en": "Thumbnail · b350840a31c44.jpg"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[12].title",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820eeffb853be62c",
+    "field": "items[12].title",
+    "kind": "text",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "갤러리 항목 13 · 인증서",
+      "en": "Gallery item 13 · Water Purifier Manufacturing Business…"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[12].desc",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820eeffb853be62c",
+    "field": "items[12].desc",
+    "kind": "text",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[12].org",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820eeffb853be62c",
+    "field": "items[12].org",
+    "kind": "image",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "원본 이미지 · a678d3da66a2f.jpg",
+      "en": "Original image · 32601a6e8d9f2.jpg"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[12].thumb",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820eeffb853be62c",
+    "field": "items[12].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "썸네일 · f856639d787dd.jpg",
+      "en": "Thumbnail · 98c1668e181e2.jpg"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[13].title",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820eeffb853be62c",
+    "field": "items[13].title",
+    "kind": "text",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "갤러리 항목 14",
+      "en": "Gallery item 14"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[13].desc",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820eeffb853be62c",
+    "field": "items[13].desc",
+    "kind": "text",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[13].org",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820eeffb853be62c",
+    "field": "items[13].org",
+    "kind": "image",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "원본 이미지",
+      "en": "원본 이미지"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[13].thumb",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820eeffb853be62c",
+    "field": "items[13].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "썸네일",
+      "en": "썸네일"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w2025082061b08b8c142c7/html",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w2025082061b08b8c142c7",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 기업 인증 및 특허 현황",
+      "en": "Text block · Corporate Certification and Patent…"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820d0424c97beb80/items[0].title",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820d0424c97beb80",
+    "field": "items[0].title",
+    "kind": "text",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "갤러리 항목 1 · 인증서",
+      "en": "Gallery item 1 · Business Registration Certificate"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820d0424c97beb80/items[0].desc",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820d0424c97beb80",
+    "field": "items[0].desc",
+    "kind": "text",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820d0424c97beb80/items[0].org",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820d0424c97beb80",
+    "field": "items[0].org",
+    "kind": "image",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "원본 이미지 · c088725141cb2.jpg",
+      "en": "Original image · aefb3b515715f.jpg"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820d0424c97beb80/items[0].thumb",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820d0424c97beb80",
+    "field": "items[0].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "썸네일 · 67dce930ace86.jpg",
+      "en": "Thumbnail · 412862101bdb1.jpg"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820d0424c97beb80/items[1].title",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820d0424c97beb80",
+    "field": "items[1].title",
+    "kind": "text",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "갤러리 항목 2 · 인증서",
+      "en": "Gallery item 2 · Business License"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820d0424c97beb80/items[1].desc",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820d0424c97beb80",
+    "field": "items[1].desc",
+    "kind": "text",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820d0424c97beb80/items[1].org",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820d0424c97beb80",
+    "field": "items[1].org",
+    "kind": "image",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "원본 이미지 · 1a518242b7a49.jpg",
+      "en": "Original image · af19bd4e28e62.jpg"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820d0424c97beb80/items[1].thumb",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820d0424c97beb80",
+    "field": "items[1].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "썸네일 · bfb3fdb20e413.jpg",
+      "en": "Thumbnail · 492d551940355.jpg"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820d0424c97beb80/items[2].title",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820d0424c97beb80",
+    "field": "items[2].title",
+    "kind": "text",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "갤러리 항목 3 · 인증서",
+      "en": "Gallery item 3 · Utility Model Patent Certificate"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820d0424c97beb80/items[2].desc",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820d0424c97beb80",
+    "field": "items[2].desc",
+    "kind": "text",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820d0424c97beb80/items[2].org",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820d0424c97beb80",
+    "field": "items[2].org",
+    "kind": "image",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "원본 이미지 · 304ac687812fc.jpg",
+      "en": "Original image · 4820c8e9c3ed8.jpg"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820d0424c97beb80/items[2].thumb",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820d0424c97beb80",
+    "field": "items[2].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "썸네일 · 4d75671bece10.jpg",
+      "en": "Thumbnail · 22334d8ff6524.jpg"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820d0424c97beb80/items[3].title",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820d0424c97beb80",
+    "field": "items[3].title",
+    "kind": "text",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "갤러리 항목 4 · 인증서",
+      "en": "Gallery item 4 · Business Registration Certificate"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820d0424c97beb80/items[3].desc",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820d0424c97beb80",
+    "field": "items[3].desc",
+    "kind": "text",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820d0424c97beb80/items[3].org",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820d0424c97beb80",
+    "field": "items[3].org",
+    "kind": "image",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "원본 이미지 · b597e51c69273.jpg",
+      "en": "Original image · 42e50a8eb690a.jpg"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820d0424c97beb80/items[3].thumb",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w20250820d0424c97beb80",
+    "field": "items[3].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "썸네일 · 6f30377c89236.jpg",
+      "en": "Thumbnail · 690606711cdec.jpg"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w202508201caaa295b789a/html",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w202508201caaa295b789a",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 국제 인증 및 위촉 현황",
+      "en": "Text block · International certification &…"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w2025082013eb8cbe71ecd/items[0].title",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w2025082013eb8cbe71ecd",
+    "field": "items[0].title",
+    "kind": "text",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "갤러리 항목 1 · 인증서",
+      "en": "Gallery item 1 · Letter of Entrustment"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w2025082013eb8cbe71ecd/items[0].desc",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w2025082013eb8cbe71ecd",
+    "field": "items[0].desc",
+    "kind": "text",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w2025082013eb8cbe71ecd/items[0].org",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w2025082013eb8cbe71ecd",
+    "field": "items[0].org",
+    "kind": "image",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "원본 이미지 · d2f2ee4d98587.jpg",
+      "en": "Original image · d6d8d6db0bbef.jpg"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w2025082013eb8cbe71ecd/items[0].thumb",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w2025082013eb8cbe71ecd",
+    "field": "items[0].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "썸네일 · ac0d5bc463966.jpg",
+      "en": "Thumbnail · f5b2a186726bd.jpg"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w2025082013eb8cbe71ecd/items[1].title",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w2025082013eb8cbe71ecd",
+    "field": "items[1].title",
+    "kind": "text",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "갤러리 항목 2 · 인증서",
+      "en": "Gallery item 2 · Letter of Entrustment"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w2025082013eb8cbe71ecd/items[1].desc",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w2025082013eb8cbe71ecd",
+    "field": "items[1].desc",
+    "kind": "text",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w2025082013eb8cbe71ecd/items[1].org",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w2025082013eb8cbe71ecd",
+    "field": "items[1].org",
+    "kind": "image",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "원본 이미지 · 9c056a2e807ac.jpg",
+      "en": "Original image · 1bfc1694aa4e1.jpg"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w2025082013eb8cbe71ecd/items[1].thumb",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w2025082013eb8cbe71ecd",
+    "field": "items[1].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "썸네일 · 6818b7e44069f.jpg",
+      "en": "Thumbnail · 88a23256a1522.jpg"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w2025082013eb8cbe71ecd/items[2].title",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w2025082013eb8cbe71ecd",
+    "field": "items[2].title",
+    "kind": "text",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "갤러리 항목 3 · 인증서",
+      "en": "Gallery item 3 · Company Extract(1)"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w2025082013eb8cbe71ecd/items[2].desc",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w2025082013eb8cbe71ecd",
+    "field": "items[2].desc",
+    "kind": "text",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w2025082013eb8cbe71ecd/items[2].org",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w2025082013eb8cbe71ecd",
+    "field": "items[2].org",
+    "kind": "image",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "원본 이미지 · 9a9f764089ffb.jpg",
+      "en": "Original image · 8d5374647fec2.jpg"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w2025082013eb8cbe71ecd/items[2].thumb",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w2025082013eb8cbe71ecd",
+    "field": "items[2].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "썸네일 · c3d9e0eea29b7.jpg",
+      "en": "Thumbnail · 94a7b1c90fb74.jpg"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w2025082013eb8cbe71ecd/items[3].title",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w2025082013eb8cbe71ecd",
+    "field": "items[3].title",
+    "kind": "text",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "갤러리 항목 4 · 인증서",
+      "en": "Gallery item 4 · Company Extract(2)"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w2025082013eb8cbe71ecd/items[3].desc",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w2025082013eb8cbe71ecd",
+    "field": "items[3].desc",
+    "kind": "text",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "설명",
+      "en": "Description"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w2025082013eb8cbe71ecd/items[3].org",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w2025082013eb8cbe71ecd",
+    "field": "items[3].org",
+    "kind": "image",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "원본 이미지 · f991371e1a9cf.jpg",
+      "en": "Original image · d7356d1cdc994.jpg"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.patents#s202508114d9bc90ceb876/w2025082013eb8cbe71ecd/items[3].thumb",
+    "group": "rnd",
+    "pageKey": "rnd.patents",
+    "sectionId": "s202508114d9bc90ceb876",
+    "widgetId": "w2025082013eb8cbe71ecd",
+    "field": "items[3].thumb",
+    "kind": "image",
+    "section": {
+      "ko": "인증 현황",
+      "en": "Certification Status"
+    },
+    "label": {
+      "ko": "썸네일 · e501b3736a68e.jpg",
+      "en": "Thumbnail · 33d5962a20e0a.jpg"
+    },
+    "revalidate": [
+      "/rnd/patents",
+      "/en/rnd/patents"
+    ]
+  },
+  {
+    "key": "rnd.facilities#s202508207ea6e772a48a0/w20250820e4cafbac3320e/html",
+    "group": "rnd",
+    "pageKey": "rnd.facilities",
+    "sectionId": "s202508207ea6e772a48a0",
+    "widgetId": "w20250820e4cafbac3320e",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "첨단 설비와 철저한 관리로 더 깨끗하고 안전한 물을 만듭니다.",
+      "en": "Advanced facilities and strict…"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 첨단 설비와 철저한 관리로",
+      "en": "Text block · Advanced facilities"
+    },
+    "revalidate": [
+      "/rnd/facilities",
+      "/en/rnd/facilities"
+    ]
+  },
+  {
+    "key": "rnd.facilities#s2025081165e9bc78b81eb/w2025082017159663bed3c/html",
+    "group": "rnd",
+    "pageKey": "rnd.facilities",
+    "sectionId": "s2025081165e9bc78b81eb",
+    "widgetId": "w2025082017159663bed3c",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "생산설비",
+      "en": "Production facilities"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 생산설비",
+      "en": "Text block · Production facilities"
+    },
+    "revalidate": [
+      "/rnd/facilities",
+      "/en/rnd/facilities"
+    ]
+  },
+  {
+    "key": "rnd.facilities#s2025081165e9bc78b81eb/w202508207cdb6535abb7d/html",
+    "group": "rnd",
+    "pageKey": "rnd.facilities",
+    "sectionId": "s2025081165e9bc78b81eb",
+    "widgetId": "w202508207cdb6535abb7d",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "생산설비",
+      "en": "Production facilities"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 건강하기 위해서 중요한 물, 소홀히 할 수 없습니다.",
+      "en": "Text block · Water, which is important to be…"
+    },
+    "revalidate": [
+      "/rnd/facilities",
+      "/en/rnd/facilities"
+    ]
+  },
+  {
+    "key": "rnd.facilities#s20250829c25afe324e195/w2025082935a39e86acbcc/html",
+    "group": "rnd",
+    "pageKey": "rnd.facilities",
+    "sectionId": "s20250829c25afe324e195",
+    "widgetId": "w2025082935a39e86acbcc",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "생산능력",
+      "en": "Production capacity"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 생산능력",
+      "en": "Text block · Production capacity"
+    },
+    "revalidate": [
+      "/rnd/facilities",
+      "/en/rnd/facilities"
+    ]
+  },
+  {
+    "key": "rnd.facilities#s20250829c25afe324e195/w20250829cd9176971c728/html",
+    "group": "rnd",
+    "pageKey": "rnd.facilities",
+    "sectionId": "s20250829c25afe324e195",
+    "widgetId": "w20250829cd9176971c728",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "생산능력",
+      "en": "Production capacity"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 생산설비",
+      "en": "Text block · Production facilities"
+    },
+    "revalidate": [
+      "/rnd/facilities",
+      "/en/rnd/facilities"
+    ]
+  },
+  {
+    "key": "rnd.facilities#s20250829c25afe324e195/w20250829bb21466f4e0f1/html",
+    "group": "rnd",
+    "pageKey": "rnd.facilities",
+    "sectionId": "s20250829c25afe324e195",
+    "widgetId": "w20250829bb21466f4e0f1",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "생산능력",
+      "en": "Production capacity"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 설비명",
+      "en": "Text block · Facility name"
+    },
+    "revalidate": [
+      "/rnd/facilities",
+      "/en/rnd/facilities"
+    ]
+  },
+  {
+    "key": "rnd.facilities#s20250829c25afe324e195/w20250829dc320d96d4f7e/html",
+    "group": "rnd",
+    "pageKey": "rnd.facilities",
+    "sectionId": "s20250829c25afe324e195",
+    "widgetId": "w20250829dc320d96d4f7e",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "생산능력",
+      "en": "Production capacity"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 측정 장비",
+      "en": "Text block · Measuring equipment"
+    },
+    "revalidate": [
+      "/rnd/facilities",
+      "/en/rnd/facilities"
+    ]
+  },
+  {
+    "key": "rnd.facilities#s20250829c25afe324e195/w20250829370d74ba50fab/html",
+    "group": "rnd",
+    "pageKey": "rnd.facilities",
+    "sectionId": "s20250829c25afe324e195",
+    "widgetId": "w20250829370d74ba50fab",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "생산능력",
+      "en": "Production capacity"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 설비명",
+      "en": "Text block · Facility name"
+    },
+    "revalidate": [
+      "/rnd/facilities",
+      "/en/rnd/facilities"
+    ]
+  },
+  {
+    "key": "rnd.facilities#s20250829c25afe324e195/w20250829336d480a01019/html",
+    "group": "rnd",
+    "pageKey": "rnd.facilities",
+    "sectionId": "s20250829c25afe324e195",
+    "widgetId": "w20250829336d480a01019",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "생산능력",
+      "en": "Production capacity"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 테스트 장비",
+      "en": "Text block · Test equipment"
+    },
+    "revalidate": [
+      "/rnd/facilities",
+      "/en/rnd/facilities"
+    ]
+  },
+  {
+    "key": "rnd.facilities#s20250829c25afe324e195/w202508298781405b23d22/html",
+    "group": "rnd",
+    "pageKey": "rnd.facilities",
+    "sectionId": "s20250829c25afe324e195",
+    "widgetId": "w202508298781405b23d22",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "생산능력",
+      "en": "Production capacity"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 설비명",
+      "en": "Text block · Facility name"
+    },
+    "revalidate": [
+      "/rnd/facilities",
+      "/en/rnd/facilities"
+    ]
+  },
+  {
+    "key": "rnd.facilities#s20250829c25afe324e195/w202508292eb257f4075b4/html",
+    "group": "rnd",
+    "pageKey": "rnd.facilities",
+    "sectionId": "s20250829c25afe324e195",
+    "widgetId": "w202508292eb257f4075b4",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "생산능력",
+      "en": "Production capacity"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 테스트 장비",
+      "en": "Text block · Test equipment"
+    },
+    "revalidate": [
+      "/rnd/facilities",
+      "/en/rnd/facilities"
+    ]
+  },
+  {
+    "key": "rnd.facilities#s20250829c25afe324e195/w202508293b8acaf6df97a/html",
+    "group": "rnd",
+    "pageKey": "rnd.facilities",
+    "sectionId": "s20250829c25afe324e195",
+    "widgetId": "w202508293b8acaf6df97a",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "생산능력",
+      "en": "Production capacity"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 생산능력",
+      "en": "Text block · Production capacity"
+    },
+    "revalidate": [
+      "/rnd/facilities",
+      "/en/rnd/facilities"
+    ]
+  },
+  {
     "key": "news#s202508205198a0d766f60/w202508205b6f76d4a2c4d/html",
     "group": "boards",
     "pageKey": "news",
@@ -5725,8 +9129,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "html",
     "kind": "lines",
     "section": {
-      "ko": "PC · 더 건강하고 깨끗한 물을 만드는 고객과의 약속 에코웨이브의 …",
-      "en": "PC · Promise of cleaner, healthier wat…"
+      "ko": "더 건강하고 깨끗한 물을 만드는 고객과의 약속 에코웨이브의…",
+      "en": "Promise of cleaner, healthier…"
     },
     "label": {
       "ko": "텍스트 블록 · 더 건강하고 깨끗한 물을 만드는 고객과의 약속",
@@ -5792,12 +9196,12 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "html",
     "kind": "lines",
     "section": {
-      "ko": "PC · 더 건강하고 깨끗한 물을 만드는 고객과의 약속 에코웨이브의 …",
-      "en": "PC · EcoWave promises cleaner, healthi…"
+      "ko": "더 건강하고 깨끗한 물을 만드는 고객과의 약속 에코웨이브의…",
+      "en": "EcoWave promises cleaner,…"
     },
     "label": {
       "ko": "텍스트 블록 · 더 건강하고 깨끗한 물을 만드는 고객과의 약속",
-      "en": "Text block · EcoWave promises cleaner, healthier wat…"
+      "en": "Text block · EcoWave promises cleaner, healthier…"
     },
     "revalidate": [
       "/notices",
@@ -5851,52 +9255,6 @@ export const CONTENT_DEFS: ContentDef[] = [
     ]
   },
   {
-    "key": "products.clean-b#board/products.clean-b/name",
-    "group": "products",
-    "pageKey": "products.clean-b",
-    "sectionId": "board",
-    "widgetId": "products.clean-b",
-    "field": "name",
-    "kind": "text",
-    "section": {
-      "ko": "",
-      "en": ""
-    },
-    "label": {
-      "ko": "게시판 이름",
-      "en": "Board name"
-    },
-    "revalidate": [
-      "/products/clean-b",
-      "/en/products/clean-b",
-      "/products/clean-b/[id]",
-      "/en/products/clean-b/[id]"
-    ]
-  },
-  {
-    "key": "products.clean-b#board/products.clean-b/posts",
-    "group": "products",
-    "pageKey": "products.clean-b",
-    "sectionId": "board",
-    "widgetId": "products.clean-b",
-    "field": "posts",
-    "kind": "list",
-    "section": {
-      "ko": "",
-      "en": ""
-    },
-    "label": {
-      "ko": "게시글 목록",
-      "en": "Board posts"
-    },
-    "revalidate": [
-      "/products/clean-b",
-      "/en/products/clean-b",
-      "/products/clean-b/[id]",
-      "/en/products/clean-b/[id]"
-    ]
-  },
-  {
     "key": "products.eco-wave#board/products.eco-wave/name",
     "group": "products",
     "pageKey": "products.eco-wave",
@@ -5905,8 +9263,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "name",
     "kind": "text",
     "section": {
-      "ko": "",
-      "en": ""
+      "ko": "Eco Wave",
+      "en": "Eco Wave"
     },
     "label": {
       "ko": "게시판 이름",
@@ -5928,8 +9286,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "posts",
     "kind": "list",
     "section": {
-      "ko": "",
-      "en": ""
+      "ko": "Eco Wave",
+      "en": "Eco Wave"
     },
     "label": {
       "ko": "게시글 목록",
@@ -5943,6 +9301,52 @@ export const CONTENT_DEFS: ContentDef[] = [
     ]
   },
   {
+    "key": "products.clean-b#board/products.clean-b/name",
+    "group": "products",
+    "pageKey": "products.clean-b",
+    "sectionId": "board",
+    "widgetId": "products.clean-b",
+    "field": "name",
+    "kind": "text",
+    "section": {
+      "ko": "Clean B",
+      "en": "Clean B"
+    },
+    "label": {
+      "ko": "게시판 이름",
+      "en": "Board name"
+    },
+    "revalidate": [
+      "/products/clean-b",
+      "/en/products/clean-b",
+      "/products/clean-b/[id]",
+      "/en/products/clean-b/[id]"
+    ]
+  },
+  {
+    "key": "products.clean-b#board/products.clean-b/posts",
+    "group": "products",
+    "pageKey": "products.clean-b",
+    "sectionId": "board",
+    "widgetId": "products.clean-b",
+    "field": "posts",
+    "kind": "list",
+    "section": {
+      "ko": "Clean B",
+      "en": "Clean B"
+    },
+    "label": {
+      "ko": "게시글 목록",
+      "en": "Board posts"
+    },
+    "revalidate": [
+      "/products/clean-b",
+      "/en/products/clean-b",
+      "/products/clean-b/[id]",
+      "/en/products/clean-b/[id]"
+    ]
+  },
+  {
     "key": "products.flowell#board/products.flowell/name",
     "group": "products",
     "pageKey": "products.flowell",
@@ -5951,8 +9355,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "name",
     "kind": "text",
     "section": {
-      "ko": "",
-      "en": ""
+      "ko": "Flowell",
+      "en": "Flowell"
     },
     "label": {
       "ko": "게시판 이름",
@@ -5974,8 +9378,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     "field": "posts",
     "kind": "list",
     "section": {
-      "ko": "",
-      "en": ""
+      "ko": "Flowell",
+      "en": "Flowell"
     },
     "label": {
       "ko": "게시글 목록",
@@ -5986,3576 +9390,6 @@ export const CONTENT_DEFS: ContentDef[] = [
       "/en/products/flowell",
       "/products/flowell/[id]",
       "/en/products/flowell/[id]"
-    ]
-  },
-  {
-    "key": "rnd#s20250909caaa8544e0e70/w20250909b16e1f0580760/html",
-    "group": "rnd",
-    "pageKey": "rnd",
-    "sectionId": "s20250909caaa8544e0e70",
-    "widgetId": "w20250909b16e1f0580760",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 첨단 설비와 철저한 관리로 더 깨끗하고 안전한 물을 만듭니다.",
-      "en": "PC · Advanced facilities and strict ma…"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 첨단 설비와 철저한 관리로",
-      "en": "Text block · Advanced facilities"
-    },
-    "revalidate": [
-      "/rnd",
-      "/en/rnd"
-    ]
-  },
-  {
-    "key": "rnd#s202509091799d895b62ea/w202509092bb83d593e678/src",
-    "group": "rnd",
-    "pageKey": "rnd",
-    "sectionId": "s202509091799d895b62ea",
-    "widgetId": "w202509092bb83d593e678",
-    "field": "src",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 친환경·프리미엄 수처리 기술력 다단계 정수 시스템 세디먼트,…",
-      "en": "PC · Eco-friendly premium water techno…"
-    },
-    "label": {
-      "ko": "이미지 경로 · cacef61fc2561.jpg",
-      "en": "Image source · cacef61fc2561.jpg"
-    },
-    "revalidate": [
-      "/rnd",
-      "/en/rnd"
-    ]
-  },
-  {
-    "key": "rnd#s202509091799d895b62ea/w20250909a6322fa870d46/html",
-    "group": "rnd",
-    "pageKey": "rnd",
-    "sectionId": "s202509091799d895b62ea",
-    "widgetId": "w20250909a6322fa870d46",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 친환경·프리미엄 수처리 기술력 다단계 정수 시스템 세디먼트,…",
-      "en": "PC · Eco-friendly premium water techno…"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 친환경·프리미엄",
-      "en": "Text block · Eco-friendly"
-    },
-    "revalidate": [
-      "/rnd",
-      "/en/rnd"
-    ]
-  },
-  {
-    "key": "rnd#s2025090972e449f7846e1/w20250909743cf5b3c0201/src",
-    "group": "rnd",
-    "pageKey": "rnd",
-    "sectionId": "s2025090972e449f7846e1",
-    "widgetId": "w20250909743cf5b3c0201",
-    "field": "src",
-    "kind": "image",
-    "section": {
-      "ko": "PC · OEM/글로벌 협업 역량 글로벌 대기업 공급 실적 LG, 쿠…",
-      "en": "PC · OEM/Global Collaboration Capabili…"
-    },
-    "label": {
-      "ko": "이미지 경로 · a354e4d098fc6.jpg",
-      "en": "Image source · a354e4d098fc6.jpg"
-    },
-    "revalidate": [
-      "/rnd",
-      "/en/rnd"
-    ]
-  },
-  {
-    "key": "rnd#s2025090972e449f7846e1/w20250909f986ae33491f9/html",
-    "group": "rnd",
-    "pageKey": "rnd",
-    "sectionId": "s2025090972e449f7846e1",
-    "widgetId": "w20250909f986ae33491f9",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · OEM/글로벌 협업 역량 글로벌 대기업 공급 실적 LG, 쿠…",
-      "en": "PC · OEM/Global Collaboration Capabili…"
-    },
-    "label": {
-      "ko": "텍스트 블록 · OEM/글로벌 협업 역량",
-      "en": "Text block · OEM/Global Collaboration Capabilities"
-    },
-    "revalidate": [
-      "/rnd",
-      "/en/rnd"
-    ]
-  },
-  {
-    "key": "rnd#s2025090972e449f7846e1/w2025090999ac3275406dc/src",
-    "group": "rnd",
-    "pageKey": "rnd",
-    "sectionId": "s2025090972e449f7846e1",
-    "widgetId": "w2025090999ac3275406dc",
-    "field": "src",
-    "kind": "image",
-    "section": {
-      "ko": "PC · OEM/글로벌 협업 역량 글로벌 대기업 공급 실적 LG, 쿠…",
-      "en": "PC · OEM/Global Collaboration Capabili…"
-    },
-    "label": {
-      "ko": "이미지 경로 · 368735646c29f.jpg",
-      "en": "Image source · 368735646c29f.jpg"
-    },
-    "revalidate": [
-      "/rnd",
-      "/en/rnd"
-    ]
-  },
-  {
-    "key": "rnd#s2025090972e449f7846e1/w20250909cabf29c2126d9/html",
-    "group": "rnd",
-    "pageKey": "rnd",
-    "sectionId": "s2025090972e449f7846e1",
-    "widgetId": "w20250909cabf29c2126d9",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · OEM/글로벌 협업 역량 글로벌 대기업 공급 실적 LG, 쿠…",
-      "en": "PC · OEM/Global Collaboration Capabili…"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 첨단 검사 및 품질 관리 체계",
-      "en": "Text block · Advanced inspection and quality control…"
-    },
-    "revalidate": [
-      "/rnd",
-      "/en/rnd"
-    ]
-  },
-  {
-    "key": "rnd#s20250909b12fa8000068e/w20250909dbdd88bc19258/src",
-    "group": "rnd",
-    "pageKey": "rnd",
-    "sectionId": "s20250909b12fa8000068e",
-    "widgetId": "w20250909dbdd88bc19258",
-    "field": "src",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 스마트·살균 기술 전극 기반 전기분해 살균 모듈 물을 전기분…",
-      "en": "PC · Smart/sterilizing technology Elec…"
-    },
-    "label": {
-      "ko": "이미지 경로 · d7de0a7f09580.jpg",
-      "en": "Image source · d7de0a7f09580.jpg"
-    },
-    "revalidate": [
-      "/rnd",
-      "/en/rnd"
-    ]
-  },
-  {
-    "key": "rnd#s20250909b12fa8000068e/w202509093403364594dce/html",
-    "group": "rnd",
-    "pageKey": "rnd",
-    "sectionId": "s20250909b12fa8000068e",
-    "widgetId": "w202509093403364594dce",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 스마트·살균 기술 전극 기반 전기분해 살균 모듈 물을 전기분…",
-      "en": "PC · Smart/sterilizing technology Elec…"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 스마트·살균 기술",
-      "en": "Text block · Smart/sterilizing technology"
-    },
-    "revalidate": [
-      "/rnd",
-      "/en/rnd"
-    ]
-  },
-  {
-    "key": "rnd#s20250909b12fa8000068e/w2025090910fe01238de32/src",
-    "group": "rnd",
-    "pageKey": "rnd",
-    "sectionId": "s20250909b12fa8000068e",
-    "widgetId": "w2025090910fe01238de32",
-    "field": "src",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 스마트·살균 기술 전극 기반 전기분해 살균 모듈 물을 전기분…",
-      "en": "PC · Smart/sterilizing technology Elec…"
-    },
-    "label": {
-      "ko": "이미지 경로 · 98102c9df6b48.jpg",
-      "en": "Image source · 98102c9df6b48.jpg"
-    },
-    "revalidate": [
-      "/rnd",
-      "/en/rnd"
-    ]
-  },
-  {
-    "key": "rnd#s20250909b12fa8000068e/w20250909aaff6976da0b4/html",
-    "group": "rnd",
-    "pageKey": "rnd",
-    "sectionId": "s20250909b12fa8000068e",
-    "widgetId": "w20250909aaff6976da0b4",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 스마트·살균 기술 전극 기반 전기분해 살균 모듈 물을 전기분…",
-      "en": "PC · Smart/sterilizing technology Elec…"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 대량 생산 및 글로벌 공급망",
-      "en": "Text block · Mass production and global supply chain"
-    },
-    "revalidate": [
-      "/rnd",
-      "/en/rnd"
-    ]
-  },
-  {
-    "key": "rnd#s2025090979d4f02da9a4c/w202509098378a31a7319e/html",
-    "group": "rnd",
-    "pageKey": "rnd",
-    "sectionId": "s2025090979d4f02da9a4c",
-    "widgetId": "w202509098378a31a7319e",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 투자자 핵심 USP 요약",
-      "en": "PC · Investor Core USP Summary"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 투자자 핵심 USP 요약",
-      "en": "Text block · Investor Core USP Summary"
-    },
-    "revalidate": [
-      "/rnd",
-      "/en/rnd"
-    ]
-  },
-  {
-    "key": "rnd#s2025090979d4f02da9a4c/w20250909deb55b36523e5/html",
-    "group": "rnd",
-    "pageKey": "rnd",
-    "sectionId": "s2025090979d4f02da9a4c",
-    "widgetId": "w20250909deb55b36523e5",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 투자자 핵심 USP 요약",
-      "en": "PC · Investor Core USP Summary"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 건강하기 위해서 중요한 물, 소홀히 할 수 없습니다.",
-      "en": "Text block · Water is vital to health and must not b…"
-    },
-    "revalidate": [
-      "/rnd",
-      "/en/rnd"
-    ]
-  },
-  {
-    "key": "rnd#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[0].title",
-    "group": "rnd",
-    "pageKey": "rnd",
-    "sectionId": "s2025090979d4f02da9a4c",
-    "widgetId": "w20250909f44806a14d131",
-    "field": "items[0].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 투자자 핵심 USP 요약",
-      "en": "PC · Investor Core USP Summary"
-    },
-    "label": {
-      "ko": "갤러리 항목 1",
-      "en": "Gallery item 1"
-    },
-    "revalidate": [
-      "/rnd",
-      "/en/rnd"
-    ]
-  },
-  {
-    "key": "rnd#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[0].desc",
-    "group": "rnd",
-    "pageKey": "rnd",
-    "sectionId": "s2025090979d4f02da9a4c",
-    "widgetId": "w20250909f44806a14d131",
-    "field": "items[0].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 투자자 핵심 USP 요약",
-      "en": "PC · Investor Core USP Summary"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/rnd",
-      "/en/rnd"
-    ]
-  },
-  {
-    "key": "rnd#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[0].org",
-    "group": "rnd",
-    "pageKey": "rnd",
-    "sectionId": "s2025090979d4f02da9a4c",
-    "widgetId": "w20250909f44806a14d131",
-    "field": "items[0].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 투자자 핵심 USP 요약",
-      "en": "PC · Investor Core USP Summary"
-    },
-    "label": {
-      "ko": "원본 이미지 · 3761750bfc322.png",
-      "en": "Original image · cdb1e24f6ebe1.png"
-    },
-    "revalidate": [
-      "/rnd",
-      "/en/rnd"
-    ]
-  },
-  {
-    "key": "rnd#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[0].thumb",
-    "group": "rnd",
-    "pageKey": "rnd",
-    "sectionId": "s2025090979d4f02da9a4c",
-    "widgetId": "w20250909f44806a14d131",
-    "field": "items[0].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 투자자 핵심 USP 요약",
-      "en": "PC · Investor Core USP Summary"
-    },
-    "label": {
-      "ko": "썸네일 · 573cf99e3c5b9.png",
-      "en": "Thumbnail · 1baeac9915602.png"
-    },
-    "revalidate": [
-      "/rnd",
-      "/en/rnd"
-    ]
-  },
-  {
-    "key": "rnd#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[1].title",
-    "group": "rnd",
-    "pageKey": "rnd",
-    "sectionId": "s2025090979d4f02da9a4c",
-    "widgetId": "w20250909f44806a14d131",
-    "field": "items[1].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 투자자 핵심 USP 요약",
-      "en": "PC · Investor Core USP Summary"
-    },
-    "label": {
-      "ko": "갤러리 항목 2",
-      "en": "Gallery item 2"
-    },
-    "revalidate": [
-      "/rnd",
-      "/en/rnd"
-    ]
-  },
-  {
-    "key": "rnd#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[1].desc",
-    "group": "rnd",
-    "pageKey": "rnd",
-    "sectionId": "s2025090979d4f02da9a4c",
-    "widgetId": "w20250909f44806a14d131",
-    "field": "items[1].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 투자자 핵심 USP 요약",
-      "en": "PC · Investor Core USP Summary"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/rnd",
-      "/en/rnd"
-    ]
-  },
-  {
-    "key": "rnd#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[1].org",
-    "group": "rnd",
-    "pageKey": "rnd",
-    "sectionId": "s2025090979d4f02da9a4c",
-    "widgetId": "w20250909f44806a14d131",
-    "field": "items[1].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 투자자 핵심 USP 요약",
-      "en": "PC · Investor Core USP Summary"
-    },
-    "label": {
-      "ko": "원본 이미지 · 0b870a15d41c0.png",
-      "en": "Original image · e599b51b44230.png"
-    },
-    "revalidate": [
-      "/rnd",
-      "/en/rnd"
-    ]
-  },
-  {
-    "key": "rnd#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[1].thumb",
-    "group": "rnd",
-    "pageKey": "rnd",
-    "sectionId": "s2025090979d4f02da9a4c",
-    "widgetId": "w20250909f44806a14d131",
-    "field": "items[1].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 투자자 핵심 USP 요약",
-      "en": "PC · Investor Core USP Summary"
-    },
-    "label": {
-      "ko": "썸네일 · a44de73d0ad9d.png",
-      "en": "Thumbnail · 6925cacf72ef8.png"
-    },
-    "revalidate": [
-      "/rnd",
-      "/en/rnd"
-    ]
-  },
-  {
-    "key": "rnd#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[2].title",
-    "group": "rnd",
-    "pageKey": "rnd",
-    "sectionId": "s2025090979d4f02da9a4c",
-    "widgetId": "w20250909f44806a14d131",
-    "field": "items[2].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 투자자 핵심 USP 요약",
-      "en": "PC · Investor Core USP Summary"
-    },
-    "label": {
-      "ko": "갤러리 항목 3",
-      "en": "Gallery item 3"
-    },
-    "revalidate": [
-      "/rnd",
-      "/en/rnd"
-    ]
-  },
-  {
-    "key": "rnd#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[2].desc",
-    "group": "rnd",
-    "pageKey": "rnd",
-    "sectionId": "s2025090979d4f02da9a4c",
-    "widgetId": "w20250909f44806a14d131",
-    "field": "items[2].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 투자자 핵심 USP 요약",
-      "en": "PC · Investor Core USP Summary"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/rnd",
-      "/en/rnd"
-    ]
-  },
-  {
-    "key": "rnd#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[2].org",
-    "group": "rnd",
-    "pageKey": "rnd",
-    "sectionId": "s2025090979d4f02da9a4c",
-    "widgetId": "w20250909f44806a14d131",
-    "field": "items[2].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 투자자 핵심 USP 요약",
-      "en": "PC · Investor Core USP Summary"
-    },
-    "label": {
-      "ko": "원본 이미지 · 07acdffabdc33.png",
-      "en": "Original image · 4779b22f463f4.png"
-    },
-    "revalidate": [
-      "/rnd",
-      "/en/rnd"
-    ]
-  },
-  {
-    "key": "rnd#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[2].thumb",
-    "group": "rnd",
-    "pageKey": "rnd",
-    "sectionId": "s2025090979d4f02da9a4c",
-    "widgetId": "w20250909f44806a14d131",
-    "field": "items[2].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 투자자 핵심 USP 요약",
-      "en": "PC · Investor Core USP Summary"
-    },
-    "label": {
-      "ko": "썸네일 · 0bd08d1aa30c1.png",
-      "en": "Thumbnail · 263f8d6760009.png"
-    },
-    "revalidate": [
-      "/rnd",
-      "/en/rnd"
-    ]
-  },
-  {
-    "key": "rnd#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[3].title",
-    "group": "rnd",
-    "pageKey": "rnd",
-    "sectionId": "s2025090979d4f02da9a4c",
-    "widgetId": "w20250909f44806a14d131",
-    "field": "items[3].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 투자자 핵심 USP 요약",
-      "en": "PC · Investor Core USP Summary"
-    },
-    "label": {
-      "ko": "갤러리 항목 4",
-      "en": "Gallery item 4"
-    },
-    "revalidate": [
-      "/rnd",
-      "/en/rnd"
-    ]
-  },
-  {
-    "key": "rnd#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[3].desc",
-    "group": "rnd",
-    "pageKey": "rnd",
-    "sectionId": "s2025090979d4f02da9a4c",
-    "widgetId": "w20250909f44806a14d131",
-    "field": "items[3].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 투자자 핵심 USP 요약",
-      "en": "PC · Investor Core USP Summary"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/rnd",
-      "/en/rnd"
-    ]
-  },
-  {
-    "key": "rnd#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[3].org",
-    "group": "rnd",
-    "pageKey": "rnd",
-    "sectionId": "s2025090979d4f02da9a4c",
-    "widgetId": "w20250909f44806a14d131",
-    "field": "items[3].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 투자자 핵심 USP 요약",
-      "en": "PC · Investor Core USP Summary"
-    },
-    "label": {
-      "ko": "원본 이미지 · 726d3d98ac7b2.png",
-      "en": "Original image · df58c3da9f186.png"
-    },
-    "revalidate": [
-      "/rnd",
-      "/en/rnd"
-    ]
-  },
-  {
-    "key": "rnd#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[3].thumb",
-    "group": "rnd",
-    "pageKey": "rnd",
-    "sectionId": "s2025090979d4f02da9a4c",
-    "widgetId": "w20250909f44806a14d131",
-    "field": "items[3].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 투자자 핵심 USP 요약",
-      "en": "PC · Investor Core USP Summary"
-    },
-    "label": {
-      "ko": "썸네일 · 5a9eb3caf501d.png",
-      "en": "Thumbnail · 4773e68872052.png"
-    },
-    "revalidate": [
-      "/rnd",
-      "/en/rnd"
-    ]
-  },
-  {
-    "key": "rnd#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[4].title",
-    "group": "rnd",
-    "pageKey": "rnd",
-    "sectionId": "s2025090979d4f02da9a4c",
-    "widgetId": "w20250909f44806a14d131",
-    "field": "items[4].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 투자자 핵심 USP 요약",
-      "en": "PC · Investor Core USP Summary"
-    },
-    "label": {
-      "ko": "갤러리 항목 5",
-      "en": "Gallery item 5"
-    },
-    "revalidate": [
-      "/rnd",
-      "/en/rnd"
-    ]
-  },
-  {
-    "key": "rnd#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[4].desc",
-    "group": "rnd",
-    "pageKey": "rnd",
-    "sectionId": "s2025090979d4f02da9a4c",
-    "widgetId": "w20250909f44806a14d131",
-    "field": "items[4].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 투자자 핵심 USP 요약",
-      "en": "PC · Investor Core USP Summary"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/rnd",
-      "/en/rnd"
-    ]
-  },
-  {
-    "key": "rnd#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[4].org",
-    "group": "rnd",
-    "pageKey": "rnd",
-    "sectionId": "s2025090979d4f02da9a4c",
-    "widgetId": "w20250909f44806a14d131",
-    "field": "items[4].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 투자자 핵심 USP 요약",
-      "en": "PC · Investor Core USP Summary"
-    },
-    "label": {
-      "ko": "원본 이미지 · 5a24a322e6701.png",
-      "en": "Original image · df12bf2a62722.png"
-    },
-    "revalidate": [
-      "/rnd",
-      "/en/rnd"
-    ]
-  },
-  {
-    "key": "rnd#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[4].thumb",
-    "group": "rnd",
-    "pageKey": "rnd",
-    "sectionId": "s2025090979d4f02da9a4c",
-    "widgetId": "w20250909f44806a14d131",
-    "field": "items[4].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 투자자 핵심 USP 요약",
-      "en": "PC · Investor Core USP Summary"
-    },
-    "label": {
-      "ko": "썸네일 · 44a84773be892.png",
-      "en": "Thumbnail · 7e2be8834091a.png"
-    },
-    "revalidate": [
-      "/rnd",
-      "/en/rnd"
-    ]
-  },
-  {
-    "key": "rnd.facilities#s202508207ea6e772a48a0/w20250820e4cafbac3320e/html",
-    "group": "rnd",
-    "pageKey": "rnd.facilities",
-    "sectionId": "s202508207ea6e772a48a0",
-    "widgetId": "w20250820e4cafbac3320e",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 첨단 설비와 철저한 관리로 더 깨끗하고 안전한 물을 만듭니다.",
-      "en": "PC · Advanced facilities and strict ma…"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 첨단 설비와 철저한 관리로",
-      "en": "Text block · Advanced facilities"
-    },
-    "revalidate": [
-      "/rnd/facilities",
-      "/en/rnd/facilities"
-    ]
-  },
-  {
-    "key": "rnd.facilities#s2025081165e9bc78b81eb/w2025082017159663bed3c/html",
-    "group": "rnd",
-    "pageKey": "rnd.facilities",
-    "sectionId": "s2025081165e9bc78b81eb",
-    "widgetId": "w2025082017159663bed3c",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 생산설비",
-      "en": "PC · Production facilities"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 생산설비",
-      "en": "Text block · Production facilities"
-    },
-    "revalidate": [
-      "/rnd/facilities",
-      "/en/rnd/facilities"
-    ]
-  },
-  {
-    "key": "rnd.facilities#s2025081165e9bc78b81eb/w202508207cdb6535abb7d/html",
-    "group": "rnd",
-    "pageKey": "rnd.facilities",
-    "sectionId": "s2025081165e9bc78b81eb",
-    "widgetId": "w202508207cdb6535abb7d",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 생산설비",
-      "en": "PC · Production facilities"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 건강하기 위해서 중요한 물, 소홀히 할 수 없습니다.",
-      "en": "Text block · Water, which is important to be healthy…"
-    },
-    "revalidate": [
-      "/rnd/facilities",
-      "/en/rnd/facilities"
-    ]
-  },
-  {
-    "key": "rnd.facilities#s20250829c25afe324e195/w2025082935a39e86acbcc/html",
-    "group": "rnd",
-    "pageKey": "rnd.facilities",
-    "sectionId": "s20250829c25afe324e195",
-    "widgetId": "w2025082935a39e86acbcc",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 생산능력",
-      "en": "PC · Production capacity"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 생산능력",
-      "en": "Text block · Production capacity"
-    },
-    "revalidate": [
-      "/rnd/facilities",
-      "/en/rnd/facilities"
-    ]
-  },
-  {
-    "key": "rnd.facilities#s20250829c25afe324e195/w20250829cd9176971c728/html",
-    "group": "rnd",
-    "pageKey": "rnd.facilities",
-    "sectionId": "s20250829c25afe324e195",
-    "widgetId": "w20250829cd9176971c728",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 생산능력",
-      "en": "PC · Production capacity"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 생산설비",
-      "en": "Text block · Production facilities"
-    },
-    "revalidate": [
-      "/rnd/facilities",
-      "/en/rnd/facilities"
-    ]
-  },
-  {
-    "key": "rnd.facilities#s20250829c25afe324e195/w20250829bb21466f4e0f1/html",
-    "group": "rnd",
-    "pageKey": "rnd.facilities",
-    "sectionId": "s20250829c25afe324e195",
-    "widgetId": "w20250829bb21466f4e0f1",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 생산능력",
-      "en": "PC · Production capacity"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 설비명",
-      "en": "Text block · Facility name"
-    },
-    "revalidate": [
-      "/rnd/facilities",
-      "/en/rnd/facilities"
-    ]
-  },
-  {
-    "key": "rnd.facilities#s20250829c25afe324e195/w20250829dc320d96d4f7e/html",
-    "group": "rnd",
-    "pageKey": "rnd.facilities",
-    "sectionId": "s20250829c25afe324e195",
-    "widgetId": "w20250829dc320d96d4f7e",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 생산능력",
-      "en": "PC · Production capacity"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 측정 장비",
-      "en": "Text block · Measuring equipment"
-    },
-    "revalidate": [
-      "/rnd/facilities",
-      "/en/rnd/facilities"
-    ]
-  },
-  {
-    "key": "rnd.facilities#s20250829c25afe324e195/w20250829370d74ba50fab/html",
-    "group": "rnd",
-    "pageKey": "rnd.facilities",
-    "sectionId": "s20250829c25afe324e195",
-    "widgetId": "w20250829370d74ba50fab",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 생산능력",
-      "en": "PC · Production capacity"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 설비명",
-      "en": "Text block · Facility name"
-    },
-    "revalidate": [
-      "/rnd/facilities",
-      "/en/rnd/facilities"
-    ]
-  },
-  {
-    "key": "rnd.facilities#s20250829c25afe324e195/w20250829336d480a01019/html",
-    "group": "rnd",
-    "pageKey": "rnd.facilities",
-    "sectionId": "s20250829c25afe324e195",
-    "widgetId": "w20250829336d480a01019",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 생산능력",
-      "en": "PC · Production capacity"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 테스트 장비",
-      "en": "Text block · Test equipment"
-    },
-    "revalidate": [
-      "/rnd/facilities",
-      "/en/rnd/facilities"
-    ]
-  },
-  {
-    "key": "rnd.facilities#s20250829c25afe324e195/w202508298781405b23d22/html",
-    "group": "rnd",
-    "pageKey": "rnd.facilities",
-    "sectionId": "s20250829c25afe324e195",
-    "widgetId": "w202508298781405b23d22",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 생산능력",
-      "en": "PC · Production capacity"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 설비명",
-      "en": "Text block · Facility name"
-    },
-    "revalidate": [
-      "/rnd/facilities",
-      "/en/rnd/facilities"
-    ]
-  },
-  {
-    "key": "rnd.facilities#s20250829c25afe324e195/w202508292eb257f4075b4/html",
-    "group": "rnd",
-    "pageKey": "rnd.facilities",
-    "sectionId": "s20250829c25afe324e195",
-    "widgetId": "w202508292eb257f4075b4",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 생산능력",
-      "en": "PC · Production capacity"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 테스트 장비",
-      "en": "Text block · Test equipment"
-    },
-    "revalidate": [
-      "/rnd/facilities",
-      "/en/rnd/facilities"
-    ]
-  },
-  {
-    "key": "rnd.facilities#s20250829c25afe324e195/w202508293b8acaf6df97a/html",
-    "group": "rnd",
-    "pageKey": "rnd.facilities",
-    "sectionId": "s20250829c25afe324e195",
-    "widgetId": "w202508293b8acaf6df97a",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 생산능력",
-      "en": "PC · Production capacity"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 생산능력",
-      "en": "Text block · Production capacity"
-    },
-    "revalidate": [
-      "/rnd/facilities",
-      "/en/rnd/facilities"
-    ]
-  },
-  {
-    "key": "rnd.patents#s2025082027290aa48803c/w20250820f45ae1e9a7239/html",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s2025082027290aa48803c",
-    "widgetId": "w20250820f45ae1e9a7239",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 첨단 설비와 철저한 관리로 더 깨끗하고 안전한 물을 만듭니다.",
-      "en": "PC · Advanced facilities and strict ma…"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 첨단 설비와 철저한 관리로",
-      "en": "Text block · Advanced facilities"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820275c6573162a6/html",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820275c6573162a6",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 인증 현황",
-      "en": "Text block · Certification Status"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[0].title",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820eeffb853be62c",
-    "field": "items[0].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "갤러리 항목 1 · 인증서",
-      "en": "Gallery item 1 · International Industrial Certification"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[0].desc",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820eeffb853be62c",
-    "field": "items[0].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[0].org",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820eeffb853be62c",
-    "field": "items[0].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "원본 이미지 · c8d5190e41b1f.jpg",
-      "en": "Original image · 1faf82abe3127.jpg"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[0].thumb",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820eeffb853be62c",
-    "field": "items[0].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "썸네일 · 9a95c683986c8.jpg",
-      "en": "Thumbnail · 9161f80ef9871.jpg"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[1].title",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820eeffb853be62c",
-    "field": "items[1].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "갤러리 항목 2 · 인증서",
-      "en": "Gallery item 2 · International Industrial Certification"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[1].desc",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820eeffb853be62c",
-    "field": "items[1].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[1].org",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820eeffb853be62c",
-    "field": "items[1].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "원본 이미지 · 58a853514a525.jpg",
-      "en": "Original image · 177b49aaf1e73.jpg"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[1].thumb",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820eeffb853be62c",
-    "field": "items[1].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "썸네일 · ee052bc3eb342.jpg",
-      "en": "Thumbnail · 561aa5f8ae402.jpg"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[2].title",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820eeffb853be62c",
-    "field": "items[2].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "갤러리 항목 3 · 인증서",
-      "en": "Gallery item 3 · Productivity Management System"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[2].desc",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820eeffb853be62c",
-    "field": "items[2].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[2].org",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820eeffb853be62c",
-    "field": "items[2].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "원본 이미지 · 5bb535abaf124.jpg",
-      "en": "Original image · 5a6c4e41b0314.jpg"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[2].thumb",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820eeffb853be62c",
-    "field": "items[2].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "썸네일 · 971878a02ac38.jpg",
-      "en": "Thumbnail · 0ed4260d7c598.jpg"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[3].title",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820eeffb853be62c",
-    "field": "items[3].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "갤러리 항목 4 · 인증서",
-      "en": "Gallery item 4 · Corporate R&D Center"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[3].desc",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820eeffb853be62c",
-    "field": "items[3].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[3].org",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820eeffb853be62c",
-    "field": "items[3].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "원본 이미지 · cf1b9c8b7a1be.jpg",
-      "en": "Original image · 26664d8e42f37.jpg"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[3].thumb",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820eeffb853be62c",
-    "field": "items[3].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "썸네일 · a24f0701580cf.jpg",
-      "en": "Thumbnail · 0bdcb9920d564.jpg"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[4].title",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820eeffb853be62c",
-    "field": "items[4].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "갤러리 항목 5 · 인증서",
-      "en": "Gallery item 5 · Certificate of Membership"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[4].desc",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820eeffb853be62c",
-    "field": "items[4].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[4].org",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820eeffb853be62c",
-    "field": "items[4].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "원본 이미지 · 03791077c615d.jpg",
-      "en": "Original image · 4c603c6cc4e62.jpg"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[4].thumb",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820eeffb853be62c",
-    "field": "items[4].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "썸네일 · 8ca3363782c58.jpg",
-      "en": "Thumbnail · c40e0b755d6b8.jpg"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[5].title",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820eeffb853be62c",
-    "field": "items[5].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "갤러리 항목 6 · 인증서",
-      "en": "Gallery item 6 · Promising Export SME Certificate"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[5].desc",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820eeffb853be62c",
-    "field": "items[5].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[5].org",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820eeffb853be62c",
-    "field": "items[5].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "원본 이미지 · af075c622465a.jpg",
-      "en": "Original image · 4ee743efc4431.jpg"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[5].thumb",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820eeffb853be62c",
-    "field": "items[5].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "썸네일 · 6ca8821913fe2.jpg",
-      "en": "Thumbnail · 2fa4140091449.jpg"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[6].title",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820eeffb853be62c",
-    "field": "items[6].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "갤러리 항목 7 · 인증서",
-      "en": "Gallery item 7 · Main-Biz"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[6].desc",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820eeffb853be62c",
-    "field": "items[6].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[6].org",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820eeffb853be62c",
-    "field": "items[6].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "원본 이미지 · b86ce1506ce54.jpg",
-      "en": "Original image · 5055a43c5b9b0.jpg"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[6].thumb",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820eeffb853be62c",
-    "field": "items[6].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "썸네일 · 260c75f8ed1ca.jpg",
-      "en": "Thumbnail · 07e7d6f142b92.jpg"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[7].title",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820eeffb853be62c",
-    "field": "items[7].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "갤러리 항목 8 · 인증서",
-      "en": "Gallery item 8 · Venture Business Certification"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[7].desc",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820eeffb853be62c",
-    "field": "items[7].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[7].org",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820eeffb853be62c",
-    "field": "items[7].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "원본 이미지 · 963ff61e2e165.jpg",
-      "en": "Original image · 74dea20d44210.jpg"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[7].thumb",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820eeffb853be62c",
-    "field": "items[7].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "썸네일 · deaa64ac95f22.jpg",
-      "en": "Thumbnail · 0538081fd487e.jpg"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[8].title",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820eeffb853be62c",
-    "field": "items[8].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "갤러리 항목 9 · 인증서",
-      "en": "Gallery item 9 · Korea International Trade Association M…"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[8].desc",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820eeffb853be62c",
-    "field": "items[8].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[8].org",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820eeffb853be62c",
-    "field": "items[8].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "원본 이미지 · 6f9f88b1838f7.jpg",
-      "en": "Original image · 144c7b808212f.jpg"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[8].thumb",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820eeffb853be62c",
-    "field": "items[8].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "썸네일 · 05df3a62db503.jpg",
-      "en": "Thumbnail · 8a154afe44775.jpg"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[9].title",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820eeffb853be62c",
-    "field": "items[9].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "갤러리 항목 10 · 인증서",
-      "en": "Gallery item 10 · Korean Intellectual Property Office"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[9].desc",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820eeffb853be62c",
-    "field": "items[9].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[9].org",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820eeffb853be62c",
-    "field": "items[9].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "원본 이미지 · ee228f179036c.jpg",
-      "en": "Original image · dda9a843ed3f3.jpg"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[9].thumb",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820eeffb853be62c",
-    "field": "items[9].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "썸네일 · b7fd1aa1f7a98.jpg",
-      "en": "Thumbnail · 630c7c00c849a.jpg"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[10].title",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820eeffb853be62c",
-    "field": "items[10].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "갤러리 항목 11 · 인증서",
-      "en": "Gallery item 11 · KCL test report"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[10].desc",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820eeffb853be62c",
-    "field": "items[10].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[10].org",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820eeffb853be62c",
-    "field": "items[10].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "원본 이미지 · 25cbdc27f0127.jpg",
-      "en": "Original image · fa8b27fc7a68b.jpg"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[10].thumb",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820eeffb853be62c",
-    "field": "items[10].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "썸네일 · 3baa0847efb8f.jpg",
-      "en": "Thumbnail · 9d9739393efdd.jpg"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[11].title",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820eeffb853be62c",
-    "field": "items[11].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "갤러리 항목 12 · 인증서",
-      "en": "Gallery item 12 · Water Puritier Quality Certificate"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[11].desc",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820eeffb853be62c",
-    "field": "items[11].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[11].org",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820eeffb853be62c",
-    "field": "items[11].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "원본 이미지 · ca69ef5a336fa.jpg",
-      "en": "Original image · 7817d27e2ab9b.jpg"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[11].thumb",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820eeffb853be62c",
-    "field": "items[11].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "썸네일 · a2c99a5cf505d.jpg",
-      "en": "Thumbnail · b350840a31c44.jpg"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[12].title",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820eeffb853be62c",
-    "field": "items[12].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "갤러리 항목 13 · 인증서",
-      "en": "Gallery item 13 · Water Purifier Manufacturing Business R…"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[12].desc",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820eeffb853be62c",
-    "field": "items[12].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[12].org",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820eeffb853be62c",
-    "field": "items[12].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "원본 이미지 · a678d3da66a2f.jpg",
-      "en": "Original image · 32601a6e8d9f2.jpg"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[12].thumb",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820eeffb853be62c",
-    "field": "items[12].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "썸네일 · f856639d787dd.jpg",
-      "en": "Thumbnail · 98c1668e181e2.jpg"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[13].title",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820eeffb853be62c",
-    "field": "items[13].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "갤러리 항목 14",
-      "en": "Gallery item 14"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[13].desc",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820eeffb853be62c",
-    "field": "items[13].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[13].org",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820eeffb853be62c",
-    "field": "items[13].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "원본 이미지",
-      "en": "원본 이미지"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[13].thumb",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820eeffb853be62c",
-    "field": "items[13].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "썸네일",
-      "en": "썸네일"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w2025082061b08b8c142c7/html",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w2025082061b08b8c142c7",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 기업 인증 및 특허 현황",
-      "en": "Text block · Corporate Certification and Patent Stat…"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820d0424c97beb80/items[0].title",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820d0424c97beb80",
-    "field": "items[0].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "갤러리 항목 1 · 인증서",
-      "en": "Gallery item 1 · Business Registration Certificate"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820d0424c97beb80/items[0].desc",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820d0424c97beb80",
-    "field": "items[0].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820d0424c97beb80/items[0].org",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820d0424c97beb80",
-    "field": "items[0].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "원본 이미지 · c088725141cb2.jpg",
-      "en": "Original image · aefb3b515715f.jpg"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820d0424c97beb80/items[0].thumb",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820d0424c97beb80",
-    "field": "items[0].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "썸네일 · 67dce930ace86.jpg",
-      "en": "Thumbnail · 412862101bdb1.jpg"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820d0424c97beb80/items[1].title",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820d0424c97beb80",
-    "field": "items[1].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "갤러리 항목 2 · 인증서",
-      "en": "Gallery item 2 · Business License"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820d0424c97beb80/items[1].desc",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820d0424c97beb80",
-    "field": "items[1].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820d0424c97beb80/items[1].org",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820d0424c97beb80",
-    "field": "items[1].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "원본 이미지 · 1a518242b7a49.jpg",
-      "en": "Original image · af19bd4e28e62.jpg"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820d0424c97beb80/items[1].thumb",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820d0424c97beb80",
-    "field": "items[1].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "썸네일 · bfb3fdb20e413.jpg",
-      "en": "Thumbnail · 492d551940355.jpg"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820d0424c97beb80/items[2].title",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820d0424c97beb80",
-    "field": "items[2].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "갤러리 항목 3 · 인증서",
-      "en": "Gallery item 3 · Utility Model Patent Certificate"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820d0424c97beb80/items[2].desc",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820d0424c97beb80",
-    "field": "items[2].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820d0424c97beb80/items[2].org",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820d0424c97beb80",
-    "field": "items[2].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "원본 이미지 · 304ac687812fc.jpg",
-      "en": "Original image · 4820c8e9c3ed8.jpg"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820d0424c97beb80/items[2].thumb",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820d0424c97beb80",
-    "field": "items[2].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "썸네일 · 4d75671bece10.jpg",
-      "en": "Thumbnail · 22334d8ff6524.jpg"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820d0424c97beb80/items[3].title",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820d0424c97beb80",
-    "field": "items[3].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "갤러리 항목 4 · 인증서",
-      "en": "Gallery item 4 · Business Registration Certificate"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820d0424c97beb80/items[3].desc",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820d0424c97beb80",
-    "field": "items[3].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820d0424c97beb80/items[3].org",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820d0424c97beb80",
-    "field": "items[3].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "원본 이미지 · b597e51c69273.jpg",
-      "en": "Original image · 42e50a8eb690a.jpg"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w20250820d0424c97beb80/items[3].thumb",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w20250820d0424c97beb80",
-    "field": "items[3].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "썸네일 · 6f30377c89236.jpg",
-      "en": "Thumbnail · 690606711cdec.jpg"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w202508201caaa295b789a/html",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w202508201caaa295b789a",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 국제 인증 및 위촉 현황",
-      "en": "Text block · International certification & commissio…"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w2025082013eb8cbe71ecd/items[0].title",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w2025082013eb8cbe71ecd",
-    "field": "items[0].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "갤러리 항목 1 · 인증서",
-      "en": "Gallery item 1 · Letter of Entrustment"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w2025082013eb8cbe71ecd/items[0].desc",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w2025082013eb8cbe71ecd",
-    "field": "items[0].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w2025082013eb8cbe71ecd/items[0].org",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w2025082013eb8cbe71ecd",
-    "field": "items[0].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "원본 이미지 · d2f2ee4d98587.jpg",
-      "en": "Original image · d6d8d6db0bbef.jpg"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w2025082013eb8cbe71ecd/items[0].thumb",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w2025082013eb8cbe71ecd",
-    "field": "items[0].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "썸네일 · ac0d5bc463966.jpg",
-      "en": "Thumbnail · f5b2a186726bd.jpg"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w2025082013eb8cbe71ecd/items[1].title",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w2025082013eb8cbe71ecd",
-    "field": "items[1].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "갤러리 항목 2 · 인증서",
-      "en": "Gallery item 2 · Letter of Entrustment"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w2025082013eb8cbe71ecd/items[1].desc",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w2025082013eb8cbe71ecd",
-    "field": "items[1].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w2025082013eb8cbe71ecd/items[1].org",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w2025082013eb8cbe71ecd",
-    "field": "items[1].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "원본 이미지 · 9c056a2e807ac.jpg",
-      "en": "Original image · 1bfc1694aa4e1.jpg"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w2025082013eb8cbe71ecd/items[1].thumb",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w2025082013eb8cbe71ecd",
-    "field": "items[1].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "썸네일 · 6818b7e44069f.jpg",
-      "en": "Thumbnail · 88a23256a1522.jpg"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w2025082013eb8cbe71ecd/items[2].title",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w2025082013eb8cbe71ecd",
-    "field": "items[2].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "갤러리 항목 3 · 인증서",
-      "en": "Gallery item 3 · Company Extract(1)"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w2025082013eb8cbe71ecd/items[2].desc",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w2025082013eb8cbe71ecd",
-    "field": "items[2].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w2025082013eb8cbe71ecd/items[2].org",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w2025082013eb8cbe71ecd",
-    "field": "items[2].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "원본 이미지 · 9a9f764089ffb.jpg",
-      "en": "Original image · 8d5374647fec2.jpg"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w2025082013eb8cbe71ecd/items[2].thumb",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w2025082013eb8cbe71ecd",
-    "field": "items[2].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "썸네일 · c3d9e0eea29b7.jpg",
-      "en": "Thumbnail · 94a7b1c90fb74.jpg"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w2025082013eb8cbe71ecd/items[3].title",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w2025082013eb8cbe71ecd",
-    "field": "items[3].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "갤러리 항목 4 · 인증서",
-      "en": "Gallery item 4 · Company Extract(2)"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w2025082013eb8cbe71ecd/items[3].desc",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w2025082013eb8cbe71ecd",
-    "field": "items[3].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w2025082013eb8cbe71ecd/items[3].org",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w2025082013eb8cbe71ecd",
-    "field": "items[3].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "원본 이미지 · f991371e1a9cf.jpg",
-      "en": "Original image · d7356d1cdc994.jpg"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.patents#s202508114d9bc90ceb876/w2025082013eb8cbe71ecd/items[3].thumb",
-    "group": "rnd",
-    "pageKey": "rnd.patents",
-    "sectionId": "s202508114d9bc90ceb876",
-    "widgetId": "w2025082013eb8cbe71ecd",
-    "field": "items[3].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 인증 현황",
-      "en": "PC · Certification Status"
-    },
-    "label": {
-      "ko": "썸네일 · e501b3736a68e.jpg",
-      "en": "Thumbnail · 33d5962a20e0a.jpg"
-    },
-    "revalidate": [
-      "/rnd/patents",
-      "/en/rnd/patents"
-    ]
-  },
-  {
-    "key": "rnd.technology#s20250909caaa8544e0e70/w20250909b16e1f0580760/html",
-    "group": "rnd",
-    "pageKey": "rnd.technology",
-    "sectionId": "s20250909caaa8544e0e70",
-    "widgetId": "w20250909b16e1f0580760",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 첨단 설비와 철저한 관리로 더 깨끗하고 안전한 물을 만듭니다.",
-      "en": "PC · Advanced facilities and strict ma…"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 첨단 설비와 철저한 관리로",
-      "en": "Text block · Advanced facilities"
-    },
-    "revalidate": [
-      "/rnd/technology",
-      "/en/rnd/technology"
-    ]
-  },
-  {
-    "key": "rnd.technology#s202509091799d895b62ea/w202509092bb83d593e678/src",
-    "group": "rnd",
-    "pageKey": "rnd.technology",
-    "sectionId": "s202509091799d895b62ea",
-    "widgetId": "w202509092bb83d593e678",
-    "field": "src",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 친환경·프리미엄 수처리 기술력 다단계 정수 시스템 세디먼트,…",
-      "en": "PC · Eco-friendly premium water techno…"
-    },
-    "label": {
-      "ko": "이미지 경로 · cacef61fc2561.jpg",
-      "en": "Image source · cacef61fc2561.jpg"
-    },
-    "revalidate": [
-      "/rnd/technology",
-      "/en/rnd/technology"
-    ]
-  },
-  {
-    "key": "rnd.technology#s202509091799d895b62ea/w20250909a6322fa870d46/html",
-    "group": "rnd",
-    "pageKey": "rnd.technology",
-    "sectionId": "s202509091799d895b62ea",
-    "widgetId": "w20250909a6322fa870d46",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 친환경·프리미엄 수처리 기술력 다단계 정수 시스템 세디먼트,…",
-      "en": "PC · Eco-friendly premium water techno…"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 친환경·프리미엄",
-      "en": "Text block · Eco-friendly"
-    },
-    "revalidate": [
-      "/rnd/technology",
-      "/en/rnd/technology"
-    ]
-  },
-  {
-    "key": "rnd.technology#s2025090972e449f7846e1/w20250909743cf5b3c0201/src",
-    "group": "rnd",
-    "pageKey": "rnd.technology",
-    "sectionId": "s2025090972e449f7846e1",
-    "widgetId": "w20250909743cf5b3c0201",
-    "field": "src",
-    "kind": "image",
-    "section": {
-      "ko": "PC · OEM/글로벌 협업 역량 글로벌 대기업 공급 실적 LG, 쿠…",
-      "en": "PC · OEM/Global Collaboration Capabili…"
-    },
-    "label": {
-      "ko": "이미지 경로 · a354e4d098fc6.jpg",
-      "en": "Image source · a354e4d098fc6.jpg"
-    },
-    "revalidate": [
-      "/rnd/technology",
-      "/en/rnd/technology"
-    ]
-  },
-  {
-    "key": "rnd.technology#s2025090972e449f7846e1/w20250909f986ae33491f9/html",
-    "group": "rnd",
-    "pageKey": "rnd.technology",
-    "sectionId": "s2025090972e449f7846e1",
-    "widgetId": "w20250909f986ae33491f9",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · OEM/글로벌 협업 역량 글로벌 대기업 공급 실적 LG, 쿠…",
-      "en": "PC · OEM/Global Collaboration Capabili…"
-    },
-    "label": {
-      "ko": "텍스트 블록 · OEM/글로벌 협업 역량",
-      "en": "Text block · OEM/Global Collaboration Capabilities"
-    },
-    "revalidate": [
-      "/rnd/technology",
-      "/en/rnd/technology"
-    ]
-  },
-  {
-    "key": "rnd.technology#s2025090972e449f7846e1/w2025090999ac3275406dc/src",
-    "group": "rnd",
-    "pageKey": "rnd.technology",
-    "sectionId": "s2025090972e449f7846e1",
-    "widgetId": "w2025090999ac3275406dc",
-    "field": "src",
-    "kind": "image",
-    "section": {
-      "ko": "PC · OEM/글로벌 협업 역량 글로벌 대기업 공급 실적 LG, 쿠…",
-      "en": "PC · OEM/Global Collaboration Capabili…"
-    },
-    "label": {
-      "ko": "이미지 경로 · 368735646c29f.jpg",
-      "en": "Image source · 368735646c29f.jpg"
-    },
-    "revalidate": [
-      "/rnd/technology",
-      "/en/rnd/technology"
-    ]
-  },
-  {
-    "key": "rnd.technology#s2025090972e449f7846e1/w20250909cabf29c2126d9/html",
-    "group": "rnd",
-    "pageKey": "rnd.technology",
-    "sectionId": "s2025090972e449f7846e1",
-    "widgetId": "w20250909cabf29c2126d9",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · OEM/글로벌 협업 역량 글로벌 대기업 공급 실적 LG, 쿠…",
-      "en": "PC · OEM/Global Collaboration Capabili…"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 첨단 검사 및 품질 관리 체계",
-      "en": "Text block · Advanced inspection and quality control…"
-    },
-    "revalidate": [
-      "/rnd/technology",
-      "/en/rnd/technology"
-    ]
-  },
-  {
-    "key": "rnd.technology#s20250909b12fa8000068e/w20250909dbdd88bc19258/src",
-    "group": "rnd",
-    "pageKey": "rnd.technology",
-    "sectionId": "s20250909b12fa8000068e",
-    "widgetId": "w20250909dbdd88bc19258",
-    "field": "src",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 스마트·살균 기술 전극 기반 전기분해 살균 모듈 물을 전기분…",
-      "en": "PC · Smart/sterilizing technology Elec…"
-    },
-    "label": {
-      "ko": "이미지 경로 · d7de0a7f09580.jpg",
-      "en": "Image source · d7de0a7f09580.jpg"
-    },
-    "revalidate": [
-      "/rnd/technology",
-      "/en/rnd/technology"
-    ]
-  },
-  {
-    "key": "rnd.technology#s20250909b12fa8000068e/w202509093403364594dce/html",
-    "group": "rnd",
-    "pageKey": "rnd.technology",
-    "sectionId": "s20250909b12fa8000068e",
-    "widgetId": "w202509093403364594dce",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 스마트·살균 기술 전극 기반 전기분해 살균 모듈 물을 전기분…",
-      "en": "PC · Smart/sterilizing technology Elec…"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 스마트·살균 기술",
-      "en": "Text block · Smart/sterilizing technology"
-    },
-    "revalidate": [
-      "/rnd/technology",
-      "/en/rnd/technology"
-    ]
-  },
-  {
-    "key": "rnd.technology#s20250909b12fa8000068e/w2025090910fe01238de32/src",
-    "group": "rnd",
-    "pageKey": "rnd.technology",
-    "sectionId": "s20250909b12fa8000068e",
-    "widgetId": "w2025090910fe01238de32",
-    "field": "src",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 스마트·살균 기술 전극 기반 전기분해 살균 모듈 물을 전기분…",
-      "en": "PC · Smart/sterilizing technology Elec…"
-    },
-    "label": {
-      "ko": "이미지 경로 · 98102c9df6b48.jpg",
-      "en": "Image source · 98102c9df6b48.jpg"
-    },
-    "revalidate": [
-      "/rnd/technology",
-      "/en/rnd/technology"
-    ]
-  },
-  {
-    "key": "rnd.technology#s20250909b12fa8000068e/w20250909aaff6976da0b4/html",
-    "group": "rnd",
-    "pageKey": "rnd.technology",
-    "sectionId": "s20250909b12fa8000068e",
-    "widgetId": "w20250909aaff6976da0b4",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 스마트·살균 기술 전극 기반 전기분해 살균 모듈 물을 전기분…",
-      "en": "PC · Smart/sterilizing technology Elec…"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 대량 생산 및 글로벌 공급망",
-      "en": "Text block · Mass production and global supply chain"
-    },
-    "revalidate": [
-      "/rnd/technology",
-      "/en/rnd/technology"
-    ]
-  },
-  {
-    "key": "rnd.technology#s2025090979d4f02da9a4c/w202509098378a31a7319e/html",
-    "group": "rnd",
-    "pageKey": "rnd.technology",
-    "sectionId": "s2025090979d4f02da9a4c",
-    "widgetId": "w202509098378a31a7319e",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 투자자 핵심 USP 요약",
-      "en": "PC · Investor Core USP Summary"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 투자자 핵심 USP 요약",
-      "en": "Text block · Investor Core USP Summary"
-    },
-    "revalidate": [
-      "/rnd/technology",
-      "/en/rnd/technology"
-    ]
-  },
-  {
-    "key": "rnd.technology#s2025090979d4f02da9a4c/w20250909deb55b36523e5/html",
-    "group": "rnd",
-    "pageKey": "rnd.technology",
-    "sectionId": "s2025090979d4f02da9a4c",
-    "widgetId": "w20250909deb55b36523e5",
-    "field": "html",
-    "kind": "lines",
-    "section": {
-      "ko": "PC · 투자자 핵심 USP 요약",
-      "en": "PC · Investor Core USP Summary"
-    },
-    "label": {
-      "ko": "텍스트 블록 · 건강하기 위해서 중요한 물, 소홀히 할 수 없습니다.",
-      "en": "Text block · Water is vital to health and must not b…"
-    },
-    "revalidate": [
-      "/rnd/technology",
-      "/en/rnd/technology"
-    ]
-  },
-  {
-    "key": "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[0].title",
-    "group": "rnd",
-    "pageKey": "rnd.technology",
-    "sectionId": "s2025090979d4f02da9a4c",
-    "widgetId": "w20250909f44806a14d131",
-    "field": "items[0].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 투자자 핵심 USP 요약",
-      "en": "PC · Investor Core USP Summary"
-    },
-    "label": {
-      "ko": "갤러리 항목 1",
-      "en": "Gallery item 1"
-    },
-    "revalidate": [
-      "/rnd/technology",
-      "/en/rnd/technology"
-    ]
-  },
-  {
-    "key": "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[0].desc",
-    "group": "rnd",
-    "pageKey": "rnd.technology",
-    "sectionId": "s2025090979d4f02da9a4c",
-    "widgetId": "w20250909f44806a14d131",
-    "field": "items[0].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 투자자 핵심 USP 요약",
-      "en": "PC · Investor Core USP Summary"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/rnd/technology",
-      "/en/rnd/technology"
-    ]
-  },
-  {
-    "key": "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[0].org",
-    "group": "rnd",
-    "pageKey": "rnd.technology",
-    "sectionId": "s2025090979d4f02da9a4c",
-    "widgetId": "w20250909f44806a14d131",
-    "field": "items[0].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 투자자 핵심 USP 요약",
-      "en": "PC · Investor Core USP Summary"
-    },
-    "label": {
-      "ko": "원본 이미지 · 3761750bfc322.png",
-      "en": "Original image · cdb1e24f6ebe1.png"
-    },
-    "revalidate": [
-      "/rnd/technology",
-      "/en/rnd/technology"
-    ]
-  },
-  {
-    "key": "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[0].thumb",
-    "group": "rnd",
-    "pageKey": "rnd.technology",
-    "sectionId": "s2025090979d4f02da9a4c",
-    "widgetId": "w20250909f44806a14d131",
-    "field": "items[0].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 투자자 핵심 USP 요약",
-      "en": "PC · Investor Core USP Summary"
-    },
-    "label": {
-      "ko": "썸네일 · 573cf99e3c5b9.png",
-      "en": "Thumbnail · 1baeac9915602.png"
-    },
-    "revalidate": [
-      "/rnd/technology",
-      "/en/rnd/technology"
-    ]
-  },
-  {
-    "key": "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[1].title",
-    "group": "rnd",
-    "pageKey": "rnd.technology",
-    "sectionId": "s2025090979d4f02da9a4c",
-    "widgetId": "w20250909f44806a14d131",
-    "field": "items[1].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 투자자 핵심 USP 요약",
-      "en": "PC · Investor Core USP Summary"
-    },
-    "label": {
-      "ko": "갤러리 항목 2",
-      "en": "Gallery item 2"
-    },
-    "revalidate": [
-      "/rnd/technology",
-      "/en/rnd/technology"
-    ]
-  },
-  {
-    "key": "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[1].desc",
-    "group": "rnd",
-    "pageKey": "rnd.technology",
-    "sectionId": "s2025090979d4f02da9a4c",
-    "widgetId": "w20250909f44806a14d131",
-    "field": "items[1].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 투자자 핵심 USP 요약",
-      "en": "PC · Investor Core USP Summary"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/rnd/technology",
-      "/en/rnd/technology"
-    ]
-  },
-  {
-    "key": "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[1].org",
-    "group": "rnd",
-    "pageKey": "rnd.technology",
-    "sectionId": "s2025090979d4f02da9a4c",
-    "widgetId": "w20250909f44806a14d131",
-    "field": "items[1].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 투자자 핵심 USP 요약",
-      "en": "PC · Investor Core USP Summary"
-    },
-    "label": {
-      "ko": "원본 이미지 · 0b870a15d41c0.png",
-      "en": "Original image · e599b51b44230.png"
-    },
-    "revalidate": [
-      "/rnd/technology",
-      "/en/rnd/technology"
-    ]
-  },
-  {
-    "key": "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[1].thumb",
-    "group": "rnd",
-    "pageKey": "rnd.technology",
-    "sectionId": "s2025090979d4f02da9a4c",
-    "widgetId": "w20250909f44806a14d131",
-    "field": "items[1].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 투자자 핵심 USP 요약",
-      "en": "PC · Investor Core USP Summary"
-    },
-    "label": {
-      "ko": "썸네일 · a44de73d0ad9d.png",
-      "en": "Thumbnail · 6925cacf72ef8.png"
-    },
-    "revalidate": [
-      "/rnd/technology",
-      "/en/rnd/technology"
-    ]
-  },
-  {
-    "key": "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[2].title",
-    "group": "rnd",
-    "pageKey": "rnd.technology",
-    "sectionId": "s2025090979d4f02da9a4c",
-    "widgetId": "w20250909f44806a14d131",
-    "field": "items[2].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 투자자 핵심 USP 요약",
-      "en": "PC · Investor Core USP Summary"
-    },
-    "label": {
-      "ko": "갤러리 항목 3",
-      "en": "Gallery item 3"
-    },
-    "revalidate": [
-      "/rnd/technology",
-      "/en/rnd/technology"
-    ]
-  },
-  {
-    "key": "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[2].desc",
-    "group": "rnd",
-    "pageKey": "rnd.technology",
-    "sectionId": "s2025090979d4f02da9a4c",
-    "widgetId": "w20250909f44806a14d131",
-    "field": "items[2].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 투자자 핵심 USP 요약",
-      "en": "PC · Investor Core USP Summary"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/rnd/technology",
-      "/en/rnd/technology"
-    ]
-  },
-  {
-    "key": "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[2].org",
-    "group": "rnd",
-    "pageKey": "rnd.technology",
-    "sectionId": "s2025090979d4f02da9a4c",
-    "widgetId": "w20250909f44806a14d131",
-    "field": "items[2].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 투자자 핵심 USP 요약",
-      "en": "PC · Investor Core USP Summary"
-    },
-    "label": {
-      "ko": "원본 이미지 · 07acdffabdc33.png",
-      "en": "Original image · 4779b22f463f4.png"
-    },
-    "revalidate": [
-      "/rnd/technology",
-      "/en/rnd/technology"
-    ]
-  },
-  {
-    "key": "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[2].thumb",
-    "group": "rnd",
-    "pageKey": "rnd.technology",
-    "sectionId": "s2025090979d4f02da9a4c",
-    "widgetId": "w20250909f44806a14d131",
-    "field": "items[2].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 투자자 핵심 USP 요약",
-      "en": "PC · Investor Core USP Summary"
-    },
-    "label": {
-      "ko": "썸네일 · 0bd08d1aa30c1.png",
-      "en": "Thumbnail · 263f8d6760009.png"
-    },
-    "revalidate": [
-      "/rnd/technology",
-      "/en/rnd/technology"
-    ]
-  },
-  {
-    "key": "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[3].title",
-    "group": "rnd",
-    "pageKey": "rnd.technology",
-    "sectionId": "s2025090979d4f02da9a4c",
-    "widgetId": "w20250909f44806a14d131",
-    "field": "items[3].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 투자자 핵심 USP 요약",
-      "en": "PC · Investor Core USP Summary"
-    },
-    "label": {
-      "ko": "갤러리 항목 4",
-      "en": "Gallery item 4"
-    },
-    "revalidate": [
-      "/rnd/technology",
-      "/en/rnd/technology"
-    ]
-  },
-  {
-    "key": "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[3].desc",
-    "group": "rnd",
-    "pageKey": "rnd.technology",
-    "sectionId": "s2025090979d4f02da9a4c",
-    "widgetId": "w20250909f44806a14d131",
-    "field": "items[3].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 투자자 핵심 USP 요약",
-      "en": "PC · Investor Core USP Summary"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/rnd/technology",
-      "/en/rnd/technology"
-    ]
-  },
-  {
-    "key": "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[3].org",
-    "group": "rnd",
-    "pageKey": "rnd.technology",
-    "sectionId": "s2025090979d4f02da9a4c",
-    "widgetId": "w20250909f44806a14d131",
-    "field": "items[3].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 투자자 핵심 USP 요약",
-      "en": "PC · Investor Core USP Summary"
-    },
-    "label": {
-      "ko": "원본 이미지 · 726d3d98ac7b2.png",
-      "en": "Original image · df58c3da9f186.png"
-    },
-    "revalidate": [
-      "/rnd/technology",
-      "/en/rnd/technology"
-    ]
-  },
-  {
-    "key": "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[3].thumb",
-    "group": "rnd",
-    "pageKey": "rnd.technology",
-    "sectionId": "s2025090979d4f02da9a4c",
-    "widgetId": "w20250909f44806a14d131",
-    "field": "items[3].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 투자자 핵심 USP 요약",
-      "en": "PC · Investor Core USP Summary"
-    },
-    "label": {
-      "ko": "썸네일 · 5a9eb3caf501d.png",
-      "en": "Thumbnail · 4773e68872052.png"
-    },
-    "revalidate": [
-      "/rnd/technology",
-      "/en/rnd/technology"
-    ]
-  },
-  {
-    "key": "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[4].title",
-    "group": "rnd",
-    "pageKey": "rnd.technology",
-    "sectionId": "s2025090979d4f02da9a4c",
-    "widgetId": "w20250909f44806a14d131",
-    "field": "items[4].title",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 투자자 핵심 USP 요약",
-      "en": "PC · Investor Core USP Summary"
-    },
-    "label": {
-      "ko": "갤러리 항목 5",
-      "en": "Gallery item 5"
-    },
-    "revalidate": [
-      "/rnd/technology",
-      "/en/rnd/technology"
-    ]
-  },
-  {
-    "key": "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[4].desc",
-    "group": "rnd",
-    "pageKey": "rnd.technology",
-    "sectionId": "s2025090979d4f02da9a4c",
-    "widgetId": "w20250909f44806a14d131",
-    "field": "items[4].desc",
-    "kind": "text",
-    "section": {
-      "ko": "PC · 투자자 핵심 USP 요약",
-      "en": "PC · Investor Core USP Summary"
-    },
-    "label": {
-      "ko": "설명",
-      "en": "Description"
-    },
-    "revalidate": [
-      "/rnd/technology",
-      "/en/rnd/technology"
-    ]
-  },
-  {
-    "key": "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[4].org",
-    "group": "rnd",
-    "pageKey": "rnd.technology",
-    "sectionId": "s2025090979d4f02da9a4c",
-    "widgetId": "w20250909f44806a14d131",
-    "field": "items[4].org",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 투자자 핵심 USP 요약",
-      "en": "PC · Investor Core USP Summary"
-    },
-    "label": {
-      "ko": "원본 이미지 · 5a24a322e6701.png",
-      "en": "Original image · df12bf2a62722.png"
-    },
-    "revalidate": [
-      "/rnd/technology",
-      "/en/rnd/technology"
-    ]
-  },
-  {
-    "key": "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[4].thumb",
-    "group": "rnd",
-    "pageKey": "rnd.technology",
-    "sectionId": "s2025090979d4f02da9a4c",
-    "widgetId": "w20250909f44806a14d131",
-    "field": "items[4].thumb",
-    "kind": "image",
-    "section": {
-      "ko": "PC · 투자자 핵심 USP 요약",
-      "en": "PC · Investor Core USP Summary"
-    },
-    "label": {
-      "ko": "썸네일 · 44a84773be892.png",
-      "en": "Thumbnail · 7e2be8834091a.png"
-    },
-    "revalidate": [
-      "/rnd/technology",
-      "/en/rnd/technology"
     ]
   },
   {
@@ -9942,32 +9776,17 @@ export const CONTENT_DEFS: ContentDef[] = [
 
 /** Code-side defaults, seeded from content/*.json (DB values override these). */
 export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
-  "company.about#s20250821eb14df6d34580/w20250821770900c60669c/html": {
-    "ko": "더 건강하고 깨끗한 물을 만드는 고객과의 약속\n에코웨이브를 소개합니다.",
-    "en": "EcoWave promises healthier,\ncleaner water for customers."
-  },
-  "company.about#s202509191b81eb54a6991/w202509191cf358c2625d5/src": {
-    "ko": "/images/thumbnail/20250919/196f5234277f5.jpg",
-    "en": "/images/thumbnail/20250919/67a21a7c80b5f.jpg"
-  },
-  "company.about#s202509191b81eb54a6991/w20250919f67f88afd25af/html": {
-    "ko": "깨끗한 물,\n건강한 삶을 만드는\n에코웨이브",
-    "en": "Clean water,\nmaking a healthy life\nEco-wave"
-  },
-  "company.about#s202509191b81eb54a6991/w20250919473898f523ab7/html": {
-    "ko": "맑고 깨끗한 물이 생활의 기본이자 건강의 근원이라는 믿음을 바탕으로,\n우리는 혁신적인 정수기와 고성능 필터 솔루션을 연구·개발하여 가정과 기업에 공급하고 있습니다.\n작은 한 방울의 물까지도 안전하게 지켜내는 기술력과 지속 가능한 친환경 철학을 바탕으로,\n고객의 삶의 질을 높이고 미래 세대에게 더욱 깨끗한 환경을 물려주기 위해 노력하고 있습니다.",
-    "en": "Based on the belief that clear and clean water is the basis of life and the source of health,\nWe research and develop innovative water purifiers and high-performance filter solutions and supply them to homes and businesses.\nBased on technology and sustainable eco-friendly philosophy that keeps even a tiny drop of water safe, We strive to improve the quality of life of our customers and pass on a cleaner environment to future generations."
-  },
   "company.about#s20250811457daf6e58a2c/w2025091840bd06b2a6c1d/src": {
     "ko": "/images/thumbnail/20250918/5cda7b9aa9b6e.jpg",
     "en": "/images/thumbnail/20250919/4b6a298c59f93.jpg"
   },
   "company.about#s20250811457daf6e58a2c/w202509187c7529a0c38c3/html": {
     "ko": "깨끗한 물,\n건강한 삶을 만드는\n에코웨이브",
-    "en": "Based on the belief that clear and clean water is the basis of life and the source of health,\nWe research and develop innovative water purifiers and high-performance filter solutions and supply them to homes and businesses.\nBased on technology and sustainable eco-friendly philosophy that keeps even a tiny drop of water safe, We strive to improve the quality of life of our customers and pass on a cleaner environment to future generations."
+    "en": "Clean water,\nmaking a healthy life\nEco-wave"
   },
   "company.about#s20250811457daf6e58a2c/w20250918684332dc780e7/html": {
-    "ko": "맑고 깨끗한 물이 생활의 기본이자 건강의 근원이라는 믿음을 바탕으로,\n우리는 혁신적인 정수기와 고성능 필터 솔루션을 연구·개발하여 가정과 기업에 공급하고 있습니다.\n작은 한 방울의 물까지도 안전하게 지켜내는 기술력과 지속 가능한 친환경 철학을 바탕으로,\n고객의 삶의 질을 높이고 미래 세대에게 더욱 깨끗한 환경을 물려주기 위해 노력하고 있습니다."
+    "ko": "맑고 깨끗한 물이 생활의 기본이자 건강의 근원이라는 믿음을 바탕으로,\n우리는 혁신적인 정수기와 고성능 필터 솔루션을 연구·개발하여 가정과 기업에 공급하고 있습니다.\n작은 한 방울의 물까지도 안전하게 지켜내는 기술력과 지속 가능한 친환경 철학을 바탕으로,\n고객의 삶의 질을 높이고 미래 세대에게 더욱 깨끗한 환경을 물려주기 위해 노력하고 있습니다.",
+    "en": "Based on the belief that clear and clean water is the basis of life and the source of health,\nWe research and develop innovative water purifiers and high-performance filter solutions and supply them to homes and businesses.\nBased on technology and sustainable eco-friendly philosophy that keeps even a tiny drop of water safe, We strive to improve the quality of life of our customers and pass on a cleaner environment to future generations."
   },
   "company.about#s20250918e40b7f78d4437/w20250918f607bbed181f6/html": {
     "ko": "에코웨이브\n기술력",
@@ -9975,22 +9794,23 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
   },
   "company.about#s20250918e40b7f78d4437/w20250918907bfdecbaebd/html": {
     "ko": "POINT 01\n친환경·프리미엄 수처리 기술력\n고성능 필터와 마이크로 여과 기술로 미세 불순물까지 제거하여,\n더 맑고 안전한 물을 제공합니다.",
-    "en": "POINT 02\nOEM/Global Collaboration Capabilities\nBased on our experience in supplying large domestic and foreign companies and our diverse product portfolio, we work with global partners in more than 30 countries."
+    "en": "POINT 01\nEco-friendly and premium water treatment technology\nHigh-performance filters and microfiltration technology remove even fine impurities, It provides clearer and safer water."
   },
   "company.about#s20250918e40b7f78d4437/w2025091834b55c4354127/html": {
     "ko": "POINT 02\nOEM/글로벌 협업 역량\n국내외 대기업 공급 경험과 다양한 제품 포트폴리오를 기반으로,\n30여 개국 이상 글로벌 파트너와 협력합니다.",
-    "en": "POINT 03\nAdvanced inspection and quality control systems\nEstablish a system that closely inspects multiple items such as heavy metals and bacteria and operates a quality management system that can respond to global audits."
+    "en": "POINT 02\nOEM/Global Collaboration Capabilities\nBased on our experience in supplying large domestic and foreign companies and our diverse product portfolio, we work with global partners in more than 30 countries."
   },
   "company.about#s20250918e40b7f78d4437/w202509189da0d6c8fdca9/html": {
     "ko": "POINT 03\n첨단 검사 및 품질 관리 체계\n중금속·세균 등 다중 항목을 정밀 검사하는 시스템을 구축하고,\n글로벌 Audit에 대응 가능한 품질 관리 체계를 운영합니다.",
-    "en": "POINT 04\nSmart sterilization technology\nIt monitors in real time using eco-friendly construction\nmethods and IoT sensors, and provides a safe sterilization solution without residues."
+    "en": "POINT 03\nAdvanced inspection and quality control systems\nEstablish a system that closely inspects multiple items such as heavy metals and bacteria and operates a quality management system that can respond to global audits."
   },
   "company.about#s20250918e40b7f78d4437/w20250918491b988a3f900/html": {
     "ko": "POINT 04\n스마트 살균 기술\n친환경 공법과 IoT 센서를 활용해 실시간 모니터링하며,\n잔류물 없는 안전한 살균 솔루션을 제공합니다.",
-    "en": "POINT 05\nMass production and global supply chain\n.With a yearly filter production capacity of more than 2.5 billion filters and a logistics network,\nit supplies reliably to more than 60 countries around the world."
+    "en": "POINT 04\nSmart sterilization technology\nIt monitors in real time using eco-friendly construction\nmethods and IoT sensors, and provides a safe sterilization solution without residues."
   },
   "company.about#s20250918e40b7f78d4437/w20250918bf11a5c9a5e10/html": {
-    "ko": "POINT 05\n대량 생산 및 글로벌 공급망\n연간 25억 개 이상의 필터 생산 능력과 물류 네트워크를 통해,\n전 세계 60여 개국에 안정적으로 공급합니다."
+    "ko": "POINT 05\n대량 생산 및 글로벌 공급망\n연간 25억 개 이상의 필터 생산 능력과 물류 네트워크를 통해,\n전 세계 60여 개국에 안정적으로 공급합니다.",
+    "en": "POINT 05\nMass production and global supply chain\n.With a yearly filter production capacity of more than 2.5 billion filters and a logistics network,\nit supplies reliably to more than 60 countries around the world."
   },
   "company.about#s202508119a2e8fe21b47a/w20250918fb56c1bc5ba1c/html": {
     "ko": "에코웨이브가 만드는 건강한 생활 솔루션",
@@ -10204,25 +10024,49 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "ko": "우리 일상 속에서 만나는 에코웨이브",
     "en": "Eco wave that we meet in our daily lives"
   },
+  "company.about#s20250918c5a18b62c8acd/w20250919eb33a28196229/img[0].src": {
+    "ko": "/images/upload/S20250811e0bd2f7c414df/1b9f9b2c85d9a.jpg",
+    "en": "/images/upload/S20250811e0bd2f7c414df/1b9f9b2c85d9a.jpg"
+  },
   "company.about#s20250918c5a18b62c8acd/w20250919eb33a28196229/html": {
     "ko": "정수기\n언더싱크와 슬림형 등 다양한 제품군으로 구성된 에코웨이브의 정수기는 공간 활용성과 사용 편의성을 동시에 갖추어, 가정은 물론 사무실과 상업 시설에서도 언제나 깨끗하고 신뢰할 수 있는 물을 공급하는 생활의 기본 솔루션입니다.",
     "en": "Water purifier\nEcoWave's water purifier, which consists of various product lines such as undersink and slim type, is a basic solution to life that always supplies clean and reliable water at home, in offices and commercial facilities."
+  },
+  "company.about#s20250918c5a18b62c8acd/w20250919a06813f5e869d/img[0].src": {
+    "ko": "/images/upload/S20250811e0bd2f7c414df/e7b42395cc54b.jpg",
+    "en": "/images/upload/S20250811e0bd2f7c414df/e7b42395cc54b.jpg"
   },
   "company.about#s20250918c5a18b62c8acd/w20250919a06813f5e869d/html": {
     "ko": "정수 필터\n세디먼트, 프리카본, UF/RO/나노 멤브레인, 포스트카본 등으로 이루어진 다단계 정수 필터는 눈에 보이지 않는 미세 불순물과 중금속, 잔류 염소 및 유해 물질까지 효과적으로 제거하여, 단순히 수질을 개선하는 차원을 넘어 건강한 물의 가치를 실현합니다.",
     "en": "Water filter\nMultistage water filters consisting of sediments, pre-carbon, UF/RO/nano membranes, and post-carbon effectively remove invisible fine impurities, heavy metals, residual chlorine and harmful substances, realizing the value of healthy water beyond just improving water quality."
   },
+  "company.about#s20250918c5a18b62c8acd/w202509196d95887d0ea56/img[0].src": {
+    "ko": "/images/upload/S20250811e0bd2f7c414df/115b10efe54e3.jpg",
+    "en": "/images/upload/S20250811e0bd2f7c414df/115b10efe54e3.jpg"
+  },
   "company.about#s20250918c5a18b62c8acd/w202509196d95887d0ea56/html": {
     "ko": "비데 필터\n항균볼과 세디먼트 필터가 적용된 에코웨이브의 비데 필터는 민감한 피부에도 부담을 주지 않는 부드럽고 위생적인 물을 제공하여, 개인 위생 관리의 새로운 기준을 제시하며 안심하고 사용할 수 있는 생활 위생 솔루션입니다.",
     "en": "Bidet filter\nEcoWave's bidet filter with antibacterial balls and sediment filters provides soft and hygienic water that does not burden sensitive skin, setting a new standard for personal hygiene care and providing a safe living hygiene solution."
+  },
+  "company.about#s20250918c5a18b62c8acd/w2025091937ef9567e5c28/img[0].src": {
+    "ko": "/images/upload/S20250811e0bd2f7c414df/f6a0015ce78bf.jpg",
+    "en": "/images/upload/S20250811e0bd2f7c414df/f6a0015ce78bf.jpg"
   },
   "company.about#s20250918c5a18b62c8acd/w2025091937ef9567e5c28/html": {
     "ko": "샤워·비타민 필터\n잔류 염소 제거를 기본으로 아로마와 비타민 성분을 더한 샤워·비타민 필터는 일상적인 세정 행위를 피부와 모발 건강을 지키는 프리미엄 케어의 시간으로 바꾸어, 가족 모두가 건강하고 상쾌한 생활을 누릴 수 있도록 돕습니다.",
     "en": "Shower/Vitamin Filter\nBased on residual chlorine removal, the shower and vitamin filter, which adds aroma and vitamin ingredients, turns everyday cleaning into a time of premium care to protect skin and hair health, helping all families enjoy a healthy and refreshing life."
   },
+  "company.about#s20250918c5a18b62c8acd/w2025091911917416765db/img[0].src": {
+    "ko": "/images/upload/S20250811e0bd2f7c414df/1b9f9b2c85d9a.jpg",
+    "en": "/images/upload/S20250811e0bd2f7c414df/1b9f9b2c85d9a.jpg"
+  },
   "company.about#s20250918c5a18b62c8acd/w2025091911917416765db/html": {
     "ko": "살균 모듈\n전극을 통해 물을 전기분해하여 살균수를 생성하는 살균 모듈은 정수기와 비데 내부의 물탱크 및 호스를 항상 청결하게 유지시켜 주며, 세균과 오염으로부터 안전한 환경을 보장하는 차세대 정수기 핵심 기술입니다.",
     "en": "Sterilization module\nSterilization modules, which generate sterilizing water by electrolyzing water through electrodes, are a key technology for next-generation water purifiers that always keeps water tanks and hoses inside water purifiers and bidets clean and ensures a safe environment from germs and contamination."
+  },
+  "company.about#s20250918c5a18b62c8acd/w20250919752cb4c4b07f1/img[0].src": {
+    "ko": "/images/upload/S20250811e0bd2f7c414df/938b9b68a8715.jpg",
+    "en": "/images/upload/S20250811e0bd2f7c414df/938b9b68a8715.jpg"
   },
   "company.about#s20250918c5a18b62c8acd/w20250919752cb4c4b07f1/html": {
     "ko": "부품 & 액세서리\n저압 스위치(LPS), 핸드밸브, 다양한 피팅류 등으로 구성된 부품 및 액세서리 제품군은 정수기와 필터 시스템을 안정적이고 효율적으로 작동하게 하여, 글로벌 OEM 수준의 정밀성과 호환성을 기반으로 고객에게 완성도 높은 사용 경험을 제공합니다.",
@@ -10676,13 +10520,25 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "ko": "/images/thumbnail/20250828/9bc64982daf80.jpg",
     "en": "/images/thumbnail/20250919/51be646ff4140.png"
   },
+  "company.about#s202509180d5f2b5ede2b3/w2025091886eece88ff0c0/img[0].src": {
+    "ko": "/images/upload/S20250811e0bd2f7c414df/780da2c850799.png",
+    "en": "/images/upload/S20250811e0bd2f7c414df/780da2c850799.png"
+  },
   "company.about#s202509180d5f2b5ede2b3/w2025091886eece88ff0c0/html": {
     "ko": "한국본사\n인천광역시 남동구 은봉로 14 영도빌딩 2동\nTEL: +82-32-812-1800",
     "en": "Korean headquarters\n2-dong, Yeongdo Building, 14, Eunbong-ro, Namdong-gu, Incheon, Republic of Korea\nTEL: +82-32-812-1800"
   },
+  "company.about#s202509180d5f2b5ede2b3/w20250919ad2bb4e856fba/img[0].src": {
+    "ko": "/images/upload/S20250811e0bd2f7c414df/780da2c850799.png",
+    "en": "/images/upload/S20250811e0bd2f7c414df/780da2c850799.png"
+  },
   "company.about#s202509180d5f2b5ede2b3/w20250919ad2bb4e856fba/html": {
     "ko": "중국 제조공장\nHongfuiie NO.90 Yantai, Shandong, PR. China",
     "en": "Chinese manufacturing plant\nHongfuiie NO.90 Yantai, Shandong, PR. China"
+  },
+  "company.about#s202509180d5f2b5ede2b3/w20250919aa8199dc628c3/img[0].src": {
+    "ko": "/images/upload/S20250811e0bd2f7c414df/780da2c850799.png",
+    "en": "/images/upload/S20250811e0bd2f7c414df/780da2c850799.png"
   },
   "company.about#s202509180d5f2b5ede2b3/w20250919aa8199dc628c3/html": {
     "ko": "캄보디아 오피스\nTuol Kork Phnom Penh City",
@@ -10691,6 +10547,10 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
   "company.ceo#s202508206321c39177601/w20250820e1c08ac226481/html": {
     "ko": "더 건강하고 깨끗한 물을 만드는 고객과의 약속\n에코웨이브를 소개합니다.",
     "en": "EcoWave promises healthier,\ncleaner water for customers."
+  },
+  "company.ceo#s20250811fd0a82675a6bc/w20250909fe979998d4590/img[0].src": {
+    "ko": "/images/upload/S20250811e0bd2f7c414df/a4521d6c5d4c5.png",
+    "en": "/images/upload/S20250811e0bd2f7c414df/a4521d6c5d4c5.png"
   },
   "company.ceo#s20250811fd0a82675a6bc/w20250909fe979998d4590/html": {
     "ko": "에코웨이브\n홈페이지를\n찾아주신 모든 분들께\n진심으로 감사를 드립니다.",
@@ -10704,10 +10564,6 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "ko": "에코웨이브 대표\n최 태 국",
     "en": "Representative of EcoWave,\nChoi Tae-guk"
   },
-  "company.global#s20250820da33f7f397fba/w202508201a58c7d614215/html": {
-    "ko": "더 건강하고 깨끗한 물을 만드는 고객과의 약속\n에코웨이브를 소개합니다.",
-    "en": "EcoWave promises healthier,\ncleaner water for customers."
-  },
   "company.global#s20250828182272ec01906/w20250828247c9904b6b1e/html": {
     "ko": "에코웨이브 본사\n인천광역시 남동구 은봉로 14 영도빌딩 2동",
     "en": "EcoWave Headquarters\n2-dong, Yeongdo Building, 14, Eunbong-ro, Namdong-gu, Incheon, Republic of Korea"
@@ -10716,97 +10572,21 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "ko": "TEL\n+82-32-812-1800\nFAX\n+82-32-812-1804\nEMAIL\nabc@naver.com",
     "en": "TEL\n+82-32-812-1800\nFAX\n+82-32-812-1804\nEMAIL\nabc@naver.com"
   },
-  "company.global#s202509111ecee05a61770/w202509110c02a9a33a442/html": {
-    "ko": "TEL\n+82-32-812-1800\nFAX\n+82-32-812-1804\nEMAIL\nabc@naver.com",
-    "en": "TEL\n+82-32-812-1800\nFAX\n+82-32-812-1804\nEMAIL\nabc@naver.com"
+  "company.global#s20250828182272ec01906/w202508280b0ed4b9954c7/iframe[0].src": {
+    "ko": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d792.2574458919692!2d126.69277282647334!3d37.412770917172814!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357b79f653a08a39%3A0xeb2783864a797da5!2z7J247LKc6rSR7Jet7IucIOuCqOuPmeq1rCDsnYDrtInroZwgMTQ!5e0!3m2!1sko!2skr!4v1756358491614!5m2!1sko!2skr",
+    "en": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d792.2574458919692!2d126.69277282647334!3d37.412770917172814!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357b79f653a08a39%3A0xeb2783864a797da5!2z7J247LKc6rSR7Jet7IucIOuCqOuPmeq1rCDsnYDrtInroZwgMTQ!5e0!3m2!1sko!2skr!4v1756358491614!5m2!1sko!2skr"
   },
-  "company.global#s202508286e01c87027ecf/w20250828055c4220c2f68/html": {
-    "ko": "중국 지사\n상하이 옌타이 시티\nHongfuiie NO.90 Yantai. Shandong. P.R.China",
-    "en": "China branch\nYantai City, Shanghai\nHongfuiie NO.90 Yantai. Shandong. P.R.China"
+  "company.global#s202508286e01c87027ecf/locations/locations": {
+    "ko": "[{\"badge\":\"중국 지사\",\"city\":\"상하이 옌타이 시티\",\"address\":\"Hongfuiie NO.90 Yantai. Shandong. P.R.China\",\"mapSrc\":\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3191.921646376016!2d120.51968507627214!3d36.86829426385741!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3596b8ab88fb5af1%3A0xa4ae422919dd9f02!2s90%20Yan%20Tai%20Lu%2C%20Lai%20Xi%20Shi%2C%20Qing%20Dao%20Shi%2C%20Shan%20Dong%20Sheng%2C%20%EC%A4%91%EA%B5%AD%20266600!5e0!3m2!1sko!2skr!4v1756359503622!5m2!1sko!2skr\"},{\"badge\":\"캄보디아 지사\",\"city\":\"캄보디아 프놈펜\",\"address\":\"Tuol Kork Phnom Penh City\",\"mapSrc\":\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d18592.98576115093!2d104.88517323644685!3d11.573796848921877!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3109517485ad1295%3A0xb2bbda109bd51b1a!2zS2hhbiBUdW9sIEtvcmssIO2UhOuGiO2OnCDsuoTrs7TrlJTslYQ!5e0!3m2!1sko!2skr!4v1756358557816!5m2!1sko!2skr\"}]",
+    "en": "[{\"badge\":\"China branch\",\"city\":\"Yantai City, Shanghai\",\"address\":\"Hongfuiie NO.90 Yantai. Shandong. P.R.China\",\"mapSrc\":\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3191.921646376016!2d120.51968507627214!3d36.86829426385741!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3596b8ab88fb5af1%3A0xa4ae422919dd9f02!2s90%20Yan%20Tai%20Lu%2C%20Lai%20Xi%20Shi%2C%20Qing%20Dao%20Shi%2C%20Shan%20Dong%20Sheng%2C%20%EC%A4%91%EA%B5%AD%20266600!5e0!3m2!1sko!2skr!4v1756359503622!5m2!1sko!2skr\"},{\"badge\":\"Cambodian branch\",\"city\":\"Cambodia Phnom Penh\",\"address\":\"Tuol Kork Phnom Penh City\",\"mapSrc\":\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d18592.98576115093!2d104.88517323644685!3d11.573796848921877!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3109517485ad1295%3A0xb2bbda109bd51b1a!2zS2hhbiBUdW9sIEtvcmssIO2UhOuGiO2OnCDsuoTrs7TrlJTslYQ!5e0!3m2!1sko!2skr!4v1756358557816!5m2!1sko!2skr\"}]"
   },
-  "company.global#s202508286e01c87027ecf/w20250828de7deb233dbfa/html": {
-    "ko": "캄보디아 지사\n캄보디아 프놈펜\nTuol Kork Phnom Penh City",
-    "en": "Cambodian branch\nCambodia Phnom Penh\nTuol Kork Phnom Penh City"
-  },
-  "company.history#s2025081109284c6634db6/w2025081119c3906474684/html": {
-    "ko": "더 건강하고 깨끗한 물을 만드는 고객과의 약속\n에코웨이브를 소개합니다.",
-    "en": "EcoWave promises healthier,\ncleaner water for customers."
-  },
-  "company.history#s20250911d986b4b4130eb/w202509117601025aae8ff/src": {
-    "ko": "/images/thumbnail/20250911/8a464767025fa.jpg",
-    "en": "/images/thumbnail/20250911/8a464767025fa.jpg"
-  },
-  "company.history#s20250811d0a0980d730fb/w2025082800cb79b620e9f/html": {
-    "ko": "2020 - 2023\n에코웨이브의\n지속적\n​\n인 혁\n​\n신\n과\n성장",
-    "en": "2020 - 2023\nECO-WAVE\nContinuous innovation\nand\ngrowth"
-  },
-  "company.history#s20250811d0a0980d730fb/w202508283581492aaba5b/html": {
-    "ko": "2025\n· LS대원 비데 필터 및 아답터 공급\n· 쿠쿠 홈시스 마그네틱 5종 공급\n2024\n· LS대원 비데 필터 및 아답터 공급\n· 쿠쿠 홈시스 마그네틱 5종 공급\n2023\n· 캄보디아 판매회사 설립\n2021\n· 에코웨이브 2공장 설립\n· LG전자 서비스 점검키트 개발\n2020\n· 쿠쿠 홈시스 정수기 설치 아답터 개발\n· 쿠쿠 홈시스 POE정수 필터 개발",
-    "en": "2025\n· LS Daewon bidet filter and adapter supply\n· Kuku Homesys Magnetic 5 Pieces Supplied\n2024\n· LS Daewon bidet filter and adapter supply\n· Kuku Homesys Magnetic 5 Pieces Supplied\n2023\n· Establishment of Cambodian Sales Company\n2021\n· Establishment of EcoWave Plant 2\n· Development of LG Electronics Service Inspection Kit\n2020\n· Development of Cuckoo Homesys Water Purifier Installation Adapter\n· Development of Cuckoo Homesys POE Water Purification Filter"
-  },
-  "company.history#s20250811d0a0980d730fb/w20250828e2f457614fd1a/src": {
-    "ko": "/images/thumbnail/20250828/6b14cd3e03e4b.jpg",
-    "en": "/images/thumbnail/20250828/6b14cd3e03e4b.jpg"
-  },
-  "company.history#s202509113e3a9a552b0c7/w202509111eabf738e9f9f/src": {
-    "ko": "/images/thumbnail/20250911/3a403d278f3ca.jpg",
-    "en": "/images/thumbnail/20250911/3a403d278f3ca.jpg"
-  },
-  "company.history#s20250828fe85691f33b65/w20250828e83ff2674ace5/html": {
-    "ko": "2015 - 2019\n에코웨이브의\n기술\n과 서비스의 융합",
-    "en": "2015 - 2019\nECO-WAVE\nconvergence of technology and services"
-  },
-  "company.history#s20250828fe85691f33b65/w2025082812223844d5d61/html": {
-    "ko": "2019\n· LG전자 정수기 아답터 개발\n2018\n· 쿠쿠 홈시스 정수기 필터 개발\n· SK Magic 신규 비데 필터 개발\n2017\n· 자사 비타민 샤워기 모듈 및 필터 개발\n2016\n· SK Magic 비데 필터 공급\n2015\n· 나노 필터 개발",
-    "en": "2019\n· Development of LG Electronics Water Purifier Adapter\n2018\n· Development of Cuckoo Homesys Water Purifier Filter\n· Development of SK Magic New Bidet Filter\n2017\n· Developing its own vitamin shower module and filter\n2016\n· SK Magic Bidet filter supply\n2015\n· Development of Nano Filter"
-  },
-  "company.history#s20250828fe85691f33b65/w202508289a08701d84b65/src": {
-    "ko": "/images/thumbnail/20250828/a183e714076fb.jpg",
-    "en": "/images/thumbnail/20250828/a183e714076fb.jpg"
-  },
-  "company.history#s2025091169f925490d127/w2025091118beac108f780/src": {
-    "ko": "/images/thumbnail/20250911/f4ac0f6dcab6e.jpg",
-    "en": "/images/thumbnail/20250911/f4ac0f6dcab6e.jpg"
-  },
-  "company.history#s2025082848202431448dd/w20250828ed4c25cde1fa0/html": {
-    "ko": "2010 - 2014\n에코웨이브의\n고객과 함께한 신뢰의 역사",
-    "en": "2010 - 2014\nECO-WAVE\na history of trust with customers"
-  },
-  "company.history#s2025082848202431448dd/w202508288b50dcc1f5d69/html": {
-    "ko": "2014\n· 기업 부설 연구소 설립\n2013\n· 자사 언더 싱크 정수기 개발\n2012\n· LG 살균 모듈 개발(ESD)개발\n· LG전자 스위치 아세이(LPS)개발\n2011\n· 에코웨이브 설립\n· LG 정수기 필터 공급\n2010\n· 정수기 필터 개발(LG)\n· RO 시스템 및 UF 시스템",
-    "en": "2014\n· Establishment of corporate-affiliated research institutes\n2013\n· Development of the company's under-sink water purifier\n2012\n· Development of LG Sterilization Module (ESD)\n· Development of LG Electronics Switch Asei (LPS)\n2011\n· Establishment of EcoWave\n· LG Water Purifier Filter Supply\n2010\n· Development of Water Purifier Filter (LG)\n· RO System and UF System"
-  },
-  "company.history#s2025082848202431448dd/w202508280039b649ce648/src": {
-    "ko": "/images/thumbnail/20250828/d7b2a8a54d3e2.jpg",
-    "en": "/images/thumbnail/20250828/d7b2a8a54d3e2.jpg"
-  },
-  "company#s202508206321c39177601/w20250820e1c08ac226481/html": {
-    "ko": "더 건강하고 깨끗한 물을 만드는 고객과의 약속\n에코웨이브를 소개합니다.",
-    "en": "EcoWave promises healthier,\ncleaner water for customers."
-  },
-  "company#s20250811fd0a82675a6bc/w20250909fe979998d4590/html": {
-    "ko": "에코웨이브\n홈페이지를\n찾아주신 모든 분들께\n진심으로 감사를 드립니다.",
-    "en": "Thank you sincerely\nfor visiting EcoWave."
-  },
-  "company#s20250811fd0a82675a6bc/w20250909edc32b5a0f8ec/html": {
-    "ko": "존경하는 여러분께,\n에코웨이브는 “깨끗한 물이 곧 건강한 삶의 시작”\n이라는 믿음을 바탕으로 출발했습니다.\n물은 인간의 생존에 가장 기본적이면서도, 삶의 질을 결정짓는 중요한 요소입니다.\n그렇기에 저희는 단순히 정수기를 만드는 것이 아니라,\n사람과 환경을 동시에 건강하게 하는 기술\n을 개발하고자 노력해왔습니다.\n우리는\n환경 친화적인 수처리 솔루션\n을 통해 지속 가능한 미래를 만들고자 합니다.\n다단계 정수 시스템, 기능성 미네랄 필터, 스마트 살균 기술 등 에코웨이브의 모든 기술은\n“안전하고 신뢰할 수 있는 물”을 제공한다는 하나의 목표로 모이고 있습니다.\n또한, 글로벌 파트너십을 통해 검증된 품질과 안정적인 공급망을 구축하며,\n전 세계 어디서든 에코웨이브의 물을 경험할 수 있도록 성장해 나가고 있습니다.\n앞으로도 저희 에코웨이브는\n환경과 인류의 건강을 동시에 지키는 가치 있는 기업,\n그리고\n고객에게 신뢰받는 동반자\n로 자리매김하기 위해 끊임없이 도전하겠습니다.\n감사합니다.",
-    "en": "To all you respect, EcoWave says,\n\"Clean water is the beginning of a healthy life.\"\nI started based on the belief that.\nEcoWave was founded on the belief that clean water is the beginning of a healthy life. Because water is essential not only for survival but also for quality of life,\nwe are committed to developing technologies that care for both people and the environment.\nThrough eco-friendly solutions—such as advanced purification systems, mineral filters, and smart sterilization—we strive to deliver safe and reliable water. With strong global partnerships, we ensure proven quality and stable supply so EcoWave water can be experienced anywhere in the world.\nLooking ahead, we will continue to protect the environment and human health, and we promise to remain a trusted partner to all our customers.\nThank you for your continued support."
-  },
-  "company#s20250811fd0a82675a6bc/w20250909f454e7a9b1143/html": {
-    "ko": "에코웨이브 대표\n최 태 국",
-    "en": "Representative of EcoWave,\nChoi Tae-guk"
-  },
-  "company.organization#s2025082815dd6babdb335/w202508282e3a21059f88e/html": {
-    "ko": "더 건강하고 깨끗한 물을 만드는 고객과의 약속\n에코웨이브를 소개합니다.",
-    "en": "EcoWave promises healthier,\ncleaner water for customers."
+  "company.history#s20250811d0a0980d730fb/eras/eras": {
+    "ko": "[{\"range\":\"2020 - 2023\",\"tagline\":\"에코웨이브의\\n지속적\\n인 혁\\n신\\n과\\n성장\",\"image\":\"/images/thumbnail/20250828/6b14cd3e03e4b.jpg\",\"years\":[{\"year\":\"2025\",\"items\":[\"LS대원 비데 필터 및 아답터 공급\",\"쿠쿠 홈시스 마그네틱 5종 공급\"]},{\"year\":\"2024\",\"items\":[\"LS대원 비데 필터 및 아답터 공급\",\"쿠쿠 홈시스 마그네틱 5종 공급\"]},{\"year\":\"2023\",\"items\":[\"캄보디아 판매회사 설립\"]},{\"year\":\"2021\",\"items\":[\"에코웨이브 2공장 설립\",\"LG전자 서비스 점검키트 개발\"]},{\"year\":\"2020\",\"items\":[\"쿠쿠 홈시스 정수기 설치 아답터 개발\",\"쿠쿠 홈시스 POE정수 필터 개발\"]}]},{\"range\":\"2015 - 2019\",\"tagline\":\"에코웨이브의\\n기술\\n과 서비스의 융합\",\"image\":\"/images/thumbnail/20250828/a183e714076fb.jpg\",\"years\":[{\"year\":\"2019\",\"items\":[\"LG전자 정수기 아답터 개발\"]},{\"year\":\"2018\",\"items\":[\"쿠쿠 홈시스 정수기 필터 개발\",\"SK Magic 신규 비데 필터 개발\"]},{\"year\":\"2017\",\"items\":[\"자사 비타민 샤워기 모듈 및 필터 개발\"]},{\"year\":\"2016\",\"items\":[\"SK Magic 비데 필터 공급\"]},{\"year\":\"2015\",\"items\":[\"나노 필터 개발\"]}]},{\"range\":\"2010 - 2014\",\"tagline\":\"에코웨이브의\\n고객과 함께한 신뢰의 역사\",\"image\":\"/images/thumbnail/20250828/d7b2a8a54d3e2.jpg\",\"years\":[{\"year\":\"2014\",\"items\":[\"기업 부설 연구소 설립\"]},{\"year\":\"2013\",\"items\":[\"자사 언더 싱크 정수기 개발\"]},{\"year\":\"2012\",\"items\":[\"LG 살균 모듈 개발(ESD)개발\",\"LG전자 스위치 아세이(LPS)개발\"]},{\"year\":\"2011\",\"items\":[\"에코웨이브 설립\",\"LG 정수기 필터 공급\"]},{\"year\":\"2010\",\"items\":[\"정수기 필터 개발(LG)\",\"RO 시스템 및 UF 시스템\"]}]}]",
+    "en": "[{\"range\":\"2020 - 2023\",\"tagline\":\"ECO-WAVE\\nContinuous innovation\\nand\\ngrowth\",\"image\":\"/images/thumbnail/20250828/6b14cd3e03e4b.jpg\",\"years\":[{\"year\":\"2025\",\"items\":[\"LS Daewon bidet filter and adapter supply\",\"Kuku Homesys Magnetic 5 Pieces Supplied\"]},{\"year\":\"2024\",\"items\":[\"LS Daewon bidet filter and adapter supply\",\"Kuku Homesys Magnetic 5 Pieces Supplied\"]},{\"year\":\"2023\",\"items\":[\"Establishment of Cambodian Sales Company\"]},{\"year\":\"2021\",\"items\":[\"Establishment of EcoWave Plant 2\",\"Development of LG Electronics Service Inspection Kit\"]},{\"year\":\"2020\",\"items\":[\"Development of Cuckoo Homesys Water Purifier Installation Adapter\",\"Development of Cuckoo Homesys POE Water Purification Filter\"]}]},{\"range\":\"2015 - 2019\",\"tagline\":\"ECO-WAVE\\nconvergence of technology and services\",\"image\":\"/images/thumbnail/20250828/a183e714076fb.jpg\",\"years\":[{\"year\":\"2019\",\"items\":[\"Development of LG Electronics Water Purifier Adapter\"]},{\"year\":\"2018\",\"items\":[\"Development of Cuckoo Homesys Water Purifier Filter\",\"Development of SK Magic New Bidet Filter\"]},{\"year\":\"2017\",\"items\":[\"Developing its own vitamin shower module and filter\"]},{\"year\":\"2016\",\"items\":[\"SK Magic Bidet filter supply\"]},{\"year\":\"2015\",\"items\":[\"Development of Nano Filter\"]}]},{\"range\":\"2010 - 2014\",\"tagline\":\"ECO-WAVE\\na history of trust with customers\",\"image\":\"/images/thumbnail/20250828/d7b2a8a54d3e2.jpg\",\"years\":[{\"year\":\"2014\",\"items\":[\"Establishment of corporate-affiliated research institutes\"]},{\"year\":\"2013\",\"items\":[\"Development of the company's under-sink water purifier\"]},{\"year\":\"2012\",\"items\":[\"Development of LG Sterilization Module (ESD)\",\"Development of LG Electronics Switch Asei (LPS)\"]},{\"year\":\"2011\",\"items\":[\"Establishment of EcoWave\",\"LG Water Purifier Filter Supply\"]},{\"year\":\"2010\",\"items\":[\"Development of Water Purifier Filter (LG)\",\"RO System and UF System\"]}]}]"
   },
   "company.organization#s20250828f005be7f3c16a/w2025082844061a0c9a3b2/src": {
     "ko": "/images/thumbnail/20250828/5045189daef5d.png",
     "en": "/images/thumbnail/20250912/f24a835bf7fae.png"
-  },
-  "company.philosophy#s20250821af3858f799ed0/w20250821cacc4fa0b7888/html": {
-    "ko": "더 건강하고 깨끗한 물을 만드는 고객과의 약속\n에코웨이브를 소개합니다.",
-    "en": "EcoWave promises healthier,\ncleaner water for customers."
   },
   "company.philosophy#s202508119eca72dc669e0/w20250828318841133c7bc/html": {
     "ko": "Mission",
@@ -10833,20 +10613,32 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "en": "/images/thumbnail/20250911/3241669643c6e.jpg"
   },
   "company.philosophy#s202508280e68f158799c2/w202508281ce9cfb92c9a4/html": {
-    "ko": "Environment Design Management / 환경 디자인관리\n에코웨이브는 친환경전문회사로서 새로운 가치를 선\n​\n도하며\n친\n​\n환경적인 제품으로 건강한 환경,\n건강한 인간의 삶을 만들겠다는\n약속과 의지로 기업 경영을 실천하겠습니다.",
+    "ko": "Environment Design Management / 환경 디자인관리\n에코웨이브는 친환경전문회사로서 새로운 가치를 선\n도하며\n친\n환경적인 제품으로 건강한 환경,\n건강한 인간의 삶을 만들겠다는\n약속과 의지로 기업 경영을 실천하겠습니다.",
     "en": "Environment Design Management\nEcoWave is an eco-friendly company creating new values and products\nfor a healthy environment, committed to corporate management that promotes human well-being."
   },
   "company.philosophy#s20250829e04e5ce09ea7e/w202508295885a3029f0c2/html": {
     "ko": "3단계 서비스",
     "en": "Three-step service"
   },
+  "company.philosophy#s20250829e04e5ce09ea7e/w2025082996725d2a2d20e/img[0].src": {
+    "ko": "/images/upload/S20250811e0bd2f7c414df/879858cb2c258.png",
+    "en": "/images/upload/S20250811e0bd2f7c414df/879858cb2c258.png"
+  },
   "company.philosophy#s20250829e04e5ce09ea7e/w2025082996725d2a2d20e/html": {
     "ko": "차별화된 아이디어\nIDEA\n차별화된 가치는\n우리의 시작점입니다.\n고객의 기대를 넘어서는 혁신\n새로운 가치를 창조합니다.",
     "en": "Differentiated idea\nIDEA\nDifferentiated values\nare our starting point.\nInnovation beyond expectations,\ncreating new values."
   },
+  "company.philosophy#s20250829e04e5ce09ea7e/w202508291aa62a1ed03bb/img[0].src": {
+    "ko": "/images/upload/S20250811e0bd2f7c414df/cd34a22b71f69.png",
+    "en": "/images/upload/S20250811e0bd2f7c414df/cd34a22b71f69.png"
+  },
   "company.philosophy#s20250829e04e5ce09ea7e/w202508291aa62a1ed03bb/html": {
     "ko": "최고의 품질\nQuality\n전사적 자원관리를 바탕으로 최고의 품질을 실현하며, 신뢰받는 파트너로 앞서 나갑니다.\n고객 만족을 최우선으로 합니다. 우리는 함께 성장하는 성공의 동반자가 되겠습니다.",
     "en": "Highest quality\nQuality\nWe deliver the highest quality\nand lead as a trusted partner.\nWe value customer satisfaction.\nWe succeed and grow together."
+  },
+  "company.philosophy#s20250829e04e5ce09ea7e/w202508297535663fbc7e0/img[0].src": {
+    "ko": "/images/upload/S20250811e0bd2f7c414df/ca11148fc2918.png",
+    "en": "/images/upload/S20250811e0bd2f7c414df/ca11148fc2918.png"
   },
   "company.philosophy#s20250829e04e5ce09ea7e/w202508297535663fbc7e0/html": {
     "ko": "선행된 시간 관리\nTIME\n선행 품질관리, 선행 생산관리,\n선행 납기관리\n보다 완벽한 제품을 준비해내며 효율성과 안정성 을 극대화하고 신뢰 할 수 있는 공급망을 구축합니다.",
@@ -10895,6 +10687,10 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
   "home#s20250811004ea868d7376/w20250811dc0392f259c1d/alt": {
     "ko": "<div class=\"img-title\"><div class=\"t-wrap\"><div class=\"top-t\"><P>PR Center</P></div><h5>홍보센터</h5></div><span class=\"material-symbols-outlined\">add</span></div>",
     "en": "<div class=\"img-title\"><div class=\"t-wrap\"><div class=\"top-t\"></div><h5>News</h5></div><span class=\"material-symbols-outlined\">add</span></div>"
+  },
+  "home#s202508116d15f8202cd82/w20250811b716fff52cc61/img[0].src": {
+    "ko": "/images/upload/S20250811e0bd2f7c414df/48fbd16b3a070.png",
+    "en": "/images/upload/S20250811e0bd2f7c414df/48fbd16b3a070.png"
   },
   "home#s202508116d15f8202cd82/w20250811b716fff52cc61/title": {
     "ko": "에코웨이브는 깨끗한 물을 위한 기술 혁신과 친환경 가치 실현을 통해",
@@ -10995,6 +10791,10 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
   "home#s2025081139ff276cae8d6/picks/picks": {
     "ko": "{\"board\":\"news\",\"idxs\":[]}",
     "en": "{\"board\":\"news\",\"idxs\":[]}"
+  },
+  "home#s20250811f489e3443bdbe/w20250811379e3dc61aa7f/img[0].src": {
+    "ko": "/images/upload/S20250811e0bd2f7c414df/f04049636b82b.png",
+    "en": "/images/upload/S20250811e0bd2f7c414df/f04049636b82b.png"
   },
   "home#s20250811f489e3443bdbe/w20250811c8ba21c61f272/html": {
     "ko": "대표 : 김나연\n개인정보관리책임자 : 김나연 ㅣ 문의 : ecowave_1800@naver.com\n주소 : 인천광역시 남동구 은봉로 14 영도빌딩 2동\n전화 : +82-32-812-1800 ㅣ 팩스 : +82-32-812-1804\nCopyright ⓒ ECOWAVE. All Rights Reserved",
@@ -11841,6 +11641,7 @@ export const CONTENT_KEYS_BY_GROUP: Record<ContentGroup, string[]> = {
     "home#s20250811004ea868d7376/w202508114adeb9816c562/alt",
     "home#s20250811004ea868d7376/w20250811dc0392f259c1d/src",
     "home#s20250811004ea868d7376/w20250811dc0392f259c1d/alt",
+    "home#s202508116d15f8202cd82/w20250811b716fff52cc61/img[0].src",
     "home#s202508116d15f8202cd82/w20250811b716fff52cc61/title",
     "home#s202508116d15f8202cd82/w20250811b716fff52cc61/desc",
     "home#s202508116d15f8202cd82/w20250811ce94af53086e1/src",
@@ -11868,14 +11669,11 @@ export const CONTENT_KEYS_BY_GROUP: Record<ContentGroup, string[]> = {
     "home#s2025081139ff276cae8d6/picks/picks"
   ],
   "company": [
-    "company#s202508206321c39177601/w20250820e1c08ac226481/html",
-    "company#s20250811fd0a82675a6bc/w20250909fe979998d4590/html",
-    "company#s20250811fd0a82675a6bc/w20250909edc32b5a0f8ec/html",
-    "company#s20250811fd0a82675a6bc/w20250909f454e7a9b1143/html",
-    "company.about#s20250821eb14df6d34580/w20250821770900c60669c/html",
-    "company.about#s202509191b81eb54a6991/w202509191cf358c2625d5/src",
-    "company.about#s202509191b81eb54a6991/w20250919f67f88afd25af/html",
-    "company.about#s202509191b81eb54a6991/w20250919473898f523ab7/html",
+    "company.ceo#s202508206321c39177601/w20250820e1c08ac226481/html",
+    "company.ceo#s20250811fd0a82675a6bc/w20250909fe979998d4590/img[0].src",
+    "company.ceo#s20250811fd0a82675a6bc/w20250909fe979998d4590/html",
+    "company.ceo#s20250811fd0a82675a6bc/w20250909edc32b5a0f8ec/html",
+    "company.ceo#s20250811fd0a82675a6bc/w20250909f454e7a9b1143/html",
     "company.about#s20250811457daf6e58a2c/w2025091840bd06b2a6c1d/src",
     "company.about#s20250811457daf6e58a2c/w202509187c7529a0c38c3/html",
     "company.about#s20250811457daf6e58a2c/w20250918684332dc780e7/html",
@@ -11938,11 +11736,17 @@ export const CONTENT_KEYS_BY_GROUP: Record<ContentGroup, string[]> = {
     "company.about#s20250918c54b2950e2f1a/w2025091858b5ee5de7c2a/items[4].org",
     "company.about#s20250918c54b2950e2f1a/w2025091858b5ee5de7c2a/items[4].thumb",
     "company.about#s20250918c5a18b62c8acd/w20250919d3f58a52c151b/html",
+    "company.about#s20250918c5a18b62c8acd/w20250919eb33a28196229/img[0].src",
     "company.about#s20250918c5a18b62c8acd/w20250919eb33a28196229/html",
+    "company.about#s20250918c5a18b62c8acd/w20250919a06813f5e869d/img[0].src",
     "company.about#s20250918c5a18b62c8acd/w20250919a06813f5e869d/html",
+    "company.about#s20250918c5a18b62c8acd/w202509196d95887d0ea56/img[0].src",
     "company.about#s20250918c5a18b62c8acd/w202509196d95887d0ea56/html",
+    "company.about#s20250918c5a18b62c8acd/w2025091937ef9567e5c28/img[0].src",
     "company.about#s20250918c5a18b62c8acd/w2025091937ef9567e5c28/html",
+    "company.about#s20250918c5a18b62c8acd/w2025091911917416765db/img[0].src",
     "company.about#s20250918c5a18b62c8acd/w2025091911917416765db/html",
+    "company.about#s20250918c5a18b62c8acd/w20250919752cb4c4b07f1/img[0].src",
     "company.about#s20250918c5a18b62c8acd/w20250919752cb4c4b07f1/html",
     "company.about#s20250918ab81858502f9e/w20250918c66e7987eaeca/html",
     "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/items[0].title",
@@ -12056,35 +11860,12 @@ export const CONTENT_KEYS_BY_GROUP: Record<ContentGroup, string[]> = {
     "company.about#s20250918ffd77075d76ea/w202509190fd35e33e86f8/items[5].thumb",
     "company.about#s202509180d5f2b5ede2b3/w2025091860d26840abbc7/html",
     "company.about#s202509180d5f2b5ede2b3/w20250918c7cf1698ddcc4/src",
+    "company.about#s202509180d5f2b5ede2b3/w2025091886eece88ff0c0/img[0].src",
     "company.about#s202509180d5f2b5ede2b3/w2025091886eece88ff0c0/html",
+    "company.about#s202509180d5f2b5ede2b3/w20250919ad2bb4e856fba/img[0].src",
     "company.about#s202509180d5f2b5ede2b3/w20250919ad2bb4e856fba/html",
+    "company.about#s202509180d5f2b5ede2b3/w20250919aa8199dc628c3/img[0].src",
     "company.about#s202509180d5f2b5ede2b3/w20250919aa8199dc628c3/html",
-    "company.ceo#s202508206321c39177601/w20250820e1c08ac226481/html",
-    "company.ceo#s20250811fd0a82675a6bc/w20250909fe979998d4590/html",
-    "company.ceo#s20250811fd0a82675a6bc/w20250909edc32b5a0f8ec/html",
-    "company.ceo#s20250811fd0a82675a6bc/w20250909f454e7a9b1143/html",
-    "company.global#s20250820da33f7f397fba/w202508201a58c7d614215/html",
-    "company.global#s20250828182272ec01906/w20250828247c9904b6b1e/html",
-    "company.global#s20250828182272ec01906/w2025082843a86201a5455/html",
-    "company.global#s202509111ecee05a61770/w202509110c02a9a33a442/html",
-    "company.global#s202508286e01c87027ecf/w20250828055c4220c2f68/html",
-    "company.global#s202508286e01c87027ecf/w20250828de7deb233dbfa/html",
-    "company.history#s2025081109284c6634db6/w2025081119c3906474684/html",
-    "company.history#s20250911d986b4b4130eb/w202509117601025aae8ff/src",
-    "company.history#s20250811d0a0980d730fb/w2025082800cb79b620e9f/html",
-    "company.history#s20250811d0a0980d730fb/w202508283581492aaba5b/html",
-    "company.history#s20250811d0a0980d730fb/w20250828e2f457614fd1a/src",
-    "company.history#s202509113e3a9a552b0c7/w202509111eabf738e9f9f/src",
-    "company.history#s20250828fe85691f33b65/w20250828e83ff2674ace5/html",
-    "company.history#s20250828fe85691f33b65/w2025082812223844d5d61/html",
-    "company.history#s20250828fe85691f33b65/w202508289a08701d84b65/src",
-    "company.history#s2025091169f925490d127/w2025091118beac108f780/src",
-    "company.history#s2025082848202431448dd/w20250828ed4c25cde1fa0/html",
-    "company.history#s2025082848202431448dd/w202508288b50dcc1f5d69/html",
-    "company.history#s2025082848202431448dd/w202508280039b649ce648/src",
-    "company.organization#s2025082815dd6babdb335/w202508282e3a21059f88e/html",
-    "company.organization#s20250828f005be7f3c16a/w2025082844061a0c9a3b2/src",
-    "company.philosophy#s20250821af3858f799ed0/w20250821cacc4fa0b7888/html",
     "company.philosophy#s202508119eca72dc669e0/w20250828318841133c7bc/html",
     "company.philosophy#s202508119eca72dc669e0/w2025082880e9f1cd594e5/html",
     "company.philosophy#s202508119eca72dc669e0/w202508286148935689b29/html",
@@ -12093,9 +11874,18 @@ export const CONTENT_KEYS_BY_GROUP: Record<ContentGroup, string[]> = {
     "company.philosophy#s202508280e68f158799c2/w202508289fc0c0165c025/src",
     "company.philosophy#s202508280e68f158799c2/w202508281ce9cfb92c9a4/html",
     "company.philosophy#s20250829e04e5ce09ea7e/w202508295885a3029f0c2/html",
+    "company.philosophy#s20250829e04e5ce09ea7e/w2025082996725d2a2d20e/img[0].src",
     "company.philosophy#s20250829e04e5ce09ea7e/w2025082996725d2a2d20e/html",
+    "company.philosophy#s20250829e04e5ce09ea7e/w202508291aa62a1ed03bb/img[0].src",
     "company.philosophy#s20250829e04e5ce09ea7e/w202508291aa62a1ed03bb/html",
-    "company.philosophy#s20250829e04e5ce09ea7e/w202508297535663fbc7e0/html"
+    "company.philosophy#s20250829e04e5ce09ea7e/w202508297535663fbc7e0/img[0].src",
+    "company.philosophy#s20250829e04e5ce09ea7e/w202508297535663fbc7e0/html",
+    "company.history#s20250811d0a0980d730fb/eras/eras",
+    "company.organization#s20250828f005be7f3c16a/w2025082844061a0c9a3b2/src",
+    "company.global#s20250828182272ec01906/w20250828247c9904b6b1e/html",
+    "company.global#s20250828182272ec01906/w2025082843a86201a5455/html",
+    "company.global#s20250828182272ec01906/w202508280b0ed4b9954c7/iframe[0].src",
+    "company.global#s202508286e01c87027ecf/locations/locations"
   ],
   "rnd": [
     "rnd#s20250909caaa8544e0e70/w20250909b16e1f0580760/html",
@@ -12131,18 +11921,39 @@ export const CONTENT_KEYS_BY_GROUP: Record<ContentGroup, string[]> = {
     "rnd#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[4].desc",
     "rnd#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[4].org",
     "rnd#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[4].thumb",
-    "rnd.facilities#s202508207ea6e772a48a0/w20250820e4cafbac3320e/html",
-    "rnd.facilities#s2025081165e9bc78b81eb/w2025082017159663bed3c/html",
-    "rnd.facilities#s2025081165e9bc78b81eb/w202508207cdb6535abb7d/html",
-    "rnd.facilities#s20250829c25afe324e195/w2025082935a39e86acbcc/html",
-    "rnd.facilities#s20250829c25afe324e195/w20250829cd9176971c728/html",
-    "rnd.facilities#s20250829c25afe324e195/w20250829bb21466f4e0f1/html",
-    "rnd.facilities#s20250829c25afe324e195/w20250829dc320d96d4f7e/html",
-    "rnd.facilities#s20250829c25afe324e195/w20250829370d74ba50fab/html",
-    "rnd.facilities#s20250829c25afe324e195/w20250829336d480a01019/html",
-    "rnd.facilities#s20250829c25afe324e195/w202508298781405b23d22/html",
-    "rnd.facilities#s20250829c25afe324e195/w202508292eb257f4075b4/html",
-    "rnd.facilities#s20250829c25afe324e195/w202508293b8acaf6df97a/html",
+    "rnd.technology#s20250909caaa8544e0e70/w20250909b16e1f0580760/html",
+    "rnd.technology#s202509091799d895b62ea/w202509092bb83d593e678/src",
+    "rnd.technology#s202509091799d895b62ea/w20250909a6322fa870d46/html",
+    "rnd.technology#s2025090972e449f7846e1/w20250909743cf5b3c0201/src",
+    "rnd.technology#s2025090972e449f7846e1/w20250909f986ae33491f9/html",
+    "rnd.technology#s2025090972e449f7846e1/w2025090999ac3275406dc/src",
+    "rnd.technology#s2025090972e449f7846e1/w20250909cabf29c2126d9/html",
+    "rnd.technology#s20250909b12fa8000068e/w20250909dbdd88bc19258/src",
+    "rnd.technology#s20250909b12fa8000068e/w202509093403364594dce/html",
+    "rnd.technology#s20250909b12fa8000068e/w2025090910fe01238de32/src",
+    "rnd.technology#s20250909b12fa8000068e/w20250909aaff6976da0b4/html",
+    "rnd.technology#s2025090979d4f02da9a4c/w202509098378a31a7319e/html",
+    "rnd.technology#s2025090979d4f02da9a4c/w20250909deb55b36523e5/html",
+    "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[0].title",
+    "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[0].desc",
+    "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[0].org",
+    "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[0].thumb",
+    "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[1].title",
+    "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[1].desc",
+    "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[1].org",
+    "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[1].thumb",
+    "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[2].title",
+    "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[2].desc",
+    "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[2].org",
+    "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[2].thumb",
+    "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[3].title",
+    "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[3].desc",
+    "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[3].org",
+    "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[3].thumb",
+    "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[4].title",
+    "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[4].desc",
+    "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[4].org",
+    "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[4].thumb",
     "rnd.patents#s2025082027290aa48803c/w20250820f45ae1e9a7239/html",
     "rnd.patents#s202508114d9bc90ceb876/w20250820275c6573162a6/html",
     "rnd.patents#s202508114d9bc90ceb876/w20250820eeffb853be62c/items[0].title",
@@ -12235,45 +12046,24 @@ export const CONTENT_KEYS_BY_GROUP: Record<ContentGroup, string[]> = {
     "rnd.patents#s202508114d9bc90ceb876/w2025082013eb8cbe71ecd/items[3].desc",
     "rnd.patents#s202508114d9bc90ceb876/w2025082013eb8cbe71ecd/items[3].org",
     "rnd.patents#s202508114d9bc90ceb876/w2025082013eb8cbe71ecd/items[3].thumb",
-    "rnd.technology#s20250909caaa8544e0e70/w20250909b16e1f0580760/html",
-    "rnd.technology#s202509091799d895b62ea/w202509092bb83d593e678/src",
-    "rnd.technology#s202509091799d895b62ea/w20250909a6322fa870d46/html",
-    "rnd.technology#s2025090972e449f7846e1/w20250909743cf5b3c0201/src",
-    "rnd.technology#s2025090972e449f7846e1/w20250909f986ae33491f9/html",
-    "rnd.technology#s2025090972e449f7846e1/w2025090999ac3275406dc/src",
-    "rnd.technology#s2025090972e449f7846e1/w20250909cabf29c2126d9/html",
-    "rnd.technology#s20250909b12fa8000068e/w20250909dbdd88bc19258/src",
-    "rnd.technology#s20250909b12fa8000068e/w202509093403364594dce/html",
-    "rnd.technology#s20250909b12fa8000068e/w2025090910fe01238de32/src",
-    "rnd.technology#s20250909b12fa8000068e/w20250909aaff6976da0b4/html",
-    "rnd.technology#s2025090979d4f02da9a4c/w202509098378a31a7319e/html",
-    "rnd.technology#s2025090979d4f02da9a4c/w20250909deb55b36523e5/html",
-    "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[0].title",
-    "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[0].desc",
-    "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[0].org",
-    "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[0].thumb",
-    "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[1].title",
-    "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[1].desc",
-    "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[1].org",
-    "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[1].thumb",
-    "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[2].title",
-    "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[2].desc",
-    "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[2].org",
-    "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[2].thumb",
-    "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[3].title",
-    "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[3].desc",
-    "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[3].org",
-    "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[3].thumb",
-    "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[4].title",
-    "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[4].desc",
-    "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[4].org",
-    "rnd.technology#s2025090979d4f02da9a4c/w20250909f44806a14d131/items[4].thumb"
+    "rnd.facilities#s202508207ea6e772a48a0/w20250820e4cafbac3320e/html",
+    "rnd.facilities#s2025081165e9bc78b81eb/w2025082017159663bed3c/html",
+    "rnd.facilities#s2025081165e9bc78b81eb/w202508207cdb6535abb7d/html",
+    "rnd.facilities#s20250829c25afe324e195/w2025082935a39e86acbcc/html",
+    "rnd.facilities#s20250829c25afe324e195/w20250829cd9176971c728/html",
+    "rnd.facilities#s20250829c25afe324e195/w20250829bb21466f4e0f1/html",
+    "rnd.facilities#s20250829c25afe324e195/w20250829dc320d96d4f7e/html",
+    "rnd.facilities#s20250829c25afe324e195/w20250829370d74ba50fab/html",
+    "rnd.facilities#s20250829c25afe324e195/w20250829336d480a01019/html",
+    "rnd.facilities#s20250829c25afe324e195/w202508298781405b23d22/html",
+    "rnd.facilities#s20250829c25afe324e195/w202508292eb257f4075b4/html",
+    "rnd.facilities#s20250829c25afe324e195/w202508293b8acaf6df97a/html"
   ],
   "products": [
-    "products.clean-b#board/products.clean-b/name",
-    "products.clean-b#board/products.clean-b/posts",
     "products.eco-wave#board/products.eco-wave/name",
     "products.eco-wave#board/products.eco-wave/posts",
+    "products.clean-b#board/products.clean-b/name",
+    "products.clean-b#board/products.clean-b/posts",
     "products.flowell#board/products.flowell/name",
     "products.flowell#board/products.flowell/posts"
   ],
@@ -12307,6 +12097,7 @@ export const CONTENT_KEYS_BY_GROUP: Record<ContentGroup, string[]> = {
     "site#nav/nav[4].children[0]/name"
   ],
   "common": [
+    "home#s20250811f489e3443bdbe/w20250811379e3dc61aa7f/img[0].src",
     "home#s20250811f489e3443bdbe/w20250811c8ba21c61f272/html",
     "home#s20250811f489e3443bdbe/w202508114039c43732879/text",
     "home#s20250811f489e3443bdbe/w20250919b68d158c2925e/html",
@@ -12323,13 +12114,16 @@ export const MAX_LENGTH: Record<ContentKind, number> = {
   "lines": 20000,
   "image": 2000,
   "url": 2000,
+  "embed": 2000,
   "list": 20000,
   "slides": 20000,
   "overlay": 5000,
   "cards": 20000,
-  "picks": 2000
+  "picks": 2000,
+  "eras": 20000,
+  "locations": 20000
 };
 
-export const CONTENT_KINDS: ContentKind[] = ["text","textarea","lines","image","url","list","slides","overlay","cards","picks"];
+export const CONTENT_KINDS: ContentKind[] = ["text","textarea","lines","image","url","list","slides","overlay","cards","picks","embed","eras","locations"];
 
 export const CONTENT_GROUPS: ContentGroup[] = ["home","company","rnd","products","boards","site","common"];

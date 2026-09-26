@@ -89,9 +89,13 @@ layout metrics. See "Content model & admin editing rules" below and the parity p
 ## Content model & admin editing rules
 
 The dashboard's **Content** page (`/admin/content?group=…`) edits the *content registry*:
-`lib/content/registry.ts` (auto-generated, one def per editable field, emitted in page document
-order) plus the Postgres `page_content` override store (one row per key + locale; an empty value
-deletes the override). `DATABASE_URL` is required for saving.
+`lib/content/registry.ts` (auto-generated, one def per editable field, emitted in nav/route order —
+`Object.keys(PAGE_KEY_TO_ROUTE)` then board-only slugs; document order is preserved *within* a page)
+plus the Postgres `page_content` override store (one row per key + locale; an empty value
+deletes the override). `DATABASE_URL` is required for saving. Registry section labels are
+**content-derived** (first visible text → menu title → image alt/file → type fallback → page/board
+name): no `PC ·`/`모바일 ·` breakpoint prefixes, never empty, with ` (2)`, ` (3)` appended to
+duplicate labels within a page.
 
 ### Regenerate / check the registry
 
@@ -108,7 +112,8 @@ npm run content:validate                      # crawl structure + asset referenc
   A line may be plain text **or** contain inline HTML: lines holding real tags are inserted
   verbatim while bare `<`/`&` are escaped per segment (`pH < 7` stays text). Text is injected into
   the authored markup, so sizes/colours/line-heights are **fixed by the crawl** — editors change
-  copy only.
+  copy only. Runs are detected from visible text only: zero-width characters are stripped, so
+  invisible fillers never create phantom lines.
 - **`title` / `desc`** — home text blocks split into the first run (`title`) and the rest (`desc`).
 - **Hero slides (`slides`)** — JSON `[{ bg, title, subtitle }]` with add/remove/reorder; `title` is
   the big text, `subtitle` the smaller one. Each slide reuses the authored styling for its index;
@@ -123,9 +128,27 @@ npm run content:validate                      # crawl structure + asset referenc
 - **Images** — upload to Vercel Blob (content-hashed public names; requires `BLOB_READ_WRITE_TOKEN`)
   or set a path; a **reset** button clears the override back to the crawled default. There is no
   alt-text field.
+- **Nested media in rich text** — images and iframes inside a `text` widget are editable per locale
+  as `img[n].src` (image) and `iframe[n].src` (embed), addressing the nth tag in the markup.
+- **Embeds (`embed`)** — a per-locale iframe/embed URL (e.g. the map widgets), validated as
+  `http(s)`; the URL is injected into the authored `<iframe>`.
 - **Video** — the source accepts a YouTube/embed URL **or** an uploaded file; `.mp4/.webm/.ogv/.mov`
   sources render as a native `<video>`. Upload caps: video ≤ 50 MB (images have a smaller cap);
   uploads need `BLOB_READ_WRITE_TOKEN`.
+- **Shared company intro** — the company intro band is edited **once** on the CEO greeting page
+  (`company.ceo`, in the `company` group; label "회사 소개 인트로 (모든 회사 페이지 공통)"),
+  badged in the editor, and applied to all `/company*` pages. The shared-def config is extensible to
+  other channels later.
+- **Company root alias** — `/company` (the crawled root `company` pageKey) serves the CEO greeting
+  subpage's content with no redirect; it is an alias, not an independently editable page. Only the
+  six real subpages (`ceo → about → philosophy → history → organization → global`) appear in the
+  admin group, and `/company` renders the first subpage.
+- **History eras (`eras`)** — the `company.history` timeline is a structured list: add, remove or
+  reorder era blocks, each carrying a year range, tagline, image and an ordered per-year milestone
+  list (add/remove years, one milestone per line).
+- **Global locations (`locations`)** — the `company.global` branch list is a structured list: add,
+  remove or reorder branch cards with badge/city/address and a map URL. The Global HQ card is a
+  fixed section and is not part of the list.
 
 **Not editable by design:** links (`href`) are hard-coded; alt text (outside the overlay editor);
 `code` blocks; the mobile back-to-top band. Sections whose text widgets are markup-only (no text
@@ -133,9 +156,10 @@ nodes) are excluded from the registry.
 
 ### Payload contracts
 
-`slides`, `cards` and `picks` are structured JSON: `lib/content/save.ts` validates them at the API
-boundary (malformed/empty → 400) and the appliers in `lib/content/merge.ts` re-validate stored
-payloads, silently no-oping on garbage. Malformed overrides can never break rendering.
+`slides`, `cards`, `picks`, `eras` and `locations` are structured JSON: `lib/content/save.ts`
+validates them at the API boundary (malformed/empty → 400) and the appliers in `lib/content/merge.ts`
+re-validate stored payloads, silently no-oping on garbage. Malformed overrides can never break
+rendering.
 
 ### Locale rules (KO ↔ EN)
 
@@ -152,9 +176,11 @@ payloads, silently no-oping on garbage. Malformed overrides can never break rend
 
 ### Layout rules (responsive)
 
-- Home is **single-source**: the canonical desktop sections render at every width; the old
-  mobile-only variant sections were dropped. Mobile layout comes from responsive CSS/TSX
-  (breakpoints 992/1024 in `globals.css` + `SectionRenderer`).
+- The site is **single-source**: the canonical PC sections render at every width; the old
+  mobile-only variant sections were removed for the company channel (about/history/global) and are
+  dead elsewhere. Mobile layout comes from responsive CSS/TSX (breakpoints 992/1024 in
+  `globals.css` + `SectionRenderer`). History era photos surface on mobile via the responsive
+  asides + `MOBILE_IMAGE_SRC` portrait renditions.
 - Desktop (≥992) is the reference — a responsive change must not alter it (compare with
   `scripts/audit/capture-home-viewports.mjs --label=…`).
 - Wide bitmaps whose captions are baked into the pixels need a curated portrait mobile rendition
@@ -171,6 +197,7 @@ npx vitest run                                  # registry/merge/save/text-runs 
 node scripts/gen-content-registry.mjs --check   # registry drift
 npm run content:health                          # dangling defs / override keys
 node scripts/audit/verify-home-editor.mjs       # admin + runtime E2E (writes & reverts overrides)
+node scripts/audit/verify-company-editor.mjs    # company registry + nested media E2E (writes & reverts overrides)
 ```
 
 ## Admin dashboard & ops runbook

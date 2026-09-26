@@ -36,6 +36,13 @@ export type WidgetNode = {
   gridCols?: number;
   /** gallery renders its caption as a band */
   captionBand?: boolean;
+  /**
+   * Mobile portrait rendition opt-out for `MOBILE_IMAGE_SRC`. `false` means the
+   * admin replaced the desktop `src`, so the curated mobile portrait swap must
+   * NOT apply (the authored image is the single source). `undefined` = use the
+   * curated rendition when one exists.
+   */
+  mobileSrc?: string | null | false;
 };
 
 export type ColNode = { kind: "col"; grid: string; children: Node[]; _h?: number };
@@ -61,6 +68,13 @@ export type HeroSlide = {
 
 /** One location holder card (home locations section; admin-editable list). */
 export type LocationCard = { lines: string[] };
+
+/** One year block of a company.history era (item text WITHOUT the leading "· "). */
+export type EraYear = { year: string; items: string[] };
+/** One timeline era of the company.history page (structured `eras` kind). */
+export type EraEntry = { range: string; tagline: string; image: string; years: EraYear[] };
+/** One branch office of the company.global page (structured `locations` kind). */
+export type GlobalLocation = { badge: string; city: string; address: string; mapSrc: string };
 
 /** Ticker post selection (home notice ticker). */
 export type TickerPicks = { board: "news" | "notices"; idxs: string[] };

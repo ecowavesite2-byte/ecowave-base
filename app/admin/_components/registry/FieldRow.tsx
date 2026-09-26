@@ -4,7 +4,9 @@ import { useRef, useState } from "react";
 
 import type { AdminDict } from "@/lib/admin/i18n";
 import CardsField from "./CardsField";
+import ErasField from "./ErasField";
 import ListField from "./ListField";
+import LocationsField from "./LocationsField";
 import OverlayField from "./OverlayField";
 import PicksField from "./PicksField";
 import SlidesField from "./SlidesField";
@@ -410,6 +412,47 @@ export default function FieldRow({
                 disabled={disabled}
                 t={t}
                 onChange={(alt) => onDraft(lang, alt)}
+              />
+            </div>
+          ))}
+        </div>
+      );
+      break;
+    case "eras":
+      body = (
+        <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
+          {LANGS.map((lang) => (
+            <div key={lang} className="min-w-0">
+              <span className="mb-1 block text-[12px] font-medium text-ink/70">
+                {lang === "ko" ? t.ko : t.en}
+              </span>
+              <ErasField
+                value={drafts[lang]}
+                defaultValue={codeDefaults[lang]}
+                lang={lang}
+                disabled={disabled}
+                t={t}
+                onChange={(json) => onDraft(lang, json)}
+              />
+            </div>
+          ))}
+        </div>
+      );
+      break;
+    case "locations":
+      body = (
+        <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
+          {LANGS.map((lang) => (
+            <div key={lang} className="min-w-0">
+              <span className="mb-1 block text-[12px] font-medium text-ink/70">
+                {lang === "ko" ? t.ko : t.en}
+              </span>
+              <LocationsField
+                value={drafts[lang]}
+                defaultValue={codeDefaults[lang]}
+                disabled={disabled}
+                t={t}
+                onChange={(json) => onDraft(lang, json)}
               />
             </div>
           ))}

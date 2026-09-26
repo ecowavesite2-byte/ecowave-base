@@ -206,6 +206,8 @@ export interface AdminDict {
     uneditableHint: (types: string) => string;
     /** Badge marking a def whose target widget/slide is missing from the crawl. */
     targetMissing: string;
+    /** Badge marking a def whose content is rendered on every page of its channel. */
+    sharedBadge: string;
     /** Plain-text line editor (`lines`): one line per authored design line. */
     linesHint: string;
     /** Dynamic `slides` (hero slide list) editor. */
@@ -222,6 +224,33 @@ export interface AdminDict {
     slidesInvalid: string;
     /** Card header for slide `n` (1-based). */
     slidesSlide: (n: number) => string;
+    /** Structured `eras` (company.history timeline) editor. */
+    erasAdd: string;
+    erasRemove: string;
+    erasMoveUp: string;
+    erasMoveDown: string;
+    erasRange: string;
+    erasTagline: string;
+    erasImage: string;
+    erasYears: string;
+    erasYear: string;
+    erasYearItems: string;
+    erasAddYear: string;
+    erasHint: string;
+    /** Card header for era `n` (1-based). */
+    erasEra: (n: number) => string;
+    /** Structured `locations` (company.global branch list) editor. */
+    locationsAdd: string;
+    locationsRemove: string;
+    locationsMoveUp: string;
+    locationsMoveDown: string;
+    locationsBadge: string;
+    locationsCity: string;
+    locationsAddress: string;
+    locationsMap: string;
+    locationsHint: string;
+    /** Card header for location `n` (1-based). */
+    locationsCard: (n: number) => string;
   };
   /**
    * `/admin/boards` + `/admin/boards/<slug>` — the board picker, the per-board
@@ -471,9 +500,9 @@ const ko: AdminDict = {
       "company.about": "회사소개",
       "company.ceo": "CEO 인사말",
       "company.global": "글로벌 네트워크",
-      "company.history": "연혁",
+      "company.history": "회사연혁",
       "company.organization": "조직도",
-      "company.philosophy": "경영이념",
+      "company.philosophy": "경영철학",
       rnd: "연구개발",
       "rnd.technology": "기술력",
       "rnd.patents": "특허·인증",
@@ -497,6 +526,9 @@ const ko: AdminDict = {
       overlay: "카드 제목/라벨",
       cards: "위치 카드",
       picks: "표시할 게시글",
+      embed: "임베드 URL",
+      eras: "연혁",
+      locations: "지사 목록",
     },
     fieldCount: (count) => `${count}개 필드`,
     save: "저장",
@@ -559,6 +591,7 @@ const ko: AdminDict = {
     unnamedSection: "이름 없는 섹션",
     uneditableHint: (types) => `편집할 수 없는 위젯: ${types}`,
     targetMissing: "대상 없음",
+    sharedBadge: "모든 회사 페이지에 적용",
     linesHint:
       "한 줄에 하나씩 입력하세요. 텍스트만 입력하거나 <b>처럼 HTML 태그를 섞어도 됩니다. 글자 크기·색 등 기본 스타일은 유지됩니다.",
     slidesAdd: "슬라이드 추가",
@@ -572,6 +605,30 @@ const ko: AdminDict = {
       "슬라이드는 모든 화면에 함께 적용됩니다. 큰 문구·작은 문구는 각각 한 줄에 하나씩 입력하세요.",
     slidesInvalid: "저장된 값 형식이 올바르지 않습니다.",
     slidesSlide: (n) => `슬라이드 ${n}`,
+    erasAdd: "연혁 추가",
+    erasRemove: "삭제",
+    erasMoveUp: "위로",
+    erasMoveDown: "아래로",
+    erasRange: "연도 범위",
+    erasTagline: "문구",
+    erasImage: "이미지",
+    erasYears: "연도 목록",
+    erasYear: "연도",
+    erasYearItems: "연혁 항목 (한 줄에 하나씩)",
+    erasAddYear: "연도 추가",
+    erasHint:
+      "연혁 블록을 추가·삭제·순서 변경할 수 있습니다. 문구와 항목은 한 줄에 하나씩 입력하세요.",
+    erasEra: (n) => `연혁 ${n}`,
+    locationsAdd: "지사 추가",
+    locationsRemove: "삭제",
+    locationsMoveUp: "위로",
+    locationsMoveDown: "아래로",
+    locationsBadge: "지사명",
+    locationsCity: "도시",
+    locationsAddress: "주소",
+    locationsMap: "지도 URL",
+    locationsHint: "지사를 추가·삭제·순서 변경할 수 있습니다. 본사(HQ) 카드는 고정입니다.",
+    locationsCard: (n) => `지사 ${n}`,
   },
   boards: {
     title: "게시판",
@@ -790,12 +847,12 @@ const en: AdminDict = {
     pageLabels: {
       home: "Home",
       company: "Company",
-      "company.about": "About",
+      "company.about": "Company introduction",
       "company.ceo": "CEO greeting",
       "company.global": "Global network",
       "company.history": "History",
-      "company.organization": "Organization",
-      "company.philosophy": "Philosophy",
+      "company.organization": "Organization chart",
+      "company.philosophy": "Management philosophy",
       rnd: "R&D",
       "rnd.technology": "Technology",
       "rnd.patents": "Patents & certifications",
@@ -819,6 +876,9 @@ const en: AdminDict = {
       overlay: "Card label & title",
       cards: "Location cards",
       picks: "Posts to show",
+      embed: "Embed URL",
+      eras: "History eras",
+      locations: "Branch locations",
     },
     fieldCount: (count) => `${count} fields`,
     save: "Save",
@@ -881,6 +941,7 @@ const en: AdminDict = {
     unnamedSection: "Unnamed section",
     uneditableHint: (types) => `Not editable here: ${types}`,
     targetMissing: "Target missing",
+    sharedBadge: "Applies to all company pages",
     linesHint:
       "One line per design line. Enter plain text, or mix in HTML tags like <b>. Font sizes, colors and other base styles stay fixed.",
     slidesAdd: "Add slide",
@@ -893,6 +954,29 @@ const en: AdminDict = {
     slidesHint: "Slides apply to every screen. Enter one line per line in each text box.",
     slidesInvalid: "The stored value is not valid JSON.",
     slidesSlide: (n) => `Slide ${n}`,
+    erasAdd: "Add era",
+    erasRemove: "Remove",
+    erasMoveUp: "Move up",
+    erasMoveDown: "Move down",
+    erasRange: "Year range",
+    erasTagline: "Tagline",
+    erasImage: "Image",
+    erasYears: "Years",
+    erasYear: "Year",
+    erasYearItems: "Milestones (one per line)",
+    erasAddYear: "Add year",
+    erasHint: "Add, remove or reorder era blocks. Enter the tagline and each milestone one per line.",
+    erasEra: (n) => `Era ${n}`,
+    locationsAdd: "Add location",
+    locationsRemove: "Remove",
+    locationsMoveUp: "Move up",
+    locationsMoveDown: "Move down",
+    locationsBadge: "Badge",
+    locationsCity: "City",
+    locationsAddress: "Address",
+    locationsMap: "Map URL",
+    locationsHint: "Add, remove or reorder branch locations. The HQ card stays fixed.",
+    locationsCard: (n) => `Location ${n}`,
   },
   boards: {
     title: "Boards",

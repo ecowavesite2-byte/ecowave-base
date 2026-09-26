@@ -22,7 +22,10 @@ export type RegistryKind =
   | "slides"
   | "overlay"
   | "cards"
-  | "picks";
+  | "picks"
+  | "embed"
+  | "eras"
+  | "locations";
 
 export type SaveStatus = "idle" | "saving" | "saved" | "error";
 
@@ -37,6 +40,8 @@ export interface RegistryDef {
   section: { ko: string; en: string };
   label: { ko: string; en: string };
   revalidate: string[];
+  /** The def's content is rendered on every page of its channel; shown as a badge. */
+  shared?: boolean;
 }
 
 export interface RegistryResponse {

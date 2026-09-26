@@ -51,6 +51,7 @@ interface AccordionItem {
 
 type PreviewState =
   | { kind: "ok"; section: Section }
+  | { kind: "sections"; sections: Section[] }
   | { kind: "ticker"; section: Section; posts: BoardPost[] }
   | { kind: "board" }
   | { kind: "mobile" }
@@ -112,6 +113,9 @@ const DECORATIVE_WIDGET_TYPES = new Set(["padding", "hr"]);
  */
 function uneditableWidgetTypes(section: Section | undefined, defs: RegistryDef[]): string[] {
   if (!section) return [];
+  // A section-scoped `eras`/`locations` def covers every widget it rewrites, so
+  // nothing in that section is uneditable.
+  if (defs.some((def) => def.widgetId === "eras" || def.widgetId === "locations")) return [];
   const editable = new Set(defs.map((def) => def.widgetId));
   const out: string[] = [];
   const seen = new Set<string>();
@@ -132,9 +136,16 @@ function uneditableWidgetTypes(section: Section | undefined, defs: RegistryDef[]
  */
 function defTargetMissing(section: Section | undefined, def: RegistryDef): boolean {
   if (!section) return false;
-  // Section-level synthetic defs never match the widget walk: `cards`/`picks`
-  // rewrite the section, and `visual` (the slides list def) rewrites the hero.
-  if (def.widgetId === "cards" || def.widgetId === "picks" || def.widgetId === "visual") {
+  // Section-level synthetic defs never match the widget walk: `cards`/`picks`/
+  // `eras`/`locations` rewrite the section, and `visual` (the slides list def)
+  // rewrites the hero.
+  if (
+    def.widgetId === "cards" ||
+    def.widgetId === "picks" ||
+    def.widgetId === "eras" ||
+    def.widgetId === "locations" ||
+    def.widgetId === "visual"
+  ) {
     return false;
   }
   const visual = VISUAL_WIDGET.exec(def.widgetId);
@@ -399,6 +410,33 @@ export default function RegistryEditor({
     if (!tree || !tree.ko) return { kind: "unavailable" };
     const koTree = tree.ko;
 
+    // Structured `eras`/`locations`: the runtime applier restructures the WHOLE
+    // page (era section splicing / branch column rewrites), so build the preview
+    // from the full draft-applied tree instead of the single anchor section.
+    if (openItem.defs.some((def) => def.kind === "eras" || def.kind === "locations")) {
+      const sourceSections = previewLang === "en" ? tree.en : koTree;
+      if (!sourceSections) return { kind: "unavailable" };
+      try {
+        const page: PageContent = {
+          key: openItem.pageKey,
+          sourceUrl: "",
+          title: "",
+          sections: sourceSections,
+        };
+        const primaryPage: PageContent | null =
+          previewLang === "en"
+            ? { key: openItem.pageKey, sourceUrl: "", title: "", sections: koTree }
+            : null;
+        const merged = applyPageOverrides(page, draftOverrides, previewLang, {
+          primaryPage,
+          kinds: overrideKinds,
+        });
+        return { kind: "sections", sections: merged.sections };
+      } catch {
+        return { kind: "unavailable" };
+      }
+    }
+
     const koSection = koTree.find((section) => section.id === openItem.sectionId);
     if (!koSection) return { kind: "unavailable" };
     // Shared footer chrome is filtered out of the public section stream.
@@ -534,6 +572,14 @@ export default function RegistryEditor({
                       <span className="min-w-0">
                         <span className="block truncate text-[14px] font-bold text-ink">
                           {item.label || t.unnamedSection}
+                          {item.defs.some((d) => d.shared) ? (
+                            <span
+                              title={t.sharedBadge}
+                              className="ml-2 align-middle rounded-[3px] bg-soft px-1.5 py-0.5 text-[11px] font-normal text-muted"
+                            >
+                              {t.sharedBadge}
+                            </span>
+                          ) : null}
                         </span>
                         <span className="mt-0.5 block truncate font-mono text-[11px] text-muted">
                           {[
@@ -628,6 +674,8 @@ export default function RegistryEditor({
             <div className="max-h-[78vh] overflow-y-auto">
               {preview?.kind === "ok" ? (
                 <SectionPreview section={preview.section} locale={previewLang} />
+              ) : preview?.kind === "sections" ? (
+                <SectionPreview sections={preview.sections} locale={previewLang} />
               ) : preview?.kind === "ticker" ? (
                 <SectionPreview
                   section={preview.section}

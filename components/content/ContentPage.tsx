@@ -1,6 +1,8 @@
 import PageHero from "@/components/ui/PageHero";
 import SectionRenderer, { MOBILE_SECTION, isPageHeroSection } from "@/components/content/SectionRenderer";
 import { getResolvedPage } from "@/lib/content/resolved";
+import { resolvePageAlias } from "@/lib/content/paths";
+import { isSharedIntroSection, sharedIntroFor } from "@/lib/content/shared-intro";
 import { defaultLocale, isLocale, type Locale } from "@/lib/i18n";
 import { heroFor, isFooterSection, FOOTER_SECTION_ID } from "@/lib/page-hero";
 import type { Section } from "@/lib/types";
@@ -31,6 +33,25 @@ export default async function ContentPage({
   const hero = await heroFor("/" + pageKey, l);
 
   const all = page.sections.filter((s) => !isFooterSection(s) && s.id !== FOOTER_SECTION_ID);
+
+  // Shared intro band: the canonical `company.ceo` copy is the single source,
+  // and every other `/company*` page renders ITS rows in place of its own dead
+  // copy. Replace the rows in place (never the section) so each page keeps its
+  // local `id`/`cls`/`bg`: philosophy's band id is in PH48_SECTION_IDS, so
+  // swapping it would regress that page's mobile typography. `/company` aliases
+  // `company.ceo`, so it already serves the canonical copy and must not swap.
+  const shared = sharedIntroFor(pageKey);
+  if (shared && resolvePageAlias(pageKey) !== shared.canonicalPageKey) {
+    const canonical = await getResolvedPage(l, shared.canonicalPageKey);
+    const band = canonical.sections.find((s) => isSharedIntroSection(s, shared));
+    if (band) {
+      const rows = structuredClone(band.rows); // never mutate the cached page
+      for (let i = 0; i < all.length; i += 1) {
+        if (isSharedIntroSection(all[i], shared)) all[i] = { ...all[i], rows };
+      }
+    }
+  }
+
   const dropped = new Set<string>();
   const firstPc = all.find((s) => !isMobileSection(s));
   const firstMobile = all.find(isMobileSection);

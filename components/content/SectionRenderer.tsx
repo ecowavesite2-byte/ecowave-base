@@ -226,7 +226,7 @@ function ImageWidget({ w, locale, mobileBox = false }: { w: WidgetNode; locale: 
   // curated per-widget portrait rendition shown below 992 (see MOBILE_IMAGE_SRC);
   // overlay cards paint the image as a background layer, so this only applies to
   // the plain `img` branch.
-  const mobileSrc = hasOverlay ? undefined : MOBILE_IMAGE_SRC[w.id];
+  const mobileSrc = hasOverlay ? undefined : mobileImageSrc(w);
 
   // S1: imweb's scroll-to-top button (`.btn_top a[href="#doz_header"]`) is
   // crawled with `width:0;height:0;margin:21px auto`; the runtime then paints
@@ -621,8 +621,9 @@ function effectiveAnim(w: WidgetNode): string | undefined {
     if (dir === "Left") return "fadeInRight";
     if (dir === "Down") return "fadeInDown";
   }
-  // stop-gap id map for the sections whose direction the crawl dropped
-  return ANIM_DIR_OVERRIDES[w.id] ?? w.anim;
+  // stop-gap id map for the sections whose direction the crawl dropped; a cloned
+  // era widget (`<id>__era<i>`) reuses its authored base id's direction.
+  return ANIM_DIR_OVERRIDES[w.id] ?? ANIM_DIR_OVERRIDES[w.id.replace(/__era\d+$/, "")] ?? w.anim;
 }
 
 /**
@@ -710,7 +711,44 @@ const MOBILE_IMAGE_SRC: Record<string, string> = {
   // en home §4 mission badge band (`w20250911fbd73e60e36d9`) — the EN mobile
   // twin's portrait rendition, recovered from the baseline crawl.
   w20250911fbd73e60e36d9: "/images/thumbnail/20250918/22698d11a0ae4.png",
+  // company.about §intro PC photo (`w2025091840bd06b2a6c1d`) — the mobile twin
+  // (`s202509191b81eb54a6991`) carried the portrait crop, recovered here.
+  w2025091840bd06b2a6c1d: "/images/thumbnail/20250919/196f5234277f5.jpg",
+  // company.about §intro EN twin (`w202509192792fa883e8d1`), mobile section
+  // `s20250919d597d5efc646f`.
+  w202509192792fa883e8d1: "/images/thumbnail/20250919/67a21a7c80b5f.jpg",
+  // company.history era 1 PC aside photo (`w20250828e2f457614fd1a`), mobile
+  // section `s20250911d986b4b4130eb` / `s202509116a177a73d9cdb`.
+  w20250828e2f457614fd1a: "/images/thumbnail/20250911/8a464767025fa.jpg",
+  // company.history era 2 PC aside photo (`w202508289a08701d84b65`), mobile
+  // section `s202509113e3a9a552b0c7` / `s20250911034a2836eaeac`.
+  w202508289a08701d84b65: "/images/thumbnail/20250911/3a403d278f3ca.jpg",
+  // company.history era 3 PC aside photo (`w202508280039b649ce648`), mobile
+  // section `s2025091169f925490d127` / `s20250911a860dc22da3e1`.
+  w202508280039b649ce648: "/images/thumbnail/20250911/f4ac0f6dcab6e.jpg",
 };
+
+/**
+ * A structurally-cloned history era section. The merge applier
+ * (`applyEras` in lib/content/merge.ts) marks every era section with this class
+ * when a structured `eras` override is applied, so the responsive hooks below
+ * can scope to the clones without knowing their generated ids. Inert otherwise.
+ */
+const ERA_SECTION_CLASS = /\bera_section\b/;
+
+function isHistoryEra(sec: Section): boolean {
+  return ERA_SECTION_CLASS.test(sec.cls || "");
+}
+
+/**
+ * Portrait mobile rendition for an image widget. An admin-replaced image
+ * (`mobileSrc: false`) opts out; a cloned era widget (`<id>__era<i>`) falls back
+ * to its authored base id's rendition.
+ */
+function mobileImageSrc(w: WidgetNode): string | undefined {
+  if (w.mobileSrc === false) return undefined;
+  return MOBILE_IMAGE_SRC[w.id] ?? MOBILE_IMAGE_SRC[w.id.replace(/__era\d+$/, "")];
+}
 
 export function Widget({
   w,
@@ -1477,6 +1515,27 @@ const STICKY_ASIDE_SECTION_IDS = new Set([
 ]);
 
 /**
+ * company.history era photos are aside-only imagery.
+ *
+ * The single-source migration deleted the three company.history mobile timeline
+ * variants (`s20250911d986b4b4130eb` / `s202509113e3a9a552b0c7` /
+ * `s2025091169f925490d127` and their EN twins) that carried the portrait era
+ * photos; each surviving PC `side_left` section keeps its photo only inside the
+ * `doz_aside` column. `AsideColumn` is desktop-only (`hidden min-[1280px]:block`),
+ * so the aside must now render — stacked below the timeline — at every width for
+ * these six sections, or the era imagery disappears on mobile. The era photo
+ * widgets are already keyed in `MOBILE_IMAGE_SRC`. Every other page's aside
+ * (e.g. philosophy) stays desktop-only. Same six ids as
+ * `STICKY_ASIDE_SECTION_IDS` (the sticky flag only binds at >=1280).
+ */
+const MOBILE_ASIDE_SECTION_IDS = new Set([
+  // en /company/history §4/§7/§10
+  "s20250911bad9c985a650f", "s202509119a200517d0b1e", "s2025091127b399e6585cd",
+  // ko /company/history §4/§7/§10
+  "s20250811d0a0980d730fb", "s20250828fe85691f33b65", "s2025082848202431448dd",
+]);
+
+/**
  * item 2 — home §7 (Headquarters & Factory Locations) holder box model.
  *
  * The original's address holders compute `.text-table.holder { padding: 20px
@@ -1653,17 +1712,24 @@ function AsideColumn({
   locale,
   vGutter,
   sticky,
+  mobileVisible = false,
 }: {
   asideW: number;
   aside?: AsideBlock;
   locale: Locale;
   vGutter: boolean;
   sticky?: boolean;
+  /** stack below the main column below 1280px (see MOBILE_ASIDE_SECTION_IDS) */
+  mobileVisible?: boolean;
 }) {
   const items = aside?.items || [];
   return (
     <div
-      className="hidden min-[1280px]:block min-[1280px]:w-[var(--aside-w)] min-[1280px]:shrink-0 min-[1280px]:pl-[15px]"
+      className={
+        mobileVisible
+          ? "block w-full min-[1280px]:w-[var(--aside-w)] min-[1280px]:shrink-0 min-[1280px]:pl-[15px]"
+          : "hidden min-[1280px]:block min-[1280px]:w-[var(--aside-w)] min-[1280px]:shrink-0 min-[1280px]:pl-[15px]"
+      }
       style={
         {
           ["--aside-w" as string]: `${asideW}px`,
@@ -1675,8 +1741,8 @@ function AsideColumn({
       <div
         className={
           sticky
-            ? "min-[1280px]:sticky min-[1280px]:top-[88px] min-[1280px]:z-[100] min-[1280px]:pt-[var(--aside-pt)]"
-            : "min-[1280px]:pt-[var(--aside-pt)]"
+            ? `min-[1280px]:sticky min-[1280px]:top-[88px] min-[1280px]:z-[100] min-[1280px]:pt-[var(--aside-pt)]${mobileVisible ? " pt-[var(--aside-pt)]" : ""}`
+            : `min-[1280px]:pt-[var(--aside-pt)]${mobileVisible ? " pt-[var(--aside-pt)]" : ""}`
         }
       >
         {items.length > 0 && (
@@ -1742,8 +1808,9 @@ export default function SectionRenderer({
         // imweb `.inside .widget` gets 15px vertical margins unless the section
         // disables the vertical gutter (`grid_v_gutter_0`, e.g. all of home)
         const vGutter = !/(^|\s)grid_v_gutter_0(\s|$)/.test(cls);
-        // the measured top-level band applies to a fixed set of pc sections only
-        const topBand = TOP_BAND_SECTION_IDS.has(sec.id);
+        // the measured top-level band applies to a fixed set of pc sections only;
+        // structurally-cloned history eras inherit it too.
+        const topBand = TOP_BAND_SECTION_IDS.has(sec.id) || isHistoryEra(sec);
         // item 1: mobile 48px-span line-height hook (globals.css `data-mh6`)
         const mh6 = sectionHasMh6Spans(sec);
         // item 1: philosophy mobile rich-text downscale (globals.css `data-rtm`)
@@ -1815,7 +1882,8 @@ export default function SectionRenderer({
                   aside={aside}
                   locale={locale}
                   vGutter={vGutter}
-                  sticky={STICKY_ASIDE_SECTION_IDS.has(sec.id)}
+                  sticky={STICKY_ASIDE_SECTION_IDS.has(sec.id) || isHistoryEra(sec)}
+                  mobileVisible={MOBILE_ASIDE_SECTION_IDS.has(sec.id) || isHistoryEra(sec)}
                 />
               )}
               <div
@@ -1844,7 +1912,8 @@ export default function SectionRenderer({
                   aside={aside}
                   locale={locale}
                   vGutter={vGutter}
-                  sticky={STICKY_ASIDE_SECTION_IDS.has(sec.id)}
+                  sticky={STICKY_ASIDE_SECTION_IDS.has(sec.id) || isHistoryEra(sec)}
+                  mobileVisible={MOBILE_ASIDE_SECTION_IDS.has(sec.id) || isHistoryEra(sec)}
                 />
               )}
             </div>

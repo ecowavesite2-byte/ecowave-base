@@ -450,58 +450,6 @@
       ]
     },
     {
-      "id": "s202509111ecee05a61770",
-      "cls": "section_wrap  mobile_section       side_basic     ",
-      "bg": null,
-      "bgStyle": "   background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
-      "bgColor": null,
-      "secStyle": "; ; ;",
-      "rows": [
-        {
-          "kind": "row",
-          "grid": "12",
-          "pad": 0,
-          "cols": [
-            {
-              "kind": "col",
-              "grid": "12",
-              "children": [
-                {
-                  "kind": "widget",
-                  "id": "w202509110c02a9a33a442",
-                  "type": "text",
-                  "html": "\n\t\t<div class=\"text-table \"><div><table class=\"noBorder\" style=\"width: 100%; text-align:center; border-collapse: collapse;\"><tbody><tr><td style=\"width: 100%;\"><div style=\"text-align: left;\"><span style=\"border-left:3px solid #1a4c9a; padding-left:8px; font-size:18px;\">&nbsp;<strong>TEL</strong><span style=\"color: rgb(120, 120, 120);\">&nbsp; +82-32-812-1800&nbsp;</span></span></div></td></tr><tr><td style=\"width: 100%;\"><div style=\"text-align: left;\"><span style=\"border-left:3px solid #1a4c9a; padding-left:8px; font-size:18px;\">&nbsp;<strong>FAX</strong><span style=\"color: rgb(120, 120, 120);\">&nbsp; +82-32-812-1804 &nbsp;</span></span></div></td></tr><tr><td style=\"width: 100%;\"><div style=\"text-align: left;\"><span style=\"border-left:3px solid #1a4c9a; padding-left:8px; font-size:18px;\">&nbsp;<strong>EMAIL</strong><span style=\"color: rgb(120, 120, 120);\">&nbsp; abc@naver.com&nbsp;</span></span></div></td></tr></tbody></table></div></div>\n\t",
-                  "anim": "none",
-                  "animDur": "0.7",
-                  "animDelay": "0"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "kind": "row",
-          "grid": "12",
-          "pad": 0,
-          "cols": [
-            {
-              "kind": "col",
-              "grid": "12",
-              "children": [
-                {
-                  "kind": "widget",
-                  "id": "w202509113d7c2730c9fd0",
-                  "type": "padding",
-                  "html": "<div class=\"widget padding\" data-height=\"44\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w202509113d7c2730c9fd0\" style=\"width:100%; min-height:1px; height:44px; \"></div>\n</div>\n",
-                  "_h": 44
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
       "id": "s202508286e01c87027ecf",
       "cls": "section_wrap  pc_section       side_basic     ",
       "bg": null,

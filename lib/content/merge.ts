@@ -1,16 +1,21 @@
 import type {
   BoardContent,
   BoardPost,
+  ColNode,
+  EraEntry,
+  EraYear,
+  GlobalLocation,
   LocationCard,
   Node,
   PageContent,
+  RowNode,
   Section,
   SiteData,
   TickerPicks,
   WidgetNode,
 } from "../types";
 import { resolvePairedSection, resolvePairedWidget } from "./pair";
-import { extractRunSizes, injectTextRuns } from "./text-runs";
+import { extractRunSizes, injectTextRuns, extractTextRuns } from "./text-runs";
 
 /**
  * Pure override application.
@@ -31,6 +36,8 @@ export interface RegistryKeyParts {
 
 /** Gallery item field, e.g. `items[2].title`. */
 const GALLERY_FIELD = /^items\[(\d+)\]\.(title|desc|org|thumb)$/;
+/** Embedded media src inside a `text` widget html, e.g. `img[0].src`. */
+const EMBED_FIELD = /^(img|iframe)\[(\d+)\]\.src$/;
 /** Site nav top-level item, e.g. `nav[0]`. */
 const NAV_ITEM = /^nav\[(\d+)\]$/;
 /** Site nav child item, e.g. `nav[0].children[2]`. */
@@ -74,6 +81,24 @@ function deepClone<T>(value: T): T {
 }
 
 /**
+ * Replace the `src` of the nth `<tag>` (img/iframe) inside `html`, preserving
+ * every other tag/style. An empty value is a no-op (never blanks an embed), and
+ * a missing nth tag leaves the html untouched. Mirrors the `img[n].src` /
+ * `iframe[n].src` field shape emitted by scripts/gen-content-registry.mjs.
+ */
+function replaceNthSrc(html: string | null | undefined, tag: string, n: number, value: string): string {
+  const source = String(html ?? "");
+  if (!value) return source; // empty = no-op, never blank a src
+  const re = new RegExp(`<${tag}\\b[^>]*>`, "gi");
+  let i = -1;
+  return source.replace(re, (m) => {
+    i += 1;
+    if (i !== n) return m;
+    return m.replace(/\ssrc\s*=\s*("[^"]*"|'[^']*'|[^\s>]+)/i, ` src="${value}"`);
+  });
+}
+
+/**
  * Apply one scalar/gallery field in place (caller owns the clone).
  *
  * `target` is a widget node or a hero slide (`visual[i]`); fields not valid for
@@ -110,6 +135,12 @@ function applyWidgetField(widget: WidgetNode, field: string, value: string, rawH
       return;
     default:
       break;
+  }
+
+  const embed = EMBED_FIELD.exec(field);
+  if (embed) {
+    widget.html = replaceNthSrc(widget.html, embed[1], Number(embed[2]), value);
+    return;
   }
 
   const match = GALLERY_FIELD.exec(field);
@@ -417,6 +448,341 @@ export function applyCards(section: Section, cards: LocationCard[]): void {
   }
 }
 
+/* ---------------- structured kinds: eras + locations ---------------- */
+
+/** Parse an `eras` payload; `null` when malformed/empty. */
+function parseEras(value: string): EraEntry[] | null {
+  try {
+    const parsed: unknown = JSON.parse(value);
+    if (!Array.isArray(parsed) || parsed.length === 0) return null;
+    const eras: EraEntry[] = [];
+    for (const entry of parsed) {
+      if (!entry || typeof entry !== "object" || Array.isArray(entry)) return null;
+      const era = entry as {
+        range?: unknown;
+        tagline?: unknown;
+        image?: unknown;
+        years?: unknown;
+      };
+      if (typeof era.range !== "string") return null;
+      if (typeof era.tagline !== "string") return null;
+      if (typeof era.image !== "string") return null;
+      if (!Array.isArray(era.years)) return null;
+      const years: EraYear[] = [];
+      for (const yearEntry of era.years) {
+        if (!yearEntry || typeof yearEntry !== "object" || Array.isArray(yearEntry)) return null;
+        const year = yearEntry as { year?: unknown; items?: unknown };
+        if (typeof year.year !== "string") return null;
+        if (!Array.isArray(year.items) || !year.items.every((item) => typeof item === "string")) {
+          return null;
+        }
+        years.push({ year: year.year, items: year.items as string[] });
+      }
+      eras.push({ range: era.range, tagline: era.tagline, image: era.image, years });
+    }
+    return eras;
+  } catch {
+    return null;
+  }
+}
+
+/** Parse a `locations` payload; `null` when malformed/empty. */
+function parseLocations(value: string): GlobalLocation[] | null {
+  try {
+    const parsed: unknown = JSON.parse(value);
+    if (!Array.isArray(parsed) || parsed.length === 0) return null;
+    const locations: GlobalLocation[] = [];
+    for (const entry of parsed) {
+      if (!entry || typeof entry !== "object" || Array.isArray(entry)) return null;
+      const location = entry as {
+        badge?: unknown;
+        city?: unknown;
+        address?: unknown;
+        mapSrc?: unknown;
+      };
+      if (typeof location.badge !== "string") return null;
+      if (typeof location.city !== "string") return null;
+      if (typeof location.address !== "string") return null;
+      if (typeof location.mapSrc !== "string") return null;
+      locations.push({
+        badge: location.badge,
+        city: location.city,
+        address: location.address,
+        mapSrc: location.mapSrc,
+      });
+    }
+    return locations;
+  } catch {
+    return null;
+  }
+}
+
+/** Every widget of a section (rows → cols, then aside) in document order. */
+function sectionWidgetList(section: Section): WidgetNode[] {
+  const out: WidgetNode[] = [];
+  for (const node of section.rows ?? []) forEachWidget(node, (widget) => out.push(widget));
+  if (section.aside) {
+    for (const node of section.aside.items ?? []) forEachWidget(node, (widget) => out.push(widget));
+  }
+  return out;
+}
+
+/** Every widget inside an arbitrary node (mirrors `forEachWidget`). */
+function nodeWidgets(node: Node): WidgetNode[] {
+  const out: WidgetNode[] = [];
+  forEachWidget(node, (widget) => out.push(widget));
+  return out;
+}
+
+/** Escape `&`, `<`, `>` for the rebuilt years markup (text nodes only). */
+function escapeEraText(value: string): string {
+  return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+/** Wrapper of the authored years html: prefix before the content div + suffix. */
+const YEARS_WRAPPER = /^([\s\S]*?<div class="text-table\s*"><div>)([\s\S]*)(<\/div><\/div>[\s\S]*)$/;
+
+/**
+ * Rebuild a years widget's html from a fixed template (the authored 30px year
+ * head + 18px `· item` lines), preserving the outer `text-table` wrapper. Used
+ * only when the run count changes (a text injection cannot express that).
+ * Returns `null` when the wrapper does not match (leave the html untouched).
+ */
+function buildYearsHtml(templateHtml: string, years: EraYear[]): string | null {
+  const match = YEARS_WRAPPER.exec(String(templateHtml ?? ""));
+  if (!match) return null;
+  const [, prefix, , suffix] = match;
+  const head = (year: string) =>
+    `<hr><h6><strong><span style="color: rgb(57, 112, 235); font-size: 30px;">${escapeEraText(year)}</span></strong></h6>`;
+  const item = (text: string) =>
+    `<p style="line-height: 2;"><span style="font-size: 18px; line-height: 2;">· ${escapeEraText(text)}</span></p>`;
+  const gap = `<p style="line-height: 2;"><br></p>`;
+  const body = years.map((year) => head(year.year) + year.items.map(item).join("") + gap).join("");
+  return prefix + body + suffix;
+}
+
+/** Apply one `EraEntry` to one era section in place (label / years / image). */
+function applyEraOne(section: Section, entry: EraEntry): void {
+  const widgets = sectionWidgetList(section);
+  const label =
+    widgets.find(
+      (w) => w.type === "text" && typeof w.html === "string" && !/<hr\b/i.test(w.html),
+    ) ?? null;
+  const years =
+    widgets.find((w) => w.type === "text" && typeof w.html === "string" && /<hr\b/i.test(w.html)) ??
+    null;
+  const asideWidgets: WidgetNode[] = [];
+  if (section.aside) {
+    for (const node of section.aside.items ?? []) forEachWidget(node, (w) => asideWidgets.push(w));
+  }
+  const image = asideWidgets.find((w) => w.type === "image") ?? null;
+
+  if (label) {
+    // Keep the authored run boundaries: the tagline is the label runs after the
+    // range joined by `\n` (a `fr-marker` span fragments the design lines).
+    const desired = [entry.range, ...entry.tagline.split(/\r?\n/)].join("\n");
+    if (desired !== extractTextRuns(label.html).join("\n")) {
+      label.html = injectTextRuns(label.html, desired);
+    }
+  }
+
+  if (years) {
+    const flat = entry.years.flatMap((year) => [
+      year.year,
+      ...year.items.map((item) => "· " + item),
+    ]);
+    const current = extractTextRuns(years.html);
+    if (flat.join("\n") !== current.join("\n")) {
+      if (flat.length === current.length) {
+        years.html = injectTextRuns(years.html, flat.join("\n"));
+      } else {
+        const rebuilt = buildYearsHtml(years.html ?? "", entry.years);
+        if (rebuilt !== null) years.html = rebuilt;
+      }
+    }
+  }
+
+  if (image && entry.image && image.src !== entry.image) {
+    image.src = entry.image;
+    // An admin-replaced photo opts out of the curated portrait mobile swap.
+    image.mobileSrc = false;
+  }
+}
+
+/** A company.history era section: `side_left` with a non-empty aside. */
+function isEraSection(section: Section): boolean {
+  if (!/\bside_left\b/.test(section.cls || "")) return false;
+  return Array.isArray(section.aside?.items) && section.aside.items.length > 0;
+}
+
+/** True for a separator section: no aside and only padding/hr widgets. */
+function isSpacerSection(section: Section | undefined): boolean {
+  if (!section || section.aside) return false;
+  const widgets = sectionWidgetList(section);
+  return widgets.length > 0 && widgets.every((w) => w.type === "padding" || w.type === "hr");
+}
+
+/** Give every widget inside a cloned node a unique id (`<id><suffix>`). */
+function rewriteNodeIds(node: Node, suffix: string): void {
+  forEachWidget(node, (widget) => {
+    const base = typeof widget.id === "string" && widget.id.length > 0 ? widget.id : "w";
+    widget.id = `${base}${suffix}`;
+  });
+}
+
+/** Give every widget inside a cloned section a unique id (`<id><suffix>`). */
+function rewriteSectionWidgetIds(section: Section, suffix: string): void {
+  for (const node of section.rows ?? []) rewriteNodeIds(node, suffix);
+  if (section.aside) {
+    for (const node of section.aside.items ?? []) rewriteNodeIds(node, suffix);
+  }
+}
+
+/**
+ * Restructure an already-deep-cloned page so its history timeline renders
+ * EXACTLY `eras.length` era blocks (replace-in-place, then remove trailing eras
+ * / append clones). Era sections are found structurally (`side_left` + aside).
+ * Applied LAST (after the widget loop) so section splicing never shifts the
+ * positional pairing of other keys. Never throws.
+ */
+export function applyEras(sections: Section[], anchor: Section, eras: EraEntry[]): void {
+  try {
+    if (!Array.isArray(sections) || !anchor || !Array.isArray(eras) || eras.length === 0) return;
+    const eraSections = sections.filter(isEraSection);
+    if (eraSections.length === 0 || !eraSections.includes(anchor)) return;
+
+    for (const section of eraSections) {
+      section.cls = `${section.cls || ""} era_section`.trim();
+    }
+
+    const n = eraSections.length;
+    const m = eras.length;
+    const common = Math.min(m, n);
+    for (let i = 0; i < common; i += 1) applyEraOne(eraSections[i], eras[i]);
+
+    if (m < n) {
+      for (let i = n - 1; i >= m; i -= 1) {
+        const section = eraSections[i];
+        const index = sections.indexOf(section);
+        if (index < 0) continue;
+        sections.splice(index, 1);
+        // Drop the spacer that separated the removed era from the next block.
+        if (isSpacerSection(sections[index])) sections.splice(index, 1);
+      }
+      // And the spacer that trailed the last kept era.
+      const lastKept = eraSections[m - 1];
+      const lastIndex = sections.indexOf(lastKept);
+      if (lastIndex >= 0 && isSpacerSection(sections[lastIndex + 1])) {
+        sections.splice(lastIndex + 1, 1);
+      }
+      return;
+    }
+
+    if (m > n) {
+      const template = eraSections[n - 1];
+      const templateIndex = sections.indexOf(template);
+      if (templateIndex < 0) return;
+      let insertAt = templateIndex + 1;
+      const spacerTemplate = isSpacerSection(sections[insertAt]) ? sections[insertAt] : null;
+      if (spacerTemplate) insertAt += 1;
+      for (let i = n; i < m; i += 1) {
+        const eraClone = deepClone(template);
+        eraClone.id = `${template.id}__era${i}`;
+        rewriteSectionWidgetIds(eraClone, `__era${i}`);
+        applyEraOne(eraClone, eras[i]);
+        sections.splice(insertAt, 0, eraClone);
+        insertAt += 1;
+        if (spacerTemplate) {
+          const gapClone = deepClone(spacerTemplate);
+          gapClone.id = `${spacerTemplate.id}__era_gap${i}`;
+          rewriteSectionWidgetIds(gapClone, `__era_gap${i}`);
+          sections.splice(insertAt, 0, gapClone);
+          insertAt += 1;
+        }
+      }
+      return;
+    }
+  } catch {
+    // Overrides must never break rendering.
+  }
+}
+
+/** The company.global branches row (row with ≥ 2 iframe-bearing columns). */
+function findBranchRow(section: Section): RowNode | null {
+  for (const node of section?.rows ?? []) {
+    if (node.kind !== "row") continue;
+    const iframeCols = node.cols.filter((col) =>
+      nodeWidgets(col).some(
+        (w) => w.type === "text" && typeof w.html === "string" && /<iframe\b/i.test(w.html),
+      ),
+    );
+    if (iframeCols.length >= 2) return node;
+  }
+  return null;
+}
+
+/** Apply one `GlobalLocation` to one branch column (name runs + map iframe). */
+function applyBranch(col: ColNode, location: GlobalLocation): void {
+  const widgets = nodeWidgets(col);
+  const name =
+    widgets.find(
+      (w) => w.type === "text" && typeof w.html === "string" && !/<iframe\b/i.test(w.html),
+    ) ?? null;
+  const map =
+    widgets.find((w) => w.type === "text" && typeof w.html === "string" && /<iframe\b/i.test(w.html)) ??
+    null;
+
+  if (name) {
+    const desired = [location.badge, location.city, location.address].join("\n");
+    if (desired !== extractTextRuns(name.html).join("\n")) {
+      name.html = injectTextRuns(name.html, desired);
+    }
+  }
+
+  if (map && location.mapSrc) {
+    map.html = replaceNthSrc(map.html, "iframe", 0, location.mapSrc);
+  }
+}
+
+/**
+ * Restructure an already-deep-cloned company.global section so its branches row
+ * renders EXACTLY `locations.length` columns (replace-in-place, clone the last
+ * column to add, drop extras, re-grid when the count changes). Never throws.
+ */
+export function applyLocations(section: Section, locations: GlobalLocation[]): void {
+  try {
+    if (!section || !Array.isArray(locations) || locations.length === 0) return;
+    const row = findBranchRow(section);
+    if (!row) return;
+    const cols = row.cols;
+    const n = cols.length;
+    const m = locations.length;
+    const common = Math.min(m, n);
+    for (let i = 0; i < common; i += 1) applyBranch(cols[i], locations[i]);
+
+    if (m > n) {
+      const template = cols[n - 1];
+      if (!template) return;
+      for (let i = n; i < m; i += 1) {
+        const clone = deepClone(template);
+        rewriteNodeIds(clone, `__loc${i}`);
+        applyBranch(clone, locations[i]);
+        cols.push(clone);
+      }
+    } else if (m < n) {
+      cols.splice(m, n - m);
+    }
+
+    if (m !== n) {
+      const grid =
+        m <= 1 ? "12" : m === 2 ? "6" : String(Math.max(3, Math.floor(12 / m)));
+      for (const col of cols) col.grid = grid;
+    }
+  } catch {
+    // Overrides must never break rendering.
+  }
+}
+
 /** Optional context for locale pairing (see `./pair`). */
 export interface ApplyPageOptions {
   /**
@@ -452,6 +818,12 @@ export function applyPageOverrides<T extends PageContent>(
 
   const expectedPageKey = pageKeyOf(clone);
 
+  // Deferred `eras` keys: era application SPLICES sections, which would shift
+  // the positional KO↔EN pairing for any key processed afterwards. Collect them
+  // and apply once the whole widget loop has run (the anchor is still resolved
+  // against the untouched primary tree).
+  const deferredEras: Array<{ ref: RegistryKeyParts; value: string }> = [];
+
   for (const [key, value] of Object.entries(overrides ?? {})) {
     if (typeof value !== "string") continue;
 
@@ -459,6 +831,22 @@ export function applyPageOverrides<T extends PageContent>(
     if (!parsed) continue;
     // Board/site keys (and other pages) address different documents.
     if (expectedPageKey && parsed.pageKey !== expectedPageKey) continue;
+
+    // History timeline (`<page>#<sectionId>/eras/eras`): page-level era
+    // section splicing, applied after the loop (see `deferredEras`).
+    if (parsed.field === "eras" && parsed.widgetId === "eras") {
+      deferredEras.push({ ref: parsed, value });
+      continue;
+    }
+
+    // Branch list (`<page>#<sectionId>/locations/locations`): restructures the
+    // branch columns in place (add/remove/re-grid) instead of one widget field.
+    if (parsed.field === "locations" && parsed.widgetId === "locations") {
+      const section = resolvePairedSection(clone, parsed, options.primaryPage ?? null);
+      const locations = section ? parseLocations(value) : null;
+      if (section && locations) applyLocations(section, locations);
+      continue;
+    }
 
     // Hero slide list (`<page>#<sectionId>/visual/slides`): replaces the whole
     // `section.visual` array instead of one widget field.
@@ -502,6 +890,15 @@ export function applyPageOverrides<T extends PageContent>(
           : value.includes("<");
 
     applyWidgetField(widget, parsed.field, value, rawHtml);  }
+
+  // Deferred `eras` keys: splice the history timeline only after every per-widget
+  // override has landed, so the section structure is still the authored one while
+  // the loop's positional pairing runs. The anchor resolves against the primary.
+  for (const { ref, value } of deferredEras) {
+    const anchor = resolvePairedSection(clone, ref, options.primaryPage ?? null);
+    const eras = anchor ? parseEras(value) : null;
+    if (anchor && eras) applyEras(clone.sections, anchor, eras);
+  }
 
   return clone;
 }

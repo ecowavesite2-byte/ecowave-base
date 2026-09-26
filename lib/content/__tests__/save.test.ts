@@ -196,6 +196,109 @@ describe("saveContent structured payload validation (no DB)", () => {
     const result = await saveContent({ key: def.key, locale: "ko", value, actor });
     expect(result).toEqual({ ok: false, message: DB_NOT_CONFIGURED_MESSAGE });
   });
+
+  it("rejects malformed/empty eras payloads", async () => {
+    const def = defOfKind("eras");
+    const bad = [
+      "[]", // an eras list must not be emptied
+      "{}", // not an array
+      "not json",
+      "[{}]", // missing everything
+      '[{"range":1}]', // range not a string
+      '[{"range":"r","tagline":"t","image":"i"}]', // missing years
+      '[{"range":"r","tagline":"t","image":"i","years":[{"year":"y"}]}]', // missing items
+      '[{"range":"r","tagline":"t","image":"i","years":[{"year":"y","items":[1]}]}]', // non-string item
+    ];
+    for (const value of bad) {
+      const result = await saveContent({ key: def.key, locale: "ko", value, actor });
+      expect(result.ok, `should reject: ${value}`).toBe(false);
+      expect(result.message).toContain("Invalid eras payload");
+    }
+  });
+
+  it("accepts a well-formed eras payload (then reports the missing DB)", async () => {
+    const def = defOfKind("eras");
+    const value = JSON.stringify([
+      {
+        range: "2020 - 2023",
+        tagline: "line one\nline two",
+        image: "/images/era.jpg",
+        years: [
+          { year: "2023", items: ["founded"] },
+          { year: "2022", items: ["grew", "shipped"] },
+        ],
+      },
+    ]);
+    const result = await saveContent({ key: def.key, locale: "ko", value, actor });
+    expect(result).toEqual({ ok: false, message: DB_NOT_CONFIGURED_MESSAGE });
+  });
+
+  it("rejects malformed/empty locations payloads", async () => {
+    const def = defOfKind("locations");
+    const bad = [
+      "[]", // a locations list must not be emptied
+      "{}", // not an array
+      "not json",
+      "[{}]", // missing everything
+      '[{"badge":"a","city":"b","address":"c"}]', // missing mapSrc
+      '[{"badge":1,"city":"b","address":"c","mapSrc":""}]', // badge not a string
+      '[{"badge":"a","city":"b","address":"c","mapSrc":"javascript:alert(1)"}]', // invalid media
+      '[{"badge":"a","city":"b","address":"c","mapSrc":"https://x/a b"}]', // invalid media
+    ];
+    for (const value of bad) {
+      const result = await saveContent({ key: def.key, locale: "ko", value, actor });
+      expect(result.ok, `should reject: ${value}`).toBe(false);
+      expect(result.message).toContain("Invalid locations payload");
+    }
+  });
+
+  it("accepts well-formed locations payloads, including an empty mapSrc", async () => {
+    const def = defOfKind("locations");
+    for (const mapSrc of ["/images/map.png", "", "https://www.google.com/maps/embed?pb=x"]) {
+      const value = JSON.stringify([{ badge: "a", city: "b", address: "c", mapSrc }]);
+      const result = await saveContent({ key: def.key, locale: "ko", value, actor });
+      expect(result, mapSrc).toEqual({ ok: false, message: DB_NOT_CONFIGURED_MESSAGE });
+    }
+  });
+});
+
+describe("saveContent embed validation (no DB)", () => {
+  it("accepts an https embed URL (then reports the missing DB)", async () => {
+    const def = defOfKind("embed");
+    const result = await saveContent({
+      key: def.key,
+      locale: "ko",
+      value: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d792.25!2d126.69!3d37.41",
+      actor,
+    });
+    expect(result).toEqual({ ok: false, message: DB_NOT_CONFIGURED_MESSAGE });
+  });
+
+  it("accepts a relative embed path (then reports the missing DB)", async () => {
+    const def = defOfKind("embed");
+    const result = await saveContent({
+      key: def.key,
+      locale: "en",
+      value: "/images/embed/map.png",
+      actor,
+    });
+    expect(result).toEqual({ ok: false, message: DB_NOT_CONFIGURED_MESSAGE });
+  });
+
+  it("rejects javascript:, spaces and quotes", async () => {
+    const def = defOfKind("embed");
+    const bad = [
+      "javascript:alert(1)",
+      "https://example.com/a b",
+      'https://example.com/"x"',
+      "data:text/html;base64,AAAA",
+    ];
+    for (const value of bad) {
+      const result = await saveContent({ key: def.key, locale: "ko", value, actor });
+      expect(result.ok, `should reject: ${value}`).toBe(false);
+      expect(result.message).toContain("Invalid embed value");
+    }
+  });
 });
 
 describe("saveContent writes (fake Prisma)", () => {

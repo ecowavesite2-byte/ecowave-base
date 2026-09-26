@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import type { BoardContent, BoardPost, PageContent, SiteData } from "../types";
 import { defaultLocale, type Locale } from "../i18n";
-import { boardPath, pagePath, sitePath } from "./paths";
+import { boardPath, pagePath, resolvePageAlias, sitePath } from "./paths";
 
 /**
  * Read path for the file-backed content store.
@@ -44,9 +44,12 @@ function readJson<T>(file: string): T {
  * test for a 404 themselves.
  */
 export function pageSourceFile(locale: Locale, key: string): string {
-  const file = pagePath(locale, key);
+  // Alias keys (e.g. `company` → `company.ceo`) are served from the target file
+  // with no redirect; `content/*/pages/company.json` stays a crawl artifact.
+  const target = resolvePageAlias(key);
+  const file = pagePath(locale, target);
   if (locale === defaultLocale || fs.existsSync(file)) return file;
-  const fallback = pagePath(defaultLocale, key);
+  const fallback = pagePath(defaultLocale, target);
   return fs.existsSync(fallback) ? fallback : file;
 }
 
@@ -59,7 +62,7 @@ export function boardSourceFile(locale: Locale, slug: string): string {
 
 /** True when the English locale has its own page file (false → EN inherits ko). */
 export function hasEnglishPage(key: string): boolean {
-  return fs.existsSync(pagePath("en", key));
+  return fs.existsSync(pagePath("en", resolvePageAlias(key)));
 }
 
 /** True when the English locale has its own board file (false → EN inherits ko). */

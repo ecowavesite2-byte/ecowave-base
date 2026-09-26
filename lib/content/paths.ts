@@ -35,6 +35,13 @@ export const PAGE_KEYS = [
   "support",
 ] as const;
 
+/** pageKeys whose content is served by another pageKey (no redirect). */
+export const PAGE_ALIASES: Readonly<Record<string, string>> = { company: "company.ceo" };
+
+export function resolvePageAlias(key: string): string {
+  return PAGE_ALIASES[key] ?? key;
+}
+
 export const BOARD_SLUGS = [
   "news",
   "notices",

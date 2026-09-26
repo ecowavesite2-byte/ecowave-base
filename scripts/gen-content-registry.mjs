@@ -21,6 +21,14 @@ const OUT_FILE = path.join(ROOT, "lib", "content", "registry.ts");
 const LOCALES = ["ko", "en"];
 const PRIMARY = "ko"; // authoritative structure; EN is matched structurally.
 
+/**
+ * Widget types skipped when pairing KO ↔ EN positionally. These carry no
+ * overridable content (padding spacers, horizontal rules, raw code embeds), so
+ * they must not shift the alignment of the editable widgets around them.
+ * Mirrors `PAIR_IGNORED_TYPES` in lib/content/pair.ts (asserted by a parity test).
+ */
+export const PAIR_IGNORED_TYPES = new Set(["padding", "hr", "code"]);
+
 /** Mirrors lib/routes.ts (kept local so the script stays TS-free). */
 const PAGE_KEY_TO_ROUTE = {
   home: "/",
@@ -40,6 +48,14 @@ const PAGE_KEY_TO_ROUTE = {
   support: "/support",
 };
 
+/**
+ * Mirrors `PAGE_ALIASES` in lib/content/paths.ts: pageKeys whose content is
+ * served by another pageKey (no redirect). Alias keys emit no defs of their own
+ * (they render the target page's content), but they still appear as routes in
+ * the target's revalidate set.
+ */
+export const PAGE_ALIASES = { company: "company.ceo" };
+
 const LABELS = {
   text: { ko: "텍스트 블록", en: "Text block" },
   imageSrc: { ko: "이미지 경로", en: "Image source" },
@@ -56,6 +72,7 @@ const LABELS = {
   buttonHref: { ko: "버튼 링크", en: "Button link" },
   imageHref: { ko: "이미지 링크", en: "Image link" },
   videoSrc: { ko: "동영상 URL", en: "Video URL" },
+  embedSrc: { ko: "임베드 URL", en: "Embed URL" },
   codeBlock: { ko: "코드 블록", en: "Code block" },
   heroSlides: { ko: "메인 비주얼 슬라이드", en: "Main visual slides" },
   menuTitle: { ko: "메뉴 제목", en: "Menu title" },
@@ -63,6 +80,8 @@ const LABELS = {
   navSubLabel: { ko: "하위 내비게이션 라벨", en: "Nav sub-label" },
   boardName: { ko: "게시판 이름", en: "Board name" },
   boardPosts: { ko: "게시글 목록", en: "Board posts" },
+  eras: { ko: "연혁", en: "History eras" },
+  locations: { ko: "지사 목록", en: "Branch locations" },
 };
 
 const MAX_LENGTH = {
@@ -71,15 +90,18 @@ const MAX_LENGTH = {
   lines: 20000,
   image: 2000,
   url: 2000,
+  embed: 2000,
   list: 20000,
   slides: 20000,
   overlay: 5000,
   cards: 20000,
   picks: 2000,
+  eras: 20000,
+  locations: 20000,
 };
 
 /** Kinds emitted into `lib/content/registry.ts` (order = CONTENT_KINDS). */
-const KINDS = ["text", "textarea", "lines", "image", "url", "list", "slides", "overlay", "cards", "picks"];
+const KINDS = ["text", "textarea", "lines", "image", "url", "list", "slides", "overlay", "cards", "picks", "embed", "eras", "locations"];
 
 /**
  * Sections the public renderers strip, so the admin must not expose their
@@ -88,14 +110,53 @@ const KINDS = ["text", "textarea", "lines", "image", "url", "list", "slides", "o
  *    `components/layout/SiteFooter.tsx` renders the HOME page's copy on every
  *    route, so only `home`'s footer defs are live;
  *  - the leading page-title hero band of each channel — rebuilt as <PageHero>
- *    from the nav labels (site#nav/…), which are the real source.
- * Mirrors lib/page-hero.ts (`isFooterSection`, FOOTER_SECTION_ID) and
+ *    from the nav labels (site#nav/…), which are the real source;
+ *  - the shared company intro band — every `/company*` page authors its own
+ *    copy (each with a page-local section id) but only `company.ceo`'s is live:
+ *    the renderer (`components/content/ContentPage.tsx`) swaps its rows into the
+ *    other pages' bands, so their copies are dead. Matched by unique bg —
+ *    see `sharedIntroFor` / `isSharedIntroSection` below.
+ * Mirrors lib/page-hero.ts (`isFooterSection`, FOOTER_SECTION_ID),
+ * lib/content/shared-intro.ts (`SHARED_INTROS`) and
  * components/content/SectionRenderer.tsx (`MOBILE_SECTION`, `PAGE_HERO`,
  * `isPageHeroSection`).
  */
 const FOOTER_SECTION_ID = "s20250811f489e3443bdbe";
 const MOBILE_SECTION = /(^|\s)mobile_section(\s|$)/;
 const PAGE_HERO = /(^|\s)(_section_first|mobile_section_first)(\s|$)/;
+
+/**
+ * Shared intro band config — MIRROR of `lib/content/shared-intro.ts` (this
+ * script is plain .mjs, so the config is duplicated; a parity test compares the
+ * two `SHARED_INTROS` exports so they cannot silently drift). The band has no
+ * shared class/id across pages, so it is identified by its unique background
+ * image, which may live on `bg` or only inside `bgStyle`.
+ */
+const COMPANY_INTRO_BG = "/images/thumbnail/20250811/269ab684758f0.jpg";
+export const SHARED_INTROS = [
+  { canonicalPageKey: "company.ceo", channel: "company", bg: COMPANY_INTRO_BG },
+];
+
+/** Channel prefix of a pageKey, normalizing dot and slash forms. */
+export function channelOf(pageKey) {
+  return pageKey.replace(/\./g, "/").split("/")[0];
+}
+
+/** The shared-intro config whose channel owns `pageKey`, or null. */
+export function sharedIntroFor(pageKey) {
+  return SHARED_INTROS.find((c) => c.channel === channelOf(pageKey)) ?? null;
+}
+
+/** Background image of a section: `bg` first, then the url(...) in `bgStyle`. */
+function bgOf(sec) {
+  if (sec.bg) return sec.bg;
+  return /url\(["']?([^"')]+)["']?\)/.exec(sec.bgStyle || "")?.[1] ?? null;
+}
+
+/** true when this section is the shared intro band for `cfg` (matched by unique bg). */
+export function isSharedIntroSection(sec, cfg) {
+  return bgOf(sec) === cfg.bg;
+}
 
 /** true when the section is the black footer band (contains the copyright line) */
 function isFooterSection(section) {
@@ -128,13 +189,36 @@ const BACK_TO_TOP_HREF = "#doz_header";
 const SECTION_NAME_OVERRIDES = {
   [FOOTER_SECTION_ID]: { ko: "푸터", en: "Footer" },
   [TICKER_SECTION_ID]: { ko: "공지사항 티커", en: "Notice ticker" },
+  // the single editable source of the shared company intro band
+  s202508206321c39177601: {
+    ko: "회사 소개 인트로 (모든 회사 페이지 공통)",
+    en: "Company intro (shared by all company pages)",
+  },
 };
 
-/** Breakpoint tag so PC/mobile variants of the same block are distinguishable. */
-function breakpointOf(section) {
-  if (MOBILE_SECTION.test(section.cls || "")) return "mobile";
-  if (/(^|\s)pc_section(\s|$)/.test(section.cls || "")) return "pc";
-  return null;
+/**
+ * Last segment of a pageKey/board slug, humanized: `products.eco-wave` →
+ * `Eco Wave`. Used when no content-derived or board-provided name exists, so a
+ * section label is never empty.
+ */
+function humanizePageKey(key) {
+  const tail = String(key ?? "").split(".").pop() ?? "";
+  return tail
+    .replace(/[-_]+/g, " ")
+    .replace(/([a-z0-9])([A-Z])/g, "$1 $2")
+    .replace(/\s+/g, " ")
+    .trim()
+    .replace(/\b[a-z]/g, (c) => c.toUpperCase());
+}
+
+/**
+ * Basenames like `5045189daef5d.png` are crawl artifacts, not meaningful
+ * labels; sections whose only name would be one of these use a type fallback.
+ */
+const MACHINE_FILENAME = /^[0-9a-f]{6,}\.[a-z0-9]+$/i;
+
+function imageFallbackName(locale) {
+  return locale === "en" ? "Image" : "이미지";
 }
 
 /**
@@ -152,7 +236,13 @@ function autoSectionName(section, locale) {
   const menu = widgets.find((w) => w.type === "menu_title" && w.text);
   if (menu) return truncate(menu.text, 34);
   const image = widgets.find((w) => w.type === "image" && (w.alt || w.src));
-  if (image) return truncate(image.alt || basename(image.src), 34);
+  if (image) {
+    const alt = stripZeroWidth(image.alt);
+    if (alt) return truncate(alt, 34);
+    const file = basename(image.src);
+    if (file && !MACHINE_FILENAME.test(file)) return truncate(file, 34);
+    return imageFallbackName(locale);
+  }
   const types = new Set(widgets.map((w) => w.type));
   if (types.has("gallery2")) return locale === "en" ? "Gallery" : "갤러리";
   if (types.has("video")) return locale === "en" ? "Video" : "동영상";
@@ -163,21 +253,24 @@ function autoSectionName(section, locale) {
   return null;
 }
 
-/** Per-section registry name (`section` field), breakpoint-tagged. */
-function sectionNameFor(koSection, enSection, pageSection) {
+/**
+ * Per-section registry name (`section` field), content-derived and never empty:
+ * curated override → crawled content → page-level title → humanized pageKey.
+ */
+function sectionNameFor(koSection, enSection, pageSection, pageKey) {
   const override = SECTION_NAME_OVERRIDES[koSection.id];
-  const baseKo = override?.ko ?? autoSectionName(koSection, "ko") ?? pageSection.ko;
-  const baseEn =
-    override?.en ??
-    (enSection ? autoSectionName(enSection, "en") ?? baseKo : baseKo);
-  const bp = breakpointOf(koSection);
-  const prefix =
-    bp === "mobile"
-      ? { ko: "모바일 · ", en: "Mobile · " }
-      : bp === "pc"
-        ? { ko: "PC · ", en: "PC · " }
-        : { ko: "", en: "" };
-  return { ko: prefix.ko + baseKo, en: prefix.en + baseEn };
+  const pageKo = stripZeroWidth(pageSection?.ko) || humanizePageKey(pageKey);
+  const pageEn =
+    stripZeroWidth(pageSection?.en) ||
+    stripZeroWidth(pageSection?.ko) ||
+    humanizePageKey(pageKey);
+  const ko = override?.ko || autoSectionName(koSection, "ko") || pageKo;
+  const en =
+    override?.en ||
+    (enSection ? autoSectionName(enSection, "en") : null) ||
+    ko ||
+    pageEn;
+  return { ko, en };
 }
 
 /**
@@ -225,11 +318,17 @@ function disambiguateSectionNames(list) {
 }
 
 /** Section ids of `page` that no route renders (see the block comment above). */
-function deadSectionIds(page) {
+function deadSectionIds(page, pageKey) {
   const sections = page.sections ?? [];
   const dead = new Set();
   for (const s of sections) {
     if (isFooterSection(s) || s.id === FOOTER_SECTION_ID) dead.add(s.id);
+  }
+  // Shared intro band: only the canonical page's copy is live; the renderer
+  // swaps its rows into every other page's band, so those copies are dead.
+  const cfg = sharedIntroFor(pageKey);
+  if (cfg && pageKey !== cfg.canonicalPageKey) {
+    for (const s of sections) if (isSharedIntroSection(s, cfg)) dead.add(s.id);
   }
   const live = sections.filter((s) => !dead.has(s.id));
   const firstPc = live.find((s) => !MOBILE_SECTION.test(s.cls || ""));
@@ -268,8 +367,19 @@ function sectionWidgets(section) {
   return out;
 }
 
+/** Zero-width characters carry no copy; strip them before detecting a run. */
+const ZERO_WIDTH = /[\u200B\u200C\u200D\uFEFF]/g;
+
+/** Strip zero-width characters and collapse whitespace (mirrors the tokenizer). */
+function stripZeroWidth(value) {
+  return String(value ?? "").replace(ZERO_WIDTH, "").replace(/\s+/g, " ").trim();
+}
+
 function stripTags(html) {
   return String(html ?? "")
+    // The crawler's hidden editor markers (`display:none`) hold only a
+    // zero-width char; drop them entirely so they don't become stray spaces.
+    .replace(/<span\b[^>]*fr-marker[^>]*>[\s\S]*?<\/span>/gi, "")
     .replace(/<[^>]*>/g, " ")
     .replace(/&nbsp;/g, " ")
     .replace(/&amp;/g, "&")
@@ -277,6 +387,7 @@ function stripTags(html) {
     .replace(/&gt;/g, ">")
     .replace(/&quot;/g, '"')
     .replace(/&#39;/g, "'")
+    .replace(ZERO_WIDTH, "")
     .replace(/\s+/g, " ")
     .trim();
 }
@@ -301,7 +412,7 @@ export function textRuns(html) {
   const out = [];
   const parts = String(html ?? "").split(/(<[^>]*>)/g);
   for (let i = 0; i < parts.length; i += 2) {
-    const text = decodeEntities(parts[i]).replace(/\s+/g, " ").trim();
+    const text = decodeEntities(parts[i]).replace(ZERO_WIDTH, "").replace(/\s+/g, " ").trim();
     if (text) out.push(text);
   }
   return out;
@@ -321,16 +432,160 @@ export function extractRunSizes(html) {
     if (i % 2 === 1) {
       const match = /font-size\s*:\s*([\d.]+)px/i.exec(parts[i]);
       if (match) current = parseFloat(match[1]);
-    } else if (decodeEntities(parts[i]).replace(/\s+/g, " ").trim().length > 0) {
+    } else if (decodeEntities(parts[i]).replace(ZERO_WIDTH, "").replace(/\s+/g, " ").trim().length > 0) {
       sizes.push(current);
     }
   }
   return sizes;
 }
 
+/**
+ * Embedded media inside a `text` widget's html: every `<img>` / `<iframe>` with
+ * its per-tag ordinal and raw `src` value. Mirrors the `img[n].src` /
+ * `iframe[n].src` field shape applied by `replaceNthSrc` in lib/content/merge.ts.
+ */
+function embedSrcs(html) {
+  const out = []; const seen = { img: 0, iframe: 0 };
+  for (const m of String(html ?? "").matchAll(/<(img|iframe)\b[^>]*>/gi)) {
+    const tag = m[1].toLowerCase();
+    const s = /\ssrc\s*=\s*("([^"]*)"|'([^']*)')/i.exec(m[0]);
+    out.push({ tag, index: seen[tag]++, src: s ? (s[2] ?? s[3] ?? "") : "" });
+  }
+  return out;
+}
+
+/** Widgets inside an arbitrary node (widget/col/row), in document order. */
+function widgetsInNode(node) {
+  const out = [];
+  collectWidgets([node], out);
+  return out;
+}
+
+/** A company.history era section: `side_left` whose aside carries an image. */
+function isEraSection(section) {
+  if (!/\bside_left\b/.test(section?.cls || "")) return false;
+  const aside = [];
+  if (section.aside) collectWidgets(section.aside.items ?? [], aside);
+  return aside.some((widget) => widget.type === "image");
+}
+
+/** `parseEraLabel` — first run is the range, the rest is the tagline. */
+export function parseEraLabel(html) {
+  const runs = textRuns(html);
+  return { range: runs[0] ?? "", tagline: runs.slice(1).join("\n") };
+}
+
+const YEAR_RE = /^\d{4}(?:\s*[-–~]\s*\d{4})?$/;
+
+/**
+ * `parseEraYears` — year heads open `{ year, items[] }`; every other run is an
+ * item with its leading `· ` stripped. Warns (never fails) on an empty year or
+ * an era whose year-head count diverges from the authored 5-year convention.
+ */
+export function parseEraYears(html) {
+  const years = [];
+  for (const run of textRuns(html)) {
+    if (YEAR_RE.test(run)) {
+      years.push({ year: run, items: [] });
+    } else {
+      const last = years[years.length - 1];
+      // A run before any year head has nowhere to attach; drop it.
+      if (last) last.items.push(run.replace(/^·\s*/, ""));
+    }
+  }
+  for (const year of years) {
+    if (year.items.length === 0) warnings.push(`era year ${year.year} has no items`);
+  }
+  if (years.length !== 5) warnings.push(`era has ${years.length} year heads (expected 5)`);
+  return years;
+}
+
+/** `parseEraSection` — the label/years text widgets plus the aside image. */
+export function parseEraSection(section) {
+  const widgets = sectionWidgets(section);
+  const yearsWidget =
+    widgets.find((w) => w.type === "text" && typeof w.html === "string" && /<hr\b/i.test(w.html)) ?? null;
+  const labelWidget =
+    widgets.find(
+      (w) =>
+        w.type === "text" &&
+        typeof w.html === "string" &&
+        !/<hr\b/i.test(w.html) &&
+        textRuns(w.html).length > 0,
+    ) ?? null;
+  const asideWidgets = [];
+  if (section?.aside) collectWidgets(section.aside.items ?? [], asideWidgets);
+  const imageWidget = asideWidgets.find((w) => w.type === "image") ?? null;
+  return { yearsWidget, labelWidget, imageWidget };
+}
+
+/** `parseEraSection` → one `EraEntry` value. */
+function parseEraEntry(section) {
+  const { yearsWidget, labelWidget, imageWidget } = parseEraSection(section);
+  const { range, tagline } = parseEraLabel(labelWidget?.html);
+  return {
+    range,
+    tagline,
+    image: typeof imageWidget?.src === "string" ? imageWidget.src : "",
+    years: parseEraYears(yearsWidget?.html),
+  };
+}
+
+/**
+ * The company.global branches row: the row holding ≥ 2 columns whose subtree
+ * contains an iframe (the HQ row holds only one). Returns the `RowNode` or null.
+ */
+export function findBranchRow(section) {
+  for (const node of section?.rows ?? []) {
+    if (!node || node.kind !== "row") continue;
+    const iframeCols = (node.cols ?? []).filter((col) =>
+      widgetsInNode(col).some(
+        (w) => w.type === "text" && typeof w.html === "string" && /<iframe\b/i.test(w.html),
+      ),
+    );
+    if (iframeCols.length >= 2) return node;
+  }
+  return null;
+}
+
+/**
+ * `parseBranchCol` — the name text widget (badge/city/address runs) and the map
+ * text widget (first iframe src) inside one branch column.
+ */
+export function parseBranchCol(col) {
+  const widgets = widgetsInNode(col);
+  const nameWidget =
+    widgets.find(
+      (w) => w.type === "text" && typeof w.html === "string" && !/<iframe\b/i.test(w.html),
+    ) ?? null;
+  const mapWidget =
+    widgets.find(
+      (w) => w.type === "text" && typeof w.html === "string" && /<iframe\b/i.test(w.html),
+    ) ?? null;
+  const runs = nameWidget ? textRuns(nameWidget.html) : [];
+  if (runs.length !== 3) warnings.push(`branch col has ${runs.length} name runs (expected 3)`);
+  const mapSrc = mapWidget
+    ? (embedSrcs(mapWidget.html).find((embed) => embed.tag === "iframe")?.src ?? "")
+    : "";
+  return {
+    nameWidget,
+    mapWidget,
+    location: { badge: runs[0] ?? "", city: runs[1] ?? "", address: runs[2] ?? "", mapSrc },
+  };
+}
+
 function truncate(value, max) {
-  const clean = String(value ?? "").replace(/\s+/g, " ").trim();
-  return clean.length > max ? clean.slice(0, max - 1) + "…" : clean;
+  const clean = stripZeroWidth(value);
+  if (clean.length <= max) return clean;
+  // Leave room for the single ellipsis. Prefer the last whitespace inside the
+  // final 40% of the slice (a real word boundary); fall back to a hard cut for
+  // scripts without spaces (CJK). `trimEnd` avoids a dangling " …".
+  const slice = clean.slice(0, max - 1);
+  const lastSpace = slice.lastIndexOf(" ");
+  if (lastSpace !== -1 && lastSpace >= Math.ceil((max - 1) * 0.6)) {
+    return slice.slice(0, lastSpace).trimEnd() + "…";
+  }
+  return slice.trimEnd() + "…";
 }
 
 function basename(src) {
@@ -419,9 +674,29 @@ function routeForPageKey(key) {
   return PAGE_KEY_TO_ROUTE[key] ?? "/" + key.replace(/\./g, "/");
 }
 
+/** Routes of every alias key that serves `key` (e.g. `company` → `company.ceo`). */
+function aliasRoutesFor(key) {
+  return Object.entries(PAGE_ALIASES)
+    .filter(([, target]) => target === key)
+    .map(([alias]) => routeForPageKey(alias));
+}
+
 function revalidateForPage(key) {
-  const route = routeForPageKey(key);
-  return dedupe([localeHref("ko", route), localeHref("en", route)]);
+  return dedupe([routeForPageKey(key), ...aliasRoutesFor(key)].flatMap((route) => [
+    localeHref("ko", route),
+    localeHref("en", route),
+  ]));
+}
+
+/**
+ * Revalidate targets for the shared intro band: every route in its channel
+ * (×2 locales), because editing the one canonical def re-renders all of them.
+ */
+function revalidateForSharedIntro(cfg) {
+  const routes = Object.keys(PAGE_KEY_TO_ROUTE)
+    .filter((key) => channelOf(key) === cfg.channel)
+    .map((key) => routeForPageKey(key));
+  return dedupe(routes.flatMap((route) => [localeHref("ko", route), localeHref("en", route)]));
 }
 
 function revalidateForBoard(slug) {
@@ -477,6 +752,7 @@ function addDef(entry) {
     section,
     label,
     revalidate,
+    shared,
     koValue,
     enValue,
   } = entry;
@@ -499,6 +775,7 @@ function addDef(entry) {
     section,
     label,
     revalidate,
+    ...(shared ? { shared: true } : {}),
     /** internal emission index (stripped before output) */
     order: emissionOrder++,
   });
@@ -542,6 +819,9 @@ function walkPages() {
 
   for (const fileName of listJson(koDir)) {
     const pageKey = pageKeyOf(fileName);
+    // Alias keys (e.g. `company` → `company.ceo`) emit no defs of their own; the
+    // target page owns the content. The alias JSON stays a crawl artifact.
+    if (PAGE_ALIASES[pageKey]) continue;
     const group = groupForPageKey(pageKey);
     const revalidate = revalidateForPage(pageKey);
 
@@ -552,19 +832,35 @@ function walkPages() {
 
     // home keeps its own footer section (SiteFooter renders it site-wide) and
     // has no page-title hero band; every other page drops the sections below.
-    const dead = pageKey === "home" ? new Set() : deadSectionIds(koPage);
+    const dead = pageKey === "home" ? new Set() : deadSectionIds(koPage, pageKey);
 
     const pageSection = {
-      ko: koPage.title ?? pageKey,
-      en: enPage?.title ?? koPage.title ?? pageKey,
+      ko: stripZeroWidth(koPage.title) || humanizePageKey(pageKey),
+      en:
+        stripZeroWidth(enPage?.title) ||
+        stripZeroWidth(koPage.title) ||
+        humanizePageKey(pageKey),
     };
+
+    // Structured `eras`: the company.history era sections (side_left + aside
+    // image). ONE page-level def is anchored at the first one.
+    const koEraSections = (koPage.sections ?? []).filter(isEraSection);
+    const enEraSections = (enPage?.sections ?? []).filter(isEraSection);
 
     for (let si = 0; si < (koPage.sections ?? []).length; si += 1) {
       const koSection = koPage.sections[si];
       // keep the EN index alignment: skip by position, not by filtering
       if (dead.has(koSection.id)) continue;
       const enSection = enPage?.sections?.[si];
-      const section = sectionNameFor(koSection, enSection, pageSection);
+      const section = sectionNameFor(koSection, enSection, pageSection, pageKey);
+      // The shared intro band: only the canonical page's def is emitted, and it
+      // revalidates every route in the channel (the renderer serves it on all).
+      const sharedCfg = sharedIntroFor(pageKey);
+      const sharedBand =
+        !!sharedCfg &&
+        pageKey === sharedCfg.canonicalPageKey &&
+        isSharedIntroSection(koSection, sharedCfg);
+      const sectionRevalidate = sharedBand ? revalidateForSharedIntro(sharedCfg) : revalidate;
       // the footer is shared chrome (SiteFooter renders it on every route), so
       // its defs live in their own `common` group instead of bloating `home`
       const sectionGroup =
@@ -572,12 +868,62 @@ function walkPages() {
       const koWidgets = sectionWidgets(koSection);
       const enWidgets = enSection ? sectionWidgets(enSection) : [];
 
+      // Positional KO↔EN pairing, ignoring contentless widget types (padding,
+      // hr, code) so a decorative/skipped widget on one side cannot shift the
+      // alignment of the editable widgets on the other. `enWidget` is then read
+      // from this normalized map; the type guard still drops real mismatches.
+      const koPaired = koWidgets.filter((w) => !PAIR_IGNORED_TYPES.has(w.type));
+      const enPaired = enWidgets.filter((w) => !PAIR_IGNORED_TYPES.has(w.type));
+      const pairMap = new Map();
+      for (let pi = 0; pi < koPaired.length; pi += 1) {
+        pairMap.set(koPaired[pi].id, enPaired[pi] ?? null);
+      }
+
       // Chrome sections (code-only, or the mobile back-to-top overlay) emit
       // nothing: code and the back-to-top image are not admin-editable.
       if (isSkippedSection(koWidgets)) {
         const key = "back-to-top:skipped";
         unmappedWidgets[key] = (unmappedWidgets[key] ?? 0) + 1;
         continue;
+      }
+
+      // Structured `eras`: every widget inside an era section is covered by the
+      // ONE page-level def anchored at the first era section.
+      const eraIndex = koEraSections.indexOf(koSection);
+      if (eraIndex >= 0) {
+        if (eraIndex === 0) {
+          mapEras({
+            pageKey,
+            group: sectionGroup,
+            section,
+            revalidate: sectionRevalidate,
+            koSections: koEraSections,
+            enSections: enEraSections,
+          });
+        }
+        continue;
+      }
+
+      // Structured `locations`: the branches row's name/map widgets are covered
+      // by ONE def anchored at the branches section (HQ keeps its per-widget
+      // defs — its row holds a single iframe column).
+      const branchRow = findBranchRow(koSection);
+      const locationWidgetIds = new Set();
+      if (branchRow) {
+        for (const col of branchRow.cols ?? []) {
+          const { nameWidget, mapWidget } = parseBranchCol(col);
+          if (nameWidget) locationWidgetIds.add(nameWidget.id);
+          if (mapWidget) locationWidgetIds.add(mapWidget.id);
+        }
+        mapLocations({
+          pageKey,
+          group: sectionGroup,
+          sectionId: koSection.id,
+          section,
+          revalidate: sectionRevalidate,
+          row: branchRow,
+          enSection: enSection ?? null,
+        });
       }
 
       // Home locations: the text widgets AFTER the first are the holder cards,
@@ -602,7 +948,8 @@ function walkPages() {
       for (let wi = 0; wi < koWidgets.length; wi += 1) {
         const koWidget = koWidgets[wi];
         if (cardWidgetIds.has(koWidget.id)) continue;
-        let enWidget = enWidgets[wi] ?? null;
+        if (locationWidgetIds.has(koWidget.id)) continue;
+        let enWidget = pairMap.get(koWidget.id) ?? null;
         if (enWidget && enWidget.type !== koWidget.type) {
           warnings.push(
             `widget type mismatch ${pageKey}/${koSection.id}/${koWidget.id}: ` +
@@ -616,7 +963,8 @@ function walkPages() {
           group: sectionGroup,
           sectionId: koSection.id,
           section,
-          revalidate,
+          revalidate: sectionRevalidate,
+          shared: sharedBand,
           koWidget,
           enWidget,
         });
@@ -630,7 +978,8 @@ function walkPages() {
           section,
           revalidate,
           koWidgets,
-          enWidgets,
+          enWidgets: enPaired,
+          pairMap,
         });
       }
 
@@ -667,24 +1016,57 @@ function mapWidget({
   sectionId,
   section,
   revalidate,
+  shared,
   koWidget,
   enWidget,
 }) {
-  const base = { pageKey, group, sectionId, widgetId: koWidget.id, revalidate };
+  const base = {
+    pageKey,
+    group,
+    sectionId,
+    widgetId: koWidget.id,
+    revalidate,
+    ...(shared ? { shared: true } : {}),
+  };
   const type = koWidget.type;
 
   switch (type) {
     case "text": {
       const koHtml = typeof koWidget.html === "string" ? koWidget.html : undefined;
       const enHtml = enWidget && typeof enWidget.html === "string" ? enWidget.html : undefined;
+
+      // Embedded media (<img>/<iframe> inside the widget html) comes FIRST so
+      // its defs keep their document position; it is emitted even for
+      // markup-only widgets (the footer logo, maps) that yield no text runs.
+      const koEmbeds = embedSrcs(koHtml);
+      const enEmbeds = embedSrcs(enHtml);
+      for (const embed of koEmbeds) {
+        const enEmbed = enEmbeds.find(
+          (candidate) => candidate.tag === embed.tag && candidate.index === embed.index,
+        );
+        const img = embed.tag === "img";
+        addWidgetDef(
+          { ...base, field: `${embed.tag}[${embed.index}].src`,
+            kind: img ? "image" : "embed",
+            prefix: LABELS.embedSrc, section,
+            koValue: embed.src, enValue: enEmbed?.src },
+          img ? basename(embed.src) : truncate(embed.src, 40),
+          enEmbed ? (img ? enBase(enEmbed.src) : enSnippet(enEmbed.src)) : undefined,
+        );
+      }
+
       const koRuns = textRuns(koHtml);
       // Markup-only text widgets (logo/structure html with no text nodes, e.g.
       // the footer logo or company.global address blocks) must NOT become
       // `lines` defs: the editor would have no lines to edit and a saved value
-      // would replace the markup with plain text (Gate-2 F2).
+      // would replace the markup with plain text (Gate-2 F2). A widget that did
+      // expose embedded media above is covered by those `img[n].src` /
+      // `iframe[n].src` defs, so it is not reported as unmapped.
       if (koRuns.length === 0 && typeof koHtml === "string" && koHtml.includes("<")) {
-        const key = `${type}:markup-only`;
-        unmappedWidgets[key] = (unmappedWidgets[key] ?? 0) + 1;
+        if (koEmbeds.length === 0) {
+          const key = `${type}:markup-only`;
+          unmappedWidgets[key] = (unmappedWidgets[key] ?? 0) + 1;
+        }
         return;
       }
       const enRuns = enHtml !== undefined ? textRuns(enHtml) : null;
@@ -825,6 +1207,54 @@ function mapWidget({
 }
 
 /**
+ * ONE `eras` def per history page, anchored at the first era section. The value
+ * is a JSON array of `{ range, tagline, image, years: [{ year, items }] }`; the
+ * runtime splices era sections (see `applyEras` in lib/content/merge.ts). EN
+ * mirrors the EN era sections at the same indices.
+ */
+function mapEras({ pageKey, group, section, revalidate, koSections, enSections }) {
+  if (koSections.length === 0) return;
+  addDef({
+    pageKey,
+    group,
+    sectionId: koSections[0].id,
+    widgetId: "eras",
+    field: "eras",
+    kind: "eras",
+    label: { ko: LABELS.eras.ko, en: LABELS.eras.en },
+    section,
+    revalidate,
+    koValue: JSON.stringify(koSections.map(parseEraEntry)),
+    enValue: enSections.length > 0 ? JSON.stringify(enSections.map(parseEraEntry)) : undefined,
+  });
+}
+
+/**
+ * ONE `locations` def for the company.global branches row. The value is a JSON
+ * array of `{ badge, city, address, mapSrc }`; the runtime clones/removes branch
+ * columns (see `applyLocations` in lib/content/merge.ts). EN mirrors the EN
+ * branch columns at the same indices.
+ */
+function mapLocations({ pageKey, group, sectionId, section, revalidate, row, enSection }) {
+  const koLocations = (row.cols ?? []).map((col) => parseBranchCol(col).location);
+  const enRow = enSection ? findBranchRow(enSection) : null;
+  const enLocations = enRow ? enRow.cols.map((col) => parseBranchCol(col).location) : null;
+  addDef({
+    pageKey,
+    group,
+    sectionId,
+    widgetId: "locations",
+    field: "locations",
+    kind: "locations",
+    label: { ko: LABELS.locations.ko, en: LABELS.locations.en },
+    section,
+    revalidate,
+    koValue: JSON.stringify(koLocations),
+    enValue: enLocations ? JSON.stringify(enLocations) : undefined,
+  });
+}
+
+/**
  * Hero slides: ONE `slides` def per visual section, so the admin can add,
  * remove and reorder slides. The default is a JSON array of `{ bg, title,
  * subtitle }`: `title` holds the big runs (>= 40px) and `subtitle` the rest;
@@ -854,7 +1284,7 @@ function mapSlides({ pageKey, group, sectionId, section, revalidate, koSlides, e
  * value mirrors the EN section's widgets at the same indices (positional
  * pairing — see `resolvePairedSection` in lib/content/pair.ts).
  */
-function mapLocationCards({ pageKey, group, sectionId, section, revalidate, koWidgets, enWidgets }) {
+function mapLocationCards({ pageKey, group, sectionId, section, revalidate, koWidgets, enWidgets, pairMap }) {
   // Same rule as `applyCards`: heading = first text widget with non-empty html,
   // cards = the remaining non-empty text widgets (positional pairing with EN).
   const textEntries = koWidgets
@@ -874,7 +1304,7 @@ function mapLocationCards({ pageKey, group, sectionId, section, revalidate, koWi
   let enValue;
   if (enWidgets.length > 0) {
     const enCards = cardEntries.map((entry) => {
-      const enWidget = enWidgets[entry.index];
+      const enWidget = pairMap.get(entry.widget.id) ?? null;
       return {
         lines: enWidget && enWidget.type === "text" ? textRuns(enWidget.html) : [],
       };
@@ -935,10 +1365,14 @@ function walkBoards() {
     const enBoard = fs.existsSync(enPath) ? readJson(enPath) : null;
     if (!enBoard) warnings.push(`no EN board for ${slug}; EN value omitted`);
 
-    const section = {
-      ko: koBoard.name ?? slug,
-      en: enBoard?.name ?? koBoard.name ?? slug,
-    };
+    // Board-only pages (e.g. products.eco-wave) can have an empty name; fall
+    // back to a humanized slug so the admin section title is never blank.
+    const boardNameKo = stripZeroWidth(koBoard.name) || humanizePageKey(slug);
+    const boardNameEn =
+      stripZeroWidth(enBoard?.name) ||
+      stripZeroWidth(koBoard.name) ||
+      humanizePageKey(slug);
+    const section = { ko: boardNameKo, en: boardNameEn };
 
     const base = {
       pageKey: slug,
@@ -1024,14 +1458,25 @@ function walkSite() {
 // ---------------------------------------------------------------------------
 
 /**
- * Page key stays the primary key (groups show pages in a stable route order),
- * but within a page the emission index preserves the crawled DOCUMENT ORDER of
- * sections → widgets → fields. The old `sectionId` string sort produced
- * hash-ordered admin accordions unrelated to the rendered page.
+ * Global def order = admin page order: `Object.keys(PAGE_KEY_TO_ROUTE)` (the
+ * nav/route order) followed by the board-only slugs. Within a page the emission
+ * index preserves the crawled DOCUMENT ORDER of sections → widgets → fields.
+ * The old lexicographic `pageKey` sort produced hash-ordered admin accordions
+ * (e.g. company.global before company.history) unrelated to the rendered nav.
  */
+const BOARD_ONLY_SLUGS = ["products.eco-wave", "products.clean-b", "products.flowell"];
+const PAGE_ORDER = [...Object.keys(PAGE_KEY_TO_ROUTE), ...BOARD_ONLY_SLUGS];
+const PAGE_RANK = new Map(PAGE_ORDER.map((key, index) => [key, index]));
+
+function pageRank(pageKey) {
+  return PAGE_RANK.has(pageKey) ? PAGE_RANK.get(pageKey) : PAGE_ORDER.length;
+}
+
 function sortDefs(list) {
   return [...list].sort((a, b) => {
-    if (a.pageKey !== b.pageKey) return a.pageKey < b.pageKey ? -1 : 1;
+    const rankA = pageRank(a.pageKey);
+    const rankB = pageRank(b.pageKey);
+    if (rankA !== rankB) return rankA - rankB;
     if (a.order !== b.order) return a.order - b.order;
     return a.key < b.key ? -1 : a.key > b.key ? 1 : 0;
   });
@@ -1069,6 +1514,8 @@ export interface ContentDef {
   label: { ko: string; en: string };
   /** Routes to invalidate when this default changes. */
   revalidate: string[];
+  /** Rendered on every page of its channel from this one def (shared intro band). */
+  shared?: boolean;
 }
 
 `;

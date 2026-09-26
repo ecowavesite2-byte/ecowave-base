@@ -93,4 +93,26 @@ describe("text-runs", () => {
     // a markup-only widget (logo/structure html) must never be replaced by text
     expect(injectTextRuns("<div></div>", "a\nb")).toBe("<div></div>");
   });
+
+  it("drops zero-width-only text nodes from the run list", () => {
+    const html = `<p><span>A</span></p><p><span>\u200B</span></p>`;
+    expect(extractTextRuns(html)).toEqual(["A"]);
+    // same for a ZWNJ/ZWJ/BOM node
+    expect(extractTextRuns("<p><span>\u200C\u200D\uFEFF</span></p>")).toEqual([]);
+  });
+
+  it("strips trailing zero-width characters from a run", () => {
+    expect(extractTextRuns("<p><span>건강\u200B</span></p>")).toEqual(["건강"]);
+    expect(extractTextRuns("<p><span>\u200B깨끗한 물</span></p>")).toEqual(["깨끗한 물"]);
+  });
+
+  it("injects into the real run while leaving the zero-width node in the markup", () => {
+    const html = `<p><span>A</span></p><p><span>\u200B</span></p>`;
+    const out = injectTextRuns(html, "X\nY");
+    // the ZWSP-only node stays in the markup (never injected/cleared)...
+    expect(out).toContain("\u200B");
+    // ...and the extra line folds into the single real run.
+    expect(extractTextRuns(out)).toEqual(["X Y"]);
+    expect(tagsOf(out)).toEqual(tagsOf(html));
+  });
 });
