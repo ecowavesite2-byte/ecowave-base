@@ -3,6 +3,8 @@
 import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 
 import SectionRenderer from "@/components/content/SectionRenderer";
+import FacilitiesTabSection, { isTabSection } from "@/components/content/FacilitiesTabSection";
+import type { FacilitiesTab } from "@/components/content/FacilitiesTabs";
 import HeroCarousel from "@/components/sections/home/HeroCarousel";
 import NoticeTicker, { isNoticeTickerSection } from "@/components/sections/home/NoticeTicker";
 import type { Locale } from "@/lib/i18n";
@@ -71,12 +73,27 @@ export function ScaledDesktop({ children }: { children: ReactNode }) {
  * the same carousel here. `mobileSlides` is omitted: the mobile hero is a
  * separate crawled section (previewed as its own "mobile" pane), and this pane
  * lays the desktop layer out at 1280px.
+ *
+ * `rnd.facilities` carries a raw imweb `code` tab widget that the public page
+ * does NOT pass through `SectionRenderer` (its `code` case would inject the
+ * unstyled/stacked HTML): the page slices the section out and renders the
+ * shared `FacilitiesTabSection` with the resolved tabs. Both preview paths
+ * mirror that here — substituting the section so the preview can never drift
+ * from the live page:
+ *  - single-section (`section`): the tab section renders through
+ *    `FacilitiesTabSection` when `facilitiesTabs` is supplied;
+ *  - full-page (`sections`): the list is split around the tab section so the
+ *    rest still renders through `SectionRenderer` (same order/spacing as the
+ *    public page's `before` / tab / `after` split).
+ * `facilitiesTabs === undefined` falls back to the generic renderer (the old
+ * behavior) rather than crashing.
  */
 export default function SectionPreview({
   section,
   sections,
   locale,
   tickerPosts,
+  facilitiesTabs,
 }: {
   /** A single section (default preview path). */
   section?: Section;
@@ -88,18 +105,42 @@ export default function SectionPreview({
   locale: Locale;
   /** Live picks for the notice ticker (falls back to an empty list). */
   tickerPosts?: BoardPost[];
+  /**
+   * Resolved `rnd.facilities` tabs (draft or default) for the preview locale.
+   * When absent the tab section falls back to the generic renderer.
+   */
+  facilitiesTabs?: FacilitiesTab[];
 }) {
   const full = Array.isArray(sections) && sections.length > 0;
   const single = section;
-  return (
-    <ScaledDesktop>
-      {!full && single && isNoticeTickerSection(single) ? (
-        <NoticeTicker section={single} posts={tickerPosts ?? []} locale={locale} />
-      ) : !full && single?.visual?.length ? (
-        <HeroCarousel slides={single.visual} />
-      ) : (
-        <SectionRenderer sections={full ? sections! : single ? [single] : []} locale={locale} />
-      )}
-    </ScaledDesktop>
+  const tabsAvailable = Array.isArray(facilitiesTabs);
+
+  /** The generic renderer over the whole applicable list (pre-change path). */
+  const generic = (list: Section[]) => <SectionRenderer sections={list} locale={locale} />;
+
+  /** Substitute the facilities tab section mid-list (public page's split). */
+  const withTabSection = (list: Section[], tabIdx: number) => (
+    <>
+      {generic(list.slice(0, tabIdx))}
+      <FacilitiesTabSection section={list[tabIdx]} tabs={facilitiesTabs!} locale={locale} />
+      {generic(list.slice(tabIdx + 1))}
+    </>
   );
+
+  let body: ReactNode;
+  if (!full && single && isNoticeTickerSection(single)) {
+    body = <NoticeTicker section={single} posts={tickerPosts ?? []} locale={locale} />;
+  } else if (!full && single?.visual?.length) {
+    body = <HeroCarousel slides={single.visual} />;
+  } else if (!full && single && tabsAvailable && isTabSection(single)) {
+    body = <FacilitiesTabSection section={single} tabs={facilitiesTabs!} locale={locale} />;
+  } else {
+    const list = full ? sections! : single ? [single] : [];
+    const tabIdx = tabsAvailable ? list.findIndex(isTabSection) : -1;
+    // No tab section (or no tabs to fill it): the generic renderer is the
+    // whole-list fallback, exactly as before this change.
+    body = tabIdx === -1 ? generic(list) : withTabSection(list, tabIdx);
+  }
+
+  return <ScaledDesktop>{body}</ScaledDesktop>;
 }

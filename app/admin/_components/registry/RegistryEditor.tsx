@@ -5,6 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 import { applyPageOverrides } from "@/lib/content/merge";
 import { sectionWidgets } from "@/lib/content/pair";
 import { MOBILE_SECTION } from "@/components/content/SectionRenderer";
+import type { FacilitiesTab } from "@/components/content/FacilitiesTabs";
 import { isNoticeTickerSection } from "@/components/sections/home/NoticeTicker";
 import { adminDict, type AdminLocale } from "@/lib/admin/i18n";
 import type { BoardPost, PageContent, Section } from "@/lib/types";
@@ -113,14 +114,17 @@ const DECORATIVE_WIDGET_TYPES = new Set(["padding", "hr"]);
  */
 function uneditableWidgetTypes(section: Section | undefined, defs: RegistryDef[]): string[] {
   if (!section) return [];
-  // A section-scoped `eras`/`locations`/`aboutCards` def covers every widget it
-  // rewrites, so nothing in that section is uneditable.
+  // A section-scoped `eras`/`locations`/`aboutCards`/`techFeatures`/
+  // `patentSections` def covers every widget it rewrites, so nothing in that
+  // section is uneditable.
   if (
     defs.some(
       (def) =>
         def.widgetId === "eras" ||
         def.widgetId === "locations" ||
-        def.widgetId === "aboutCards",
+        def.widgetId === "aboutCards" ||
+        def.widgetId === "techFeatures" ||
+        def.widgetId === "patentSections",
     )
   ) {
     return [];
@@ -146,14 +150,17 @@ function uneditableWidgetTypes(section: Section | undefined, defs: RegistryDef[]
 function defTargetMissing(section: Section | undefined, def: RegistryDef): boolean {
   if (!section) return false;
   // Section-level synthetic defs never match the widget walk: `cards`/`picks`/
-  // `eras`/`locations`/`aboutCards` rewrite the section, and `visual` (the slides
-  // list def) rewrites the hero. (`gallery` binds to a real widget id.)
+  // `eras`/`locations`/`aboutCards`/`techFeatures`/`patentSections` rewrite the
+  // section, and `visual` (the slides list def) rewrites the hero. (`gallery`
+  // and `facilitiesTable` bind to real widget ids.)
   if (
     def.widgetId === "cards" ||
     def.widgetId === "picks" ||
     def.widgetId === "eras" ||
     def.widgetId === "locations" ||
     def.widgetId === "aboutCards" ||
+    def.widgetId === "techFeatures" ||
+    def.widgetId === "patentSections" ||
     def.widgetId === "visual"
   ) {
     return false;
@@ -203,6 +210,33 @@ function toBoardPost(option: BoardPostOption): BoardPost {
     date: option.date,
     views: null,
   };
+}
+
+/**
+ * Parse an effective `facilityTabs` payload into the rendered tab shape
+ * (`{ id: tabN, name, images }`, ids derived per position like the resolver).
+ * Defensive: malformed/non-array JSON returns `null`, which the preview treats
+ * as "no resolved tabs" and falls back to the generic renderer. Only the
+ * expected fields are read; nothing else is stripped or invented.
+ */
+function parseFacilityTabs(json: string): FacilitiesTab[] | null {
+  try {
+    const raw: unknown = JSON.parse(json);
+    if (!Array.isArray(raw)) return null;
+    return raw.map((entry, i) => {
+      const record =
+        typeof entry === "object" && entry !== null ? (entry as Record<string, unknown>) : {};
+      return {
+        id: `tab${i + 1}`,
+        name: typeof record.name === "string" ? record.name : "",
+        images: Array.isArray(record.images)
+          ? record.images.filter((image): image is string => typeof image === "string")
+          : [],
+      };
+    });
+  } catch {
+    return null;
+  }
 }
 
 export default function RegistryEditor({
@@ -420,10 +454,22 @@ export default function RegistryEditor({
     if (!tree || !tree.ko) return { kind: "unavailable" };
     const koTree = tree.ko;
 
-    // Structured `eras`/`locations`: the runtime applier restructures the WHOLE
-    // page (era section splicing / branch column rewrites), so build the preview
-    // from the full draft-applied tree instead of the single anchor section.
-    if (openItem.defs.some((def) => def.kind === "eras" || def.kind === "locations")) {
+    // Structured `eras`/`locations`/`facilityTabs`/`techFeatures`/
+    // `patentSections`: the runtime applier restructures the WHOLE page (era
+    // section splicing / branch column rewrites / tab block rebuild / tech
+    // block and certification-group replacement). The `facilityTabs` def is
+    // section-less (its `sectionId` is synthetic), so build the preview from
+    // the full draft-applied tree instead of the single anchor section.
+    if (
+      openItem.defs.some(
+        (def) =>
+          def.kind === "eras" ||
+          def.kind === "locations" ||
+          def.kind === "facilityTabs" ||
+          def.kind === "techFeatures" ||
+          def.kind === "patentSections",
+      )
+    ) {
       const sourceSections = previewLang === "en" ? tree.en : koTree;
       if (!sourceSections) return { kind: "unavailable" };
       try {
@@ -505,6 +551,24 @@ export default function RegistryEditor({
       return { kind: "unavailable" };
     }
   }, [openItem, trees, draftOverrides, previewLang, overrideKinds, defs, drafts, values, boardPosts]);
+
+  /**
+   * Effective `rnd.facilities` tabs for the preview locale: the unsaved draft
+   * when present, else the effective value (override or code default the API
+   * already resolved). Parsed to the rendered `{ id, name, images }[]` shape so
+   * `SectionPreview` can mount the shared `FacilitiesTabSection`. Only computed
+   * for the `rnd.facilities` page; `undefined` elsewhere (or when unusable) so
+   * the preview keeps its generic renderer.
+   */
+  const facilityTabs = useMemo(() => {
+    if (!openItem || openItem.pageKey !== "rnd.facilities") return undefined;
+    const def = defs.find((candidate) => candidate.kind === "facilityTabs");
+    if (!def) return undefined;
+    const draft = drafts[def.key]?.[previewLang]?.trim() ?? "";
+    const effective = values[def.key]?.[previewLang]?.trim() ?? "";
+    const fallback = defaults[def.key]?.[previewLang] ?? "";
+    return parseFacilityTabs(draft || effective || fallback) ?? undefined;
+  }, [openItem, defs, drafts, values, defaults, previewLang]);
 
   const pageLabels = t.pageLabels as Record<string, string | undefined>;
 
@@ -683,14 +747,23 @@ export default function RegistryEditor({
             </p>
             <div className="max-h-[78vh] overflow-y-auto">
               {preview?.kind === "ok" ? (
-                <SectionPreview section={preview.section} locale={previewLang} />
+                <SectionPreview
+                  section={preview.section}
+                  locale={previewLang}
+                  facilitiesTabs={facilityTabs}
+                />
               ) : preview?.kind === "sections" ? (
-                <SectionPreview sections={preview.sections} locale={previewLang} />
+                <SectionPreview
+                  sections={preview.sections}
+                  locale={previewLang}
+                  facilitiesTabs={facilityTabs}
+                />
               ) : preview?.kind === "ticker" ? (
                 <SectionPreview
                   section={preview.section}
                   locale={previewLang}
                   tickerPosts={preview.posts}
+                  facilitiesTabs={facilityTabs}
                 />
               ) : (
                 <p className="px-3 py-8 text-center text-[12px] text-muted">

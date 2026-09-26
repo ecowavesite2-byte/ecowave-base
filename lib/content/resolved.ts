@@ -1,11 +1,25 @@
+import fs from "node:fs";
 import type { Locale } from "../i18n";
-import type { BoardContent, BoardPost, GalleryBlockConfig, PageContent, SiteData } from "../types";
+import type {
+  BoardContent,
+  BoardPost,
+  FacilityTabs,
+  FacilityTabsEntry,
+  GalleryBlockConfig,
+  PageContent,
+  Section,
+  SiteData,
+  TechBlocksConfig,
+} from "../types";
 import { boardLabel } from "./boards";
 import { loadBoardPosts } from "./board-store";
 import { loadOverrides } from "./db";
 import { applyBoardOverrides, applyPageOverrides, applySiteOverrides } from "./merge";
+import { facilitiesTabsPath, resolvePageAlias } from "./paths";
 import { getBoard, getPage, getSite } from "./read";
+import { isSharedIntroSection, sharedIntroFor } from "./shared-intro";
 import { CONTENT_DEF_MAP } from "./registry";
+import { normalizeFacilityTabsPayload } from "./save";
 
 /**
  * Override key → registry kind, built once. The applier uses it to choose the
@@ -25,6 +39,27 @@ const GALLERY_CONFIGS: Record<string, GalleryBlockConfig> = Object.fromEntries(
     .filter((def) => def.gallery)
     .map((def) => [def.key, def.gallery as GalleryBlockConfig]),
 );
+
+/**
+ * Override key → structured `techFeatures` block config (`techFeatures` kind).
+ * Built once from the emitted defs so the merge applier maps each block to its
+ * section via the registry's `techBlocks.sections` instead of hardcoded ids.
+ */
+const TECH_BLOCK_CONFIGS: Record<string, TechBlocksConfig> = Object.fromEntries(
+  Object.values(CONTENT_DEF_MAP)
+    .filter((def) => def.techBlocks)
+    .map((def) => [def.key, def.techBlocks as TechBlocksConfig]),
+);
+
+/**
+ * The registry key of the section-less `facilityTabs` def on rnd.facilities.
+ * Derived from the registry (not hardcoded) so a regenerated key cannot drift;
+ * the literal is only a defensive fallback.
+ */
+const FACILITY_TABS_KEY =
+  Object.values(CONTENT_DEF_MAP).find(
+    (def) => def.pageKey === "rnd.facilities" && def.kind === "facilityTabs",
+  )?.key ?? "rnd.facilities#facilityTabs/facilityTabs";
 
 /**
  * Permanent render-time content funnel: code defaults (file store) with
@@ -78,12 +113,14 @@ export async function getResolvedPage(locale: Locale, key: string): Promise<Page
       primaryPage,
       kinds: OVERRIDE_KINDS,
       galleryConfigs: GALLERY_CONFIGS,
+      techBlockConfigs: TECH_BLOCK_CONFIGS,
     });
   }
 
   return applyPageOverrides(base, overrides, locale, {
     kinds: OVERRIDE_KINDS,
     galleryConfigs: GALLERY_CONFIGS,
+    techBlockConfigs: TECH_BLOCK_CONFIGS,
   });
 }
 
@@ -93,6 +130,82 @@ export async function getResolvedSite(locale: Locale): Promise<SiteData> {
   const overrides = await readOverrides(locale);
   if (Object.keys(overrides).length === 0) return base;
   return applySiteOverrides(base, overrides, locale);
+}
+
+/**
+ * Shared intro bands: replace the rows of a page's own (dead) copy with the
+ * canonical channel page's rows, so ONE def edits every channel page.
+ *
+ * Mirrors the footer mechanism (see `lib/content/shared-intro.ts`). Only the
+ * rows are swapped (never the section), so each page keeps its local
+ * `id`/`cls`/`bg` — e.g. company.philosophy's band id is in `PH48_SECTION_IDS`,
+ * so replacing the section would regress its mobile typography. A channel root
+ * that aliases the canonical page already serves the canonical copy and must not
+ * swap. Returns `sections` untouched when the page has no shared band or no
+ * matching section. Never mutates the passed array or the cached pages.
+ */
+export async function applySharedIntroRows(
+  locale: Locale,
+  pageKey: string,
+  sections: Section[],
+): Promise<Section[]> {
+  const shared = sharedIntroFor(pageKey);
+  if (!shared || resolvePageAlias(pageKey) === shared.canonicalPageKey) return sections;
+  const canonical = await getResolvedPage(locale, shared.canonicalPageKey);
+  const band = canonical.sections.find((s) => isSharedIntroSection(s, shared));
+  if (!band) return sections;
+  const rows = structuredClone(band.rows); // never mutate the cached page
+  const out = sections.slice();
+  for (let i = 0; i < out.length; i += 1) {
+    if (isSharedIntroSection(out[i], shared)) out[i] = { ...out[i], rows };
+  }
+  return out;
+}
+
+/**
+ * Read the file-backed facilities tabs (KO, or EN when its file exists),
+ * stripping the `&quot;` delimiters the extractor left around each `url()`.
+ * Mirrors the former page-local reader; `facilitiesTabsPath` keeps it
+ * CONTENT_ROOT-aware.
+ */
+function readFacilitiesTabsBase(locale: Locale): FacilityTabsEntry[] {
+  const enFile = facilitiesTabsPath("en");
+  const file = locale === "en" && fs.existsSync(enFile) ? enFile : facilitiesTabsPath("ko");
+  const raw = JSON.parse(fs.readFileSync(file, "utf8")) as FacilityTabsEntry[];
+  return raw.map((tab) => ({
+    name: tab.name,
+    images: tab.images.map((src) => src.replace(/&quot;/g, "").trim()),
+  }));
+}
+
+/** Add the stable per-position render id on top of the payload entries. */
+function toRenderedTabs(entries: FacilityTabsEntry[]): FacilityTabs[] {
+  return entries.map((tab, i) => ({ id: `tab${i + 1}`, name: tab.name, images: tab.images }));
+}
+
+/**
+ * Resolved rnd.facilities tabs: the file defaults with the `facilityTabs`
+ * override applied on top. An invalid/malformed override falls back to the
+ * file defaults (never throws), and the validator is shared with `saveContent`
+ * so the stored contract and the render contract cannot drift.
+ */
+export async function getResolvedFacilitiesTabs(locale: Locale): Promise<FacilityTabs[]> {
+  const base = toRenderedTabs(readFacilitiesTabsBase(locale));
+  const overrides = await readOverrides(locale);
+  const stored = overrides[FACILITY_TABS_KEY];
+  if (typeof stored !== "string" || stored.trim().length === 0) return base;
+
+  const normalized = normalizeFacilityTabsPayload(stored);
+  if (normalized === null) {
+    warnOnce(new Error(`invalid facilityTabs override: ${FACILITY_TABS_KEY}`));
+    return base;
+  }
+  try {
+    return toRenderedTabs(JSON.parse(normalized) as FacilityTabsEntry[]);
+  } catch (error) {
+    warnOnce(error);
+    return base;
+  }
 }
 
 /**

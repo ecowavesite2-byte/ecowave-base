@@ -79,7 +79,9 @@ describe("company root alias", () => {
   });
 
   it("canonicalizes the shared intro band onto company.ceo", () => {
-    const sharedDefs = CONTENT_DEFS.filter((def) => def.shared);
+    const sharedDefs = CONTENT_DEFS.filter(
+      (def) => def.shared && channelOf(def.pageKey) === "company",
+    );
     expect(sharedDefs).toHaveLength(1);
     expect(sharedDefs[0]?.pageKey).toBe(CANONICAL_KEY);
     expect(sharedDefs[0]?.key).toBe(SHARED_BAND_KEY);

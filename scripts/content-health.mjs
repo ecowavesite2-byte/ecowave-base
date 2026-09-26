@@ -64,7 +64,7 @@ const VISUAL_ID_RE = /^visual\[(\d+)\]$/;
  * generator emits no defs for them, so their widgets can never be covered —
  * skip the whole file in the coverage walk instead of flagging every widget.
  */
-const PAGE_ALIASES = { company: "company.ceo" };
+const PAGE_ALIASES = { company: "company.ceo", rnd: "rnd.technology" };
 
 /** Widget types that carry editable content (decorative/board-driven excluded). */
 const CONTENT_WIDGET_TYPES = new Set([
@@ -218,6 +218,14 @@ function findDanglingDefs(defs, pages) {
   const dangling = [];
   for (const def of defs) {
     if (NON_PAGE_SECTIONS.has(def.sectionId)) continue;
+    // The section-less `facilityTabs` def binds to a JSON file, not to a
+    // section/widget (its key is `rnd.facilities#facilityTabs/facilityTabs`),
+    // so there is no page target to resolve. The section-scoped `techFeatures`
+    // and `patentSections` defs likewise name no real widget (their `widgetId`
+    // is the kind), so they are exempt too.
+    if (def.kind === "facilityTabs" || def.kind === "techFeatures" || def.kind === "patentSections") {
+      continue;
+    }
     const page = pages.get(def.pageKey);
     if (!page) continue; // board slug / site / unknown pageKey — not a page def
 
@@ -291,6 +299,24 @@ function findCoverage(defs, pages) {
       .filter((def) => def.widgetId === "locations" && def.field === "locations")
       .map((def) => `${def.pageKey}\u0000${def.sectionId}`),
   );
+  // Section-scoped `techFeatures` and `patentSections` defs bind to whole
+  // sections: every content-bearing widget they fold (image/text tables, heading
+  // texts, galleries) would otherwise be reported as uncovered, so skip those
+  // sections wholesale. The v2 `techFeatures` def is anchored at §4 but covers
+  // ALL sections named by its emitted `techBlocks.sections` mapping (§4/§5/§6).
+  const structuredRndSections = new Set();
+  for (const def of defs) {
+    if (def.kind === "patentSections") {
+      structuredRndSections.add(`${def.pageKey}\u0000${def.sectionId}`);
+    } else if (def.kind === "techFeatures") {
+      const sections = Array.isArray(def.techBlocks?.sections) && def.techBlocks.sections.length > 0
+        ? def.techBlocks.sections
+        : [def.sectionId];
+      for (const sectionId of sections) {
+        structuredRndSections.add(`${def.pageKey}\u0000${sectionId}`);
+      }
+    }
+  }
   // An `aboutCards` def (company.about block 5) covers the 6 card text widgets
   // after the heading (mirrors `hasCardsDef`).
   const aboutCardsSections = new Set(
@@ -298,6 +324,10 @@ function findCoverage(defs, pages) {
       .filter((def) => def.widgetId === "aboutCards" && def.field === "aboutCards")
       .map((def) => `${def.pageKey}\u0000${def.sectionId}`),
   );
+  // The section-less `facilityTabs` def (rnd.facilities) is def-only: it binds
+  // to `content/*/facilities-tabs.json`, not to a section/widget, so it adds no
+  // widget coverage and the per-widget walk below is unaffected by its presence.
+  // (Its def is exempted from the dangling check by `kind`.)
   // A `locations` def also covers the HQ section's name/contacts/map text
   // widgets (item 0): the section immediately preceding the branches anchor.
   const locationHqWidgets = new Set();
@@ -315,6 +345,12 @@ function findCoverage(defs, pages) {
     }
   }
   const coverage = [];
+  // NOTE: dead shared-intro copies are NOT excluded here. Their section is dead
+  // by design — the generator's `deadSectionIds` drops their defs because the
+  // renderer swaps the canonical band's rows into them — so the band's own text
+  // widget surfaces as coverage INFO. This mirrors the existing company intro
+  // copies exactly (and now the rnd.patents / rnd.facilities sub-hero copies);
+  // it is expected INFO noise, not a missing def.
   for (const [pageKey, page] of pages) {
     // Alias page files (`company`) render another page's tree and emit no defs.
     if (PAGE_ALIASES[pageKey]) continue;
@@ -323,6 +359,7 @@ function findCoverage(defs, pages) {
       if (erasPages.has(pageKey) && isEraSection(section)) continue;
       if (locationSections.has(`${pageKey}\u0000${section.id}`)) continue;
       const sectionRef = `${pageKey}\u0000${section.id}`;
+      if (structuredRndSections.has(sectionRef)) continue;
       const hasCardsDef = cardsSections.has(sectionRef) || aboutCardsSections.has(sectionRef);
       let seenCardText = false;
       for (const widget of sectionWidgets(section)) {

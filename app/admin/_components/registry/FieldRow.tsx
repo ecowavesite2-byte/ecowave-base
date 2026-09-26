@@ -5,12 +5,16 @@ import { useRef, useState } from "react";
 import type { AdminDict } from "@/lib/admin/i18n";
 import CardsField from "./CardsField";
 import ErasField from "./ErasField";
+import FacilitiesTableField from "./FacilitiesTableField";
+import FacilityTabsField from "./FacilityTabsField";
 import GalleryField from "./GalleryField";
 import ListField from "./ListField";
 import LocationsField from "./LocationsField";
 import OverlayField from "./OverlayField";
+import PatentSectionsField from "./PatentSectionsField";
 import PicksField from "./PicksField";
 import SlidesField from "./SlidesField";
+import TechFeaturesField from "./TechFeaturesField";
 import type {
   BoardPostsMap,
   LocalePair,
@@ -495,6 +499,89 @@ export default function FieldRow({
                 defaultValue={codeDefaults[lang]}
                 config={def.gallery}
                 lang={lang}
+                disabled={disabled}
+                t={t}
+                onChange={(json) => onDraft(lang, json)}
+              />
+            </div>
+          ))}
+        </div>
+      );
+      break;
+    case "facilityTabs":
+      body = (
+        <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
+          {LANGS.map((lang) => (
+            <div key={lang} className="min-w-0">
+              <span className="mb-1 block text-[12px] font-medium text-ink/70">
+                {lang === "ko" ? t.ko : t.en}
+              </span>
+              <FacilityTabsField
+                value={drafts[lang]}
+                defaultValue={codeDefaults[lang]}
+                lang={lang}
+                disabled={disabled}
+                t={t}
+                onChange={(json) => onDraft(lang, json)}
+              />
+            </div>
+          ))}
+        </div>
+      );
+      break;
+    case "techFeatures":
+      body = (
+        <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
+          {LANGS.map((lang) => (
+            <div key={lang} className="min-w-0">
+              <span className="mb-1 block text-[12px] font-medium text-ink/70">
+                {lang === "ko" ? t.ko : t.en}
+              </span>
+              <TechFeaturesField
+                value={drafts[lang]}
+                defaultValue={codeDefaults[lang]}
+                lang={lang}
+                disabled={disabled}
+                t={t}
+                onChange={(json) => onDraft(lang, json)}
+              />
+            </div>
+          ))}
+        </div>
+      );
+      break;
+    case "patentSections":
+      body = (
+        <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
+          {LANGS.map((lang) => (
+            <div key={lang} className="min-w-0">
+              <span className="mb-1 block text-[12px] font-medium text-ink/70">
+                {lang === "ko" ? t.ko : t.en}
+              </span>
+              <PatentSectionsField
+                value={drafts[lang]}
+                defaultValue={codeDefaults[lang]}
+                lang={lang}
+                disabled={disabled}
+                t={t}
+                onChange={(json) => onDraft(lang, json)}
+              />
+            </div>
+          ))}
+        </div>
+      );
+      break;
+    case "facilitiesTable":
+      body = (
+        <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
+          {LANGS.map((lang) => (
+            <div key={lang} className="min-w-0">
+              <span className="mb-1 block text-[12px] font-medium text-ink/70">
+                {lang === "ko" ? t.ko : t.en}
+              </span>
+              <FacilitiesTableField
+                value={drafts[lang]}
+                defaultValue={codeDefaults[lang]}
                 disabled={disabled}
                 t={t}
                 onChange={(json) => onDraft(lang, json)}

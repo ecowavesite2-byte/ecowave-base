@@ -36,7 +36,10 @@ export const PAGE_KEYS = [
 ] as const;
 
 /** pageKeys whose content is served by another pageKey (no redirect). */
-export const PAGE_ALIASES: Readonly<Record<string, string>> = { company: "company.ceo" };
+export const PAGE_ALIASES: Readonly<Record<string, string>> = {
+  company: "company.ceo",
+  rnd: "rnd.technology",
+};
 
 export function resolvePageAlias(key: string): string {
   return PAGE_ALIASES[key] ?? key;

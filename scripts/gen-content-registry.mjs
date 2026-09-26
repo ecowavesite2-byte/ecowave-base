@@ -54,7 +54,7 @@ const PAGE_KEY_TO_ROUTE = {
  * (they render the target page's content), but they still appear as routes in
  * the target's revalidate set.
  */
-export const PAGE_ALIASES = { company: "company.ceo" };
+export const PAGE_ALIASES = { company: "company.ceo", rnd: "rnd.technology" };
 
 const LABELS = {
   text: { ko: "텍스트 블록", en: "Text block" },
@@ -84,6 +84,10 @@ const LABELS = {
   locations: { ko: "지사 목록", en: "Branch locations" },
   galleryAbout: { ko: "갤러리", en: "Gallery" },
   cardsAbout: { ko: "카드 목록", en: "Card list" },
+  facilityTabs: { ko: "생산설비 탭", en: "Facilities tabs" },
+  techFeatures: { ko: "기술 블록", en: "Technology block" },
+  patentSections: { ko: "인증 섹션 목록", en: "Certification sections" },
+  facilitiesTable: { ko: "설비 표", en: "Equipment table" },
 };
 
 const MAX_LENGTH = {
@@ -102,10 +106,14 @@ const MAX_LENGTH = {
   locations: 20000,
   gallery: 20000,
   aboutCards: 20000,
+  facilityTabs: 20000,
+  techFeatures: 40000,
+  patentSections: 60000,
+  facilitiesTable: 20000,
 };
 
 /** Kinds emitted into `lib/content/registry.ts` (order = CONTENT_KINDS). */
-const KINDS = ["text", "textarea", "lines", "image", "url", "list", "slides", "overlay", "cards", "picks", "embed", "eras", "locations", "gallery", "aboutCards"];
+const KINDS = ["text", "textarea", "lines", "image", "url", "list", "slides", "overlay", "cards", "picks", "embed", "eras", "locations", "gallery", "aboutCards", "facilityTabs", "techFeatures", "patentSections", "facilitiesTable"];
 
 /**
  * Sections the public renderers strip, so the admin must not expose their
@@ -137,8 +145,10 @@ const PAGE_HERO = /(^|\s)(_section_first|mobile_section_first)(\s|$)/;
  * image, which may live on `bg` or only inside `bgStyle`.
  */
 const COMPANY_INTRO_BG = "/images/thumbnail/20250811/269ab684758f0.jpg";
+const RND_INTRO_BG = "/images/thumbnail/20250820/6bbe2b297ab17.jpg";
 export const SHARED_INTROS = [
   { canonicalPageKey: "company.ceo", channel: "company", bg: COMPANY_INTRO_BG },
+  { canonicalPageKey: "rnd.technology", channel: "rnd", bg: RND_INTRO_BG },
 ];
 
 /** Channel prefix of a pageKey, normalizing dot and slash forms. */
@@ -198,6 +208,11 @@ const SECTION_NAME_OVERRIDES = {
     ko: "회사 소개 인트로 (모든 회사 페이지 공통)",
     en: "Company intro (shared by all company pages)",
   },
+  // the single editable source of the shared R&D sub-hero banner
+  s20250909caaa8544e0e70: {
+    ko: "연구개발 소개 인트로 (모든 R&D 서브페이지 공통)",
+    en: "R&D intro (shared by all R&D subpages)",
+  },
 };
 
 /**
@@ -214,6 +229,112 @@ export const ABOUT_MEDIA_BLOCKS = {
 };
 /** Block 5: 6 sibling card text widgets (title+desc runs + embedded image). */
 export const ABOUT_CARDS_SECTION = "s20250918c5a18b62c8acd";
+
+/**
+ * Structured media blocks on `rnd.*`, keyed by KO section id (block-level) or by
+ * the KO gallery widget id (widget-level). A section-level entry applies to the
+ * gallery2 widgets inside that section; a widget-level entry targets one
+ * specific gallery when a section holds several. The emitted def's `gallery`
+ * config keeps ONLY `{ fields, maxItems }` — `label` overrides the def label and
+ * `skipEmpty` drops items whose resolved image is empty (both generator-only).
+ */
+export const RND_MEDIA_BLOCKS = {
+  // rnd.technology §7 — the 5-item core USP image gallery.
+  s2025090979d4f02da9a4c: {
+    fields: ["image"],
+    maxItems: 5,
+    label: { ko: "핵심 USP", en: "Core USP" },
+  },
+};
+
+export const RND_MEDIA_WIDGET_BLOCKS = {
+  // rnd.patents §4 — three certification galleries. These legacy gallery defs
+  // are SUPERSEDED by the structured `patentSections` kind (their widgets are
+  // skipped below), but the config is kept for the migration lane to map the old
+  // per-gallery override keys onto the new section-scoped def.
+  w20250820eeffb853be62c: {
+    fields: ["image", "title"],
+    skipEmpty: true,
+    label: { ko: "인증 현황", en: "Certifications" },
+  },
+  w20250820d0424c97beb80: {
+    fields: ["image", "title"],
+    label: { ko: "기업 인증 및 특허", en: "Corporate certifications & patents" },
+  },
+  w2025082013eb8cbe71ecd: {
+    fields: ["image", "title"],
+    label: { ko: "국제 인증 및 위촉", en: "International certifications" },
+  },
+};
+
+/**
+ * Structured `techFeatures` blocks on `rnd.technology`. The THREE sections
+ * §4/§5/§6 fold into ONE `techFeatures` def with three fixed item groups:
+ * `sections` is the block→section mapping (block 0 → §4, block 1 → §5,
+ * block 2 → §6) emitted verbatim into the def's `techBlocks` config, and
+ * `bySection` lists each section's KO image + text-table widget pairs (document
+ * order). EN widget ids differ, so EN values are parsed from the positionally
+ * paired widgets (`pairMap`). Kept exported for the migration lane.
+ */
+export const TECH_FEATURE_SECTION_IDS = [
+  "s202509091799d895b62ea", // §4 — rowspan heading + top-level image/text rows
+  "s2025090972e449f7846e1", // §5 — two item cols (colspan heading)
+  "s20250909b12fa8000068e", // §6 — two item cols (colspan heading)
+];
+export const TECH_FEATURE_BLOCKS = {
+  /** Fixed block order → KO section id. */
+  sections: TECH_FEATURE_SECTION_IDS,
+  /** KO section id → image + text-table widget pairs (document order). */
+  bySection: {
+    // §4 — one block with a rowspan heading cell + label/body rows.
+    s202509091799d895b62ea: {
+      items: [{ imageWidget: "w202509092bb83d593e678", textWidget: "w20250909a6322fa870d46" }],
+    },
+    // §5 — two blocks (each a colspan heading + label/body rows).
+    s2025090972e449f7846e1: {
+      items: [
+        { imageWidget: "w20250909743cf5b3c0201", textWidget: "w20250909f986ae33491f9" },
+        { imageWidget: "w2025090999ac3275406dc", textWidget: "w20250909cabf29c2126d9" },
+      ],
+    },
+    // §6 — two blocks (same shape).
+    s20250909b12fa8000068e: {
+      items: [
+        { imageWidget: "w20250909dbdd88bc19258", textWidget: "w202509093403364594dce" },
+        { imageWidget: "w2025090910fe01238de32", textWidget: "w20250909aaff6976da0b4" },
+      ],
+    },
+  },
+};
+
+/**
+ * Structured `patentSections` block on `rnd.patents` §4: the three
+ * heading + gallery2 groups (document order). ONE `patentSections` def covers the
+ * three heading `lines` and the three `gallery` widgets for this section.
+ */
+export const PATENT_SECTIONS = {
+  sectionId: "s202508114d9bc90ceb876",
+  blocks: [
+    { headingWidget: "w20250820275c6573162a6", galleryWidget: "w20250820eeffb853be62c" },
+    { headingWidget: "w2025082061b08b8c142c7", galleryWidget: "w20250820d0424c97beb80" },
+    { headingWidget: "w202508201caaa295b789a", galleryWidget: "w2025082013eb8cbe71ecd" },
+  ],
+};
+
+/**
+ * Structured `facilitiesTable` widgets on `rnd.facilities` §5, keyed by KO text
+ * widget id. Each emits ONE widget-scoped `facilitiesTable` def; the widget's
+ * legacy `lines` def is skipped. The EN widget is resolved positionally.
+ */
+export const FACILITIES_TABLES = {
+  w20250829bb21466f4e0f1: { sectionId: "s20250829c25afe324e195" },
+  w20250829370d74ba50fab: { sectionId: "s20250829c25afe324e195" },
+  w202508298781405b23d22: { sectionId: "s20250829c25afe324e195" },
+  w202508293b8acaf6df97a: { sectionId: "s20250829c25afe324e195" },
+};
+
+/** KO section id of the rnd.facilities tab block owning the `facilityTabs` def. */
+const RND_FACILITIES_TABS_SECTION_ID = "s20250829c25afe324e195";
 
 /**
  * Last segment of a pageKey/board slug, humanized: `products.eco-wave` →
@@ -492,7 +613,141 @@ function toMedia(item, cfg) {
 
 /** `parseGalleryWidget` — one gallery2 widget + its block config → media items. */
 export function parseGalleryWidget(widget, cfg) {
-  return (widget?.items ?? []).map((item) => toMedia(item, cfg));
+  const items = (widget?.items ?? []).map((item) => toMedia(item, cfg));
+  // `skipEmpty` drops authored slots whose resolved image (org || thumb) is
+  // empty so a trailing placeholder never surfaces as an editable item. Without
+  // the flag the authored item count (including empties) is preserved.
+  return cfg.skipEmpty ? items.filter((item) => item.image !== "") : items;
+}
+
+/**
+ * Cells of every `<tr>` in an authored text-table widget's html, in document
+ * order. Only the leading `<td>`/`<th>` level is read (the crawled tables are
+ * flat); each cell is returned as its inner html string.
+ */
+export function parseTableRows(html) {
+  const rows = [];
+  const rowRe = /<tr\b[^>]*>([\s\S]*?)<\/tr>/gi;
+  let row;
+  while ((row = rowRe.exec(String(html ?? "")))) {
+    const cells = [];
+    const cellRe = /<t[dh]\b[^>]*>([\s\S]*?)<\/t[dh]>/gi;
+    let cell;
+    while ((cell = cellRe.exec(row[1]))) cells.push(cell[1]);
+    rows.push(cells);
+  }
+  return rows;
+}
+
+/** A table cell's editable text: its runs joined with `\n` (`<br>` → newline). */
+export function cellText(html) {
+  return textRuns(html).join("\n");
+}
+
+/**
+ * `parseTechTable` — a `rnd.technology` techFeatures text table →
+ * `{ heading, rows: [{ label, body }] }`. Row 0 is the heading row: §4 carries a
+ * rowspan heading cell followed by its own label/body, while §5/§6 carry a
+ * single colspan heading cell. Every later row is a label/body pair. The heading
+ * and body text join their runs with `\n`, so an authored `<br>` round-trips as a
+ * newline (the default replays to the authored rendering).
+ */
+export function parseTechTable(html) {
+  const rows = parseTableRows(html);
+  if (rows.length === 0) return { heading: "", rows: [] };
+  const first = rows[0];
+  // §4: [rowspan heading, label, body] — its own label/body is a data row too.
+  const rowspanHeading = first.length >= 3;
+  const heading = cellText(first[0]);
+  const dataCells = rowspanHeading ? [first.slice(1), ...rows.slice(1)] : rows.slice(1);
+  return {
+    heading,
+    rows: dataCells.map((cells) => ({ label: cellText(cells[0]), body: cellText(cells[1]) })),
+  };
+}
+
+/** `parseTechFeatureItem` — one image + text-table pair → `{ image, heading, rows }`. */
+export function parseTechFeatureItem(imageWidget, textWidget) {
+  const { heading, rows } = parseTechTable(textWidget?.html);
+  return {
+    image: typeof imageWidget?.src === "string" ? imageWidget.src : "",
+    heading,
+    rows,
+  };
+}
+
+/**
+ * `parseTechFeatureSection` — every configured block in a §4/§5/§6 section, in
+ * document order. `lookup(id)` resolves a widget id (a KO id for the default;
+ * `pairMap.get` for EN).
+ */
+export function parseTechFeatureSection(cfg, lookup) {
+  return cfg.items.map(({ imageWidget, textWidget }) =>
+    parseTechFeatureItem(lookup(imageWidget), lookup(textWidget)),
+  );
+}
+
+/**
+ * Build the ONE v2 `techFeatures` payload for `rnd.technology`: three fixed
+ * blocks (block k → `TECH_FEATURE_BLOCKS.sections[k]`), KO parsed by widget id
+ * and EN through the positional KO↔EN pairing (contentless widget types
+ * ignored). `enBlocks[k]` is `null` when the section has no EN counterpart, so
+ * the caller can omit the EN value rather than emit a partial payload.
+ */
+export function buildTechFeaturePayload(koPage, enPage) {
+  const sections = TECH_FEATURE_BLOCKS.sections;
+  const koBlocks = [];
+  const enBlocks = [];
+  for (const sectionId of sections) {
+    const index = (koPage?.sections ?? []).findIndex((s) => s.id === sectionId);
+    const koSection = index >= 0 ? koPage.sections[index] : null;
+    const enSection = index >= 0 ? (enPage?.sections ?? [])[index] ?? null : null;
+    const cfg = TECH_FEATURE_BLOCKS.bySection[sectionId];
+    const koWidgets = koSection ? sectionWidgets(koSection) : [];
+    koBlocks.push({ items: parseTechFeatureSection(cfg, (id) => koWidgets.find((w) => w.id === id) ?? null) });
+    if (!enSection) {
+      enBlocks.push(null);
+      continue;
+    }
+    const enWidgets = sectionWidgets(enSection);
+    const koPaired = koWidgets.filter((w) => !PAIR_IGNORED_TYPES.has(w.type));
+    const enPaired = enWidgets.filter((w) => !PAIR_IGNORED_TYPES.has(w.type));
+    const pairMap = new Map(koPaired.map((w, i) => [w.id, enPaired[i] ?? null]));
+    enBlocks.push({ items: parseTechFeatureSection(cfg, (id) => pairMap.get(id) ?? null) });
+  }
+  return { sections, koBlocks, enBlocks };
+}
+
+/** `parsePatentSectionBlock` — heading text runs + non-empty gallery items. */
+export function parsePatentSectionBlock(headingWidget, galleryWidget) {
+  const title = textRuns(headingWidget?.html).join("\n");
+  const items = (galleryWidget?.items ?? [])
+    .map((item) => ({ image: item?.org || item?.thumb || "", caption: item?.title || "" }))
+    // The authored trailing placeholder (empty org+thumb) is dropped.
+    .filter((item) => item.image !== "");
+  return { title, items };
+}
+
+/**
+ * `parsePatentSections` — all heading + gallery2 groups of `rnd.patents` §4, in
+ * document order, as `{ sections: [{ title, items: [{ image, caption }] }] }`.
+ */
+export function parsePatentSections(cfg, lookup) {
+  return {
+    sections: cfg.blocks.map(({ headingWidget, galleryWidget }) =>
+      parsePatentSectionBlock(lookup(headingWidget), lookup(galleryWidget)),
+    ),
+  };
+}
+
+/** `parseFacilitiesTable` — row0 = `header` cells, remaining rows = `rows`. */
+export function parseFacilitiesTable(widget) {
+  const rows = parseTableRows(widget?.html);
+  if (rows.length === 0) return { header: [], rows: [] };
+  return {
+    header: rows[0].map((cell) => cellText(cell)),
+    rows: rows.slice(1).map((cells) => cells.map((cell) => cellText(cell))),
+  };
 }
 
 /** `parseAboutCard` — a block-5 card text widget → `{ image, title, desc }`. */
@@ -885,11 +1140,15 @@ function addDef(entry) {
     revalidate,
     shared,
     gallery,
+    techBlocks,
     koValue,
     enValue,
+    // Optional exact-key override for section-less defs whose key does not follow
+    // the `<pageKey>#<sectionId>/<widgetId>/<field>` shape (e.g. facilityTabs).
+    key: keyOverride,
   } = entry;
 
-  const key = `${pageKey}#${sectionId}/${widgetId}/${field}`;
+  const key = keyOverride ?? `${pageKey}#${sectionId}/${widgetId}/${field}`;
   if (seen.has(key)) {
     warnings.push(`duplicate key skipped: ${key} (first from ${seen.get(key)})`);
     return;
@@ -909,6 +1168,7 @@ function addDef(entry) {
     revalidate,
     ...(shared ? { shared: true } : {}),
     ...(gallery ? { gallery } : {}),
+    ...(techBlocks ? { techBlocks } : {}),
     /** internal emission index (stripped before output) */
     order: emissionOrder++,
   });
@@ -991,6 +1251,20 @@ function walkPages() {
       if (hq) {
         for (const widget of [hq.nameWidget, hq.contactsWidget, hq.mapWidget]) {
           if (widget) locationHqWidgetIds.add(widget.id);
+        }
+      }
+    }
+
+    // rnd.technology techFeatures: the THREE sections §4/§5/§6 fold into ONE
+    // def anchored at §4. Every covered image/text widget across all three
+    // sections must be skipped in the per-widget loop below, so collect their
+    // ids page-wide up front.
+    const techWidgetIds = new Set();
+    if (pageKey === "rnd.technology") {
+      for (const sectionId of TECH_FEATURE_BLOCKS.sections) {
+        for (const { imageWidget, textWidget } of TECH_FEATURE_BLOCKS.bySection[sectionId].items) {
+          techWidgetIds.add(imageWidget);
+          techWidgetIds.add(textWidget);
         }
       }
     }
@@ -1109,12 +1383,86 @@ function walkPages() {
         for (const widget of textWidgets.slice(1)) aboutCardWidgetIds.add(widget.id);
       }
 
+      // Structured `techFeatures` (rnd.technology §4/§5/§6): ONE page-anchored
+      // def with three FIXED item groups folds the configured image + text-table
+      // widget pairs of all three sections; those widgets' per-widget image/lines
+      // defs are skipped (ids collected page-wide above). Emitted once, while
+      // walking §4 (block 0), so it keeps that section's document position and
+      // revalidation; EN widget ids differ, so each EN block is parsed from the
+      // section's positionally paired widgets.
+      if (pageKey === "rnd.technology" && koSection.id === TECH_FEATURE_BLOCKS.sections[0]) {
+        const tech = buildTechFeaturePayload(koPage, enPage);
+        mapTechFeatures({
+          pageKey,
+          group: sectionGroup,
+          sectionId: koSection.id,
+          section,
+          revalidate: sectionRevalidate,
+          sections: tech.sections,
+          koBlocks: tech.koBlocks,
+          enBlocks: tech.enBlocks,
+        });
+      }
+
+      // Structured `patentSections` (rnd.patents §4): ONE section-scoped def
+      // folds the three heading + gallery2 groups; those widgets' legacy lines /
+      // gallery defs are skipped.
+      const isPatentSections =
+        pageKey === "rnd.patents" && koSection.id === PATENT_SECTIONS.sectionId;
+      const patentWidgetIds = new Set();
+      if (isPatentSections) {
+        mapPatentSections({
+          pageKey,
+          group: sectionGroup,
+          sectionId: koSection.id,
+          section,
+          revalidate: sectionRevalidate,
+          koValue: parsePatentSections(PATENT_SECTIONS, (id) => koWidgets.find((w) => w.id === id) ?? null),
+          enValue: enSection
+            ? parsePatentSections(PATENT_SECTIONS, (id) => pairMap.get(id) ?? null)
+            : null,
+        });
+        for (const { headingWidget, galleryWidget } of PATENT_SECTIONS.blocks) {
+          patentWidgetIds.add(headingWidget);
+          patentWidgetIds.add(galleryWidget);
+        }
+      }
+
+      // Structured `facilitiesTable` (rnd.facilities §5): each configured table
+      // widget emits ONE widget-scoped def in its document position; its legacy
+      // `lines` def is skipped.
+      const facilitiesTableIds = new Set(
+        koWidgets.filter((w) => FACILITIES_TABLES[w.id]).map((w) => w.id),
+      );
+
       for (let wi = 0; wi < koWidgets.length; wi += 1) {
         const koWidget = koWidgets[wi];
         if (cardWidgetIds.has(koWidget.id)) continue;
         if (locationWidgetIds.has(koWidget.id)) continue;
         if (locationHqWidgetIds.has(koWidget.id)) continue;
         if (aboutCardWidgetIds.has(koWidget.id)) continue;
+        if (techWidgetIds.has(koWidget.id)) continue;
+        if (patentWidgetIds.has(koWidget.id)) continue;
+        if (facilitiesTableIds.has(koWidget.id)) {
+          const enTable = pairMap.get(koWidget.id) ?? null;
+          addDef({
+            pageKey,
+            group: sectionGroup,
+            sectionId: koSection.id,
+            widgetId: koWidget.id,
+            field: "facilitiesTable",
+            kind: "facilitiesTable",
+            label: { ko: LABELS.facilitiesTable.ko, en: LABELS.facilitiesTable.en },
+            section,
+            revalidate: sectionRevalidate,
+            koValue: JSON.stringify(parseFacilitiesTable(koWidget)),
+            enValue:
+              enTable && enTable.type === "text"
+                ? JSON.stringify(parseFacilitiesTable(enTable))
+                : undefined,
+          });
+          continue;
+        }
         let enWidget = pairMap.get(koWidget.id) ?? null;
         if (enWidget && enWidget.type !== koWidget.type) {
           warnings.push(
@@ -1170,6 +1518,12 @@ function walkPages() {
           enWidgets: enPaired,
           pairMap,
         });
+      }
+
+      // rnd.facilities: ONE section-less `facilityTabs` def, emitted while
+      // walking the tab block so it keeps that block's document position.
+      if (pageKey === "rnd.facilities" && koSection.id === RND_FACILITIES_TABS_SECTION_ID) {
+        mapFacilityTabs({ pageKey, group: sectionGroup, revalidate: sectionRevalidate });
       }
 
       // hero slides (`section.visual`) are not widget nodes: one `slides` def
@@ -1327,21 +1681,29 @@ function mapWidget({
       return;
     }
     case "gallery2": {
-      // Configured company.about blocks emit ONE structured `gallery` def; all
-      // other galleries (incl. rnd.*) keep the legacy per-item defs.
-      const galleryCfg = ABOUT_MEDIA_BLOCKS[sectionId];
+      // Configured company.about / rnd.* blocks emit ONE structured `gallery`
+      // def; all other galleries (incl. unconfigured rnd.*) keep the legacy
+      // per-item defs. Section-level configs win over widget-level ones.
+      const galleryCfg =
+        ABOUT_MEDIA_BLOCKS[sectionId] ??
+        RND_MEDIA_BLOCKS[sectionId] ??
+        RND_MEDIA_WIDGET_BLOCKS[koWidget.id];
       if (galleryCfg) {
         const koValue = JSON.stringify(parseGalleryWidget(koWidget, galleryCfg));
         const enValue = enWidget
           ? JSON.stringify(parseGalleryWidget(enWidget, galleryCfg))
           : undefined;
+        // The emitted config carries ONLY the runtime contract ({ fields,
+        // maxItems }); generator-only keys (`label`, `skipEmpty`) are stripped.
+        const emittedCfg = { fields: galleryCfg.fields };
+        if (galleryCfg.maxItems !== undefined) emittedCfg.maxItems = galleryCfg.maxItems;
         addDef({
           ...base,
           widgetId: koWidget.id,
           field: "gallery",
           kind: "gallery",
-          gallery: galleryCfg,
-          label: { ko: LABELS.galleryAbout.ko, en: LABELS.galleryAbout.en },
+          gallery: emittedCfg,
+          label: galleryCfg.label ?? { ko: LABELS.galleryAbout.ko, en: LABELS.galleryAbout.en },
           section,
           koValue,
           enValue,
@@ -1586,6 +1948,111 @@ function mapAboutCards({ pageKey, group, sectionId, section, revalidate, koWidge
 }
 
 /**
+ * Normalize `content/<locale>/facilities-tabs.json` to the runtime shape
+ * `[{ name, images: string[] }]`: the crawl `id` is dropped and the `&quot;`
+ * wrapping around image paths is stripped. Returns `null` when the file is
+ * absent or malformed.
+ */
+function normalizeFacilityTabs(locale) {
+  const file = path.join(CONTENT_ROOT, locale, "facilities-tabs.json");
+  if (!fs.existsSync(file)) return null;
+  const raw = readJson(file);
+  if (!Array.isArray(raw)) return null;
+  return raw.map((tab) => ({
+    name: typeof tab?.name === "string" ? tab.name : "",
+    images: Array.isArray(tab?.images)
+      ? tab.images
+          .filter((image) => typeof image === "string")
+          // The crawl wraps paths in `&quot;`; strip the entity entirely so the
+          // value is a bare `/images/...` path (not a quoted string).
+          .map((image) => image.replace(/&quot;/g, ""))
+      : [],
+  }));
+}
+
+/**
+ * ONE section-less `facilityTabs` def for rnd.facilities. The key is exactly
+ * `rnd.facilities#facilityTabs/facilityTabs` (no section segment), so it is
+ * passed via `addDef`'s key override. EN mirrors the EN file at the same
+ * indices; the page falls back en→ko, so an absent EN file mirrors the KO value.
+ */
+function mapFacilityTabs({ pageKey, group, revalidate }) {
+  const koTabs = normalizeFacilityTabs("ko");
+  if (!koTabs) {
+    warnings.push("no ko facilities-tabs.json; facilityTabs def omitted");
+    return;
+  }
+  const enTabs = normalizeFacilityTabs("en");
+  const koValue = JSON.stringify(koTabs);
+  const label = { ko: LABELS.facilityTabs.ko, en: LABELS.facilityTabs.en };
+  addDef({
+    key: `${pageKey}#facilityTabs/facilityTabs`,
+    pageKey,
+    group,
+    sectionId: "facilityTabs",
+    widgetId: "facilityTabs",
+    field: "facilityTabs",
+    kind: "facilityTabs",
+    label,
+    section: label,
+    revalidate,
+    koValue,
+    enValue: enTabs ? JSON.stringify(enTabs) : koValue,
+  });
+}
+
+/**
+ * ONE `techFeatures` def for rnd.technology, anchored at §4 (block 0). The value
+ * is the v2 payload `{ blocks: [{ items: [{ image, heading, rows }] }, ...] }`
+ * with exactly three fixed blocks; the def config carries the block→section
+ * mapping (`techBlocks.sections`) so the applier never hardcodes crawl ids. The
+ * key has no single widget segment, so it is passed explicitly.
+ */
+function mapTechFeatures({ pageKey, group, sectionId, section, revalidate, sections, koBlocks, enBlocks }) {
+  const enComplete =
+    Array.isArray(enBlocks) &&
+    enBlocks.length === sections.length &&
+    enBlocks.every((block) => block && Array.isArray(block.items) && block.items.length > 0);
+  addDef({
+    key: `${pageKey}#${sectionId}/techFeatures/techFeatures`,
+    pageKey,
+    group,
+    sectionId,
+    widgetId: "techFeatures",
+    field: "techFeatures",
+    kind: "techFeatures",
+    label: { ko: LABELS.techFeatures.ko, en: LABELS.techFeatures.en },
+    section,
+    revalidate,
+    techBlocks: { sections },
+    koValue: JSON.stringify({ blocks: koBlocks }),
+    enValue: enComplete ? JSON.stringify({ blocks: enBlocks }) : undefined,
+  });
+}
+
+/**
+ * ONE section-scoped `patentSections` def for rnd.patents §4. The value is
+ * `{ sections: [{ title, items: [{ image, caption }] }] }`; the key has no single
+ * widget segment, so it is passed explicitly.
+ */
+function mapPatentSections({ pageKey, group, sectionId, section, revalidate, koValue, enValue }) {
+  addDef({
+    key: `${pageKey}#${sectionId}/patentSections/patentSections`,
+    pageKey,
+    group,
+    sectionId,
+    widgetId: "patentSections",
+    field: "patentSections",
+    kind: "patentSections",
+    label: { ko: LABELS.patentSections.ko, en: LABELS.patentSections.en },
+    section,
+    revalidate,
+    koValue: JSON.stringify(koValue),
+    enValue: enValue ? JSON.stringify(enValue) : undefined,
+  });
+}
+
+/**
  * ONE `picks` def for the home notice ticker: which board + posts the renderer
  * should show. The default (empty idxs) means "first 4 news" (renderer fallback).
  */
@@ -1776,6 +2243,8 @@ export interface ContentDef {
   shared?: boolean;
   /** Structured gallery block config: editable per-item fields + optional cap. */
   gallery?: { fields: ("image" | "title" | "desc")[]; maxItems?: number };
+  /** Structured techFeatures block config: fixed block→section id mapping. */
+  techBlocks?: { sections: string[] };
 }
 
 `;

@@ -137,12 +137,16 @@ npm run content:validate                      # crawl structure + asset referenc
   uploads need `BLOB_READ_WRITE_TOKEN`.
 - **Shared company intro** — the company intro band is edited **once** on the CEO greeting page
   (`company.ceo`, in the `company` group; label "회사 소개 인트로 (모든 회사 페이지 공통)"),
-  badged in the editor, and applied to all `/company*` pages. The shared-def config is extensible to
-  other channels later.
+  badged in the editor, and applied to all `/company*` pages. The same shared-def mechanism powers the
+  R&D intro band (see "Shared R&D intro" below).
 - **Company root alias** — `/company` (the crawled root `company` pageKey) serves the CEO greeting
   subpage's content with no redirect; it is an alias, not an independently editable page. Only the
   six real subpages (`ceo → about → philosophy → history → organization → global`) appear in the
   admin group, and `/company` renders the first subpage.
+- **R&D root alias** — `/rnd` (the crawled root `rnd` pageKey) serves the `rnd.technology` subpage's
+  content with no redirect, via the same mechanism as `/company` → `company.ceo`. The crawled `rnd`
+  page emits no registry defs, so only `rnd.technology`, `rnd.patents` and `rnd.facilities` appear in
+  the admin R&D group.
 - **History eras (`eras`)** — the `company.history` timeline is a structured list: add, remove or
   reorder era blocks, each carrying a year range, tagline, image and an ordered per-year milestone
   list (add/remove years, one milestone per line).
@@ -155,26 +159,73 @@ npm run content:validate                      # crawl structure + asset referenc
   viewer original (`org = thumb`), and each block fixes its own editable text fields and max item
   count. Block-8 location pins are fixed (no upload); the slide galleries auto-scroll slowly and
   pause on hover/focus/drag.
+- **R&D galleries (`gallery`)** — the investor-USP icon grid on `rnd.technology` §7 (also served at
+  `/rnd`) is an image-only gallery capped at 5 items. The `rnd.patents` §4 certification area is no
+  longer a `gallery` — it is the `patentSections` editor below, and the superseded per-item §4 gallery
+  keys are folded by the migration pass.
+- **Facilities tabs (`facilityTabs`)** — the `rnd.facilities` production-facility tabs edit the tab
+  labels and their image lists (1–3 tabs; add/remove images). Defaults come from the crawled
+  `content/{ko,en}/facilities-tabs.json`, edits are stored as a Postgres override, and an invalid
+  stored payload falls back to the defaults at render time. The admin preview renders this section
+  through the same shared component as the public page, so it shows the real tab pills and gallery.
+- **Technology blocks (`techFeatures`)** — ONE def (anchor
+  `rnd.technology#s202509091799d895b62ea/techFeatures/techFeatures`) edits the `rnd.technology` §4/§5/§6
+  blocks (admin label "기술 블록") as THREE fixed block groups in page order: block 1 친환경·프리미엄 (§4),
+  block 2 OEM·검사 (§5), block 3 스마트·살균·대량생산 (§6). Each block keeps its current page layout
+  (block 1's left-heading table; blocks 2–3 top-heading cards) and its own dynamic item list
+  (add/remove/reorder: an image + a multiline heading + an ordered list of label/body rows). Items flow
+  two per row — a lone item renders full width, two render 50/50. Caps per block: 1–12 items, 1–30
+  rows. One save updates all three blocks. Replaces the old per-widget image/text fields for those
+  sections.
+- **Certification sections (`patentSections`)** — the `rnd.patents` §4 certification area is a dynamic
+  list of sections (admin label "인증 섹션 목록"): each section is one title + an ordered image list
+  with editable per-image captions (the authored trailing empty slot is dropped). Caps: 1–12 sections,
+  1–60 images per section.
+- **Equipment tables (`facilitiesTable`)** — the `rnd.facilities` §5 four production-capacity tables
+  are structured with fixed 2 columns (admin label "설비 표"): the two header labels are editable and
+  the rows are a dynamic list of two-cell rows (add/remove/reorder). Caps: 1–100 rows.
+- **Shared R&D intro (sub-hero banner)** — the white banner at the top of every R&D subpage
+  ("첨단 설비와 철저한 관리로 …" / "Advanced facilities …") is edited **once** on `rnd.technology`
+  (also served at `/rnd`; admin label "연구개발 소개 인트로 (모든 R&D 서브페이지 공통)"), badged in the
+  editor, and applied to `rnd.patents` and `rnd.facilities` too. The former per-page copies are dead
+  (no defs); editing the shared band updates all R&D subpages.
 
 **Not editable by design:** links (`href`) are hard-coded; alt text (outside the overlay editor);
-`code` blocks; the mobile back-to-top band. Plain markup-only text widgets are excluded from the
-registry unless they carry editable embedded media (`img[n].src` / `iframe[n].src`).
+`code` blocks (the R&D facilities tab chrome stays non-editable — its tab labels and image lists are
+editable via `facilityTabs`, and the §5 capacity tables via `facilitiesTable`); the mobile back-to-top
+band. Plain markup-only text widgets are excluded from the registry unless they carry editable embedded
+media (`img[n].src` / `iframe[n].src`).
 
 ### Payload contracts
 
-`slides`, `cards`, `picks`, `eras`, `locations`, `gallery` and `aboutCards` are structured JSON:
-`lib/content/save.ts` validates them at the API boundary (malformed/empty → 400; per-block field
-config and `maxItems` are enforced and normalized) and the appliers in `lib/content/merge.ts`
-re-validate stored payloads, silently no-oping on garbage. Malformed overrides can never break
-rendering.
+`slides`, `cards`, `picks`, `eras`, `locations`, `gallery`, `aboutCards`, `facilityTabs`,
+`techFeatures`, `patentSections` and `facilitiesTable` are structured JSON: `lib/content/save.ts`
+validates them at the API boundary (malformed/empty → 400; per-block field config, shape and
+`maxItems` are enforced and normalized, strings trimmed, internal newlines preserved; `facilityTabs`
+accepts 1–3 `{ name, images }` tabs; `techFeatures` is `{ blocks: [...] }` with exactly 3 `{ items }`
+blocks, each holding 1–12 `{ image, heading, rows }` items with 1–30 rows each; `patentSections` 1–12
+`{ title, images }` sections with 1–60 captioned images each; `facilitiesTable` 1–100 two-cell rows) and stored payloads are re-validated at render time —
+`lib/content/merge.ts` silently no-ops on garbage, and the `facilityTabs` reader falls back to the
+file defaults. Applying an unchanged default payload reproduces the authored rendering. Malformed
+overrides can never break rendering.
 
 ### Structured override migration (existing databases)
 
 Superseded per-widget keys are folded into the structured payloads by
 `scripts/content-migrate-structured.mjs` (dry-run by default; `--apply` writes): history era
-label/years fields, the global HQ name/contacts/map widgets, about-page gallery items/cards and the
-block-8 pins all become `eras` / `locations` / `gallery` / `aboutCards` overrides. Run it once when
-deploying onto a database that may hold old overrides; a database with no overrides is a no-op.
+label/years fields, the global HQ name/contacts/map widgets, about-page gallery items/cards, the
+block-8 pins and the R&D USP gallery items (including legacy `rnd`-page keys onto the
+`rnd.technology` target) all become `eras` / `locations` / `gallery` / `aboutCards` overrides. The same
+pass also folds the superseded R&D per-widget keys into `techFeatures` / `patentSections` /
+`facilitiesTable` (image `src` + `lines` runs → technology blocks / equipment tables; heading
+`lines` + gallery items → certification sections — the `rnd.patents` §4 certificate keys fold here,
+not as `gallery`), folds the retired per-page R&D banner override keys onto the canonical shared-R&D-intro
+key (the canonical value wins; the first non-empty dead value is adopted only when the canonical is
+empty; the dead keys are then deleted), and folds the superseded `techFeatures` v1 per-section keys
+plus legacy per-widget keys into the single v2 key (the v1 value wins per block, per locale).
+Run-count/shape mismatches (and `techFeatures` v1→v2 block mismatches) are skipped with a warning and
+their legacy rows are kept (not deleted). Run it once when deploying onto a database that may hold old
+overrides; a database with no overrides is a no-op.
 Also run `npx prisma migrate deploy` on deploy — the `company_root_alias` migration moves legacy
 `company#…` override keys onto the alias target (`company.ceo#…`).
 
@@ -215,8 +266,10 @@ node scripts/gen-content-registry.mjs --check   # registry drift
 npm run content:health                          # dangling defs / override keys
 node scripts/audit/verify-home-editor.mjs            # admin + runtime E2E (writes & reverts overrides)
 node scripts/audit/verify-company-editor.mjs         # company content E2E: registry shape + gallery/eras/locations round-trips
+node scripts/audit/verify-rnd-editor.mjs             # R&D content E2E: structured round-trips + shared band + preview smoke
 node scripts/audit/capture-company-viewports.mjs     # company captures: mobile/desktop overflow, portraits, band parity
 node scripts/audit/capture-structured-viewports.mjs  # structured overrides applied → captured → reverted
+node scripts/audit/capture-rnd-viewports.mjs         # R&D captures: structured overrides applied → captured → reverted
 node scripts/audit/probe-about-carousel.mjs          # about slider autoplay + pause-on-interaction probe
 ```
 

@@ -27,7 +27,11 @@ export type RegistryKind =
   | "eras"
   | "locations"
   | "gallery"
-  | "aboutCards";
+  | "aboutCards"
+  | "facilityTabs"
+  | "techFeatures"
+  | "patentSections"
+  | "facilitiesTable";
 
 export type SaveStatus = "idle" | "saving" | "saved" | "error";
 

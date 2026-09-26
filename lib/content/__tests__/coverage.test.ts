@@ -25,6 +25,13 @@ const KINDS: Record<string, string> = Object.fromEntries(
   Object.values(CONTENT_DEF_MAP).map((def) => [def.key, def.kind]),
 );
 
+/** key → techFeatures block config, so the one def applies all three blocks. */
+const TECH_BLOCK_CONFIGS: Record<string, { sections: string[] }> = Object.fromEntries(
+  Object.values(CONTENT_DEF_MAP)
+    .filter((def) => def.techBlocks)
+    .map((def) => [def.key, def.techBlocks as { sections: string[] }]),
+);
+
 /**
  * key (all locales) or `key@locale` → reason.
  *
@@ -37,6 +44,10 @@ const KINDS: Record<string, string> = Object.fromEntries(
  * the generator and `resolvePairedWidget` both ignore contentless widget types
  * (padding/hr/code) when pairing, so a decorative widget cannot shift alignment
  * and every EN default now applies.
+ *
+ *  - `facilityTabs`: the generator emits the def (and its default JSON), but the
+ *    merge applier lands in the runtime lane (lib/content/merge.ts), which this
+ *    lane does not own; the def is allowlisted until that applier exists.
  */
 const ALLOWLIST: Record<string, string> = {
   "news#board/news/posts": "posts are stored in board_post (collection override), not a page_content list value",
@@ -44,6 +55,8 @@ const ALLOWLIST: Record<string, string> = {
   "products.clean-b#board/products.clean-b/posts": "posts are stored in board_post (collection override), not a page_content list value",
   "products.eco-wave#board/products.eco-wave/posts": "posts are stored in board_post (collection override), not a page_content list value",
   "products.flowell#board/products.flowell/posts": "posts are stored in board_post (collection override), not a page_content list value",
+  "rnd.facilities#facilityTabs/facilityTabs":
+    "generator def only; the facilityTabs merge applier is owned by the runtime lane (lib/content/merge.ts)",
 };
 
 type DefKind = "page" | "site" | "board";
@@ -116,9 +129,35 @@ describe("override coverage (every CONTENT_DEFS key, both locales)", () => {
                       ])
                     : def.kind === "gallery" || def.kind === "aboutCards"
                       ? JSON.stringify([{ image: `/${marker}.png`, title: marker, desc: marker }])
-                      : def.kind === "overlay" || def.kind === "textarea"
-                        ? `<p>${marker}</p>`
-                        : marker;
+                      : def.kind === "techFeatures"
+                        ? JSON.stringify({
+                            blocks: [0, 1, 2].map(() => ({
+                              items: [
+                                {
+                                  image: `/${marker}.png`,
+                                  heading: marker,
+                                  rows: [{ label: marker, body: marker }],
+                                },
+                              ],
+                            })),
+                          })
+                        : def.kind === "patentSections"
+                          ? JSON.stringify({
+                              sections: [
+                                {
+                                  title: marker,
+                                  items: [{ image: `/${marker}.png`, caption: marker }],
+                                },
+                              ],
+                            })
+                          : def.kind === "facilitiesTable"
+                            ? JSON.stringify({
+                                header: [marker, marker],
+                                rows: [[marker, marker]],
+                              })
+                            : def.kind === "overlay" || def.kind === "textarea"
+                              ? `<p>${marker}</p>`
+                              : marker;
         let merged: unknown;
 
         try {
@@ -141,6 +180,7 @@ describe("override coverage (every CONTENT_DEFS key, both locales)", () => {
             merged = applyPageOverrides(base, { [def.key]: value }, locale, {
               primaryPage: primary,
               kinds: KINDS,
+              techBlockConfigs: TECH_BLOCK_CONFIGS,
             });
           }
         } catch (error) {
@@ -169,22 +209,30 @@ describe("override coverage (every CONTENT_DEFS key, both locales)", () => {
     }
 
     expect(failures).toEqual([]);
-    // 294 defs × 2 locales − 10 allowlisted applications (5 board-post keys
-    // count once per locale).
+    // 142 defs × 2 locales − 12 allowlisted applications (6 allowlisted keys
+    // count once per locale: 5 board-post keys + facilityTabs).
     // Dead sections are excluded from the registry by the generator: the footer
     // copies on non-home pages (SiteFooter renders home's), the leading
     // page-title hero band of each channel (rebuilt as <PageHero> from nav),
     // code widgets, markup-only text widgets, the mobile back-to-top section,
     // the removed mobile-variant sections of the company channel and the
-    // non-canonical copies of the shared company intro band (only `company.ceo`'s
-    // is live; the renderer swaps its rows into every other company page, and the
-    // root `company` key is an alias that emits no defs at all). The superseded
-    // per-widget history era / branch / HQ / company.about gallery + card defs
-    // are replaced by one `eras`, one `locations`, four `gallery` and one
-    // `aboutCards` def (the `locations` def now also folds in the 3 HQ widgets).
-    expect(allowlisted.length).toBe(10);
-    expect(applied).toBe(CONTENT_DEFS.length * LOCALES.length - 10);
-    expect(applied).toBe(578);
+    // non-canonical copies of the shared company AND rnd intro bands (only
+    // `company.ceo`'s / `rnd.technology`'s are live; the renderer swaps their
+    // rows into every other page of the channel, and the root `company`/`rnd`
+    // keys are aliases that emit no defs at all). The superseded per-widget
+    // history era / branch / HQ / company.about gallery + card defs are replaced
+    // by one `eras`, one `locations`, five `gallery` (four company.about + one
+    // rnd.technology) and one `aboutCards` def. The structured R&D round adds one
+    // `facilityTabs` def (still applied by the facilities-tabs resolver, not
+    // `applyPageOverrides`), ONE `techFeatures` def (three fixed blocks replacing
+    // the §4/§5/§6 image + table lines defs; the harness supplies the
+    // `techBlockConfigs` mapping so all three blocks apply), one `patentSections`
+    // def (replacing the three rnd.patents heading lines + galleries) and four
+    // `facilitiesTable` defs (replacing four table lines defs). All three
+    // structured kinds apply through `applyPageOverrides`.
+    expect(allowlisted.length).toBe(12);
+    expect(applied).toBe(CONTENT_DEFS.length * LOCALES.length - 12);
+    expect(applied).toBe(272);
     expect(applied).toBe(expectedApplied);
   });
 

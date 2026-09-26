@@ -96,16 +96,11 @@ describe("applyPageOverrides", () => {
     expect(JSON.stringify(home)).toBe(before);
   });
 
-  it("round-trips src, alt, text and gallery item fields", () => {
-    const fields = [
-      /^src$/,
-      /^alt$/,
-      /^text$/,
-      /^items\[\d+\]\.title$/,
-      /^items\[\d+\]\.desc$/,
-      /^items\[\d+\]\.org$/,
-      /^items\[\d+\]\.thumb$/,
-    ];
+  it("round-trips src, alt and text fields", () => {
+    // Legacy per-item gallery defs (`items[n].*`) were replaced by ONE
+    // structured `gallery` def per block; the structured round-trip is covered
+    // in gallery-kinds.test.ts.
+    const fields = [/^src$/, /^alt$/, /^text$/];
 
     for (const pattern of fields) {
       const def = CONTENT_DEFS.find(

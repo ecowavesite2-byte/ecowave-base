@@ -4,15 +4,21 @@ import type {
   ColNode,
   EraEntry,
   EraYear,
+  FacilitiesTablePayload,
   GalleryBlockConfig,
   GlobalLocation,
   LocationCard,
   Node,
   PageContent,
+  PatentSection,
+  PatentSectionsPayload,
   RowNode,
   Section,
   SiteData,
   StructuredMediaItem,
+  TechBlocksConfig,
+  TechFeatureItem,
+  TechFeaturesPayload,
   TickerPicks,
   WidgetNode,
 } from "../types";
@@ -1116,6 +1122,545 @@ export function applyAboutCards(
   }
 }
 
+/* ---------------- structured R&D kinds: techFeatures / patentSections / facilitiesTable ---------------- */
+
+/** A full `<tr>…</tr>` match of a table html. */
+const TABLE_ROW = /<tr\b[^>]*>[\s\S]*?<\/tr>/gi;
+/** A full `<td>…</td>` / `<th>…</th>` match of a row html. */
+const TABLE_CELL = /<t[dh]\b[^>]*>[\s\S]*?<\/t[dh]>/gi;
+
+/** All full `<tr>` matches of a table html, in document order. */
+function tableRows(html: string): string[] {
+  return String(html ?? "").match(TABLE_ROW) ?? [];
+}
+
+/** All full cell matches of a row html, in document order. */
+function rowCells(rowHtml: string): string[] {
+  return rowHtml.match(TABLE_CELL) ?? [];
+}
+
+/** A row's raw `<tr …>` opening tag (`<tr>` when absent). */
+function rowOpenTag(rowHtml: string): string {
+  return /<tr\b[^>]*>/i.exec(rowHtml)?.[0] ?? "<tr>";
+}
+
+/**
+ * Replace a cell's plain-text runs with `text` ONLY when they differ. Reusing the
+ * authored cell bytes when the copy is unchanged is what lets an unchanged
+ * payload round-trip byte-identically: `extractTextRuns` normalises whitespace,
+ * so a cell holding `<br>`/`&nbsp;` still compares equal to the payload text.
+ */
+function injectCellText(cellHtml: string, text: string): string {
+  if (extractTextRuns(cellHtml).join("\n") === String(text ?? "")) return cellHtml;
+  return injectTextRuns(cellHtml, String(text ?? ""));
+}
+
+/** Set a heading cell's `rowspan` to `count`, leaving the rest of the tag intact. */
+function setRowspan(cellHtml: string, count: number): string {
+  return cellHtml.replace(/(<t[dh]\b[^>]*\browspan\s*=\s*")[^"]*(")/i, `$1${count}$2`);
+}
+
+/** Replace a table's `<tr>…</tr>` span with freshly built rows (prefix/suffix kept). */
+function spliceTableRows(source: string, builtRows: string[]): string {
+  const start = source.search(/<tr\b/i);
+  const end = source.lastIndexOf("</tr>");
+  if (start < 0 || end < 0) return source;
+  return source.slice(0, start) + builtRows.join("") + source.slice(end + "</tr>".length);
+}
+
+/**
+ * Rebuild a techFeatures text table from `{ heading, rows }`, preserving the
+ * authored table skeleton (wrapper, opening tags, per-row cell classes and inline
+ * styles). Two authored variants are supported:
+ *  - rowspan: row 0 = [rowspan heading cell, label, body]; later rows [label, body];
+ *  - colspan: row 0 = [colspan heading cell]; later rows [label, body].
+ * New rows clone the LAST authored data row's cells; `heading`/`label`/`body`
+ * distribute their `\n`-separated lines back onto the cell's authored runs.
+ */
+function rebuildTechTable(
+  source: string | null | undefined,
+  heading: string,
+  rows: TechFeatureItem["rows"],
+): string {
+  const html = String(source ?? "");
+  const trs = tableRows(html);
+  if (trs.length === 0) return html;
+  const firstCells = rowCells(trs[0]);
+  if (firstCells.length === 0) return html;
+  const rowspanVariant = firstCells.length >= 3;
+
+  // Authored data rows as [labelCell, bodyCell], in order.
+  const authored: string[][] = [];
+  if (rowspanVariant) authored.push([firstCells[1], firstCells[2]]);
+  for (let i = 1; i < trs.length; i += 1) {
+    const cells = rowCells(trs[i]);
+    if (cells.length >= 2) authored.push([cells[0], cells[1]]);
+  }
+  if (authored.length === 0) return html;
+  const template = authored[authored.length - 1];
+
+  const dataOpens = rowspanVariant
+    ? [rowOpenTag(trs[0]), ...trs.slice(1).map(rowOpenTag)]
+    : trs.slice(1).map(rowOpenTag);
+  const lastOpen = dataOpens[dataOpens.length - 1] ?? rowOpenTag(trs[0]);
+
+  const dataRow = (index: number): string => {
+    const cells = index < authored.length ? authored[index] : template;
+    const open = index < dataOpens.length ? dataOpens[index] : lastOpen;
+    return (
+      open +
+      injectCellText(cells[0], rows[index].label) +
+      injectCellText(cells[1], rows[index].body) +
+      "</tr>"
+    );
+  };
+
+  const built: string[] = [];
+  if (rowspanVariant) {
+    const headingCell = setRowspan(injectCellText(firstCells[0], heading), rows.length);
+    built.push(
+      rowOpenTag(trs[0]) +
+        headingCell +
+        injectCellText(authored[0][0], rows[0].label) +
+        injectCellText(authored[0][1], rows[0].body) +
+        "</tr>",
+    );
+    for (let i = 1; i < rows.length; i += 1) built.push(dataRow(i));
+  } else {
+    built.push(rowOpenTag(trs[0]) + injectCellText(firstCells[0], heading) + "</tr>");
+    for (let i = 0; i < rows.length; i += 1) built.push(dataRow(i));
+  }
+  return spliceTableRows(html, built);
+}
+
+/**
+ * Rebuild a facilities table from `{ header, rows }`, preserving the authored
+ * header (blue background) and data row templates. New data rows clone the LAST
+ * authored data row.
+ */
+function rebuildFacilitiesTable(
+  source: string | null | undefined,
+  payload: FacilitiesTablePayload,
+): string {
+  const html = String(source ?? "");
+  const trs = tableRows(html);
+  if (trs.length === 0) return html;
+  const headerCells = rowCells(trs[0]);
+  if (headerCells.length < 2) return html;
+
+  const dataTrs = trs.slice(1);
+  const authored = dataTrs.map(rowCells);
+  const template = authored[authored.length - 1] ?? headerCells;
+  const dataOpens = dataTrs.map(rowOpenTag);
+  const lastOpen = dataOpens[dataOpens.length - 1] ?? rowOpenTag(trs[0]);
+
+  const built: string[] = [
+    rowOpenTag(trs[0]) +
+      injectCellText(headerCells[0], payload.header[0]) +
+      injectCellText(headerCells[1], payload.header[1]) +
+      "</tr>",
+  ];
+  for (let i = 0; i < payload.rows.length; i += 1) {
+    const cells = i < authored.length ? authored[i] : template;
+    const open = i < dataOpens.length ? dataOpens[i] : lastOpen;
+    built.push(
+      open +
+        injectCellText(cells[0] ?? template[0] ?? "", payload.rows[i][0]) +
+        injectCellText(cells[1] ?? template[1] ?? "", payload.rows[i][1]) +
+        "</tr>",
+    );
+  }
+  return spliceTableRows(html, built);
+}
+
+/**
+ * Parse a v2 `techFeatures` payload: `{ blocks: [{ items: [...] }] }`.
+ * The frozen contract is EXACTLY three blocks, each with one or more
+ * well-formed items; `null` when malformed/empty (silent no-op — a direct-DB
+ * partial payload must never half-apply). Block k is applied to the k-th
+ * section named by the def's `techBlocks.sections`.
+ */
+function parseTechFeatures(value: string): TechFeaturesPayload | null {
+  try {
+    const parsed: unknown = JSON.parse(value);
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) return null;
+    const blocks = (parsed as { blocks?: unknown }).blocks;
+    if (!Array.isArray(blocks) || blocks.length !== 3) return null;
+    const out: TechFeaturesPayload["blocks"] = [];
+    for (const blockEntry of blocks) {
+      if (!blockEntry || typeof blockEntry !== "object" || Array.isArray(blockEntry)) return null;
+      const items = (blockEntry as { items?: unknown }).items;
+      if (!Array.isArray(items) || items.length === 0) return null;
+      const itemsOut: TechFeatureItem[] = [];
+      for (const entry of items) {
+        if (!entry || typeof entry !== "object" || Array.isArray(entry)) return null;
+        const item = entry as { image?: unknown; heading?: unknown; rows?: unknown };
+        if (typeof item.image !== "string" || item.image.length === 0) return null;
+        if (typeof item.heading !== "string") return null;
+        if (!Array.isArray(item.rows) || item.rows.length === 0) return null;
+        const rows: TechFeatureItem["rows"] = [];
+        for (const rowEntry of item.rows) {
+          if (!rowEntry || typeof rowEntry !== "object" || Array.isArray(rowEntry)) return null;
+          const row = rowEntry as { label?: unknown; body?: unknown };
+          if (typeof row.label !== "string") return null;
+          if (typeof row.body !== "string") return null;
+          rows.push({ label: row.label, body: row.body });
+        }
+        itemsOut.push({ image: item.image, heading: item.heading, rows });
+      }
+      out.push({ items: itemsOut });
+    }
+    return { blocks: out };
+  } catch {
+    return null;
+  }
+}
+
+/** Parse a `patentSections` payload; `null` when malformed/empty. */
+function parsePatentSectionsPayload(value: string): PatentSectionsPayload | null {
+  try {
+    const parsed: unknown = JSON.parse(value);
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) return null;
+    const sections = (parsed as { sections?: unknown }).sections;
+    if (!Array.isArray(sections) || sections.length === 0) return null;
+    const out: PatentSection[] = [];
+    for (const entry of sections) {
+      if (!entry || typeof entry !== "object" || Array.isArray(entry)) return null;
+      const section = entry as { title?: unknown; items?: unknown };
+      if (typeof section.title !== "string") return null;
+      if (!Array.isArray(section.items) || section.items.length === 0) return null;
+      const items: PatentSection["items"] = [];
+      for (const itemEntry of section.items) {
+        if (!itemEntry || typeof itemEntry !== "object" || Array.isArray(itemEntry)) return null;
+        const item = itemEntry as { image?: unknown; caption?: unknown };
+        if (typeof item.image !== "string" || item.image.length === 0) return null;
+        if (typeof item.caption !== "string") return null;
+        items.push({ image: item.image, caption: item.caption });
+      }
+      out.push({ title: section.title, items });
+    }
+    return { sections: out };
+  } catch {
+    return null;
+  }
+}
+
+/** Parse a `facilitiesTable` payload; `null` when malformed/empty. */
+function parseFacilitiesTablePayload(value: string): FacilitiesTablePayload | null {
+  try {
+    const parsed: unknown = JSON.parse(value);
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) return null;
+    const header = (parsed as { header?: unknown }).header;
+    if (!Array.isArray(header) || header.length !== 2) return null;
+    if (typeof header[0] !== "string" || typeof header[1] !== "string") return null;
+    const rowsRaw = (parsed as { rows?: unknown }).rows;
+    if (!Array.isArray(rowsRaw) || rowsRaw.length === 0) return null;
+    const rows: Array<[string, string]> = [];
+    for (const rowEntry of rowsRaw) {
+      if (!Array.isArray(rowEntry) || rowEntry.length !== 2) return null;
+      if (typeof rowEntry[0] !== "string" || typeof rowEntry[1] !== "string") return null;
+      rows.push([rowEntry[0], rowEntry[1]]);
+    }
+    return { header: [header[0], header[1]], rows };
+  } catch {
+    return null;
+  }
+}
+
+/** An authored techFeatures item col's image + text widgets. */
+function techItemWidgets(col: ColNode): { image: WidgetNode | null; text: WidgetNode | null } {
+  const widgets = nodeWidgets(col);
+  return {
+    image: widgets.find((w) => w.type === "image") ?? null,
+    text: widgets.find((w) => w.type === "text") ?? null,
+  };
+}
+
+/** Apply one techFeatures item to one item col in place (image src + text table). */
+function applyTechItem(col: ColNode, item: TechFeatureItem): void {
+  const { image, text } = techItemWidgets(col);
+  if (image && item.image.length > 0 && image.src !== item.image) image.src = item.image;
+  if (text) text.html = rebuildTechTable(text.html, item.heading, item.rows);
+}
+
+/** Apply one techFeatures item to an authored §4 image row + text row pair. */
+function applyTechItemRows(imageRow: RowNode, textRow: RowNode, item: TechFeatureItem): void {
+  const image = nodeWidgets(imageRow).find((w) => w.type === "image");
+  if (image && item.image.length > 0 && image.src !== item.image) image.src = item.image;
+  const text = nodeWidgets(textRow).find((w) => w.type === "text");
+  if (text) text.html = rebuildTechTable(text.html, item.heading, item.rows);
+}
+
+/** True for a top-level row whose cols each wrap nested rows (the §5/§6 layout). */
+function isItemColsRow(node: Node | undefined): node is RowNode {
+  if (!node || node.kind !== "row" || node.cols.length === 0) return false;
+  return node.cols.every((col) => (col.children ?? []).some((child) => child.kind === "row"));
+}
+
+/** True for a top-level row whose widgets are all padding spacers. */
+function isTopPaddingRow(node: Node | undefined): boolean {
+  if (!node || node.kind !== "row") return false;
+  const widgets = nodeWidgets(node);
+  return widgets.length > 0 && widgets.every((w) => w.type === "padding");
+}
+
+/** §5/§6: rebuild the container row's item cols (max two per wrapper row). */
+function applyTechFeaturesCols(
+  section: Section,
+  containerRow: RowNode,
+  items: TechFeatureItem[],
+): void {
+  const authoredCols = containerRow.cols;
+  const templateCol = authoredCols[authoredCols.length - 1];
+  if (!templateCol) return;
+
+  const targetCols: ColNode[] = items.map((item, i) => {
+    let col: ColNode;
+    if (i < authoredCols.length) {
+      col = authoredCols[i];
+    } else {
+      col = deepClone(templateCol);
+      rewriteNodeIds(col, `__tech${i}`);
+    }
+    applyTechItem(col, item);
+    return col;
+  });
+
+  const groups: ColNode[][] = [];
+  for (let i = 0; i < targetCols.length; i += 2) groups.push(targetCols.slice(i, i + 2));
+
+  const containerRows = section.rows.filter(isItemColsRow);
+  const firstIndex = section.rows.indexOf(containerRows[0] ?? containerRow);
+
+  const newRows: RowNode[] = groups.map((group, g) => {
+    let row: RowNode;
+    if (g < containerRows.length) {
+      row = containerRows[g];
+    } else {
+      row = deepClone(containerRow);
+      rewriteNodeIds(row, `__techrow${g}`);
+    }
+    row.cols = group;
+    const grid = group.length === 1 ? "12" : "6";
+    for (const col of group) col.grid = grid;
+    return row;
+  });
+
+  if (firstIndex < 0) return;
+  for (let i = section.rows.length - 1; i >= 0; i -= 1) {
+    if (containerRows.includes(section.rows[i] as RowNode)) section.rows.splice(i, 1);
+  }
+  section.rows.splice(firstIndex, 0, ...newRows);
+}
+
+/** §4: rebuild the top-level image/text row pairs as item cols (max two per row). */
+function applyTechFeaturesRows(section: Section, items: TechFeatureItem[]): void {
+  const imageRows: RowNode[] = [];
+  const textRows: RowNode[] = [];
+  for (const node of section.rows) {
+    if (node.kind !== "row") continue;
+    const widgets = nodeWidgets(node);
+    if (widgets.some((w) => w.type === "image")) imageRows.push(node);
+    else if (widgets.some((w) => w.type === "text" && /<table\b/i.test(w.html ?? ""))) {
+      textRows.push(node);
+    }
+  }
+  const authoredCount = Math.min(imageRows.length, textRows.length);
+  if (authoredCount === 0) return;
+
+  // The common case: one authored item + one requested item -> edit in place, so
+  // the authored top-level rows round-trip byte-identically.
+  if (items.length === 1 && authoredCount === 1) {
+    applyTechItemRows(imageRows[0], textRows[0], items[0]);
+    return;
+  }
+
+  const imageTemplate = imageRows[authoredCount - 1];
+  const textTemplate = textRows[authoredCount - 1];
+  const firstIndex = section.rows.indexOf(imageRows[0]);
+  const lastIndex = section.rows.indexOf(textRows[authoredCount - 1]);
+  if (firstIndex < 0 || lastIndex < 0) return;
+
+  const targetCols: ColNode[] = items.map((item, i) => {
+    let imageRow: RowNode;
+    let textRow: RowNode;
+    if (i < authoredCount) {
+      imageRow = imageRows[i];
+      textRow = textRows[i];
+    } else {
+      imageRow = deepClone(imageTemplate);
+      textRow = deepClone(textTemplate);
+      rewriteNodeIds(imageRow, `__tech${i}`);
+      rewriteNodeIds(textRow, `__tech${i}`);
+    }
+    applyTechItemRows(imageRow, textRow, item);
+    return { kind: "col", grid: "12", children: [imageRow, textRow] };
+  });
+
+  const groups: ColNode[][] = [];
+  for (let i = 0; i < targetCols.length; i += 2) groups.push(targetCols.slice(i, i + 2));
+
+  const newRows: RowNode[] = groups.map((group) => {
+    const grid = group.length === 1 ? "12" : "6";
+    for (const col of group) col.grid = grid;
+    // A wrapper row adds no gutter of its own; the inner rows keep their pad.
+    return { kind: "row", grid: "12", pad: 0, cols: group };
+  });
+
+  section.rows.splice(firstIndex, lastIndex - firstIndex + 1, ...newRows);
+}
+
+/**
+ * Rebuild ONE `rnd.technology` section from one `techFeatures` block's items.
+ * §5/§6 keep their authored item cols; §4 keeps its authored top-level
+ * image/text rows when one item is requested, otherwise wraps cloned rows into
+ * item cols. Items flow two per wrapper row (a lone item takes the full width,
+ * grid 12). Never throws. Kept unexported: the deferred dispatch (see
+ * `applyPageOverrides`) maps block k to section k via the def's `techBlocks`.
+ */
+function applyTechSection(section: Section, items: TechFeatureItem[]): void {
+  try {
+    if (!section || !Array.isArray(section.rows) || !Array.isArray(items)) return;
+    if (items.length === 0) return;
+
+    const containerRow = section.rows.find(isItemColsRow);
+    if (containerRow) {
+      applyTechFeaturesCols(section, containerRow, items);
+      return;
+    }
+    applyTechFeaturesRows(section, items);
+  } catch {
+    // Overrides must never break rendering.
+  }
+}
+
+/** A patent group: a heading text row plus its following gallery2 row. */
+interface PatentGroup {
+  headingRow: RowNode;
+  galleryRow: RowNode;
+}
+
+/** The heading + gallery groups of a `rnd.patents` §4 section, in document order. */
+function patentGroupsOf(section: Section): PatentGroup[] {
+  const groups: PatentGroup[] = [];
+  const rows = section.rows;
+  for (let i = 0; i < rows.length; i += 1) {
+    const node = rows[i];
+    if (node.kind !== "row" || !nodeWidgets(node).some((w) => w.type === "gallery2")) continue;
+    const prev = rows[i - 1];
+    if (prev?.kind === "row" && nodeWidgets(prev).some((w) => w.type === "text")) {
+      groups.push({ headingRow: prev, galleryRow: node });
+    }
+  }
+  return groups;
+}
+
+/**
+ * Apply one patent section (title into the heading runs, items into the gallery).
+ *
+ * NOTE: the authored galleries carry one trailing empty placeholder
+ * (`org:null, thumb:null`); the payload parser drops it and this applier replaces
+ * the whole item list, so the widget ends with `items.length` entries instead of
+ * `items.length + 1`. The renderer filters empty items (`org || thumb`) before
+ * laying out the grid, so the two forms render identically.
+ */
+function applyPatentGroup(group: PatentGroup, section: PatentSection): void {
+  const heading = nodeWidgets(group.headingRow).find((w) => w.type === "text");
+  if (heading) {
+    const current = extractTextRuns(heading.html).join("\n");
+    if (current !== section.title) heading.html = injectTextRuns(heading.html, section.title);
+  }
+  const gallery = nodeWidgets(group.galleryRow).find((w) => w.type === "gallery2");
+  if (gallery) {
+    applyGallery(
+      gallery,
+      section.items.map((item) => ({ image: item.image, title: item.caption, desc: "" })),
+    );
+  }
+}
+
+/**
+ * Rebuild `rnd.patents` §4 from a `patentSections` payload. Authored heading +
+ * gallery groups are reused in place; extra sections clone the FIRST group's rows
+ * (with a padding separator) before the trailing spacer, and a shorter payload
+ * removes trailing groups plus their preceding separators. Never throws.
+ */
+export function applyPatentSections(section: Section, payload: PatentSectionsPayload): void {
+  try {
+    if (!section || !Array.isArray(section.rows) || !payload || !Array.isArray(payload.sections)) {
+      return;
+    }
+    const sections = payload.sections;
+    if (sections.length === 0) return;
+    const groups = patentGroupsOf(section);
+    if (groups.length === 0) return;
+
+    const n = groups.length;
+    const m = sections.length;
+    const common = Math.min(m, n);
+    for (let i = 0; i < common; i += 1) applyPatentGroup(groups[i], sections[i]);
+
+    if (m > n) {
+      const template = groups[0];
+      const lastGroup = groups[n - 1];
+      const galleryIndex = section.rows.indexOf(lastGroup.galleryRow);
+      const insertAt = galleryIndex + 1;
+      const headingIndex = section.rows.indexOf(lastGroup.headingRow);
+      const sepTemplate = isTopPaddingRow(section.rows[headingIndex - 1])
+        ? (section.rows[headingIndex - 1] as RowNode)
+        : null;
+
+      let at = insertAt;
+      for (let i = n; i < m; i += 1) {
+        if (sepTemplate) {
+          const sep = deepClone(sepTemplate);
+          rewriteNodeIds(sep, `__pat${i}`);
+          section.rows.splice(at, 0, sep);
+          at += 1;
+        }
+        const headingRow = deepClone(template.headingRow);
+        const galleryRow = deepClone(template.galleryRow);
+        rewriteNodeIds(headingRow, `__pat${i}`);
+        rewriteNodeIds(galleryRow, `__pat${i}`);
+        section.rows.splice(at, 0, headingRow);
+        section.rows.splice(at + 1, 0, galleryRow);
+        at += 2;
+        applyPatentGroup({ headingRow, galleryRow }, sections[i]);
+      }
+      return;
+    }
+
+    if (m < n) {
+      for (let i = n - 1; i >= m; i -= 1) {
+        const group = groups[i];
+        const headingIndex = section.rows.indexOf(group.headingRow);
+        const galleryIndex = section.rows.indexOf(group.galleryRow);
+        if (galleryIndex >= 0) section.rows.splice(galleryIndex, 1);
+        if (headingIndex >= 0) section.rows.splice(headingIndex, 1);
+        const sepIndex = headingIndex - 1;
+        if (sepIndex >= 0 && isTopPaddingRow(section.rows[sepIndex])) {
+          section.rows.splice(sepIndex, 1);
+        }
+      }
+    }
+  } catch {
+    // Overrides must never break rendering.
+  }
+}
+
+/**
+ * Rebuild one `rnd.facilities` table widget from a `facilitiesTable` payload,
+ * preserving the authored header/data row templates. Never throws.
+ */
+export function applyFacilitiesTable(widget: WidgetNode, payload: FacilitiesTablePayload): void {
+  try {
+    if (!widget || widget.type !== "text" || !payload) return;
+    widget.html = rebuildFacilitiesTable(widget.html, payload);
+  } catch {
+    // Overrides must never break rendering.
+  }
+}
+
 /** Optional context for locale pairing (see `./pair`). */
 export interface ApplyPageOptions {
   /**
@@ -1136,6 +1681,13 @@ export interface ApplyPageOptions {
    * direct-DB payload cannot bypass the editor's field/count contract.
    */
   galleryConfigs?: Record<string, GalleryBlockConfig>;
+  /**
+   * Override key → structured `techFeatures` block config (`techFeatures` kind).
+   * Carries the def's fixed block→section mapping (`sections`) so the applier
+   * maps block k to section k without hardcoding crawl ids. Without it only the
+   * anchor block (block 0) is applied.
+   */
+  techBlockConfigs?: Record<string, TechBlocksConfig>;
 }
 
 /**
@@ -1165,7 +1717,14 @@ export function applyPageOverrides<T extends PageContent>(
     key: string;
     ref: RegistryKeyParts;
     value: string;
-    kind: "eras" | "gallery" | "aboutCards" | "locations";
+    kind:
+      | "eras"
+      | "gallery"
+      | "aboutCards"
+      | "locations"
+      | "techFeatures"
+      | "patentSections"
+      | "facilitiesTable";
   }> = [];
 
   for (const [key, value] of Object.entries(overrides ?? {})) {
@@ -1194,6 +1753,27 @@ export function applyPageOverrides<T extends PageContent>(
     // restructures the cloned card nodes, applied after the loop.
     if (parsed.field === "aboutCards" && parsed.widgetId === "aboutCards") {
       deferred.push({ key, ref: parsed, value, kind: "aboutCards" });
+      continue;
+    }
+
+    // Technology blocks (`<page>#<sectionId>/techFeatures/techFeatures`):
+    // rebuilds a §4/§5/§6 section's item rows/cols, applied after the loop.
+    if (parsed.field === "techFeatures" && parsed.widgetId === "techFeatures") {
+      deferred.push({ key, ref: parsed, value, kind: "techFeatures" });
+      continue;
+    }
+
+    // Patent groups (`<page>#<sectionId>/patentSections/patentSections`):
+    // rebuilds §4's interleaved heading + gallery rows, applied after the loop.
+    if (parsed.field === "patentSections" && parsed.widgetId === "patentSections") {
+      deferred.push({ key, ref: parsed, value, kind: "patentSections" });
+      continue;
+    }
+
+    // Facilities table (`<page>#<sectionId>/<widgetId>/facilitiesTable`):
+    // widget-scoped table rebuild, applied after the loop.
+    if (parsed.field === "facilitiesTable") {
+      deferred.push({ key, ref: parsed, value, kind: "facilitiesTable" });
       continue;
     }
 
@@ -1270,6 +1850,38 @@ export function applyPageOverrides<T extends PageContent>(
       const anchor = resolvePairedSection(clone, ref, options.primaryPage ?? null);
       const locations = anchor ? parseLocations(value) : null;
       if (anchor && locations) applyLocations(clone.sections, anchor, locations);
+      continue;
+    }
+    if (kind === "techFeatures") {
+      // v2: one payload of fixed blocks; block k rebuilds the section named by
+      // the def's `techBlocks.sections[k]` (falling back to the anchor for a
+      // config-less call). Each block's section is resolved independently so KO
+      // ids and the EN positional pairing both work.
+      const parsed = parseTechFeatures(value);
+      if (parsed) {
+        // With the emitted config, block k targets `sections[k]`; without it
+        // only the anchor block (block 0) is applied, never stacked onto it.
+        const sectionIds = options.techBlockConfigs?.[key]?.sections ?? [ref.sectionId];
+        const count = Math.min(parsed.blocks.length, sectionIds.length);
+        for (let k = 0; k < count; k += 1) {
+          const sectionId = sectionIds[k];
+          const blockRef = sectionId === ref.sectionId ? ref : { ...ref, sectionId };
+          const section = resolvePairedSection(clone, blockRef, options.primaryPage ?? null);
+          if (section) applyTechSection(section, parsed.blocks[k].items);
+        }
+      }
+      continue;
+    }
+    if (kind === "patentSections") {
+      const section = resolvePairedSection(clone, ref, options.primaryPage ?? null);
+      const parsed = section ? parsePatentSectionsPayload(value) : null;
+      if (section && parsed) applyPatentSections(section, parsed);
+      continue;
+    }
+    if (kind === "facilitiesTable") {
+      const widget = resolvePairedWidget(clone, ref, options.primaryPage ?? null);
+      const parsed = widget ? parseFacilitiesTablePayload(value) : null;
+      if (widget && parsed) applyFacilitiesTable(widget, parsed);
       continue;
     }
     const section = resolvePairedSection(clone, ref, options.primaryPage ?? null);

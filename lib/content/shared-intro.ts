@@ -1,17 +1,24 @@
 import type { Section } from "@/lib/types";
 
 /**
- * Shared intro band — the company channel's white 48px heading rendered over
- * `/images/thumbnail/20250811/269ab684758f0.jpg`.
+ * Shared intro bands — channel-wide bands authored (and editable) once but
+ * rendered on every page of the channel.
  *
  * Mirrors the footer precedent in `lib/page-hero.ts`: every page's shell authors
  * its own copy of a shared band, but only ONE copy is live. The footer is shared
  * by `components/layout/SiteFooter.tsx` rendering the HOME page's copy on every
- * route; here the renderer (`components/content/ContentPage.tsx`) swaps the
- * canonical `company.ceo` band's rows into the other `/company*` pages, so only
- * `company.ceo`'s copy is editable and the other copies are dead in the registry
- * generator. (`/company` itself aliases `company.ceo` — see `PAGE_ALIASES` in
- * `lib/content/paths.ts` — so it already serves the canonical copy.)
+ * route; here the renderer swaps the canonical band's rows into the other
+ * channel pages (via `applySharedIntroRows` in `lib/content/resolved.ts`), so
+ * only the canonical page's copy is editable and the other copies are dead in
+ * the registry generator. (A channel root that aliases its canonical page —
+ * `/company` → `company.ceo`, `/rnd` → `rnd.technology`, see `PAGE_ALIASES` in
+ * `lib/content/paths.ts` — already serves the canonical copy.)
+ *
+ * Two bands use this mechanism:
+ *  - company channel: the white 48px heading over
+ *    `/images/thumbnail/20250811/269ab684758f0.jpg`, canonical `company.ceo`;
+ *  - rnd channel: the R&D sub-hero banner over
+ *    `/images/thumbnail/20250820/6bbe2b297ab17.jpg`, canonical `rnd.technology`.
  *
  * The band has no dedicated class or id across pages (each page carries its own
  * section id), so it is matched by its UNIQUE background image — the one
@@ -33,6 +40,11 @@ export const SHARED_INTROS: SharedIntro[] = [
     canonicalPageKey: "company.ceo",
     channel: "company",
     bg: "/images/thumbnail/20250811/269ab684758f0.jpg",
+  },
+  {
+    canonicalPageKey: "rnd.technology",
+    channel: "rnd",
+    bg: "/images/thumbnail/20250820/6bbe2b297ab17.jpg",
   },
 ];
 

@@ -1,5 +1,12 @@
 import { CONTENT_DEF_MAP, MAX_LENGTH, type ContentDef } from "./registry";
 import { getPrisma } from "./db";
+import type {
+  FacilitiesTablePayload,
+  PatentSectionsPayload,
+  TechFeatureItem,
+  TechFeatureRow,
+  TechFeaturesPayload,
+} from "../types";
 
 /**
  * mcell-style override save logic.
@@ -236,6 +243,170 @@ function normalizeMediaPayload(
 }
 
 /**
+ * `facilityTabs` payloads: a JSON array of 1..3 `{ name, images }` tabs. `name`
+ * must be a non-empty string (stored trimmed); `images` must be a non-empty
+ * array of valid media values (bare `/…` paths or http(s) URLs). Returns the
+ * payload NORMALIZED to `[{ name, images }]` in the same order, or `null` when
+ * invalid. 1..3 keeps the tab strip inside the rebuilt renderer's lane.
+ */
+export function normalizeFacilityTabsPayload(value: string): string | null {
+  try {
+    const parsed: unknown = JSON.parse(value);
+    if (!Array.isArray(parsed) || parsed.length === 0 || parsed.length > 3) return null;
+    const out: Array<{ name: string; images: string[] }> = [];
+    for (const entry of parsed) {
+      if (!entry || typeof entry !== "object" || Array.isArray(entry)) return null;
+      const tab = entry as { name?: unknown; images?: unknown };
+      if (typeof tab.name !== "string") return null;
+      const name = tab.name.trim();
+      if (name.length === 0) return null;
+      if (!Array.isArray(tab.images) || tab.images.length === 0) return null;
+      const images: string[] = [];
+      for (const image of tab.images) {
+        if (typeof image !== "string" || image.length === 0) return null;
+        if (!isValidMediaValue(image)) return null;
+        images.push(image);
+      }
+      out.push({ name, images });
+    }
+    return JSON.stringify(out);
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * `techFeatures` payloads (v2): `{ blocks: [{ items: [{ image, heading,
+ * rows: [{ label, body }] }] }] }`. Exactly THREE blocks (block k rebuilds the
+ * k-th section, per the def's `techBlocks.sections`); each block holds 1..12
+ * items, each item a non-empty valid media `image` and a non-empty `heading`;
+ * `rows` holds 1..30 entries with a non-empty `label` and a (possibly empty)
+ * `body`. Every string is trimmed at its outer edges only — internal newlines
+ * are preserved (they map back onto authored lines / `<br>`). Returns the
+ * canonical JSON, or `null` when invalid.
+ */
+export function normalizeTechFeaturesPayload(value: string): string | null {
+  try {
+    const parsed: unknown = JSON.parse(value);
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) return null;
+    const blocks = (parsed as { blocks?: unknown }).blocks;
+    if (!Array.isArray(blocks) || blocks.length !== 3) return null;
+
+    const out: TechFeaturesPayload["blocks"] = [];
+    for (const blockEntry of blocks) {
+      if (!blockEntry || typeof blockEntry !== "object" || Array.isArray(blockEntry)) return null;
+      const items = (blockEntry as { items?: unknown }).items;
+      if (!Array.isArray(items) || items.length === 0 || items.length > 12) return null;
+
+      const itemsOut: TechFeatureItem[] = [];
+      for (const entry of items) {
+        if (!entry || typeof entry !== "object" || Array.isArray(entry)) return null;
+        const item = entry as { image?: unknown; heading?: unknown; rows?: unknown };
+        if (typeof item.image !== "string") return null;
+        const image = item.image.trim();
+        if (image.length === 0 || !isValidMediaValue(image)) return null;
+        if (typeof item.heading !== "string") return null;
+        const heading = item.heading.trim();
+        if (heading.length === 0) return null;
+        if (!Array.isArray(item.rows) || item.rows.length === 0 || item.rows.length > 30) return null;
+
+        const rows: TechFeatureRow[] = [];
+        for (const rowEntry of item.rows) {
+          if (!rowEntry || typeof rowEntry !== "object" || Array.isArray(rowEntry)) return null;
+          const row = rowEntry as { label?: unknown; body?: unknown };
+          if (typeof row.label !== "string") return null;
+          const label = row.label.trim();
+          if (label.length === 0) return null;
+          if (typeof row.body !== "string") return null;
+          rows.push({ label, body: row.body.trim() });
+        }
+        itemsOut.push({ image, heading, rows });
+      }
+      out.push({ items: itemsOut });
+    }
+    return JSON.stringify({ blocks: out });
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * `patentSections` payloads: `{ sections: [{ title, items: [{ image, caption }] }] }`.
+ * 1..12 groups; each needs a non-empty `title` and 1..60 items with a non-empty
+ * valid media `image` and a (possibly empty) `caption`. Strings are trimmed at
+ * their outer edges (internal newlines kept). Canonical JSON, or `null`.
+ */
+export function normalizePatentSectionsPayload(value: string): string | null {
+  try {
+    const parsed: unknown = JSON.parse(value);
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) return null;
+    const sections = (parsed as { sections?: unknown }).sections;
+    if (!Array.isArray(sections) || sections.length === 0 || sections.length > 12) return null;
+
+    const out: PatentSectionsPayload["sections"] = [];
+    for (const entry of sections) {
+      if (!entry || typeof entry !== "object" || Array.isArray(entry)) return null;
+      const section = entry as { title?: unknown; items?: unknown };
+      if (typeof section.title !== "string") return null;
+      const title = section.title.trim();
+      if (title.length === 0) return null;
+      if (!Array.isArray(section.items) || section.items.length === 0 || section.items.length > 60) {
+        return null;
+      }
+      const items: PatentSectionsPayload["sections"][number]["items"] = [];
+      for (const itemEntry of section.items) {
+        if (!itemEntry || typeof itemEntry !== "object" || Array.isArray(itemEntry)) return null;
+        const item = itemEntry as { image?: unknown; caption?: unknown };
+        if (typeof item.image !== "string") return null;
+        const image = item.image.trim();
+        if (image.length === 0 || !isValidMediaValue(image)) return null;
+        if (typeof item.caption !== "string") return null;
+        items.push({ image, caption: item.caption.trim() });
+      }
+      out.push({ title, items });
+    }
+    return JSON.stringify({ sections: out });
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * `facilitiesTable` payloads: `{ header: [string, string], rows: [[string, string]] }`.
+ * `header` must hold exactly two non-empty strings; `rows` 1..100 entries of
+ * exactly two (possibly empty) strings. Strings are trimmed at their outer edges.
+ * Canonical JSON, or `null`.
+ */
+export function normalizeFacilitiesTablePayload(value: string): string | null {
+  try {
+    const parsed: unknown = JSON.parse(value);
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) return null;
+    const header = (parsed as { header?: unknown }).header;
+    if (!Array.isArray(header) || header.length !== 2) return null;
+    const headerOut: FacilitiesTablePayload["header"] = ["", ""];
+    for (let i = 0; i < 2; i += 1) {
+      const cell = header[i];
+      if (typeof cell !== "string") return null;
+      const trimmed = cell.trim();
+      if (trimmed.length === 0) return null;
+      headerOut[i] = trimmed;
+    }
+    const rows = (parsed as { rows?: unknown }).rows;
+    if (!Array.isArray(rows) || rows.length === 0 || rows.length > 100) return null;
+    const rowsOut: FacilitiesTablePayload["rows"] = [];
+    for (const rowEntry of rows) {
+      if (!Array.isArray(rowEntry) || rowEntry.length !== 2) return null;
+      const [a, b] = rowEntry;
+      if (typeof a !== "string" || typeof b !== "string") return null;
+      rowsOut.push([a.trim(), b.trim()]);
+    }
+    return JSON.stringify({ header: headerOut, rows: rowsOut });
+  } catch {
+    return null;
+  }
+}
+
+/**
  * Invalidate the routes a def affects.
  *
  * `ContentDef.revalidate` (emitted by the registry generator) lists the routes in
@@ -364,6 +535,55 @@ export async function saveContent({
       };
     }
     // Store the normalized value (disallowed fields cleared, extras truncated).
+    value = normalized;
+  }
+
+  if (def.kind === "facilityTabs" && trimmedLength > 0) {
+    const normalized = normalizeFacilityTabsPayload(value);
+    if (normalized === null) {
+      return {
+        ok: false,
+        message:
+          "Invalid facilityTabs payload: expected 1-3 tabs of { name, images } with valid media paths",
+      };
+    }
+    // Store the normalized value (names trimmed, unknown fields dropped).
+    value = normalized;
+  }
+
+  if (def.kind === "techFeatures" && trimmedLength > 0) {
+    const normalized = normalizeTechFeaturesPayload(value);
+    if (normalized === null) {
+      return {
+        ok: false,
+        message:
+          "Invalid techFeatures payload: expected 3 blocks of 1-12 items of { image, heading, rows[] } with valid media paths",
+      };
+    }
+    value = normalized;
+  }
+
+  if (def.kind === "patentSections" && trimmedLength > 0) {
+    const normalized = normalizePatentSectionsPayload(value);
+    if (normalized === null) {
+      return {
+        ok: false,
+        message:
+          "Invalid patentSections payload: expected 1-12 sections of { title, items[] } with valid media paths",
+      };
+    }
+    value = normalized;
+  }
+
+  if (def.kind === "facilitiesTable" && trimmedLength > 0) {
+    const normalized = normalizeFacilitiesTablePayload(value);
+    if (normalized === null) {
+      return {
+        ok: false,
+        message:
+          "Invalid facilitiesTable payload: expected { header: [string, string], rows: [[string, string]] }",
+      };
+    }
     value = normalized;
   }
 

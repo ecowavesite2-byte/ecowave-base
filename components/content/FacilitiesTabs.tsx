@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import type { FacilityTabs } from "@/lib/types";
 
-export type FacilitiesTab = { id: string; name: string; images: string[] };
+/** Rendered facility tab (shape shared with the server-side resolver). */
+export type FacilitiesTab = FacilityTabs;
 
 /**
  * Facilities tab gallery (rnd/facilities).

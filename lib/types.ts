@@ -104,6 +104,44 @@ export interface GalleryBlockConfig {
   maxItems?: number;
 }
 
+/** One tab of the rnd.facilities `facilityTabs` payload (`id` is derived at render). */
+export type FacilityTabsEntry = { name: string; images: string[] };
+/** Canonical `facilityTabs` payload: 1..3 tabs with bare media paths. */
+export type FacilityTabsPayload = FacilityTabsEntry[];
+/** A resolved facility tab: payload item + its stable render id. */
+export type FacilityTabs = { id: string; name: string; images: string[] };
+
+/* ---------------- structured R&D kinds ---------------- */
+
+/** One label/body line of a `techFeatures` item's text table. */
+export type TechFeatureRow = { label: string; body: string };
+/** One image + text-table block of a `techFeatures` item group. */
+export type TechFeatureItem = { image: string; heading: string; rows: TechFeatureRow[] };
+/** One fixed item group of a `techFeatures` payload (1..12 items). */
+export type TechFeatureBlock = { items: TechFeatureItem[] };
+/**
+ * Canonical v2 `techFeatures` payload: exactly THREE blocks in fixed order.
+ * Block k rebuilds the section named by the def's `techBlocks.sections[k]`.
+ */
+export type TechFeaturesPayload = { blocks: TechFeatureBlock[] };
+/** Fixed block→section mapping carried by the `techFeatures` def config. */
+export interface TechBlocksConfig {
+  sections: string[];
+}
+
+/** One certificate/gallery tile of a `patentSections` group. */
+export type PatentSectionItem = { image: string; caption: string };
+/** One heading + gallery group of the `patentSections` section. */
+export type PatentSection = { title: string; items: PatentSectionItem[] };
+/** Canonical `patentSections` payload: 1..12 groups. */
+export type PatentSectionsPayload = { sections: PatentSection[] };
+
+/** Canonical `facilitiesTable` payload: a 2-column header + data rows. */
+export type FacilitiesTablePayload = {
+  header: [string, string];
+  rows: Array<[string, string]>;
+};
+
 /** Ticker post selection (home notice ticker). */
 export type TickerPicks = { board: "news" | "notices"; idxs: string[] };
 

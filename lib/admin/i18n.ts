@@ -273,6 +273,71 @@ export interface AdminDict {
     galleryMaxHint: (max: number) => string;
     /** Card header for gallery item `n` (1-based). */
     galleryItem: (n: number) => string;
+    /** Structured `facilityTabs` (rnd.facilities production-facility tabs) editor. */
+    facilityTabsAdd: string;
+    facilityTabsRemove: string;
+    facilityTabsMoveUp: string;
+    facilityTabsMoveDown: string;
+    facilityTabsName: string;
+    facilityTabsImages: string;
+    facilityTabsImage: string;
+    facilityTabsImageAdd: string;
+    facilityTabsHint: string;
+    /** Tab-count cap reached (`MAX_TABS`). */
+    facilityTabsMaxHint: (max: number) => string;
+    /** Card header for tab `n` (1-based). */
+    facilityTabsTab: (n: number) => string;
+    /** Structured `techFeatures` (rnd.technology feature blocks) editor. */
+    techFeaturesAdd: string;
+    techFeaturesRemove: string;
+    techFeaturesMoveUp: string;
+    techFeaturesMoveDown: string;
+    techFeaturesImage: string;
+    /** Multiline block heading (`\n`-separated design lines). */
+    techFeaturesHeading: string;
+    techFeaturesRows: string;
+    /** One label/body row inside a block. */
+    techFeaturesRow: string;
+    techFeaturesRowLabel: string;
+    techFeaturesRowBody: string;
+    techFeaturesAddRow: string;
+    techFeaturesHint: string;
+    /** Item-count cap reached (`MAX_ITEMS`) in the current block. */
+    techFeaturesMaxHint: (max: number) => string;
+    /** Group header prefix for fixed block `n` (1-based): "블록 1" / "Block 1". */
+    techFeaturesBlock: (n: number) => string;
+    /** Descriptive names of the three fixed blocks (§4 / §5 / §6), in render order. */
+    techFeaturesBlocks: [string, string, string];
+    /** Card header for item `n` (1-based) inside a block. */
+    techFeaturesItem: (n: number) => string;
+    /** Structured `patentSections` (rnd.patents certification groups) editor. */
+    patentSectionsAdd: string;
+    patentSectionsRemove: string;
+    patentSectionsMoveUp: string;
+    patentSectionsMoveDown: string;
+    patentSectionsTitle: string;
+    patentSectionsItems: string;
+    /** One certificate item inside a section. */
+    patentSectionsItem: string;
+    patentSectionsCaption: string;
+    patentSectionsAddItem: string;
+    patentSectionsHint: string;
+    /** Section-count cap reached (`MAX_SECTIONS`). */
+    patentSectionsMaxHint: (max: number) => string;
+    /** Card header for section `n` (1-based). */
+    patentSectionsSection: (n: number) => string;
+    /** Structured `facilitiesTable` (rnd.facilities equipment tables) editor. */
+    facilitiesTableHeader: string;
+    /** Column-label input `n` (1-based) in the fixed two-column header. */
+    facilitiesTableHeaderColumn: (n: number) => string;
+    facilitiesTableRow: (n: number) => string;
+    facilitiesTableMoveUp: string;
+    facilitiesTableMoveDown: string;
+    facilitiesTableRemove: string;
+    facilitiesTableAddRow: string;
+    facilitiesTableHint: string;
+    /** Row-count cap reached (`MAX_ROWS`). */
+    facilitiesTableMaxHint: (max: number) => string;
   };
   /**
    * `/admin/boards` + `/admin/boards/<slug>` — the board picker, the per-board
@@ -553,6 +618,10 @@ const ko: AdminDict = {
       locations: "지사 목록",
       gallery: "갤러리",
       aboutCards: "카드 목록",
+      facilityTabs: "생산설비 탭",
+      techFeatures: "기술 블록",
+      patentSections: "인증 섹션 목록",
+      facilitiesTable: "설비 표",
     },
     fieldCount: (count) => `${count}개 필드`,
     save: "저장",
@@ -671,6 +740,58 @@ const ko: AdminDict = {
       "항목을 추가·삭제·순서 변경할 수 있습니다. 이미지 한 장이 썸네일과 원본에 함께 사용됩니다.",
     galleryMaxHint: (max) => `최대 ${max}개까지 추가할 수 있습니다.`,
     galleryItem: (n) => `항목 ${n}`,
+    facilityTabsAdd: "탭 추가",
+    facilityTabsRemove: "삭제",
+    facilityTabsMoveUp: "위로",
+    facilityTabsMoveDown: "아래로",
+    facilityTabsName: "탭 이름",
+    facilityTabsImages: "이미지",
+    facilityTabsImage: "이미지",
+    facilityTabsImageAdd: "이미지 추가",
+    facilityTabsHint:
+      "탭은 최대 3개까지 추가할 수 있습니다. 각 탭에 이름과 이미지를 하나 이상 넣으세요.",
+    facilityTabsMaxHint: (max) => `최대 ${max}개 탭까지 추가할 수 있습니다.`,
+    facilityTabsTab: (n) => `탭 ${n}`,
+    techFeaturesAdd: "항목 추가",
+    techFeaturesRemove: "삭제",
+    techFeaturesMoveUp: "위로",
+    techFeaturesMoveDown: "아래로",
+    techFeaturesImage: "이미지",
+    techFeaturesHeading: "제목 (여러 줄 가능)",
+    techFeaturesRows: "항목",
+    techFeaturesRow: "항목",
+    techFeaturesRowLabel: "라벨",
+    techFeaturesRowBody: "설명",
+    techFeaturesAddRow: "항목 추가",
+    techFeaturesHint:
+      "블록 3개는 고정되어 있습니다. 블록마다 항목을 추가·삭제·순서 변경할 수 있고, 제목과 설명은 줄바꿈을 그대로 사용합니다.",
+    techFeaturesMaxHint: (max) => `이 블록에는 최대 ${max}개 항목까지 추가할 수 있습니다.`,
+    techFeaturesBlock: (n) => `블록 ${n}`,
+    techFeaturesBlocks: ["친환경·프리미엄", "OEM·검사", "스마트·살균·대량생산"],
+    techFeaturesItem: (n) => `항목 ${n}`,
+    patentSectionsAdd: "섹션 추가",
+    patentSectionsRemove: "삭제",
+    patentSectionsMoveUp: "위로",
+    patentSectionsMoveDown: "아래로",
+    patentSectionsTitle: "제목",
+    patentSectionsItems: "인증서",
+    patentSectionsItem: "인증서",
+    patentSectionsCaption: "캡션",
+    patentSectionsAddItem: "인증서 추가",
+    patentSectionsHint:
+      "섹션과 인증서를 추가·삭제·순서 변경할 수 있습니다. 각 섹션에는 인증서를 하나 이상 넣으세요.",
+    patentSectionsMaxHint: (max) => `최대 ${max}개 섹션까지 추가할 수 있습니다.`,
+    patentSectionsSection: (n) => `섹션 ${n}`,
+    facilitiesTableHeader: "표 머리글",
+    facilitiesTableHeaderColumn: (n) => `머리글 ${n}`,
+    facilitiesTableRow: (n) => `행 ${n}`,
+    facilitiesTableMoveUp: "위로",
+    facilitiesTableMoveDown: "아래로",
+    facilitiesTableRemove: "삭제",
+    facilitiesTableAddRow: "행 추가",
+    facilitiesTableHint:
+      "표는 두 개의 열로 고정됩니다. 머리글과 각 행을 편집하고, 행을 추가·삭제·순서 변경할 수 있습니다.",
+    facilitiesTableMaxHint: (max) => `최대 ${max}개 행까지 추가할 수 있습니다.`,
   },
   boards: {
     title: "게시판",
@@ -923,6 +1044,10 @@ const en: AdminDict = {
       locations: "Branch locations",
       gallery: "Gallery",
       aboutCards: "Card list",
+      facilityTabs: "Facilities tabs",
+      techFeatures: "Technology block",
+      patentSections: "Certification sections",
+      facilitiesTable: "Equipment table",
     },
     fieldCount: (count) => `${count} fields`,
     save: "Save",
@@ -1038,6 +1163,61 @@ const en: AdminDict = {
       "Add, remove or reorder items. One image serves both the thumbnail and the full-size view.",
     galleryMaxHint: (max) => `Up to ${max} items.`,
     galleryItem: (n) => `Item ${n}`,
+    facilityTabsAdd: "Add tab",
+    facilityTabsRemove: "Remove",
+    facilityTabsMoveUp: "Move up",
+    facilityTabsMoveDown: "Move down",
+    facilityTabsName: "Tab name",
+    facilityTabsImages: "Images",
+    facilityTabsImage: "Image",
+    facilityTabsImageAdd: "Add image",
+    facilityTabsHint: "Add up to 3 tabs. Give each tab a name and at least one image.",
+    facilityTabsMaxHint: (max) => `Up to ${max} tabs.`,
+    facilityTabsTab: (n) => `Tab ${n}`,
+    techFeaturesAdd: "Add item",
+    techFeaturesRemove: "Remove",
+    techFeaturesMoveUp: "Move up",
+    techFeaturesMoveDown: "Move down",
+    techFeaturesImage: "Image",
+    techFeaturesHeading: "Heading (multiline)",
+    techFeaturesRows: "Rows",
+    techFeaturesRow: "Row",
+    techFeaturesRowLabel: "Label",
+    techFeaturesRowBody: "Body",
+    techFeaturesAddRow: "Add row",
+    techFeaturesHint:
+      "The three blocks are fixed. In each block you can add, remove or reorder items; headings and bodies keep their line breaks.",
+    techFeaturesMaxHint: (max) => `Up to ${max} items in this block.`,
+    techFeaturesBlock: (n) => `Block ${n}`,
+    techFeaturesBlocks: [
+      "Eco-friendly & premium",
+      "OEM & inspection",
+      "Smart, sterilization & mass production",
+    ],
+    techFeaturesItem: (n) => `Item ${n}`,
+    patentSectionsAdd: "Add section",
+    patentSectionsRemove: "Remove",
+    patentSectionsMoveUp: "Move up",
+    patentSectionsMoveDown: "Move down",
+    patentSectionsTitle: "Title",
+    patentSectionsItems: "Certificates",
+    patentSectionsItem: "Certificate",
+    patentSectionsCaption: "Caption",
+    patentSectionsAddItem: "Add certificate",
+    patentSectionsHint:
+      "Add, remove or reorder sections and certificates. Give each section at least one certificate.",
+    patentSectionsMaxHint: (max) => `Up to ${max} sections.`,
+    patentSectionsSection: (n) => `Section ${n}`,
+    facilitiesTableHeader: "Table header",
+    facilitiesTableHeaderColumn: (n) => `Header ${n}`,
+    facilitiesTableRow: (n) => `Row ${n}`,
+    facilitiesTableMoveUp: "Move up",
+    facilitiesTableMoveDown: "Move down",
+    facilitiesTableRemove: "Remove",
+    facilitiesTableAddRow: "Add row",
+    facilitiesTableHint:
+      "The table is fixed to two columns. Edit the header and each row, and add, remove or reorder rows.",
+    facilitiesTableMaxHint: (max) => `Up to ${max} rows.`,
   },
   boards: {
     title: "Boards",

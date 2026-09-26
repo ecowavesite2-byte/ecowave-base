@@ -72,8 +72,11 @@ editable field, emitted in nav/route order with document order preserved within 
 `/admin/content` and applied at render time by `lib/content/merge.ts` (`pair.ts` handles KO↔EN
 widget/section pairing). Field-level rules — text/HTML behaviour, image upload/reset, structured lists
 (hero slides, location cards, ticker picks, history eras, global locations — HQ first with at most two
-branch cards per row — and the about-page galleries), locale-parity rules, responsive-layout rules, and
-the verification commands — are documented in **`README.md` → “Content model & admin editing rules”**.
+branch cards per row — the about-page galleries, the R&D USP gallery, the
+facilities tabs, the shared company/R&D intro bands, and the structured R&D editors: the unified
+three-group technology-block editor, certification sections and equipment tables), locale-parity
+rules, responsive-layout rules, and the verification
+commands — are documented in **`README.md` → “Content model & admin editing rules”**.
 
 **Operations, environment variables, backup/restore, and the build/serve order are documented in
 `README.md`** (the runbook). Key rule: never run `next build` while `next start` is serving — stop,
@@ -263,3 +266,21 @@ design/                   audit artifacts, snapshots, reference shots (git-ignor
   KO↔EN pairing fixes), single-source mobile migration, content-derived section titles, shared company
   intro band, six-page company model with the `/company` read-alias, and structured history/global/about
   editors — commits `3535158`, `121b2c1`.
+- R&D channel editing upgrade (2026-09-26): structured `rnd.patents` certificate galleries and the
+  `rnd.technology` investor-USP gallery (legacy per-item R&D gallery keys, including the pre-alias
+  `rnd` keys, folded onto the structured `gallery` keys by `scripts/content-migrate-structured.mjs`), a
+  `facilityTabs` editor for the `rnd.facilities` tab labels/images (defaults from
+  `content/{ko,en}/facilities-tabs.json`), and the `/rnd` → `rnd.technology` read-alias.
+- Second R&D editing round (2026-09-26): technology blocks (`techFeatures` on `rnd.technology`
+  §4/§5/§6 — one dynamic item list per block, two items per row or full width for a lone item),
+  certification sections (`patentSections` on `rnd.patents` §4 — titled sections over captioned image
+  lists) and equipment tables (`facilitiesTable` on `rnd.facilities` §5 — fixed 2-column tables with
+  editable headers) become native structured editors; `scripts/content-migrate-structured.mjs` folds
+  the superseded R&D per-widget keys into the three kinds, skipping run-count/shape mismatches with a
+  warning and keeping the legacy rows.
+- Third R&D editing round (2026-09-26): the R&D sub-hero banner becomes ONE shared intro band edited on
+  `rnd.technology` (also `/rnd`) and applied to `rnd.patents`/`rnd.facilities`, with the dead per-page
+  copies folded onto the canonical key; `techFeatures` collapses to one def with three fixed block groups
+  (친환경·프리미엄 §4, OEM·검사 §5, 스마트·살균·대량생산 §6) saved together, v1/legacy keys folded onto the
+  v2 key; and the `rnd.facilities` admin preview renders through the shared `FacilitiesTabSection`
+  (tabs + gallery) for both the section and full-page previews.
