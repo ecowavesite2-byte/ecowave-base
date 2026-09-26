@@ -130,8 +130,8 @@ npm run content:validate                      # crawl structure + asset referenc
   alt-text field.
 - **Nested media in rich text** — images and iframes inside a `text` widget are editable per locale
   as `img[n].src` (image) and `iframe[n].src` (embed), addressing the nth tag in the markup.
-- **Embeds (`embed`)** — a per-locale iframe/embed URL (e.g. the map widgets), validated as
-  `http(s)`; the URL is injected into the authored `<iframe>`.
+- **Embeds (`embed`)** — a per-locale iframe/embed URL, validated as `http(s)`; the URL is injected
+  into the authored `<iframe>` (the global-network maps now live in the `locations` payload's `mapSrc`).
 - **Video** — the source accepts a YouTube/embed URL **or** an uploaded file; `.mp4/.webm/.ogv/.mov`
   sources render as a native `<video>`. Upload caps: video ≤ 50 MB (images have a smaller cap);
   uploads need `BLOB_READ_WRITE_TOKEN`.
@@ -157,15 +157,26 @@ npm run content:validate                      # crawl structure + asset referenc
   pause on hover/focus/drag.
 
 **Not editable by design:** links (`href`) are hard-coded; alt text (outside the overlay editor);
-`code` blocks; the mobile back-to-top band. Sections whose text widgets are markup-only (no text
-nodes) are excluded from the registry.
+`code` blocks; the mobile back-to-top band. Plain markup-only text widgets are excluded from the
+registry unless they carry editable embedded media (`img[n].src` / `iframe[n].src`).
 
 ### Payload contracts
 
-`slides`, `cards`, `picks`, `eras` and `locations` are structured JSON: `lib/content/save.ts`
-validates them at the API boundary (malformed/empty → 400) and the appliers in `lib/content/merge.ts`
+`slides`, `cards`, `picks`, `eras`, `locations`, `gallery` and `aboutCards` are structured JSON:
+`lib/content/save.ts` validates them at the API boundary (malformed/empty → 400; per-block field
+config and `maxItems` are enforced and normalized) and the appliers in `lib/content/merge.ts`
 re-validate stored payloads, silently no-oping on garbage. Malformed overrides can never break
 rendering.
+
+### Structured override migration (existing databases)
+
+Superseded per-widget keys are folded into the structured payloads by
+`scripts/content-migrate-structured.mjs` (dry-run by default; `--apply` writes): history era
+label/years fields, the global HQ name/contacts/map widgets, about-page gallery items/cards and the
+block-8 pins all become `eras` / `locations` / `gallery` / `aboutCards` overrides. Run it once when
+deploying onto a database that may hold old overrides; a database with no overrides is a no-op.
+Also run `npx prisma migrate deploy` on deploy — the `company_root_alias` migration moves legacy
+`company#…` override keys onto the alias target (`company.ceo#…`).
 
 ### Locale rules (KO ↔ EN)
 
@@ -202,8 +213,11 @@ npm run verify                                  # typecheck + lint + content:val
 npx vitest run                                  # registry/merge/save/text-runs unit suites
 node scripts/gen-content-registry.mjs --check   # registry drift
 npm run content:health                          # dangling defs / override keys
-node scripts/audit/verify-home-editor.mjs       # admin + runtime E2E (writes & reverts overrides)
-node scripts/audit/verify-company-editor.mjs    # company registry + nested media E2E (writes & reverts overrides)
+node scripts/audit/verify-home-editor.mjs            # admin + runtime E2E (writes & reverts overrides)
+node scripts/audit/verify-company-editor.mjs         # company content E2E: registry shape + gallery/eras/locations round-trips
+node scripts/audit/capture-company-viewports.mjs     # company captures: mobile/desktop overflow, portraits, band parity
+node scripts/audit/capture-structured-viewports.mjs  # structured overrides applied → captured → reverted
+node scripts/audit/probe-about-carousel.mjs          # about slider autoplay + pause-on-interaction probe
 ```
 
 ## Admin dashboard & ops runbook

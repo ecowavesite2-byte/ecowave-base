@@ -71,8 +71,9 @@ editable field, emitted in nav/route order with document order preserved within 
 `page_content` override store, edited at
 `/admin/content` and applied at render time by `lib/content/merge.ts` (`pair.ts` handles KO↔EN
 widget/section pairing). Field-level rules — text/HTML behaviour, image upload/reset, structured lists
-(hero slides, location cards, ticker picks), locale-parity rules, responsive-layout rules, and the
-verification commands — are documented in **`README.md` → “Content model & admin editing rules”**.
+(hero slides, location cards, ticker picks, history eras, global locations — HQ first with at most two
+branch cards per row — and the about-page galleries), locale-parity rules, responsive-layout rules, and
+the verification commands — are documented in **`README.md` → “Content model & admin editing rules”**.
 
 **Operations, environment variables, backup/restore, and the build/serve order are documented in
 `README.md`** (the runbook). Key rule: never run `next build` while `next start` is serving — stop,
@@ -258,3 +259,7 @@ design/                   audit artifacts, snapshots, reference shots (git-ignor
 - Admin: phases 1–8 — original `ADMIN-PLAN.md` (now in git history).
 - Parity program: baseline 2026-09-19 → fix waves → final verification 2026-09-23 (commits `3eb57bc`,
   `a7ddcd6`, `1d98449`, `d02bbe1`, `e59bcc5`, `cede0bc`) — original `FIX-PLAN.md` (now in git history).
+- Company channel editing program (2026-09-25/26): deep coverage audit (nested media/embed fields,
+  KO↔EN pairing fixes), single-source mobile migration, content-derived section titles, shared company
+  intro band, six-page company model with the `/company` read-alias, and structured history/global/about
+  editors — commits `3535158`, `121b2c1`.
