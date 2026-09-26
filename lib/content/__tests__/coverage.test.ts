@@ -108,12 +108,17 @@ describe("override coverage (every CONTENT_DEFS key, both locales)", () => {
                           badge: marker,
                           city: marker,
                           address: marker,
+                          phone: marker,
+                          fax: marker,
+                          email: marker,
                           mapSrc: `https://example.com/${marker}`,
                         },
                       ])
-                    : def.kind === "overlay" || def.kind === "textarea"
-                      ? `<p>${marker}</p>`
-                      : marker;
+                    : def.kind === "gallery" || def.kind === "aboutCards"
+                      ? JSON.stringify([{ image: `/${marker}.png`, title: marker, desc: marker }])
+                      : def.kind === "overlay" || def.kind === "textarea"
+                        ? `<p>${marker}</p>`
+                        : marker;
         let merged: unknown;
 
         try {
@@ -164,7 +169,7 @@ describe("override coverage (every CONTENT_DEFS key, both locales)", () => {
     }
 
     expect(failures).toEqual([]);
-    // 463 defs × 2 locales − 10 allowlisted applications (5 board-post keys
+    // 294 defs × 2 locales − 10 allowlisted applications (5 board-post keys
     // count once per locale).
     // Dead sections are excluded from the registry by the generator: the footer
     // copies on non-home pages (SiteFooter renders home's), the leading
@@ -174,11 +179,12 @@ describe("override coverage (every CONTENT_DEFS key, both locales)", () => {
     // non-canonical copies of the shared company intro band (only `company.ceo`'s
     // is live; the renderer swaps its rows into every other company page, and the
     // root `company` key is an alias that emits no defs at all). The superseded
-    // per-widget history era and branch defs are replaced by one `eras` and one
-    // `locations` def respectively.
+    // per-widget history era / branch / HQ / company.about gallery + card defs
+    // are replaced by one `eras`, one `locations`, four `gallery` and one
+    // `aboutCards` def (the `locations` def now also folds in the 3 HQ widgets).
     expect(allowlisted.length).toBe(10);
     expect(applied).toBe(CONTENT_DEFS.length * LOCALES.length - 10);
-    expect(applied).toBe(916);
+    expect(applied).toBe(578);
     expect(applied).toBe(expectedApplied);
   });
 

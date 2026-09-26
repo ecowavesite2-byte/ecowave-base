@@ -248,13 +248,14 @@ function findDanglingDefs(defs, pages) {
     }
 
     // Section-scoped list defs (`/cards/cards`, `/picks/picks`, `/eras/eras`,
-    // `/locations/locations`): the section is the target and it exists (checked
-    // above) — there is no widget to look up.
+    // `/locations/locations`, `/aboutCards/aboutCards`): the section is the target
+    // and it exists (checked above) — there is no widget to look up.
     if (
       (def.widgetId === "cards" && def.field === "cards") ||
       (def.widgetId === "picks" && def.field === "picks") ||
       (def.widgetId === "eras" && def.field === "eras") ||
-      (def.widgetId === "locations" && def.field === "locations")
+      (def.widgetId === "locations" && def.field === "locations") ||
+      (def.widgetId === "aboutCards" && def.field === "aboutCards")
     ) {
       continue;
     }
@@ -290,6 +291,29 @@ function findCoverage(defs, pages) {
       .filter((def) => def.widgetId === "locations" && def.field === "locations")
       .map((def) => `${def.pageKey}\u0000${def.sectionId}`),
   );
+  // An `aboutCards` def (company.about block 5) covers the 6 card text widgets
+  // after the heading (mirrors `hasCardsDef`).
+  const aboutCardsSections = new Set(
+    defs
+      .filter((def) => def.widgetId === "aboutCards" && def.field === "aboutCards")
+      .map((def) => `${def.pageKey}\u0000${def.sectionId}`),
+  );
+  // A `locations` def also covers the HQ section's name/contacts/map text
+  // widgets (item 0): the section immediately preceding the branches anchor.
+  const locationHqWidgets = new Set();
+  for (const def of defs) {
+    if (!(def.widgetId === "locations" && def.field === "locations")) continue;
+    const page = pages.get(def.pageKey);
+    if (!page) continue;
+    const list = page.sections ?? [];
+    const anchorIndex = list.findIndex((section) => section.id === def.sectionId);
+    if (anchorIndex <= 0) continue;
+    for (const widget of sectionWidgets(list[anchorIndex - 1])) {
+      if (widget.type === "text" && typeof widget.html === "string" && widget.html.trim()) {
+        locationHqWidgets.add(`${def.pageKey}\u0000${widget.id}`);
+      }
+    }
+  }
   const coverage = [];
   for (const [pageKey, page] of pages) {
     // Alias page files (`company`) render another page's tree and emit no defs.
@@ -298,9 +322,11 @@ function findCoverage(defs, pages) {
       // Covered wholesale by a structured def anchored elsewhere/here.
       if (erasPages.has(pageKey) && isEraSection(section)) continue;
       if (locationSections.has(`${pageKey}\u0000${section.id}`)) continue;
-      const hasCardsDef = cardsSections.has(`${pageKey}\u0000${section.id}`);
+      const sectionRef = `${pageKey}\u0000${section.id}`;
+      const hasCardsDef = cardsSections.has(sectionRef) || aboutCardsSections.has(sectionRef);
       let seenCardText = false;
       for (const widget of sectionWidgets(section)) {
+        if (locationHqWidgets.has(`${pageKey}\u0000${widget.id}`)) continue;
         if (!CONTENT_WIDGET_TYPES.has(widget.type)) continue;
         if (!hasContent(widget)) continue;
         // `code` widgets are raw embed markup, not user content — the override

@@ -4,6 +4,7 @@ import { describe, expect, it } from "vitest";
 import type { PageContent, SiteData } from "../../types";
 import { CONTENT_DEFS, DEFAULT_VALUES } from "../registry";
 import { applyPageOverrides, applySiteOverrides, parseRegistryKey } from "../merge";
+import { sectionWidgets } from "../pair";
 
 const ROOT = process.cwd();
 
@@ -175,17 +176,20 @@ describe("applyPageOverrides", () => {
 });
 
 describe("applyPageOverrides embedded media (img/iframe src)", () => {
+  // company.about's per-item gallery/card img defs are now covered by the
+  // structured `gallery`/`aboutCards` kinds, and the company.global HQ map by
+  // the page-level `locations` kind. Exercise the generic nested-img path on
+  // company.philosophy (still per-widget) and the generic nested-iframe path by
+  // addressing the HQ map widget key directly (it no longer has a registry def,
+  // but the field contract still applies).
   const imgDef = CONTENT_DEFS.find(
-    (d) => d.pageKey === "company.about" && /^img\[\d+\]\.src$/.test(d.field),
-  );
-  const iframeDef = CONTENT_DEFS.find(
-    (d) => d.pageKey === "company.global" && /^iframe\[\d+\]\.src$/.test(d.field),
+    (d) => d.pageKey === "company.philosophy" && /^img\[\d+\]\.src$/.test(d.field),
   );
 
   it("replaces the nth img src for ko and for en (positional primary pairing)", () => {
     expect(imgDef).toBeDefined();
-    const ko = readLocalePage("ko", "company.about") as PageContent;
-    const en = readLocalePage("en", "company.about") as PageContent;
+    const ko = readLocalePage("ko", "company.philosophy") as PageContent;
+    const en = readLocalePage("en", "company.philosophy") as PageContent;
 
     const marker = "/patched-embed.png";
     const mergedKo = applyPageOverrides(ko, { [imgDef!.key]: marker }, "ko");
@@ -202,7 +206,7 @@ describe("applyPageOverrides embedded media (img/iframe src)", () => {
 
   it("coexists with the widget's `lines` html override in either order", () => {
     expect(imgDef).toBeDefined();
-    const ko = readLocalePage("ko", "company.about") as PageContent;
+    const ko = readLocalePage("ko", "company.philosophy") as PageContent;
     const htmlKey = imgDef!.key.replace(/img\[\d+\]\.src$/, "html");
     expect(CONTENT_DEFS.some((d) => d.key === htmlKey)).toBe(true);
 
@@ -226,28 +230,39 @@ describe("applyPageOverrides embedded media (img/iframe src)", () => {
     expect(bothB).toEqual(bothA);
   });
 
-  it("applies an iframe src override", () => {
-    expect(iframeDef).toBeDefined();
+  it("applies a nested iframe src override on the company.global HQ map", () => {
     const ko = readLocalePage("ko", "company.global") as PageContent;
+    const hq = ko.sections.find((s) => s.id === "s20250828182272ec01906");
+    expect(hq).toBeDefined();
+    const mapWidget = sectionWidgets(hq!).find(
+      (w) => w.type === "text" && /<iframe\b/i.test(w.html ?? ""),
+    );
+    expect(mapWidget).toBeDefined();
+
+    const key = `company.global#${hq!.id}/${mapWidget!.id}/iframe[0].src`;
     const marker = "https://example.com/embed";
-    const merged = applyPageOverrides(ko, { [iframeDef!.key]: marker }, "ko");
+    const merged = applyPageOverrides(ko, { [key]: marker }, "ko");
     expect(JSON.stringify(merged)).toContain(marker);
+    expect(JSON.stringify(ko)).not.toContain(marker);
   });
 
   it("no-ops for an out-of-range embed index", () => {
     expect(imgDef).toBeDefined();
-    const ko = readLocalePage("ko", "company.about") as PageContent;
+    const ko = readLocalePage("ko", "company.philosophy") as PageContent;
     const outOfRange = imgDef!.key.replace(/img\[(\d+)\]\.src$/, "img[99].src");
     const out = applyPageOverrides(ko, { [outOfRange]: "/never.png" }, "ko");
     expect(out).toEqual(ko);
     expect(JSON.stringify(out)).not.toContain("/never.png");
   });
 
-  it("gives a markup-only iframe widget an iframe def but no lines def", () => {
-    expect(iframeDef).toBeDefined();
-    const widgetDefs = CONTENT_DEFS.filter((d) => d.widgetId === iframeDef!.widgetId);
-    expect(widgetDefs.map((d) => d.field)).toEqual(["iframe[0].src"]);
-    expect(widgetDefs.some((d) => d.field === "html")).toBe(false);
+  it("covers the HQ name/contacts/map with the locations def (no per-widget defs)", () => {
+    // No registry def targets the HQ section any more — its widgets are folded
+    // into the page-level `locations` def (item 0).
+    const hqDefs = CONTENT_DEFS.filter((d) => d.sectionId === "s20250828182272ec01906");
+    expect(hqDefs).toEqual([]);
+    // The only iframe/embed defs in the registry were the HQ map — now gone.
+    expect(CONTENT_DEFS.filter((d) => /^iframe\[\d+\]\.src$/.test(d.field))).toEqual([]);
+    expect(CONTENT_DEFS.some((d) => d.kind === "locations")).toBe(true);
   });
 });
 

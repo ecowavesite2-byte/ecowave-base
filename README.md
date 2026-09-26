@@ -146,9 +146,15 @@ npm run content:validate                      # crawl structure + asset referenc
 - **History eras (`eras`)** — the `company.history` timeline is a structured list: add, remove or
   reorder era blocks, each carrying a year range, tagline, image and an ordered per-year milestone
   list (add/remove years, one milestone per line).
-- **Global locations (`locations`)** — the `company.global` branch list is a structured list: add,
-  remove or reorder branch cards with badge/city/address and a map URL. The Global HQ card is a
-  fixed section and is not part of the list.
+- **Global locations (`locations`)** — the `company.global` network is ONE dynamic list: the first
+  item is the locked HQ band (no move/remove) and the rest are branch cards (add, remove, reorder).
+  Every item carries badge/city/address/phone/fax/email/mapSrc; the map input accepts a Google Maps
+  **embed** URL and shows an inline preview plus an "open in Maps" address link.
+- **About-page galleries (`gallery` / `aboutCards`)** — the `/company/about` media blocks are
+  structured: add/remove/reorder items, one image upload serves both the list thumbnail and the
+  viewer original (`org = thumb`), and each block fixes its own editable text fields and max item
+  count. Block-8 location pins are fixed (no upload); the slide galleries auto-scroll slowly and
+  pause on hover/focus/drag.
 
 **Not editable by design:** links (`href`) are hard-coded; alt text (outside the overlay editor);
 `code` blocks; the mobile back-to-top band. Sections whose text widgets are markup-only (no text

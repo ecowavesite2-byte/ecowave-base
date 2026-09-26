@@ -4,6 +4,7 @@ import type {
   ColNode,
   EraEntry,
   EraYear,
+  GalleryBlockConfig,
   GlobalLocation,
   LocationCard,
   Node,
@@ -11,6 +12,7 @@ import type {
   RowNode,
   Section,
   SiteData,
+  StructuredMediaItem,
   TickerPicks,
   WidgetNode,
 } from "../types";
@@ -498,16 +500,29 @@ function parseLocations(value: string): GlobalLocation[] | null {
         badge?: unknown;
         city?: unknown;
         address?: unknown;
+        phone?: unknown;
+        fax?: unknown;
+        email?: unknown;
         mapSrc?: unknown;
       };
       if (typeof location.badge !== "string") return null;
       if (typeof location.city !== "string") return null;
       if (typeof location.address !== "string") return null;
       if (typeof location.mapSrc !== "string") return null;
+      // Pre-upgrade payloads have no contact fields; normalize to "".
+      const phone = location.phone === undefined ? "" : location.phone;
+      const fax = location.fax === undefined ? "" : location.fax;
+      const email = location.email === undefined ? "" : location.email;
+      if (typeof phone !== "string" || typeof fax !== "string" || typeof email !== "string") {
+        return null;
+      }
       locations.push({
         badge: location.badge,
         city: location.city,
         address: location.address,
+        phone,
+        fax,
+        email,
         mapSrc: location.mapSrc,
       });
     }
@@ -707,21 +722,66 @@ export function applyEras(sections: Section[], anchor: Section, eras: EraEntry[]
   }
 }
 
-/** The company.global branches row (row with ≥ 2 iframe-bearing columns). */
-function findBranchRow(section: Section): RowNode | null {
+/**
+ * The company.global branch container rows: rows in the section whose subtree
+ * contains at least one iframe-bearing text widget. After an add they may be
+ * several (one per group of ≤ 2 branch cards); the first is the clone template.
+ */
+function containerRowsOf(section: Section): RowNode[] {
+  const rows: RowNode[] = [];
   for (const node of section?.rows ?? []) {
     if (node.kind !== "row") continue;
-    const iframeCols = node.cols.filter((col) =>
+    const hasIframe = node.cols.some((col) =>
       nodeWidgets(col).some(
         (w) => w.type === "text" && typeof w.html === "string" && /<iframe\b/i.test(w.html),
       ),
     );
-    if (iframeCols.length >= 2) return node;
+    if (hasIframe) rows.push(node);
   }
-  return null;
+  return rows;
 }
 
-/** Apply one `GlobalLocation` to one branch column (name runs + map iframe). */
+/** Marker pair wrapping the idempotent branch contact block. */
+const LOC_CONTACTS_RE = /<!--loc-contacts-->[\s\S]*?<!--\/loc-contacts-->/g;
+
+/** The contact block for one branch card ("" when no contact field is set). */
+function contactBlock(location: GlobalLocation): string {
+  const rows: string[] = [];
+  if (location.phone) {
+    rows.push(
+      `<p style="line-height:2"><span style="font-size:18px">TEL ${escapeEraText(location.phone)}</span></p>`,
+    );
+  }
+  if (location.fax) {
+    rows.push(
+      `<p style="line-height:2"><span style="font-size:18px">FAX ${escapeEraText(location.fax)}</span></p>`,
+    );
+  }
+  if (location.email) {
+    rows.push(
+      `<p style="line-height:2"><span style="font-size:18px">EMAIL ${escapeEraText(location.email)}</span></p>`,
+    );
+  }
+  if (rows.length === 0) return "";
+  return `<!--loc-contacts-->${rows.join("")}<!--/loc-contacts-->`;
+}
+
+/**
+ * Strip any existing contact block, then append the location's block at the end
+ * of the card content (after the address paragraph). Idempotent: re-applying a
+ * contact-free item leaves the authored markup byte-identical.
+ */
+function applyContactBlock(html: string, location: GlobalLocation): string {
+  const source = String(html ?? "");
+  const stripped = source.replace(LOC_CONTACTS_RE, "");
+  const block = contactBlock(location);
+  if (!block) return stripped;
+  const close = stripped.lastIndexOf("</div></div>");
+  if (close >= 0) return stripped.slice(0, close) + block + stripped.slice(close);
+  return stripped + block;
+}
+
+/** Apply one branch item (`locations[1+]`) to one branch column. */
 function applyBranch(col: ColNode, location: GlobalLocation): void {
   const widgets = nodeWidgets(col);
   const name =
@@ -733,9 +793,57 @@ function applyBranch(col: ColNode, location: GlobalLocation): void {
     null;
 
   if (name) {
+    // Strip the contact block BEFORE comparing runs so a previous apply cannot
+    // inflate the run count and break the 3-run badge/city/address injection.
+    const stripped = String(name.html ?? "").replace(LOC_CONTACTS_RE, "");
     const desired = [location.badge, location.city, location.address].join("\n");
+    const injected =
+      desired !== extractTextRuns(stripped).join("\n")
+        ? injectTextRuns(stripped, desired)
+        : stripped;
+    name.html = applyContactBlock(injected, location);
+  }
+
+  if (map && location.mapSrc) {
+    map.html = replaceNthSrc(map.html, "iframe", 0, location.mapSrc);
+  }
+}
+
+/** Apply the HQ item (item 0) to the company.global HQ section in place. */
+function applyHq(section: Section, location: GlobalLocation): void {
+  const widgets = sectionWidgetList(section);
+  const name =
+    widgets.find(
+      (w) =>
+        w.type === "text" &&
+        typeof w.html === "string" &&
+        !/<iframe\b/i.test(w.html) &&
+        !/<table\b/i.test(w.html),
+    ) ?? null;
+  const contacts =
+    widgets.find(
+      (w) => w.type === "text" && typeof w.html === "string" && /<table\b/i.test(w.html),
+    ) ?? null;
+  const map =
+    widgets.find((w) => w.type === "text" && typeof w.html === "string" && /<iframe\b/i.test(w.html)) ??
+    null;
+
+  if (name) {
+    // The authored HQ name is 2 runs (chip + address); `city` folds into the
+    // address line, so an empty authored city re-renders byte-identically.
+    const desired = [
+      location.badge,
+      [location.city, location.address].filter(Boolean).join(" "),
+    ].join("\n");
     if (desired !== extractTextRuns(name.html).join("\n")) {
       name.html = injectTextRuns(name.html, desired);
+    }
+  }
+
+  if (contacts) {
+    const desired = ["TEL", location.phone, "FAX", location.fax, "EMAIL", location.email].join("\n");
+    if (desired !== extractTextRuns(contacts.html).join("\n")) {
+      contacts.html = injectTextRuns(contacts.html, desired);
     }
   }
 
@@ -745,38 +853,263 @@ function applyBranch(col: ColNode, location: GlobalLocation): void {
 }
 
 /**
- * Restructure an already-deep-cloned company.global section so its branches row
- * renders EXACTLY `locations.length` columns (replace-in-place, clone the last
- * column to add, drop extras, re-grid when the count changes). Never throws.
+ * Page-level `locations` applier. Item 0 targets the HQ section (the section
+ * immediately preceding the branches anchor: name/contacts/map widgets); items
+ * 1+ are laid out as branch cards, at most TWO per container row (a lone
+ * trailing card takes the full row width). Never throws.
  */
-export function applyLocations(section: Section, locations: GlobalLocation[]): void {
+export function applyLocations(
+  sections: Section[],
+  anchor: Section,
+  locations: GlobalLocation[],
+): void {
   try {
-    if (!section || !Array.isArray(locations) || locations.length === 0) return;
-    const row = findBranchRow(section);
-    if (!row) return;
-    const cols = row.cols;
-    const n = cols.length;
-    const m = locations.length;
-    const common = Math.min(m, n);
-    for (let i = 0; i < common; i += 1) applyBranch(cols[i], locations[i]);
-
-    if (m > n) {
-      const template = cols[n - 1];
-      if (!template) return;
-      for (let i = n; i < m; i += 1) {
-        const clone = deepClone(template);
-        rewriteNodeIds(clone, `__loc${i}`);
-        applyBranch(clone, locations[i]);
-        cols.push(clone);
-      }
-    } else if (m < n) {
-      cols.splice(m, n - m);
+    if (!Array.isArray(sections) || !anchor || !Array.isArray(locations) || locations.length === 0) {
+      return;
     }
 
-    if (m !== n) {
-      const grid =
-        m <= 1 ? "12" : m === 2 ? "6" : String(Math.max(3, Math.floor(12 / m)));
-      for (const col of cols) col.grid = grid;
+    const anchorIndex = sections.indexOf(anchor);
+    const hqSection = anchorIndex > 0 ? sections[anchorIndex - 1] : null;
+    if (hqSection && locations[0]) applyHq(hqSection, locations[0]);
+
+    const branchItems = locations.slice(1);
+    const containerRows = containerRowsOf(anchor);
+    const templateRow = containerRows[0] ?? null;
+    if (!templateRow) return;
+
+    const existingCols = containerRows.flatMap((row) => row.cols);
+    const templateCol = existingCols[existingCols.length - 1] ?? templateRow.cols[0] ?? null;
+    if (!templateCol) return;
+
+    // Target cols in item order: reuse the authored cols first, then clone the
+    // template col with a unique `__loc<i>` id. `applyBranch` is unchanged.
+    const m = branchItems.length;
+    const targetCols: ColNode[] = [];
+    for (let i = 0; i < m; i += 1) {
+      let col: ColNode;
+      if (i < existingCols.length) {
+        col = existingCols[i];
+      } else {
+        col = deepClone(templateCol);
+        rewriteNodeIds(col, `__loc${i}`);
+      }
+      applyBranch(col, branchItems[i]);
+      targetCols.push(col);
+    }
+
+    // Chunk into rows of at most 2; 2 cols split 50/50, a lone col is full width.
+    const groups: ColNode[][] = [];
+    for (let i = 0; i < targetCols.length; i += 2) {
+      groups.push(targetCols.slice(i, i + 2));
+    }
+
+    // Reuse existing container rows in order, then clone the template row (the
+    // copy's own cols are discarded; only the row-level h/pad/grid survive).
+    const newRows: RowNode[] = [];
+    for (let g = 0; g < groups.length; g += 1) {
+      const group = groups[g];
+      let row: RowNode;
+      if (g < containerRows.length) {
+        row = containerRows[g];
+      } else {
+        row = deepClone(templateRow);
+        rewriteNodeIds(row, `__locrow${g}`);
+      }
+      row.cols = group;
+      const grid = group.length === 1 ? "12" : "6";
+      for (const col of group) col.grid = grid;
+      newRows.push(row);
+    }
+
+    // Rebuild the section rows: drop every container row and splice the new set
+    // back at the first container row's position (contiguous, before the trailing
+    // pad). Authored pad rows and their order are untouched.
+    const rows = anchor.rows ?? [];
+    const firstIndex = rows.findIndex((node) => containerRows.includes(node as RowNode));
+    if (firstIndex < 0) return;
+    for (let i = rows.length - 1; i >= 0; i -= 1) {
+      if (containerRows.includes(rows[i] as RowNode)) rows.splice(i, 1);
+    }
+    rows.splice(firstIndex, 0, ...newRows);
+  } catch {
+    // Overrides must never break rendering.
+  }
+}
+
+/* ---------------- structured media kinds: gallery + aboutCards ---------------- */
+
+/** Parse a `gallery`/`aboutCards` payload; `null` when malformed/empty. */
+function parseMediaItems(value: string): StructuredMediaItem[] | null {
+  try {
+    const parsed: unknown = JSON.parse(value);
+    if (!Array.isArray(parsed) || parsed.length === 0) return null;
+    const items: StructuredMediaItem[] = [];
+    for (const entry of parsed) {
+      if (!entry || typeof entry !== "object" || Array.isArray(entry)) return null;
+      const item = entry as { image?: unknown; title?: unknown; desc?: unknown };
+      if (typeof item.image !== "string" || item.image.length === 0) return null;
+      if (typeof item.title !== "string") return null;
+      if (typeof item.desc !== "string") return null;
+      items.push({ image: item.image, title: item.title, desc: item.desc });
+    }
+    return items;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Clamp a media payload to its block config: clear fields the block does not
+ * expose and truncate to `maxItems`. Defends render time against a direct-DB
+ * payload that bypassed the save validator.
+ */
+function normalizeMediaItems(
+  items: StructuredMediaItem[],
+  cfg?: GalleryBlockConfig,
+): StructuredMediaItem[] {
+  const fields = cfg?.fields;
+  const allowTitle = !fields || fields.includes("title");
+  const allowDesc = !fields || fields.includes("desc");
+  const normalized = items.map((item) => ({
+    image: item.image,
+    title: allowTitle ? item.title : "",
+    desc: allowDesc ? item.desc : "",
+  }));
+  const max = cfg?.maxItems;
+  return typeof max === "number" ? normalized.slice(0, max) : normalized;
+}
+
+/**
+ * Replace a gallery2 widget's items from a structured payload. `org` and `thumb`
+ * both take the one uploaded image; `layout`/config fields stay untouched.
+ */
+export function applyGallery(
+  widget: WidgetNode,
+  items: StructuredMediaItem[],
+  cfg?: GalleryBlockConfig,
+): void {
+  try {
+    if (!widget || !Array.isArray(items) || items.length === 0) return;
+    const normalized = normalizeMediaItems(items, cfg);
+    if (normalized.length === 0) return;
+    widget.items = normalized.map((item) => ({
+      org: item.image,
+      thumb: item.image,
+      title: item.title,
+      desc: item.desc,
+    }));
+  } catch {
+    // Overrides must never break rendering.
+  }
+}
+
+/** The nearest ancestor `col` wrapping exactly one widget (a block-5 card). */
+function nearestCardColPlace(entry: LocatedWidget): NodePlace | null {
+  for (let i = entry.path.length - 1; i >= 0; i -= 1) {
+    const place = entry.path[i];
+    if (place.node.kind === "col" && countWidgets(place.node) === 1) return place;
+  }
+  return null;
+}
+
+/** The nearest ancestor `row` of a widget (its card row). */
+function nearestRowPlace(entry: LocatedWidget): NodePlace | null {
+  for (let i = entry.path.length - 1; i >= 0; i -= 1) {
+    if (entry.path[i].node.kind === "row") return entry.path[i];
+  }
+  return null;
+}
+
+/** Inject one media item into a block-5 card text widget (title / image / desc). */
+function injectAboutCardWidget(widget: WidgetNode, item: StructuredMediaItem): void {
+  let html = injectTextRuns(widget.html, item.title, { start: 0, end: 0 });
+  html = replaceNthSrc(html, "img", 0, item.image);
+  html = injectTextRuns(html, item.desc, { start: 1 });
+  widget.html = html;
+}
+
+/** Inject a media item into the text widget inside a cloned card block. */
+function injectAboutCardNode(node: Node, item: StructuredMediaItem): void {
+  const widgets: WidgetNode[] = [];
+  forEachWidget(node, (widget) => widgets.push(widget));
+  const card = widgets.find((widget) => widget.type === "text") ?? widgets[0];
+  if (card) injectAboutCardWidget(card, item);
+}
+
+/**
+ * Restructure an already-deep-cloned section so block 5 renders EXACTLY
+ * `items.length` cards (title + embedded image + description). The section tree
+ * is edited in place (the caller owns the clone):
+ *
+ *  - the first non-empty `text` widget is the heading; the text widgets after it
+ *    are the cards (each a `row > col > widget` block);
+ *  - existing cards re-inject title/image/desc into the authored markup;
+ *  - extra items deep-clone the LAST card's `col` (`<id>__card<i>`) and push it
+ *    into the last card row, cloning the row shell once that row is full (2 cols);
+ *  - missing items splice trailing card cols (and rows left col-less);
+ *  - unknown shapes: no-op. Never throws.
+ */
+export function applyAboutCards(
+  section: Section,
+  items: StructuredMediaItem[],
+  cfg?: GalleryBlockConfig,
+): void {
+  try {
+    if (!section || !Array.isArray(items) || items.length === 0) return;
+    const normalized = normalizeMediaItems(items, cfg);
+    if (normalized.length === 0) return;
+
+    const located: LocatedWidget[] = [];
+    collectLocatedWidgets(section.rows, located);
+    const textEntries = located.filter((entry) => entry.widget.type === "text");
+    const heading = textEntries.findIndex(
+      (entry) => typeof entry.widget.html === "string" && entry.widget.html.trim().length > 0,
+    );
+    if (heading < 0) return;
+    const cardEntries = textEntries.slice(heading + 1);
+    if (cardEntries.length === 0) return;
+
+    const common = Math.min(normalized.length, cardEntries.length);
+    for (let i = 0; i < common; i += 1) {
+      injectAboutCardWidget(cardEntries[i].widget, normalized[i]);
+    }
+
+    if (normalized.length > cardEntries.length) {
+      const lastEntry = cardEntries[cardEntries.length - 1];
+      const colPlace = nearestCardColPlace(lastEntry);
+      const rowPlace = nearestRowPlace(lastEntry);
+      if (!colPlace || !rowPlace) return;
+      const lastRow = rowPlace.node as RowNode;
+      let insertAt = rowPlace.index + 1;
+      for (let i = cardEntries.length; i < normalized.length; i += 1) {
+        const colClone = deepClone(colPlace.node) as ColNode;
+        rewriteWidgetIds(colClone, i);
+        injectAboutCardNode(colClone, normalized[i]);
+        if (lastRow.cols.length >= 2) {
+          const rowClone = deepClone(lastRow);
+          rowClone.cols = [colClone];
+          rowPlace.parentArray.splice(insertAt, 0, rowClone);
+          insertAt += 1;
+        } else {
+          lastRow.cols.push(colClone);
+        }
+      }
+      return;
+    }
+
+    if (normalized.length < cardEntries.length) {
+      for (let i = cardEntries.length - 1; i >= normalized.length; i -= 1) {
+        const entry = cardEntries[i];
+        const colPlace = nearestCardColPlace(entry);
+        if (!colPlace) continue;
+        const rowPlace = nearestRowPlace(entry);
+        const index = colPlace.parentArray.indexOf(colPlace.node);
+        if (index >= 0) colPlace.parentArray.splice(index, 1);
+        if (rowPlace && (rowPlace.node as RowNode).cols.length === 0) {
+          const rowIndex = rowPlace.parentArray.indexOf(rowPlace.node);
+          if (rowIndex >= 0) rowPlace.parentArray.splice(rowIndex, 1);
+        }
+      }
     }
   } catch {
     // Overrides must never break rendering.
@@ -797,6 +1130,12 @@ export interface ApplyPageOptions {
    * legacy `value.includes("<")` heuristic is used (Gate-2 F4).
    */
   kinds?: Record<string, string>;
+  /**
+   * Override key → structured gallery block config (`gallery` kind). When set,
+   * the media appliers clear disallowed fields and truncate to `maxItems`, so a
+   * direct-DB payload cannot bypass the editor's field/count contract.
+   */
+  galleryConfigs?: Record<string, GalleryBlockConfig>;
 }
 
 /**
@@ -818,11 +1157,16 @@ export function applyPageOverrides<T extends PageContent>(
 
   const expectedPageKey = pageKeyOf(clone);
 
-  // Deferred `eras` keys: era application SPLICES sections, which would shift
-  // the positional KO↔EN pairing for any key processed afterwards. Collect them
-  // and apply once the whole widget loop has run (the anchor is still resolved
-  // against the untouched primary tree).
-  const deferredEras: Array<{ ref: RegistryKeyParts; value: string }> = [];
+  // Deferred structured keys (`eras` + `gallery`/`aboutCards`): their appliers
+  // restructure a section or splice sections, which would shift the positional
+  // KO↔EN pairing for any key processed afterwards. Collect them and apply once
+  // the whole widget loop has run (anchors resolve against the untouched primary).
+  const deferred: Array<{
+    key: string;
+    ref: RegistryKeyParts;
+    value: string;
+    kind: "eras" | "gallery" | "aboutCards" | "locations";
+  }> = [];
 
   for (const [key, value] of Object.entries(overrides ?? {})) {
     if (typeof value !== "string") continue;
@@ -833,18 +1177,31 @@ export function applyPageOverrides<T extends PageContent>(
     if (expectedPageKey && parsed.pageKey !== expectedPageKey) continue;
 
     // History timeline (`<page>#<sectionId>/eras/eras`): page-level era
-    // section splicing, applied after the loop (see `deferredEras`).
+    // section splicing, applied after the loop.
     if (parsed.field === "eras" && parsed.widgetId === "eras") {
-      deferredEras.push({ ref: parsed, value });
+      deferred.push({ key, ref: parsed, value, kind: "eras" });
       continue;
     }
 
-    // Branch list (`<page>#<sectionId>/locations/locations`): restructures the
-    // branch columns in place (add/remove/re-grid) instead of one widget field.
+    // Structured gallery (`<page>#<sectionId>/<galleryWidgetId>/gallery`):
+    // replaces a gallery2 widget's whole item list, applied after the loop.
+    if (parsed.field === "gallery") {
+      deferred.push({ key, ref: parsed, value, kind: "gallery" });
+      continue;
+    }
+
+    // Block-5 card list (`<page>#<sectionId>/aboutCards/aboutCards`):
+    // restructures the cloned card nodes, applied after the loop.
+    if (parsed.field === "aboutCards" && parsed.widgetId === "aboutCards") {
+      deferred.push({ key, ref: parsed, value, kind: "aboutCards" });
+      continue;
+    }
+
+    // Branch list (`<page>#<sectionId>/locations/locations`): page-level — item 0
+    // is the HQ section (immediately preceding the anchor), items 1+ restructure
+    // the branch columns. Applied after the widget loop (like `eras`).
     if (parsed.field === "locations" && parsed.widgetId === "locations") {
-      const section = resolvePairedSection(clone, parsed, options.primaryPage ?? null);
-      const locations = section ? parseLocations(value) : null;
-      if (section && locations) applyLocations(section, locations);
+      deferred.push({ key, ref: parsed, value, kind: "locations" });
       continue;
     }
 
@@ -891,13 +1248,33 @@ export function applyPageOverrides<T extends PageContent>(
 
     applyWidgetField(widget, parsed.field, value, rawHtml);  }
 
-  // Deferred `eras` keys: splice the history timeline only after every per-widget
-  // override has landed, so the section structure is still the authored one while
-  // the loop's positional pairing runs. The anchor resolves against the primary.
-  for (const { ref, value } of deferredEras) {
-    const anchor = resolvePairedSection(clone, ref, options.primaryPage ?? null);
-    const eras = anchor ? parseEras(value) : null;
-    if (anchor && eras) applyEras(clone.sections, anchor, eras);
+  // Deferred structured keys: apply only after every per-widget override has
+  // landed, so the section structure is still the authored one while the loop's
+  // positional pairing runs. The config lookup closes the direct-DB bypass.
+  for (const { key, ref, value, kind } of deferred) {
+    const cfg = options.galleryConfigs?.[key];
+    if (kind === "eras") {
+      const anchor = resolvePairedSection(clone, ref, options.primaryPage ?? null);
+      const eras = anchor ? parseEras(value) : null;
+      if (anchor && eras) applyEras(clone.sections, anchor, eras);
+      continue;
+    }
+    if (kind === "gallery") {
+      const widget = resolvePairedWidget(clone, ref, options.primaryPage ?? null);
+      if (!widget || widget.type !== "gallery2") continue;
+      const items = parseMediaItems(value);
+      if (items) applyGallery(widget, items, cfg);
+      continue;
+    }
+    if (kind === "locations") {
+      const anchor = resolvePairedSection(clone, ref, options.primaryPage ?? null);
+      const locations = anchor ? parseLocations(value) : null;
+      if (anchor && locations) applyLocations(clone.sections, anchor, locations);
+      continue;
+    }
+    const section = resolvePairedSection(clone, ref, options.primaryPage ?? null);
+    const items = section ? parseMediaItems(value) : null;
+    if (section && items) applyAboutCards(section, items, cfg);
   }
 
   return clone;

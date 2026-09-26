@@ -91,6 +91,9 @@ export default function GallerySlider({
   const track = useRef<HTMLDivElement>(null);
   const [perView, setPerView] = useState(1);
   const [active, setActive] = useState(0);
+  // Autoplay pauses while the user interacts (hover, press, focus, drag) and
+  // resumes once the pointer/focus leaves.
+  const [paused, setPaused] = useState(false);
 
   /**
    * SectionRenderer renders the desktop-authored fixed-width slide galleries
@@ -184,20 +187,26 @@ export default function GallerySlider({
   // policy is to keep the reduced-motion build static).
   const goToRef = useRef(goTo);
   goToRef.current = goTo;
-  useEffect(() => {
-    if (!autoplayMs || dotCount <= 1) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const t = setInterval(() => {
-      goToRef.current(activeRef.current + 1);
-    }, autoplayMs);
-    return () => clearInterval(t);
-  }, [autoplayMs, dotCount]);
 
   // mouse/pen drag state. Touch is intentionally excluded — the native
   // `overflow-x:auto` swipe already matches the original `touchDrag`.
   const dragging = useRef(false);
   const drag = useRef<{ id: number; x: number; left: number } | null>(null);
   const moved = useRef(false);
+
+  // Pause the auto-advance while the pointer is over/pressing the track or a
+  // control holds focus, and while a drag is in flight; the interval restarts
+  // when the interaction ends. Kept below the drag refs so the guard can read
+  // `dragging.current`.
+  useEffect(() => {
+    if (!autoplayMs || dotCount <= 1) return;
+    if (paused || dragging.current) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const t = setInterval(() => {
+      goToRef.current(activeRef.current + 1);
+    }, autoplayMs);
+    return () => clearInterval(t);
+  }, [autoplayMs, dotCount, paused]);
 
   const onScroll = () => {
     const el = track.current;
@@ -220,6 +229,7 @@ export default function GallerySlider({
   };
 
   const onPointerDown = (e: ReactPointerEvent<HTMLDivElement>) => {
+    setPaused(true);
     if (e.pointerType === "touch" || e.button !== 0) return;
     const el = track.current;
     if (!el) return;
@@ -240,6 +250,7 @@ export default function GallerySlider({
     el.scrollLeft = d.left - dx;
   };
   const endDrag = (e: ReactPointerEvent<HTMLDivElement>) => {
+    setPaused(false);
     const d = drag.current;
     if (!d) return;
     const el = track.current;
@@ -279,7 +290,13 @@ export default function GallerySlider({
   const bleed = pad >= 10 ? "min-[992px]:-mx-[10px]" : "min-[992px]:-mx-[5px]";
 
   return (
-    <div className="relative min-[992px]:pb-[20px]">
+    <div
+      className="relative min-[992px]:pb-[20px]"
+      onPointerEnter={() => setPaused(true)}
+      onPointerLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)}
+      onBlur={() => setPaused(false)}
+    >
       {fixedItems && (
         // Mobile-only 2-up override. The track's `figure` children carry an
         // inline desktop `width`/`height`; only below 992px do we widen them to

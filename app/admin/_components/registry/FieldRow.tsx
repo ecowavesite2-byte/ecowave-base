@@ -5,6 +5,7 @@ import { useRef, useState } from "react";
 import type { AdminDict } from "@/lib/admin/i18n";
 import CardsField from "./CardsField";
 import ErasField from "./ErasField";
+import GalleryField from "./GalleryField";
 import ListField from "./ListField";
 import LocationsField from "./LocationsField";
 import OverlayField from "./OverlayField";
@@ -450,6 +451,50 @@ export default function FieldRow({
               <LocationsField
                 value={drafts[lang]}
                 defaultValue={codeDefaults[lang]}
+                disabled={disabled}
+                t={t}
+                onChange={(json) => onDraft(lang, json)}
+              />
+            </div>
+          ))}
+        </div>
+      );
+      break;
+    case "gallery":
+      body = (
+        <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
+          {LANGS.map((lang) => (
+            <div key={lang} className="min-w-0">
+              <span className="mb-1 block text-[12px] font-medium text-ink/70">
+                {lang === "ko" ? t.ko : t.en}
+              </span>
+              <GalleryField
+                value={drafts[lang]}
+                defaultValue={codeDefaults[lang]}
+                config={def.gallery}
+                lang={lang}
+                disabled={disabled}
+                t={t}
+                onChange={(json) => onDraft(lang, json)}
+              />
+            </div>
+          ))}
+        </div>
+      );
+      break;
+    case "aboutCards":
+      body = (
+        <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
+          {LANGS.map((lang) => (
+            <div key={lang} className="min-w-0">
+              <span className="mb-1 block text-[12px] font-medium text-ink/70">
+                {lang === "ko" ? t.ko : t.en}
+              </span>
+              <GalleryField
+                value={drafts[lang]}
+                defaultValue={codeDefaults[lang]}
+                config={def.gallery}
+                lang={lang}
                 disabled={disabled}
                 t={t}
                 onChange={(json) => onDraft(lang, json)}

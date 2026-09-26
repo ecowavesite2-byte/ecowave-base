@@ -1,18 +1,23 @@
 /**
- * One-shot runtime verification for the company registry + nested-media editor.
+ * One-shot runtime verification for the company registry + structured media editor.
  *
- *   A) registry shape: `company.global` keeps exactly one `iframe[0].src`
- *      (`embed`) def — the HQ map; the two branch maps are superseded by the
- *      structured `locations` def, which (with the `eras` def) is asserted by
- *      key/kind. `company.about` s8 text widgets expose `img[0].src` (`image`)
- *      defs. The company group lists exactly the six real subpages in nav order
- *      and never the aliased root `company` pageKey. Cross-checked against the
- *      crawled content (widget ids) and `lib/content/registry.ts` (keys), never
- *      a hard-coded def count.
- *   B) map iframe round-trip: PUT the first global iframe src for `ko` → the KO
- *      route renders it and the EN route does NOT (per-locale kind) → revert
- *   C) nested image round-trip: PUT the first `company.about` s8 `img[0].src`
- *      for `ko` → `/company/about` renders it → revert → the crawled src is back
+ *   A) registry shape: `company.global` exposes exactly ONE `locations` def
+ *      whose default payload is `[HQ, China, Cambodia]` (item 0 carries the HQ
+ *      contacts). The HQ name/contacts/map per-widget keys are gone and there
+ *      are NO `iframe[n].src`/`embed` defs at all; the branch widgets are
+ *      covered by the `locations` def. `company.about` exposes the 4 structured
+ *      `gallery` defs (blocks 3/4/6/7, per-block field config + caps) and the
+ *      one `aboutCards` def (block 5, all fields, no cap). The old nested-image
+ *      keys are gone: no `/items[n].(title|desc|org|thumb)` defs and no
+ *      `img[0].src` pin defs on the about page (the 3 block-8 pins are
+ *      suppressed; only the world-map `src` image remains). Cross-checked
+ *      against the crawled content (widget ids) and `lib/content/registry.ts`
+ *      (keys), never a hard-coded def count.
+ *   C) structured gallery round-trips:
+ *      - block 3: append an item (marker title) → `/company/about` renders the
+ *        marker, `/en/company/about` does NOT → revert → item count + first
+ *        `org` back to baseline
+ *      - block 6: append an image-only item (marker path) → renders → revert
  *   D) EN pairing fix: PUT `company.about#…/w20250918684332dc780e7/html` for
  *      `en` → `/en/company/about` renders it → revert
  *   G) shared intro propagation: PUT `company.ceo#…/w20250820e1c08ac226481/html`
@@ -21,15 +26,26 @@
  *      → revert both → baseline copy is back
  *   H) structured `eras`: append a 4th era (unique marker) → `/company/history`
  *      renders the marker and one more year head → revert → baseline restored
- *   I) structured `locations`: append a 3rd branch (unique marker) →
- *      `/company/global` renders the marker → revert → baseline restored
+ *   I) structured `locations`: baseline is 3 (HQ, China, Cambodia); PUT a
+ *      payload that sets item 0 `phone`/`fax`/`email` + `mapSrc` markers and
+ *      appends a 4th branch with contact markers → all markers render on
+ *      `/company/global`, none leak to `/en/company/global`; 3 branches wrap as
+ *      TWO container rows ([6,6] then lone [12]) in item order → revert →
+ *      baseline restored (3 items, HQ contacts, 2 branches, ONE row of 2×6, no
+ *      branch contact block)
  *   J) malformed `eras`/`locations` payloads (`not json`, `[]`) → HTTP 400 and
  *      nothing persisted
+ *   J2) malformed `gallery`/`aboutCards` payloads (`not json`, `[]`) → HTTP 400
+ *      and the effective values are untouched
  *   K) structured editor smoke: the history accordion renders `era-add`, the
  *      global accordion renders `location-add`
- *   E) admin UI smoke: open the company group, expand the map section, assert
- *      the embed field renders ("임베드"/"Embed") and a light UI save lands on
- *      the public page
+ *   L) gallery editor smoke: block 3's section renders `gallery-add` +
+ *      `gallery-title` (no `gallery-desc`); block 4's section renders
+ *      `gallery-add` and no title input (image-only config)
+ *   E) admin UI smoke: open the company group and expand the global locations
+ *      section; assert `location-phone`/`location-fax`/`location-email` inputs
+ *      render and the locked HQ card (item 0) has no remove control while the
+ *      second card does
  *   F) after every revert: no marker residue, effective values back to baseline,
  *      pages back to the crawled defaults for the touched fields
  *
@@ -49,19 +65,13 @@ dotenvConfig({ path: [".env.local"], quiet: true });
 const PORT = 3126;
 const BASE = `http://127.0.0.1:${PORT}`;
 const STAMP = Date.now();
-const IFRAME_MARK = `https://www.google.com/maps/embed?pb=__E2E__${STAMP}`;
-const IMG_MARK = `/.e2e/company-${STAMP}.png`;
 const EN_MARK = `E2E-EN-PAIR-${STAMP}`;
-// `embed`/`image` saves are validated as http(s) or `/…`, so the UI marker must
-// be a valid URL — the `E2E-EMBED-UI-<stamp>` substring keeps it detectable.
-const UI_MARK = `https://www.google.com/maps/embed?pb=E2E-EMBED-UI-${STAMP}`;
 // Shared intro markers (plain text injected into the `lines` def, per locale).
 const SHARED_KO_MARK = `E2E-SHARED-KO-${STAMP}`;
 const SHARED_EN_MARK = `E2E-SHARED-EN-${STAMP}`;
 
 const GLOBAL_PAGE = "company.global";
 const ABOUT_PAGE = "company.about";
-const ABOUT_S8 = "s20250918c5a18b62c8acd";
 // EN pairing regression key: before the fix this KO-keyed def is dropped for EN
 // (a decorative padding widget shifts the positional KO↔EN widget alignment).
 const EN_PAIR_KEY = "company.about#s20250811457daf6e58a2c/w20250918684332dc780e7/html";
@@ -76,6 +86,53 @@ const ERAS_ANCHOR_SECTION = "s20250811d0a0980d730fb";
 const LOCATIONS_ANCHOR_SECTION = "s202508286e01c87027ecf";
 const ERAS_MARK = `E2E-ERAS-${STAMP}`;
 const LOCATIONS_MARK = `E2E-LOC-${STAMP}`;
+// Upgraded `locations` payload: item 0 = HQ (contacts + map marker), plus a 4th
+// branch with contacts. `LOC_MAP_MARK` is a valid media path (the applier writes
+// it into the HQ map iframe via `replaceNthSrc`, so any valid value proves it).
+const LOC_PHONE_MARK = `E2E-LOC-PHONE-${STAMP}`;
+const LOC_FAX_MARK = `E2E-LOC-FAX-${STAMP}`;
+const LOC_EMAIL_MARK = `E2E-LOC-EMAIL-${STAMP}`;
+const LOC_MAP_MARK = `/.e2e/map-${STAMP}.png`;
+const LOC_BRANCH_PHONE_MARK = `E2E-LOC-BPHONE-${STAMP}`;
+// Structured media (WS-B): the 4 gallery blocks + the block-5 card list.
+const G3 = {
+  key: "company.about#s202508119a2e8fe21b47a/w20250918692bb854e97af/gallery",
+  sectionId: "s202508119a2e8fe21b47a",
+  widgetId: "w20250918692bb854e97af",
+  fields: ["image", "title"],
+  maxItems: undefined,
+};
+const G4 = {
+  key: "company.about#s20250918c54b2950e2f1a/w2025091858b5ee5de7c2a/gallery",
+  sectionId: "s20250918c54b2950e2f1a",
+  widgetId: "w2025091858b5ee5de7c2a",
+  fields: ["image"],
+  maxItems: 5,
+};
+const G6 = {
+  key: "company.about#s20250918ab81858502f9e/w20250918b0ab58de4000e/gallery",
+  sectionId: "s20250918ab81858502f9e",
+  widgetId: "w20250918b0ab58de4000e",
+  fields: ["image"],
+  maxItems: undefined,
+};
+const G7 = {
+  key: "company.about#s20250918ffd77075d76ea/w202509190fd35e33e86f8/gallery",
+  sectionId: "s20250918ffd77075d76ea",
+  widgetId: "w202509190fd35e33e86f8",
+  fields: ["image", "title", "desc"],
+  maxItems: 6,
+};
+const GALLERY_BLOCKS = [G3, G4, G6, G7];
+const CARDS = {
+  key: "company.about#s20250918c5a18b62c8acd/aboutCards/aboutCards",
+  sectionId: "s20250918c5a18b62c8acd",
+  widgetId: "aboutCards",
+};
+// Block 8 (locations) keeps only the world-map `src` image; the 3 inline pin
+// images are suppressed and the 3 text widgets stay editable.
+const BLOCK8_SECTION = "s202509180d5f2b5ede2b3";
+const BLOCK8_MAP_KEY = "company.about#s202509180d5f2b5ede2b3/w20250918c7cf1698ddcc4/src";
 // The 7 company routes the shared intro propagates to (per locale).
 const COMPANY_ROUTES = [
   "/company",
@@ -172,6 +229,65 @@ function parseArrayPayload(json) {
   }
 }
 
+/** Balanced `<div>` slice starting at `start` ("" when unbalanced). */
+function sliceDiv(html, start) {
+  if (!html.startsWith("<div", start)) return "";
+  const re = /<\/?div\b[^>]*>/gi;
+  re.lastIndex = start;
+  let depth = 0;
+  let m;
+  while ((m = re.exec(html))) {
+    if (m[0][1] === "/") {
+      depth -= 1;
+      if (depth === 0) return html.slice(start, m.index + m[0].length);
+    } else {
+      depth += 1;
+    }
+  }
+  return "";
+}
+
+/**
+ * The company.global branch container rows rendered in `html`, in order: each
+ * carries the authored `--row-h:658px` (clones keep it) and direct
+ * `imweb-col` children. Returns `[{ spans: number[], html }]` where `spans` are
+ * the direct children's `lg:col-span-*` values (2 cols → [6,6]; lone → [12]).
+ */
+function containerRowShapes(html) {
+  const out = [];
+  // Order-independent attribute match: a row div carrying imweb-row + the
+  // authored container height.
+  const openRe = /<div(?=[^>]*class="imweb-row)(?=[^>]*--row-h:\s*658px)[^>]*>/gi;
+  let m;
+  while ((m = openRe.exec(html))) {
+    const outer = sliceDiv(html, m.index);
+    if (!outer) continue;
+    const spans = [];
+    const tagRe = /<\/?div\b[^>]*>/gi;
+    tagRe.lastIndex = m[0].length; // skip the row's own opening tag
+    let depth = 0;
+    let t;
+    while ((t = tagRe.exec(outer))) {
+      const tag = t[0];
+      if (tag[1] === "/") {
+        depth -= 1;
+        if (depth < 0) break;
+      } else {
+        if (depth === 0) {
+          const cls = /class="([^"]*)"/i.exec(tag);
+          if (cls && /(?:^|\s)imweb-col(?:\s|$)/.test(cls[1])) {
+            const span = /lg:col-span-(\d+)/i.exec(cls[1]);
+            if (span) spans.push(Number(span[1]));
+          }
+        }
+        depth += 1;
+      }
+    }
+    out.push({ spans, html: outer });
+  }
+  return out;
+}
+
 let browser;
 try {
   const ready = await waitReady();
@@ -226,16 +342,10 @@ try {
 
   const iframeKo = widgetsWithTag(globalKo, "iframe");
   const iframeEn = widgetsWithTag(globalEn, "iframe");
-  const aboutImgWidgets = widgetsWithTag(aboutKo, "img").filter((w) => w.sectionId === ABOUT_S8);
 
-  const firstIframe = iframeKo[0] ?? null;
-  const firstImg = aboutImgWidgets[0] ?? null;
-  const IFRAME_KEY = firstIframe
-    ? `${GLOBAL_PAGE}#${firstIframe.sectionId}/${firstIframe.widgetId}/iframe[0].src`
-    : null;
-  const IMG_KEY = firstImg ? `${ABOUT_PAGE}#${ABOUT_S8}/${firstImg.widgetId}/img[0].src` : null;
-  const baselineIframeSrc = firstIframe ? firstTagSrc(firstIframe.html, "iframe") : "";
-  const baselineImgSrc = firstImg ? firstTagSrc(firstImg.html, "img") : "";
+  // The HQ map iframe: item 0 of the `locations` payload (no per-widget def).
+  const hqMapWidget = iframeKo[0] ?? null;
+  const baselineHqMapSrc = hqMapWidget ? firstTagSrc(hqMapWidget.html, "iframe") : "";
 
   // The registry group is a coarse bucket ("company"); company.global is a
   // pageKey within it, not a group — derive the real group from the API.
@@ -247,52 +357,55 @@ try {
   const iframeDefs = companyDefs.filter(
     (d) => d.pageKey === GLOBAL_PAGE && /^iframe\[\d+\]\.src$/.test(d.field),
   );
-  const imgDefs = companyDefs.filter(
-    (d) => d.pageKey === ABOUT_PAGE && /^img\[\d+\]\.src$/.test(d.field),
-  );
+  const embedDefs = companyDefs.filter((d) => d.kind === "embed");
+  const aboutDefs = companyDefs.filter((d) => d.pageKey === ABOUT_PAGE);
   const registrySrc = fs.readFileSync("lib/content/registry.ts", "utf8");
 
   // Baseline effective values, captured before any write (an absent key is "").
-  const baselineIframe = IFRAME_KEY ? companyKo.values?.[IFRAME_KEY] ?? "" : "";
-  const baselineImg = IMG_KEY ? companyKo.values?.[IMG_KEY] ?? "" : "";
   const baselineEn = companyEn.values?.[EN_PAIR_KEY] ?? "";
-  // Shared intro baseline (the canonical KO text; absent key is "").
   const baselineSharedKo = companyKo.values?.[SHARED_KEY] ?? "";
-  // Structured baselines (effective values = override or code default).
   const baselineEras = companyKo.values?.[ERAS_KEY] ?? "";
   const baselineLocations = companyKo.values?.[LOCATIONS_KEY] ?? "";
+  const baselineG3 = companyKo.values?.[G3.key] ?? "";
+  const baselineG6 = companyKo.values?.[G6.key] ?? "";
+  const baselineCards = companyKo.values?.[CARDS.key] ?? "";
+  const baselineBlock8Map = companyKo.values?.[BLOCK8_MAP_KEY] ?? "";
+
+  // Upgraded `locations` default (no override at baseline): [HQ, China, Cambodia].
+  const locationsBase = parseArrayPayload(baselineLocations);
+  const locationsBaseThree = locationsBase !== null && locationsBase.length === 3;
+  const locationsHqContacts = Boolean(
+    locationsBase?.[0]?.phone && locationsBase?.[0]?.fax && locationsBase?.[0]?.email,
+  );
+  const locationsBranchCount = locationsBase ? locationsBase.length - 1 : -1;
+  const locationsBranchesMapped =
+    locationsBase !== null &&
+    locationsBase
+      .slice(1)
+      .every(
+        (item) => typeof item?.mapSrc === "string" && item.mapSrc.includes("/maps/embed"),
+      );
 
   /* --------------------------------------------------- A) registry shape */
 
-  const hqIframe = firstIframe;
+  // Upgraded company.global: the HQ map/name/contacts widgets no longer emit
+  // per-widget defs — they are folded into the ONE `locations` def (item 0), so
+  // there are no `iframe[n].src`/`embed` defs at all.
   const branchIframes = iframeKo.slice(1);
-  const iframeKeyOf = (w) => `${GLOBAL_PAGE}#${w.sectionId}/${w.widgetId}/iframe[0].src`;
-  const hqIframeHasDef =
-    hqIframe !== null &&
-    iframeDefs.length === 1 &&
-    iframeDefs.some(
-      (d) =>
-        d.sectionId === hqIframe.sectionId &&
-        d.widgetId === hqIframe.widgetId &&
-        d.field === "iframe[0].src",
-    );
-  const branchIframesHaveNoDef = branchIframes.every(
-    (w) => !iframeDefs.some((d) => d.sectionId === w.sectionId && d.widgetId === w.widgetId),
+  const hqSectionId = hqMapWidget ? hqMapWidget.sectionId : null;
+  const iframeDefsAbsent = iframeDefs.length === 0;
+  const embedDefsAbsent = embedDefs.length === 0;
+  const hqSectionDefs = hqSectionId
+    ? companyDefs.filter((d) => d.pageKey === GLOBAL_PAGE && d.sectionId === hqSectionId)
+    : [];
+  const hqSectionDefsAbsent = hqSectionDefs.length === 0;
+  const branchSectionDefs = companyDefs.filter(
+    (d) => d.pageKey === GLOBAL_PAGE && d.sectionId === LOCATIONS_ANCHOR_SECTION,
   );
-  const oneDefPerIframeWidget = hqIframeHasDef && branchIframesHaveNoDef;
-  const iframeKindEmbed = iframeDefs.length === 1 && iframeDefs.every((d) => d.kind === "embed");
-  const iframeNoLinesDef = !companyDefs.some(
-    (d) =>
-      d.pageKey === GLOBAL_PAGE &&
-      d.field === "html" &&
-      iframeKo.some((w) => d.sectionId === w.sectionId && d.widgetId === w.widgetId),
-  );
-  const imgDefPerWidget =
-    aboutImgWidgets.length > 0 &&
-    aboutImgWidgets.every((w) =>
-      imgDefs.some((d) => d.sectionId === w.sectionId && d.widgetId === w.widgetId && d.field === "img[0].src"),
-    );
-  const imgKindIsImage = imgDefs.length > 0 && imgDefs.every((d) => d.kind === "image");
+  const branchesCoveredByLocations =
+    branchSectionDefs.length === 1 && branchSectionDefs[0].key === LOCATIONS_KEY;
+  const branchIframesStillAuthored = branchIframes.length === 2;
+
   // Structured kinds (WS2): `eras`/`locations` cover the superseded per-widget
   // history/branch fields, so those widgets keep no `iframe[0].src`/`html` defs.
   const erasDef = companyDefs.find((d) => d.key === ERAS_KEY) ?? null;
@@ -304,20 +417,63 @@ try {
     locationsDef?.kind === "locations" &&
     locationsDef?.widgetId === "locations" &&
     locationsDef?.pageKey === "company.global";
+
+  // Structured media (WS-B): exactly the 4 gallery defs + 1 aboutCards def.
+  const galleryDefs = companyDefs.filter((d) => d.kind === "gallery");
+  const galleryByKey = new Map(galleryDefs.map((d) => [d.key, d]));
+  const galleriesOk = GALLERY_BLOCKS.every((exp) => {
+    const d = galleryByKey.get(exp.key);
+    return (
+      Boolean(d) &&
+      d.kind === "gallery" &&
+      d.pageKey === ABOUT_PAGE &&
+      d.sectionId === exp.sectionId &&
+      d.widgetId === exp.widgetId &&
+      JSON.stringify(d.gallery?.fields ?? []) === JSON.stringify(exp.fields) &&
+      (d.gallery?.maxItems ?? undefined) === exp.maxItems
+    );
+  });
+  const galleryDefCountOk = galleryDefs.length === 4;
+  const cardsDef = companyDefs.find((d) => d.kind === "aboutCards") ?? null;
+  const cardsOk =
+    Boolean(cardsDef) &&
+    cardsDef.pageKey === ABOUT_PAGE &&
+    cardsDef.sectionId === CARDS.sectionId &&
+    cardsDef.widgetId === CARDS.widgetId &&
+    !cardsDef.gallery;
+
+  // Superseded keys: no per-item media defs, no nested-img pin defs on about.
+  const oldItemDefs = aboutDefs.filter((d) => /^items\[\d+\]\.(title|desc|org|thumb)$/.test(d.field));
+  const oldItemKeysAbsent = oldItemDefs.length === 0;
+  const aboutNestedImgDefs = aboutDefs.filter((d) => /^img\[\d+\]\.src$/.test(d.field));
+  const pinImgKeysAbsent = aboutNestedImgDefs.length === 0;
+
+  // Block 8 world-map image remains (only the inline pins are suppressed).
+  const block8MapDef = companyDefs.find((d) => d.key === BLOCK8_MAP_KEY) ?? null;
+  const block8MapOk =
+    block8MapDef?.kind === "image" &&
+    block8MapDef?.pageKey === ABOUT_PAGE &&
+    block8MapDef?.sectionId === BLOCK8_SECTION;
+
   // Runtime grep of the generated registry source (not a hard-coded count): the
-  // HQ map + about images are present; the two superseded branch map keys are
-  // absent; the two structured keys are present.
+  // HQ map/name/contacts keys are gone and no global `iframe[n].src` key exists.
+  const registryGalleryKeys = GALLERY_BLOCKS.every((b) => registrySrc.includes(b.key));
+  const registryHasCardsKey = registrySrc.includes(CARDS.key);
+  const registryNoAboutOldItemKeys =
+    !/company\.about#[^"]*\/items\[\d+\]\.(title|desc|org|thumb)"/.test(registrySrc);
+  const registryNoAboutNestedImg = !/company\.about#[^"]*\/img\[\d+\]\.src"/.test(registrySrc);
+  const registryNoGlobalIframeKeys =
+    !/company\.global#[^"]*\/iframe\[\d+\]\.src"/.test(registrySrc);
+  const registryNoHqKeys = hqSectionId ? !registrySrc.includes(hqSectionId) : false;
   const registrySourceKeys =
-    (hqIframe ? registrySrc.includes(iframeKeyOf(hqIframe)) : false) &&
-    aboutImgWidgets.every((w) =>
-      registrySrc.includes(`${ABOUT_PAGE}#${ABOUT_S8}/${w.widgetId}/img[0].src`),
-    ) &&
-    branchIframes.every((w) => !registrySrc.includes(iframeKeyOf(w))) &&
+    registryNoGlobalIframeKeys &&
+    registryNoHqKeys &&
     registrySrc.includes(ERAS_KEY) &&
-    registrySrc.includes(LOCATIONS_KEY);
-  const branchIframeDefCount = iframeDefs.filter((d) =>
-    branchIframes.some((w) => d.sectionId === w.sectionId && d.widgetId === w.widgetId),
-  ).length;
+    registrySrc.includes(LOCATIONS_KEY) &&
+    registryGalleryKeys &&
+    registryHasCardsKey &&
+    registryNoAboutOldItemKeys &&
+    registryNoAboutNestedImg;
   // The company group must show the six real subpages in nav order and never the
   // aliased root `company` pageKey (WS1). Derived from the API, not hard-coded.
   const companyPageKeys = [...new Set(companyDefs.map((d) => d.pageKey))];
@@ -338,13 +494,29 @@ try {
     iframeWidgetsKo: iframeKo.length,
     iframeWidgetsEn: iframeEn.length,
     iframeDefs: iframeDefs.length,
-    branchIframeDefCount,
-    oneDefPerIframeWidget,
-    iframeKindEmbed,
-    iframeNoLinesDef,
-    aboutS8ImgWidgets: aboutImgWidgets.length,
-    imgDefPerWidget,
-    imgKindIsImage,
+    iframeDefsAbsent,
+    embedDefCount: embedDefs.length,
+    embedDefsAbsent,
+    hqSectionDefCount: hqSectionDefs.length,
+    hqSectionDefsAbsent,
+    branchSectionDefCount: branchSectionDefs.length,
+    branchesCoveredByLocations,
+    branchIframesStillAuthored,
+    locationsBaseThree,
+    locationsHqContacts,
+    locationsBranchCount,
+    locationsBranchesMapped,
+    galleryDefCount: galleryDefs.length,
+    galleryDefCountOk,
+    galleriesOk,
+    cardsFound: Boolean(cardsDef),
+    cardsOk,
+    oldItemDefCount: oldItemDefs.length,
+    oldItemKeysAbsent,
+    aboutNestedImgDefCount: aboutNestedImgDefs.length,
+    pinImgKeysAbsent,
+    block8MapFound: Boolean(block8MapDef),
+    block8MapOk,
     registrySourceKeys,
     erasDefFound: Boolean(erasDef),
     erasDefKind: erasDef?.kind ?? null,
@@ -357,39 +529,80 @@ try {
     companyNoRootPageKey,
   });
 
-  /* ------------------------------------------------- B) iframe round-trip */
+  /* ------------------------------------------ C) structured gallery round-trips */
 
-  const iframeWrite = IFRAME_KEY ? await put(IFRAME_KEY, "ko", IFRAME_MARK) : { status: 0 };
-  const globalHtml = iframeWrite.status === 200 ? await pageText("/company/global") : "";
-  const globalEnHtml = iframeWrite.status === 200 ? await pageText("/en/company/global") : "";
-  const iframeApplied = iframeWrite.status === 200 && globalHtml.includes(IFRAME_MARK);
-  const iframeNotInEn = iframeWrite.status === 200 && !globalEnHtml.includes(IFRAME_MARK);
-  if (IFRAME_KEY) await revert(IFRAME_KEY, "ko");
-  const iframeReverted = !(await pageText("/company/global")).includes(IFRAME_MARK);
+  // Block 3 (captioned, title field). Appending an item lets the title marker
+  // prove the structured applier ran; the EN route must not see the KO write.
+  const g3Base = parseArrayPayload(baselineG3);
+  const g3Marker = `E2E-GAL3-${STAMP}`;
+  const g3Img = `/.e2e/gal3-${STAMP}.png`;
+  let g3WriteOk = false;
+  let g3Applied = false;
+  let g3NotInEn = false;
+  let g3Reverted = false;
+  let g3CountRestored = false;
+  let g3FirstOrgRestored = false;
+  let g3DomBaseline = false;
+  if (g3Base) {
+    const g3Payload = JSON.stringify([
+      ...g3Base,
+      { image: g3Img, title: g3Marker, desc: "" },
+    ]);
+    const g3Write = await put(G3.key, "ko", g3Payload);
+    g3WriteOk = g3Write.status === 200;
+    if (g3WriteOk) {
+      g3Applied = (await pageText("/company/about")).includes(g3Marker);
+      g3NotInEn = !(await pageText("/en/company/about")).includes(g3Marker);
+    }
+    await revert(G3.key, "ko");
+    const dom = await pageText("/company/about");
+    const firstImage = g3Base[0]?.image ?? "";
+    g3Reverted = !dom.includes(g3Marker);
+    g3DomBaseline =
+      !dom.includes(g3Marker) &&
+      !dom.includes(g3Img) &&
+      (!firstImage || dom.includes(firstImage));
+    const restored = await getJson("/api/admin/registry?group=company&locale=ko");
+    const g3After = parseArrayPayload(restored.values?.[G3.key] ?? "");
+    g3CountRestored = Boolean(g3After && g3Base && g3After.length === g3Base.length);
+    g3FirstOrgRestored = Boolean(g3After && g3Base && g3After[0]?.image === g3Base[0]?.image);
+  }
 
-  section("iframeApply", {
-    keyFound: Boolean(IFRAME_KEY),
-    writeOk: iframeWrite.status === 200,
-    iframeApplied,
-    iframeNotInEn,
-    iframeReverted,
-  });
+  // Block 6 (image-only). The appended item's marker lives in its image path.
+  const g6Base = parseArrayPayload(baselineG6);
+  const g6Img = `/.e2e/gal6-${STAMP}.png`;
+  let g6WriteOk = false;
+  let g6Applied = false;
+  let g6Reverted = false;
+  let g6CountRestored = false;
+  if (g6Base) {
+    const g6Payload = JSON.stringify([...g6Base, { image: g6Img, title: "", desc: "" }]);
+    const g6Write = await put(G6.key, "ko", g6Payload);
+    g6WriteOk = g6Write.status === 200;
+    if (g6WriteOk) g6Applied = (await pageText("/company/about")).includes(g6Img);
+    await revert(G6.key, "ko");
+    g6Reverted = !(await pageText("/company/about")).includes(g6Img);
+    const restored = await getJson("/api/admin/registry?group=company&locale=ko");
+    const g6After = parseArrayPayload(restored.values?.[G6.key] ?? "");
+    g6CountRestored = Boolean(g6After && g6Base && g6After.length === g6Base.length);
+  }
 
-  /* --------------------------------------------- C) nested image round-trip */
-
-  const imgWrite = IMG_KEY ? await put(IMG_KEY, "ko", IMG_MARK) : { status: 0 };
-  const aboutHtml = imgWrite.status === 200 ? await pageText("/company/about") : "";
-  const imgApplied = imgWrite.status === 200 && aboutHtml.includes(IMG_MARK);
-  if (IMG_KEY) await revert(IMG_KEY, "ko");
-  const aboutAfter = await pageText("/company/about");
-  const imgRevertedToCrawled =
-    !aboutAfter.includes(IMG_MARK) && Boolean(baselineImgSrc) && aboutAfter.includes(baselineImgSrc);
-
-  section("nestedImageApply", {
-    keyFound: Boolean(IMG_KEY),
-    writeOk: imgWrite.status === 200,
-    imgApplied,
-    imgRevertedToCrawled,
+  section("galleryApply", {
+    block3BaseFound: Boolean(g3Base),
+    block3BaseCount: g3Base ? g3Base.length : 0,
+    block3WriteOk: g3WriteOk,
+    block3MarkerApplied: g3Applied,
+    block3NotInEn: g3NotInEn,
+    block3Reverted: g3Reverted,
+    block3CountRestored: g3CountRestored,
+    block3FirstOrgRestored: g3FirstOrgRestored,
+    block3DomBaseline: g3DomBaseline,
+    block6BaseFound: Boolean(g6Base),
+    block6BaseCount: g6Base ? g6Base.length : 0,
+    block6WriteOk: g6WriteOk,
+    block6MarkerApplied: g6Applied,
+    block6Reverted: g6Reverted,
+    block6CountRestored: g6CountRestored,
   });
 
   /* -------------------------------------------------- D) EN pairing fix */
@@ -499,35 +712,115 @@ try {
 
   /* --------------------------------------- I) structured locations apply */
 
-  const locationsBase = parseArrayPayload(baselineLocations);
   let locationsWriteOk = false;
-  let locationsMarkerApplied = false;
+  let locationsHqContactsApplied = false;
+  let locationsMapApplied = false;
+  let locationsBranchApplied = false;
+  let locationsNotInEn = false;
   let locationsReverted = false;
+  let locationsBaselineHqContacts = false;
+  let locationsBaselineNoBranchContactBlock = false;
+  let locationsAppliedRowCount = false;
+  let locationsAppliedSpans = false;
+  let locationsAppliedOrder = false;
+  let locationsRevertedRowCount = false;
+  let locationsRevertedSpans = false;
   if (locationsBase) {
-    const nextLocations = [
-      ...locationsBase,
-      {
-        badge: LOCATIONS_MARK,
-        city: LOCATIONS_MARK,
-        address: LOCATIONS_MARK,
-        mapSrc: `/images/e2e/${STAMP}.png`,
-      },
-    ];
+    // Edit item 0 (HQ contacts + map) and append a 4th branch card.
+    const nextLocations = locationsBase.map((item, index) =>
+      index === 0
+        ? {
+            ...item,
+            phone: LOC_PHONE_MARK,
+            fax: LOC_FAX_MARK,
+            email: LOC_EMAIL_MARK,
+            mapSrc: LOC_MAP_MARK,
+          }
+        : item,
+    );
+    nextLocations.push({
+      badge: LOCATIONS_MARK,
+      city: LOCATIONS_MARK,
+      address: LOCATIONS_MARK,
+      phone: LOC_BRANCH_PHONE_MARK,
+      fax: "",
+      email: "",
+      mapSrc: "",
+    });
     const locationsWrite = await put(LOCATIONS_KEY, "ko", JSON.stringify(nextLocations));
     locationsWriteOk = locationsWrite.status === 200;
     const globalAfter = locationsWriteOk ? await pageText("/company/global") : "";
-    locationsMarkerApplied = locationsWriteOk && globalAfter.includes(LOCATIONS_MARK);
+    const globalEnAfter = locationsWriteOk ? await pageText("/en/company/global") : "";
+    locationsHqContactsApplied =
+      locationsWriteOk &&
+      globalAfter.includes(LOC_PHONE_MARK) &&
+      globalAfter.includes(LOC_FAX_MARK) &&
+      globalAfter.includes(LOC_EMAIL_MARK);
+    locationsMapApplied = locationsWriteOk && globalAfter.includes(LOC_MAP_MARK);
+    locationsBranchApplied =
+      locationsWriteOk &&
+      globalAfter.includes(LOCATIONS_MARK) &&
+      globalAfter.includes(LOC_BRANCH_PHONE_MARK);
+    locationsNotInEn =
+      locationsWriteOk &&
+      !globalEnAfter.includes(LOC_PHONE_MARK) &&
+      !globalEnAfter.includes(LOCATIONS_MARK) &&
+      !globalEnAfter.includes(LOC_MAP_MARK);
+
+    // Layout (3 branches): 2 container rows — [6,6] then a lone [12] — in item
+    // order (China, Cambodia, then the appended marker).
+    const appliedShapes = locationsWriteOk ? containerRowShapes(globalAfter) : [];
+    const b1 = locationsBase[1]?.badge ?? "";
+    const b2 = locationsBase[2]?.badge ?? "";
+    locationsAppliedRowCount = appliedShapes.length === 2;
+    locationsAppliedSpans =
+      JSON.stringify(appliedShapes.map((r) => r.spans)) === JSON.stringify([[6, 6], [12]]);
+    locationsAppliedOrder =
+      appliedShapes.length === 2 &&
+      appliedShapes[0].html.includes(b1) &&
+      appliedShapes[0].html.includes(b2) &&
+      appliedShapes[0].html.indexOf(b1) < appliedShapes[0].html.indexOf(b2) &&
+      appliedShapes[1].html.includes(LOCATIONS_MARK) &&
+      !appliedShapes[0].html.includes(LOCATIONS_MARK);
+
     await revert(LOCATIONS_KEY, "ko");
-    locationsReverted = !(await pageText("/company/global")).includes(LOCATIONS_MARK);
+    const revertedHtml = await pageText("/company/global");
+    locationsReverted = !revertedHtml.includes(LOCATIONS_MARK);
+    // Layout back to the authored single row with two 50/50 cols.
+    const revertedShapes = containerRowShapes(revertedHtml);
+    locationsRevertedRowCount = revertedShapes.length === 1;
+    locationsRevertedSpans =
+      JSON.stringify(revertedShapes.map((r) => r.spans)) === JSON.stringify([[6, 6]]);
+    const hqBaseline = locationsBase[0] ?? null;
+    locationsBaselineHqContacts = Boolean(
+      hqBaseline?.phone &&
+        hqBaseline?.fax &&
+        hqBaseline?.email &&
+        revertedHtml.includes(hqBaseline.phone),
+    );
+    // The default branch cards carry no contact block (only HQ has contacts).
+    locationsBaselineNoBranchContactBlock = !revertedHtml.includes("loc-contacts");
   }
 
   section("locationsApply", {
     keyFound: Boolean(locationsDef),
     baseFound: Boolean(locationsBase),
     baseLocations: locationsBase ? locationsBase.length : 0,
+    baseThree: locationsBaseThree,
+    baseBranchCount: locationsBranchCount,
     writeOk: locationsWriteOk,
-    markerApplied: locationsMarkerApplied,
+    hqContactsApplied: locationsHqContactsApplied,
+    mapApplied: locationsMapApplied,
+    branchApplied: locationsBranchApplied,
+    notInEn: locationsNotInEn,
+    layoutRowCount: locationsAppliedRowCount,
+    layoutSpans: locationsAppliedSpans,
+    layoutOrder: locationsAppliedOrder,
     reverted: locationsReverted,
+    revertedRowCount: locationsRevertedRowCount,
+    revertedSpans: locationsRevertedSpans,
+    baselineHqContacts: locationsBaselineHqContacts,
+    baselineNoBranchContactBlock: locationsBaselineNoBranchContactBlock,
   });
 
   /* --------------------------------------------- J) malformed payloads 400 */
@@ -541,14 +834,38 @@ try {
   const malformedNoPersist =
     !(await pageText("/company/history")).includes("not json") &&
     !(await pageText("/company/global")).includes("not json");
+  // A rejected write must not change the effective locations value.
+  const afterLocationsMalformed = await getJson("/api/admin/registry?group=company&locale=ko");
+  const locationsValueUnchanged =
+    (afterLocationsMalformed.values?.[LOCATIONS_KEY] ?? "") === baselineLocations;
 
   section("malformedPayloads", {
     eras400,
     locations400,
+    locationsValueUnchanged,
     malformedNoPersist,
   });
 
-  /* --------------------------------------------------------- E) admin UI */
+  /* --------------------------------------- J2) malformed media payloads 400 */
+
+  const g3BadJson = await put(G3.key, "ko", "not json");
+  const g3BadEmpty = await put(G3.key, "ko", "[]");
+  const cardsBadJson = await put(CARDS.key, "ko", "not json");
+  const cardsBadEmpty = await put(CARDS.key, "ko", "[]");
+  const gallery400 = g3BadJson.status === 400 && g3BadEmpty.status === 400;
+  const cards400 = cardsBadJson.status === 400 && cardsBadEmpty.status === 400;
+  const afterMalformed = await getJson("/api/admin/registry?group=company&locale=ko");
+  const galleryValueUnchanged = (afterMalformed.values?.[G3.key] ?? "") === baselineG3;
+  const cardsValueUnchanged = (afterMalformed.values?.[CARDS.key] ?? "") === baselineCards;
+
+  section("malformedMedia", {
+    gallery400,
+    cards400,
+    galleryValueUnchanged,
+    cardsValueUnchanged,
+  });
+
+  /* --------------------------------------- E) admin UI (locations editor) */
 
   browser = await chromium.launch();
   const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
@@ -557,56 +874,9 @@ try {
   await page.waitForSelector("button[aria-expanded]", { timeout: 60000 });
   await page.waitForTimeout(1500);
 
-  // Expand the map section by its (locale-independent) truncated section id.
-  const sectionHint = firstIframe ? truncateSectionId(firstIframe.sectionId) : "";
-  const mapHeader = sectionHint
-    ? page.locator("button[aria-expanded]", { hasText: sectionHint }).first()
-    : page.locator("button[aria-expanded]").first();
-  const mapHeaderFound = (await mapHeader.count()) > 0;
-  if (mapHeaderFound && (await mapHeader.getAttribute("aria-expanded")) !== "true") {
-    await mapHeader.click();
-    await page.waitForTimeout(800);
-  }
-
-  const embedLabelShown = (await page.getByText(/임베드|Embed/).count()) > 0;
-  const embedKeyShown = (await page.getByText("iframe[0].src", { exact: false }).count()) > 0;
-
-  // Light UI round-trip, mirroring the home script: fill the ko input in the
-  // embed field card, save, and assert the marker lands on the public page.
-  let embedUiSaveApplied = null;
-  let embedUiSaveReverted = null;
-  if (IFRAME_KEY && embedKeyShown) {
-    let card = page.locator('div:has(input[type="text"]):has-text("iframe[0].src")').last();
-    if ((await card.count()) === 0) {
-      card = page.locator('div:has(textarea):has-text("iframe[0].src")').last();
-    }
-    const control = card.locator('input[type="text"], textarea').first();
-    if ((await control.count()) > 0) {
-      await control.fill(UI_MARK);
-      await page.waitForTimeout(300);
-      await Promise.all([
-        page
-          .waitForResponse(
-            (r) => r.url().includes("/api/admin/registry") && r.request().method() === "PUT",
-            { timeout: 20000 },
-          )
-          .catch(() => null),
-        card.locator("button", { hasText: /저장|Save/ }).first().click(),
-      ]);
-      // Track the UI write too, so a later throw still reverts it in `finally`.
-      dirty.add(token(IFRAME_KEY, "ko"));
-      embedUiSaveApplied = false;
-      for (let i = 0; i < 20 && !embedUiSaveApplied; i++) {
-        await page.waitForTimeout(800);
-        embedUiSaveApplied = (await pageText("/company/global")).includes(UI_MARK);
-      }
-      await revert(IFRAME_KEY, "ko");
-      embedUiSaveReverted = !(await pageText("/company/global")).includes(UI_MARK);
-    }
-  }
-
   // K) structured editor smoke: the history accordion renders the eras editor's
-  // add control; the global accordion renders the locations add control.
+  // add control; the global accordion renders the locations editor (contact
+  // inputs, add control) with the locked HQ item first.
   const expandAccordion = async (hint) => {
     const header = page.locator("button[aria-expanded]", { hasText: hint }).first();
     if ((await header.count()) === 0) return false;
@@ -621,24 +891,58 @@ try {
   const eraAddShown = (await page.locator('[data-testid="era-add"]').count()) > 0;
   const locationHeaderFound = await expandAccordion(truncateSectionId(LOCATIONS_ANCHOR_SECTION));
   const locationAddShown = (await page.locator('[data-testid="location-add"]').count()) > 0;
+  const locationPhoneShown = (await page.locator('[data-testid="location-phone"]').count()) > 0;
+  const locationFaxShown = (await page.locator('[data-testid="location-fax"]').count()) > 0;
+  const locationEmailShown = (await page.locator('[data-testid="location-email"]').count()) > 0;
+  const locationCards = page.locator('[data-testid="location-card"]');
+  const locationCardCount = await locationCards.count();
+  const firstCardRemoveCount = await locationCards
+    .nth(0)
+    .locator('[data-testid="location-remove"]')
+    .count();
+  const secondCardRemoveCount =
+    locationCardCount > 1
+      ? await locationCards.nth(1).locator('[data-testid="location-remove"]').count()
+      : -1;
+  const firstCardHasNoRemove = locationCardCount >= 1 && firstCardRemoveCount === 0;
+  const secondCardHasRemove = locationCardCount > 1 && secondCardRemoveCount === 1;
 
   section("structuredUi", {
     eraHeaderFound,
     eraAddShown,
     locationHeaderFound,
     locationAddShown,
+    locationPhoneShown,
+    locationFaxShown,
+    locationEmailShown,
+    locationCardCount,
+    firstCardHasNoRemove,
+    secondCardHasRemove,
+  });
+
+  // L) gallery editor smoke: block 3 exposes image+title (no desc); block 4 is
+  // image-only (no title input). The admin accordion opens one section at a
+  // time, so each block is inspected in isolation.
+  const g3HeaderFound = await expandAccordion(truncateSectionId(G3.sectionId));
+  const g3AddShown = (await page.locator('[data-testid="gallery-add"]').count()) > 0;
+  const g3TitleShown = (await page.locator('[data-testid="gallery-title"]').count()) > 0;
+  const g3DescShown = (await page.locator('[data-testid="gallery-desc"]').count()) > 0;
+
+  const g4HeaderFound = await expandAccordion(truncateSectionId(G4.sectionId));
+  const g4AddShown = (await page.locator('[data-testid="gallery-add"]').count()) > 0;
+  const g4TitleShown = (await page.locator('[data-testid="gallery-title"]').count()) > 0;
+
+  section("galleryUi", {
+    block3HeaderFound: g3HeaderFound,
+    block3AddShown: g3AddShown,
+    block3TitleShown: g3TitleShown,
+    block3DescAbsent: !g3DescShown,
+    block4HeaderFound: g4HeaderFound,
+    block4AddShown: g4AddShown,
+    block4TitleAbsent: !g4TitleShown,
   });
 
   if (browser) await browser.close();
-
-  section("adminUi", {
-    group: adminGroup,
-    mapHeaderFound,
-    embedLabelShown,
-    embedKeyShown,
-    embedUiSaveApplied,
-    embedUiSaveReverted,
-  });
 
   /* ----------------------------------------- F) no residue / back to baseline */
 
@@ -650,32 +954,50 @@ try {
   const finalEnAboutHtml = await pageText("/en/company/about");
 
   const noMarkers =
-    !finalGlobalHtml.includes(IFRAME_MARK) &&
-    !finalGlobalHtml.includes(UI_MARK) &&
     !finalGlobalHtml.includes(LOCATIONS_MARK) &&
+    !finalGlobalHtml.includes(LOC_PHONE_MARK) &&
+    !finalGlobalHtml.includes(LOC_FAX_MARK) &&
+    !finalGlobalHtml.includes(LOC_EMAIL_MARK) &&
+    !finalGlobalHtml.includes(LOC_MAP_MARK) &&
+    !finalGlobalHtml.includes(LOC_BRANCH_PHONE_MARK) &&
     !finalGlobalHtml.includes("not json") &&
     !finalHistoryHtml.includes(ERAS_MARK) &&
     !finalHistoryHtml.includes("not json") &&
-    !finalAboutHtml.includes(IMG_MARK) &&
+    !finalAboutHtml.includes(g3Marker) &&
+    !finalAboutHtml.includes(g3Img) &&
+    !finalAboutHtml.includes(g6Img) &&
     !finalEnAboutHtml.includes(EN_MARK);
-  const iframeValueRestored = IFRAME_KEY ? (finalKo.values?.[IFRAME_KEY] ?? "") === baselineIframe : false;
-  const imgValueRestored = IMG_KEY ? (finalKo.values?.[IMG_KEY] ?? "") === baselineImg : false;
   const enValueRestored = (finalEn.values?.[EN_PAIR_KEY] ?? "") === baselineEn;
   const erasValueRestored = (finalKo.values?.[ERAS_KEY] ?? "") === baselineEras;
   const locationsValueRestored = (finalKo.values?.[LOCATIONS_KEY] ?? "") === baselineLocations;
+  const g3ValueRestored = (finalKo.values?.[G3.key] ?? "") === baselineG3;
+  const g6ValueRestored = (finalKo.values?.[G6.key] ?? "") === baselineG6;
+  const cardsValueRestored = (finalKo.values?.[CARDS.key] ?? "") === baselineCards;
   const globalMatchesBaseline =
-    Boolean(baselineIframeSrc) && finalGlobalHtml.includes(baselineIframeSrc);
-  const aboutMatchesBaseline = Boolean(baselineImgSrc) && finalAboutHtml.includes(baselineImgSrc);
+    Boolean(baselineHqMapSrc) && finalGlobalHtml.includes(baselineHqMapSrc);
+  const globalHqContactsBaseline = Boolean(
+    locationsBase?.[0]?.phone && finalGlobalHtml.includes(locationsBase[0].phone),
+  );
+  const globalBranchContactBlockAbsent = !finalGlobalHtml.includes("loc-contacts");
+  const aboutMatchesBaseline =
+    Boolean(baselineBlock8Map) && finalAboutHtml.includes(baselineBlock8Map);
+  const g3FirstImage = g3Base?.[0]?.image ?? "";
+  const aboutGalleryBaseline =
+    (!g3FirstImage || finalAboutHtml.includes(g3FirstImage));
 
   section("residue", {
     noMarkers,
-    iframeValueRestored,
-    imgValueRestored,
     enValueRestored,
     erasValueRestored,
     locationsValueRestored,
+    g3ValueRestored,
+    g6ValueRestored,
+    cardsValueRestored,
     globalMatchesBaseline,
+    globalHqContactsBaseline,
+    globalBranchContactBlockAbsent,
     aboutMatchesBaseline,
+    aboutGalleryBaseline,
   });
 } catch (e) {
   report.error = String((e && e.stack) || e).slice(0, 900);

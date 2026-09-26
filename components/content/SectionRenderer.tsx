@@ -955,14 +955,17 @@ function WidgetContent({ w, locale, mobileBox = false }: { w: WidgetNode; locale
         // every rule lives behind `min-[992px]:`, mobile keeps the historic
         // hover-caption card.
         const hasTitles = items.some((it) => (it.title || "").trim() !== "");
-        const slidePad = hasTitles ? 5 : 10;
+        // The crawl/admin may pin the variant explicitly (`galleryVariant`);
+        // otherwise fall back to the data-driven discriminator (titles present).
+        const captioned = w.galleryVariant ? w.galleryVariant === "caption" : hasTitles;
+        const slidePad = captioned ? 5 : 10;
         return (
           <div className="min-[992px]:mt-[15px]">
             <GallerySlider
               count={items.length}
               pad={slidePad}
-              arrows={!hasTitles}
-              autoplayMs={w.id === ABOUT_PLAIN_SLIDER_ID ? 5000 : 0}
+              arrows={!captioned}
+              autoplayMs={w.autoplayMs ?? 0}
             >
               {items.map((it, i) => (
                 <SlideCard
@@ -971,7 +974,7 @@ function WidgetContent({ w, locale, mobileBox = false }: { w: WidgetNode; locale
                   w={meta2.itemW || 238}
                   h={meta2.itemH}
                   pad={slidePad}
-                  titleBar={hasTitles}
+                  titleBar={captioned}
                   className="snap-start"
                 />
               ))}
@@ -1426,21 +1429,6 @@ const TOP_BAND_SECTION_IDS = new Set([
   // (opposite-sign deficits). See design/audit/DEEP-UI-AUDIT.md §10.
   "s20250911b2b3771c0a0cd", // rnd / rnd.technology §2 (en)
 ]);
-
-/**
- * company.about plain slide gallery (`w20250918b0ab58de4000e`, 21 items).
- *
- * The live original initializes this one as an owl carousel with
- * `autoplay: true, autoplayTimeout: 5000, smartSpeed: 200, items: 5, nav: true,
- * loop: true` (read from `jQuery(el).data("owlCarousel").options`), and the
- * active dot was observed advancing at ~5.0-6.0s intervals at both 1440x900
- * (3->4 @5461ms, 4->0 @11470ms) and 390x844 (3->4 @3436ms, 4->5 @8827ms).
- * The sibling captioned gallery (`w20250918692bb854e97af`) does NOT autoplay
- * (`effect_wait:"0"`; only the init-correcting dot change was observed), so
- * only this widget opts in. Durable path: persist the gallery
- * `auto_change`/`effect_wait` config on the crawl.
- */
-const ABOUT_PLAIN_SLIDER_ID = "w20250918b0ab58de4000e";
 
 /**
  * item 1 — company.philosophy mobile rich-text downscale (coordinated set).

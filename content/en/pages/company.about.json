@@ -717,6 +717,8 @@
                   "gridN": null,
                   "itemW": 315,
                   "itemH": 282,
+                  "autoplayMs": 4500,
+                  "galleryVariant": "caption",
                   "items": [
                     {
                       "org": "/images/upload/S20250811e0bd2f7c414df/26736dcacdf4f.jpg",
@@ -1222,6 +1224,8 @@
                   "gridN": null,
                   "itemW": 252,
                   "itemH": 332,
+                  "autoplayMs": 5000,
+                  "galleryVariant": "plain",
                   "items": [
                     {
                       "org": "/images/upload/S20250811e0bd2f7c414df/258218a1d9645.jpg",

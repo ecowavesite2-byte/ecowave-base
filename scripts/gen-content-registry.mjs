@@ -82,6 +82,8 @@ const LABELS = {
   boardPosts: { ko: "게시글 목록", en: "Board posts" },
   eras: { ko: "연혁", en: "History eras" },
   locations: { ko: "지사 목록", en: "Branch locations" },
+  galleryAbout: { ko: "갤러리", en: "Gallery" },
+  cardsAbout: { ko: "카드 목록", en: "Card list" },
 };
 
 const MAX_LENGTH = {
@@ -98,10 +100,12 @@ const MAX_LENGTH = {
   picks: 2000,
   eras: 20000,
   locations: 20000,
+  gallery: 20000,
+  aboutCards: 20000,
 };
 
 /** Kinds emitted into `lib/content/registry.ts` (order = CONTENT_KINDS). */
-const KINDS = ["text", "textarea", "lines", "image", "url", "list", "slides", "overlay", "cards", "picks", "embed", "eras", "locations"];
+const KINDS = ["text", "textarea", "lines", "image", "url", "list", "slides", "overlay", "cards", "picks", "embed", "eras", "locations", "gallery", "aboutCards"];
 
 /**
  * Sections the public renderers strip, so the admin must not expose their
@@ -195,6 +199,21 @@ const SECTION_NAME_OVERRIDES = {
     en: "Company intro (shared by all company pages)",
   },
 };
+
+/**
+ * Structured media blocks on `company.about`, keyed by KO section id. Each
+ * gallery2 section gets ONE `gallery` def exposing only the configured fields
+ * (`image`, optionally `title`/`desc`) with an optional item cap. Sections not
+ * listed keep the legacy per-item defs (galleries elsewhere, incl. rnd.*).
+ */
+export const ABOUT_MEDIA_BLOCKS = {
+  s202508119a2e8fe21b47a: { fields: ["image", "title"] }, // block 3
+  s20250918c54b2950e2f1a: { fields: ["image"], maxItems: 5 }, // block 4
+  s20250918ab81858502f9e: { fields: ["image"] }, // block 6
+  s20250918ffd77075d76ea: { fields: ["image", "title", "desc"], maxItems: 6 }, // block 7
+};
+/** Block 5: 6 sibling card text widgets (title+desc runs + embedded image). */
+export const ABOUT_CARDS_SECTION = "s20250918c5a18b62c8acd";
 
 /**
  * Last segment of a pageKey/board slug, humanized: `products.eco-wave` →
@@ -360,7 +379,7 @@ function collectWidgets(nodes, out) {
   }
 }
 
-function sectionWidgets(section) {
+export function sectionWidgets(section) {
   const out = [];
   collectWidgets(section.rows ?? [], out);
   if (section.aside) collectWidgets(section.aside.items ?? [], out);
@@ -449,9 +468,38 @@ function embedSrcs(html) {
   for (const m of String(html ?? "").matchAll(/<(img|iframe)\b[^>]*>/gi)) {
     const tag = m[1].toLowerCase();
     const s = /\ssrc\s*=\s*("([^"]*)"|'([^']*)')/i.exec(m[0]);
-    out.push({ tag, index: seen[tag]++, src: s ? (s[2] ?? s[3] ?? "") : "" });
+    // Declared width (px or bare number); a `max-width`/`min-width` must not
+    // count, so the lookbehind rejects a preceding `-` or word char.
+    const w = /(?<![\w-])width\s*[:=]\s*"?(-?[\d.]+)(?:px)?"?/i.exec(m[0]);
+    out.push({
+      tag,
+      index: seen[tag]++,
+      src: s ? (s[2] ?? s[3] ?? "") : "",
+      width: w ? parseFloat(w[1]) : null,
+    });
   }
   return out;
+}
+
+/** Structured media item of one gallery item: `org = thumb = image`. */
+function toMedia(item, cfg) {
+  return {
+    image: item?.org || item?.thumb || "",
+    title: cfg.fields.includes("title") ? item?.title || "" : "",
+    desc: cfg.fields.includes("desc") ? item?.desc || "" : "",
+  };
+}
+
+/** `parseGalleryWidget` — one gallery2 widget + its block config → media items. */
+export function parseGalleryWidget(widget, cfg) {
+  return (widget?.items ?? []).map((item) => toMedia(item, cfg));
+}
+
+/** `parseAboutCard` — a block-5 card text widget → `{ image, title, desc }`. */
+export function parseAboutCard(html) {
+  const runs = textRuns(html);
+  const image = embedSrcs(html).find((embed) => embed.tag === "img")?.src ?? "";
+  return { image, title: runs[0] ?? "", desc: runs.slice(1).join("\n") };
 }
 
 /** Widgets inside an arbitrary node (widget/col/row), in document order. */
@@ -550,7 +598,8 @@ export function findBranchRow(section) {
 
 /**
  * `parseBranchCol` — the name text widget (badge/city/address runs) and the map
- * text widget (first iframe src) inside one branch column.
+ * text widget (first iframe src) inside one branch column. Branch entries carry
+ * empty contact fields (the contacts table only exists on the HQ item).
  */
 export function parseBranchCol(col) {
   const widgets = widgetsInNode(col);
@@ -570,7 +619,89 @@ export function parseBranchCol(col) {
   return {
     nameWidget,
     mapWidget,
-    location: { badge: runs[0] ?? "", city: runs[1] ?? "", address: runs[2] ?? "", mapSrc },
+    location: {
+      badge: runs[0] ?? "",
+      city: runs[1] ?? "",
+      address: runs[2] ?? "",
+      phone: "",
+      fax: "",
+      email: "",
+      mapSrc,
+    },
+  };
+}
+
+/** KO id of the company.global HQ section (fallback anchor). */
+const HQ_SECTION_ID = "s20250828182272ec01906";
+
+/**
+ * `parseHqSection` — the company.global HQ section that precedes the branches
+ * anchor: its name text widget (badge + address runs), its contacts table
+ * (TEL/FAX/EMAIL positional runs) and its map iframe. `branchesSectionId` is the
+ * section holding the branches row; the HQ is the section immediately before it
+ * in `sections` (falling back to the known KO id). Returns `null` when neither
+ * resolves.
+ */
+export function parseHqSection(sections, branchesSectionId) {
+  const list = Array.isArray(sections) ? sections : [];
+  const branchIndex = list.findIndex((section) => section && section.id === branchesSectionId);
+  let hq = branchIndex > 0 ? list[branchIndex - 1] : null;
+  // Guard the positional pick: the HQ section is the one carrying a contacts
+  // table. Fall back to the KO id when the neighbour is not the HQ.
+  const hasContacts = (section) =>
+    sectionWidgets(section).some(
+      (w) => w.type === "text" && typeof w.html === "string" && /<table\b/i.test(w.html),
+    );
+  if (!hq || !hasContacts(hq)) {
+    hq = list.find((section) => section && section.id === HQ_SECTION_ID) ?? null;
+  }
+  if (!hq) return null;
+
+  const widgets = sectionWidgets(hq);
+  const nameWidget =
+    widgets.find(
+      (w) =>
+        w.type === "text" &&
+        typeof w.html === "string" &&
+        !/<iframe\b/i.test(w.html) &&
+        !/<table\b/i.test(w.html),
+    ) ?? null;
+  const contactsWidget =
+    widgets.find(
+      (w) => w.type === "text" && typeof w.html === "string" && /<table\b/i.test(w.html),
+    ) ?? null;
+  const mapWidget =
+    widgets.find(
+      (w) => w.type === "text" && typeof w.html === "string" && /<iframe\b/i.test(w.html),
+    ) ?? null;
+
+  // Authored name runs are `[chip, address]` (2) or `[badge, city, address]` (3+).
+  const nameRuns = nameWidget ? textRuns(nameWidget.html) : [];
+  const badge = nameRuns[0] ?? "";
+  let city = "";
+  let address = "";
+  if (nameRuns.length >= 3) {
+    city = nameRuns[1] ?? "";
+    address = nameRuns[2] ?? "";
+  } else {
+    address = nameRuns[1] ?? "";
+  }
+
+  // Authored contacts runs are `["TEL", phone, "FAX", fax, "EMAIL", email]`.
+  const contactRuns = contactsWidget ? textRuns(contactsWidget.html) : [];
+  const phone = contactRuns[1] ?? "";
+  const fax = contactRuns[3] ?? "";
+  const email = contactRuns[5] ?? "";
+
+  const mapSrc = mapWidget
+    ? (embedSrcs(mapWidget.html).find((embed) => embed.tag === "iframe")?.src ?? "")
+    : "";
+
+  return {
+    nameWidget,
+    contactsWidget,
+    mapWidget,
+    location: { badge, city, address, phone, fax, email, mapSrc },
   };
 }
 
@@ -753,6 +884,7 @@ function addDef(entry) {
     label,
     revalidate,
     shared,
+    gallery,
     koValue,
     enValue,
   } = entry;
@@ -776,6 +908,7 @@ function addDef(entry) {
     label,
     revalidate,
     ...(shared ? { shared: true } : {}),
+    ...(gallery ? { gallery } : {}),
     /** internal emission index (stripped before output) */
     order: emissionOrder++,
   });
@@ -847,6 +980,21 @@ function walkPages() {
     const koEraSections = (koPage.sections ?? []).filter(isEraSection);
     const enEraSections = (enPage?.sections ?? []).filter(isEraSection);
 
+    // company.global HQ: its name/contacts/map text widgets are folded into the
+    // ONE `locations` def (item 0), so they emit no per-widget defs of their own.
+    // The HQ section is iterated BEFORE the branches section, so resolve its
+    // widget ids up front.
+    const locationHqWidgetIds = new Set();
+    if (pageKey === "company.global") {
+      const branchesSection = (koPage.sections ?? []).find((s) => findBranchRow(s));
+      const hq = branchesSection ? parseHqSection(koPage.sections, branchesSection.id) : null;
+      if (hq) {
+        for (const widget of [hq.nameWidget, hq.contactsWidget, hq.mapWidget]) {
+          if (widget) locationHqWidgetIds.add(widget.id);
+        }
+      }
+    }
+
     for (let si = 0; si < (koPage.sections ?? []).length; si += 1) {
       const koSection = koPage.sections[si];
       // keep the EN index alignment: skip by position, not by filtering
@@ -904,9 +1052,9 @@ function walkPages() {
         continue;
       }
 
-      // Structured `locations`: the branches row's name/map widgets are covered
-      // by ONE def anchored at the branches section (HQ keeps its per-widget
-      // defs — its row holds a single iframe column).
+      // Structured `locations`: the branches row's name/map widgets AND the HQ
+      // section's name/contacts/map widgets are covered by ONE page-level def
+      // anchored at the branches section (item 0 = HQ, items 1+ = branches).
       const branchRow = findBranchRow(koSection);
       const locationWidgetIds = new Set();
       if (branchRow) {
@@ -923,6 +1071,8 @@ function walkPages() {
           revalidate: sectionRevalidate,
           row: branchRow,
           enSection: enSection ?? null,
+          koSections: koPage.sections ?? [],
+          enSections: enPage?.sections ?? null,
         });
       }
 
@@ -945,10 +1095,26 @@ function walkPages() {
         for (const widget of textWidgets.slice(1)) cardWidgetIds.add(widget.id);
       }
 
+      // Block 5: the 6 card text widgets after the heading are covered by ONE
+      // `aboutCards` def; their per-widget html + embedded img defs are skipped.
+      const isAboutCards = pageKey === "company.about" && koSection.id === ABOUT_CARDS_SECTION;
+      const aboutCardWidgetIds = new Set();
+      if (isAboutCards) {
+        const textWidgets = koWidgets.filter(
+          (w) =>
+            w.type === "text" &&
+            typeof w.html === "string" &&
+            w.html.trim().length > 0,
+        );
+        for (const widget of textWidgets.slice(1)) aboutCardWidgetIds.add(widget.id);
+      }
+
       for (let wi = 0; wi < koWidgets.length; wi += 1) {
         const koWidget = koWidgets[wi];
         if (cardWidgetIds.has(koWidget.id)) continue;
         if (locationWidgetIds.has(koWidget.id)) continue;
+        if (locationHqWidgetIds.has(koWidget.id)) continue;
+        if (aboutCardWidgetIds.has(koWidget.id)) continue;
         let enWidget = pairMap.get(koWidget.id) ?? null;
         if (enWidget && enWidget.type !== koWidget.type) {
           warnings.push(
@@ -990,6 +1156,19 @@ function walkPages() {
           sectionId: koSection.id,
           section,
           revalidate,
+        });
+      }
+
+      if (isAboutCards) {
+        mapAboutCards({
+          pageKey,
+          group: sectionGroup,
+          sectionId: koSection.id,
+          section,
+          revalidate: sectionRevalidate,
+          koWidgets,
+          enWidgets: enPaired,
+          pairMap,
         });
       }
 
@@ -1041,6 +1220,9 @@ function mapWidget({
       const koEmbeds = embedSrcs(koHtml);
       const enEmbeds = embedSrcs(enHtml);
       for (const embed of koEmbeds) {
+        // Block 8's fixed location pins are tiny inline <img>s (16px) — chrome,
+        // not content — so they get no def. A larger inline image stays editable.
+        if (embed.tag === "img" && embed.width != null && embed.width < 32) continue;
         const enEmbed = enEmbeds.find(
           (candidate) => candidate.tag === embed.tag && candidate.index === embed.index,
         );
@@ -1145,6 +1327,28 @@ function mapWidget({
       return;
     }
     case "gallery2": {
+      // Configured company.about blocks emit ONE structured `gallery` def; all
+      // other galleries (incl. rnd.*) keep the legacy per-item defs.
+      const galleryCfg = ABOUT_MEDIA_BLOCKS[sectionId];
+      if (galleryCfg) {
+        const koValue = JSON.stringify(parseGalleryWidget(koWidget, galleryCfg));
+        const enValue = enWidget
+          ? JSON.stringify(parseGalleryWidget(enWidget, galleryCfg))
+          : undefined;
+        addDef({
+          ...base,
+          widgetId: koWidget.id,
+          field: "gallery",
+          kind: "gallery",
+          gallery: galleryCfg,
+          label: { ko: LABELS.galleryAbout.ko, en: LABELS.galleryAbout.en },
+          section,
+          koValue,
+          enValue,
+        });
+        return;
+      }
+
       const koItems = koWidget.items ?? [];
       const enItems = enWidget?.items ?? [];
       for (let i = 0; i < koItems.length; i += 1) {
@@ -1230,15 +1434,25 @@ function mapEras({ pageKey, group, section, revalidate, koSections, enSections }
 }
 
 /**
- * ONE `locations` def for the company.global branches row. The value is a JSON
- * array of `{ badge, city, address, mapSrc }`; the runtime clones/removes branch
- * columns (see `applyLocations` in lib/content/merge.ts). EN mirrors the EN
- * branch columns at the same indices.
+ * ONE `locations` def for the company.global page. The value is a JSON array of
+ * `{ badge, city, address, phone, fax, email, mapSrc }`: item 0 is the HQ slot,
+ * items 1+ are the branch columns (see `applyLocations` in lib/content/merge.ts).
+ * EN mirrors the EN HQ + branch columns at the same indices.
  */
-function mapLocations({ pageKey, group, sectionId, section, revalidate, row, enSection }) {
-  const koLocations = (row.cols ?? []).map((col) => parseBranchCol(col).location);
+function mapLocations({ pageKey, group, sectionId, section, revalidate, row, enSection, koSections, enSections }) {
+  const koHq = parseHqSection(koSections, sectionId);
+  const koLocations = [
+    ...(koHq ? [koHq.location] : []),
+    ...(row.cols ?? []).map((col) => parseBranchCol(col).location),
+  ];
   const enRow = enSection ? findBranchRow(enSection) : null;
-  const enLocations = enRow ? enRow.cols.map((col) => parseBranchCol(col).location) : null;
+  const enHq = enSection ? parseHqSection(enSections, enSection.id) : null;
+  const enLocations = enSection
+    ? [
+        ...(enHq ? [enHq.location] : []),
+        ...(enRow ? enRow.cols.map((col) => parseBranchCol(col).location) : []),
+      ]
+    : null;
   addDef({
     pageKey,
     group,
@@ -1250,7 +1464,8 @@ function mapLocations({ pageKey, group, sectionId, section, revalidate, row, enS
     section,
     revalidate,
     koValue: JSON.stringify(koLocations),
-    enValue: enLocations ? JSON.stringify(enLocations) : undefined,
+    enValue:
+      enLocations && enLocations.length > 0 ? JSON.stringify(enLocations) : undefined,
   });
 }
 
@@ -1320,6 +1535,49 @@ function mapLocationCards({ pageKey, group, sectionId, section, revalidate, koWi
     field: "cards",
     kind: "cards",
     label: { ko: LABELS.locationCards.ko, en: LABELS.locationCards.en },
+    section,
+    revalidate,
+    koValue,
+    enValue,
+  });
+}
+
+/**
+ * ONE `aboutCards` def for company.about block 5: the 6 card text widgets after
+ * the heading become `[{ image, title, desc }]` (title = first run, desc = the
+ * rest, image = the embedded <img> src). The EN value mirrors the EN section's
+ * widgets at the same indices (positional pairing).
+ */
+function mapAboutCards({ pageKey, group, sectionId, section, revalidate, koWidgets, enWidgets, pairMap }) {
+  const textEntries = koWidgets.filter(
+    (widget) =>
+      widget.type === "text" &&
+      typeof widget.html === "string" &&
+      widget.html.trim().length > 0,
+  );
+  const cardEntries = textEntries.slice(1); // first non-empty text = heading
+  if (cardEntries.length === 0) return;
+
+  const koValue = JSON.stringify(cardEntries.map((widget) => parseAboutCard(widget.html)));
+  let enValue;
+  if (enWidgets.length > 0) {
+    const enCards = cardEntries.map((widget) => {
+      const enWidget = pairMap.get(widget.id) ?? null;
+      return enWidget && enWidget.type === "text"
+        ? parseAboutCard(enWidget.html)
+        : { image: "", title: "", desc: "" };
+    });
+    enValue = JSON.stringify(enCards);
+  }
+
+  addDef({
+    pageKey,
+    group,
+    sectionId,
+    widgetId: "aboutCards",
+    field: "aboutCards",
+    kind: "aboutCards",
+    label: { ko: LABELS.cardsAbout.ko, en: LABELS.cardsAbout.en },
     section,
     revalidate,
     koValue,
@@ -1516,6 +1774,8 @@ export interface ContentDef {
   revalidate: string[];
   /** Rendered on every page of its channel from this one def (shared intro band). */
   shared?: boolean;
+  /** Structured gallery block config: editable per-item fields + optional cap. */
+  gallery?: { fields: ("image" | "title" | "desc")[]; maxItems?: number };
 }
 
 `;

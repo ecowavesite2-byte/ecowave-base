@@ -10,6 +10,34 @@ vi.mock("../db", () => ({
 
 vi.mock("next/cache", () => ({ revalidatePath: vi.fn() }));
 
+// The company.global HQ map was the registry's only `embed` def and is now
+// covered by the page-level `locations` def (item 0 `mapSrc`). Append a
+// synthetic embed def so the embed media-validation path stays exercised.
+const { SYNTHETIC_EMBED_DEF } = vi.hoisted(() => ({
+  SYNTHETIC_EMBED_DEF: {
+    key: "synthetic#embed/embed/iframe[0].src",
+    group: "home",
+    pageKey: "home",
+    sectionId: "embed",
+    widgetId: "embed",
+    field: "iframe[0].src",
+    kind: "embed",
+    section: { ko: "합성 임베드", en: "Synthetic embed" },
+    label: { ko: "임베드 주소", en: "Embed URL" },
+    revalidate: [] as string[],
+  },
+}));
+
+vi.mock("../registry", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("../registry")>();
+  const def = SYNTHETIC_EMBED_DEF as unknown as (typeof actual.CONTENT_DEFS)[number];
+  return {
+    ...actual,
+    CONTENT_DEFS: [...actual.CONTENT_DEFS, def],
+    CONTENT_DEF_MAP: { ...actual.CONTENT_DEF_MAP, [def.key]: def },
+  };
+});
+
 import { revalidatePath } from "next/cache";
 import { CONTENT_DEFS, MAX_LENGTH, type ContentDef } from "../registry";
 import { DB_NOT_CONFIGURED_MESSAGE, saveContent } from "../save";
@@ -258,6 +286,38 @@ describe("saveContent structured payload validation (no DB)", () => {
       const value = JSON.stringify([{ badge: "a", city: "b", address: "c", mapSrc }]);
       const result = await saveContent({ key: def.key, locale: "ko", value, actor });
       expect(result, mapSrc).toEqual({ ok: false, message: DB_NOT_CONFIGURED_MESSAGE });
+    }
+  });
+
+  it("accepts locations payloads with missing contact fields (normalized) and 7-field ones", async () => {
+    const def = defOfKind("locations");
+    const legacy = JSON.stringify([{ badge: "a", city: "b", address: "c", mapSrc: "" }]);
+    const full = JSON.stringify([
+      {
+        badge: "a",
+        city: "b",
+        address: "c",
+        phone: "1",
+        fax: "2",
+        email: "e@x.y",
+        mapSrc: "",
+      },
+    ]);
+    for (const value of [legacy, full]) {
+      const result = await saveContent({ key: def.key, locale: "ko", value, actor });
+      expect(result, value).toEqual({ ok: false, message: DB_NOT_CONFIGURED_MESSAGE });
+    }
+  });
+
+  it("rejects non-string contact fields in locations payloads", async () => {
+    const def = defOfKind("locations");
+    for (const field of ["phone", "fax", "email"]) {
+      const value = JSON.stringify([
+        { badge: "a", city: "b", address: "c", mapSrc: "", [field]: 5 },
+      ]);
+      const result = await saveContent({ key: def.key, locale: "ko", value, actor });
+      expect(result.ok, field).toBe(false);
+      expect(result.message).toContain("Invalid locations payload");
     }
   });
 });

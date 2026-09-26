@@ -113,9 +113,18 @@ const DECORATIVE_WIDGET_TYPES = new Set(["padding", "hr"]);
  */
 function uneditableWidgetTypes(section: Section | undefined, defs: RegistryDef[]): string[] {
   if (!section) return [];
-  // A section-scoped `eras`/`locations` def covers every widget it rewrites, so
-  // nothing in that section is uneditable.
-  if (defs.some((def) => def.widgetId === "eras" || def.widgetId === "locations")) return [];
+  // A section-scoped `eras`/`locations`/`aboutCards` def covers every widget it
+  // rewrites, so nothing in that section is uneditable.
+  if (
+    defs.some(
+      (def) =>
+        def.widgetId === "eras" ||
+        def.widgetId === "locations" ||
+        def.widgetId === "aboutCards",
+    )
+  ) {
+    return [];
+  }
   const editable = new Set(defs.map((def) => def.widgetId));
   const out: string[] = [];
   const seen = new Set<string>();
@@ -137,13 +146,14 @@ function uneditableWidgetTypes(section: Section | undefined, defs: RegistryDef[]
 function defTargetMissing(section: Section | undefined, def: RegistryDef): boolean {
   if (!section) return false;
   // Section-level synthetic defs never match the widget walk: `cards`/`picks`/
-  // `eras`/`locations` rewrite the section, and `visual` (the slides list def)
-  // rewrites the hero.
+  // `eras`/`locations`/`aboutCards` rewrite the section, and `visual` (the slides
+  // list def) rewrites the hero. (`gallery` binds to a real widget id.)
   if (
     def.widgetId === "cards" ||
     def.widgetId === "picks" ||
     def.widgetId === "eras" ||
     def.widgetId === "locations" ||
+    def.widgetId === "aboutCards" ||
     def.widgetId === "visual"
   ) {
     return false;

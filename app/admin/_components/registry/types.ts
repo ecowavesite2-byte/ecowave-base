@@ -1,4 +1,4 @@
-import type { Section } from "@/lib/types";
+import type { GalleryBlockConfig, Section } from "@/lib/types";
 
 /**
  * Local, client-safe mirrors of the registry API payload.
@@ -25,7 +25,9 @@ export type RegistryKind =
   | "picks"
   | "embed"
   | "eras"
-  | "locations";
+  | "locations"
+  | "gallery"
+  | "aboutCards";
 
 export type SaveStatus = "idle" | "saving" | "saved" | "error";
 
@@ -42,6 +44,8 @@ export interface RegistryDef {
   revalidate: string[];
   /** The def's content is rendered on every page of its channel; shown as a badge. */
   shared?: boolean;
+  /** Structured `gallery` block config: editable per-item fields + optional cap. */
+  gallery?: GalleryBlockConfig;
 }
 
 export interface RegistryResponse {

@@ -248,9 +248,31 @@ export interface AdminDict {
     locationsCity: string;
     locationsAddress: string;
     locationsMap: string;
+    locationsPhone: string;
+    locationsFax: string;
+    locationsEmail: string;
+    /** Badge marking the locked HQ item (item 0). */
+    locationsHq: string;
+    /** Hint explaining the Google Maps embed URL to paste. */
+    locationsMapHint: string;
+    /** Link label opening the item's city/address in Google Maps. */
+    locationsOpenMap: string;
     locationsHint: string;
     /** Card header for location `n` (1-based). */
     locationsCard: (n: number) => string;
+    /** Structured `gallery` / `aboutCards` media-item editor. */
+    galleryAdd: string;
+    galleryRemove: string;
+    galleryMoveUp: string;
+    galleryMoveDown: string;
+    galleryImage: string;
+    galleryTitle: string;
+    galleryDesc: string;
+    galleryHint: string;
+    /** Item-count cap reached for a `gallery` block (its `maxItems`). */
+    galleryMaxHint: (max: number) => string;
+    /** Card header for gallery item `n` (1-based). */
+    galleryItem: (n: number) => string;
   };
   /**
    * `/admin/boards` + `/admin/boards/<slug>` — the board picker, the per-board
@@ -529,6 +551,8 @@ const ko: AdminDict = {
       embed: "임베드 URL",
       eras: "연혁",
       locations: "지사 목록",
+      gallery: "갤러리",
+      aboutCards: "카드 목록",
     },
     fieldCount: (count) => `${count}개 필드`,
     save: "저장",
@@ -627,8 +651,26 @@ const ko: AdminDict = {
     locationsCity: "도시",
     locationsAddress: "주소",
     locationsMap: "지도 URL",
+    locationsPhone: "전화번호",
+    locationsFax: "팩스",
+    locationsEmail: "이메일",
+    locationsHq: "본사",
+    locationsMapHint:
+      "Google Maps에서 '지도 공유 → 지도 퍼가기'의 src URL을 붙여넣으세요.",
+    locationsOpenMap: "지도에서 열기",
     locationsHint: "지사를 추가·삭제·순서 변경할 수 있습니다. 본사(HQ) 카드는 고정입니다.",
     locationsCard: (n) => `지사 ${n}`,
+    galleryAdd: "항목 추가",
+    galleryRemove: "삭제",
+    galleryMoveUp: "위로",
+    galleryMoveDown: "아래로",
+    galleryImage: "이미지",
+    galleryTitle: "제목",
+    galleryDesc: "설명",
+    galleryHint:
+      "항목을 추가·삭제·순서 변경할 수 있습니다. 이미지 한 장이 썸네일과 원본에 함께 사용됩니다.",
+    galleryMaxHint: (max) => `최대 ${max}개까지 추가할 수 있습니다.`,
+    galleryItem: (n) => `항목 ${n}`,
   },
   boards: {
     title: "게시판",
@@ -879,6 +921,8 @@ const en: AdminDict = {
       embed: "Embed URL",
       eras: "History eras",
       locations: "Branch locations",
+      gallery: "Gallery",
+      aboutCards: "Card list",
     },
     fieldCount: (count) => `${count} fields`,
     save: "Save",
@@ -975,8 +1019,25 @@ const en: AdminDict = {
     locationsCity: "City",
     locationsAddress: "Address",
     locationsMap: "Map URL",
+    locationsPhone: "Phone",
+    locationsFax: "Fax",
+    locationsEmail: "Email",
+    locationsHq: "Headquarters",
+    locationsMapHint: "Paste the Google Maps embed URL (Share → Embed a map → copy the src).",
+    locationsOpenMap: "Open in Maps",
     locationsHint: "Add, remove or reorder branch locations. The HQ card stays fixed.",
     locationsCard: (n) => `Location ${n}`,
+    galleryAdd: "Add item",
+    galleryRemove: "Remove",
+    galleryMoveUp: "Move up",
+    galleryMoveDown: "Move down",
+    galleryImage: "Image",
+    galleryTitle: "Title",
+    galleryDesc: "Description",
+    galleryHint:
+      "Add, remove or reorder items. One image serves both the thumbnail and the full-size view.",
+    galleryMaxHint: (max) => `Up to ${max} items.`,
+    galleryItem: (n) => `Item ${n}`,
   },
   boards: {
     title: "Boards",

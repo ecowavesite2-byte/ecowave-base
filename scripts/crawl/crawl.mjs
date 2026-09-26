@@ -170,6 +170,34 @@ function EXTRACT_PAGE() {
           : meta.querySelector("._item, .item_gallary, .gallery_item");
         const itemW = itemBox ? Math.round(itemBox.getBoundingClientRect().width) : null;
         const itemH = itemBox ? Math.round(itemBox.getBoundingClientRect().height) : null;
+        // Durable autoplay: read the owl carousel options the runtime armed
+        // (`autoplay ? autoplayTimeout : 0`). The renderer consumes
+        // `widget.autoplayMs` (SectionRenderer: `autoplayMs={w.autoplayMs ?? 0}`);
+        // absent options mean a manual gallery. Only slide layouts emit the key
+        // so grid JSON stays byte-identical.
+        let autoplayMs = 0;
+        if (layout === "slide") {
+          try {
+            const jq = window.jQuery || window.$;
+            if (jq) {
+              const candidates = [
+                cont,
+                meta.querySelector(".owl-carousel"),
+                meta.closest(".owl-carousel"),
+              ].filter(Boolean);
+              for (const el of candidates) {
+                const owl = jq(el).data("owlCarousel");
+                const opts = owl && owl.options;
+                if (opts && "autoplay" in opts) {
+                  autoplayMs = opts.autoplay ? Number(opts.autoplayTimeout) || 0 : 0;
+                  break;
+                }
+              }
+            }
+          } catch {
+            /* owl options unavailable (non-owl gallery / jQuery missing) — manual */
+          }
+        }
         const items = [];
         const seen = new Set();
         meta
@@ -204,6 +232,7 @@ function EXTRACT_PAGE() {
           gridN,
           itemW,
           itemH,
+          ...(layout === "slide" ? { autoplayMs } : {}),
           items,
         };
       }

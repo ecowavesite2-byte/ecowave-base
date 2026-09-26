@@ -43,6 +43,13 @@ export type WidgetNode = {
    * curated rendition when one exists.
    */
   mobileSrc?: string | null | false;
+  /**
+   * Carousel auto-advance in ms, consumed by the renderer (gallery `slide`
+   * layouts). Crawl-emitted; 0/undefined = no autoplay.
+   */
+  autoplayMs?: number;
+  /** Renderer variant for a structured gallery block. */
+  galleryVariant?: "caption" | "plain";
 };
 
 export type ColNode = { kind: "col"; grid: string; children: Node[]; _h?: number };
@@ -73,8 +80,29 @@ export type LocationCard = { lines: string[] };
 export type EraYear = { year: string; items: string[] };
 /** One timeline era of the company.history page (structured `eras` kind). */
 export type EraEntry = { range: string; tagline: string; image: string; years: EraYear[] };
-/** One branch office of the company.global page (structured `locations` kind). */
-export type GlobalLocation = { badge: string; city: string; address: string; mapSrc: string };
+/**
+ * One entry of the company.global page (structured `locations` kind): item 0 is
+ * the HQ slot, items 1+ are branch offices. One uniform field set.
+ */
+export type GlobalLocation = {
+  badge: string;
+  city: string;
+  address: string;
+  phone: string;
+  fax: string;
+  email: string;
+  mapSrc: string;
+};
+
+/** Per-item fields a structured media block can expose. */
+export type GalleryFieldName = "image" | "title" | "desc";
+/** One item of a structured `gallery` / `aboutCards` block (`org = thumb = image`). */
+export type StructuredMediaItem = { image: string; title: string; desc: string };
+/** Which fields are editable for one structured media block (+ optional cap). */
+export interface GalleryBlockConfig {
+  fields: GalleryFieldName[];
+  maxItems?: number;
+}
 
 /** Ticker post selection (home notice ticker). */
 export type TickerPicks = { board: "news" | "notices"; idxs: string[] };

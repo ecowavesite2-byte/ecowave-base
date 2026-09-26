@@ -1,5 +1,5 @@
 import type { Locale } from "../i18n";
-import type { BoardContent, BoardPost, PageContent, SiteData } from "../types";
+import type { BoardContent, BoardPost, GalleryBlockConfig, PageContent, SiteData } from "../types";
 import { boardLabel } from "./boards";
 import { loadBoardPosts } from "./board-store";
 import { loadOverrides } from "./db";
@@ -13,6 +13,17 @@ import { CONTENT_DEF_MAP } from "./registry";
  */
 const OVERRIDE_KINDS: Record<string, string> = Object.fromEntries(
   Object.values(CONTENT_DEF_MAP).map((def) => [def.key, def.kind]),
+);
+
+/**
+ * Override key → structured gallery block config, built once. The merge applier
+ * uses it to clear disallowed fields / truncate items so a direct-DB payload
+ * cannot bypass the editor's contract.
+ */
+const GALLERY_CONFIGS: Record<string, GalleryBlockConfig> = Object.fromEntries(
+  Object.values(CONTENT_DEF_MAP)
+    .filter((def) => def.gallery)
+    .map((def) => [def.key, def.gallery as GalleryBlockConfig]),
 );
 
 /**
@@ -63,10 +74,17 @@ export async function getResolvedPage(locale: Locale, key: string): Promise<Page
     } catch {
       primaryPage = null;
     }
-    return applyPageOverrides(base, overrides, locale, { primaryPage, kinds: OVERRIDE_KINDS });
+    return applyPageOverrides(base, overrides, locale, {
+      primaryPage,
+      kinds: OVERRIDE_KINDS,
+      galleryConfigs: GALLERY_CONFIGS,
+    });
   }
 
-  return applyPageOverrides(base, overrides, locale, { kinds: OVERRIDE_KINDS });
+  return applyPageOverrides(base, overrides, locale, {
+    kinds: OVERRIDE_KINDS,
+    galleryConfigs: GALLERY_CONFIGS,
+  });
 }
 
 /** Site data with any nav-label overrides applied (base object is never mutated). */

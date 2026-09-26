@@ -134,30 +134,104 @@ function isValidErasPayload(value: string): boolean {
 
 /**
  * `locations` payloads: a non-empty JSON array of
- * `{ badge, city, address, mapSrc }`. A non-empty `mapSrc` must be a valid media
- * value (relative path or http(s) URL).
+ * `{ badge, city, address, phone, fax, email, mapSrc }`. A non-empty `mapSrc`
+ * must be a valid media value (relative path or http(s) URL). Returns the
+ * payload NORMALIZED — missing `phone`/`fax`/`email` become `""` (backward
+ * compatibility with payloads saved before the fields existed) — or `null` when
+ * invalid.
  */
-function isValidLocationsPayload(value: string): boolean {
+function normalizeLocationsPayload(value: string): string | null {
   try {
     const parsed: unknown = JSON.parse(value);
-    if (!Array.isArray(parsed) || parsed.length === 0) return false;
-    return parsed.every((entry) => {
-      if (!entry || typeof entry !== "object" || Array.isArray(entry)) return false;
+    if (!Array.isArray(parsed) || parsed.length === 0) return null;
+    const out: Array<{
+      badge: string;
+      city: string;
+      address: string;
+      phone: string;
+      fax: string;
+      email: string;
+      mapSrc: string;
+    }> = [];
+    for (const entry of parsed) {
+      if (!entry || typeof entry !== "object" || Array.isArray(entry)) return null;
       const location = entry as {
         badge?: unknown;
         city?: unknown;
         address?: unknown;
+        phone?: unknown;
+        fax?: unknown;
+        email?: unknown;
         mapSrc?: unknown;
       };
-      if (typeof location.badge !== "string") return false;
-      if (typeof location.city !== "string") return false;
-      if (typeof location.address !== "string") return false;
-      if (typeof location.mapSrc !== "string") return false;
-      if (location.mapSrc.trim().length > 0 && !isValidMediaValue(location.mapSrc)) return false;
-      return true;
-    });
+      if (typeof location.badge !== "string") return null;
+      if (typeof location.city !== "string") return null;
+      if (typeof location.address !== "string") return null;
+      if (typeof location.mapSrc !== "string") return null;
+      if (location.mapSrc.trim().length > 0 && !isValidMediaValue(location.mapSrc)) return null;
+      // Absent contact fields are the pre-upgrade shape: normalize to "".
+      const phone = location.phone === undefined ? "" : location.phone;
+      const fax = location.fax === undefined ? "" : location.fax;
+      const email = location.email === undefined ? "" : location.email;
+      if (typeof phone !== "string" || typeof fax !== "string" || typeof email !== "string") {
+        return null;
+      }
+      out.push({
+        badge: location.badge,
+        city: location.city,
+        address: location.address,
+        phone,
+        fax,
+        email,
+        mapSrc: location.mapSrc,
+      });
+    }
+    return JSON.stringify(out);
   } catch {
-    return false;
+    return null;
+  }
+}
+
+/**
+ * `gallery`/`aboutCards` payloads: a non-empty JSON array of
+ * `{ image (non-empty valid media), title: string, desc: string }`. Returns the
+ * payload NORMALIZED to its block config (disallowed fields cleared, extras
+ * truncated), or `null` when invalid (including over the item cap — the editor
+ * must not let a block exceed `maxItems`).
+ */
+function normalizeMediaPayload(
+  value: string,
+  cfg: { fields: ("image" | "title" | "desc")[]; maxItems?: number } | undefined,
+): string | null {
+  try {
+    const parsed: unknown = JSON.parse(value);
+    if (!Array.isArray(parsed) || parsed.length === 0) return null;
+
+    const fields = cfg?.fields;
+    const allowTitle = !fields || fields.includes("title");
+    const allowDesc = !fields || fields.includes("desc");
+    const max = cfg?.maxItems;
+    if (typeof max === "number" && parsed.length > max) return null;
+
+    const out: Array<{ image: string; title: string; desc: string }> = [];
+    for (const entry of parsed) {
+      if (!entry || typeof entry !== "object" || Array.isArray(entry)) return null;
+      const item = entry as { image?: unknown; title?: unknown; desc?: unknown };
+      if (typeof item.image !== "string" || item.image.trim().length === 0) return null;
+      if (!isValidMediaValue(item.image)) return null;
+      if (typeof item.title !== "string") return null;
+      if (typeof item.desc !== "string") return null;
+      out.push({
+        image: item.image,
+        title: allowTitle ? item.title : "",
+        desc: allowDesc ? item.desc : "",
+      });
+    }
+    const limited = typeof max === "number" ? out.slice(0, max) : out;
+    if (limited.length === 0) return null;
+    return JSON.stringify(limited);
+  } catch {
+    return null;
   }
 }
 
@@ -268,12 +342,29 @@ export async function saveContent({
     };
   }
 
-  if (def.kind === "locations" && trimmedLength > 0 && !isValidLocationsPayload(value)) {
-    return {
-      ok: false,
-      message:
-        "Invalid locations payload: expected a non-empty JSON array of { badge, city, address, mapSrc }",
-    };
+  if (def.kind === "locations" && trimmedLength > 0) {
+    const normalized = normalizeLocationsPayload(value);
+    if (normalized === null) {
+      return {
+        ok: false,
+        message:
+          "Invalid locations payload: expected a non-empty JSON array of { badge, city, address, phone, fax, email, mapSrc }",
+      };
+    }
+    // Store the normalized value (missing contact fields filled with "").
+    value = normalized;
+  }
+
+  if ((def.kind === "gallery" || def.kind === "aboutCards") && trimmedLength > 0) {
+    const normalized = normalizeMediaPayload(value, def.gallery);
+    if (normalized === null) {
+      return {
+        ok: false,
+        message: `Invalid ${def.kind} payload: expected a non-empty JSON array of { image, title, desc } within the block limits`,
+      };
+    }
+    // Store the normalized value (disallowed fields cleared, extras truncated).
+    value = normalized;
   }
 
   const prisma = getPrisma();
