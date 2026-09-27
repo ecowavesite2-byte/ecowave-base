@@ -323,6 +323,24 @@ underneath the live process. Order:
 2. `npm run build`;
 3. `npm run start` (port **4517**).
 
+### Deployment (Vercel)
+
+- **Prisma client generation is wired via `postinstall` (`prisma generate`).** The
+  generated client lives in the gitignored `src/generated/`, and Prisma 7 no longer
+  ships an auto-generate hook, so a fresh clone/Vercel build has no client without
+  this step. Keep devDependencies installable (Vercel default) — `prisma` and
+  `dotenv` are devDeps. If a project overrides install/caching and the generate is
+  skipped, set the Build Command to `npx prisma generate && npm run build`.
+- **Set the auth vars in the Vercel environment too** (`SESSION_SECRET`,
+  `ADMIN_EMAIL`, `ADMIN_PASSWORD_HASH`, `ADMIN_PASSWORD_SALT`) — `next build` fails
+  closed without them. Also set `DATABASE_URL` and `BLOB_READ_WRITE_TOKEN` for the
+  override store, inquiries and uploads.
+- **Apply migrations once per release** before/with the deploy:
+  `npx prisma migrate deploy`. It needs the direct (unpooled) URL — set
+  `DIRECT_URL_UNPOOLED` or `DATABASE_URL_UNPOOLED` (`prisma.config.ts` prefers it
+  over `DATABASE_URL`). Prefer a separate release/CI step over the build command so
+  preview builds cannot mutate production.
+
 ### Data roots & write model
 
 - Repo `content/` is the seed; production writes go to `CONTENT_ROOT` when set.
