@@ -8,12 +8,14 @@ import { MOBILE_SECTION } from "@/components/content/SectionRenderer";
 import type { FacilitiesTab } from "@/components/content/FacilitiesTabs";
 import { isNoticeTickerSection } from "@/components/sections/home/NoticeTicker";
 import { adminDict, type AdminLocale } from "@/lib/admin/i18n";
-import type { BoardPost, PageContent, ProductPagePayload, Section } from "@/lib/types";
+import type { BoardPost, NavItem, PageContent, ProductPagePayload, Section } from "@/lib/types";
+import BoardEditor from "../boards/BoardEditor";
 import FieldRow from "./FieldRow";
+import { buildFooterRows, FooterFrame } from "@/components/layout/FooterBody";
 import GroupTabs from "./GroupTabs";
 import ProductPagePreview from "./ProductPagePreview";
 import { parseProductPage } from "./ProductPageField";
-import SectionPreview from "./SectionPreview";
+import SectionPreview, { ScaledDesktop } from "./SectionPreview";
 import type {
   BoardPostOption,
   BoardPostsMap,
@@ -58,6 +60,7 @@ type PreviewState =
   | { kind: "sections"; sections: Section[] }
   | { kind: "ticker"; section: Section; posts: BoardPost[] }
   | { kind: "product"; payload: ProductPagePayload; posts: ProductPostOption[] }
+  | { kind: "footer"; section: Section }
   | { kind: "board" }
   | { kind: "mobile" }
   | { kind: "chrome" }
@@ -251,6 +254,8 @@ export default function RegistryEditor({
   trees,
   boardPosts,
   productPosts: initialProductPosts,
+  nav = {},
+  initialBoardLocale,
 }: {
   locale: AdminLocale;
   initialGroup: string;
@@ -261,9 +266,24 @@ export default function RegistryEditor({
   boardPosts: BoardPostsMap;
   /** Server-loaded board posts per `productPage` `pageKey`, for its preview. */
   productPosts: ProductPostsMap;
+  /**
+   * Resolved site nav per locale (common group only): injected into the footer
+   * preview's sitemap columns exactly like the public `SiteFooter`.
+   */
+  nav?: Partial<Record<RegistryLocale, NavItem[]>>;
+  /**
+   * Board CONTENT locale for the embedded News & Notices editor (from the old
+   * `?locale=` URL). Defaults to the admin `locale`.
+   */
+  initialBoardLocale?: RegistryLocale;
 }) {
   const t = adminDict[locale].content;
   const boardsT = adminDict[locale].boards;
+  const isBoardsGroup = initialGroup === "boards";
+  const isSiteGroup = initialGroup === "site";
+  const isFooterGroup = initialGroup === "common";
+  // The embedded board editor's content locale; falls back to the admin locale.
+  const boardInitialLocale = initialBoardLocale ?? locale;
 
   const [defs, setDefs] = useState<RegistryDef[]>([]);
   const [values, setValues] = useState<Record<string, LocalePair>>({});
@@ -276,6 +296,8 @@ export default function RegistryEditor({
   const [retry, setRetry] = useState(0);
   const [openSection, setOpenSection] = useState<string | null>(null);
   const [previewLang, setPreviewLang] = useState<RegistryLocale>("ko");
+  /** Active sub-tab for the boards group (news | notices | …). */
+  const [activeBoard, setActiveBoard] = useState("");
   /**
    * Live product posts per `productPage` board, seeded from the server props and
    * kept in sync by the inline product manager (`ProductPageField`) after each
@@ -315,11 +337,13 @@ export default function RegistryEditor({
         if (cancelled) return;
 
         const [ko, en] = payloads;
-        // The products group's `board/**/name` defs are edited on the Boards
-        // screen and are not rendered on the product pages; hide them here so a
-        // product page shows exactly one accordion (its `제품 페이지` def).
+        // The products group's `board/**/name` defs are edited on the embedded
+        // board editor and are not rendered on the product pages; the boards
+        // group's news/notices board-name defs are likewise edited in the
+        // embedded BoardEditor below. Hide them here so each page shows only its
+        // own editable page-text sections.
         const visibleDefs =
-          initialGroup === "products"
+          initialGroup === "products" || initialGroup === "boards"
             ? ko.defs.filter((def) => def.sectionId !== "board")
             : ko.defs;
         const nextValues: Record<string, LocalePair> = {};
@@ -377,7 +401,22 @@ export default function RegistryEditor({
     return out;
   }, [defs, locale]);
 
-  const openItem = items.find((item) => item.key === openSection) ?? null;
+  /** Sub-tabs of the boards group: one per distinct page (news, notices). */
+  const boardSlugs = useMemo(() => {
+    const seen: string[] = [];
+    for (const item of items) if (!seen.includes(item.pageKey)) seen.push(item.pageKey);
+    return seen;
+  }, [items]);
+  const activeBoardSlug = boardSlugs.includes(activeBoard)
+    ? activeBoard
+    : (boardSlugs[0] ?? "");
+  // In the boards group only the active board's page-text sections render (and
+  // back the preview); every other group shows all items.
+  const visibleItems = isBoardsGroup
+    ? items.filter((item) => item.pageKey === activeBoardSlug)
+    : items;
+
+  const openItem = visibleItems.find((item) => item.key === openSection) ?? null;
 
   /** Override key → kind, so the preview applies the same `html` contract as the runtime. */
   const overrideKinds = useMemo(
@@ -544,8 +583,6 @@ export default function RegistryEditor({
 
     const koSection = koTree.find((section) => section.id === openItem.sectionId);
     if (!koSection) return { kind: "unavailable" };
-    // Shared footer chrome is filtered out of the public section stream.
-    if (koSection.id === FOOTER_SECTION_ID) return { kind: "chrome" };
     // Desktop-only preview: a mobile_section is hidden at >=992 by design. This
     // includes the MOBILE hero (visual) section, which keeps the "mobile"
     // message. A DESKTOP visual section is not unavailable: the public home
@@ -571,6 +608,12 @@ export default function RegistryEditor({
     try {
       const section = resolveSection(koSection, tree.en);
       if (!section) return { kind: "unavailable" };
+      // The shared footer band: the common (Footer) group previews the real
+      // footer (same markup as SiteFooter via the shared FooterBody); every
+      // other group keeps the honest "chrome" notice.
+      if (section.id === FOOTER_SECTION_ID) {
+        return isFooterGroup ? { kind: "footer", section } : { kind: "chrome" };
+      }
       // Bespoke ticker: `SectionRenderer` has no `newest` case, so the raw
       // crawled HTML would stack the cards and never reflect the picks draft.
       // Render the real `NoticeTicker` with posts computed from the PICKS DRAFT
@@ -611,6 +654,7 @@ export default function RegistryEditor({
     boardPosts,
     productPosts,
     defaults,
+    isFooterGroup,
   ]);
 
   /**
@@ -633,224 +677,326 @@ export default function RegistryEditor({
 
   const pageLabels = t.pageLabels as Record<string, string | undefined>;
 
+  /**
+   * Site-navigation group: the 19 nav-label defs grouped per top-level menu item
+   * (`nav[i]` + its `nav[i].children[j]` labels), in crawl order. Structure and
+   * links are fixed, so this group shows only the label fields and no preview.
+   */
+  const siteGroups = useMemo(() => {
+    if (!isSiteGroup) return [];
+    const buckets = new Map<number, RegistryDef[]>();
+    const order: number[] = [];
+    for (const def of defs) {
+      const match = /^nav\[(\d+)\]/.exec(def.widgetId);
+      if (!match) continue;
+      const index = Number(match[1]);
+      if (!buckets.has(index)) {
+        buckets.set(index, []);
+        order.push(index);
+      }
+      buckets.get(index)!.push(def);
+    }
+    return order.map((index) => {
+      const groupDefs = buckets.get(index)!;
+      return {
+        index,
+        heading: sectionName(groupDefs[0], locale) || `nav[${index}]`,
+        defs: groupDefs,
+      };
+    });
+  }, [isSiteGroup, defs, locale]);
+
+  /** One registry field card (shared by the accordion and the site-nav groups). */
+  const renderField = (def: RegistryDef, koTreeSection: Section | undefined) => (
+    <FieldRow
+      key={def.key}
+      def={def}
+      locale={locale}
+      drafts={pairFor(def.key)}
+      baseline={{
+        ko: baseline(def.key, "ko"),
+        en: baseline(def.key, "en"),
+      }}
+      codeDefaults={defaults[def.key] ?? EMPTY_PAIR}
+      status={status[def.key] ?? "idle"}
+      error={errors[def.key]}
+      disabled={!dbConfigured}
+      targetMissing={defTargetMissing(koTreeSection, def)}
+      t={t}
+      boardsT={boardsT}
+      boardPosts={boardPosts}
+      productPosts={productPosts}
+      onProductPostsChange={handleProductPostsChange}
+      onDraft={(lang, value) => setDraft(def.key, lang, value)}
+      onSave={() => void save(def)}
+    />
+  );
+
   return (
-    <div className="min-[992px]:flex min-[992px]:items-start min-[992px]:gap-6">
-      <div className="min-w-0 min-[992px]:w-[54%] min-[992px]:shrink-0">
-        <div className="min-w-0">
-          <h1 className="text-[22px] font-bold tracking-tight text-ink">{t.title}</h1>
-          <p className="mt-0.5 text-[13px] text-muted">{t.blurb}</p>
-        </div>
-
-        <div className="mt-4">
-          <GroupTabs locale={locale} groups={groups} active={initialGroup} />
-        </div>
-
-        {!dbConfigured ? (
-          <div
-            role="status"
-            className="mt-4 rounded-[4px] border border-amber-300 bg-amber-50 px-3 py-2 text-[12px] text-amber-900"
-          >
-            {t.dbNotice}
+    <>
+      <div className={isSiteGroup ? "" : "min-[992px]:flex min-[992px]:items-start min-[992px]:gap-6"}>
+        <div className={isSiteGroup ? "min-w-0" : "min-w-0 min-[992px]:w-[54%] min-[992px]:shrink-0"}>
+          <div className="min-w-0">
+            <h1 className="text-[22px] font-bold tracking-tight text-ink">{t.title}</h1>
+            <p className="mt-0.5 text-[13px] text-muted">{t.blurb}</p>
           </div>
-        ) : null}
 
-        {loadError ? (
-          <div className="mt-4 flex items-center gap-3 rounded-[4px] border border-red-200 bg-red-50 px-3 py-2 text-[12px] text-red-800">
-            <span>{t.loadError}</span>
-            <button
-              type="button"
-              onClick={() => setRetry((n) => n + 1)}
-              className="ml-auto rounded-[3px] border border-red-200 bg-white px-2.5 py-1 text-[12px] text-red-700 transition-colors hover:border-red-400"
-            >
-              {t.retry}
-            </button>
-          </div>
-        ) : null}
-
-        {loading ? <p className="mt-5 text-[13px] text-muted">{t.loading}</p> : null}
-
-        {!loading && !loadError && items.length === 0 ? (
-          <p className="mt-5 text-[13px] text-muted">{t.empty}</p>
-        ) : null}
-
-        {!loading && !loadError && items.length > 0 ? (
           <div className="mt-4">
-            {items.map((item, index) => {
-              const previous = items[index - 1];
-              const showDivider = !previous || previous.pageKey !== item.pageKey;
-              const open = openSection === item.key;
-              const route = item.defs[0]?.revalidate[0] ?? "";
-              // The crawled KO section backs the open-body hints/badges (it is
-              // the tree the registry keys were generated from).
-              const koTreeSection = open
-                ? trees[item.pageKey]?.ko?.find((section) => section.id === item.sectionId)
-                : undefined;
-              const uneditable = uneditableWidgetTypes(koTreeSection, item.defs);
-              return (
-                <div key={item.key}>
-                  {showDivider ? (
-                    <div className="flex items-baseline gap-2 border-b border-black/10 px-1 pt-4 pb-2">
-                      <span className="text-[11px] font-bold tracking-wide text-muted uppercase">
-                        {pageLabels[item.pageKey] ?? item.pageKey}
-                      </span>
-                      {route ? <span className="font-mono text-[11px] text-muted">{route}</span> : null}
-                    </div>
-                  ) : null}
-
-                  <div className="mt-2 overflow-hidden rounded-[4px] border border-black/10 bg-white">
-                    <button
-                      type="button"
-                      aria-expanded={open}
-                      onClick={() => setOpenSection(open ? null : item.key)}
-                      className="flex w-full items-center justify-between gap-3 px-4 py-3 text-left transition-colors hover:bg-soft"
-                    >
-                      <span className="min-w-0">
-                        <span className="block truncate text-[14px] font-bold text-ink">
-                          {item.label || t.unnamedSection}
-                          {item.defs.some((d) => d.shared) ? (
-                            <span
-                              title={t.sharedBadge}
-                              className="ml-2 align-middle rounded-[3px] bg-soft px-1.5 py-0.5 text-[11px] font-normal text-muted"
-                            >
-                              {t.sharedBadge}
-                            </span>
-                          ) : null}
-                        </span>
-                        <span className="mt-0.5 block truncate font-mono text-[11px] text-muted">
-                          {[
-                            item.siteName && item.siteName !== item.label ? item.siteName : null,
-                            truncateSectionId(item.sectionId),
-                            t.fieldCount(item.defs.length),
-                          ]
-                            .filter(Boolean)
-                            .join(" · ")}
-                        </span>
-                      </span>
-                      <svg
-                        width="14"
-                        height="14"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        aria-hidden
-                        className={`shrink-0 text-muted transition-transform ${open ? "rotate-180" : ""}`}
-                      >
-                        <path d="M6 9l6 6 6-6" />
-                      </svg>
-                    </button>
-
-                    {open ? (
-                      <div className="space-y-3 border-t border-black/10 p-4">
-                        {item.defs.map((def) => (
-                          <FieldRow
-                            key={def.key}
-                            def={def}
-                            locale={locale}
-                            drafts={pairFor(def.key)}
-                            baseline={{
-                              ko: baseline(def.key, "ko"),
-                              en: baseline(def.key, "en"),
-                            }}
-                            codeDefaults={defaults[def.key] ?? EMPTY_PAIR}
-                            status={status[def.key] ?? "idle"}
-                            error={errors[def.key]}
-                            disabled={!dbConfigured}
-                            targetMissing={defTargetMissing(koTreeSection, def)}
-                            t={t}
-                            boardsT={boardsT}
-                            boardPosts={boardPosts}
-                            productPosts={productPosts}
-                            onProductPostsChange={handleProductPostsChange}
-                            onDraft={(lang, value) => setDraft(def.key, lang, value)}
-                            onSave={() => void save(def)}
-                          />
-                        ))}
-                        {uneditable.length > 0 ? (
-                          <p className="text-[11px] text-muted">{t.uneditableHint(uneditable.join(", "))}</p>
-                        ) : null}
-                      </div>
-                    ) : null}
-                  </div>
-                </div>
-              );
-            })}
+            <GroupTabs locale={locale} groups={groups} active={initialGroup} />
           </div>
-        ) : null}
 
-        {!loading && !loadError ? <p className="mt-3 text-[12px] text-muted">{t.defaultHint}</p> : null}
-      </div>
-
-      {openItem ? (
-        <aside className="mt-6 min-w-0 min-[992px]:sticky min-[992px]:top-6 min-[992px]:mt-0 min-[992px]:flex-1">
-          <div className="overflow-hidden rounded-[4px] border border-black/10 bg-white">
-            <div className="flex items-center justify-between gap-3 border-b border-black/10 px-3 py-2">
-              <span className="text-[12px] font-bold text-ink">{t.previewTitle}</span>
-              <div
-                role="group"
-                aria-label={t.previewLang}
-                className="flex items-center gap-0.5 rounded-full bg-soft p-0.5 text-[11px]"
-              >
-                {LOCALES.map((lang) => (
+          {isBoardsGroup && boardSlugs.length > 0 ? (
+            <nav
+              aria-label={t.title}
+              className="mt-3 flex flex-wrap gap-1 rounded-[4px] border border-black/10 bg-white p-1"
+            >
+              {boardSlugs.map((slug) => {
+                const active = slug === activeBoardSlug;
+                return (
                   <button
-                    key={lang}
+                    key={slug}
                     type="button"
-                    aria-pressed={previewLang === lang}
-                    onClick={() => setPreviewLang(lang)}
-                    className={`rounded-full px-2.5 py-1 transition-colors ${
-                      previewLang === lang ? "bg-accent font-bold text-white" : "text-muted hover:text-ink"
+                    aria-current={active ? "page" : undefined}
+                    onClick={() => {
+                      setActiveBoard(slug);
+                      setOpenSection(null);
+                    }}
+                    className={`rounded-[3px] px-3 py-1.5 text-[12px] font-medium transition-colors ${
+                      active ? "bg-accent text-white" : "text-muted hover:text-accent"
                     }`}
                   >
-                    {lang === "ko" ? t.ko : t.en}
+                    {pageLabels[slug] ?? slug}
                   </button>
-                ))}
+                );
+              })}
+            </nav>
+          ) : null}
+
+          {isSiteGroup ? <p className="mt-4 text-[12px] leading-5 text-muted">{t.siteNavHint}</p> : null}
+
+          {!dbConfigured ? (
+            <div
+              role="status"
+              className="mt-4 rounded-[4px] border border-amber-300 bg-amber-50 px-3 py-2 text-[12px] text-amber-900"
+            >
+              {t.dbNotice}
+            </div>
+          ) : null}
+
+          {loadError ? (
+            <div className="mt-4 flex items-center gap-3 rounded-[4px] border border-red-200 bg-red-50 px-3 py-2 text-[12px] text-red-800">
+              <span>{t.loadError}</span>
+              <button
+                type="button"
+                onClick={() => setRetry((n) => n + 1)}
+                className="ml-auto rounded-[3px] border border-red-200 bg-white px-2.5 py-1 text-[12px] text-red-700 transition-colors hover:border-red-400"
+              >
+                {t.retry}
+              </button>
+            </div>
+          ) : null}
+
+          {loading ? <p className="mt-5 text-[13px] text-muted">{t.loading}</p> : null}
+
+          {!loading && !loadError && defs.length === 0 ? (
+            <p className="mt-5 text-[13px] text-muted">{t.empty}</p>
+          ) : null}
+
+          {!loading && !loadError && isSiteGroup && siteGroups.length > 0 ? (
+            <div className="mt-4 space-y-5">
+              {siteGroups.map((group) => (
+                <section key={group.index}>
+                  <h2 className="border-b border-black/10 px-1 pb-2 text-[12px] font-bold tracking-wide text-ink uppercase">
+                    {group.heading}
+                  </h2>
+                  <div className="mt-2 space-y-3">{group.defs.map((def) => renderField(def, undefined))}</div>
+                </section>
+              ))}
+            </div>
+          ) : null}
+
+          {!loading && !loadError && !isSiteGroup && visibleItems.length > 0 ? (
+            <div className="mt-4">
+              {visibleItems.map((item, index) => {
+                const previous = visibleItems[index - 1];
+                const showDivider = !previous || previous.pageKey !== item.pageKey;
+                const open = openSection === item.key;
+                const route = item.defs[0]?.revalidate[0] ?? "";
+                // The crawled KO section backs the open-body hints/badges (it is
+                // the tree the registry keys were generated from).
+                const koTreeSection = open
+                  ? trees[item.pageKey]?.ko?.find((section) => section.id === item.sectionId)
+                  : undefined;
+                const uneditable = uneditableWidgetTypes(koTreeSection, item.defs);
+                return (
+                  <div key={item.key}>
+                    {showDivider ? (
+                      <div className="flex items-baseline gap-2 border-b border-black/10 px-1 pt-4 pb-2">
+                        <span className="text-[11px] font-bold tracking-wide text-muted uppercase">
+                          {pageLabels[item.pageKey] ?? item.pageKey}
+                        </span>
+                        {route ? <span className="font-mono text-[11px] text-muted">{route}</span> : null}
+                      </div>
+                    ) : null}
+
+                    <div className="mt-2 overflow-hidden rounded-[4px] border border-black/10 bg-white">
+                      <button
+                        type="button"
+                        aria-expanded={open}
+                        onClick={() => setOpenSection(open ? null : item.key)}
+                        className="flex w-full items-center justify-between gap-3 px-4 py-3 text-left transition-colors hover:bg-soft"
+                      >
+                        <span className="min-w-0">
+                          <span className="block truncate text-[14px] font-bold text-ink">
+                            {item.label || t.unnamedSection}
+                            {item.defs.some((d) => d.shared) ? (
+                              <span
+                                title={t.sharedBadge}
+                                className="ml-2 align-middle rounded-[3px] bg-soft px-1.5 py-0.5 text-[11px] font-normal text-muted"
+                              >
+                                {t.sharedBadge}
+                              </span>
+                            ) : null}
+                          </span>
+                          <span className="mt-0.5 block truncate font-mono text-[11px] text-muted">
+                            {[
+                              item.siteName && item.siteName !== item.label ? item.siteName : null,
+                              truncateSectionId(item.sectionId),
+                              t.fieldCount(item.defs.length),
+                            ]
+                              .filter(Boolean)
+                              .join(" · ")}
+                          </span>
+                        </span>
+                        <svg
+                          width="14"
+                          height="14"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          aria-hidden
+                          className={`shrink-0 text-muted transition-transform ${open ? "rotate-180" : ""}`}
+                        >
+                          <path d="M6 9l6 6 6-6" />
+                        </svg>
+                      </button>
+
+                      {open ? (
+                        <div className="space-y-3 border-t border-black/10 p-4">
+                          {item.defs.map((def) => renderField(def, koTreeSection))}
+                          {uneditable.length > 0 ? (
+                            <p className="text-[11px] text-muted">{t.uneditableHint(uneditable.join(", "))}</p>
+                          ) : null}
+                        </div>
+                      ) : null}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          ) : null}
+
+          {!loading && !loadError ? <p className="mt-3 text-[12px] text-muted">{t.defaultHint}</p> : null}
+        </div>
+
+        {!isSiteGroup && openItem ? (
+          <aside className="mt-6 min-w-0 min-[992px]:sticky min-[992px]:top-6 min-[992px]:mt-0 min-[992px]:flex-1">
+            <div className="overflow-hidden rounded-[4px] border border-black/10 bg-white">
+              <div className="flex items-center justify-between gap-3 border-b border-black/10 px-3 py-2">
+                <span className="text-[12px] font-bold text-ink">{t.previewTitle}</span>
+                <div
+                  role="group"
+                  aria-label={t.previewLang}
+                  className="flex items-center gap-0.5 rounded-full bg-soft p-0.5 text-[11px]"
+                >
+                  {LOCALES.map((lang) => (
+                    <button
+                      key={lang}
+                      type="button"
+                      aria-pressed={previewLang === lang}
+                      onClick={() => setPreviewLang(lang)}
+                      className={`rounded-full px-2.5 py-1 transition-colors ${
+                        previewLang === lang ? "bg-accent font-bold text-white" : "text-muted hover:text-ink"
+                      }`}
+                    >
+                      {lang === "ko" ? t.ko : t.en}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <p className="border-b border-black/10 bg-soft px-3 py-2 text-[11px] leading-5 text-muted">
+                {t.previewHint}
+              </p>
+              <div className="max-h-[78vh] overflow-y-auto">
+                {preview?.kind === "ok" ? (
+                  <SectionPreview
+                    section={preview.section}
+                    locale={previewLang}
+                    facilitiesTabs={facilityTabs}
+                  />
+                ) : preview?.kind === "sections" ? (
+                  <SectionPreview
+                    sections={preview.sections}
+                    locale={previewLang}
+                    facilitiesTabs={facilityTabs}
+                  />
+                ) : preview?.kind === "ticker" ? (
+                  <SectionPreview
+                    section={preview.section}
+                    locale={previewLang}
+                    tickerPosts={preview.posts}
+                    facilitiesTabs={facilityTabs}
+                  />
+                ) : preview?.kind === "product" ? (
+                  <ProductPagePreview
+                    payload={preview.payload}
+                    posts={preview.posts}
+                    locale={previewLang}
+                  />
+                ) : preview?.kind === "footer" ? (
+                  <ScaledDesktop>
+                    <FooterFrame
+                      section={preview.section}
+                      rows={buildFooterRows(preview.section, nav[previewLang] ?? [], previewLang)}
+                      locale={previewLang}
+                    />
+                  </ScaledDesktop>
+                ) : (
+                  <p className="px-3 py-8 text-center text-[12px] text-muted">
+                    {preview?.kind === "board"
+                      ? t.previewUnavailableBoard
+                      : preview?.kind === "mobile"
+                        ? t.previewUnavailableMobile
+                        : preview?.kind === "chrome"
+                          ? t.previewUnavailableChrome
+                          : t.previewUnavailable}
+                  </p>
+                )}
               </div>
             </div>
-            <p className="border-b border-black/10 bg-soft px-3 py-2 text-[11px] leading-5 text-muted">
-              {t.previewHint}
-            </p>
-            <div className="max-h-[78vh] overflow-y-auto">
-              {preview?.kind === "ok" ? (
-                <SectionPreview
-                  section={preview.section}
-                  locale={previewLang}
-                  facilitiesTabs={facilityTabs}
-                />
-              ) : preview?.kind === "sections" ? (
-                <SectionPreview
-                  sections={preview.sections}
-                  locale={previewLang}
-                  facilitiesTabs={facilityTabs}
-                />
-              ) : preview?.kind === "ticker" ? (
-                <SectionPreview
-                  section={preview.section}
-                  locale={previewLang}
-                  tickerPosts={preview.posts}
-                  facilitiesTabs={facilityTabs}
-                />
-              ) : preview?.kind === "product" ? (
-                <ProductPagePreview
-                  payload={preview.payload}
-                  posts={preview.posts}
-                  locale={previewLang}
-                />
-              ) : (
-                <p className="px-3 py-8 text-center text-[12px] text-muted">
-                  {preview?.kind === "board"
-                    ? t.previewUnavailableBoard
-                    : preview?.kind === "mobile"
-                      ? t.previewUnavailableMobile
-                      : preview?.kind === "chrome"
-                        ? t.previewUnavailableChrome
-                        : t.previewUnavailable}
-                </p>
-              )}
-            </div>
+            <p className="mt-2 text-[11px] leading-5 text-muted">{t.previewFootnote}</p>
+          </aside>
+        ) : null}
+      </div>
+
+      {isBoardsGroup && activeBoardSlug ? (
+        <div className="mt-8">
+          <div className="min-w-0">
+            <h2 className="text-[16px] font-bold tracking-tight text-ink">{t.boardsPostsHeading}</h2>
+            <p className="mt-0.5 text-[13px] text-muted">{t.boardsPostsHint}</p>
           </div>
-          <p className="mt-2 text-[11px] leading-5 text-muted">{t.previewFootnote}</p>
-        </aside>
+          <div className="mt-4">
+            <BoardEditor
+              key={`${activeBoardSlug}-${boardInitialLocale}`}
+              slug={activeBoardSlug}
+              initialLocale={boardInitialLocale}
+              adminLocale={locale}
+              embedded
+            />
+          </div>
+        </div>
       ) : null}
-    </div>
+    </>
   );
 }

@@ -3,8 +3,10 @@
  * attachments).
  *
  * Kept free of Node/server imports so it can be unit-tested in isolation and
- * imported by any runtime. Callers supply a short content hash, which keeps
- * naming deterministic (same bytes + filename -> same slug).
+ * imported by any runtime. Callers supply a short content hash, so the
+ * generated NAME is deterministic (same bytes + filename -> same slug); the
+ * final public URL may still differ because the storage layer appends its own
+ * random suffix.
  */
 
 /** Hard cap for a single upload (image or attachment), matching the legacy media lane. */

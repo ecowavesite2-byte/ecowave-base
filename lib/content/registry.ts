@@ -821,8 +821,8 @@ export const CONTENT_DEFS: ContentDef[] = [
       "en": "Footer"
     },
     "label": {
-      "ko": "임베드 URL · f04049636b82b.png",
-      "en": "Embed URL · f04049636b82b.png"
+      "ko": "로고 이미지",
+      "en": "Logo image"
     },
     "revalidate": [
       "/",
@@ -842,8 +842,8 @@ export const CONTENT_DEFS: ContentDef[] = [
       "en": "Footer"
     },
     "label": {
-      "ko": "텍스트 블록 · 대표 : 김나연",
-      "en": "Text block · CEO : Choi Taeguk"
+      "ko": "회사 정보 (한 줄에 하나씩)",
+      "en": "Company info (one line per row)"
     },
     "revalidate": [
       "/",
@@ -863,8 +863,8 @@ export const CONTENT_DEFS: ContentDef[] = [
       "en": "Footer"
     },
     "label": {
-      "ko": "버튼 텍스트",
-      "en": "Button text"
+      "ko": "TOP 버튼 텍스트 (링크 고정)",
+      "en": "TOP button text (link fixed)"
     },
     "revalidate": [
       "/",

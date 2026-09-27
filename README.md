@@ -125,10 +125,12 @@ npm run content:validate                      # crawl structure + asset referenc
 - **Ticker picks (`picks`)** — JSON `{ board: "news" | "notices", idxs: [...] }`. The ticker renders
   the picked posts in order, links follow the chosen board, and an empty/stale selection falls back
   to the latest 4 news.
-- **Images** — upload to **Vercel Blob only** (content-hashed public names; the upload route needs
-  `BLOB_READ_WRITE_TOKEN` and returns 503 without it, and there is no local `/media/...` store) or
-  set a path; a **reset** button clears the override back to the crawled default. There is no
-  alt-text field.
+- **Images** — upload to **Vercel Blob only** (≤ 8 MB; the stored name is the slug plus an 8-hex
+  SHA-256 content hash, and Vercel Blob appends a random suffix — the bytes are content-hashed but
+  the final URL is not deterministic; the upload route needs `BLOB_READ_WRITE_TOKEN` and returns
+  503 without it, and there is no local `/media/...` store) or set a path; only image extensions
+  (jpg/jpeg/png/webp/gif) or an extensionless path/URL are accepted. A **reset** button clears the
+  override back to the crawled default. There is no alt-text field.
 - **Nested media in rich text** — images and iframes inside a `text` widget are editable per locale
   as `img[n].src` (image) and `iframe[n].src` (embed), addressing the nth tag in the markup.
 - **Embeds (`embed`)** — a per-locale iframe/embed URL, validated as `http(s)`; the URL is injected

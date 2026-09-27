@@ -31,8 +31,15 @@ export default function BoardNameField({
     <div className="mt-6 rounded-lg border border-line bg-white p-4">
       <Field label={t.nameLabel} hint={t.nameHint}>
         <div className="flex items-center gap-2">
-          <TextInput value={value} onChange={onChange} />
-          <button type="button" className={SAVE_BUTTON} disabled={disabled || !dirty} onClick={onSave}>
+          <div className="min-w-0 flex-1">
+            <TextInput value={value} onChange={onChange} />
+          </div>
+          <button
+            type="button"
+            className={`shrink-0 ${SAVE_BUTTON}`}
+            disabled={disabled || !dirty}
+            onClick={onSave}
+          >
             {saving ? t.saving : t.save}
           </button>
         </div>

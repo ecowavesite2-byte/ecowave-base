@@ -1,18 +1,22 @@
-import BoardPicker from "../../_components/boards/BoardPicker";
-import { getAdminLocale } from "../../_components/adminLocale";
-import { defaultLocale, isLocale } from "@/lib/i18n";
+import { redirect } from "next/navigation";
 
 export const metadata = { title: "Boards" };
 
-/** Board picker. The (dashboard) layout already guards this route group. */
+/**
+ * `/admin/boards` → `/admin/content?group=boards`.
+ *
+ * Board editing is folded into the content editor's News & Notices tab, so the
+ * picker is kept only as a redirect for old bookmarks. A `?locale=` on the old
+ * URL (the board content locale) is preserved. The (dashboard) layout has
+ * already enforced `requireAdmin()`.
+ */
 export default async function BoardsPage({
   searchParams,
 }: {
   searchParams: Promise<{ locale?: string }>;
 }) {
-  const requested = (await searchParams).locale ?? defaultLocale;
-  const locale = isLocale(requested) ? requested : defaultLocale;
-  const adminLocale = await getAdminLocale();
-
-  return <BoardPicker initialLocale={locale} adminLocale={adminLocale} />;
+  const locale = (await searchParams).locale;
+  const query = new URLSearchParams({ group: "boards" });
+  if (locale) query.set("locale", locale);
+  redirect(`/admin/content?${query.toString()}`);
 }

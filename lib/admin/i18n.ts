@@ -14,13 +14,11 @@
  *                                         sign-out, language toggle, desktop-only notice
  *                            nav        – sidebar group + entry labels
  *                            dashboard  – /admin overview (stat cards, quick links, notes)
- *                            settings   – /admin/settings (form chrome + missing-def note)
  *   `ADMIN_LOCALE_COOKIE` – cookie that persists the chosen admin locale
  *   `defaultAdminLocale`  – used when that cookie is absent
  *   `isAdminLocale(v)`    – runtime narrowing for cookie values
- *   `ADMIN_CONTENT_GROUPS`/`ADMIN_BOARD_ENTRIES` – explicit mapping from the
- *     registry `?group=` ids / board slugs to the sidebar label keys, so the
- *     content + boards routes stay in sync with this file.
+ *   `ADMIN_CONTENT_GROUPS` – explicit mapping from the registry `?group=` ids to
+ *     the sidebar label keys, so the content route stays in sync with this file.
  *
  * Parameterised strings are functions (`(n) => string`) so both locales keep
  * their own word order; everything else is a plain string.
@@ -67,17 +65,8 @@ export interface AdminDict {
   nav: {
     overview: string;
     contentGroup: string;
-    boardsGroup: string;
     managementGroup: string;
     content: Record<AdminContentGroup, string>;
-    boards: {
-      news: string;
-      notices: string;
-      ecoWave: string;
-      cleanB: string;
-      flowell: string;
-    };
-    settings: string;
     inquiries: string;
   };
   dashboard: {
@@ -95,30 +84,6 @@ export interface AdminDict {
     links: { href: string; label: string; desc: string }[];
     notes: string;
     noteLines: string[];
-  };
-  settings: {
-    title: string;
-    blurb: string;
-    /** Heading above the registry `site` group sections. */
-    navHeading: string;
-    loading: string;
-    loadError: string;
-    retry: string;
-    empty: string;
-    dbNotice: string;
-    /** Placeholder for a field whose registry default is empty. */
-    emptyPlaceholder: string;
-    /** Hint describing default-as-placeholder + empty-to-revert. */
-    defaultHint: string;
-    save: string;
-    saving: string;
-    saved: string;
-    unsaved: string;
-    upToDate: string;
-    failed: string;
-    /** Honest note about MCell settings that ecowave's registry has no defs for. */
-    missingTitle: string;
-    missingBody: string;
   };
   /**
    * `/admin/content` — the registry override editor (MCell "pages editor" UX):
@@ -208,6 +173,12 @@ export interface AdminDict {
     targetMissing: string;
     /** Badge marking a def whose content is rendered on every page of its channel. */
     sharedBadge: string;
+    /** Muted hint above the site-navigation group: menu structure/links are fixed. */
+    siteNavHint: string;
+    /** Heading above the embedded board post editor (News & Notices group). */
+    boardsPostsHeading: string;
+    /** Hint under the embedded board post heading. */
+    boardsPostsHint: string;
     /** Plain-text line editor (`lines`): one line per authored design line. */
     linesHint: string;
     /** Dynamic `slides` (hero slide list) editor. */
@@ -384,8 +355,9 @@ export interface AdminDict {
     productPageCopyOtherDone: string;
   };
   /**
-   * `/admin/boards` + `/admin/boards/<slug>` — the board picker, the per-board
-   * editor and the post form. Follows the admin UI locale.
+   * The board editor + post form, embedded in Content → News & Notices (the
+   * former `/admin/boards` routes now redirect there). Follows the admin UI
+   * locale.
    *
    * NOTE: the board CONTENT locale (Korean/English post columns) is a separate
    * axis, still chosen by the on-screen locale switch; its labels are the
@@ -451,6 +423,8 @@ export interface AdminDict {
     dialog: {
       /** Preview pane section heading: the grid card. */
       card: string;
+      /** Preview pane section heading: the board list look (news card / notices row). */
+      list: string;
       /** Preview pane section heading: the detail view. */
       detail: string;
       /** Accessible label for the dialog close button. */
@@ -466,6 +440,12 @@ export interface AdminDict {
       thumbnail: string;
       thumbnailHint: string;
       thumbnailPlaceholder: string;
+      /** Thumbnail image upload + live preview + clear (News & Notices form). */
+      thumbnailUpload: string;
+      thumbnailUploading: string;
+      thumbnailUploadFailed: string;
+      thumbnailPreview: string;
+      thumbnailClear: string;
       excerpt: string;
       content: string;
       contentHint: string;
@@ -552,18 +532,6 @@ export const ADMIN_CONTENT_GROUPS: readonly {
   { group: "common", key: "common" },
 ];
 
-/** Board slugs (`lib/content/boards.ts`) → sidebar label keys (order = sidebar order). */
-export const ADMIN_BOARD_ENTRIES: readonly {
-  slug: string;
-  key: keyof AdminDict["nav"]["boards"];
-}[] = [
-  { slug: "news", key: "news" },
-  { slug: "notices", key: "notices" },
-  { slug: "products.eco-wave", key: "ecoWave" },
-  { slug: "products.clean-b", key: "cleanB" },
-  { slug: "products.flowell", key: "flowell" },
-];
-
 const ko: AdminDict = {
   shell: {
     title: "에코웨이브 관리자",
@@ -579,25 +547,16 @@ const ko: AdminDict = {
   nav: {
     overview: "현황",
     contentGroup: "콘텐츠",
-    boardsGroup: "게시판",
     managementGroup: "관리",
     content: {
       home: "홈",
       company: "회사 소개",
       rnd: "연구개발",
       products: "제품 소개",
-      boards: "게시판 콘텐츠",
+      boards: "뉴스·공지사항",
       site: "사이트 내비게이션",
-      common: "공통",
+      common: "푸터",
     },
-    boards: {
-      news: "뉴스",
-      notices: "공지사항",
-      ecoWave: "에코웨이브",
-      cleanB: "크린비",
-      flowell: "플로웰",
-    },
-    settings: "사이트 설정",
     inquiries: "문의 내역",
   },
   dashboard: {
@@ -615,8 +574,8 @@ const ko: AdminDict = {
     links: [
       { href: "/admin/content?group=company", label: "회사 소개", desc: "회사 페이지 문구·이미지" },
       { href: "/admin/content?group=products", label: "제품 소개", desc: "제품 페이지 문구·이미지" },
-      { href: "/admin/boards", label: "게시판 관리", desc: "뉴스·공지·제품 게시물" },
-      { href: "/admin/settings", label: "사이트 설정", desc: "회사·연락처·소셜 정보" },
+      { href: "/admin/content?group=boards", label: "뉴스·공지사항", desc: "뉴스·공지 문구와 게시물" },
+      { href: "/admin/content?group=site", label: "사이트 내비게이션", desc: "메뉴 라벨" },
     ],
     notes: "안내",
     noteLines: [
@@ -624,29 +583,6 @@ const ko: AdminDict = {
       "게시판은 덮어쓰기 행이 하나라도 있으면 그 목록이 크롤링 기본값을 대체합니다.",
       "관리자 화면은 데스크톱 전용이며 모든 페이지 오버라이드는 한국어·영어로 각각 저장됩니다.",
     ],
-  },
-  settings: {
-    title: "사이트 설정",
-    blurb: "사이트 전역에 반영되는 설정값을 관리합니다.",
-    navHeading: "내비게이션 라벨",
-    loading: "불러오는 중…",
-    loadError: "설정을 불러오지 못했습니다.",
-    retry: "다시 시도",
-    empty: "이 그룹에 편집할 필드가 없습니다.",
-    dbNotice:
-      "데이터베이스가 설정되지 않았습니다 (DATABASE_URL 없음). 코드 기본값만 표시되며 저장은 비활성화됩니다.",
-    emptyPlaceholder: "기본값 없음",
-    defaultHint:
-      "회색으로 표시된 값은 사이트 기본값입니다. 입력하고 저장하면 덮어쓰기로 저장되고, 비우고 저장하면 기본값으로 되돌아갑니다.",
-    save: "저장",
-    saving: "저장 중…",
-    saved: "저장됨",
-    unsaved: "저장되지 않은 변경",
-    upToDate: "최신 상태",
-    failed: "실패",
-    missingTitle: "아직 편집할 수 없는 항목",
-    missingBody:
-      "회사명·대표자·사업자등록번호·주소·전화/팩스·이메일과 소셜 링크는 콘텐츠 레지스트리에 정의가 없어 이 화면에서 편집할 수 없습니다. 현재는 회사 소개 페이지의 HTML 블록에서 관리됩니다.",
   },
   content: {
     title: "페이지 콘텐츠",
@@ -763,6 +699,11 @@ const ko: AdminDict = {
     uneditableHint: (types) => `편집할 수 없는 위젯: ${types}`,
     targetMissing: "대상 없음",
     sharedBadge: "모든 회사 페이지에 적용",
+    siteNavHint:
+      "메뉴 구조와 링크는 고정되어 있습니다. 각 메뉴에 표시되는 라벨만 수정할 수 있습니다.",
+    boardsPostsHeading: "게시물",
+    boardsPostsHint:
+      "이 게시판의 게시물을 추가·수정·삭제할 수 있습니다. 게시판 이름은 아래에서 수정합니다.",
     linesHint:
       "한 줄에 하나씩 입력하세요. 텍스트만 입력하거나 <b>처럼 HTML 태그를 섞어도 됩니다. 글자 크기·색 등 기본 스타일은 유지됩니다.",
     slidesAdd: "슬라이드 추가",
@@ -939,7 +880,7 @@ const ko: AdminDict = {
       "이 게시판을 크롤링 기본값으로 초기화하시겠습니까? 이 언어의 모든 덮어쓰기가 삭제됩니다.",
     addPost: "게시물 추가",
     defaultsNotice:
-      "크롤링 기본값을 표시하고 있습니다. 기본값을 가져오거나 게시물을 추가하면 이 게시판을 덮어쓸 수 있습니다.",
+      "크롤링 기본값을 표시하고 있습니다. 기본값을 가져오거나 게시물을 추가·수정·삭제하면 이 게시판을 덮어쓸 수 있습니다.",
     newPost: "새 게시물 (저장되지 않음)",
     editPost: (idx) => `게시물 수정 · ${idx}`,
     columns: {
@@ -965,6 +906,7 @@ const ko: AdminDict = {
     deleteConfirm: (title) => `게시물 “${title}”을(를) 삭제하시겠습니까?`,
     dialog: {
       card: "목록 카드",
+      list: "목록",
       detail: "상세 화면",
       close: "닫기",
     },
@@ -975,8 +917,13 @@ const ko: AdminDict = {
       dateHint: "자유 입력",
       dateHintPicker: "날짜 선택",
       thumbnail: "썸네일",
-      thumbnailHint: "상대 경로(/…) 또는 https URL",
+      thumbnailHint: "이미지를 업로드하거나 경로/URL을 입력하세요",
       thumbnailPlaceholder: "/images/…",
+      thumbnailUpload: "이미지 업로드",
+      thumbnailUploading: "업로드 중…",
+      thumbnailUploadFailed: "업로드 실패",
+      thumbnailPreview: "미리보기",
+      thumbnailClear: "지우기",
       excerpt: "요약",
       content: "본문",
       contentHint: "HTML · 저장 시 정리됨",
@@ -1056,25 +1003,16 @@ const en: AdminDict = {
   nav: {
     overview: "Overview",
     contentGroup: "Content",
-    boardsGroup: "Boards",
     managementGroup: "Management",
     content: {
       home: "Home",
       company: "Company",
       rnd: "R&D",
       products: "Products",
-      boards: "Board content",
+      boards: "News & Notices",
       site: "Site navigation",
-      common: "Common",
+      common: "Footer",
     },
-    boards: {
-      news: "News",
-      notices: "Notices",
-      ecoWave: "Eco wave",
-      cleanB: "Clean B",
-      flowell: "Flowell",
-    },
-    settings: "Site settings",
     inquiries: "Inquiries",
   },
   dashboard: {
@@ -1092,8 +1030,8 @@ const en: AdminDict = {
     links: [
       { href: "/admin/content?group=company", label: "Company", desc: "Company page copy and media" },
       { href: "/admin/content?group=products", label: "Products", desc: "Product page copy and media" },
-      { href: "/admin/boards", label: "Boards", desc: "News, notices and product posts" },
-      { href: "/admin/settings", label: "Site settings", desc: "Company, contact and social info" },
+      { href: "/admin/content?group=boards", label: "News & Notices", desc: "News and notices copy and posts" },
+      { href: "/admin/content?group=site", label: "Site navigation", desc: "Menu labels" },
     ],
     notes: "Notes",
     noteLines: [
@@ -1101,29 +1039,6 @@ const en: AdminDict = {
       "A board with any override rows replaces the crawled default list entirely.",
       "The admin is desktop-only; page overrides are stored per language (Korean and English).",
     ],
-  },
-  settings: {
-    title: "Site settings",
-    blurb: "Manage the values applied across the whole site.",
-    navHeading: "Navigation labels",
-    loading: "Loading…",
-    loadError: "Could not load settings.",
-    retry: "Retry",
-    empty: "No editable fields in this group.",
-    dbNotice:
-      "Database is not configured (DATABASE_URL missing). Showing code defaults — saving is disabled.",
-    emptyPlaceholder: "No default",
-    defaultHint:
-      "Grey text is the site default. Type and save to store an override; clear the field and save to revert to the default.",
-    save: "Save",
-    saving: "Saving…",
-    saved: "Saved",
-    unsaved: "Unsaved changes",
-    upToDate: "Up to date",
-    failed: "Failed",
-    missingTitle: "Not editable yet",
-    missingBody:
-      "Company name, representative, business number, address, phone/fax, email and social links have no definitions in the content registry, so they cannot be edited here. They currently live in the HTML blocks of the Company pages.",
   },
   content: {
     title: "Page content",
@@ -1240,6 +1155,11 @@ const en: AdminDict = {
     uneditableHint: (types) => `Not editable here: ${types}`,
     targetMissing: "Target missing",
     sharedBadge: "Applies to all company pages",
+    siteNavHint:
+      "The menu structure and links are fixed. Only the label shown for each menu item is editable.",
+    boardsPostsHeading: "Posts",
+    boardsPostsHint:
+      "Add, edit or delete this board's posts. The board name is edited below.",
     linesHint:
       "One line per design line. Enter plain text, or mix in HTML tags like <b>. Font sizes, colors and other base styles stay fixed.",
     slidesAdd: "Add slide",
@@ -1415,7 +1335,8 @@ const en: AdminDict = {
     resetConfirm:
       "Reset this board to the crawled defaults? All overrides for this locale are removed.",
     addPost: "Add post",
-    defaultsNotice: "Showing crawled defaults. Seed (or add a post) to start overriding this board.",
+    defaultsNotice:
+      "Showing crawled defaults. Seed, or add/edit/delete a post, to start overriding this board.",
     newPost: "New post (unsaved)",
     editPost: (idx) => `Edit post · ${idx}`,
     columns: {
@@ -1441,6 +1362,7 @@ const en: AdminDict = {
     deleteConfirm: (title) => `Delete post “${title}”?`,
     dialog: {
       card: "Grid card",
+      list: "List",
       detail: "Detail view",
       close: "Close",
     },
@@ -1451,8 +1373,13 @@ const en: AdminDict = {
       dateHint: "free text",
       dateHintPicker: "date picker",
       thumbnail: "Thumbnail",
-      thumbnailHint: "relative /… path or https URL",
+      thumbnailHint: "Upload an image or enter a path/URL",
       thumbnailPlaceholder: "/images/…",
+      thumbnailUpload: "Upload image",
+      thumbnailUploading: "Uploading…",
+      thumbnailUploadFailed: "Upload failed",
+      thumbnailPreview: "Preview",
+      thumbnailClear: "Clear",
       excerpt: "Excerpt",
       content: "Content",
       contentHint: "HTML · sanitized on save",

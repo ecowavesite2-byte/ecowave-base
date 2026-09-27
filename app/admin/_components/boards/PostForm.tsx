@@ -15,6 +15,7 @@ import {
 import { MIME_EXTENSIONS, MAX_UPLOAD_BYTES, extensionOf } from "@/lib/content/upload-name";
 import type { BoardPost, ProductFilter } from "@/lib/types";
 import { normalizeDateInput, productPostFromForm } from "./product-board-form";
+import ThumbnailField from "./ThumbnailField";
 
 /**
  * Inline create/edit form for one board post: metadata, HTML body with
@@ -23,13 +24,14 @@ import { normalizeDateInput, productPostFromForm } from "./product-board-form";
  *
  * Product boards trim the form to what a product actually needs: the `views`
  * input is gone everywhere, the date becomes a native picker, and the
- * server-derived `thumb`/`excerpt` are replaced by muted notes. The picker can
- * only SHOW `yyyy-mm-dd`, but state keeps the RAW stored date: a value the
- * picker cannot represent (a crawled format) is displayed blank yet preserved
- * on save, and `form.date` only changes once the admin picks or clears a date.
- * `<input type="date">` needs `yyyy-mm-dd`, so dot/slash formats are normalized
- * for display (empty stays empty); news/notices keep the free-text input so
- * crawled formats are untouched.
+ * server-derived `thumb`/`excerpt` are replaced by muted notes.
+ *
+ * Every board (products AND news/notices) uses the native date picker. The
+ * picker can only SHOW `yyyy-mm-dd`, but state keeps the RAW stored date: a
+ * value the picker cannot represent (a crawled format) is displayed blank yet
+ * preserved on save, and `form.date` only changes once the admin picks or
+ * clears a date. `<input type="date">` needs `yyyy-mm-dd`, so dot/slash formats
+ * are normalized for display (empty stays empty).
  */
 
 const SAVE_BUTTON =
@@ -241,25 +243,27 @@ export default function PostForm({
           >
             <div className="space-y-1.5">
               <div className="flex items-center gap-1.5">
-                <select
-                  data-testid="post-form-category"
-                  value={form.category}
-                  disabled={locked}
-                  onChange={(event) => set("category", event.target.value)}
-                  className={SELECT}
-                >
-                  <option value="">{t.unassigned}</option>
-                  {filters.map((filter) => (
-                    <option key={filter.id} value={filter.id}>
-                      {filter.name}
-                    </option>
-                  ))}
-                  {/* A legacy category not in the current filters stays selectable so
-                      editing a post never silently rewrites its stored value. */}
-                  {form.category && !filters.some((filter) => filter.id === form.category) ? (
-                    <option value={form.category}>{form.category}</option>
-                  ) : null}
-                </select>
+                <div className="min-w-0 flex-1">
+                  <select
+                    data-testid="post-form-category"
+                    value={form.category}
+                    disabled={locked}
+                    onChange={(event) => set("category", event.target.value)}
+                    className={SELECT}
+                  >
+                    <option value="">{t.unassigned}</option>
+                    {filters.map((filter) => (
+                      <option key={filter.id} value={filter.id}>
+                        {filter.name}
+                      </option>
+                    ))}
+                    {/* A legacy category not in the current filters stays selectable so
+                        editing a post never silently rewrites its stored value. */}
+                    {form.category && !filters.some((filter) => filter.id === form.category) ? (
+                      <option value={form.category}>{form.category}</option>
+                    ) : null}
+                  </select>
+                </div>
                 {onCreateCategory ? (
                   <button
                     type="button"
@@ -279,21 +283,23 @@ export default function PostForm({
               {addingCategory && onCreateCategory ? (
                 <div className="rounded-md border border-dashed border-line bg-[#fafafa] p-2">
                   <div className="flex items-center gap-1.5">
-                    <input
-                      type="text"
-                      data-testid="post-form-category-new-name"
-                      value={newCategoryName}
-                      disabled={locked || categoryBusy}
-                      placeholder={t.form.newCategoryPlaceholder}
-                      onChange={(event) => setNewCategoryName(event.target.value)}
-                      onKeyDown={(event) => {
-                        if (event.key === "Enter") {
-                          event.preventDefault();
-                          void submitNewCategory();
-                        }
-                      }}
-                      className={SELECT}
-                    />
+                    <div className="min-w-0 flex-1">
+                      <input
+                        type="text"
+                        data-testid="post-form-category-new-name"
+                        value={newCategoryName}
+                        disabled={locked || categoryBusy}
+                        placeholder={t.form.newCategoryPlaceholder}
+                        onChange={(event) => setNewCategoryName(event.target.value)}
+                        onKeyDown={(event) => {
+                          if (event.key === "Enter") {
+                            event.preventDefault();
+                            void submitNewCategory();
+                          }
+                        }}
+                        className={SELECT}
+                      />
+                    </div>
                     <button
                       type="button"
                       data-testid="post-form-category-new-confirm"
@@ -327,22 +333,16 @@ export default function PostForm({
           </Field>
         ) : null}
 
-        {isProduct ? (
-          <Field label={t.form.date} hint={t.form.dateHintPicker}>
-            <input
-              type="date"
-              data-testid="post-form-date"
-              value={normalizeDateInput(form.date)}
-              disabled={locked}
-              onChange={(event) => set("date", event.target.value)}
-              className={SELECT}
-            />
-          </Field>
-        ) : (
-          <Field label={t.form.date} hint={t.form.dateHint}>
-            <TextInput value={form.date} onChange={(value) => set("date", value)} />
-          </Field>
-        )}
+        <Field label={t.form.date} hint={t.form.dateHintPicker}>
+          <input
+            type="date"
+            data-testid="post-form-date"
+            value={normalizeDateInput(form.date)}
+            disabled={locked}
+            onChange={(event) => set("date", event.target.value)}
+            className={SELECT}
+          />
+        </Field>
       </div>
 
       {isProduct ? (
@@ -356,14 +356,12 @@ export default function PostForm({
         </>
       ) : (
         <>
-          <Field label={t.form.thumbnail} hint={t.form.thumbnailHint}>
-            <TextInput
-              value={form.thumb}
-              onChange={(value) => set("thumb", value)}
-              mono
-              placeholder={t.form.thumbnailPlaceholder}
-            />
-          </Field>
+          <ThumbnailField
+            t={t}
+            value={form.thumb}
+            disabled={locked}
+            onChange={(value) => set("thumb", value)}
+          />
 
           <Field label={t.form.excerpt}>
             <TextInput value={form.excerpt} onChange={(value) => set("excerpt", value)} />

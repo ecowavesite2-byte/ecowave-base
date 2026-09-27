@@ -5,7 +5,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { AdminDict } from "@/lib/admin/i18n";
 import { blankPost, generatePostIdx } from "@/lib/content/board-form";
 import type { BoardPost, ProductFilter, ProductPagePayload } from "@/lib/types";
-import ProductEditDialog from "../boards/ProductEditDialog";
+import PostEditDialog from "../boards/PostEditDialog";
 import type { RowStatus } from "../boards/PostRow";
 import {
   flattenGroups,
@@ -41,7 +41,7 @@ import type { ProductPostOption, RegistryLocale } from "./types";
  *
  * Each filter also manages its own product posts (add/edit/delete/reorder)
  * through the SAME boards lane the Boards screen uses: add/edit open the
- * two-pane `ProductEditDialog` (shared `PostForm` + live preview) and everything
+ * two-pane `PostEditDialog` (shared `PostForm` + live preview) and everything
  * writes through `GET /api/admin/boards?locale=<lang>&slug=<slug>` to read the
  * board and `PUT { action: replace|update|delete }` to write it. Reordering
  * re-sequences the WHOLE board array (filter groups first, unassigned last),
@@ -730,7 +730,7 @@ export default function ProductPageField({
       </div>
 
       {editingPost ? (
-        <ProductEditDialog
+        <PostEditDialog
           key={dialogKey}
           t={boardsT}
           title={editing === "new" ? boardsT.newPost : boardsT.editPost(editingPost.idx)}

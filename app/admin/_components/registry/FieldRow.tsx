@@ -29,7 +29,7 @@ import type {
 /**
  * One editable registry field: a card with per-language controls, a
  * default-as-placeholder rule and a per-field save + status line (same idiom as
- * `SettingsPanel`).
+ * the retired settings panel).
  *
  * Default-as-placeholder: the parent hands us the EFFECTIVE value and the code
  * default per locale. A locale that still matches the default renders EMPTY with
@@ -327,17 +327,19 @@ export default function FieldRow({
       body = (
         <div>
           <div className="flex items-start gap-2">
-            <input
-              type="text"
-              value={drafts.ko}
-              placeholder={codeDefaults.ko || t.urlPlaceholder}
-              disabled={disabled}
-              onChange={(event) => {
-                onDraft("ko", event.target.value);
-                onDraft("en", event.target.value);
-              }}
-              className={`${INPUT} font-mono text-[12px]`}
-            />
+            <div className="min-w-0 flex-1">
+              <input
+                type="text"
+                value={drafts.ko}
+                placeholder={codeDefaults.ko || t.urlPlaceholder}
+                disabled={disabled}
+                onChange={(event) => {
+                  onDraft("ko", event.target.value);
+                  onDraft("en", event.target.value);
+                }}
+                className={`${INPUT} font-mono text-[12px]`}
+              />
+            </div>
             <VideoUploadButton
               disabled={disabled}
               t={t}

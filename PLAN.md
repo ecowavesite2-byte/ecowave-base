@@ -293,3 +293,11 @@ design/                   audit artifacts, snapshots, reference shots (git-ignor
   filters with stable category `id`s) plus a filter-grouped Boards lane (per-group add/reorder and an
   "unassigned" group); and detail board-name provenance so the `<slug>#board/<slug>/name` override
   surfaces on the rendered detail page.
+- Admin dashboard IA restructure (2026-09-27): sidebar collapsed to Content (Home/Company/R&D/Products/
+  News & Notices/Site Navigation/Footer) + Management (Inquiries); the Boards group and the duplicate
+  Site settings page were removed (`/admin/settings` and `/admin/boards*` now redirect to the owning
+  content tab); the former Board content tab became News & Notices (per-board page-text fields + an
+  embedded board editor for name and post CRUD, with thumbnail upload in the post form); Site Navigation
+  groups the 19 nav-label fields per menu item with no preview pane; Common became Footer with a live
+  preview rendered through the shared `FooterBody` module (public `SiteFooter` delegates to it); and
+  `image`-kind saves now reject non-image extensions server-side.

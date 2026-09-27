@@ -97,16 +97,18 @@ export default function PicksField({
   return (
     <div className="space-y-2" data-testid="picks-editor">
       <label className="flex items-center gap-2">
-        <span className="text-[11px] text-muted">{t.picksBoard}</span>
-        <select
-          value={board}
-          disabled={disabled}
-          onChange={(event) => changeBoard(event.target.value === "notices" ? "notices" : "news")}
-          className={SELECT}
-        >
-          <option value="news">{t.picksBoardNews}</option>
-          <option value="notices">{t.picksBoardNotices}</option>
-        </select>
+        <span className="shrink-0 text-[11px] text-muted">{t.picksBoard}</span>
+        <span className="min-w-0 flex-1">
+          <select
+            value={board}
+            disabled={disabled}
+            onChange={(event) => changeBoard(event.target.value === "notices" ? "notices" : "news")}
+            className={SELECT}
+          >
+            <option value="news">{t.picksBoardNews}</option>
+            <option value="notices">{t.picksBoardNotices}</option>
+          </select>
+        </span>
       </label>
 
       {posts.length === 0 ? (

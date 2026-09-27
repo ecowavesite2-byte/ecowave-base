@@ -16,8 +16,8 @@ import {
   type ContentGroup,
 } from "@/lib/content/registry";
 import { getPage } from "@/lib/content/read";
-import { getResolvedBoard } from "@/lib/content/resolved";
-import type { BoardPost, Section } from "@/lib/types";
+import { getResolvedBoard, getResolvedSite } from "@/lib/content/resolved";
+import type { BoardPost, NavItem, Section } from "@/lib/types";
 
 export const metadata = { title: "Content" };
 
@@ -121,7 +121,7 @@ async function loadProductPosts(groupDefs: { kind: string; pageKey: string }[]):
 export default async function ContentRegistryPage({
   searchParams,
 }: {
-  searchParams: Promise<{ group?: string }>;
+  searchParams: Promise<{ group?: string; locale?: string }>;
 }) {
   const locale = await getAdminLocale();
   const params = await searchParams;
@@ -130,15 +130,23 @@ export default async function ContentRegistryPage({
     requested && (CONTENT_GROUPS as readonly string[]).includes(requested)
       ? (requested as ContentGroup)
       : "home";
+  // Board CONTENT locale for the embedded News & Notices editor, forwarded from
+  // the old `/admin/boards/<slug>?locale=` URL. Invalid/absent → the editor
+  // falls back to the admin locale (existing behavior).
+  const initialBoardLocale: "ko" | "en" | undefined =
+    params.locale === "ko" || params.locale === "en" ? params.locale : undefined;
 
   // The products group carries one hidden `board/**/name` def per product page
-  // (`sectionId: "board"`). That value is the board label, is edited on the
-  // Boards screen and is NOT rendered on the product pages, so it is excluded
-  // here: it never renders, and contributes no defaults or preview tree. The
-  // def stays in the registry — the boards save API resolves it via
+  // and the boards group carries the news/notices `board/**/name` defs
+  // (`sectionId: "board"`). Those values are the board labels, edited in the
+  // embedded BoardEditor and NOT rendered on the pages themselves, so they are
+  // excluded here: they never render, and contribute no defaults or preview
+  // tree. The defs stay in the registry — the boards save API resolves them via
   // `CONTENT_DEF_MAP`.
   const groupDefs = CONTENT_DEFS.filter(
-    (def) => def.group === group && !(group === "products" && def.sectionId === "board"),
+    (def) =>
+      def.group === group &&
+      !((group === "products" || group === "boards") && def.sectionId === "board"),
   );
 
   const defaults: DefaultsMap = {};
@@ -166,6 +174,16 @@ export default async function ContentRegistryPage({
   // Product posts back the `productPage` live preview; same skip for other groups.
   const productPosts = group === "products" ? await loadProductPosts(groupDefs) : EMPTY_PRODUCT_POSTS;
 
+  // The footer (common group) preview injects the sitemap sub-links from the
+  // resolved nav, exactly like the public `SiteFooter`; both locales are loaded
+  // so the preview's language toggle shows the matching nav labels. Other groups
+  // skip the read.
+  let nav: Partial<Record<"ko" | "en", NavItem[]>> = {};
+  if (group === "common") {
+    const [koSite, enSite] = await Promise.all([getResolvedSite("ko"), getResolvedSite("en")]);
+    nav = { ko: koSite.nav, en: enSite.nav };
+  }
+
   return (
     <RegistryEditor
       locale={locale}
@@ -175,6 +193,8 @@ export default async function ContentRegistryPage({
       trees={trees}
       boardPosts={boardPosts}
       productPosts={productPosts}
+      nav={nav}
+      initialBoardLocale={initialBoardLocale}
     />
   );
 }

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { adminDict, type AdminDict, type AdminLocale } from "@/lib/admin/i18n";
 import BoardNameField from "./BoardNameField";
+import PostEditDialog from "./PostEditDialog";
 import PostForm from "./PostForm";
 import PostRow, { type RowStatus } from "./PostRow";
 import type { BoardDetail, BoardListResponse, BoardLocale, BoardSummary } from "./types";
@@ -139,10 +140,18 @@ export default function BoardEditor({
   slug,
   initialLocale,
   adminLocale,
+  embedded = false,
 }: {
   slug: string;
   initialLocale: BoardLocale;
   adminLocale: AdminLocale;
+  /**
+   * Embedded mode (Content → News & Notices): drops the outer page padding, the
+   * board-picker tab row and the back link, and renders the title as an `h2`.
+   * The locale switch, board name field, seed/reset, post table and PostForm are
+   * unchanged — posts still save through the same `/api/admin/boards` route.
+   */
+  embedded?: boolean;
 }) {
   const t = adminDict[adminLocale].boards;
   const LOCALES: { value: BoardLocale; label: string }[] = [
@@ -201,8 +210,8 @@ export default function BoardEditor({
 
   useEffect(() => {
     void load();
-    void loadBoards();
-  }, [load, loadBoards]);
+    if (!embedded) void loadBoards();
+  }, [load, loadBoards, embedded]);
 
   async function put(body: unknown): Promise<{ ok: boolean; error?: string }> {
     setBusy(true);
@@ -263,7 +272,10 @@ export default function BoardEditor({
   // Product-board grouping is pure; news/notices never render it.
   const groups = groupPostsByFilter(posts, filters);
   const nameDirty = name !== nameBase;
-  const rowsDisabled = !dbConfigured || busy || !data?.materialized;
+  // Edit/Delete are available even before the board is materialized: a
+  // non-materialized board still shows the crawled defaults, and editing one
+  // writes the whole computed list via `replace` (see `saveEditedPost`).
+  const rowsDisabled = !dbConfigured || busy;
   const formDisabled = !dbConfigured || busy;
 
   /** Open the new-post form, optionally pre-selecting a product filter. */
@@ -288,25 +300,68 @@ export default function BoardEditor({
     );
   }
 
+  /** Append a new post (always a `replace`, which materializes the collection). */
+  function addPost(post: BoardPost) {
+    void run({ action: "replace", slug, locale, posts: [...posts, post] }, post.idx);
+  }
+
+  /**
+   * Save an edited post. A materialized board uses the targeted `update`; a board
+   * still showing crawled defaults has no rows to target, so the whole computed
+   * list is written via `replace` — exactly the materialization `seed` performs.
+   * Exactly one PUT runs either way (no double-write).
+   */
+  function saveEditedPost(post: BoardPost) {
+    if (data?.materialized) {
+      void run({ action: "update", slug, locale, idx: post.idx, patch: post }, post.idx);
+    } else {
+      void run(
+        { action: "replace", slug, locale, posts: posts.map((p) => (p.idx === post.idx ? post : p)) },
+        post.idx,
+      );
+    }
+  }
+
+  /** Delete a post, materializing the board first when it still has no overrides. */
+  function deletePost(post: BoardPost) {
+    if (!window.confirm(t.deleteConfirm(post.title || post.idx))) return;
+    if (data?.materialized) {
+      void run({ action: "delete", slug, locale, idx: post.idx }, post.idx);
+    } else {
+      void run(
+        { action: "replace", slug, locale, posts: posts.filter((p) => p.idx !== post.idx) },
+        post.idx,
+      );
+    }
+  }
+
   return (
-    <div className="mx-auto max-w-[960px] p-8">
+    <div className={embedded ? "min-w-0" : "mx-auto max-w-[960px] p-8"}>
       <div className="flex flex-wrap items-center gap-3">
         <div className="min-w-0">
-          <Link
-            href={`/admin/boards?locale=${locale}`}
-            className="text-[12px] text-[#6b7280] transition-colors hover:text-accent"
-          >
-            ← {t.backLabel}
-          </Link>
-          <h1 className="mt-1 text-[22px] font-bold tracking-tight text-ink">
-            {data?.label ?? slug}
-          </h1>
+          {embedded ? null : (
+            <Link
+              href={`/admin/boards?locale=${locale}`}
+              className="text-[12px] text-[#6b7280] transition-colors hover:text-accent"
+            >
+              ← {t.backLabel}
+            </Link>
+          )}
+          {embedded ? (
+            <h2 className="mt-1 text-[18px] font-bold tracking-tight text-ink">
+              {data?.label ?? slug}
+            </h2>
+          ) : (
+            <h1 className="mt-1 text-[22px] font-bold tracking-tight text-ink">
+              {data?.label ?? slug}
+            </h1>
+          )}
           <p className="mt-0.5 text-[13px] text-[#6b7280]">
             {data ? t.postCount(posts.length) : "…"} · <span className="font-mono">{slug}</span>
           </p>
         </div>
 
-        <div className="ml-auto flex items-center gap-3">
+        <div className="ml-auto flex flex-wrap items-center justify-end gap-4">
           <Link
             href={`/${locale === "ko" ? "" : "en/"}${slug.replace(/\./g, "/")}`}
             target="_blank"
@@ -333,8 +388,8 @@ export default function BoardEditor({
         </div>
       </div>
 
-      {/* Board tabs */}
-      {boards.length > 0 ? (
+      {/* Board tabs (hidden in the embedded News & Notices editor) */}
+      {!embedded && boards.length > 0 ? (
         <div className="mt-5 flex flex-wrap gap-2">
           {boards.map((board) => {
             const active = board.slug === slug;
@@ -458,13 +513,43 @@ export default function BoardEditor({
           ) : null}
 
           {editing !== null ? (
-            <section className="mt-6">
-              <h2 className="mb-2 text-[12px] font-semibold uppercase tracking-wide text-[#6b7280]">
-                {editing === "new" ? t.newPost : t.editPost(editing.idx)}
-              </h2>
-              <PostForm
-                t={t}
+            data.isProduct ? (
+              <section className="mt-6">
+                <h2 className="mb-2 text-[12px] font-semibold uppercase tracking-wide text-[#6b7280]">
+                  {editing === "new" ? t.newPost : t.editPost(editing.idx)}
+                </h2>
+                <PostForm
+                  t={t}
+                  key={editing === "new" ? "new" : editing.idx}
+                  post={
+                    editing === "new"
+                      ? {
+                          ...blankPost(generatePostIdx(posts.map((p) => p.idx))),
+                          ...(newCategory ? { category: newCategory } : {}),
+                        }
+                      : editing
+                  }
+                  isProduct
+                  filters={filters}
+                  disabled={formDisabled}
+                  busy={busy}
+                  onSave={(post) => {
+                    if (editing === "new") addPost(post);
+                    else saveEditedPost(post);
+                  }}
+                  onCancel={() => setEditing(null)}
+                />
+              </section>
+            ) : (
+              /* News/notices: the shared two-pane dialog (form + live preview). */
+              <PostEditDialog
                 key={editing === "new" ? "new" : editing.idx}
+                variant="board"
+                boardKind={slug === "notices" ? "notices" : "news"}
+                boardHref={`/${locale === "ko" ? "" : "en/"}${slug.replace(/\./g, "/")}`}
+                boardName={data.name || data.label}
+                t={t}
+                title={editing === "new" ? t.newPost : t.editPost(editing.idx)}
                 post={
                   editing === "new"
                     ? {
@@ -473,26 +558,18 @@ export default function BoardEditor({
                       }
                     : editing
                 }
-                isProduct={data.isProduct}
                 filters={filters}
+                locale={locale}
                 disabled={formDisabled}
                 busy={busy}
+                error={actionError}
                 onSave={(post) => {
-                  if (editing === "new") {
-                    void run(
-                      { action: "replace", slug, locale, posts: [...posts, post] },
-                      post.idx,
-                    );
-                  } else {
-                    void run(
-                      { action: "update", slug, locale, idx: post.idx, patch: post },
-                      post.idx,
-                    );
-                  }
+                  if (editing === "new") addPost(post);
+                  else saveEditedPost(post);
                 }}
                 onCancel={() => setEditing(null)}
               />
-            </section>
+            )
           ) : data.isProduct ? (
             <section className="mt-6">
               <p className="mb-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-[12px] text-[#6b7280]">
@@ -555,14 +632,7 @@ export default function BoardEditor({
                             onMoveUp={() => move(group, index, "up")}
                             onMoveDown={() => move(group, index, "down")}
                             onEdit={() => setEditing(post)}
-                            onDelete={() => {
-                              if (window.confirm(t.deleteConfirm(post.title || post.idx))) {
-                                void run(
-                                  { action: "delete", slug, locale, idx: post.idx },
-                                  post.idx,
-                                );
-                              }
-                            }}
+                            onDelete={() => deletePost(post)}
                           />
                         ))}
                         {group.posts.length === 0 ? (
@@ -603,14 +673,7 @@ export default function BoardEditor({
                         status={rowStatus[post.idx] ?? "idle"}
                         disabled={rowsDisabled}
                         onEdit={() => setEditing(post)}
-                        onDelete={() => {
-                          if (window.confirm(t.deleteConfirm(post.title || post.idx))) {
-                            void run(
-                              { action: "delete", slug, locale, idx: post.idx },
-                              post.idx,
-                            );
-                          }
-                        }}
+                        onDelete={() => deletePost(post)}
                       />
                     ))}
                     {posts.length === 0 ? (

@@ -1,5 +1,6 @@
 import { CONTENT_DEF_MAP, MAX_LENGTH, type ContentDef } from "./registry";
 import { getPrisma } from "./db";
+import { extensionOf } from "./upload-name";
 import type {
   FacilitiesTablePayload,
   PatentSectionsPayload,
@@ -51,6 +52,26 @@ function isValidMediaValue(value: string): boolean {
   } catch {
     return false;
   }
+}
+
+/** Extensions a stored `image`-kind value may end with. */
+const IMAGE_EXTENSIONS = new Set(["jpg", "jpeg", "png", "webp", "gif"]);
+
+/**
+ * `image`-kind fields must point at an image file. A value whose last path
+ * segment carries a non-image extension (e.g. `.pdf`) is rejected so a board
+ * attachment or arbitrary file cannot be stored in an image slot. A value with
+ * NO extension (bare `/…` path or extensionless http(s) URL) is accepted: its
+ * type cannot be verified here, and the upload picker's `accept` filter covers
+ * the client side. Only called for non-empty values (empty clears the override).
+ *
+ * A query/fragment is stripped before the extension is read (`x.png?v=2` is a
+ * PNG); `extensionOf` stays strict for upload filenames, which carry neither.
+ */
+function isAllowedImageValue(value: string): boolean {
+  const path = value.split(/[?#]/)[0];
+  const ext = extensionOf(path);
+  return ext === "" || IMAGE_EXTENSIONS.has(ext);
 }
 
 /**
@@ -540,6 +561,14 @@ export async function saveContent({
         message: `Invalid ${def.kind} value: use a relative "/..." path or an http(s) URL`,
       };
     }
+  }
+
+  if (def.kind === "image" && trimmedLength > 0 && !isAllowedImageValue(value)) {
+    return {
+      ok: false,
+      message:
+        "Invalid image value: expected an image file (jpg, jpeg, png, webp or gif) or an extensionless path/URL",
+    };
   }
 
   if (def.kind === "slides" && trimmedLength > 0 && !isValidSlidesPayload(value)) {

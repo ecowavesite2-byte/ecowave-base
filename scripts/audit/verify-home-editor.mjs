@@ -406,7 +406,7 @@ try {
     labelsUnique: labels.length === unique.size,
     labelsIncludeHero: labels.some((l) => l.includes("메인 비주얼")),
     labelsExcludeFooter: !labels.some((l) => l.includes("푸터")),
-    commonTabPresent: ui.tabs.some((t) => t === "공통" || /common/i.test(t)),
+    commonTabPresent: ui.tabs.some((t) => t === "공통" || t === "푸터" || /common|footer/i.test(t)),
     heroHeaderFound,
     slidesEditorShown,
     addSlideGrewList,

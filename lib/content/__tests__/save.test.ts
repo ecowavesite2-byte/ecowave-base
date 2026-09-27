@@ -148,6 +148,67 @@ describe("saveContent validation (no DB)", () => {
   });
 });
 
+describe("saveContent image-only validation (no DB)", () => {
+  it("accepts image-extension paths/URLs and an extensionless URL", async () => {
+    const def = defOfKind("image");
+    const good = [
+      "/images/a.png",
+      "https://cdn.example.com/assets/photo.webp",
+      "https://cdn.example.com/assets/no-extension",
+    ];
+    for (const value of good) {
+      const result = await saveContent({ key: def.key, locale: "ko", value, actor });
+      expect(result, value).toEqual({ ok: false, message: DB_NOT_CONFIGURED_MESSAGE });
+    }
+  });
+
+  it("accepts an image URL whose query/fragment follows the extension", async () => {
+    const def = defOfKind("image");
+    const good = [
+      "https://cdn.example.com/x.png?v=2",
+      "https://cdn.example.com/x.webp#frag",
+    ];
+    for (const value of good) {
+      const result = await saveContent({ key: def.key, locale: "ko", value, actor });
+      expect(result, value).toEqual({ ok: false, message: DB_NOT_CONFIGURED_MESSAGE });
+    }
+  });
+
+  it("rejects non-image file extensions in an image field", async () => {
+    const def = defOfKind("image");
+    const bad = ["/images/a.pdf", "https://cdn.example.com/assets/file.pdf"];
+    for (const value of bad) {
+      const result = await saveContent({ key: def.key, locale: "ko", value, actor });
+      expect(result.ok, `should reject: ${value}`).toBe(false);
+      expect(result.message).toContain("Invalid image value");
+    }
+  });
+
+  it("still rejects a non-image extension followed by a query", async () => {
+    const def = defOfKind("image");
+    const result = await saveContent({
+      key: def.key,
+      locale: "ko",
+      value: "https://cdn.example.com/x.pdf?v=2",
+      actor,
+    });
+    expect(result.ok).toBe(false);
+    expect(result.message).toContain("Invalid image value");
+  });
+
+  it("clears the override for an empty image value", async () => {
+    const { upsert, deleteMany, prisma } = makeFakePrisma();
+    getPrismaMock.mockReturnValue(prisma as never);
+    const def = defOfKind("image");
+
+    const result = await saveContent({ key: def.key, locale: "ko", value: "  ", actor });
+
+    expect(result).toEqual({ ok: true });
+    expect(deleteMany).toHaveBeenCalledTimes(1);
+    expect(upsert).not.toHaveBeenCalled();
+  });
+});
+
 describe("saveContent structured payload validation (no DB)", () => {
   it("rejects malformed/empty slides payloads", async () => {
     const def = defOfKind("slides");

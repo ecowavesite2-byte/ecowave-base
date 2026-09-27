@@ -4,7 +4,6 @@ import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 
 import {
-  ADMIN_BOARD_ENTRIES,
   ADMIN_CONTENT_GROUPS,
   adminDict,
   type AdminLocale,
@@ -21,8 +20,8 @@ import {
  *     group link whose param the content page would default to ("home") stays
  *     highlighted on a bare `/admin/content`.
  *
- * Board links carry `?locale=` inside `href` (the board editor reads it) but are
- * matched on pathname only — the slug already identifies the entry.
+ * The Content group mirrors `ADMIN_CONTENT_GROUPS` (the registry `?group=`
+ * ids); News & Notices and Footer are the renamed `boards`/`common` groups.
  *
  * Below the desktop breakpoint the parent shell hides this nav and shows the
  * desktop-only notice instead, so the mobile classes below are inert by design
@@ -48,7 +47,6 @@ interface SidebarGroup {
 
 function buildGroups(locale: AdminLocale): SidebarGroup[] {
   const t = adminDict[locale];
-  const boardLocale = locale === "en" ? "en" : "ko";
 
   return [
     {
@@ -67,25 +65,14 @@ function buildGroups(locale: AdminLocale): SidebarGroup[] {
       })),
     },
     {
-      key: "boards",
-      label: t.nav.boardsGroup,
-      entries: ADMIN_BOARD_ENTRIES.map(({ slug, key }) => ({
-        href: `/admin/boards/${slug}?locale=${boardLocale}`,
-        label: t.nav.boards[key],
-      })),
-    },
-    {
       key: "manage",
       label: t.nav.managementGroup,
-      entries: [
-        { href: "/admin/settings", label: t.nav.settings },
-        { href: "/admin/inquiries", label: t.nav.inquiries },
-      ],
+      entries: [{ href: "/admin/inquiries", label: t.nav.inquiries }],
     },
   ];
 }
 
-/** Append an entry's `query` to its href (board hrefs already carry `?locale=`). */
+/** Append an entry's `query` to its href. */
 function entryHref(entry: SidebarEntry): string {
   if (!entry.query) return entry.href;
   const qs = new URLSearchParams(entry.query).toString();

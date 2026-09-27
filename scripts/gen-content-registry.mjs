@@ -232,6 +232,27 @@ const SECTION_NAME_OVERRIDES = {
 };
 
 /**
+ * Curated labels for the shared footer fields (`common` group, the HOME footer
+ * band). The auto labels ("임베드 URL · …", "텍스트 블록 · 대표 : …") are not
+ * meaningful for the footer, so each widget+field gets a plain description. The
+ * company-info block stays a `lines` def (one line per row, authored order
+ * preserved) and the TOP button stays a text-only def (its link is fixed), so
+ * only the LABEL changes here. Keyed by `<widgetId>/<field>`, applied only when
+ * the widget belongs to the footer section.
+ */
+const FOOTER_FIELD_LABELS = {
+  "w20250811379e3dc61aa7f/img[0].src": { ko: "로고 이미지", en: "Logo image" },
+  "w20250811c8ba21c61f272/html": {
+    ko: "회사 정보 (한 줄에 하나씩)",
+    en: "Company info (one line per row)",
+  },
+  "w202508114039c43732879/text": {
+    ko: "TOP 버튼 텍스트 (링크 고정)",
+    en: "TOP button text (link fixed)",
+  },
+};
+
+/**
  * Structured media blocks on `company.about`, keyed by KO section id. Each
  * gallery2 section gets ONE `gallery` def exposing only the configured fields
  * (`image`, optionally `title`/`desc`) with an optional item cap. Sections not
@@ -1196,7 +1217,12 @@ function addDef(entry) {
 }
 
 function addWidgetDef(entry, koSuffix, enSuffix) {
-  const label = {
+  // Curated footer labels replace the generic auto label entirely.
+  const footerLabel =
+    entry.sectionId === FOOTER_SECTION_ID
+      ? FOOTER_FIELD_LABELS[`${entry.widgetId}/${entry.field}`]
+      : undefined;
+  const label = footerLabel ?? {
     ko: fmt(entry.prefix.ko, koSuffix),
     // Mirror the KO label when the EN slot is absent (its value is omitted too).
     en: enSuffix !== undefined && enSuffix !== null
