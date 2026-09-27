@@ -1,4 +1,4 @@
-import type { BoardPost } from "@/lib/types";
+import type { BoardPost, ProductFilter } from "@/lib/types";
 
 /** Client-safe mirrors of the `/api/admin/boards` payloads. */
 
@@ -27,5 +27,7 @@ export interface BoardDetail {
   count: number;
   defaultCount: number;
   isProduct: boolean;
+  /** Resolved `productPage` filter tabs (product boards only; empty otherwise). */
+  filters: ProductFilter[];
   dbConfigured: boolean;
 }

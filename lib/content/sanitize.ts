@@ -52,7 +52,27 @@ export const ALLOWED_TAGS = [
   "blockquote",
 ];
 
-export const ALLOWED_CLASSES = ["font1", "font2", "widget", "padding"];
+export const ALLOWED_CLASSES = [
+  // legacy widget typography / layout hooks
+  "font1",
+  "font2",
+  "widget",
+  "padding",
+  // Presentation tokens actually emitted in crawled board-post bodies (audit
+  // P7). Board renderers depend on these for authored layout:
+  //   - `margin-top-xxl`  -> Boards.tsx `[&_.margin-top-xxl]:!mt-4`
+  //   - `fr-dib`          -> Froala block image (`img.fr-dib { margin:5px auto }`)
+  //   - the rest (`fr-dii`, `fr-fil`, `fr-draggable`, `_img_light_gallery`,
+  //     `cursor_pointer`, `file_area`) are static, name-only presentation hooks.
+  "margin-top-xxl",
+  "file_area",
+  "_img_light_gallery",
+  "cursor_pointer",
+  "fr-dii",
+  "fr-fil",
+  "fr-dib",
+  "fr-draggable",
+];
 
 /** Unsafe CSS constructs rejected everywhere inside a style declaration. */
 const DANGEROUS_STYLE = /(url\s*\(|expression\s*\(|behavior\s*:|position\s*:\s*fixed)/i;

@@ -6,6 +6,7 @@ import {
   CONTENT_ROOT,
   isValidBoardSlug,
   isValidPageKey,
+  normalizeBoardSlug,
   pagePath,
 } from "../paths";
 
@@ -61,5 +62,26 @@ describe("content allowlists and path builders", () => {
     expect(boardPath("en", "products.eco-wave")).toBe(
       path.join(CONTENT_ROOT, "en", "boards", "products.eco-wave.json"),
     );
+  });
+});
+
+describe("normalizeBoardSlug", () => {
+  it("is idempotent for canonical dot slugs", () => {
+    expect(normalizeBoardSlug("products.eco-wave")).toBe("products.eco-wave");
+    expect(normalizeBoardSlug("news")).toBe("news");
+  });
+
+  it("converts slashes (and repeated slashes) to dots", () => {
+    expect(normalizeBoardSlug("products/eco-wave")).toBe("products.eco-wave");
+    expect(normalizeBoardSlug("products//eco-wave")).toBe("products.eco-wave");
+  });
+
+  it("strips a trailing slash/dot and trims surrounding whitespace", () => {
+    expect(normalizeBoardSlug("products/eco-wave/")).toBe("products.eco-wave");
+    expect(normalizeBoardSlug("  products.eco-wave.  ")).toBe("products.eco-wave");
+  });
+
+  it("produces a slug accepted by isValidBoardSlug", () => {
+    expect(isValidBoardSlug(normalizeBoardSlug("products/eco-wave"))).toBe(true);
   });
 });

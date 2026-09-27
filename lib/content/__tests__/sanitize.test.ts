@@ -42,6 +42,52 @@ describe("sanitizeHtmlFragment", () => {
     expect(out).not.toMatch(/danger/);
   });
 
+  it("keeps crawled board presentation tokens and drops unknown classes", () => {
+    const out = sanitizeHtmlFragment('<div class="margin-top-xxl foo">x</div>');
+    expect(out).toMatch(/class="margin-top-xxl"/);
+    expect(out).not.toMatch(/foo/);
+  });
+
+  it("round-trips a crawled products post body with its key classes", () => {
+    const html =
+      '<div class="margin-top-xxl _comment_body_m202509172a498835198ce">' +
+      '<p><img src="/images/upload/S20250811e0bd2f7c414df/cf2d7c2a3bacb.jpg" ' +
+      'class="fr-fil fr-dib fr-draggable _img_light_gallery cursor_pointer" ' +
+      'alt="cf2d7c2a3bacb.jpg"></p></div><div class="file_area"></div>';
+    const out = sanitizeHtmlFragment(html);
+
+    // authored presentation hooks survive…
+    expect(out).toContain('class="margin-top-xxl"');
+    expect(out).toContain("fr-fil fr-dib fr-draggable _img_light_gallery cursor_pointer");
+    expect(out).toContain('class="file_area"');
+    // …while the per-post dynamic id and unsafe artifacts are gone.
+    expect(out).not.toMatch(/_comment_body/);
+    expect(out).not.toMatch(/on\w+=/i);
+    expect(out).not.toMatch(/script/i);
+    expect(out).not.toMatch(/javascript:/i);
+  });
+
+  it("preserves the fr-dii block image class in a crawled body", () => {
+    const out = sanitizeHtmlFragment(
+      '<p style="text-align:left;"><img class="fr-dii _img_light_gallery cursor_pointer" ' +
+        'src="/images/upload/S20250811e0bd2f7c414df/894ed113bf09b.jpg" alt="894ed113bf09b.jpg"></p>',
+    );
+    expect(out).toContain("fr-dii _img_light_gallery cursor_pointer");
+    expect(out).toMatch(/class="fr-dii/);
+  });
+
+  it("cleans script and event-handler artifacts from a crawled board body", () => {
+    const out = sanitizeHtmlFragment(
+      '<div class="margin-top-xxl" onclick="alert(1)"><script>alert(2)</script>' +
+        '<img class="fr-dii" src="/a.png" onerror="alert(3)"></div>',
+    );
+    expect(out).not.toMatch(/onclick|onerror/i);
+    expect(out).not.toMatch(/script/i);
+    expect(out).not.toMatch(/alert/);
+    expect(out).toMatch(/class="margin-top-xxl"/);
+    expect(out).toMatch(/class="fr-dii"/);
+  });
+
   it("returns an empty string for empty input", () => {
     expect(sanitizeHtmlFragment("")).toBe("");
   });

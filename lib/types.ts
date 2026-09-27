@@ -104,6 +104,19 @@ export interface GalleryBlockConfig {
   maxItems?: number;
 }
 
+/** One product board filter tab of the `productPage` payload. */
+export type ProductFilter = { id: string; name: string };
+/**
+ * Canonical `productPage` payload for a product board: the page header copy
+ * plus its filter tabs. `filters[].id` is the post `category` string the tab
+ * selects; `name` is the tab's display label.
+ */
+export type ProductPagePayload = {
+  title: string;
+  subtitle: string;
+  filters: ProductFilter[];
+};
+
 /** One tab of the rnd.facilities `facilityTabs` payload (`id` is derived at render). */
 export type FacilityTabsEntry = { name: string; images: string[] };
 /** Canonical `facilityTabs` payload: 1..3 tabs with bare media paths. */
@@ -192,6 +205,13 @@ export type BoardContent = {
   posts: BoardPost[];
   /** legacy imweb pagination hrefs (crawl-only; unused by the rebuild) */
   pagLinks?: string[];
+  /**
+   * Product board page header copy (structured `productPage` kind). Present on
+   * the products.* boards only; absent on news/notices.
+   */
+  page?: { title: string; subtitle: string };
+  /** Product board filter tabs (structured `productPage` kind). */
+  filters?: ProductFilter[];
 };
 
 export type NavItem = {

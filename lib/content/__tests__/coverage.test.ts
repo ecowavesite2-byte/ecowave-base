@@ -36,9 +36,10 @@ const TECH_BLOCK_CONFIGS: Record<string, { sections: string[] }> = Object.fromEn
  * key (all locales) or `key@locale` → reason.
  *
  * Allowlisted classes:
- *  - board `posts` keys: posts are a COLLECTION override stored in `board_post`,
- *    not a `page_content` list value, so there is nothing for the appliers to do
- *    with this key (board `name` keys DO apply via `applyBoardOverrides`).
+ *  - `productPage` keys (one per product board): the generator emits the def
+ *    (and its default JSON), but resolution goes through
+ *    `getResolvedProductPage` (a board-JSON base + override), NOT
+ *    `applyPageOverrides`, which this lane exercises.
  *
  * EN positions with no structurally paired widget no longer need an allowlist:
  * the generator and `resolvePairedWidget` both ignore contentless widget types
@@ -48,13 +49,17 @@ const TECH_BLOCK_CONFIGS: Record<string, { sections: string[] }> = Object.fromEn
  *  - `facilityTabs`: the generator emits the def (and its default JSON), but the
  *    merge applier lands in the runtime lane (lib/content/merge.ts), which this
  *    lane does not own; the def is allowlisted until that applier exists.
+ *
+ * The dead board `posts` keys are no longer emitted at all (post overrides are
+ * a `board_post` collection, not a `page_content` value), so they need no entry.
  */
 const ALLOWLIST: Record<string, string> = {
-  "news#board/news/posts": "posts are stored in board_post (collection override), not a page_content list value",
-  "notices#board/notices/posts": "posts are stored in board_post (collection override), not a page_content list value",
-  "products.clean-b#board/products.clean-b/posts": "posts are stored in board_post (collection override), not a page_content list value",
-  "products.eco-wave#board/products.eco-wave/posts": "posts are stored in board_post (collection override), not a page_content list value",
-  "products.flowell#board/products.flowell/posts": "posts are stored in board_post (collection override), not a page_content list value",
+  "products.clean-b#productPage/productPage":
+    "resolved by getResolvedProductPage (board-JSON base + override), not applyPageOverrides",
+  "products.eco-wave#productPage/productPage":
+    "resolved by getResolvedProductPage (board-JSON base + override), not applyPageOverrides",
+  "products.flowell#productPage/productPage":
+    "resolved by getResolvedProductPage (board-JSON base + override), not applyPageOverrides",
   "rnd.facilities#facilityTabs/facilityTabs":
     "generator def only; the facilityTabs merge applier is owned by the runtime lane (lib/content/merge.ts)",
 };
@@ -155,9 +160,15 @@ describe("override coverage (every CONTENT_DEFS key, both locales)", () => {
                                 header: [marker, marker],
                                 rows: [[marker, marker]],
                               })
-                            : def.kind === "overlay" || def.kind === "textarea"
-                              ? `<p>${marker}</p>`
-                              : marker;
+                            : def.kind === "productPage"
+                              ? JSON.stringify({
+                                  title: marker,
+                                  subtitle: marker,
+                                  filters: [{ id: marker, name: marker }],
+                                })
+                              : def.kind === "overlay" || def.kind === "textarea"
+                                ? `<p>${marker}</p>`
+                                : marker;
         let merged: unknown;
 
         try {
@@ -209,8 +220,8 @@ describe("override coverage (every CONTENT_DEFS key, both locales)", () => {
     }
 
     expect(failures).toEqual([]);
-    // 142 defs × 2 locales − 12 allowlisted applications (6 allowlisted keys
-    // count once per locale: 5 board-post keys + facilityTabs).
+    // 140 defs × 2 locales − 8 allowlisted applications (4 allowlisted keys
+    // count once per locale: 3 productPage keys + facilityTabs).
     // Dead sections are excluded from the registry by the generator: the footer
     // copies on non-home pages (SiteFooter renders home's), the leading
     // page-title hero band of each channel (rebuilt as <PageHero> from nav),
@@ -223,15 +234,17 @@ describe("override coverage (every CONTENT_DEFS key, both locales)", () => {
     // history era / branch / HQ / company.about gallery + card defs are replaced
     // by one `eras`, one `locations`, five `gallery` (four company.about + one
     // rnd.technology) and one `aboutCards` def. The structured R&D round adds one
-    // `facilityTabs` def (still applied by the facilities-tabs resolver, not
+    // `facilityTabs` def (applied by the facilities-tabs resolver, not
     // `applyPageOverrides`), ONE `techFeatures` def (three fixed blocks replacing
     // the §4/§5/§6 image + table lines defs; the harness supplies the
     // `techBlockConfigs` mapping so all three blocks apply), one `patentSections`
     // def (replacing the three rnd.patents heading lines + galleries) and four
-    // `facilitiesTable` defs (replacing four table lines defs). All three
-    // structured kinds apply through `applyPageOverrides`.
-    expect(allowlisted.length).toBe(12);
-    expect(applied).toBe(CONTENT_DEFS.length * LOCALES.length - 12);
+    // `facilitiesTable` defs (replacing four table lines defs). The products
+    // program adds THREE `productPage` defs and REMOVES the five dead board
+    // `posts` defs (post overrides live in `board_post`); productPage resolves
+    // through `getResolvedProductPage`, not `applyPageOverrides`.
+    expect(allowlisted.length).toBe(8);
+    expect(applied).toBe(CONTENT_DEFS.length * LOCALES.length - 8);
     expect(applied).toBe(272);
     expect(applied).toBe(expectedApplied);
   });

@@ -32,6 +32,15 @@ const legacyRedirects: { source: string; destination: string }[] = [
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  images: {
+    // Uploads land in Vercel Blob and return public URLs
+    // (https://<store>.public.blob.vercel-storage.com/...), which `next/image`
+    // renders for product thumbs / board media. Without this allowlist those
+    // server-derived URLs crash the image optimizer.
+    remotePatterns: [
+      { protocol: "https", hostname: "*.public.blob.vercel-storage.com", pathname: "/**" },
+    ],
+  },
   async redirects() {
     const plain = Object.entries(numericRedirects).map(([source, destination]) => ({
       source,

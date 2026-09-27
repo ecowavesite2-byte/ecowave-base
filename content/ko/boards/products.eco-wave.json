@@ -2,6 +2,12 @@
   "name": "",
   "count": 6,
   "listCls": "list-style  hide_writer  hide_time  hide_hit_cnt  hide_comment_cnt  grid_03 type_grid container_border",
+  "page": { "title": "Eco wave", "subtitle": "에코웨이브" },
+  "filters": [
+    { "id": "필터", "name": "필터" },
+    { "id": "서비스 점검/자가관리 키트", "name": "서비스 점검/자가관리 키트" },
+    { "id": "살균모듈", "name": "살균모듈" }
+  ],
   "posts": [
     {
       "idx": "167823431",

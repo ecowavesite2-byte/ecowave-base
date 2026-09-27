@@ -414,6 +414,7 @@ function ListTapRow({
 export function PostDetail({
   post,
   boardHref,
+  boardName: boardNameOverride,
   listLabel = "목록",
   prevLabel = "이전글",
   nextLabel = "다음글",
@@ -431,13 +432,21 @@ export function PostDetail({
     files?: { name: string; href: string }[];
   };
   boardHref: string;
+  /**
+   * Admin-resolved board name (`getResolvedBoard`: stored override > static
+   * `boardLabel`). When set it wins over the href-derived `boardViewMeta` value,
+   * which stays as the defensive fallback for callers that resolve no name.
+   */
+  boardName?: string;
   listLabel?: string;
   prevLabel?: string;
   nextLabel?: string;
   prevPost?: BoardNavPost;
   nextPost?: BoardNavPost;
 }) {
-  const { boardName, viewsLabel, noticeLabel } = boardViewMeta(boardHref);
+  const meta = boardViewMeta(boardHref);
+  const boardName = boardNameOverride?.trim() || meta.boardName;
+  const { viewsLabel, noticeLabel } = meta;
   const hasSummary = Boolean(boardName || post.date || post.views != null);
   return (
     <div>

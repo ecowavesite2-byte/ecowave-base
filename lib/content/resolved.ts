@@ -7,6 +7,8 @@ import type {
   FacilityTabsEntry,
   GalleryBlockConfig,
   PageContent,
+  ProductFilter,
+  ProductPagePayload,
   Section,
   SiteData,
   TechBlocksConfig,
@@ -15,11 +17,11 @@ import { boardLabel } from "./boards";
 import { loadBoardPosts } from "./board-store";
 import { loadOverrides } from "./db";
 import { applyBoardOverrides, applyPageOverrides, applySiteOverrides } from "./merge";
-import { facilitiesTabsPath, resolvePageAlias } from "./paths";
+import { facilitiesTabsPath, normalizeBoardSlug, resolvePageAlias } from "./paths";
 import { getBoard, getPage, getSite } from "./read";
 import { isSharedIntroSection, sharedIntroFor } from "./shared-intro";
 import { CONTENT_DEF_MAP } from "./registry";
-import { normalizeFacilityTabsPayload } from "./save";
+import { normalizeFacilityTabsPayload, normalizeProductPagePayload } from "./save";
 
 /**
  * Override key → registry kind, built once. The applier uses it to choose the
@@ -209,6 +211,110 @@ export async function getResolvedFacilitiesTabs(locale: Locale): Promise<Facilit
 }
 
 /**
+ * Override key of the section-less `productPage` def per product board slug,
+ * derived from the registry (def whose `kind === "productPage"` and `pageKey`
+ * matches) so a regenerated key cannot drift; the literal is only a defensive
+ * fallback.
+ */
+const PRODUCT_PAGE_KEYS: Record<string, string> = Object.fromEntries(
+  Object.values(CONTENT_DEF_MAP)
+    .filter((def) => def.kind === "productPage")
+    .map((def) => [def.pageKey, def.key]),
+);
+
+function productPageKeyFor(slug: string): string {
+  return PRODUCT_PAGE_KEYS[slug] ?? `${slug}#productPage/productPage`;
+}
+
+/** Unique post categories in first-seen order → filter tabs (fallback only). */
+function deriveProductFilters(posts: BoardPost[]): ProductFilter[] {
+  const seen = new Set<string>();
+  const out: ProductFilter[] = [];
+  for (const post of posts ?? []) {
+    const category = post?.category;
+    if (typeof category !== "string" || category.length === 0) continue;
+    if (seen.has(category)) continue;
+    seen.add(category);
+    out.push({ id: category, name: category });
+  }
+  return out;
+}
+
+/**
+ * File-backed `productPage` base for one product board: the board JSON's `page`
+ * copy + `filters` tabs. A malformed/missing `page`/`filters` (news/notices, or
+ * an older crawl) degrades to a sane fallback — the board name for the title,
+ * an empty subtitle, and category-derived filters — so a product page never
+ * renders blank copy.
+ */
+function readProductPageBase(locale: Locale, slug: string): ProductPagePayload {
+  const board = getBoard(locale, slug);
+  const page = board.page;
+  const boardName =
+    typeof board.name === "string" && board.name.trim().length > 0 ? board.name.trim() : "";
+  const fallbackTitle = boardName || (slug.split(".").pop() ?? slug);
+  const title =
+    page && typeof page.title === "string" && page.title.trim().length > 0
+      ? page.title
+      : fallbackTitle;
+  const subtitle = page && typeof page.subtitle === "string" ? page.subtitle : "";
+  const configured = Array.isArray(board.filters)
+    ? board.filters.filter(
+        (filter): filter is ProductFilter =>
+          !!filter && typeof filter.id === "string" && typeof filter.name === "string",
+      )
+    : [];
+  const filters = configured.length > 0 ? configured : deriveProductFilters(board.posts);
+  return { title, subtitle, filters };
+}
+
+/**
+ * Pure `productPage` resolution: the validated override wins over the base; an
+ * absent/empty/invalid stored payload returns the base object unchanged. Shared
+ * by the runtime funnel and the unit tests.
+ */
+export function resolveProductPage(
+  base: ProductPagePayload,
+  stored: string | null | undefined,
+): ProductPagePayload {
+  if (typeof stored !== "string" || stored.trim().length === 0) return base;
+  const normalized = normalizeProductPagePayload(stored);
+  if (normalized === null) return base;
+  try {
+    return JSON.parse(normalized) as ProductPagePayload;
+  } catch {
+    return base;
+  }
+}
+
+/**
+ * Resolved product board page copy + filter tabs: the board JSON base with the
+ * `productPage` override applied on top. An invalid/malformed override falls
+ * back to the base (never throws), and the validator is shared with
+ * `saveContent` so the stored contract and the render contract cannot drift.
+ *
+ * NOT routed through `applyPageOverrides`: the def is section-less and binds to
+ * the board JSON (like `facilityTabs`), not to a page/widget tree.
+ */
+export async function getResolvedProductPage(
+  locale: Locale,
+  slug: string,
+): Promise<ProductPagePayload> {
+  // Public product routes pass slash slugs (`products/eco-wave`); the store and
+  // the `<slug>#productPage/productPage` override key use the dot form.
+  const normalized = normalizeBoardSlug(slug);
+  const base = readProductPageBase(locale, normalized);
+  const overrides = await readOverrides(locale);
+  const key = productPageKeyFor(normalized);
+  const stored = overrides[key];
+  const resolved = resolveProductPage(base, stored);
+  if (resolved === base && typeof stored === "string" && stored.trim().length > 0) {
+    warnOnce(new Error(`invalid productPage override: ${key}`));
+  }
+  return resolved;
+}
+
+/**
  * Board content with overrides applied:
  *  - posts come from `board_post` when any rows exist, else the crawled defaults;
  *  - name precedence: stored `<slug>#board/<slug>/name` override > `boardLabel`
@@ -218,21 +324,48 @@ export async function getResolvedFacilitiesTabs(locale: Locale): Promise<Facilit
  * With no DB and no name override this returns the cached base object untouched.
  */
 export async function getResolvedBoard(locale: Locale, slug: string): Promise<BoardContent> {
-  const base = getBoard(locale, slug);
+  // Canonicalize once: public product routes pass slash slugs while the store
+  // and `${slug}#board/${slug}/name` override keys use the dot form.
+  const normalized = normalizeBoardSlug(slug);
+  const base = getBoard(locale, normalized);
   const [posts, overrides] = await Promise.all([
-    loadBoardPosts(locale, slug),
+    loadBoardPosts(locale, normalized),
     readOverrides(locale),
   ]);
 
-  const storedName = overrides[`${slug}#board/${slug}/name`];
+  const storedName = overrides[`${normalized}#board/${normalized}/name`];
   const hasName = typeof storedName === "string" && storedName.trim().length > 0;
   // Nothing to apply → same cached base object (no clone).
   if (!posts && !hasName) return base;
 
-  return applyBoardOverrides(base, overrides, slug, {
-    fallbackName: boardLabel(slug, locale),
+  return applyBoardOverrides(base, overrides, normalized, {
+    fallbackName: boardLabel(normalized, locale),
     posts,
   });
+}
+
+/**
+ * Resolved board name plus its provenance, for the detail routes' header.
+ *
+ * The detail routes need to distinguish "an override is stored" from "no
+ * override" — comparing the resolved name against the crawled base discards a
+ * stored override whose value happens to equal the crawled string (e.g. news/ko
+ * `"공지사항"`). This reads the same `<slug>#board/<slug>/name` override key
+ * `getResolvedBoard` uses and reports whether a non-empty value was stored:
+ * stored → `{ name: stored, fromOverride: true }`, else the static
+ * `boardLabel(normalized, locale)` with `fromOverride: false`.
+ */
+export async function getResolvedBoardName(
+  locale: Locale,
+  slug: string,
+): Promise<{ name: string; fromOverride: boolean }> {
+  const normalized = normalizeBoardSlug(slug);
+  const overrides = await readOverrides(locale);
+  const stored = overrides[`${normalized}#board/${normalized}/name`];
+  if (typeof stored === "string" && stored.trim().length > 0) {
+    return { name: stored, fromOverride: true };
+  }
+  return { name: boardLabel(normalized, locale), fromOverride: false };
 }
 
 /** One resolved board post by idx (null when absent). */

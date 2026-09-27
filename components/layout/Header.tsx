@@ -28,7 +28,7 @@ function DropList({ items, locale }: { items: { name: string; url: string }[]; l
     <ul className="imweb-dropdown py-2">
       {items.map((c) => (
         <li key={c.url}>
-          <Link href={localeHref(locale, routeForSource(c.url))}>{c.name}</Link>
+          <Link href={localeHref(locale, routeForSource(c.url, locale))}>{c.name}</Link>
         </li>
       ))}
     </ul>
@@ -63,10 +63,10 @@ export default function Header({ locale, nav, logo, logoScrolled, langLabelKo, l
 
   // top-level section active state for the mobile carousel nav
   const activeTop = nav.find((item) => {
-    const href = normalizePath(localeHref(locale, routeForSource(item.url)));
+    const href = normalizePath(localeHref(locale, routeForSource(item.url, locale)));
     if (pathname === href || (href !== "/" && pathname.startsWith(href + "/"))) return true;
     return item.children.some((c) => {
-      const ch = normalizePath(localeHref(locale, routeForSource(c.url)));
+      const ch = normalizePath(localeHref(locale, routeForSource(c.url, locale)));
       return pathname === ch || (ch !== "/" && pathname.startsWith(ch + "/"));
     });
   });
@@ -171,7 +171,7 @@ export default function Header({ locale, nav, logo, logoScrolled, langLabelKo, l
               return (
                 <li key={item.url} className="group relative text-right">
                   <Link
-                    href={localeHref(locale, routeForSource(item.url))}
+                    href={localeHref(locale, routeForSource(item.url, locale))}
                     aria-current={isActive ? "page" : undefined}
                     className={`block px-[30px] py-[20px] text-[19px] leading-[30.4px] transition duration-300 ${
                       isActive
@@ -191,7 +191,7 @@ export default function Header({ locale, nav, logo, logoScrolled, langLabelKo, l
                         {item.children.map((c) => (
                           <li key={c.url}>
                             <Link
-                              href={localeHref(locale, routeForSource(c.url))}
+                              href={localeHref(locale, routeForSource(c.url, locale))}
                             >
                               {c.name}
                             </Link>
@@ -224,7 +224,7 @@ export default function Header({ locale, nav, logo, logoScrolled, langLabelKo, l
               return (
                 <li key={item.url} className="group relative text-right">
                   <Link
-                    href={localeHref(locale, routeForSource(item.url))}
+                    href={localeHref(locale, routeForSource(item.url, locale))}
                     aria-current={isActive ? "page" : undefined}
                     className={`block px-[30px] py-[20px] text-[19px] leading-[30.4px] transition duration-300 ${
                       isActive
@@ -260,7 +260,7 @@ export default function Header({ locale, nav, logo, logoScrolled, langLabelKo, l
                 <ul className="imweb-dropdown py-2" style={{ minWidth: 160 }}>
                   {nav.slice(3).map((item) => (
                     <li key={item.url} className="group/sub relative">
-                      <Link href={localeHref(locale, routeForSource(item.url))}>
+                      <Link href={localeHref(locale, routeForSource(item.url, locale))}>
                         {item.name}
                       </Link>
                       {item.children.length > 0 && (
@@ -299,7 +299,7 @@ export default function Header({ locale, nav, logo, logoScrolled, langLabelKo, l
             return (
               <Link
                 key={item.url}
-                href={localeHref(locale, routeForSource(item.url))}
+                href={localeHref(locale, routeForSource(item.url, locale))}
                 aria-current={isActive ? "page" : undefined}
                 className={`whitespace-nowrap text-[14px] leading-[45px] transition duration-300 ${
                   isActive ? "font-bold text-accent" : "font-normal text-[#212121]"
@@ -382,7 +382,7 @@ export default function Header({ locale, nav, logo, logoScrolled, langLabelKo, l
                         {item.children.map((c) => (
                           <li key={c.url}>
                             <Link
-                              href={localeHref(locale, routeForSource(c.url))}
+                              href={localeHref(locale, routeForSource(c.url, locale))}
                               className="block py-2.5 pl-3 text-[15px] text-body hover:text-accent"
                             >
                               {c.name}

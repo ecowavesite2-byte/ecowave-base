@@ -31,7 +31,8 @@ export type RegistryKind =
   | "facilityTabs"
   | "techFeatures"
   | "patentSections"
-  | "facilitiesTable";
+  | "facilitiesTable"
+  | "productPage";
 
 export type SaveStatus = "idle" | "saving" | "saved" | "error";
 
@@ -98,3 +99,20 @@ export interface BoardOptions {
 
 /** Per content-locale board options (news/notices idx sets differ per locale). */
 export type BoardPostsMap = Record<RegistryLocale, BoardOptions>;
+
+/**
+ * Compact product post option handed to the `productPage` preview
+ * (server-loaded, capped). `category` is the post's board category string —
+ * the value a `productPage` filter `id` selects — so the preview can show the
+ * real posts behind the tab row.
+ */
+export interface ProductPostOption {
+  idx: string;
+  title: string;
+  category?: string;
+  thumb?: string | null;
+  date?: string | null;
+}
+
+/** Per content-locale product posts, keyed by the def's `pageKey` (dot slug). */
+export type ProductPostsMap = Record<RegistryLocale, Record<string, ProductPostOption[]>>;

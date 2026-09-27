@@ -15,10 +15,10 @@ export async function heroFor(
   // Resolved site so nav-label overrides reach hero titles/tabs too.
   const site = await getResolvedSite(locale);
   for (const item of site.nav) {
-    const groupRoute = routeForSource(item.url);
+    const groupRoute = routeForSource(item.url, locale);
     const childRoutes = item.children.map((c) => ({
       name: c.name,
-      route: routeForSource(c.url),
+      route: routeForSource(c.url, locale),
     }));
     if (groupRoute === route) {
       // the imweb landing route shows the section's first child as the page

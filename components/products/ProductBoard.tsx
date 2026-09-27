@@ -22,27 +22,6 @@ import { localeHref, type Locale } from "@/lib/i18n";
 
 export type ProductTab = { label: string; href: string; active?: boolean };
 
-/** hero label (EN category line) + KR subtitle, per sold route */
-export const PRODUCT_HERO: Record<string, { label: string; subtitle: string }> = {
-  products: { label: "Eco wave", subtitle: "에코웨이브" },
-  "products/eco-wave": { label: "Eco wave", subtitle: "에코웨이브" },
-  // live original /38 renders the same KR subtitle as the eco-wave hero
-  "products/clean-b": { label: "clean B", subtitle: "에코웨이브" },
-  "products/flowell": { label: "Flowell", subtitle: "플로웰" },
-};
-
-/**
- * Original board category-tab order (live probes /32 + /37 + /36 + /38).
- * `살균모듈` has no posts in the crawl but the original still shows the tab.
- * Only applied for the KO capture (the audited locale); EN boards keep their
- * own category labels in crawl order.
- */
-const CATEGORY_ORDER: Record<string, string[]> = {
-  "products/eco-wave": ["필터", "서비스 점검/자가관리 키트", "살균모듈"],
-  "products/clean-b": ["샤워기", "필터"],
-  "products/flowell": ["정수기", "필터"],
-};
-
 export const PRODUCT_PAGE_SIZE = 6;
 
 /**
@@ -68,19 +47,6 @@ export function productSiblingNav(locale: Locale, activeSlug: string): MobileNav
     href: localeHref(locale, `/products/${s.key}`),
     active: s.key === activeKey,
   }));
-}
-
-export function orderedCategories(
-  locale: Locale,
-  slug: string,
-  posts: { category?: string }[],
-): string[] {
-  const present = [
-    ...new Set(posts.map((p) => p.category).filter(Boolean) as string[]),
-  ];
-  if (locale !== "ko") return present;
-  const order = CATEGORY_ORDER[slug] ?? [];
-  return [...order, ...present.filter((c) => !order.includes(c))];
 }
 
 /** imweb sub_menu category tab row (전체 + categories) — DESKTOP only.

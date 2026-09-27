@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { applyPageOverrides } from "@/lib/content/merge";
 import { sectionWidgets } from "@/lib/content/pair";
@@ -8,22 +8,25 @@ import { MOBILE_SECTION } from "@/components/content/SectionRenderer";
 import type { FacilitiesTab } from "@/components/content/FacilitiesTabs";
 import { isNoticeTickerSection } from "@/components/sections/home/NoticeTicker";
 import { adminDict, type AdminLocale } from "@/lib/admin/i18n";
-import type { BoardPost, PageContent, Section } from "@/lib/types";
+import type { BoardPost, PageContent, ProductPagePayload, Section } from "@/lib/types";
 import FieldRow from "./FieldRow";
 import GroupTabs from "./GroupTabs";
+import ProductPagePreview from "./ProductPagePreview";
+import { parseProductPage } from "./ProductPageField";
 import SectionPreview from "./SectionPreview";
 import type {
   BoardPostOption,
   BoardPostsMap,
   DefaultsMap,
   LocalePair,
+  ProductPostOption,
+  ProductPostsMap,
   RegistryDef,
   RegistryLocale,
   RegistryResponse,
   SaveStatus,
   TreesMap,
 } from "./types";
-
 /**
  * MCell-style content/pages editor for ecowave's registry.
  *
@@ -54,6 +57,7 @@ type PreviewState =
   | { kind: "ok"; section: Section }
   | { kind: "sections"; sections: Section[] }
   | { kind: "ticker"; section: Section; posts: BoardPost[] }
+  | { kind: "product"; payload: ProductPagePayload; posts: ProductPostOption[] }
   | { kind: "board" }
   | { kind: "mobile" }
   | { kind: "chrome" }
@@ -246,6 +250,7 @@ export default function RegistryEditor({
   defaults,
   trees,
   boardPosts,
+  productPosts: initialProductPosts,
 }: {
   locale: AdminLocale;
   initialGroup: string;
@@ -254,8 +259,11 @@ export default function RegistryEditor({
   trees: TreesMap;
   /** Server-loaded board posts for the `picks` editor (per content locale). */
   boardPosts: BoardPostsMap;
+  /** Server-loaded board posts per `productPage` `pageKey`, for its preview. */
+  productPosts: ProductPostsMap;
 }) {
   const t = adminDict[locale].content;
+  const boardsT = adminDict[locale].boards;
 
   const [defs, setDefs] = useState<RegistryDef[]>([]);
   const [values, setValues] = useState<Record<string, LocalePair>>({});
@@ -268,6 +276,23 @@ export default function RegistryEditor({
   const [retry, setRetry] = useState(0);
   const [openSection, setOpenSection] = useState<string | null>(null);
   const [previewLang, setPreviewLang] = useState<RegistryLocale>("ko");
+  /**
+   * Live product posts per `productPage` board, seeded from the server props and
+   * kept in sync by the inline product manager (`ProductPageField`) after each
+   * successful mutation, so the preview always reflects the current posts.
+   */
+  const [productPosts, setProductPosts] = useState<ProductPostsMap>(initialProductPosts);
+
+  /** Replace one board's compact post list (called by the inline manager). */
+  const handleProductPostsChange = useCallback(
+    (lang: RegistryLocale, pageKey: string, posts: ProductPostOption[]) => {
+      setProductPosts((prev) => ({
+        ...prev,
+        [lang]: { ...prev[lang], [pageKey]: posts },
+      }));
+    },
+    [],
+  );
 
   useEffect(() => {
     let cancelled = false;
@@ -290,9 +315,16 @@ export default function RegistryEditor({
         if (cancelled) return;
 
         const [ko, en] = payloads;
+        // The products group's `board/**/name` defs are edited on the Boards
+        // screen and are not rendered on the product pages; hide them here so a
+        // product page shows exactly one accordion (its `제품 페이지` def).
+        const visibleDefs =
+          initialGroup === "products"
+            ? ko.defs.filter((def) => def.sectionId !== "board")
+            : ko.defs;
         const nextValues: Record<string, LocalePair> = {};
         const nextDrafts: Record<string, LocalePair> = {};
-        for (const def of ko.defs) {
+        for (const def of visibleDefs) {
           const pair: LocalePair = {
             ko: ko.values[def.key] ?? "",
             en: en.values[def.key] ?? "",
@@ -304,7 +336,7 @@ export default function RegistryEditor({
           };
         }
 
-        setDefs(ko.defs);
+        setDefs(visibleDefs);
         setValues(nextValues);
         setDrafts(nextDrafts);
         setDbConfigured(ko.dbConfigured);
@@ -450,6 +482,23 @@ export default function RegistryEditor({
   const preview = useMemo<PreviewState | null>(() => {
     if (!openItem) return null;
     if (openItem.sectionId === "board") return { kind: "board" };
+
+    // Structured `productPage`: the def is section-less (it binds to the board
+    // JSON, not a crawled page tree), so products have no `trees[pageKey]` and
+    // the generic path would report "unavailable". Resolve the payload from the
+    // live draft, else the effective value, else the code default — parsed with
+    // the SAME parser the editor writes with. Posts come from the server prop.
+    const productDef = openItem.defs.find((def) => def.kind === "productPage");
+    if (productDef) {
+      const draft = drafts[productDef.key]?.[previewLang]?.trim() ?? "";
+      const effective = values[productDef.key]?.[previewLang]?.trim() ?? "";
+      const fallback = defaults[productDef.key]?.[previewLang] ?? "";
+      const payload = parseProductPage(draft || effective || fallback);
+      if (!payload) return { kind: "unavailable" };
+      const posts = productPosts[previewLang]?.[openItem.pageKey] ?? [];
+      return { kind: "product", payload, posts };
+    }
+
     const tree = trees[openItem.pageKey];
     if (!tree || !tree.ko) return { kind: "unavailable" };
     const koTree = tree.ko;
@@ -550,7 +599,19 @@ export default function RegistryEditor({
     } catch {
       return { kind: "unavailable" };
     }
-  }, [openItem, trees, draftOverrides, previewLang, overrideKinds, defs, drafts, values, boardPosts]);
+  }, [
+    openItem,
+    trees,
+    draftOverrides,
+    previewLang,
+    overrideKinds,
+    defs,
+    drafts,
+    values,
+    boardPosts,
+    productPosts,
+    defaults,
+  ]);
 
   /**
    * Effective `rnd.facilities` tabs for the preview locale: the unsaved draft
@@ -697,7 +758,10 @@ export default function RegistryEditor({
                             disabled={!dbConfigured}
                             targetMissing={defTargetMissing(koTreeSection, def)}
                             t={t}
+                            boardsT={boardsT}
                             boardPosts={boardPosts}
+                            productPosts={productPosts}
+                            onProductPostsChange={handleProductPostsChange}
                             onDraft={(lang, value) => setDraft(def.key, lang, value)}
                             onSave={() => void save(def)}
                           />
@@ -764,6 +828,12 @@ export default function RegistryEditor({
                   locale={previewLang}
                   tickerPosts={preview.posts}
                   facilitiesTabs={facilityTabs}
+                />
+              ) : preview?.kind === "product" ? (
+                <ProductPagePreview
+                  payload={preview.payload}
+                  posts={preview.posts}
+                  locale={previewLang}
                 />
               ) : (
                 <p className="px-3 py-8 text-center text-[12px] text-muted">

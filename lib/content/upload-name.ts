@@ -16,12 +16,11 @@ export const MIME_EXTENSIONS: Record<string, readonly string[]> = {
   "image/png": ["png"],
   "image/webp": ["webp"],
   "image/gif": ["gif"],
-  "image/svg+xml": ["svg"],
   "application/pdf": ["pdf"],
 };
 
 /** Human list used in error messages. */
-export const ALLOWED_TYPE_LABEL = "JPEG, PNG, WebP, GIF, SVG and PDF";
+export const ALLOWED_TYPE_LABEL = "JPEG, PNG, WebP, GIF and PDF";
 
 const MAX_SLUG_LENGTH = 48;
 const MAX_HASH_LENGTH = 16;

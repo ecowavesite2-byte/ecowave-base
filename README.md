@@ -125,8 +125,9 @@ npm run content:validate                      # crawl structure + asset referenc
 - **Ticker picks (`picks`)** — JSON `{ board: "news" | "notices", idxs: [...] }`. The ticker renders
   the picked posts in order, links follow the chosen board, and an empty/stale selection falls back
   to the latest 4 news.
-- **Images** — upload to Vercel Blob (content-hashed public names; requires `BLOB_READ_WRITE_TOKEN`)
-  or set a path; a **reset** button clears the override back to the crawled default. There is no
+- **Images** — upload to **Vercel Blob only** (content-hashed public names; the upload route needs
+  `BLOB_READ_WRITE_TOKEN` and returns 503 without it, and there is no local `/media/...` store) or
+  set a path; a **reset** button clears the override back to the crawled default. There is no
   alt-text field.
 - **Nested media in rich text** — images and iframes inside a `text` widget are editable per locale
   as `img[n].src` (image) and `iframe[n].src` (embed), addressing the nth tag in the markup.
@@ -134,7 +135,7 @@ npm run content:validate                      # crawl structure + asset referenc
   into the authored `<iframe>` (the global-network maps now live in the `locations` payload's `mapSrc`).
 - **Video** — the source accepts a YouTube/embed URL **or** an uploaded file; `.mp4/.webm/.ogv/.mov`
   sources render as a native `<video>`. Upload caps: video ≤ 50 MB (images have a smaller cap);
-  uploads need `BLOB_READ_WRITE_TOKEN`.
+  uploads go to Vercel Blob and need `BLOB_READ_WRITE_TOKEN` (503 without it).
 - **Shared company intro** — the company intro band is edited **once** on the CEO greeting page
   (`company.ceo`, in the `company` group; label "회사 소개 인트로 (모든 회사 페이지 공통)"),
   badged in the editor, and applied to all `/company*` pages. The same shared-def mechanism powers the
@@ -195,6 +196,25 @@ npm run content:validate                      # crawl structure + asset referenc
 editable via `facilityTabs`, and the §5 capacity tables via `facilitiesTable`); the mobile back-to-top
 band. Plain markup-only text widgets are excluded from the registry unless they carry editable embedded
 media (`img[n].src` / `iframe[n].src`).
+
+### Products channel
+
+Products pages are **board-backed** — there are no products page JSONs; the `/products` landing
+renders the eco-wave board, and each subpage is a board too.
+
+- **Page copy & filters (`productPage`, Content → Products)** — each product subpage edits its hero
+  `title`/`subtitle` (rendered identically on desktop and mobile; the former separate `mobileTitle`
+  was unified into the single `title`) and an ordered **filter** list (add / rename / reorder /
+  remove; a filter may be empty). Filter `id`s are stable — they are the post `category` values — so
+  renaming a filter never reassigns products.
+- **Assignment lives on the Boards screen** — products sit in filter groups plus an "unassigned"
+  group, with per-group add and reorder; reordering re-sequences the board order, which also defines
+  the public `전체` order.
+- **Defaults & overrides** — defaults live in `content/{ko,en}/boards/products.*.json` (`page`,
+  `filters`); edits are stored as the `<slug>#productPage/productPage` `page_content` row. An empty
+  value reverts to the default; a malformed stored payload falls back at render time.
+- **Detail pages** — use the same resolved hero copy, and a board name that honors the
+  `<slug>#board/<slug>/name` override.
 
 ### Payload contracts
 
@@ -287,7 +307,6 @@ an iron-session cookie and is unreachable without the admin env vars.
 | `ADMIN_PASSWORD_HASH` | scrypt 64-byte digest, lowercase hex (128 chars). |
 | `ADMIN_PASSWORD_SALT` | scrypt salt, hex. |
 | `CONTENT_ROOT` | Optional content data dir (prod writes outside the git tree). |
-| `MEDIA_ROOT` | Optional uploaded-media dir (default `data/media/`). |
 | `BLOB_READ_WRITE_TOKEN` | Vercel Blob token for the content-editor uploads (images/video). |
 | `ADMIN_LOGIN_MAX_FAILS` / `ADMIN_LOGIN_WINDOW_MIN` | Login throttle (defaults 5 / 15). |
 
@@ -308,8 +327,10 @@ underneath the live process. Order:
 - Field-level content edits (the registry lane) are stored as overrides in Postgres
   (`page_content`, needs `DATABASE_URL`); an empty value deletes the row and the code default
   applies again.
-- Uploaded media is content-hashed under `MEDIA_ROOT` (`data/media/`) and served
-  read-only via `/media/...`; `public/` is never written at runtime.
+- Uploaded media goes to **Vercel Blob only** (content-hashed public URLs; requires
+  `BLOB_READ_WRITE_TOKEN`, and the upload route returns 503 without it). There is no local
+  `MEDIA_ROOT` upload storage and no `/media/...` route; `data/media/` is not used by uploads, and
+  `public/` is never written at runtime.
 - Saves are atomic (`write-file-atomic`, Windows retry/backoff) and write a
   revision snapshot under `content/.history/<ISO>/`; an append-only audit log is
   kept at `content/.history/audit.log` (actor + file + hashes per write).
@@ -317,13 +338,15 @@ underneath the live process. Order:
 ### Backup / restore
 
 ```bash
-npm run content:backup                                    # data/backups/<ISO>.tar (content/ + data/media/)
+npm run content:backup                                    # data/backups/<ISO>.tar (content/ + legacy data/media/ when present)
 npm run content:restore -- data/backups/<ISO>.tar --yes   # DESTRUCTIVE; stop the server first
 ```
 
 Restore extracts into a staging dir, validates it with `content:validate`, takes a
 safety backup, then swaps; the replaced state is kept under
-`data/restore-staging/replaced-<ISO>/` for rollback.
+`data/restore-staging/replaced-<ISO>/` for rollback. `data/media/` is a legacy directory
+that uploads no longer write to (uploads go to Vercel Blob); the backup still archives it
+when present.
 
 ### Optional: Better Auth upgrade path
 

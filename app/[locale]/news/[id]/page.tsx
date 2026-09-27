@@ -4,7 +4,7 @@ import { PostDetail } from "@/components/ui/Boards";
 import BoardDetailShell from "@/components/boards/BoardDetailShell";
 import { getBoard } from "@/lib/content";
 import { boardPostByIdx } from "@/lib/content/boards";
-import { getResolvedBoard } from "@/lib/content/resolved";
+import { getResolvedBoard, getResolvedBoardName } from "@/lib/content/resolved";
 import { defaultLocale, isLocale, localeHref } from "@/lib/i18n";
 import { heroFor } from "@/lib/page-hero";
 import { ui } from "@/lib/ui-strings";
@@ -28,6 +28,9 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ loc
   const board = await getResolvedBoard(l, "news");
   const post = boardPostByIdx(board, id);
   if (!post) notFound();
+  // A stored name override wins even when its value equals the crawled base
+  // (the crawled name is unreliable/swapped, so it is never trusted as-is).
+  const { name: boardName } = await getResolvedBoardName(l, "news");
   const at = board.posts.findIndex((p) => p.idx === id);
   const nav = (p?: { idx: string; title: string; date?: string | null }) =>
     p ? { idx: p.idx, title: p.title, date: p.date } : null;
@@ -36,6 +39,7 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ loc
       <PostDetail
         post={post}
         boardHref={localeHref(l, "/news")}
+        boardName={boardName}
         listLabel={t.board.list}
         prevLabel={t.board.prev}
         nextLabel={t.board.next}

@@ -2,6 +2,11 @@
   "name": "",
   "count": 6,
   "listCls": "list-style  hide_writer  hide_time  hide_hit_cnt  hide_comment_cnt  grid_03 type_grid container_border",
+  "page": { "title": "clean B", "subtitle": "에코웨이브" },
+  "filters": [
+    { "id": "샤워기", "name": "샤워기" },
+    { "id": "필터", "name": "필터" }
+  ],
   "posts": [
     {
       "idx": "167778711",

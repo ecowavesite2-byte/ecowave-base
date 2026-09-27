@@ -3,6 +3,7 @@ import { getPrisma } from "./db";
 import type {
   FacilitiesTablePayload,
   PatentSectionsPayload,
+  ProductFilter,
   TechFeatureItem,
   TechFeatureRow,
   TechFeaturesPayload,
@@ -407,6 +408,63 @@ export function normalizeFacilitiesTablePayload(value: string): string | null {
 }
 
 /**
+ * `productPage` payloads: `{ title, subtitle, filters: [{ id, name }] }`.
+ * `title`/`subtitle` must be non-empty after trim (≤120); `filters` holds 1..20
+ * tabs whose `id` and `name` are each non-empty after trim (≤60) and UNIQUE
+ * across the list. Unknown keys are dropped — a legacy stored payload that still
+ * carries `mobileTitle` is accepted and has that field STRIPPED. Returns the
+ * canonical JSON, or `null` when invalid.
+ */
+export function normalizeProductPagePayload(value: string): string | null {
+  const MAX_TITLE = 120;
+  const MAX_FILTER = 60;
+  try {
+    const parsed: unknown = JSON.parse(value);
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) return null;
+    const record = parsed as {
+      title?: unknown;
+      subtitle?: unknown;
+      filters?: unknown;
+    };
+
+    if (typeof record.title !== "string") return null;
+    const title = record.title.trim();
+    if (title.length === 0 || title.length > MAX_TITLE) return null;
+
+    if (typeof record.subtitle !== "string") return null;
+    const subtitle = record.subtitle.trim();
+    if (subtitle.length === 0 || subtitle.length > MAX_TITLE) return null;
+
+    if (
+      !Array.isArray(record.filters) ||
+      record.filters.length === 0 ||
+      record.filters.length > 20
+    ) {
+      return null;
+    }
+    const filters: ProductFilter[] = [];
+    const ids = new Set<string>();
+    const names = new Set<string>();
+    for (const entry of record.filters) {
+      if (!entry || typeof entry !== "object" || Array.isArray(entry)) return null;
+      const filter = entry as { id?: unknown; name?: unknown };
+      if (typeof filter.id !== "string" || typeof filter.name !== "string") return null;
+      const id = filter.id.trim();
+      const name = filter.name.trim();
+      if (id.length === 0 || id.length > MAX_FILTER) return null;
+      if (name.length === 0 || name.length > MAX_FILTER) return null;
+      if (ids.has(id) || names.has(name)) return null;
+      ids.add(id);
+      names.add(name);
+      filters.push({ id, name });
+    }
+    return JSON.stringify({ title, subtitle, filters });
+  } catch {
+    return null;
+  }
+}
+
+/**
  * Invalidate the routes a def affects.
  *
  * `ContentDef.revalidate` (emitted by the registry generator) lists the routes in
@@ -548,6 +606,19 @@ export async function saveContent({
       };
     }
     // Store the normalized value (names trimmed, unknown fields dropped).
+    value = normalized;
+  }
+
+  if (def.kind === "productPage" && trimmedLength > 0) {
+    const normalized = normalizeProductPagePayload(value);
+    if (normalized === null) {
+      return {
+        ok: false,
+        message:
+          "Invalid productPage payload: expected { title, subtitle, filters: [{ id, name }] } within the limits",
+      };
+    }
+    // Store the normalized value (strings trimmed, unknown fields dropped).
     value = normalized;
   }
 

@@ -2,6 +2,11 @@
   "name": "",
   "count": 6,
   "listCls": "list-style  hide_writer  hide_time  hide_hit_cnt  hide_comment_cnt  grid_03 type_grid container_border",
+  "page": { "title": "Flowell", "subtitle": "플로웰" },
+  "filters": [
+    { "id": "Water purifier", "name": "Water purifier" },
+    { "id": "Filter", "name": "Filter" }
+  ],
   "posts": [
     {
       "idx": "167823014",

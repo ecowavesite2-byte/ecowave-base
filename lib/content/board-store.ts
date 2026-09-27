@@ -1,7 +1,8 @@
 import type { BoardPost } from "../types";
 import type { Locale } from "../i18n";
+import { isProductBoard } from "./boards";
 import { getPrisma } from "./db";
-import { isValidBoardSlug } from "./paths";
+import { isValidBoardSlug, normalizeBoardSlug } from "./paths";
 import { getBoard } from "./read";
 import { sanitizeHtmlFragment } from "./sanitize";
 
@@ -68,6 +69,109 @@ function isValidMediaValue(value: string): boolean {
   }
 }
 
+/** Max characters of a server-derived product-post excerpt (before uniqueness). */
+const EXCERPT_MAX = 160;
+
+/**
+ * Vercel Blob public host — the only remote host `next.config.ts` allowlists, so
+ * the only remote `thumb` `next/image` can actually render.
+ */
+const BLOB_THUMB_RE = /^https:\/\/[^/\s]+\.public\.blob\.vercel-storage\.com\/\S*$/i;
+
+/**
+ * A server-derived product `thumb` is only useful when `next/image` can render
+ * it WITHOUT a config change: a site-relative `/...` path or a Vercel Blob
+ * public URL. Any other host pasted into a body (the `next.config.ts`
+ * allowlist has no entry for it) would break the card grid, so `deriveThumb`
+ * drops it to `null` and the card renders without an image.
+ *
+ * Deliberately narrower than `isValidMediaValue` (which keeps accepting any
+ * http(s) URL for the non-product thumb/file validations).
+ */
+function isRenderableThumb(value: string): boolean {
+  if (value.startsWith("//")) return false;
+  if (value.startsWith("/")) return value.length > 1;
+  return BLOB_THUMB_RE.test(value);
+}
+
+/** First `<img src="…">` value in an html fragment, or null when there is none. */
+function firstImageSrc(html: string): string | null {
+  const match = /<img\b[^>]*\bsrc\s*=\s*(?:"([^"]*)"|'([^']*)')/i.exec(html);
+  if (!match) return null;
+  const src = (match[1] ?? match[2] ?? "").trim();
+  return src || null;
+}
+
+/** Strip tags, decode common entities and collapse whitespace to plain text. */
+function toPlainText(html: string): string {
+  return String(html ?? "")
+    .replace(/<[^>]*>/g, " ")
+    .replace(/&nbsp;/gi, " ")
+    .replace(/&amp;/gi, "&")
+    .replace(/&lt;/gi, "<")
+    .replace(/&gt;/gi, ">")
+    .replace(/&quot;/gi, '"')
+    .replace(/&#0*39;/gi, "'")
+    .replace(/&#x0*27;/gi, "'")
+    .replace(/&#\d+;/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+/** Clip plain text to ~`max` characters on a word boundary (hard cut for CJK). */
+function clipToWords(text: string, max = EXCERPT_MAX): string {
+  if (text.length <= max) return text;
+  const slice = text.slice(0, max);
+  const lastSpace = slice.lastIndexOf(" ");
+  return (lastSpace > 0 ? slice.slice(0, lastSpace) : slice).trim();
+}
+
+/**
+ * Server-derived excerpt base for a product post: plain text of its content
+ * (falling back to the title when the body carries no text), clipped to ~160
+ * characters on a word boundary.
+ */
+function excerptBase(post: { content: string; title: string }): string {
+  return clipToWords(toPlainText(post.content) || post.title);
+}
+
+/**
+ * Make `base` unique against the excerpts already `used`, appending a
+ * ` … (#idx)` disambiguator and re-checking until it no longer collides. Bounded
+ * so pathological look-alike content can never loop forever.
+ */
+function uniqueExcerpt(base: string, idx: string, used: Set<string>): string {
+  let candidate = base;
+  let attempt = 0;
+  while (used.has(candidate) && attempt < 100) {
+    attempt += 1;
+    candidate =
+      attempt === 1 ? `${base} … (#${idx})` : `${base} … (#${idx}) (${attempt})`;
+  }
+  return candidate;
+}
+
+/** Server-derived `thumb` for a product post: its first renderable image, else null. */
+function deriveThumb(content: string): string | null {
+  const src = firstImageSrc(content);
+  if (!src || src.length > LIMITS.url || !isRenderableThumb(src)) return null;
+  return src;
+}
+
+/**
+ * Product-board save rule: every post's `thumb`/`excerpt` is server-derived
+ * (client-provided values are ignored) and excerpts are made unique across the
+ * whole incoming list.
+ */
+function deriveProductFields(posts: PostInput[]): PostInput[] {
+  const used = new Set<string>();
+  return posts.map((post) => {
+    const excerpt = uniqueExcerpt(excerptBase(post), post.idx, used);
+    used.add(excerpt);
+    return { ...post, thumb: deriveThumb(post.content), excerpt };
+  });
+}
+
 let warned = false;
 
 function warnOnce(error: unknown): void {
@@ -116,7 +220,7 @@ function asRecord(value: unknown): Record<string, unknown> {
 function validatePost(
   raw: unknown,
   index: number,
-  ctx: { slug: string; locale: Locale; actor: string },
+  ctx: { slug: string; locale: Locale; actor: string; product: boolean },
 ): { ok: true; value: PostInput } | { ok: false; message: string } {
   const p = asRecord(raw);
   const where = `post ${index + 1}`;
@@ -138,8 +242,10 @@ function validatePost(
     return { ok: false, message: `${where} (${idx}): category exceeds ${LIMITS.category} characters` };
   }
 
-  const excerpt = typeof p.excerpt === "string" ? p.excerpt : "";
-  if (excerpt.length > LIMITS.excerpt) {
+  // Product boards derive `excerpt` server-side (after the whole list is known)
+  // and `thumb` from the content, so client-provided values are ignored here.
+  const excerpt = ctx.product ? "" : typeof p.excerpt === "string" ? p.excerpt : "";
+  if (!ctx.product && excerpt.length > LIMITS.excerpt) {
     return { ok: false, message: `${where} (${idx}): excerpt exceeds ${LIMITS.excerpt} characters` };
   }
 
@@ -149,13 +255,16 @@ function validatePost(
     return { ok: false, message: `${where} (${idx}): content exceeds ${LIMITS.content} characters` };
   }
 
-  const thumbRaw = p.thumb == null ? "" : String(p.thumb).trim();
-  const thumb = thumbRaw || null;
-  if (thumb && (thumb.length > LIMITS.url || !isValidMediaValue(thumb))) {
-    return {
-      ok: false,
-      message: `${where} (${idx}): thumb must be a relative "/..." path or an http(s) URL`,
-    };
+  let thumb: string | null = null;
+  if (!ctx.product) {
+    const thumbRaw = p.thumb == null ? "" : String(p.thumb).trim();
+    thumb = thumbRaw || null;
+    if (thumb && (thumb.length > LIMITS.url || !isValidMediaValue(thumb))) {
+      return {
+        ok: false,
+        message: `${where} (${idx}): thumb must be a relative "/..." path or an http(s) URL`,
+      };
+    }
   }
 
   let date: string | null = null;
@@ -232,7 +341,7 @@ function validatePost(
 
 function validatePosts(
   posts: unknown,
-  ctx: { slug: string; locale: Locale; actor: string },
+  ctx: { slug: string; locale: Locale; actor: string; product: boolean },
 ): { ok: true; value: PostInput[] } | { ok: false; message: string } {
   if (!Array.isArray(posts)) return { ok: false, message: "posts must be an array" };
   const value: PostInput[] = [];
@@ -309,11 +418,12 @@ async function revalidateBoard(slug: string): Promise<void> {
  * the crawled defaults) — also `null` when the DB is unconfigured or a read fails.
  */
 export async function loadBoardPosts(locale: Locale, slug: string): Promise<BoardPost[] | null> {
+  const normalized = normalizeBoardSlug(slug);
   const prisma = getPrisma();
   if (!prisma) return null;
   try {
     const rows = await prisma.boardPost.findMany({
-      where: { slug, locale },
+      where: { slug: normalized, locale },
       orderBy: [{ sortOrder: "asc" }, { idx: "asc" }],
     });
     if (rows.length === 0) return null;
@@ -331,12 +441,18 @@ export async function replaceBoardPosts(input: {
   posts: unknown;
   actor: string;
 }): Promise<BoardStoreResult> {
-  const { slug, locale, posts, actor } = input;
+  const { locale, posts, actor } = input;
+  const slug = normalizeBoardSlug(input.slug);
   if (!isValidBoardSlug(slug)) return error(`Unknown board slug: ${slug}`);
   if (!isLocale(locale)) return error("locale must be ko or en");
 
-  const validated = validatePosts(posts, { slug, locale, actor });
+  const product = isProductBoard(slug);
+  const validated = validatePosts(posts, { slug, locale, actor, product });
   if (!validated.ok) return { ok: false, message: validated.message };
+
+  // Product posts always carry server-derived thumb/excerpt (client values are
+  // ignored); other boards keep exactly what the caller sent.
+  const value = product ? deriveProductFields(validated.value) : validated.value;
 
   const prisma = getPrisma();
   if (!prisma) return error(DB_NOT_CONFIGURED_MESSAGE);
@@ -344,8 +460,8 @@ export async function replaceBoardPosts(input: {
   try {
     await prisma.$transaction(async (tx) => {
       await tx.boardPost.deleteMany({ where: { slug, locale } });
-      if (validated.value.length > 0) {
-        await tx.boardPost.createMany({ data: validated.value });
+      if (value.length > 0) {
+        await tx.boardPost.createMany({ data: value });
       }
     });
   } catch (err) {
@@ -362,7 +478,8 @@ export async function seedBoardFromDefaults(input: {
   locale: Locale;
   actor: string;
 }): Promise<BoardStoreResult> {
-  const { slug, locale, actor } = input;
+  const { locale, actor } = input;
+  const slug = normalizeBoardSlug(input.slug);
   if (!isValidBoardSlug(slug)) return error(`Unknown board slug: ${slug}`);
   if (!isLocale(locale)) return error("locale must be ko or en");
 
@@ -385,10 +502,20 @@ export async function updateBoardPost(input: {
   patch: Partial<BoardPost>;
   actor: string;
 }): Promise<BoardStoreResult> {
-  const { slug, locale, idx, patch, actor } = input;
+  const { locale, idx, patch, actor } = input;
+  const slug = normalizeBoardSlug(input.slug);
   if (!isValidBoardSlug(slug)) return error(`Unknown board slug: ${slug}`);
   if (!isLocale(locale)) return error("locale must be ko or en");
   if (!idx) return error("idx is required");
+
+  // `idx` is the row identity (part of the `slug_locale_idx` unique key) and is
+  // never exposed by the UI. A patch that tries to rename it is rejected rather
+  // than silently moving the row under a new key; passing the same value is a
+  // harmless no-op and stays allowed.
+  const patchRecord = asRecord(patch);
+  if (patchRecord.idx !== undefined && patchRecord.idx !== idx) {
+    return error(`idx is immutable (got "${String(patchRecord.idx)}" for post "${idx}")`);
+  }
 
   const prisma = getPrisma();
   if (!prisma) return error(DB_NOT_CONFIGURED_MESSAGE);
@@ -401,11 +528,24 @@ export async function updateBoardPost(input: {
       return error("Post is not in the override set (seed the board first)");
     }
 
+    const product = isProductBoard(slug);
     const validated = validatePosts(
       [{ ...toPostInput(existing), ...asRecord(patch) }],
-      { slug, locale, actor },
+      { slug, locale, actor, product },
     );
     if (!validated.ok) return { ok: false, message: validated.message };
+
+    let value = validated.value[0];
+    if (product) {
+      // Uniqueness must hold against the board's OTHER rows; fetch them so a
+      // derived excerpt never collides with an existing one.
+      const siblings = await prisma.boardPost.findMany({ where: { slug, locale } });
+      const used = new Set(
+        siblings.filter((row) => row.idx !== idx).map((row) => row.excerpt),
+      );
+      const excerpt = uniqueExcerpt(excerptBase(value), value.idx, used);
+      value = { ...value, thumb: deriveThumb(value.content), excerpt };
+    }
 
     // `validatePosts` assigns sortOrder = array index (0 here); keep the row's
     // existing position so an edit never reorders the board.
@@ -414,7 +554,7 @@ export async function updateBoardPost(input: {
     await prisma.boardPost.update({
       where: { slug_locale_idx: { slug, locale, idx } },
       data: {
-        ...validated.value[0],
+        ...value,
         ...(typeof preservedSortOrder === "number" ? { sortOrder: preservedSortOrder } : {}),
       },
     });
@@ -432,7 +572,8 @@ export async function deleteBoardPost(input: {
   locale: Locale;
   idx: string;
 }): Promise<BoardStoreResult> {
-  const { slug, locale, idx } = input;
+  const { locale, idx } = input;
+  const slug = normalizeBoardSlug(input.slug);
   if (!isValidBoardSlug(slug)) return error(`Unknown board slug: ${slug}`);
   if (!isLocale(locale)) return error("locale must be ko or en");
   if (!idx) return error("idx is required");

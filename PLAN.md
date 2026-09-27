@@ -38,8 +38,9 @@ EN mirror <https://en.ecowavekorea.co.kr>
 | `/support`, `/notices` (+ detail) | Support / Notices | `/28`, `/27` |
 
 Old numeric URLs 301-redirect to the semantic routes (`next.config.ts`). Content lives in
-`content/{ko,en}/pages/*.json` (19 pages/locale), `content/{ko,en}/boards/*.json` (5 boards),
-`content/{ko,en}/site.json`; assets under `public/images/`.
+`content/{ko,en}/pages/*.json` (15 pages/locale; the products channel is board-backed, with no page
+JSONs), `content/{ko,en}/boards/*.json` (5 boards), `content/{ko,en}/site.json`; assets under
+`public/images/`.
 
 ---
 
@@ -63,8 +64,9 @@ Old numeric URLs 301-redirect to the semantic routes (`next.config.ts`). Content
 Single-admin dashboard at `/admin` (login `/admin/login`, iron-session cookie; fails closed without the
 admin env vars). Built in phases 1–8: auth + shell → content store + save API + revalidation → pages
 editor → boards editor → drafts + preview → media library/uploads → site strings → hardening/ops.
-Writes are atomic with revision snapshots + an append-only audit log; uploaded media is content-hashed
-and served read-only via `/media/...`.
+Writes are atomic with revision snapshots + an append-only audit log; admin uploads go to
+Vercel Blob (`BLOB_READ_WRITE_TOKEN`; the endpoint returns 503 without it) — there is no local
+`/media/...` store.
 
 The **content editor lane** is registry-based: `lib/content/registry.ts` (auto-generated, one def per
 editable field, emitted in nav/route order with document order preserved within a page) + the Postgres
@@ -284,3 +286,10 @@ design/                   audit artifacts, snapshots, reference shots (git-ignor
   (친환경·프리미엄 §4, OEM·검사 §5, 스마트·살균·대량생산 §6) saved together, v1/legacy keys folded onto the
   v2 key; and the `rnd.facilities` admin preview renders through the shared `FacilitiesTabSection`
   (tabs + gallery) for both the section and full-page previews.
+- Products channel editing program (2026-09-26): canonical board-slug normalization (dot
+  `products.*` ↔ public slash slugs) and a locale-aware old→new source→route map (the EN product
+  routes differ from KO); dead board `posts` registry defs removed in favour of the board-post store;
+  the structured `productPage` editor (per-subpage hero `title`/`subtitle` + ordered
+  filters with stable category `id`s) plus a filter-grouped Boards lane (per-group add/reorder and an
+  "unassigned" group); and detail board-name provenance so the `<slug>#board/<slug>/name` override
+  surfaces on the rendered detail page.

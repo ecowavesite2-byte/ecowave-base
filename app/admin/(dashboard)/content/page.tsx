@@ -5,6 +5,8 @@ import type {
   BoardPostsMap,
   DefaultsMap,
   PageTree,
+  ProductPostOption,
+  ProductPostsMap,
   TreesMap,
 } from "../../_components/registry/types";
 import {
@@ -46,6 +48,8 @@ const EMPTY_BOARD_POSTS: BoardPostsMap = {
   en: { news: [], notices: [] },
 };
 
+const EMPTY_PRODUCT_POSTS: ProductPostsMap = { ko: {}, en: {} };
+
 /** Compact server-side post options for the ticker `picks` editor (cap 50). */
 function compactPosts(posts: BoardPost[]): BoardPostOption[] {
   return posts.slice(0, 50).map((post) => ({
@@ -54,6 +58,17 @@ function compactPosts(posts: BoardPost[]): BoardPostOption[] {
     date: post.date,
     thumb: post.thumb ?? null,
     excerpt: post.excerpt ?? "",
+  }));
+}
+
+/** Compact posts for the `productPage` preview (cap 24, keeps `category`). */
+function compactProductPosts(posts: BoardPost[]): ProductPostOption[] {
+  return posts.slice(0, 24).map((post) => ({
+    idx: post.idx,
+    title: post.title,
+    category: post.category,
+    thumb: post.thumb ?? null,
+    date: post.date,
   }));
 }
 
@@ -80,6 +95,29 @@ async function loadBoardPosts(): Promise<BoardPostsMap> {
   return out;
 }
 
+/**
+ * Board posts per `productPage` def, per content locale (post ids/categories
+ * differ per locale). The def's `pageKey` is the dot slug the store expects, so
+ * it can be passed to `getResolvedBoard` directly. Only loaded for the products
+ * group; other groups get an empty map and skip the DB-backed reads.
+ */
+async function loadProductPosts(groupDefs: { kind: string; pageKey: string }[]): Promise<ProductPostsMap> {
+  const langs = ["ko", "en"] as const;
+  const pageKeys = [
+    ...new Set(groupDefs.filter((def) => def.kind === "productPage").map((def) => def.pageKey)),
+  ];
+  const out: ProductPostsMap = { ko: {}, en: {} };
+  await Promise.all(
+    langs.map(async (lang) => {
+      const boards = await Promise.all(pageKeys.map((key) => getResolvedBoard(lang, key)));
+      pageKeys.forEach((key, index) => {
+        out[lang][key] = compactProductPosts(boards[index].posts);
+      });
+    }),
+  );
+  return out;
+}
+
 export default async function ContentRegistryPage({
   searchParams,
 }: {
@@ -93,7 +131,15 @@ export default async function ContentRegistryPage({
       ? (requested as ContentGroup)
       : "home";
 
-  const groupDefs = CONTENT_DEFS.filter((def) => def.group === group);
+  // The products group carries one hidden `board/**/name` def per product page
+  // (`sectionId: "board"`). That value is the board label, is edited on the
+  // Boards screen and is NOT rendered on the product pages, so it is excluded
+  // here: it never renders, and contributes no defaults or preview tree. The
+  // def stays in the registry — the boards save API resolves it via
+  // `CONTENT_DEF_MAP`.
+  const groupDefs = CONTENT_DEFS.filter(
+    (def) => def.group === group && !(group === "products" && def.sectionId === "board"),
+  );
 
   const defaults: DefaultsMap = {};
   for (const def of groupDefs) {
@@ -117,6 +163,9 @@ export default async function ContentRegistryPage({
   // the (DB-backed) board reads entirely.
   const boardPosts = group === "home" ? await loadBoardPosts() : EMPTY_BOARD_POSTS;
 
+  // Product posts back the `productPage` live preview; same skip for other groups.
+  const productPosts = group === "products" ? await loadProductPosts(groupDefs) : EMPTY_PRODUCT_POSTS;
+
   return (
     <RegistryEditor
       locale={locale}
@@ -125,6 +174,7 @@ export default async function ContentRegistryPage({
       defaults={defaults}
       trees={trees}
       boardPosts={boardPosts}
+      productPosts={productPosts}
     />
   );
 }

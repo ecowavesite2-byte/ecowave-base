@@ -513,7 +513,7 @@ function ImageWidget({ w, locale, mobileBox = false }: { w: WidgetNode; locale: 
       </div>
     );
 
-  const internalHref = w.href && !/^https?:/i.test(w.href) && !w.href.startsWith("#") ? routeForSource(w.href) : null;
+  const internalHref = w.href && !/^https?:/i.test(w.href) && !w.href.startsWith("#") ? routeForSource(w.href, locale) : null;
   if (internalHref) {
     return (
       <Link href={localeHref(locale, internalHref)} className="group block">
@@ -1087,7 +1087,7 @@ function WidgetContent({ w, locale, mobileBox = false }: { w: WidgetNode; locale
       const html = w.html || "";
       const isTop = w.href === "#doz_header" || /icon-arrow-up/.test(html);
       const isPlus = /bt-plus|icon-plus|plus/.test(html);
-      const internalHref = w.href && !/^https?:/i.test(w.href) && !w.href.startsWith("#") ? routeForSource(w.href) : null;
+      const internalHref = w.href && !/^https?:/i.test(w.href) && !w.href.startsWith("#") ? routeForSource(w.href, locale) : null;
       const dest = internalHref ? localeHref(locale, internalHref) : w.href || "#";
       return (
         <div className="text-right">

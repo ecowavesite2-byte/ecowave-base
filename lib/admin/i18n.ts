@@ -338,6 +338,50 @@ export interface AdminDict {
     facilitiesTableHint: string;
     /** Row-count cap reached (`MAX_ROWS`). */
     facilitiesTableMaxHint: (max: number) => string;
+    /** Structured `productPage` (products.* board page header + filter tabs) editor. */
+    productPageTitle: string;
+    /** Helper under the hero title input. */
+    productPageTitleHint: string;
+    productPageSubtitle: string;
+    /** Helper under the hero subtitle input. */
+    productPageSubtitleHint: string;
+    productPageFilters: string;
+    /** Card header for filter `n` (1-based). */
+    productPageFilter: (n: number) => string;
+    productPageFilterName: string;
+    productPageFilterId: string;
+    /** Note that the id is the stable post-category link and survives renames. */
+    productPageIdHint: string;
+    productPageAdd: string;
+    productPageRemove: string;
+    productPageMoveUp: string;
+    productPageMoveDown: string;
+    /** Note that products are assigned per filter on the Boards screen. */
+    productPageFilterHint: string;
+    productPageHint: string;
+    /** Filter-count cap reached (`MAX_FILTERS`). */
+    productPageMaxHint: (max: number) => string;
+    /** Note that a malformed stored value falls back to the default. */
+    productPageInvalid: string;
+    /** Built-in `전체`/`All` tab label (ko content) — never part of the payload. */
+    productPageBuiltinAllKo: string;
+    /** Built-in `전체`/`All` tab label (en content) — never part of the payload. */
+    productPageBuiltinAllEn: string;
+    /** Muted note that the built-in tab is always first and cannot be edited. */
+    productPageBuiltinHint: string;
+    /** Per-filter product list + inline management. */
+    productPageProducts: string;
+    productPageProductCount: (count: number) => string;
+    productPageProductsEmpty: string;
+    productPageProductsLoading: string;
+    productPageProductsError: string;
+    productPageAddProduct: string;
+    /** Copy this locale panel's payload into the other locale draft. */
+    productPageCopyOther: string;
+    /** Hint under the copy button (mentions the page must be saved). */
+    productPageCopyOtherHint: string;
+    /** Feedback after a copy (mentions the page must be saved). */
+    productPageCopyOtherDone: string;
   };
   /**
    * `/admin/boards` + `/admin/boards/<slug>` — the board picker, the per-board
@@ -387,6 +431,15 @@ export interface AdminDict {
     columns: { title: string; status: string; date: string; views: string; manage: string };
     noPosts: string;
     noTitle: string;
+    /** Group header for product posts whose category matches no filter. */
+    unassigned: string;
+    /** Muted hint pointing filter editing at Content → Products. */
+    filtersHint: string;
+    /** Muted hint explaining that reordering a post re-sequences the board. */
+    reorderHint: string;
+    /** Per-post reorder controls inside a product filter group. */
+    moveUp: string;
+    moveDown: string;
     notice: string;
     normal: string;
     attachments: (count: number) => string;
@@ -394,11 +447,22 @@ export interface AdminDict {
     edit: string;
     delete: string;
     deleteConfirm: (title: string) => string;
+    /** Two-pane product add/edit dialog (form + live preview). */
+    dialog: {
+      /** Preview pane section heading: the grid card. */
+      card: string;
+      /** Preview pane section heading: the detail view. */
+      detail: string;
+      /** Accessible label for the dialog close button. */
+      close: string;
+    };
     form: {
       title: string;
       category: string;
       date: string;
       dateHint: string;
+      /** Hint beside the native product date picker. */
+      dateHintPicker: string;
       thumbnail: string;
       thumbnailHint: string;
       thumbnailPlaceholder: string;
@@ -418,6 +482,19 @@ export interface AdminDict {
       save: string;
       saving: string;
       cancel: string;
+      /** Multed note: the product card image comes from the first body image. */
+      thumbnailAutoNote: string;
+      /** Muted note: the product excerpt is generated on save. */
+      excerptAutoNote: string;
+      /** "+ New category" affordance label (product boards only). */
+      newCategory: string;
+      /** Hint beside the category label when the affordance is available. */
+      newCategoryFieldHint: string;
+      newCategoryPlaceholder: string;
+      newCategoryConfirm: string;
+      /** Note that the new category joins the page draft and needs a page save. */
+      newCategoryHint: string;
+      newCategoryFailed: string;
     };
   };
   /**
@@ -622,6 +699,7 @@ const ko: AdminDict = {
       techFeatures: "기술 블록",
       patentSections: "인증 섹션 목록",
       facilitiesTable: "설비 표",
+      productPage: "제품 페이지",
     },
     fieldCount: (count) => `${count}개 필드`,
     save: "저장",
@@ -792,6 +870,37 @@ const ko: AdminDict = {
     facilitiesTableHint:
       "표는 두 개의 열로 고정됩니다. 머리글과 각 행을 편집하고, 행을 추가·삭제·순서 변경할 수 있습니다.",
     facilitiesTableMaxHint: (max) => `최대 ${max}개 행까지 추가할 수 있습니다.`,
+    productPageTitle: "제목",
+    productPageTitleHint: "제품 페이지 상단에 표시되는 제목입니다.",
+    productPageSubtitle: "부제",
+    productPageSubtitleHint: "제품 페이지 상단에 표시되는 부제입니다.",
+    productPageFilters: "필터",
+    productPageFilter: (n) => `필터 ${n}`,
+    productPageFilterName: "표시 이름",
+    productPageFilterId: "ID",
+    productPageIdHint: "ID는 게시글 분류와 연결되는 값이며, 이름을 바꿔도 유지됩니다.",
+    productPageAdd: "필터 추가",
+    productPageRemove: "삭제",
+    productPageMoveUp: "위로",
+    productPageMoveDown: "아래로",
+    productPageFilterHint:
+      "각 필터 아래에서 제품을 추가·수정·삭제할 수 있습니다. 비어 있는 필터도 허용됩니다.",
+    productPageHint: "필터를 추가·삭제하거나 순서를 바꿀 수 있습니다.",
+    productPageMaxHint: (max) => `최대 ${max}개 필터까지 추가할 수 있습니다.`,
+    productPageInvalid: "값을 읽을 수 없어 기본값을 표시합니다.",
+    productPageBuiltinAllKo: "전체",
+    productPageBuiltinAllEn: "All",
+    productPageBuiltinHint: "내장 탭으로 항상 첫 번째에 표시되며 편집할 수 없습니다.",
+    productPageProducts: "제품",
+    productPageProductCount: (count) => `제품 ${count}개`,
+    productPageProductsEmpty: "이 필터에 등록된 제품이 없습니다.",
+    productPageProductsLoading: "제품 목록을 불러오는 중…",
+    productPageProductsError: "제품 목록을 불러오지 못했습니다.",
+    productPageAddProduct: "제품 추가",
+    productPageCopyOther: "다른 언어로 복사",
+    productPageCopyOtherHint:
+      "제목과 부제목만 반대편 언어 초안으로 복사합니다. 필터 탭은 언어별 게시판 분류이므로 그대로 유지됩니다. 페이지를 저장해야 반영됩니다.",
+    productPageCopyOtherDone: "복사됨 — 저장하면 반영됩니다.",
   },
   boards: {
     title: "게시판",
@@ -842,6 +951,11 @@ const ko: AdminDict = {
     },
     noPosts: "게시물이 없습니다.",
     noTitle: "(제목 없음)",
+    unassigned: "미지정",
+    filtersHint: "필터는 콘텐츠 → 제품 소개에서 편집합니다.",
+    reorderHint: "게시물을 위/아래로 이동하면 게시판 전체 순서가 다시 정렬됩니다.",
+    moveUp: "위로",
+    moveDown: "아래로",
     notice: "공지",
     normal: "일반",
     attachments: (count) => `첨부 ${count}개`,
@@ -849,11 +963,17 @@ const ko: AdminDict = {
     edit: "수정",
     delete: "삭제",
     deleteConfirm: (title) => `게시물 “${title}”을(를) 삭제하시겠습니까?`,
+    dialog: {
+      card: "목록 카드",
+      detail: "상세 화면",
+      close: "닫기",
+    },
     form: {
       title: "제목",
       category: "카테고리",
       date: "작성일",
       dateHint: "자유 입력",
+      dateHintPicker: "날짜 선택",
       thumbnail: "썸네일",
       thumbnailHint: "상대 경로(/…) 또는 https URL",
       thumbnailPlaceholder: "/images/…",
@@ -873,6 +993,14 @@ const ko: AdminDict = {
       save: "저장",
       saving: "저장 중…",
       cancel: "취소",
+      thumbnailAutoNote: "카드 이미지는 본문의 첫 번째 이미지에서 자동으로 사용됩니다.",
+      excerptAutoNote: "요약은 저장할 때 자동으로 생성됩니다.",
+      newCategory: "새 카테고리",
+      newCategoryFieldHint: "카테고리를 선택하거나 새로 만드세요.",
+      newCategoryPlaceholder: "새 카테고리 이름",
+      newCategoryConfirm: "추가",
+      newCategoryHint: "새 카테고리는 페이지 초안에 추가됩니다. 페이지를 저장해야 반영됩니다.",
+      newCategoryFailed: "카테고리를 추가하지 못했습니다.",
     },
   },
   inquiries: {
@@ -1048,6 +1176,7 @@ const en: AdminDict = {
       techFeatures: "Technology block",
       patentSections: "Certification sections",
       facilitiesTable: "Equipment table",
+      productPage: "Product page",
     },
     fieldCount: (count) => `${count} fields`,
     save: "Save",
@@ -1218,6 +1347,37 @@ const en: AdminDict = {
     facilitiesTableHint:
       "The table is fixed to two columns. Edit the header and each row, and add, remove or reorder rows.",
     facilitiesTableMaxHint: (max) => `Up to ${max} rows.`,
+    productPageTitle: "Title",
+    productPageTitleHint: "Shown as the product page hero title.",
+    productPageSubtitle: "Subtitle",
+    productPageSubtitleHint: "Shown as the product page hero subtitle.",
+    productPageFilters: "Filters",
+    productPageFilter: (n) => `Filter ${n}`,
+    productPageFilterName: "Display label",
+    productPageFilterId: "ID",
+    productPageIdHint: "The id links to a post category and stays the same when you rename.",
+    productPageAdd: "Add filter",
+    productPageRemove: "Remove",
+    productPageMoveUp: "Move up",
+    productPageMoveDown: "Move down",
+    productPageFilterHint:
+      "Add, edit or remove products under each filter. A filter may be empty.",
+    productPageHint: "Add, remove or reorder filters.",
+    productPageMaxHint: (max) => `Up to ${max} filters.`,
+    productPageInvalid: "Could not read this value; showing the default.",
+    productPageBuiltinAllKo: "전체",
+    productPageBuiltinAllEn: "All",
+    productPageBuiltinHint: "Built-in tab — always shown first and cannot be edited.",
+    productPageProducts: "Products",
+    productPageProductCount: (count) => `${count} ${count === 1 ? "product" : "products"}`,
+    productPageProductsEmpty: "No products in this filter.",
+    productPageProductsLoading: "Loading products…",
+    productPageProductsError: "Could not load products.",
+    productPageAddProduct: "Add product",
+    productPageCopyOther: "Copy to other language",
+    productPageCopyOtherHint:
+      "Copies only the title and subtitle into the other language draft. Filter tabs keep their own ids because they map to language-specific post categories. Save the page to apply it.",
+    productPageCopyOtherDone: "Copied — save to apply.",
   },
   boards: {
     title: "Boards",
@@ -1267,6 +1427,11 @@ const en: AdminDict = {
     },
     noPosts: "No posts.",
     noTitle: "(no title)",
+    unassigned: "Unassigned",
+    filtersHint: "Filters are edited in Content → Products.",
+    reorderHint: "Moving a post up or down re-sequences the whole board order.",
+    moveUp: "Move up",
+    moveDown: "Move down",
     notice: "Notice",
     normal: "Normal",
     attachments: (count) => `${count} attachment${count === 1 ? "" : "s"}`,
@@ -1274,11 +1439,17 @@ const en: AdminDict = {
     edit: "Edit",
     delete: "Delete",
     deleteConfirm: (title) => `Delete post “${title}”?`,
+    dialog: {
+      card: "Grid card",
+      detail: "Detail view",
+      close: "Close",
+    },
     form: {
       title: "Title",
       category: "Category",
       date: "Date",
       dateHint: "free text",
+      dateHintPicker: "date picker",
       thumbnail: "Thumbnail",
       thumbnailHint: "relative /… path or https URL",
       thumbnailPlaceholder: "/images/…",
@@ -1298,6 +1469,15 @@ const en: AdminDict = {
       save: "Save",
       saving: "Saving…",
       cancel: "Cancel",
+      thumbnailAutoNote: "The card image is taken automatically from the first image in the body.",
+      excerptAutoNote: "The excerpt is generated automatically on save.",
+      newCategory: "New category",
+      newCategoryFieldHint: "Pick a category or create a new one.",
+      newCategoryPlaceholder: "New category name",
+      newCategoryConfirm: "Add",
+      newCategoryHint:
+        "The new category is added to the page draft — save the page to apply it.",
+      newCategoryFailed: "Could not add the category.",
     },
   },
   inquiries: {

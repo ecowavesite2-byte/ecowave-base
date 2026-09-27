@@ -13,7 +13,7 @@ import {
 import { isDbConfigured } from "@/lib/content/db";
 import { BOARD_SLUGS, isValidBoardSlug } from "@/lib/content/paths";
 import { getBoard, hasEnglishBoard } from "@/lib/content/read";
-import { getResolvedBoard } from "@/lib/content/resolved";
+import { getResolvedBoard, getResolvedProductPage } from "@/lib/content/resolved";
 import { saveContent } from "@/lib/content/save";
 import type { BoardPost } from "@/lib/types";
 
@@ -93,6 +93,10 @@ export async function GET(req: Request) {
 
     const board = await getResolvedBoard(locale, slug);
     const rows = await loadBoardPosts(locale, slug);
+    // Product boards carry the resolved filter tabs so the editor can group its
+    // posts; news/notices get an empty list (shape otherwise unchanged).
+    const isProduct = isProductBoard(slug);
+    const filters = isProduct ? (await getResolvedProductPage(locale, slug)).filters : [];
 
     return Response.json({
       slug,
@@ -102,7 +106,8 @@ export async function GET(req: Request) {
       posts: board.posts,
       count: board.posts.length,
       defaultCount: defaultCount(locale, slug),
-      isProduct: isProductBoard(slug),
+      isProduct,
+      filters,
       dbConfigured: isDbConfigured(),
     });
   }

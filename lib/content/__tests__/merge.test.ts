@@ -163,7 +163,9 @@ describe("applyPageOverrides", () => {
   });
 
   it("ignores board keys (boards are a later phase)", () => {
-    const def = CONTENT_DEFS.find((d) => d.pageKey === "news" && d.field === "posts");
+    // Any board-scoped def works as the probe; the registry no longer emits the
+    // dead `posts` defs (post overrides live in `board_post`), so use the name.
+    const def = CONTENT_DEFS.find((d) => d.pageKey === "news" && d.sectionId === "board");
     expect(def).toBeDefined();
     const out = applyPageOverrides(home, { [def!.key]: "[]" }, "ko");
     expect(out).toEqual(home);

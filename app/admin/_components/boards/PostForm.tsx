@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { AdminDict } from "@/lib/admin/i18n";
 import { Field, TextInput } from "../registry/fields";
 import {
@@ -13,12 +13,23 @@ import {
   type PostForm as PostFormShape,
 } from "@/lib/content/board-form";
 import { MIME_EXTENSIONS, MAX_UPLOAD_BYTES, extensionOf } from "@/lib/content/upload-name";
-import type { BoardPost } from "@/lib/types";
+import type { BoardPost, ProductFilter } from "@/lib/types";
+import { normalizeDateInput, productPostFromForm } from "./product-board-form";
 
 /**
  * Inline create/edit form for one board post: metadata, HTML body with
  * caret-aware image insertion, and multi-attachment (image + PDF) uploads.
  * Mirrors the MCell board form while preserving ecowave's extra fields.
+ *
+ * Product boards trim the form to what a product actually needs: the `views`
+ * input is gone everywhere, the date becomes a native picker, and the
+ * server-derived `thumb`/`excerpt` are replaced by muted notes. The picker can
+ * only SHOW `yyyy-mm-dd`, but state keeps the RAW stored date: a value the
+ * picker cannot represent (a crawled format) is displayed blank yet preserved
+ * on save, and `form.date` only changes once the admin picks or clears a date.
+ * `<input type="date">` needs `yyyy-mm-dd`, so dot/slash formats are normalized
+ * for display (empty stays empty); news/notices keep the free-text input so
+ * crawled formats are untouched.
  */
 
 const SAVE_BUTTON =
@@ -28,8 +39,15 @@ const CANCEL_BUTTON =
 const UPLOAD_BUTTON =
   "inline-flex h-9 shrink-0 cursor-pointer items-center rounded-md border border-line bg-white px-2.5 text-[12px] text-ink transition-colors hover:border-accent hover:text-accent";
 const UPLOAD_BUSY = "pointer-events-none opacity-50";
+const SELECT =
+  "h-9 w-full rounded-md border border-line bg-white px-2.5 text-[13px] text-ink outline-none transition-colors focus:border-accent focus:ring-2 focus:ring-accent/25 disabled:bg-[#f4f5f7] disabled:text-[#6b7280]";
+const SMALL_GHOST =
+  "inline-flex h-9 shrink-0 items-center rounded-md border border-line bg-white px-2.5 text-[12px] text-ink transition-colors hover:border-accent hover:text-accent disabled:cursor-not-allowed disabled:opacity-50";
+const SMALL_ACCENT =
+  "inline-flex h-9 shrink-0 items-center rounded-md bg-accent px-2.5 text-[12px] font-medium text-white transition-colors hover:bg-accent/90 disabled:cursor-not-allowed disabled:opacity-50";
+const NOTE = "rounded-md border border-line bg-[#fafafa] px-3 py-2 text-[12px] text-[#6b7280]";
 
-const IMAGE_ACCEPT = "image/jpeg,image/png,image/webp,image/gif,image/svg+xml";
+const IMAGE_ACCEPT = "image/jpeg,image/png,image/webp,image/gif";
 const ATTACHMENT_ACCEPT = `${IMAGE_ACCEPT},application/pdf`;
 
 /** Allowed type + size check, matching the server's `validateUploadName` rules. */
@@ -61,23 +79,57 @@ export default function PostForm({
   t,
   post,
   isProduct,
+  filters,
   disabled,
   busy,
   onSave,
   onCancel,
+  onCreateCategory,
+  onFormChange,
 }: {
   t: AdminDict["boards"];
   post: BoardPost;
   isProduct: boolean;
+  /** Resolved product filters; the category input becomes a select on product boards. */
+  filters: ProductFilter[];
   disabled: boolean;
   busy: boolean;
   onSave: (post: BoardPost) => void;
   onCancel: () => void;
+  /**
+   * Product boards only: create a page filter from the form. Resolves to the new
+   * filter id (selected into the form) or `null` on failure. When omitted (the
+   * Boards lane) the affordance is hidden entirely.
+   */
+  onCreateCategory?: (name: string) => Promise<string | null>;
+  /**
+   * Product boards only (edit dialog): fires on every edit so a live preview can
+   * follow along. The shared Boards form does not pass it and is unaffected.
+   */
+  onFormChange?: (form: PostFormShape) => void;
 }) {
-  const [form, setForm] = useState<PostFormShape>(() => toPostForm(post));
+  const [form, setForm] = useState<PostFormShape>(() => {
+    // Seed with the RAW stored date: an untouched non-ISO value must survive to
+    // the payload, and `normalizeDateInput` is applied only for the input's
+    // display value below (never written back to state on load).
+    return toPostForm(post);
+  });
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
+  const [addingCategory, setAddingCategory] = useState(false);
+  const [newCategoryName, setNewCategoryName] = useState("");
+  const [categoryBusy, setCategoryBusy] = useState(false);
+  const [categoryError, setCategoryError] = useState<string | null>(null);
   const bodyRef = useRef<HTMLTextAreaElement | null>(null);
+
+  // Keep the latest preview callback without re-subscribing on every render.
+  const onFormChangeRef = useRef(onFormChange);
+  useEffect(() => {
+    onFormChangeRef.current = onFormChange;
+  });
+  useEffect(() => {
+    onFormChangeRef.current?.(form);
+  }, [form]);
 
   function set<K extends keyof PostFormShape>(key: K, value: PostFormShape[K]) {
     setForm((prev) => ({ ...prev, [key]: value }));
@@ -137,6 +189,34 @@ export default function PostForm({
     setForm((prev) => ({ ...prev, files: prev.files.filter((_, i) => i !== index) }));
   }
 
+  function cancelNewCategory() {
+    setAddingCategory(false);
+    setNewCategoryName("");
+    setCategoryError(null);
+  }
+
+  /** Ask the page editor to add the filter, then select the id it returns. */
+  async function submitNewCategory() {
+    if (!onCreateCategory) return;
+    const name = newCategoryName.trim();
+    if (!name) return;
+    setCategoryBusy(true);
+    setCategoryError(null);
+    try {
+      const id = await onCreateCategory(name);
+      if (!id) {
+        setCategoryError(t.form.newCategoryFailed);
+        return;
+      }
+      set("category", id);
+      cancelNewCategory();
+    } catch {
+      setCategoryError(t.form.newCategoryFailed);
+    } finally {
+      setCategoryBusy(false);
+    }
+  }
+
   const locked = disabled || busy;
 
   return (
@@ -144,40 +224,157 @@ export default function PostForm({
       className="mt-4 space-y-3 rounded-lg border border-line bg-white p-4"
       onSubmit={(event) => {
         event.preventDefault();
-        onSave(formToPost(form, post));
+        onSave(isProduct ? productPostFromForm(form, post) : formToPost(form, post));
       }}
     >
-      <Field label={t.form.title}>
-        <TextInput value={form.title} onChange={(value) => set("title", value)} />
-      </Field>
-
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-        {isProduct ? (
-          <Field label={t.form.category}>
-            <TextInput value={form.category} onChange={(value) => set("category", value)} />
-          </Field>
-        ) : null}
-        <Field label={t.form.date} hint={t.form.dateHint}>
-          <TextInput value={form.date} onChange={(value) => set("date", value)} />
+      <div data-testid="post-form-title">
+        <Field label={t.form.title}>
+          <TextInput value={form.title} onChange={(value) => set("title", value)} />
         </Field>
       </div>
 
-      <Field label={t.form.thumbnail} hint={t.form.thumbnailHint}>
-        <TextInput
-          value={form.thumb}
-          onChange={(value) => set("thumb", value)}
-          mono
-          placeholder={t.form.thumbnailPlaceholder}
-        />
-      </Field>
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+        {isProduct ? (
+          <Field
+            label={t.form.category}
+            hint={onCreateCategory ? t.form.newCategoryFieldHint : undefined}
+          >
+            <div className="space-y-1.5">
+              <div className="flex items-center gap-1.5">
+                <select
+                  data-testid="post-form-category"
+                  value={form.category}
+                  disabled={locked}
+                  onChange={(event) => set("category", event.target.value)}
+                  className={SELECT}
+                >
+                  <option value="">{t.unassigned}</option>
+                  {filters.map((filter) => (
+                    <option key={filter.id} value={filter.id}>
+                      {filter.name}
+                    </option>
+                  ))}
+                  {/* A legacy category not in the current filters stays selectable so
+                      editing a post never silently rewrites its stored value. */}
+                  {form.category && !filters.some((filter) => filter.id === form.category) ? (
+                    <option value={form.category}>{form.category}</option>
+                  ) : null}
+                </select>
+                {onCreateCategory ? (
+                  <button
+                    type="button"
+                    data-testid="post-form-category-new"
+                    disabled={locked || categoryBusy}
+                    onClick={() => {
+                      setCategoryError(null);
+                      setAddingCategory((prev) => !prev);
+                    }}
+                    className={SMALL_GHOST}
+                  >
+                    + {t.form.newCategory}
+                  </button>
+                ) : null}
+              </div>
 
-      <Field label={t.form.excerpt}>
-        <TextInput value={form.excerpt} onChange={(value) => set("excerpt", value)} />
-      </Field>
+              {addingCategory && onCreateCategory ? (
+                <div className="rounded-md border border-dashed border-line bg-[#fafafa] p-2">
+                  <div className="flex items-center gap-1.5">
+                    <input
+                      type="text"
+                      data-testid="post-form-category-new-name"
+                      value={newCategoryName}
+                      disabled={locked || categoryBusy}
+                      placeholder={t.form.newCategoryPlaceholder}
+                      onChange={(event) => setNewCategoryName(event.target.value)}
+                      onKeyDown={(event) => {
+                        if (event.key === "Enter") {
+                          event.preventDefault();
+                          void submitNewCategory();
+                        }
+                      }}
+                      className={SELECT}
+                    />
+                    <button
+                      type="button"
+                      data-testid="post-form-category-new-confirm"
+                      disabled={locked || categoryBusy || newCategoryName.trim() === ""}
+                      onClick={() => void submitNewCategory()}
+                      className={SMALL_ACCENT}
+                    >
+                      {t.form.newCategoryConfirm}
+                    </button>
+                    <button
+                      type="button"
+                      disabled={categoryBusy}
+                      onClick={cancelNewCategory}
+                      className={SMALL_GHOST}
+                    >
+                      {t.form.cancel}
+                    </button>
+                  </div>
+                  <p
+                    data-testid="post-form-category-new-hint"
+                    className="mt-1 text-[11px] text-[#6b7280]"
+                  >
+                    {t.form.newCategoryHint}
+                  </p>
+                  {categoryError ? (
+                    <p className="mt-1 text-[11px] text-red-600">{categoryError}</p>
+                  ) : null}
+                </div>
+              ) : null}
+            </div>
+          </Field>
+        ) : null}
+
+        {isProduct ? (
+          <Field label={t.form.date} hint={t.form.dateHintPicker}>
+            <input
+              type="date"
+              data-testid="post-form-date"
+              value={normalizeDateInput(form.date)}
+              disabled={locked}
+              onChange={(event) => set("date", event.target.value)}
+              className={SELECT}
+            />
+          </Field>
+        ) : (
+          <Field label={t.form.date} hint={t.form.dateHint}>
+            <TextInput value={form.date} onChange={(value) => set("date", value)} />
+          </Field>
+        )}
+      </div>
+
+      {isProduct ? (
+        <>
+          <p data-testid="post-form-thumb-note" className={NOTE}>
+            {t.form.thumbnailAutoNote}
+          </p>
+          <p data-testid="post-form-excerpt-note" className={NOTE}>
+            {t.form.excerptAutoNote}
+          </p>
+        </>
+      ) : (
+        <>
+          <Field label={t.form.thumbnail} hint={t.form.thumbnailHint}>
+            <TextInput
+              value={form.thumb}
+              onChange={(value) => set("thumb", value)}
+              mono
+              placeholder={t.form.thumbnailPlaceholder}
+            />
+          </Field>
+
+          <Field label={t.form.excerpt}>
+            <TextInput value={form.excerpt} onChange={(value) => set("excerpt", value)} />
+          </Field>
+        </>
+      )}
 
       <Field label={t.form.content} hint={t.form.contentHint}>
         <textarea
           ref={bodyRef}
+          data-testid="post-form-content"
           value={form.content}
           rows={10}
           placeholder={t.form.contentPlaceholder}
@@ -272,10 +469,21 @@ export default function PostForm({
       </label>
 
       <div className="flex gap-2 pt-1">
-        <button type="submit" className={SAVE_BUTTON} disabled={locked || uploading}>
+        <button
+          type="submit"
+          data-testid="post-form-save"
+          className={SAVE_BUTTON}
+          disabled={locked || uploading}
+        >
           {busy ? t.form.saving : t.form.save}
         </button>
-        <button type="button" className={CANCEL_BUTTON} onClick={onCancel} disabled={busy}>
+        <button
+          type="button"
+          data-testid="post-form-cancel"
+          className={CANCEL_BUTTON}
+          onClick={onCancel}
+          disabled={busy}
+        >
           {t.form.cancel}
         </button>
       </div>

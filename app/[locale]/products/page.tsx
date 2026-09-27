@@ -1,12 +1,16 @@
 import PageHero from "@/components/ui/PageHero";
 import {
   ProductBoard,
-  PRODUCT_HERO,
   PRODUCT_PAGE_SIZE,
-  orderedCategories,
   productSiblingNav,
 } from "@/components/products/ProductBoard";
-import { getResolvedBoard } from "@/lib/content/resolved";
+import {
+  buildProductTabs,
+  catQueryFor,
+  filterPostsByCategory,
+  resolveActiveFilterId,
+} from "@/components/products/product-tabs";
+import { getResolvedBoard, getResolvedProductPage } from "@/lib/content/resolved";
 import { defaultLocale, isLocale, localeHref } from "@/lib/i18n";
 import { heroFor } from "@/lib/page-hero";
 import { ui } from "@/lib/ui-strings";
@@ -26,41 +30,35 @@ export default async function ProductsPage({
   const { cat, page: pageParam } = await searchParams;
   const l = isLocale(locale) ? locale : defaultLocale;
   const hero = await heroFor("/products", l);
-  const meta = PRODUCT_HERO.products;
   const t = ui(l);
 
   const slug = "products/eco-wave";
   const board = await getResolvedBoard(l, slug);
-  const categories = orderedCategories(l, slug, board.posts);
-  // original mobile hero: KR combined title + sibling category nav
+  // landing shares the eco-wave board payload (original /32 == /37 boards)
+  const meta = await getResolvedProductPage(l, slug);
+  // original mobile hero: same title + subtitle + sibling category nav
   const mobileNav = productSiblingNav(l, slug);
-  const mobileTitle = mobileNav.find((n) => n.active)?.label;
-  const filtered = cat ? board.posts.filter((p) => p.category === cat) : board.posts;
+  const activeId = resolveActiveFilterId(meta.filters, cat);
+  const filtered = filterPostsByCategory(board.posts, activeId);
   const page = Math.max(1, Number(pageParam || "1"));
   const totalPages = Math.max(1, Math.ceil(filtered.length / PRODUCT_PAGE_SIZE));
   const slice = filtered.slice((page - 1) * PRODUCT_PAGE_SIZE, page * PRODUCT_PAGE_SIZE);
 
   const listingBase = localeHref(l, "/products");
   const cardBase = localeHref(l, slug);
-  const catQuery = cat ? `?cat=${encodeURIComponent(cat)}` : "";
-  const tabs = [
-    { label: t.board.all, href: listingBase, active: !cat },
-    ...categories.map((c) => ({
-      label: c,
-      href: `${listingBase}?cat=${encodeURIComponent(c)}`,
-      active: cat === c,
-    })),
-  ];
+  // Pagination keeps only the RESOLVED filter id, so an unknown `?cat=` never
+  // leaks into the pager links.
+  const catQuery = catQueryFor(activeId);
+  const tabs = buildProductTabs(meta.filters, t.board.all, listingBase, cat);
 
   return (
     <main>
       <PageHero
-        title={meta.label}
+        title={meta.title}
         subtitle={meta.subtitle}
         tabs={hero.tabs}
         big
         mobileNav={mobileNav}
-        mobileTitle={mobileTitle}
         mobilePills
       />
       <section className="mx-auto max-w-[1280px] px-[15px]">

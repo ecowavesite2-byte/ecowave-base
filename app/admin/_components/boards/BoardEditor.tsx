@@ -2,12 +2,13 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
-import { adminDict, type AdminLocale } from "@/lib/admin/i18n";
+import { adminDict, type AdminDict, type AdminLocale } from "@/lib/admin/i18n";
 import BoardNameField from "./BoardNameField";
 import PostForm from "./PostForm";
 import PostRow, { type RowStatus } from "./PostRow";
 import type { BoardDetail, BoardListResponse, BoardLocale, BoardSummary } from "./types";
 import { blankPost, generatePostIdx } from "@/lib/content/board-form";
+import { flattenGroups, groupPostsByFilter, moveWithinGroup, type BoardGroup } from "./group";
 import type { BoardPost } from "@/lib/types";
 
 /** Board editor: board tabs, name override, and a post table with inline create/edit. */
@@ -16,8 +17,123 @@ const PRIMARY_BUTTON =
   "rounded-md bg-accent px-3 py-1.5 text-[12px] font-medium text-white transition-colors hover:bg-accent/90 disabled:cursor-not-allowed disabled:opacity-50";
 const SECONDARY_BUTTON =
   "rounded-md border border-line px-3 py-1.5 text-[12px] text-ink transition-colors hover:border-accent hover:text-accent disabled:cursor-not-allowed disabled:opacity-50";
+const EDIT_BUTTON =
+  "rounded-md border border-line px-2.5 py-1 text-[12px] text-ink transition-colors hover:border-accent hover:text-accent disabled:cursor-not-allowed disabled:opacity-50";
+const DELETE_BUTTON =
+  "rounded-md border border-red-200 px-2.5 py-1 text-[12px] text-red-700 transition-colors hover:border-red-400 disabled:cursor-not-allowed disabled:opacity-50";
+const ORDER_BUTTON =
+  "flex h-5 w-5 items-center justify-center rounded border border-line text-[11px] leading-none text-ink/70 transition-colors hover:border-accent hover:text-accent disabled:cursor-not-allowed disabled:opacity-40";
 
 const SAVED_FEEDBACK_MS = 2000;
+
+function rowStatusText(status: RowStatus, t: AdminDict["boards"]): string | null {
+  if (status === "saving") return t.saving;
+  if (status === "saved") return t.saved;
+  if (status === "error") return t.failed;
+  return null;
+}
+
+/**
+ * One product-board post row: mirrors `PostRow` and adds a leading column with
+ * up/down reorder controls (the news/notices table stays on `PostRow`).
+ */
+function GroupedPostRow({
+  t,
+  post,
+  status,
+  disabled,
+  canMoveUp,
+  canMoveDown,
+  onMoveUp,
+  onMoveDown,
+  onEdit,
+  onDelete,
+}: {
+  t: AdminDict["boards"];
+  post: BoardPost;
+  status: RowStatus;
+  disabled: boolean;
+  canMoveUp: boolean;
+  canMoveDown: boolean;
+  onMoveUp: () => void;
+  onMoveDown: () => void;
+  onEdit: () => void;
+  onDelete: () => void;
+}) {
+  const notice = post.isNotice;
+  const feedback = rowStatusText(status, t);
+
+  return (
+    <tr className="border-b border-line last:border-0 align-top">
+      <td className="w-16 whitespace-nowrap px-2 py-3">
+        <div className="flex flex-col items-center gap-1">
+          <button
+            type="button"
+            aria-label={t.moveUp}
+            title={t.moveUp}
+            className={ORDER_BUTTON}
+            onClick={onMoveUp}
+            disabled={disabled || !canMoveUp}
+          >
+            ↑
+          </button>
+          <button
+            type="button"
+            aria-label={t.moveDown}
+            title={t.moveDown}
+            className={ORDER_BUTTON}
+            onClick={onMoveDown}
+            disabled={disabled || !canMoveDown}
+          >
+            ↓
+          </button>
+        </div>
+      </td>
+      <td className="max-w-[340px] px-4 py-3 text-[13px] text-ink">
+        <span className="line-clamp-2 break-words">{post.title || t.noTitle}</span>
+        {post.files && post.files.length > 0 ? (
+          <span className="ml-1 text-[11px] text-[#6b7280]" title={t.attachments(post.files.length)}>
+            📎 {post.files.length}
+          </span>
+        ) : null}
+      </td>
+      <td className="whitespace-nowrap px-4 py-3 text-[12px]">
+        <span
+          className={`rounded-full px-2 py-0.5 text-[11px] font-medium ${
+            notice ? "bg-[#eef2ff] text-[#4338ca]" : "bg-[#f3f4f6] text-[#6b7280]"
+          }`}
+        >
+          {notice ? t.notice : t.normal}
+        </span>
+      </td>
+      <td className="whitespace-nowrap px-4 py-3 text-[12px] text-[#6b7280]">
+        {post.date ?? post.idx}
+      </td>
+      <td className="whitespace-nowrap px-4 py-3 text-[12px] text-[#6b7280]">
+        {post.views ?? 0}
+      </td>
+      <td className="whitespace-nowrap px-4 py-3">
+        <div className="flex items-center gap-2">
+          <button type="button" className={EDIT_BUTTON} onClick={onEdit} disabled={disabled}>
+            {t.edit}
+          </button>
+          <button type="button" className={DELETE_BUTTON} onClick={onDelete} disabled={disabled}>
+            {t.delete}
+          </button>
+          {feedback ? (
+            <span
+              className={`text-[11px] ${
+                status === "error" ? "text-red-600" : "text-emerald-600"
+              }`}
+            >
+              {feedback}
+            </span>
+          ) : null}
+        </div>
+      </td>
+    </tr>
+  );
+}
 
 export default function BoardEditor({
   slug,
@@ -42,6 +158,8 @@ export default function BoardEditor({
   const [busy, setBusy] = useState(false);
   const [actionError, setActionError] = useState<string | null>(null);
   const [editing, setEditing] = useState<BoardPost | "new" | null>(null);
+  /** Filter id pre-selected when adding a post from a product-board group. */
+  const [newCategory, setNewCategory] = useState<string | undefined>(undefined);
   const [rowStatus, setRowStatus] = useState<Record<string, RowStatus>>({});
 
   const [name, setName] = useState("");
@@ -141,9 +259,34 @@ export default function BoardEditor({
   }
 
   const posts = data?.posts ?? [];
+  const filters = data?.filters ?? [];
+  // Product-board grouping is pure; news/notices never render it.
+  const groups = groupPostsByFilter(posts, filters);
   const nameDirty = name !== nameBase;
   const rowsDisabled = !dbConfigured || busy || !data?.materialized;
   const formDisabled = !dbConfigured || busy;
+
+  /** Open the new-post form, optionally pre-selecting a product filter. */
+  function startNew(category?: string) {
+    setNewCategory(category);
+    setEditing("new");
+  }
+
+  /**
+   * Reorder a post inside one group. `moveWithinGroup` swaps the neighbours,
+   * then `flattenGroups` re-sequences the WHOLE board array in group display
+   * order (filter groups first, unassigned last) and submits it via `replace`,
+   * so `sortOrder` follows the visible order. Unassigned/other posts are kept.
+   */
+  function move(group: BoardGroup, index: number, direction: "up" | "down") {
+    const target = index + (direction === "up" ? -1 : 1);
+    if (target < 0 || target >= group.posts.length) return;
+    const next = moveWithinGroup(groups, group.filterId, index, direction);
+    void run(
+      { action: "replace", slug, locale, posts: flattenGroups(next) },
+      group.posts[index].idx,
+    );
+  }
 
   return (
     <div className="mx-auto max-w-[960px] p-8">
@@ -301,7 +444,7 @@ export default function BoardEditor({
                 type="button"
                 className={PRIMARY_BUTTON}
                 disabled={!dbConfigured || busy || editing !== null}
-                onClick={() => setEditing("new")}
+                onClick={() => startNew()}
               >
                 {t.addPost}
               </button>
@@ -324,10 +467,14 @@ export default function BoardEditor({
                 key={editing === "new" ? "new" : editing.idx}
                 post={
                   editing === "new"
-                    ? blankPost(generatePostIdx(posts.map((p) => p.idx)))
+                    ? {
+                        ...blankPost(generatePostIdx(posts.map((p) => p.idx))),
+                        ...(newCategory ? { category: newCategory } : {}),
+                      }
                     : editing
                 }
                 isProduct={data.isProduct}
+                filters={filters}
                 disabled={formDisabled}
                 busy={busy}
                 onSave={(post) => {
@@ -345,6 +492,94 @@ export default function BoardEditor({
                 }}
                 onCancel={() => setEditing(null)}
               />
+            </section>
+          ) : data.isProduct ? (
+            <section className="mt-6">
+              <p className="mb-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-[12px] text-[#6b7280]">
+                <Link
+                  href="/admin/content?group=products"
+                  className="transition-colors hover:text-accent"
+                >
+                  {t.filtersHint}
+                </Link>
+                <span aria-hidden="true">·</span>
+                <span>{t.reorderHint}</span>
+              </p>
+              <div className="space-y-4">
+                {groups.map((group) => (
+                  <div
+                    key={group.filterId ?? "__unassigned"}
+                    className="overflow-hidden rounded-lg border border-line bg-white"
+                  >
+                    <div className="flex flex-wrap items-center gap-2 border-b border-line bg-[#fafafa] px-4 py-2.5">
+                      <span className="text-[13px] font-semibold text-ink">
+                        {group.filterId === null ? t.unassigned : group.name}
+                      </span>
+                      <span
+                        className={`text-[11px] ${
+                          group.filterId === null ? "text-[#9ca3af]" : "text-[#6b7280]"
+                        }`}
+                      >
+                        {t.postCount(group.posts.length)}
+                      </span>
+                      <button
+                        type="button"
+                        className={`ml-auto ${SECONDARY_BUTTON}`}
+                        disabled={!dbConfigured || busy}
+                        onClick={() => startNew(group.filterId ?? undefined)}
+                      >
+                        {t.addPost}
+                      </button>
+                    </div>
+                    <table className="w-full min-w-[640px] text-left">
+                      <thead>
+                        <tr className="border-b border-line text-[12px] text-[#6b7280]">
+                          <th className="w-16 px-2 py-2.5 font-medium" aria-hidden="true" />
+                          <th className="px-4 py-2.5 font-medium">{t.columns.title}</th>
+                          <th className="px-4 py-2.5 font-medium">{t.columns.status}</th>
+                          <th className="px-4 py-2.5 font-medium">{t.columns.date}</th>
+                          <th className="px-4 py-2.5 font-medium">{t.columns.views}</th>
+                          <th className="px-4 py-2.5 font-medium">{t.columns.manage}</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {group.posts.map((post, index) => (
+                          <GroupedPostRow
+                            key={post.idx}
+                            t={t}
+                            post={post}
+                            status={rowStatus[post.idx] ?? "idle"}
+                            disabled={rowsDisabled}
+                            canMoveUp={index > 0}
+                            canMoveDown={index < group.posts.length - 1}
+                            onMoveUp={() => move(group, index, "up")}
+                            onMoveDown={() => move(group, index, "down")}
+                            onEdit={() => setEditing(post)}
+                            onDelete={() => {
+                              if (window.confirm(t.deleteConfirm(post.title || post.idx))) {
+                                void run(
+                                  { action: "delete", slug, locale, idx: post.idx },
+                                  post.idx,
+                                );
+                              }
+                            }}
+                          />
+                        ))}
+                        {group.posts.length === 0 ? (
+                          <tr>
+                            <td
+                              colSpan={6}
+                              className="px-4 py-6 text-center text-[12px] text-[#9ca3af]"
+                            >
+                              {t.noPosts}
+                            </td>
+                          </tr>
+                        ) : null}
+                      </tbody>
+                    </table>
+                  </div>
+                ))}
+              </div>
             </section>
           ) : (
             <section className="mt-6">

@@ -118,6 +118,21 @@ export function isValidBoardSlug(value: string): boolean {
   return (BOARD_SLUGS as readonly string[]).includes(value);
 }
 
+/**
+ * Canonicalize a board slug for the store/DB: `products/eco-wave` and
+ * `products/eco-wave/` both become `products.eco-wave` — the dot form the
+ * admin lane stores and `isValidBoardSlug` allowlists. Trims, collapses
+ * repeated slashes, maps `/` to `.`, and strips a trailing dot; idempotent for
+ * canonical dot slugs.
+ */
+export function normalizeBoardSlug(slug: string): string {
+  return slug
+    .trim()
+    .replace(/\/+/g, "/")
+    .replace(/\//g, ".")
+    .replace(/\.+$/, "");
+}
+
 function localeDir(locale: string): string {
   if (!isValidLocale(locale)) {
     throw new Error(`Unsupported locale: ${locale}`);

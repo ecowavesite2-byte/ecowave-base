@@ -1,7 +1,14 @@
 /**
  * Route map: imweb numeric source URLs <-> semantic Next.js routes.
  * Board slugs (content file names) map 1:1 to route keys.
+ *
+ * `SOURCE_TO_ROUTE` is the KO/default map. A few numeric source URLs differ
+ * per locale (the EN crawl swaps the product children); those live in
+ * `LOCALE_SOURCE_OVERRIDES` and are applied by `routeForSource` when a locale
+ * is supplied.
  */
+import type { Locale } from "@/lib/i18n";
+
 export const SOURCE_TO_ROUTE: Record<string, string> = {
   "/15": "/company",
   "/16": "/company/ceo",
@@ -25,10 +32,20 @@ export const SOURCE_TO_ROUTE: Record<string, string> = {
   "/": "/",
 };
 
-export function routeForSource(url: string | undefined | null): string {
+/** Locale-specific source→route overrides (delta from the KO/default map). */
+const LOCALE_SOURCE_OVERRIDES: Partial<Record<Locale, Record<string, string>>> = {
+  en: {
+    "/36": "/products/eco-wave",
+    "/37": "/products/clean-b",
+    "/38": "/products/flowell",
+  },
+};
+
+export function routeForSource(url: string | undefined | null, locale?: Locale): string {
   if (!url) return "/";
   const clean = url.startsWith("/") ? url : "/" + url;
-  return SOURCE_TO_ROUTE[clean] ?? clean;
+  const overrides = locale ? LOCALE_SOURCE_OVERRIDES[locale] : undefined;
+  return overrides?.[clean] ?? SOURCE_TO_ROUTE[clean] ?? clean;
 }
 
 /**

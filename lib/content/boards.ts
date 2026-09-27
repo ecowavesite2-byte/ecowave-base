@@ -1,5 +1,6 @@
 import type { BoardContent, BoardPost } from "../types";
 import type { Locale } from "../i18n";
+import { normalizeBoardSlug } from "./paths";
 
 /**
  * Server-only board helpers for the admin boards editor.
@@ -21,12 +22,13 @@ const BOARD_LABELS: Record<string, { ko: string; en: string }> = {
 };
 
 export function boardLabel(slug: string, locale: Locale): string {
-  return BOARD_LABELS[slug]?.[locale] ?? slug;
+  const normalized = normalizeBoardSlug(slug);
+  return BOARD_LABELS[normalized]?.[locale] ?? normalized;
 }
 
 /** Product boards carry `category` on their posts (news/notices do not). */
 export function isProductBoard(slug: string): boolean {
-  return slug.startsWith("products.");
+  return normalizeBoardSlug(slug).startsWith("products.");
 }
 
 export function boardPostByIdx(board: BoardContent, idx: string): BoardPost | null {

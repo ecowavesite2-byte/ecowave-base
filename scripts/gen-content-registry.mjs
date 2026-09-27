@@ -88,6 +88,21 @@ const LABELS = {
   techFeatures: { ko: "기술 블록", en: "Technology block" },
   patentSections: { ko: "인증 섹션 목록", en: "Certification sections" },
   facilitiesTable: { ko: "설비 표", en: "Equipment table" },
+  productPage: { ko: "제품 페이지", en: "Product page" },
+};
+
+/**
+ * Mirrors `BOARD_LABELS` in lib/content/boards.ts for the product boards, so the
+ * Content → Products accordion matches the Boards-lane labels instead of the
+ * humanized slug. This script is plain .mjs (it cannot import TS), so the values
+ * are duplicated here; `lib/content/__tests__/product-page.test.ts` asserts they
+ * equal `boardLabel(slug, locale)` and the generated sections, so the two can
+ * never silently drift. News/notices keep their content-derived board names.
+ */
+const PRODUCT_BOARD_LABELS = {
+  "products.eco-wave": { ko: "에코웨이브", en: "Eco wave" },
+  "products.clean-b": { ko: "크린비", en: "Clean B" },
+  "products.flowell": { ko: "플로웰", en: "Flowell" },
 };
 
 const MAX_LENGTH = {
@@ -110,10 +125,11 @@ const MAX_LENGTH = {
   techFeatures: 40000,
   patentSections: 60000,
   facilitiesTable: 20000,
+  productPage: 20000,
 };
 
 /** Kinds emitted into `lib/content/registry.ts` (order = CONTENT_KINDS). */
-const KINDS = ["text", "textarea", "lines", "image", "url", "list", "slides", "overlay", "cards", "picks", "embed", "eras", "locations", "gallery", "aboutCards", "facilityTabs", "techFeatures", "patentSections", "facilitiesTable"];
+const KINDS = ["text", "textarea", "lines", "image", "url", "list", "slides", "overlay", "cards", "picks", "embed", "eras", "locations", "gallery", "aboutCards", "facilityTabs", "techFeatures", "patentSections", "facilitiesTable", "productPage"];
 
 /**
  * Sections the public renderers strip, so the admin must not expose their
@@ -2097,7 +2113,12 @@ function walkBoards() {
       stripZeroWidth(enBoard?.name) ||
       stripZeroWidth(koBoard.name) ||
       humanizePageKey(slug);
-    const section = { ko: boardNameKo, en: boardNameEn };
+    // Product boards use the curated lane labels (mirror of BOARD_LABELS in
+    // lib/content/boards.ts) so the admin accordion matches the Boards lane;
+    // other boards keep their content-derived name.
+    const section = PRODUCT_BOARD_LABELS[slug]
+      ? { ...PRODUCT_BOARD_LABELS[slug] }
+      : { ko: boardNameKo, en: boardNameEn };
 
     const base = {
       pageKey: slug,
@@ -2115,17 +2136,67 @@ function walkBoards() {
       enSnippet(enBoard?.name),
     );
 
-    // Whole post list as a JSON payload: KO and EN post sets differ, so a single
-    // locale-scoped `list` override is more robust than per-index post keys.
-    addDef({
-      ...base,
-      field: "posts",
-      kind: "list",
-      label: { ko: LABELS.boardPosts.ko, en: LABELS.boardPosts.en },
-      koValue: JSON.stringify(koBoard.posts ?? []),
-      enValue: enBoard ? JSON.stringify(enBoard.posts ?? []) : undefined,
-    });
+    // NOTE (P3): the board `posts` def is intentionally NOT emitted. Post lists
+    // are a collection override stored in the `board_post` table (loaded via
+    // `loadBoardPosts`), so a `page_content` `list` def would be dead.
+
+    if (slug.startsWith("products")) {
+      // ONE section-less `productPage` def per product board. The key is
+      // `<slug>#productPage/productPage` (passed explicitly, like facilityTabs,
+      // because its shape has no per-widget segment). The default is the
+      // canonical `{ title, subtitle, filters }` JSON read from that locale's
+      // board file (stable key order).
+      const koValue = buildProductPageValue(koBoard);
+      // The `/products` landing renders the eco-wave payload (original /32 ==
+      // /37), so editing this def must also revalidate the landing routes.
+      const productPageRevalidate =
+        slug === "products.eco-wave"
+          ? dedupe([...revalidate, "/products", "/en/products"])
+          : revalidate;
+      addDef({
+        key: `${slug}#productPage/productPage`,
+        pageKey: slug,
+        group,
+        sectionId: "productPage",
+        widgetId: "productPage",
+        field: "productPage",
+        kind: "productPage",
+        label: {
+          ko: fmt(LABELS.productPage.ko, section.ko),
+          en: fmt(LABELS.productPage.en, section.en),
+        },
+        // Distinct from the board-name section so the two accordions per product
+        // page read as the board label vs "제품 페이지" (no ` (2)` suffix from
+        // `disambiguateSectionNames`).
+        section: { ko: LABELS.productPage.ko, en: LABELS.productPage.en },
+        revalidate: productPageRevalidate,
+        koValue,
+        enValue: enBoard ? buildProductPageValue(enBoard) : koValue,
+      });
+    }
   }
+}
+
+/**
+ * Canonical `productPage` default for one product board: the board JSON's
+ * `page` copy + `filters` tabs in a stable key order, so the default matches
+ * `normalizeProductPagePayload`'s canonical output byte-for-byte.
+ * Defensive: a missing `page`/`filters` degrades to empty values.
+ */
+function buildProductPageValue(board) {
+  const page =
+    board && typeof board.page === "object" && board.page !== null ? board.page : {};
+  const filters = Array.isArray(board?.filters) ? board.filters : [];
+  return JSON.stringify({
+    title: typeof page.title === "string" ? page.title : "",
+    subtitle: typeof page.subtitle === "string" ? page.subtitle : "",
+    filters: filters
+      .filter(
+        (filter) =>
+          filter && typeof filter.id === "string" && typeof filter.name === "string",
+      )
+      .map((filter) => ({ id: filter.id, name: filter.name })),
+  });
 }
 
 // ---------------------------------------------------------------------------

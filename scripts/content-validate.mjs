@@ -149,6 +149,39 @@ function validateBoard(data, rel) {
   if (typeof data.count !== "number") {
     fail(rel, "count must be a number");
   }
+  // Product boards carry the `productPage` structured fields; they are optional
+  // (news/notices omit them) and checked only when present. The post checks
+  // below are unchanged.
+  if (data.page !== undefined) {
+    if (!isObj(data.page)) {
+      fail(rel, "page must be an object");
+    } else {
+      for (const field of ["title", "subtitle"]) {
+        if (typeof data.page[field] !== "string") {
+          fail(rel, `page.${field} must be a string`);
+        }
+      }
+    }
+  }
+  if (data.filters !== undefined) {
+    if (!Array.isArray(data.filters)) {
+      fail(rel, "filters must be an array");
+    } else {
+      data.filters.forEach((filter, fi) => {
+        const where = `filters[${fi}]`;
+        if (!isObj(filter)) {
+          fail(rel, `${where} must be an object`);
+          return;
+        }
+        if (typeof filter.id !== "string") {
+          fail(rel, `${where}.id must be a string`);
+        }
+        if (typeof filter.name !== "string") {
+          fail(rel, `${where}.name must be a string`);
+        }
+      });
+    }
+  }
   if (!Array.isArray(data.posts)) {
     fail(rel, "posts must be an array");
     return;

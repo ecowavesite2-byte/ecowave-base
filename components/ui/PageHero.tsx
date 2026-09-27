@@ -142,7 +142,6 @@ export default function PageHero({
   height,
   subtitle,
   mobileNav,
-  mobileTitle,
   mobilePills = false,
 }: {
   title: string;
@@ -158,13 +157,12 @@ export default function PageHero({
   subtitle?: string;
   /**
    * Products only, mobile only: sibling category nav (Eco wave / clean B /
-   * Flowell). When provided the mobile hero renders the KR combined title
-   * (`mobileTitle`) plus the measured type4 grid + type2 pill navs instead of
-   * the desktop title+subtitle; desktop is unchanged.
+   * Flowell). When provided the mobile hero renders the SAME copy as desktop
+   * (`title` H1 + `subtitle`) plus the measured type4 grid + type2 pill navs;
+   * desktop is unchanged. The former separate mobile title was removed — one
+   * title is edited and rendered everywhere.
    */
   mobileNav?: MobileNavItem[];
-  /** Products only, mobile only: KR combined hero title, e.g. `에코웨이브(Eco wave)`. */
-  mobileTitle?: string;
   /** Products only, mobile only: render the type2 pill sibling nav (landing + eco-wave only). */
   mobilePills?: boolean;
 }) {
@@ -212,13 +210,16 @@ export default function PageHero({
                   <span className="text-[22px]">{subtitle}</span>
                 </p>
               </div>
-              {/* mobile: KR combined title + sibling category nav (original
-                  mobile_section_first rows 2/3/4/5: H1 mt20/h36/mb10, 16px
-                  divider band, type4 grid, type2 pills) */}
+              {/* mobile: same title + subtitle as desktop + sibling category
+                  nav (original mobile_section_first rows 2/3/4/5: H1
+                  mt20/h36/mb10, 16px divider band, type4 grid, type2 pills) */}
               <div className="w-full min-[992px]:hidden">
                 <h1 className="mb-[10px] text-[30px] font-bold leading-[1.2] text-black">
-                  {mobileTitle ?? title}
+                  {title}
                 </h1>
+                <p className="mt-[3px] text-[15px] leading-[45px] text-body">
+                  <span className="text-[22px]">{subtitle}</span>
+                </p>
                 <div aria-hidden className="h-[16px]" />
                 <ProductSiblingNav items={mobileNav} pills={mobilePills} />
               </div>

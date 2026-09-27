@@ -65,7 +65,6 @@ describe("validateUploadName", () => {
       ["a.png", "image/png", "png"],
       ["a.webp", "image/webp", "webp"],
       ["a.gif", "image/gif", "gif"],
-      ["a.svg", "image/svg+xml", "svg"],
       ["a.pdf", "application/pdf", "pdf"],
     ];
     for (const [name, type, ext] of cases) {
@@ -95,6 +94,7 @@ describe("validateUploadName", () => {
   it("rejects unsupported and mismatched content types", () => {
     const rejected = [
       file("a.avif", "image/avif"),
+      file("a.svg", "image/svg+xml"), // SVG dropped from the allowlist (public storage)
       file("a.txt", "text/plain"),
       file("a.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"),
       file("a.png", "image/jpeg"), // extension/MIME mismatch

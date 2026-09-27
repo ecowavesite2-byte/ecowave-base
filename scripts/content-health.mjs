@@ -222,8 +222,15 @@ function findDanglingDefs(defs, pages) {
     // section/widget (its key is `rnd.facilities#facilityTabs/facilityTabs`),
     // so there is no page target to resolve. The section-scoped `techFeatures`
     // and `patentSections` defs likewise name no real widget (their `widgetId`
-    // is the kind), so they are exempt too.
-    if (def.kind === "facilityTabs" || def.kind === "techFeatures" || def.kind === "patentSections") {
+    // is the kind), so they are exempt too. The section-less `productPage` defs
+    // (one per product board, key `<slug>#productPage/productPage`) bind to a
+    // board JSON file rather than a page tree, so they are exempt as well.
+    if (
+      def.kind === "facilityTabs" ||
+      def.kind === "techFeatures" ||
+      def.kind === "patentSections" ||
+      def.kind === "productPage"
+    ) {
       continue;
     }
     const page = pages.get(def.pageKey);

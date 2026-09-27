@@ -38,7 +38,7 @@ export default async function SiteFooter({ locale }: { locale: Locale }) {
           type: "sitemap-links",
           links: links.map((c) => ({
             name: c.name,
-            href: localeHref(locale, routeForSource(c.url)),
+            href: localeHref(locale, routeForSource(c.url, locale)),
           })),
         } as unknown as WidgetNode;
         // replace the (empty on crawl) links row with the real sub-links
