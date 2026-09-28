@@ -62,6 +62,8 @@ const ALLOWLIST: Record<string, string> = {
     "resolved by getResolvedProductPage (board-JSON base + override), not applyPageOverrides",
   "rnd.facilities#facilityTabs/facilityTabs":
     "generator def only; the facilityTabs merge applier is owned by the runtime lane (lib/content/merge.ts)",
+  "support#s20250928k0su9p1ntr0aa/w20250928k0su9p1ntr0t1/html@en":
+    "KO-only support intro band (the EN support page has its own differently-structured band); no EN position to apply",
 };
 
 type DefKind = "page" | "site" | "board";
@@ -220,8 +222,9 @@ describe("override coverage (every CONTENT_DEFS key, both locales)", () => {
     }
 
     expect(failures).toEqual([]);
-    // 140 defs × 2 locales − 8 allowlisted applications (4 allowlisted keys
-    // count once per locale: 3 productPage keys + facilityTabs).
+    // 141 defs × 2 locales − 9 allowlisted applications (4 allowlisted keys
+    // count once per locale: 3 productPage keys + facilityTabs; plus the KO-only
+    // support intro band, allowlisted for the EN locale only).
     // Dead sections are excluded from the registry by the generator: the footer
     // copies on non-home pages (SiteFooter renders home's), the leading
     // page-title hero band of each channel (rebuilt as <PageHero> from nav),
@@ -243,9 +246,9 @@ describe("override coverage (every CONTENT_DEFS key, both locales)", () => {
     // program adds THREE `productPage` defs and REMOVES the five dead board
     // `posts` defs (post overrides live in `board_post`); productPage resolves
     // through `getResolvedProductPage`, not `applyPageOverrides`.
-    expect(allowlisted.length).toBe(8);
-    expect(applied).toBe(CONTENT_DEFS.length * LOCALES.length - 8);
-    expect(applied).toBe(272);
+    expect(allowlisted.length).toBe(9);
+    expect(applied).toBe(CONTENT_DEFS.length * LOCALES.length - 9);
+    expect(applied).toBe(273);
     expect(applied).toBe(expectedApplied);
   });
 

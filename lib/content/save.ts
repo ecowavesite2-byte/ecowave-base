@@ -430,7 +430,9 @@ export function normalizeFacilitiesTablePayload(value: string): string | null {
 
 /**
  * `productPage` payloads: `{ title, subtitle, filters: [{ id, name }] }`.
- * `title`/`subtitle` must be non-empty after trim (≤120); `filters` holds 1..20
+ * `title` must be non-empty after trim (≤120); `subtitle` may be empty (≤120)
+ * so a locale can intentionally omit the hero subtitle (EN product heroes do);
+ * `filters` holds 1..20
  * tabs whose `id` and `name` are each non-empty after trim (≤60) and UNIQUE
  * across the list. Unknown keys are dropped — a legacy stored payload that still
  * carries `mobileTitle` is accepted and has that field STRIPPED. Returns the
@@ -454,7 +456,7 @@ export function normalizeProductPagePayload(value: string): string | null {
 
     if (typeof record.subtitle !== "string") return null;
     const subtitle = record.subtitle.trim();
-    if (subtitle.length === 0 || subtitle.length > MAX_TITLE) return null;
+    if (subtitle.length > MAX_TITLE) return null;
 
     if (
       !Array.isArray(record.filters) ||

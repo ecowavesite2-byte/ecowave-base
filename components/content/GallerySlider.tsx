@@ -193,6 +193,8 @@ export default function GallerySlider({
   const dragging = useRef(false);
   const drag = useRef<{ id: number; x: number; left: number } | null>(null);
   const moved = useRef(false);
+  // removes the window-level pointerup/cancel net armed on pointerdown
+  const safetyCleanup = useRef<(() => void) | null>(null);
 
   // Pause the auto-advance while the pointer is over/pressing the track or a
   // control holds focus, and while a drag is in flight; the interval restarts
@@ -228,31 +230,15 @@ export default function GallerySlider({
     setActive(p);
   };
 
-  const onPointerDown = (e: ReactPointerEvent<HTMLDivElement>) => {
-    setPaused(true);
-    if (e.pointerType === "touch" || e.button !== 0) return;
-    const el = track.current;
-    if (!el) return;
-    drag.current = { id: e.pointerId, x: e.clientX, left: el.scrollLeft };
-    moved.current = false;
-    dragging.current = true;
-    el.setPointerCapture(e.pointerId);
-    el.style.scrollSnapType = "none";
-    el.style.userSelect = "none";
-  };
-  const onPointerMove = (e: ReactPointerEvent<HTMLDivElement>) => {
-    const d = drag.current;
-    if (!d || d.id !== e.pointerId) return;
-    const el = track.current;
-    if (!el) return;
-    const dx = e.clientX - d.x;
-    if (Math.abs(dx) > 3) moved.current = true;
-    el.scrollLeft = d.left - dx;
-  };
-  const endDrag = (e: ReactPointerEvent<HTMLDivElement>) => {
+  // Finish a mouse/pen drag session: clear snap/select, release any capture,
+  // settle on the nearest real item, and suppress the trailing click if the
+  // pointer actually moved. Idempotent per pointer id.
+  const finishDrag = (pointerId: number) => {
     setPaused(false);
+    safetyCleanup.current?.();
+    safetyCleanup.current = null;
     const d = drag.current;
-    if (!d) return;
+    if (!d || d.id !== pointerId) return;
     const el = track.current;
     drag.current = null;
     dragging.current = false;
@@ -260,9 +246,9 @@ export default function GallerySlider({
     el.style.scrollSnapType = "";
     el.style.userSelect = "";
     try {
-      el.releasePointerCapture(d.id);
+      el.releasePointerCapture(pointerId);
     } catch {
-      /* pointer not captured (already released) */
+      /* not captured (plain click) or already released */
     }
     // settle on the nearest REAL item — this also walks any clone position back
     // into the real region, so a drag that ran past either end wraps cleanly
@@ -277,6 +263,56 @@ export default function GallerySlider({
       }, 0);
     }
   };
+
+  const onPointerDown = (e: ReactPointerEvent<HTMLDivElement>) => {
+    setPaused(true);
+    if (e.pointerType === "touch" || e.button !== 0) return;
+    const el = track.current;
+    if (!el) return;
+    drag.current = { id: e.pointerId, x: e.clientX, left: el.scrollLeft };
+    moved.current = false;
+    dragging.current = true;
+    el.style.scrollSnapType = "none";
+    el.style.userSelect = "none";
+    // The pointer is captured only once an actual drag starts (onPointerMove):
+    // `setPointerCapture` on pointerdown retargeted the trailing pointerup/click
+    // to the track, so the document-level viewer delegate never saw the tapped
+    // <img> and the lightbox never opened. Until capture is taken, a window
+    // pointerup/cancel net guarantees a press that never becomes a drag still
+    // clears the drag/snap state.
+    const id = e.pointerId;
+    function onSafetyUp(ev: PointerEvent) {
+      if (ev.pointerId !== id) return;
+      cleanupSafety();
+      finishDrag(id);
+    }
+    function cleanupSafety() {
+      window.removeEventListener("pointerup", onSafetyUp);
+      window.removeEventListener("pointercancel", onSafetyUp);
+    }
+    safetyCleanup.current = cleanupSafety;
+    window.addEventListener("pointerup", onSafetyUp);
+    window.addEventListener("pointercancel", onSafetyUp);
+  };
+  const onPointerMove = (e: ReactPointerEvent<HTMLDivElement>) => {
+    const d = drag.current;
+    if (!d || d.id !== e.pointerId) return;
+    const el = track.current;
+    if (!el) return;
+    const dx = e.clientX - d.x;
+    if (Math.abs(dx) > 3 && !moved.current) {
+      moved.current = true;
+      // capture now that this is a real drag, not a click — keeping the native
+      // click target on the tapped <img> for the viewer delegate
+      try {
+        el.setPointerCapture(e.pointerId);
+      } catch {
+        /* capture unsupported / pointer already gone */
+      }
+    }
+    el.scrollLeft = d.left - dx;
+  };
+  const endDrag = (e: ReactPointerEvent<HTMLDivElement>) => finishDrag(e.pointerId);
   const onClickCapture = (e: ReactMouseEvent<HTMLDivElement>) => {
     if (!moved.current) return;
     e.preventDefault();

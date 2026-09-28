@@ -39,12 +39,12 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
       <PageHero title={hero.title} tabs={hero.tabs} />
       {tabSection ? (
         <>
-          <SectionRenderer sections={before} />
+          <SectionRenderer sections={before} locale={l} />
           <FacilitiesTabSection section={tabSection} tabs={tabs} locale={l} />
-          <SectionRenderer sections={after} />
+          <SectionRenderer sections={after} locale={l} />
         </>
       ) : (
-        <SectionRenderer sections={sections} />
+        <SectionRenderer sections={sections} locale={l} />
       )}
     </main>
   );

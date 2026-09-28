@@ -24,7 +24,8 @@ import type { ProductPostOption, RegistryLocale } from "./types";
  * desktop and mobile) and each filter is one tab: `id` is the stable post
  * `category` string it selects and `name` is the tab's display label.
  *
- * The server-side validator enforces non-empty `title`/`subtitle` (≤120) and
+ * The server-side validator enforces a non-empty `title` (≤120) and an optional
+ * `subtitle` (empty allowed, ≤120), and
  * 1..20 filters whose `id` and `name` are each non-empty (≤60) and unique. This
  * editor mirrors the caps defensively (add is disabled at twenty, the last
  * filter cannot be removed, inputs are length-capped) without blocking a save on

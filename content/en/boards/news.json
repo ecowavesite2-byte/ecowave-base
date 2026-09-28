@@ -1,5 +1,5 @@
 {
-  "name": "notice",
+  "name": "Notice",
   "count": 4,
   "listCls": "list-style  hide_writer  hide_time  hide_hit_cnt  hide_comment_cnt  grid_03 type_grid container_border",
   "posts": [

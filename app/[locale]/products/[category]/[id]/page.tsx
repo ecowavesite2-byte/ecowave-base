@@ -75,7 +75,6 @@ export default async function ProductDetailPage({
         tabs={hero.tabs}
         big
         mobileNav={mobileNav}
-        mobilePills={category === "eco-wave"}
       />
       <section className="mx-auto max-w-[1280px] px-[15px]">
         {/* measured original detail: tab row (67) + 31px spacer + 15px widget

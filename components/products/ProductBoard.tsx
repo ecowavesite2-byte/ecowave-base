@@ -150,7 +150,7 @@ export function ProductPagination({
   const sep = basePath.includes("?") ? "&" : "?";
   const hrefFor = (p: number) => (p === 1 ? basePath : `${basePath}${sep}page=${p}`);
   return (
-    <nav className="mt-[20px] mb-[20px] flex items-center justify-center gap-[3px] lg:mt-[58px] lg:mb-0" aria-label="페이지네이션">
+    <nav className="mt-[20px] mb-0 flex items-center justify-center gap-[3px] lg:mt-[58px] lg:mb-0" aria-label="페이지네이션">
       {page > 1 ? (
         <Link href={hrefFor(page - 1)} className={`${item} ${dim}`} aria-label="이전 페이지">
           <Arrow dir="left" />
@@ -220,9 +220,12 @@ export function ProductBoard({
       <div aria-hidden className="h-[10px] min-[992px]:h-0" />
       <ProductPagination page={page} totalPages={totalPages} basePath={paginationBase} />
       {/* original board section tail (measured rows, mobile): paginated =
-          10px + 20px + 24px nav + 20px + 80px = 154px; unpaginated =
-          10px + 73px = 83px. Desktop keeps its measured 181/200px. */}
-      <div aria-hidden className={paginated ? "h-[80px] lg:h-[181px]" : "h-[73px] lg:h-[200px]"} />
+          10px + 20px + 24px nav + 0px + 30px = 84px; unpaginated =
+          10px + 73px = 83px. The mobile paginated tail was 20px + 80px = 100px
+          after the nav (wave-2: reduced to 0 + 30px so the board lands in the
+          site's ~150-190px trailing token instead of ~249px). Desktop keeps
+          its measured 181/200px. */}
+      <div aria-hidden className={paginated ? "h-[30px] lg:h-[181px]" : "h-[73px] lg:h-[200px]"} />
     </>
   );
 }

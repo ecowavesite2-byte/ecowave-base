@@ -393,6 +393,37 @@ a {
   }
 }
 
+/* mobile-spacing wave 1, item D — company.philosophy §3단계 서비스 cover cards
+   (globals.css hook `data-philcard`; see PHIL_CARD_SECTION_IDS in
+   components/content/SectionRenderer.tsx). At 390 the un-gated holder padding
+   (`60px 50px`, and `60px 40px` for the middle column) plus each card's
+   trailing empty `<p><br></p>` lines leave a ~115px band above and ~200px below
+   the overlay text in a ~140-200px column. Reduce the padding and collapse the
+   trailing empties — mobile only; desktop keeps the measured card box. A
+   dedicated hook (not `data-rtm`) so the EN channel gets the card fix without
+   the ko-only 18/16px font downscale, and so the two other philosophy
+   cover-card sections (§경영이념 / §비전) stay put. */
+@media (max-width: 991px) {
+  section[data-philcard="1"] .rich-text:has(> .text_bg_img) > .text-table.holder {
+    padding: 30px 20px !important;
+  }
+  section[data-philcard="1"] .rich-text:has(> .text_bg_img) > .text-table.holder p:has(> br:only-child) {
+    display: none;
+  }
+}
+
+/* mobile-spacing wave 1, item B — company.history era asides (globals.css hook
+   `data-aside-pt`, emitted by AsideColumn when `mobileVisible`). The crawled
+   aside `pt = 121` renders as a ~121px band above each stacked era photo (and a
+   ~145px era-to-era band). Reduce it by 60px at <=991px only; at >=1280 the
+   authored pt is kept. Chosen as a moderate cut (not to zero) because the
+   original mobile lead measures 187px — the local band is already tighter. */
+@media (max-width: 991px) {
+  [data-aside-pt="1"] {
+    padding-top: max(0px, calc(var(--aside-pt) - 60px)) !important;
+  }
+}
+
 /* ── company.philosophy per-widget skins + box model ────────────────────────
    design/audit/company-philosophy-audit.md §2D/§3. The crawler dropped the
    generated per-widget skins; these reproduce them. P1 (radii) is paint-only;
@@ -488,6 +519,64 @@ a {
   section[data-mapholder="1"] .rich-text span[style*="font-size: 30px"],
   section[data-mapholder="1"] .rich-text span[style*="font-size: 20px"] {
     line-height: 1.2 !important;
+  }
+}
+
+/* mobile-spacing wave 1, item A — company.global §에코웨이브 본사 contact table +
+   map (globals.css hook `data-global-contact`; see GLOBAL_CONTACT_SECTION_IDS in
+   components/content/SectionRenderer.tsx). At 390 the 3-col `table.noBorder`
+   squeezes TEL/FAX/EMAIL into ~120px cells (the phone number wraps mid-digit)
+   and the Google-Maps `<iframe height="450">` is a 450px block. Stack the cells
+   and cap the map height. Mobile only; desktop already matches. */
+@media (max-width: 991px) {
+  section[data-global-contact="1"] .rich-text table.noBorder,
+  section[data-global-contact="1"] .rich-text table.noBorder tbody,
+  section[data-global-contact="1"] .rich-text table.noBorder tr,
+  section[data-global-contact="1"] .rich-text table.noBorder td {
+    display: block;
+    width: auto !important;
+  }
+  section[data-global-contact="1"] .rich-text table.noBorder td {
+    padding: 8px 0;
+  }
+  /* batch A item 6 — the TEL/FAX/EMAIL value spans are too large in the stacked
+     rows; drop them to 15px (the site's mobile body size). The crawled inline
+     style is the UNSPACED `font-size:18px` (unlike the 18px spans elsewhere on
+     the site), so both forms are matched; scoped to the contact section's
+     noBorder table. */
+  section[data-global-contact="1"] .rich-text table.noBorder span[style*="font-size:18px"],
+  section[data-global-contact="1"] .rich-text table.noBorder span[style*="font-size: 18px"] {
+    font-size: 15px !important;
+  }
+  section[data-global-contact="1"] .rich-text iframe[src*="google.com/maps"] {
+    height: 240px !important;
+  }
+}
+
+/* batch A item 6 — company.global §중국 지사 / 캄보디아 지사 branch cards
+   (globals.css hook `data-branch`; see BRANCH_SECTION_IDS in
+   components/content/SectionRenderer.tsx). At 390 the branch label pill sits
+   directly above the Google-Maps iframe with no breathing room; give the map
+   paragraph a small top margin. Map heights are deliberately untouched.
+   Mobile only; desktop already matches. */
+@media (max-width: 991px) {
+  section[data-branch="1"] .rich-text p:has(> iframe) {
+    margin-top: 16px;
+  }
+}
+
+/* mobile-spacing wave 1, item C — home §4 친환경 band (globals.css hook
+   `data-home-inset`; see HOME_INSET_SECTION_IDS in
+   components/content/SectionRenderer.tsx). The two headline rows author
+   `pad: 0` and `mobileInset` only fires for `mobile_section`, so the 48px
+   headline renders flush to the left screen edge at 390. Give the section's
+   `.rich-text` a 15px inline inset; scoped to the section so the site's
+   full-bleed image rows are unaffected. Font-size / line-height are untouched.
+   Mobile only; desktop already matches. */
+@media (max-width: 991px) {
+  section[data-home-inset="1"] .rich-text {
+    padding-left: 15px;
+    padding-right: 15px;
   }
 }
 
@@ -904,6 +993,61 @@ a {
     [data-widget-id="w2025091918fef070d2137"] .text-table.holder,
     [data-widget-id="w2025091967935ff9055c1"] .text-table.holder {
         padding: 20px 30px;
+    }
+}
+/* mobile counterpart (wave 2) — same six ko/en card ids, <=991px only.
+   At 390 the holder is the base `.rich-text .text-table.holder { padding:20px 0 }`,
+   so the card text sits flush against the 80px-radius clip edge (no side
+   inset), and the 20px padding + 10px h6 margins on each side read as an
+   oversized gap between the stacked cards. Inset the content 20px and tighten
+   the vertical rhythm. The last card carries a trailing empty `<p><br></p>`
+   (ko `w20250919aa8199dc628c3` / en `w2025091967935ff9055c1`); collapse it so
+   it adds no dead space. Desktop keeps the measured `20px 30px` box. */
+@media (max-width: 991px) {
+    [data-widget-id="w2025091886eece88ff0c0"] .text-table.holder,
+    [data-widget-id="w20250919ad2bb4e856fba"] .text-table.holder,
+    [data-widget-id="w20250919aa8199dc628c3"] .text-table.holder,
+    [data-widget-id="w20250919acb2363841cb2"] .text-table.holder,
+    [data-widget-id="w2025091918fef070d2137"] .text-table.holder,
+    [data-widget-id="w2025091967935ff9055c1"] .text-table.holder {
+        padding: 12px 20px;
+    }
+    [data-widget-id="w2025091886eece88ff0c0"] h6,
+    [data-widget-id="w20250919ad2bb4e856fba"] h6,
+    [data-widget-id="w20250919aa8199dc628c3"] h6,
+    [data-widget-id="w20250919acb2363841cb2"] h6,
+    [data-widget-id="w2025091918fef070d2137"] h6,
+    [data-widget-id="w2025091967935ff9055c1"] h6 {
+        margin: 6px 0;
+    }
+    /* batch A item 2 — smaller mobile card type. Within these six widgets the
+       `font-size: 26px` span is the branch heading (x1) and the `font-size: 18px`
+       spans are the address + TEL lines (x2); the 36px icon and 20px `<br>`
+       spans are left alone (the icon is already handled by the SC2 downscale).
+       Scoped to the six ids, so no other widget can inherit it. */
+    [data-widget-id="w2025091886eece88ff0c0"] span[style*="font-size: 26px"],
+    [data-widget-id="w20250919ad2bb4e856fba"] span[style*="font-size: 26px"],
+    [data-widget-id="w20250919aa8199dc628c3"] span[style*="font-size: 26px"],
+    [data-widget-id="w20250919acb2363841cb2"] span[style*="font-size: 26px"],
+    [data-widget-id="w2025091918fef070d2137"] span[style*="font-size: 26px"],
+    [data-widget-id="w2025091967935ff9055c1"] span[style*="font-size: 26px"] {
+        font-size: 20px !important;
+    }
+    [data-widget-id="w2025091886eece88ff0c0"] span[style*="font-size: 18px"],
+    [data-widget-id="w20250919ad2bb4e856fba"] span[style*="font-size: 18px"],
+    [data-widget-id="w20250919aa8199dc628c3"] span[style*="font-size: 18px"],
+    [data-widget-id="w20250919acb2363841cb2"] span[style*="font-size: 18px"],
+    [data-widget-id="w2025091918fef070d2137"] span[style*="font-size: 18px"],
+    [data-widget-id="w2025091967935ff9055c1"] span[style*="font-size: 18px"] {
+        font-size: 15px !important;
+    }
+    [data-widget-id="w2025091886eece88ff0c0"] .text-table.holder p:has(> br:only-child),
+    [data-widget-id="w20250919ad2bb4e856fba"] .text-table.holder p:has(> br:only-child),
+    [data-widget-id="w20250919aa8199dc628c3"] .text-table.holder p:has(> br:only-child),
+    [data-widget-id="w20250919acb2363841cb2"] .text-table.holder p:has(> br:only-child),
+    [data-widget-id="w2025091918fef070d2137"] .text-table.holder p:has(> br:only-child),
+    [data-widget-id="w2025091967935ff9055c1"] .text-table.holder p:has(> br:only-child) {
+        display: none;
     }
 }
 

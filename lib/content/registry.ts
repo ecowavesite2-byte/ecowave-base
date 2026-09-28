@@ -2467,11 +2467,11 @@ export const CONTENT_DEFS: ContentDef[] = [
     "kind": "text",
     "section": {
       "ko": "공지사항",
-      "en": "notice"
+      "en": "Notice"
     },
     "label": {
       "ko": "게시판 이름 · 공지사항",
-      "en": "Board name · notice"
+      "en": "Board name · Notice"
     },
     "revalidate": [
       "/news",
@@ -2511,17 +2511,38 @@ export const CONTENT_DEFS: ContentDef[] = [
     "kind": "text",
     "section": {
       "ko": "뉴스",
-      "en": "news"
+      "en": "News"
     },
     "label": {
       "ko": "게시판 이름 · 뉴스",
-      "en": "Board name · news"
+      "en": "Board name · News"
     },
     "revalidate": [
       "/notices",
       "/en/notices",
       "/notices/[id]",
       "/en/notices/[id]"
+    ]
+  },
+  {
+    "key": "support#s20250928k0su9p1ntr0aa/w20250928k0su9p1ntr0t1/html",
+    "group": "boards",
+    "pageKey": "support",
+    "sectionId": "s20250928k0su9p1ntr0aa",
+    "widgetId": "w20250928k0su9p1ntr0t1",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "더 건강하고 깨끗한 물을 만드는 고객과의 약속 에코웨이브의…",
+      "en": "Notice"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 더 건강하고 깨끗한 물을 만드는 고객과의 약속",
+      "en": "텍스트 블록 · 더 건강하고 깨끗한 물을 만드는 고객과의 약속"
+    },
+    "revalidate": [
+      "/support",
+      "/en/support"
     ]
   },
   {
@@ -3500,13 +3521,16 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "ko": "[{\"image\":\"/images/upload/S20250811e0bd2f7c414df/3761750bfc322.png\",\"title\":\"\",\"desc\":\"\"},{\"image\":\"/images/upload/S20250811e0bd2f7c414df/0b870a15d41c0.png\",\"title\":\"\",\"desc\":\"\"},{\"image\":\"/images/upload/S20250811e0bd2f7c414df/07acdffabdc33.png\",\"title\":\"\",\"desc\":\"\"},{\"image\":\"/images/upload/S20250811e0bd2f7c414df/726d3d98ac7b2.png\",\"title\":\"\",\"desc\":\"\"},{\"image\":\"/images/upload/S20250811e0bd2f7c414df/5a24a322e6701.png\",\"title\":\"\",\"desc\":\"\"}]",
     "en": "[{\"image\":\"/images/upload/S20250811e0bd2f7c414df/cdb1e24f6ebe1.png\",\"title\":\"\",\"desc\":\"\"},{\"image\":\"/images/upload/S20250811e0bd2f7c414df/e599b51b44230.png\",\"title\":\"\",\"desc\":\"\"},{\"image\":\"/images/upload/S20250811e0bd2f7c414df/4779b22f463f4.png\",\"title\":\"\",\"desc\":\"\"},{\"image\":\"/images/upload/S20250811e0bd2f7c414df/df58c3da9f186.png\",\"title\":\"\",\"desc\":\"\"},{\"image\":\"/images/upload/S20250811e0bd2f7c414df/df12bf2a62722.png\",\"title\":\"\",\"desc\":\"\"}]"
   },
+  "support#s20250928k0su9p1ntr0aa/w20250928k0su9p1ntr0t1/html": {
+    "ko": "더 건강하고 깨끗한 물을 만드는 고객과의 약속\n에코웨이브의 새로운 소식을 전해드립니다."
+  },
   "news#board/news/name": {
     "ko": "공지사항",
-    "en": "notice"
+    "en": "Notice"
   },
   "notices#board/notices/name": {
     "ko": "뉴스",
-    "en": "news"
+    "en": "News"
   },
   "products.clean-b#board/products.clean-b/name": {
     "ko": "",
@@ -3514,7 +3538,7 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
   },
   "products.clean-b#productPage/productPage": {
     "ko": "{\"title\":\"clean B\",\"subtitle\":\"에코웨이브\",\"filters\":[{\"id\":\"샤워기\",\"name\":\"샤워기\"},{\"id\":\"필터\",\"name\":\"필터\"}]}",
-    "en": "{\"title\":\"clean B\",\"subtitle\":\"에코웨이브\",\"filters\":[{\"id\":\"Shower\",\"name\":\"Shower\"},{\"id\":\"Filter\",\"name\":\"Filter\"}]}"
+    "en": "{\"title\":\"clean B\",\"subtitle\":\"\",\"filters\":[{\"id\":\"Shower\",\"name\":\"Shower\"},{\"id\":\"Filter\",\"name\":\"Filter\"}]}"
   },
   "products.eco-wave#board/products.eco-wave/name": {
     "ko": "",
@@ -3522,7 +3546,7 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
   },
   "products.eco-wave#productPage/productPage": {
     "ko": "{\"title\":\"Eco wave\",\"subtitle\":\"에코웨이브\",\"filters\":[{\"id\":\"필터\",\"name\":\"필터\"},{\"id\":\"서비스 점검/자가관리 키트\",\"name\":\"서비스 점검/자가관리 키트\"},{\"id\":\"살균모듈\",\"name\":\"살균모듈\"}]}",
-    "en": "{\"title\":\"Eco wave\",\"subtitle\":\"에코웨이브\",\"filters\":[{\"id\":\"Filter\",\"name\":\"Filter\"},{\"id\":\"Service check/self-care kit\",\"name\":\"Service check/self-care kit\"},{\"id\":\"Sterilization module\",\"name\":\"Sterilization module\"}]}"
+    "en": "{\"title\":\"Eco wave\",\"subtitle\":\"\",\"filters\":[{\"id\":\"Filter\",\"name\":\"Filter\"},{\"id\":\"Service check/self-care kit\",\"name\":\"Service check/self-care kit\"},{\"id\":\"Sterilization module\",\"name\":\"Sterilization module\"}]}"
   },
   "products.flowell#board/products.flowell/name": {
     "ko": "",
@@ -3530,7 +3554,7 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
   },
   "products.flowell#productPage/productPage": {
     "ko": "{\"title\":\"Flowell\",\"subtitle\":\"플로웰\",\"filters\":[{\"id\":\"정수기\",\"name\":\"정수기\"},{\"id\":\"필터\",\"name\":\"필터\"}]}",
-    "en": "{\"title\":\"Flowell\",\"subtitle\":\"플로웰\",\"filters\":[{\"id\":\"Water purifier\",\"name\":\"Water purifier\"},{\"id\":\"Filter\",\"name\":\"Filter\"}]}"
+    "en": "{\"title\":\"Flowell\",\"subtitle\":\"\",\"filters\":[{\"id\":\"Water purifier\",\"name\":\"Water purifier\"},{\"id\":\"Filter\",\"name\":\"Filter\"}]}"
   },
   "site#nav/nav[0]/name": {
     "ko": "에코웨이브",
@@ -3736,7 +3760,8 @@ export const CONTENT_KEYS_BY_GROUP: Record<ContentGroup, string[]> = {
     "news#s202508205198a0d766f60/w202508205b6f76d4a2c4d/html",
     "news#board/news/name",
     "notices#s2025082036afa4e23fa8c/w202508203bef670019226/html",
-    "notices#board/notices/name"
+    "notices#board/notices/name",
+    "support#s20250928k0su9p1ntr0aa/w20250928k0su9p1ntr0t1/html"
   ],
   "site": [
     "site#nav/nav[0]/name",

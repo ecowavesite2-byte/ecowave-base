@@ -47,7 +47,7 @@ export default function InquiryForm({ locale }: { locale: Locale }) {
     <>
       <form
         ref={formRef}
-        className="mx-auto max-w-[250px] min-[992px]:max-w-none"
+        className="mx-auto max-w-[250px] max-[991.98px]:max-w-none min-[992px]:max-w-none"
         onSubmit={async (e) => {
           e.preventDefault();
           setError("");

@@ -3,6 +3,7 @@ import Header from "@/components/layout/Header";
 import SiteFooter from "@/components/layout/SiteFooter";
 import HtmlLang from "@/components/layout/HtmlLang";
 import LightboxHost from "@/components/ui/LightboxHost";
+import ScrollToTop from "@/components/ui/ScrollToTop";
 import { getResolvedSite } from "@/lib/content/resolved";
 import { isLocale, defaultLocale, type Locale } from "@/lib/i18n";
 import { ui } from "@/lib/ui-strings";
@@ -55,6 +56,7 @@ export default async function LocaleLayout({
       {children}
       <SiteFooter locale={l} />
       <LightboxHost />
+      <ScrollToTop />
     </>
   );
 }

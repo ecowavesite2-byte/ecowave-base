@@ -1468,6 +1468,28 @@ const RT_MOBILE_SECTION_IDS = new Set([
 ]);
 
 /**
+ * mobile-spacing wave 1, item D — company.philosophy §3단계 서비스 cover cards
+ * (ko `s20250829e04e5ce09ea7e`, en `s202509113cf3c70cbc5c6`).
+ *
+ * The cover-card holder padding (globals.css `.rich-text:has(> .text_bg_img) >
+ * .text-table.holder { padding: 60px 50px }`, and the `60px 40px` middle-column
+ * variant) is un-gated, so at 390 the overlay text sits in a ~140-200px column
+ * with ~115px above / ~200px below it, and each card's trailing empty
+ * `<p><br></p>` lines add more dead space. The fix (<=991px only) reduces the
+ * holder padding and hides those trailing empties, scoped to this section pair.
+ *
+ * A dedicated `data-philcard` hook is used instead of reusing `data-rtm`: the
+ * other two philosophy cover-card sections (§경영이념 / §비전) are
+ * height-compensated elsewhere and must not move, and the EN channel must get
+ * the card fix WITHOUT inheriting the ko-only 18/16px font downscale set (never
+ * measured on EN).
+ */
+const PHIL_CARD_SECTION_IDS = new Set([
+  "s20250829e04e5ce09ea7e", // philosophy §3단계 서비스 (ko)
+  "s202509113cf3c70cbc5c6", // philosophy §3단계 서비스 (en)
+]);
+
+/**
  * P6 — company.philosophy §1 promise band (`더 건강하고 깨끗한 물을…`,
  * `s20250821af3858f799ed0`) mobile 48px-span line-height.
  *
@@ -1553,6 +1575,35 @@ const MAP_HOLDER_SECTION_IDS = new Set([
 ]);
 
 /**
+ * mobile-spacing wave 1, item A — company.global §에코웨이브 본사 contact table +
+ * map (ko `s20250828182272ec01906`, en `s2025091124e3ca4a39fd4`). Two defects at
+ * 390, both fixed from this one hook (`data-global-contact`, <=991px only):
+ *   1. the 3-col contact table (`table.noBorder`, each `<td width:33.3%>`) puts
+ *      the TEL/FAX/EMAIL spans in ~120px cells, so "TEL: +82-32-812-1800" wraps
+ *      mid-number — the cells are stacked instead.
+ *   2. the Google-Maps `<iframe height="450">` renders a 450px block — its
+ *      mobile height is capped (240px).
+ * Both locales listed; desktop (>=992) unchanged.
+ */
+const GLOBAL_CONTACT_SECTION_IDS = new Set([
+  "s20250828182272ec01906", // company.global §에코웨이브 본사 (ko)
+  "s2025091124e3ca4a39fd4", // company.global EcoWave Headquarters (en)
+]);
+
+/**
+ * batch A item 6 — company.global §중국 지사 / 캄보디아 지사 branch cards (ko
+ * `s202508286e01c87027ecf`, en `s202509118a893f48f23e6`). At 390 the branch
+ * label pill sits directly above the Google-Maps iframe with no breathing room;
+ * this hook (`data-branch`, <=991px only) gives the map paragraph a small top
+ * margin. Map heights are deliberately untouched. Both locales listed; desktop
+ * (>=992) unchanged.
+ */
+const BRANCH_SECTION_IDS = new Set([
+  "s202508286e01c87027ecf", // company.global §중국/캄보디아 지사 (ko)
+  "s202509118a893f48f23e6", // company.global China/Cambodia branch (en)
+]);
+
+/**
  * item 4 hook — home-scoped authored-span mobile downscale (see below).
  */
 const HOME_TYPE_SECTION_IDS = new Set([
@@ -1564,6 +1615,23 @@ const HOME_TYPE_SECTION_IDS = new Set([
   "s20250911384d83602d212", // en solutions (18px x3)
   "s20250911049658b2b95c4", // en locations (16px x1)
   "s20250911f1b271a6a41b6", // en video (52px + 60px)
+]);
+
+/**
+ * mobile-spacing wave 1, item C — home §4 친환경 band (ko
+ * `s20250811611f0c372c57a`, en `s20250911c58d227149171`).
+ *
+ * The two headline rows author `pad: 0` and `mobileInset` only fires for
+ * `mobile_section` (this is a pc section), so the 48px headline renders flush to
+ * the left screen edge at 390 (text-node probe left=0, right~10). The fix gives
+ * the section's `.rich-text` a 15px inline padding at <=991. Scoped to the
+ * section — NOT to the zero-pad row generally, which would break the site's
+ * full-bleed image rows. Font-size / line-height are already correct and are not
+ * touched. Both locales listed; desktop (>=992) unchanged.
+ */
+const HOME_INSET_SECTION_IDS = new Set([
+  "s20250811611f0c372c57a", // home §4 친환경 (ko)
+  "s20250911c58d227149171", // home §4 eco-friendly (en)
 ]);
 
 /**
@@ -1727,6 +1795,10 @@ function AsideColumn({
       }
     >
       <div
+        // wave 1, item B hook (globals.css): mobile-only reduction of the era
+        // aside top padding (the crawled pt=121 renders as a ~121px band above
+        // the stacked era photo). Left untouched at >=992px.
+        data-aside-pt={mobileVisible ? "1" : undefined}
         className={
           sticky
             ? `min-[1280px]:sticky min-[1280px]:top-[88px] min-[1280px]:z-[100] min-[1280px]:pt-[var(--aside-pt)]${mobileVisible ? " pt-[var(--aside-pt)]" : ""}`
@@ -1810,6 +1882,14 @@ export default function SectionRenderer({
         const mapHolder = MAP_HOLDER_SECTION_IDS.has(sec.id);
         // item 4: home-scoped authored-span downscale (globals.css `data-home-type`)
         const homeType = HOME_TYPE_SECTION_IDS.has(sec.id);
+        // wave 1, item D: philosophy §3단계 cover-card padding (globals.css `data-philcard`)
+        const philCard = PHIL_CARD_SECTION_IDS.has(sec.id);
+        // wave 1, item A: company.global §본사 contact table + map (globals.css `data-global-contact`)
+        const globalContact = GLOBAL_CONTACT_SECTION_IDS.has(sec.id);
+        // wave 1, item C: home §4 15px inline inset (globals.css `data-home-inset`)
+        const homeInset = HOME_INSET_SECTION_IDS.has(sec.id);
+        // batch A item 6: company.global branch label→map spacing (globals.css `data-branch`)
+        const branch = BRANCH_SECTION_IDS.has(sec.id);
         const aside = (sec as unknown as { aside?: AsideBlock }).aside;
         return (
           <section
@@ -1839,6 +1919,18 @@ export default function SectionRenderer({
             // item 4 hook (globals.css): home-scoped authored-span downscale
             // (18->15, 16->14, 52/60->26) for the measured home section allowlist.
             data-home-type={homeType ? "1" : undefined}
+            // wave 1 item D hook (globals.css): philosophy §3단계 cover-card
+            // holder padding + trailing empty <p> collapse at <=991px.
+            data-philcard={philCard ? "1" : undefined}
+            // wave 1 item A hook (globals.css): company.global §본사 contact
+            // table stacking + Maps iframe height cap at <=991px.
+            data-global-contact={globalContact ? "1" : undefined}
+            // batch A item 6 hook (globals.css): company.global branch label→map
+            // gap (map paragraph top margin) at <=991px.
+            data-branch={branch ? "1" : undefined}
+            // wave 1 item C hook (globals.css): home §4 15px inline inset at
+            // <=991px (the two headline rows author pad: 0).
+            data-home-inset={homeInset ? "1" : undefined}
           >
             {(sec.bg || urlFromStyle(sec.bgStyle)) && (
               <div

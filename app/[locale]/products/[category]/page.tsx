@@ -65,7 +65,6 @@ export default async function ProductBoardPage({
         tabs={hero.tabs}
         big
         mobileNav={mobileNav}
-        mobilePills={category === "eco-wave"}
       />
       <section className="mx-auto max-w-[1280px] px-[15px]">
         <ProductBoard

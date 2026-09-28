@@ -44,7 +44,7 @@ const EXPECTED: Record<string, { ko: ProductPagePayload; en: ProductPagePayload 
     },
     en: {
       title: "Eco wave",
-      subtitle: "에코웨이브",
+      subtitle: "",
       filters: [
         { id: "Filter", name: "Filter" },
         { id: "Service check/self-care kit", name: "Service check/self-care kit" },
@@ -63,7 +63,7 @@ const EXPECTED: Record<string, { ko: ProductPagePayload; en: ProductPagePayload 
     },
     en: {
       title: "clean B",
-      subtitle: "에코웨이브",
+      subtitle: "",
       filters: [
         { id: "Shower", name: "Shower" },
         { id: "Filter", name: "Filter" },
@@ -81,7 +81,7 @@ const EXPECTED: Record<string, { ko: ProductPagePayload; en: ProductPagePayload 
     },
     en: {
       title: "Flowell",
-      subtitle: "플로웰",
+      subtitle: "",
       filters: [
         { id: "Water purifier", name: "Water purifier" },
         { id: "Filter", name: "Filter" },
@@ -158,7 +158,6 @@ describe("normalizeProductPagePayload", () => {
       JSON.stringify({ ...BASE, title: "" }),
       JSON.stringify({ ...BASE, title: "   " }),
       JSON.stringify({ ...BASE, title: 5 }),
-      JSON.stringify({ ...BASE, subtitle: "" }),
       JSON.stringify({ ...BASE, subtitle: 5 }),
       JSON.stringify({ title: "t", subtitle: "s" }), // missing filters
       JSON.stringify({ ...BASE, filters: {} }),
@@ -173,6 +172,15 @@ describe("normalizeProductPagePayload", () => {
     for (const value of bad) {
       expect(normalizeProductPagePayload(value), value).toBeNull();
     }
+  });
+
+  it("accepts an empty subtitle (EN product heroes omit it)", () => {
+    expect(normalizeProductPagePayload(JSON.stringify({ ...BASE, subtitle: "" }))).toBe(
+      JSON.stringify({ ...BASE, subtitle: "" }),
+    );
+    expect(normalizeProductPagePayload(JSON.stringify({ ...BASE, subtitle: "   " }))).toBe(
+      JSON.stringify({ ...BASE, subtitle: "" }),
+    );
   });
 
   it("rejects duplicate ids and duplicate names", () => {

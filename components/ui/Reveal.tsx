@@ -6,10 +6,11 @@ import { useEffect, useRef, useState } from "react";
  * imweb-style scroll reveal: fades/slides content in the first time it
  * enters the viewport (data-widget-anim="fadeInUp" / "fadeIn").
  *
- * When the user agent prefers reduced motion, skip the IntersectionObserver
- * and render the final (visible) state immediately with no transition. This
- * matches the original site's forced end-state (its `wg_animated` widgets are
- * revealed) and keeps content visible instead of stuck at opacity:0.
+ * When the user agent prefers reduced motion, or the viewport is mobile
+ * (<=991px, batch A item 11), skip the IntersectionObserver and render the final
+ * (visible) state immediately with no transition. This matches the original
+ * site's forced end-state (its `wg_animated` widgets are revealed) and keeps
+ * content visible instead of stuck at opacity:0. Desktop keeps the animation.
  */
 export default function Reveal({
   anim = "fadeInUp",
@@ -29,7 +30,14 @@ export default function Reveal({
   const [reduced, setReduced] = useState(false);
 
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    // Reduced motion OR a mobile viewport (batch A item 11): skip the
+    // IntersectionObserver and render the final state immediately with no
+    // opacity/transform/transition. On mobile the reveal animations are
+    // disabled site-wide; desktop keeps the measured fade/slide.
+    if (
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+      window.matchMedia("(max-width: 991px)").matches
+    ) {
       setReduced(true);
       setShown(true);
       return;

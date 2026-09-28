@@ -13,15 +13,13 @@ export type MobileNavItem = { label: string; href: string; active?: boolean };
  *    computes font-size 0 / line-height 0 / text-align center (the link owns
  *    the real type); applied mobile-only via `max-[991px]:` in the markup
  *    below so desktop stays as measured;
- *  - type2 `nav.sub-menu.h-menu-type2.row-cnt-mobile-3` = centred 50%-radius
- *    pills, 13px/20.8px, padding 4px 15px, active #3970EB fill + 1px border,
- *    inactive rgba(54,54,54,.7) plain text. Its `li` cell also computes
- *    font-size 0 / line-height 0 / text-align center at 390 (mobile-only,
- *    same as type4). Live-measured: this pill nav is only VISIBLE on /32
- *    (landing) and /37 (eco-wave); on /36 (flowell) and /38 (clean-b) the
- *    original carries `sub_menu_hide` on it (display:none), so `pills` gates it.
+ *  - type2 `nav.sub-menu.h-menu-type2.row-cnt-mobile-3` (centred 50%-radius
+ *    pills) is REMOVED (batch A item 8, user-approved): the mobile hero now
+ *    renders only the type4 grid, so each product page carries a single filter
+ *    component. The original only showed the pills on /32 and /37 anyway
+ *    (`sub_menu_hide` elsewhere), and the grid is a superset sibling nav.
  */
-function ProductSiblingNav({ items, pills }: { items: MobileNavItem[]; pills: boolean }) {
+function ProductSiblingNav({ items }: { items: MobileNavItem[] }) {
   return (
     <div className="min-[992px]:hidden">
       <nav className="mt-[8px]" aria-label="제품 카테고리">
@@ -50,30 +48,6 @@ function ProductSiblingNav({ items, pills }: { items: MobileNavItem[]; pills: bo
           )}
         </ul>
       </nav>
-      {pills && (
-        <nav className="mt-[15px]" aria-label="제품 바로가기">
-          <ul className="flex flex-wrap items-center justify-center">
-            {items.map((n) => (
-              <li
-                key={n.href}
-                className="mx-[0.25px] max-[991px]:text-center max-[991px]:text-[0px] max-[991px]:leading-[0px]"
-              >
-                <Link
-                  href={n.href}
-                  aria-current={n.active ? "page" : undefined}
-                  className={`inline-block rounded-full px-[15px] py-[4px] text-[13px] leading-[20.8px] ${
-                    n.active
-                      ? "border border-[#3970eb] bg-[#3970eb] text-white"
-                      : "border border-transparent text-[rgba(54,54,54,0.7)]"
-                  }`}
-                >
-                  {n.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      )}
     </div>
   );
 }
@@ -142,7 +116,6 @@ export default function PageHero({
   height,
   subtitle,
   mobileNav,
-  mobilePills = false,
 }: {
   title: string;
   tabs?: HeroTab[];
@@ -158,13 +131,12 @@ export default function PageHero({
   /**
    * Products only, mobile only: sibling category nav (Eco wave / clean B /
    * Flowell). When provided the mobile hero renders the SAME copy as desktop
-   * (`title` H1 + `subtitle`) plus the measured type4 grid + type2 pill navs;
-   * desktop is unchanged. The former separate mobile title was removed — one
-   * title is edited and rendered everywhere.
+   * (`title` H1 + `subtitle`) plus the measured type4 grid; desktop is
+   * unchanged. The former separate mobile title and the type2 pill nav were
+   * removed — one title is edited and rendered everywhere, and the page keeps a
+   * single filter component (batch A item 8).
    */
   mobileNav?: MobileNavItem[];
-  /** Products only, mobile only: render the type2 pill sibling nav (landing + eco-wave only). */
-  mobilePills?: boolean;
 }) {
   const h = height ?? heroHeight(tabs);
   const mh = mobileHeroHeight(tabs);
@@ -181,6 +153,20 @@ export default function PageHero({
             : mh === 297
               ? "min-h-[297px]"
               : "min-h-[267px]";
+  // Mobile hero top space + band (batch A item 1 / item 3 follow-up,
+  // user-approved "Balanced"). The 267 / 227 bands were filled on the original
+  // by a mobile sibling nav this rebuild does not render; the 127 board hero
+  // (news / newsroom / notices) shared the same top-heavy lead once the mobile
+  // menu strip was removed (lead 65 / trail 26). All three groups get the same
+  // mobile rhythm: pt 65 -> 40 and band -> 140, ending ~64px below the title
+  // (pt 40 + 36px H1 = 76, + 64 = 140). Scoped to these groups: the 145 (blank
+  // support) and 222/297 (products, content-filled) bands are untouched.
+  // `max-[991.98px]:` (not the base class) so 992-1023 keeps the authored
+  // pt/min-h and >=1024 keeps `lg:*`.
+  const mobileTrailClass =
+    mh === 267 || mh === 227 || mh === 127
+      ? "max-[991.98px]:pt-[40px] max-[991.98px]:min-h-[140px]"
+      : "";
   // the original support hero is an empty spacer band (no menu_title widget)
   const blank = isSupportLanding(tabs);
   const crumbs = breadcrumb(tabs);
@@ -189,6 +175,7 @@ export default function PageHero({
   // subtitle at y327, i.e. the block bottom sits 88px above the 353px hero's
   // bottom (hero top 88) — measured live.
   const hasSubtitle = Boolean(subtitle);
+  const hasMobileNav = Boolean(mobileNav && mobileNav.length > 0);
   // bottom inset below the title: 73px puts the 65px H1 box at 247..325
   // (hero top 88) exactly like the original; the 72px product title sits higher
   const padBottom = hasSubtitle ? "lg:pb-[88px]" : big ? "lg:pb-[117px]" : "lg:pb-[73px]";
@@ -198,17 +185,19 @@ export default function PageHero({
 
   return (
     <section className="bg-white">
-      <div className={`mx-auto flex max-w-[1280px] flex-col justify-start px-[15px] pb-0 pt-[65px] lg:flex-row lg:items-end lg:justify-between lg:pt-0 ${mobileHeightClass} ${heightClass} ${padBottom}`}>
-        {!blank && title && hasSubtitle ? (
-          mobileNav && mobileNav.length > 0 ? (
+      <div className={`mx-auto flex max-w-[1280px] flex-col justify-start px-[15px] pb-0 pt-[65px] lg:flex-row lg:items-end lg:justify-between lg:pt-0 ${mobileHeightClass} ${heightClass} ${padBottom} ${mobileTrailClass}`}>
+        {!blank && title && (hasSubtitle || hasMobileNav) ? (
+          hasMobileNav ? (
             <>
               <div className="hidden min-[992px]:block">
                 <h1 className="font-bold text-black text-[30px] leading-[1.2] lg:text-[72px] lg:leading-[1.1]">
                   {title}
                 </h1>
-                <p className="mt-[3px] text-[15px] leading-[45px] text-body">
-                  <span className="text-[22px]">{subtitle}</span>
-                </p>
+                {hasSubtitle && (
+                  <p className="mt-[3px] text-[15px] leading-[45px] text-body">
+                    <span className="text-[22px]">{subtitle}</span>
+                  </p>
+                )}
               </div>
               {/* mobile: same title + subtitle as desktop + sibling category
                   nav (original mobile_section_first rows 2/3/4/5: H1
@@ -217,11 +206,13 @@ export default function PageHero({
                 <h1 className="mb-[10px] text-[30px] font-bold leading-[1.2] text-black">
                   {title}
                 </h1>
-                <p className="mt-[3px] text-[15px] leading-[45px] text-body">
-                  <span className="text-[22px]">{subtitle}</span>
-                </p>
+                {hasSubtitle && (
+                  <p className="mt-[3px] text-[15px] leading-[45px] text-body">
+                    <span className="text-[22px]">{subtitle}</span>
+                  </p>
+                )}
                 <div aria-hidden className="h-[16px]" />
-                <ProductSiblingNav items={mobileNav} pills={mobilePills} />
+                <ProductSiblingNav items={mobileNav ?? []} />
               </div>
             </>
           ) : (

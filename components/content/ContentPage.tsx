@@ -51,7 +51,7 @@ export default async function ContentPage({
   return (
     <main>
       <PageHero title={hero.title} tabs={hero.tabs} big={big} />
-      <SectionRenderer sections={sections} />
+      <SectionRenderer sections={sections} locale={l} />
     </main>
   );
 }

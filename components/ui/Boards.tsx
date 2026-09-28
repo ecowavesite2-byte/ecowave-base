@@ -28,8 +28,12 @@ export function BoardHeader({
   keyword?: string;
   searchLabel?: string;
 }) {
+  // Desktop cancels the shell's 15px gutter with a -15px bleed; below 992px
+  // that bleed pushed the board name and search field flush to both edges, so
+  // the negative margin is desktop-only and the mobile header keeps the shell
+  // gutter (15px each side).
   return (
-    <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between" style={{ margin: "0 -15px 15px" }}>
+    <div className="mb-[15px] flex flex-col gap-3 max-[991.98px]:mx-0 min-[992px]:-mx-[15px] sm:flex-row sm:items-end sm:justify-between">
       <header className="text-[15px] text-[#363636]">
         {/* live orig count `<em>`: 15px font with a standalone line-height —
             34px desktop / 18px mobile (imweb `.table_top em`); the inherited

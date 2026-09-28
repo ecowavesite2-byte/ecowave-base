@@ -2,7 +2,7 @@
   "name": "",
   "count": 6,
   "listCls": "list-style  hide_writer  hide_time  hide_hit_cnt  hide_comment_cnt  grid_03 type_grid container_border",
-  "page": { "title": "Flowell", "subtitle": "플로웰" },
+  "page": { "title": "Flowell", "subtitle": "" },
   "filters": [
     { "id": "Water purifier", "name": "Water purifier" },
     { "id": "Filter", "name": "Filter" }
@@ -83,7 +83,7 @@
       "isNotice": false,
       "date": null,
       "views": null,
-      "content": "\n\t\t\t\t\t<div class=\"margin-top-xxl _comment_body_m202509172a498835198ce\"><p>플로웰 수소수 정수기</p><p style=\"text-align:left;\"><img class=\"fr-dii _img_light_gallery cursor_pointer\" src=\"/images/upload/S20250811e0bd2f7c414df/5ae9dc0160189.jpg\" alt=\"5ae9dc0160189.jpg\" data-src=\"/images/upload/S20250811e0bd2f7c414df/5ae9dc0160189.jpg\"></p></div>\n\t\t\t\t\t<div class=\"file_area\"></div>\n\t\t\t\t",
+      "content": "\n\t\t\t\t\t<div class=\"margin-top-xxl _comment_body_m202509172a498835198ce\"><p>Flowell hydrogen water purifier</p><p style=\"text-align:left;\"><img class=\"fr-dii _img_light_gallery cursor_pointer\" src=\"/images/upload/S20250811e0bd2f7c414df/5ae9dc0160189.jpg\" alt=\"5ae9dc0160189.jpg\" data-src=\"/images/upload/S20250811e0bd2f7c414df/5ae9dc0160189.jpg\"></p></div>\n\t\t\t\t\t<div class=\"file_area\"></div>\n\t\t\t\t",
       "files": []
     },
     {

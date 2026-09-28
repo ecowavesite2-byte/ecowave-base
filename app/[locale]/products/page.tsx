@@ -59,7 +59,6 @@ export default async function ProductsPage({
         tabs={hero.tabs}
         big
         mobileNav={mobileNav}
-        mobilePills
       />
       <section className="mx-auto max-w-[1280px] px-[15px]">
         <ProductBoard
