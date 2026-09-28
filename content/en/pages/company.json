@@ -48,7 +48,7 @@
                   "kind": "widget",
                   "id": "w202509117b13cf6a8bc24",
                   "type": "menu_title",
-                  "text": "Ceo greeting",
+                  "text": "CEO greeting",
                   "style": "color : #000;font-size : 65px;letter-spacing : 0px;text-align : left;font-weight : bold;font-style : normal;"
                 }
               ]
@@ -160,7 +160,7 @@
                   "kind": "widget",
                   "id": "w20250911668870d836796",
                   "type": "menu_title",
-                  "text": "Ceo greeting",
+                  "text": "CEO greeting",
                   "style": "color : #000;font-size : 30px;letter-spacing : px;text-align : left;font-weight : bold;font-style : normal;"
                 }
               ]

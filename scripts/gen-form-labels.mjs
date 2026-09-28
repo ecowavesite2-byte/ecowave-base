@@ -72,6 +72,8 @@ const labels = {
     submit: "문의하기",
     success: "정상적으로 접수되었습니다",
     confirm: "확인",
+    submitting: "접수 중…",
+    error: "접수에 실패했습니다. 잠시 후 다시 시도해 주세요.",
   },
   en: {
     company: "Company name",
@@ -100,6 +102,8 @@ const labels = {
     submit: "Contact us",
     success: "Your response has been successfully submitted.",
     confirm: "Confirm",
+    submitting: "Submitting…",
+    error: "Submission failed. Please try again.",
   },
 };
 
