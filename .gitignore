@@ -34,3 +34,5 @@ public/uploads/
 
 # deepwork session state (local only)
 .slim/deepwork/
+.vercel
+.env*
