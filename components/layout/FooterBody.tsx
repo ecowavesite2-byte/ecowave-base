@@ -38,16 +38,26 @@ export function buildFooterRows(sec: Section, nav: NavItem[], locale: Locale): N
       const sitemapRow = col.children.find((c) => c.kind === "row" && c.cols.length > 1);
       if (!sitemapRow || sitemapRow.kind !== "row") continue;
       sitemapRow.cols.forEach((smcol, i) => {
-        const links = nav[i]?.children || [];
+        const links = (nav[i]?.children || []).map((c) => ({
+          name: c.name,
+          href: localeHref(locale, routeForSource(c.url, locale)),
+        }));
+        // The first sitemap column is the site's primary nav group ("에코웨이브"
+        // / "Ecowave"). Append one discoverable route into the admin dashboard
+        // to its links — rendered by the existing `sitemap-links` widget, so it
+        // matches the column's other links exactly. Injected at render time
+        // (never in content JSON), so the public footer and the admin
+        // Content → Footer preview share it. `/admin` is locale-independent
+        // (the dashboard has its own KO/EN toggle), hence no `localeHref`. The
+        // whole sitemap block is hidden below 992 by `FooterFrame`'s CSS, so the
+        // link is desktop-only automatically.
+        if (i === 0) links.push({ name: locale === "ko" ? "관리자" : "Admin", href: "/admin" });
         if (links.length === 0) return;
         const w = {
           kind: "widget",
           id: `sitemap-links-${i}`,
           type: "sitemap-links",
-          links: links.map((c) => ({
-            name: c.name,
-            href: localeHref(locale, routeForSource(c.url, locale)),
-          })),
+          links,
         } as unknown as WidgetNode;
         // replace the (empty on crawl) links row with the real sub-links
         const headRow = smcol.children.find((c) => c.kind === "row");
