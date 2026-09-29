@@ -92,12 +92,12 @@ export default function Header({ locale, nav, logo, logoScrolled, langLabelKo, l
        * position:relative, height 105px on `/`). Only the DESKTOP home header is
        * a 0px overlay over the hero (orig desktop `#doz_header_wrap` h=0 with an
        * absolute 88px inner bar). This in-flow spacer reproduces that per
-       * breakpoint: mobile is now 58px (batch A item 10 removed the 46px mobile
-       * section-nav strip that made it 105), desktop 88px on subpages / 0px home.
+       * breakpoint: mobile 105px = the 58px top bar + the 46px section-nav
+       * strip; desktop 88px on subpages / 0px on home.
        */}
       <div
         aria-hidden
-        className={isHome ? "h-[58px] min-[992px]:h-0" : "h-[58px] min-[992px]:h-[88px]"}
+        className={isHome ? "h-[105px] min-[992px]:h-0" : "h-[105px] min-[992px]:h-[88px]"}
       />
       <header
         id="doz_header"
@@ -291,9 +291,30 @@ export default function Header({ locale, nav, logo, logoScrolled, langLabelKo, l
         </nav>
       </div>
 
-      {/* mobile carousel nav was REMOVED (batch A item 10, user-approved): the
-          horizontal section strip made the header 105px tall on mobile and
-          duplicated the hamburger drawer. The drawer (below) stays. */}
+      {/* mobile carousel nav — scrollable top-level links under the top row.
+          Original stacking: bar z-999, nav strip z-997 at top:59 with a 46px
+          row (the 58px bar + this strip = the in-flow 105px spacer above).
+          Restored per client approval (KO+EN, ≤991): the original shows the
+          five inline links under the header. Hidden at ≥992. */}
+      <nav className="absolute inset-x-0 top-[59px] z-[997] min-[992px]:hidden" aria-label="모바일 섹션 메뉴">
+        <div className="flex h-[46px] items-center gap-[11px] overflow-x-auto bg-white px-0 pl-[15px] [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          {nav.map((item) => {
+            const isActive = activeTop?.url === item.url;
+            return (
+              <Link
+                key={item.url}
+                href={localeHref(locale, routeForSource(item.url, locale))}
+                aria-current={isActive ? "page" : undefined}
+                className={`whitespace-nowrap text-[14px] leading-[45px] transition duration-300 ${
+                  isActive ? "font-bold text-accent" : "font-normal text-[#212121]"
+                }`}
+              >
+                {item.name}
+              </Link>
+            );
+          })}
+        </div>
+      </nav>
 
       {/* mobile drawer — z-998 keeps it above the z-997 nav strip (both live in
           the header's z-999 stacking context) */}

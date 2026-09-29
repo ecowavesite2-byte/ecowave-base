@@ -61,17 +61,19 @@ export default function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
         </div>
       ))}
       {slides.length > 1 && (
-        <div className="absolute bottom-[27px] left-1/2 z-10 flex -translate-x-1/2">
+        <div className="absolute bottom-[12px] left-1/2 z-10 flex -translate-x-1/2 min-[992px]:bottom-[27px]">
           {slides.map((_, i) => (
             <button
               key={i}
               type="button"
               onClick={() => setIdx(i)}
               aria-label={`슬라이드 ${i + 1}`}
-              className="flex h-[12px] w-[39px] items-center justify-center"
+              className="flex h-[12px] w-[32px] items-center justify-center min-[992px]:w-[39px]"
             >
               <span
-                className={`h-[2px] w-[25px] bg-white transition-opacity ${i === idx ? "opacity-100" : "opacity-50"}`}
+                className={`h-[2px] w-[24px] bg-white transition-opacity min-[992px]:w-[25px] ${
+                  i === idx ? "opacity-100" : "opacity-50"
+                }`}
               />
             </button>
           ))}

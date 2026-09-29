@@ -580,6 +580,80 @@ a {
   }
 }
 
+/* item 2 — home nav-cards mobile twin: korean name above the small english
+   label, alternating horizontal alignment. Only the measured widget ids carry
+   `data-mobile-align` (SectionRenderer HOME_CARD_MOBILE_ALIGN); every other
+   overlay card site is untouched. Mobile only; desktop uses the authored
+   centred label/title. */
+@media (max-width: 991px) {
+  [data-mobile-align="right"] .overlay-mobile-text {
+    align-items: flex-end;
+    text-align: right;
+  }
+}
+
+/* item 2 (follow-up) — home nav-cards mobile vertical offset. Measured live at
+   390: the original mobile twin's first card top is 7.5px below the section top
+   (rows: 4×179px cards pitched 194px + a trailing band), while the local pc
+   composition still rendered the lead-in's 82px spacer (41px at mobile) above
+   the cards, pushing the whole stack ~33px down. Zero in on the twin: the first
+   spacer becomes the card's 7.5px top band and the trailing 168px spacer is
+   retimed to 98.5 so the section stays 882. Desktop (>=992) untouched. */
+@media (max-width: 991px) {
+  section[data-home-cards="1"] .imweb-row:nth-of-type(2) .spacer {
+    height: 7.5px;
+  }
+  section[data-home-cards="1"] .imweb-row:nth-of-type(5) .spacer {
+    height: 98.5px;
+  }
+}
+
+/* item 4a — home §에코웨이브 band mobile re-timing (hook `data-home-eco`; see
+   HOME_ECO_SECTIONS in components/content/SectionRenderer.tsx). Measured live
+   at 390: original mobile twin rows 59 / 240 / 714 / 45 = 1058; the pc
+   composition rendered 75 / 261 / 699 / 75 = 1110. Below 992 the two 120px
+   spacers become the twin's 44/30 (59/45 with the row band), the badge image row
+   regains its 7.5px band and the text block drops the authored 15px `text-table`
+   margins to 5px. Desktop (>=992) untouched. */
+@media (max-width: 991px) {
+  section[data-home-eco="1"] .imweb-row:nth-of-type(1) .spacer {
+    height: 59px;
+  }
+  section[data-home-eco="1"] .imweb-row:nth-of-type(2) .text-table {
+    margin-top: 5px !important;
+    margin-bottom: 5px !important;
+  }
+  section[data-home-eco="1"] .imweb-row:nth-of-type(3) {
+    padding-top: 7.5px;
+    padding-bottom: 7.5px;
+  }
+  section[data-home-eco="1"] .imweb-row:nth-of-type(4) .spacer {
+    height: 45px;
+  }
+}
+
+/* acceptance — home Clean-Water video band mobile re-timing (hook
+   `data-home-water`; see HOME_WATER_SECTIONS). Measured live at 390: original
+   mobile twin 60 / 79 / 217.5 / 116 = 472.5; the pc composition rendered
+   43.5 / 82.6 / 18.5 / 202.5 / 101 = 448. Below 992 the first/last spacers
+   become 60/116, the twin-absent 7px spacer collapses, and the video row gains
+   its 7.5px band. Desktop (>=992) untouched. */
+@media (max-width: 991px) {
+  section[data-home-water="1"] .imweb-row:nth-of-type(1) .spacer {
+    height: 60px;
+  }
+  section[data-home-water="1"] .imweb-row:nth-of-type(3) .spacer {
+    height: 0;
+  }
+  section[data-home-water="1"] .imweb-row:nth-of-type(4) {
+    padding-top: 7.5px;
+    padding-bottom: 7.5px;
+  }
+  section[data-home-water="1"] .imweb-row:nth-of-type(5) .spacer {
+    height: 116px;
+  }
+}
+
 /* Gate-0 cond 3 / item 4 — home-scoped authored-span mobile downscale, scoped to
    the SectionRenderer `data-home-type` hook (the eight home section ids, ko+en;
    see HOME_TYPE_SECTION_IDS in components/content/SectionRenderer.tsx). The
@@ -614,11 +688,42 @@ a {
   .hero-carousel .rich-text span[style*="font-size: 75px"],
   .hero-carousel .rich-text span[style*="font-size: 72px"] {
     font-size: 26px !important;
-    line-height: 1.4 !important;
+    line-height: 1.2 !important;
   }
   .hero-carousel .rich-text span[style*="font-size: 24px"] {
     font-size: 16px !important;
     line-height: 1.5 !important;
+  }
+  /* The pc composition keeps imweb's authored empty paragraphs in the hero
+     fragment — the `<p style="line-height:2"><br></p>` between the subtitle and
+     the body (30px) and a second blank title line on slide 1 (15px). The mobile
+     twin omits them, so the body paragraph starts 32.8px lower than the
+     original (measured at 390: orig body line 1 top 169, ours 201.8). Drop the
+     empty paragraphs below 992; the 356px hero band is fixed, so this only
+     tightens the text block. */
+  .hero-carousel .rich-text p:has(> br:only-child) {
+    display: none;
+  }
+  /* twin metrics (measured 390, section-relative): title strong tops 87/122,
+     body line tops 169/203/237. Title: a 35px block whose 26px/31.2 strong sits
+     flush at the top (min-height so a wrapping EN title is not clipped). Body:
+     the twin authors three separate 24px lines at a 34px pitch, so the body h6
+     line box is 34px (= the pitch), margins are zeroed, and the first h6 is
+     seated 4.5px under the subtitle so line 1 lands at 169. The body h6s are
+     matched by the 24px span they hold (the EN slide 1 twin drops the `font2`
+     class), and only the first is width-constrained to re-wrap at the twin's
+     "…번성하고" break. */
+  .hero-carousel .rich-text p.font1 {
+    min-height: 35px;
+    line-height: 1.2 !important;
+  }
+  .hero-carousel .rich-text h6:has(span[style*="font-size: 24px"]) {
+    margin: 0 auto !important;
+    line-height: 34px !important;
+  }
+  .hero-carousel .rich-text h6:has(span[style*="font-size: 24px"]):first-of-type {
+    max-width: 280px;
+    margin-top: 4.5px !important;
   }
 }
 

@@ -3,6 +3,7 @@ import RichText from "@/components/ui/RichText";
 import Reveal from "@/components/ui/Reveal";
 import InquiryForm from "@/components/forms/InquiryForm";
 import GallerySlider from "@/components/content/GallerySlider";
+import SolutionSlider from "@/components/sections/home/SolutionSlider";
 import type { ColNode, Node, RowNode, Section, WidgetNode } from "@/lib/types";
 import { defaultLocale, localeHref, type Locale } from "@/lib/i18n";
 import { routeForSource } from "@/lib/routes";
@@ -223,6 +224,12 @@ function ImageWidget({ w, locale, mobileBox = false }: { w: WidgetNode; locale: 
   // overlay). The wrapper already clips (`overflow-hidden`), matching the
   // original `._img_box { overflow: hidden }`.
   const hoverScale = hoverScaleFor(w);
+  // item 2 — the home nav-cards mobile twin renders the korean name above the
+  // small english label with alternating horizontal alignment. Keyed on the
+  // measured widget ids so every other overlay card site (about, philosophy)
+  // keeps its existing mobile composition.
+  const mobileCardAlign = HOME_CARD_MOBILE_ALIGN[w.id];
+  const homeCard = mobileCardAlign !== undefined;
   // curated per-widget portrait rendition shown below 992 (see MOBILE_IMAGE_SRC);
   // overlay cards paint the image as a background layer, so this only applies to
   // the plain `img` branch.
@@ -443,9 +450,17 @@ function ImageWidget({ w, locale, mobileBox = false }: { w: WidgetNode; locale: 
       <div
         className={`group relative w-full overflow-hidden bg-soft ${
           layout === "desktop"
-            ? `rounded-[7px] min-[992px]:rounded-[20px] ${OVERLAY_DESKTOP_SIZE} ${OVERLAY_MOBILE_GAP}`
+            ? `rounded-[7px] min-[992px]:rounded-[20px] ${OVERLAY_DESKTOP_SIZE} ${
+                // item 2 — home cards: the mobile twin's card is a 179px band
+                // (not the 2:1 180px), pitched at 194px (mb 15). All other
+                // desktop-layout overlay cards keep the 2:1 + 10px gap.
+                homeCard
+                  ? "max-[991.98px]:aspect-auto max-[991.98px]:h-[179px] max-[991.98px]:mb-[15px]"
+                  : OVERLAY_MOBILE_GAP
+              }`
             : "rounded-[7px]"
         }`}
+        data-mobile-align={mobileCardAlign}
         style={
           layout === "desktop" && h
             ? ({ ["--overlay-h" as string]: `${h}px` } as React.CSSProperties)
@@ -476,12 +491,31 @@ function ImageWidget({ w, locale, mobileBox = false }: { w: WidgetNode; locale: 
           // used a 25px title + no "+"); at >=992 the authored 18/40px centred
           // 114px block and the 30px "+" are restored unchanged.
           <div className="absolute inset-0 flex flex-col items-start justify-end px-5 pb-5 min-[992px]:items-center min-[992px]:justify-center min-[992px]:pb-0 min-[992px]:px-5">
-            <div className="w-full text-left min-[992px]:w-[114px]">
+            <div
+              className={`w-full text-left min-[992px]:w-[114px] ${
+                // item 2 — home cards: korean name first, small english label
+                // below, hiding the desktop "+"; alignment set per card via the
+                // `data-mobile-align` hook in globals.css.
+                homeCard ? "flex flex-col items-start max-[991.98px]:flex-col-reverse overlay-mobile-text" : ""
+              }`}
+            >
               {label && (
-                <p className="text-[15px] leading-[1.2] text-white min-[992px]:text-[18px]">{label}</p>
+                <p
+                  className={`text-[15px] leading-[1.2] text-white min-[992px]:text-[18px]${
+                    homeCard ? " max-[991.98px]:text-[18px] max-[991.98px]:leading-[21.6px]" : ""
+                  }`}
+                >
+                  {label}
+                </p>
               )}
               {title && (
-                <h3 className="mt-[6px] text-[25px] leading-[1.2] font-bold text-white min-[992px]:mt-[9px] min-[992px]:text-[40px]">
+                <h3
+                  className={`mt-[6px] text-[25px] leading-[1.2] font-bold text-white min-[992px]:mt-[9px] min-[992px]:text-[40px]${
+                    homeCard
+                      ? " max-[991.98px]:mt-0 max-[991.98px]:mb-[10px] max-[991.98px]:text-[25px] max-[991.98px]:leading-[37.5px] max-[991.98px]:font-bold"
+                      : ""
+                  }`}
+                >
                   {title}
                 </h3>
               )}
@@ -1195,6 +1229,7 @@ export function Row({
   mobileInset = false,
   mobileBox = false,
   topBand = false,
+  mobileHidden = false,
 }: {
   r: RowNode;
   locale?: Locale;
@@ -1214,6 +1249,8 @@ export function Row({
   mobileBox?: boolean;
   /** propagate the TOP_BAND_SECTION_IDS flag to top-level widgets */
   topBand?: boolean;
+  /** item 2: drop this row below 992 (home nav-cards pc lead-in) */
+  mobileHidden?: boolean;
 }) {
   const rowVars: React.CSSProperties = {};
   if (!nested && r.w) (rowVars as Record<string, string>)["--row-w"] = `${r.w}px`;
@@ -1237,7 +1274,7 @@ export function Row({
   // five equal cols (footer sitemap) can't split a 12-grid evenly — use grid-cols-5
   const fiveCol = cols.length === 5 && cols.every((c) => (parseInt(c.grid, 10) || 0) === 1);
   return (
-    <div className={`imweb-row grid grid-cols-1 ${fiveCol ? "lg:grid-cols-5" : "lg:grid-cols-12"}${hiddenXs ? " hidden-xs" : ""}`} style={rowVars}>
+    <div className={`imweb-row grid grid-cols-1 ${fiveCol ? "lg:grid-cols-5" : "lg:grid-cols-12"}${hiddenXs ? " hidden-xs" : ""}${mobileHidden ? " max-[991.98px]:hidden" : ""}`} style={rowVars}>
       {cols.map((c, i) => (
         <div key={i} className={`imweb-col ${fiveCol ? "" : SPAN_CLASS[c.span] || colClass(c.grid)}`}>
           <Rows rows={c.children} locale={locale} nested wdepth={wdepth} vGutter={vGutter} mobileBox={mobileBox} topBand={topBand} />
@@ -1634,6 +1671,224 @@ const HOME_INSET_SECTION_IDS = new Set([
   "s20250911c58d227149171", // home §4 eco-friendly (en)
 ]);
 
+/* ---------------- home mobile reconstructions (≤991 only, desktop untouched) -------------- */
+
+/**
+ * item 1 — home §생활환경 솔루션 mobile carousel.
+ *
+ * imweb serves a dedicated mobile twin (`s20250911db56ac49110f4`) that the
+ * single-source content pipeline dropped: a 3-slide `gallery2 slide` owl
+ * carousel (one slide per view, 3-dash `paging_type_line` pager, autoplay 5s,
+ * loop) 567.39px tall. At ≤991 the pc composition (1985px static stack) is
+ * hidden and rebuilt as this carousel from the pc section's own slides (image +
+ * heading + 3 body lines). The ko mobile rendition reuses the square crops the
+ * original served (present on disk); en has no mobile crop on disk, so it falls
+ * back to the pc image (square `object-cover`). Desktop (≥992) keeps the
+ * authored static composition byte-identically.
+ */
+const SOLUTION_SLIDER_SECTIONS = new Set([
+  "s20250811e48a3b857667a", // ko home solutions
+  "s20250911384d83602d212", // en home solutions
+]);
+
+/** pc image-widget id -> mobile-twin square rendition (ko twin, present on disk) */
+const SOLUTION_MOBILE_IMAGE: Record<string, string> = {
+  w2025081110a9d2744f9fb: "/images/thumbnail/20250911/f75da9b8974bc.jpg",
+  w20250811b881aa576382c: "/images/thumbnail/20250911/9edb3205c1901.jpg",
+  w20250812aea22580e7e86: "/images/thumbnail/20250911/b7d61ce6e6529.jpg",
+};
+
+function stripHtmlText(html: string): string {
+  return html
+    .replace(/<[^>]*>/g, " ")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+type SolutionSlide = { img: string; title: string; lines: string[] };
+
+/**
+ * item 1 — en home solutions mobile twin slides. Unlike ko, the en mobile twin
+ * authors its OWN body copy (longer sentences than the pc paragraphs) and
+ * slightly different headings, so it cannot be derived from the pc text.
+ * Measured on the en mirror (`s2025091101bd763c3afe6`); the square en crops are
+ * not on disk, so the pc renditions are used (`object-cover` square). Keyed by
+ * section id; ko derives from the pc content.
+ */
+const SOLUTION_SLIDER_OVERRIDE: Record<string, SolutionSlide[]> = {
+  s20250911384d83602d212: [
+    {
+      img: "/images/thumbnail/20250811/b2bfd0819b1e7.jpg",
+      title: "Living environment solution",
+      lines: [
+        "Based on advanced water filter technology, sterilization modules, and hygiene solutions By developing eco-friendly products that improve the quality of water in everyday life We will take the lead in building a clean and healthy living environment.",
+      ],
+    },
+    {
+      img: "/images/thumbnail/20250811/482b1d289f2ef.jpg",
+      title: "Water Purification Material & Smart Parts",
+      lines: [
+        "Water purifier filter, bidet filter, shower filter, etc High-performance water-based materials and smart module-based components We will provide you with a sustainable water treatment technology solution.",
+      ],
+    },
+    {
+      img: "/images/thumbnail/20250812/b3ac0bbe894b9.jpg",
+      title: "Health & Water Care",
+      lines: [
+        "Under the philosophy that water is health, EcoWave is a new generation of water care products for the healthy life of mankind We will continue to develop sterilization and hygiene management technologies.",
+      ],
+    },
+  ],
+};
+
+/** one slide per outer col of the pc solutions row: image + heading + body lines */
+function solutionSlides(sec: Section): SolutionSlide[] {
+  const override = SOLUTION_SLIDER_OVERRIDE[sec.id];
+  if (override) return override;
+  const slides: SolutionSlide[] = [];
+  const row = sec.rows.find((n): n is RowNode => n.kind === "row");
+  if (!row) return slides;
+  for (const col of row.cols) {
+    let img = "";
+    let title = "";
+    const lines: string[] = [];
+    const walk = (nodes: Node[]) => {
+      for (const n of nodes) {
+        if (isWidget(n)) {
+          if (n.type === "image" && !img) img = SOLUTION_MOBILE_IMAGE[n.id] || n.src || "";
+          else if (n.type === "text") {
+            const html = n.html || "";
+            const hm = html.match(/<h6[^>]*>([\s\S]*?)<\/h6>/i);
+            if (hm && !title) title = stripHtmlText(hm[1]);
+            for (const m of html.matchAll(/<p[^>]*>([\s\S]*?)<\/p>/gi)) {
+              const t = stripHtmlText(m[1]);
+              if (t) lines.push(t);
+            }
+          }
+        } else if (isRow(n)) n.cols.forEach((c) => walk(c.children));
+        else if (n.kind === "col") walk(n.children);
+      }
+    };
+    walk(col.children);
+    if (img) slides.push({ img, title, lines });
+  }
+  return slides;
+}
+
+/**
+ * item 3 — home pc intro / spacer section (`s20250811ba4c7cabd299e`) doubles as
+ * the original's mobile intro twin (255px ko / 185px en): a 77px spacer row
+ * (92 with its 7.5px gutters) + a 3-line ko (2-line en) heading block. The pc
+ * spacers stay at ≥992; below 992 they are replaced by this composition and the
+ * section contributes the standalone intro band the original shows above the
+ * nav cards. Line geometry is measured from the mobile twin (`h6` height 36 /
+ * 24, outer+inner 10px lead, ko spans 26px, en 20px). The map below is the
+ * discriminator: ko `s20250811ba4c7cabd299e`, en `s20250911b3944a526f957`.
+ */
+
+type IntroRun = { t: string; blue?: boolean };
+const HOME_MOBILE_INTRO: Record<string, { lines: IntroRun[][]; lineH: number; fs: number; pad: number }> = {
+  s20250811ba4c7cabd299e: {
+    lineH: 36,
+    fs: 26,
+    pad: 10,
+    lines: [
+      [{ t: "건강하고 깨끗한 물," }],
+      [{ t: "에코웨이브가 고객과 함께" }],
+      [{ t: "더 나은 미래를 만들어갑니다.", blue: true }],
+    ],
+  },
+  s20250911b3944a526f957: {
+    lineH: 24,
+    fs: 20,
+    pad: 10,
+    lines: [[{ t: "Healthywater, Eco-wave" }], [{ t: "Together we create a " }, { t: "better future", blue: true }]],
+  },
+};
+
+function HomeMobileIntro({ data }: { data: { lines: IntroRun[][]; lineH: number; fs: number; pad: number } }) {
+  return (
+    <div className="min-[992px]:hidden" data-home-intro="1">
+      {/* 77px spacer row + its 7.5px gutters = 92 */}
+      <div className="h-[92px]" />
+      <div className="py-[7.5px]">
+        <div className="px-[15px]">
+          <div className="flex flex-col" style={{ paddingTop: data.pad, paddingBottom: data.pad, gap: data.pad }}>
+            {data.lines.map((runs, i) => (
+              <p
+                key={i}
+                style={{
+                  height: data.lineH,
+                  lineHeight: `${data.lineH}px`,
+                  fontSize: data.fs,
+                  fontWeight: 700,
+                }}
+              >
+                {runs.map((r, j) => (
+                  <span key={j} style={{ color: r.blue ? "rgb(52, 101, 222)" : "#000" }}>
+                    {r.t}
+                  </span>
+                ))}
+              </p>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * item 2 — home nav-cards section (`s20250811004ea868d7376` ko / `s2025091164c3a6af77cff`
+ * en). At ≤991 the pc lead-in row must be dropped (it is the standalone intro
+ * above) and the four pillar cards must render the mobile twin's composition:
+ * korean name above the small english label, alternating left/right alignment.
+ * Mobile-only; desktop keeps the pc composition byte-identically.
+ */
+const HOME_CARDS_SECTIONS = new Set([
+  "s20250811004ea868d7376", // ko home nav cards
+  "s2025091164c3a6af77cff", // en home nav cards
+]);
+
+/** ko/en home card widget id -> mobile horizontal alignment (measured on the twins) */
+const HOME_CARD_MOBILE_ALIGN: Record<string, "left" | "right"> = {
+  w20250811c8b38b2e2cde9: "left",
+  w20250811d66d9ca495dfe: "right",
+  w202508114adeb9816c562: "left",
+  w20250811dc0392f259c1d: "right",
+  w20250911bf7c2442bf380: "left",
+  w20250911cd728a1e85003: "right",
+  w20250911fc2bd89200cd0: "left",
+  w202509110d5ee06cb6b53: "right",
+};
+
+/**
+ * item 4a — home §에코웨이브 band (`s202508116d15f8202cd82` ko /
+ * `s20250911c5a2da998fd0e` en). At 390 the pc composition is +52 vs the
+ * original's mobile twin: the two 120px spacers render 75 (0.5×+15) instead of
+ * the twin's 44/30, the badge image row loses the twin's 7.5px band and the
+ * text block keeps the authored 15px `text-table` margins. The section is
+ * re-timed at ≤991 (see globals.css `data-home-eco`); desktop untouched.
+ */
+const HOME_ECO_SECTIONS = new Set([
+  "s202508116d15f8202cd82", // ko home §에코웨이브
+  "s20250911c5a2da998fd0e", // en home §EcoWave
+]);
+
+/**
+ * item 4 (acceptance) — home Clean-Water video band (`s20250811b220484e22b98` ko /
+ * `s20250911f1b271a6a41b6` en). Below 992 the pc composition is 448px vs the
+ * original's 473px twin: two spacers (57/172 -> 45/101), a 7px spacer the twin
+ * does not have, and a missing 7.5px band around the video. Re-timed at ≤991
+ * via globals.css `data-home-water`; desktop untouched.
+ */
+const HOME_WATER_SECTIONS = new Set([
+  "s20250811b220484e22b98", // ko home video band
+  "s20250911f1b271a6a41b6", // en home video band
+]);
+
 /**
  * item 1 — mobile 48px-span line-height hook (`data-mh6`).
  *
@@ -1890,6 +2145,12 @@ export default function SectionRenderer({
         const homeInset = HOME_INSET_SECTION_IDS.has(sec.id);
         // batch A item 6: company.global branch label→map spacing (globals.css `data-branch`)
         const branch = BRANCH_SECTION_IDS.has(sec.id);
+        // home mobile reconstructions (≤991 only)
+        const solutionSlider = SOLUTION_SLIDER_SECTIONS.has(sec.id);
+        const homeIntro = HOME_MOBILE_INTRO[sec.id];
+        const homeCards = HOME_CARDS_SECTIONS.has(sec.id);
+        const homeEco = HOME_ECO_SECTIONS.has(sec.id);
+        const homeWater = HOME_WATER_SECTIONS.has(sec.id);
         const aside = (sec as unknown as { aside?: AsideBlock }).aside;
         return (
           <section
@@ -1931,6 +2192,12 @@ export default function SectionRenderer({
             // wave 1 item C hook (globals.css): home §4 15px inline inset at
             // <=991px (the two headline rows author pad: 0).
             data-home-inset={homeInset ? "1" : undefined}
+            // item 4a hook (globals.css): home §에코웨이브 mobile re-timing.
+            data-home-eco={homeEco ? "1" : undefined}
+            // item 2 hook (globals.css): home nav-cards mobile spacer re-timing.
+            data-home-cards={homeCards ? "1" : undefined}
+            // acceptance hook (globals.css): home Clean-Water video band mobile re-timing.
+            data-home-water={homeWater ? "1" : undefined}
           >
             {(sec.bg || urlFromStyle(sec.bgStyle)) && (
               <div
@@ -1949,12 +2216,16 @@ export default function SectionRenderer({
               />
             )}
             {sec.bgColor && <div className="absolute inset-0" style={{ backgroundColor: sec.bgColor }} aria-hidden />}
+            {/* item 1 — solutions mobile carousel (mobile-only overlay) */}
+            {solutionSlider && <SolutionSlider slides={solutionSlides(sec)} autoplayMs={5000} />}
+            {/* item 3 — standalone mobile intro band replacing the pc spacers */}
+            {homeIntro && <HomeMobileIntro data={homeIntro} />}
             <div
-              className={
+              className={`${
                 isSide
                   ? "relative min-[1280px]:mx-auto min-[1280px]:flex min-[1280px]:max-w-[1280px]"
                   : "relative"
-              }
+              }${solutionSlider || homeIntro ? " max-[991.98px]:hidden" : ""}`}
             >
               {isSide && side === "left" && (
                 <AsideColumn
@@ -1983,6 +2254,8 @@ export default function SectionRenderer({
                       mobileInset={mobileOnly}
                       mobileBox={mobileOnly}
                       topBand={topBand}
+                      // item 2 — the pc lead-in row becomes the standalone intro
+                      mobileHidden={homeCards && i === 0}
                     />
                   ))}
               </div>
