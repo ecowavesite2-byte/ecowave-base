@@ -3,7 +3,13 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type MouseEvent as ReactMouseEvent,
+  type PointerEvent as ReactPointerEvent,
+} from "react";
 import { localeHref, type Locale } from "@/lib/i18n";
 import { routeForSource } from "@/lib/routes";
 import type { NavItem } from "@/lib/types";
@@ -60,6 +66,84 @@ export default function Header({ locale, nav, logo, logoScrolled, langLabelKo, l
     setOpen(false);
     setExpanded(null);
   }, [rawPathname]);
+
+  /**
+   * Mobile section strip drag-scroll. The strip is `overflow-x:auto` with the
+   * scrollbar hidden, so at ≤991 a desktop mouse cannot pan it (measured on
+   * `/en` at 390: scrollWidth 455 > clientWidth 390 but a mouse drag left
+   * scrollLeft at 0). Pointer down/move/up now pans `scrollLeft` for mouse/pen
+   * (touch is left to the native overflow-x swipe), and a real drag suppresses
+   * the trailing link click so navigation still works on a plain click. The
+   * pointer is captured only once a >3px drag starts, so a click keeps its
+   * original target (same technique as `GallerySlider`).
+   */
+  const stripRef = useRef<HTMLDivElement>(null);
+  const stripDrag = useRef<{ id: number; x: number; left: number } | null>(null);
+  const stripMoved = useRef(false);
+
+  const endStripDrag = (pointerId: number) => {
+    stripDrag.current = null;
+    const el = stripRef.current;
+    if (el) {
+      el.style.userSelect = "";
+      try {
+        el.releasePointerCapture(pointerId);
+      } catch {
+        /* not captured (plain click) or already released */
+      }
+    }
+    if (stripMoved.current) {
+      // swallow the click the browser fires after this drag (same task)
+      window.setTimeout(() => {
+        stripMoved.current = false;
+      }, 0);
+    }
+  };
+
+  const onStripPointerDown = (e: ReactPointerEvent<HTMLDivElement>) => {
+    if (e.pointerType === "touch" || e.button !== 0) return;
+    const el = stripRef.current;
+    if (!el) return;
+    stripDrag.current = { id: e.pointerId, x: e.clientX, left: el.scrollLeft };
+    stripMoved.current = false;
+    // window-level net: a press that never becomes a drag still clears state
+    const id = e.pointerId;
+    const onSafetyUp = (ev: PointerEvent) => {
+      if (ev.pointerId !== id) return;
+      window.removeEventListener("pointerup", onSafetyUp);
+      window.removeEventListener("pointercancel", onSafetyUp);
+      endStripDrag(id);
+    };
+    window.addEventListener("pointerup", onSafetyUp);
+    window.addEventListener("pointercancel", onSafetyUp);
+  };
+
+  const onStripPointerMove = (e: ReactPointerEvent<HTMLDivElement>) => {
+    const d = stripDrag.current;
+    if (!d || d.id !== e.pointerId) return;
+    const el = stripRef.current;
+    if (!el) return;
+    const dx = e.clientX - d.x;
+    if (Math.abs(dx) > 3 && !stripMoved.current) {
+      stripMoved.current = true;
+      el.style.userSelect = "none";
+      try {
+        el.setPointerCapture(e.pointerId);
+      } catch {
+        /* capture unsupported / pointer already gone */
+      }
+    }
+    el.scrollLeft = d.left - dx;
+  };
+
+  const onStripPointerUp = (e: ReactPointerEvent<HTMLDivElement>) => endStripDrag(e.pointerId);
+
+  const onStripClickCapture = (e: ReactMouseEvent<HTMLDivElement>) => {
+    if (!stripMoved.current) return;
+    e.preventDefault();
+    e.stopPropagation();
+    stripMoved.current = false;
+  };
 
   // top-level section active state for the mobile carousel nav
   const activeTop = nav.find((item) => {
@@ -297,7 +381,16 @@ export default function Header({ locale, nav, logo, logoScrolled, langLabelKo, l
           Restored per client approval (KO+EN, ≤991): the original shows the
           five inline links under the header. Hidden at ≥992. */}
       <nav className="absolute inset-x-0 top-[59px] z-[997] min-[992px]:hidden" aria-label="모바일 섹션 메뉴">
-        <div className="flex h-[46px] items-center gap-[11px] overflow-x-auto bg-white px-0 pl-[15px] [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div
+          ref={stripRef}
+          onPointerDown={onStripPointerDown}
+          onPointerMove={onStripPointerMove}
+          onPointerUp={onStripPointerUp}
+          onPointerCancel={onStripPointerUp}
+          onDragStart={(e) => e.preventDefault()}
+          onClickCapture={onStripClickCapture}
+          className="flex h-[46px] items-center gap-[11px] overflow-x-auto bg-white px-0 pl-[15px] [-ms-overflow-style:none] [scrollbar-width:none] [touch-action:pan-x] [overscroll-behavior-x:contain] [&::-webkit-scrollbar]:hidden"
+        >
           {nav.map((item) => {
             const isActive = activeTop?.url === item.url;
             return (

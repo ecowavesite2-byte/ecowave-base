@@ -522,6 +522,25 @@ a {
   }
 }
 
+/* Desktop half of the same home §7 holder box model. The shared
+   `@media (min-width:992px) .rich-text .text-table.holder { padding: 15px 0 }`
+   (the missing-15px-margin compensation) is right for the philosophy/global
+   holders, but the three HQ location widgets compute `padding: 20px 50px` on the
+   original at 1440 as well as 390 — ko `w202508128d2c07927c2ff` /
+   `w2025081223442f1bcc005` / `w20250812061e68ea9a22d`, en
+   `w20250911aac3a7a86e6c7` / `w20250911151a9167a2d61` /
+   `w20250911b8cb2d96530e1`. Scoped through the same `data-mapholder` section
+   hook with a higher-specificity selector, so only these three holders move and
+   every other `.rich-text .text-table.holder` keeps `15px 0`. Measured at 1440:
+   h6 width 387 -> 287 = original, wrapper heights 180/175/136 -> 219/185/146 =
+   original, section stays 898. Mobile (<=991) is untouched — it already computes
+   `20px 50px` from the block above. */
+@media (min-width: 992px) {
+  section[data-mapholder="1"] .rich-text .text-table.holder {
+    padding: 20px 50px;
+  }
+}
+
 /* mobile-spacing wave 1, item A — company.global §에코웨이브 본사 contact table +
    map (globals.css hook `data-global-contact`; see GLOBAL_CONTACT_SECTION_IDS in
    components/content/SectionRenderer.tsx). At 390 the 3-col `table.noBorder`
@@ -1517,4 +1536,23 @@ body.lg-on {
    and admin do not render inside <main>, so they are untouched. */
 main img:not(a img):not(.lg-image) {
     cursor: pointer;
+}
+
+/* ── home §7 Headquarters & Factory Locations — location bubble skin ──────────
+   The crawler dropped the theme skin on the three location text widgets. On the
+   original each `div[doz_type="widget"]` computes
+   `border-radius:100px; box-shadow: rgba(37,99,235,.08) 0 12px 24px 0`
+   — measured live at BOTH 390 and 1440 (the desktop rendition carries it too),
+   so no breakpoint gate. Applied to the SectionRenderer `[data-widget-id]`
+   wrapper (the local equivalent of that widget box). Ko and en have distinct
+   crawl ids; both locales listed. Scoped per-id, so no other widget or page can
+   inherit it. The holder's own padding/background already match at mobile. */
+[data-widget-id="w202508128d2c07927c2ff"],
+[data-widget-id="w2025081223442f1bcc005"],
+[data-widget-id="w20250812061e68ea9a22d"],
+[data-widget-id="w20250911aac3a7a86e6c7"],
+[data-widget-id="w20250911151a9167a2d61"],
+[data-widget-id="w20250911b8cb2d96530e1"] {
+    border-radius: 100px;
+    box-shadow: rgba(37, 99, 235, 0.08) 0px 12px 24px 0px;
 }
