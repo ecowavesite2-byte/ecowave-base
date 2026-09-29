@@ -23,11 +23,21 @@ export type HeroSlide = { bg: string | null; bgColor: string | null; html: strin
  */
 export default function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
   const [idx, setIdx] = useState(0);
+  // owl `auto_change` differs per channel: measured live, the mobile twin
+  // advances every ~4.00s (3980–4040ms) while the desktop hero keeps ~6.06s.
+  const [intervalMs, setIntervalMs] = useState(6000);
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 991px)");
+    const apply = () => setIntervalMs(mq.matches ? 4000 : 6000);
+    apply();
+    mq.addEventListener("change", apply);
+    return () => mq.removeEventListener("change", apply);
+  }, []);
   useEffect(() => {
     if (slides.length <= 1) return;
-    const t = setInterval(() => setIdx((i) => (i + 1) % slides.length), 6000);
+    const t = setInterval(() => setIdx((i) => (i + 1) % slides.length), intervalMs);
     return () => clearInterval(t);
-  }, [slides.length]);
+  }, [slides.length, intervalMs]);
 
   return (
     <section className="hero-carousel relative h-[356px] w-full overflow-hidden min-[992px]:h-[100svh] min-[992px]:min-h-[560px]">

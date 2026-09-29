@@ -652,6 +652,44 @@ a {
   section[data-home-water="1"] .imweb-row:nth-of-type(5) .spacer {
     height: 116px;
   }
+  /* item A — the twin's two heading lines sit on a 32px pitch with no widget
+     gap (ko line1 top 67.5, en line 99.5); ours carried the `.rich-text h6`
+     10px bottom margin, pushing the latin line 11.9px down. Zero the margins
+     and add the twin's 7.5/9.5 row band so the section stays 472.5. */
+  section[data-home-water="1"] .rich-text {
+    padding-top: 7.5px;
+    padding-bottom: 9.5px;
+  }
+  section[data-home-water="1"] .rich-text h6,
+  section[data-home-water="1"] .rich-text p {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+
+/* item A — home §에코웨이브 body. The original mobile twin authors the body at
+   14px with the p's `line-height: 2` (28px); our pc-at-mobile downscale lands
+   15px, which re-wraps both sentences one word earlier each (local line 1
+   "…친환경 가치" vs the twin's "…가치 실현을") and widens every glyph. Restore
+   the twin's 14px + inherited ×2 line-height for this section only. */
+@media (max-width: 991px) {
+  section[data-home-eco="1"] .rich-text p span[style*="font-size: 18px"] {
+    font-size: 14px !important;
+    line-height: 2 !important;
+  }
+  /* the ECOWAVE wordmark: the twin renders the logo at its 266×55 natural
+     aspect (764×158); the pc fragment authors 296px → 61.2px tall, which is
+     both wider and pushes the body down. The twin also starts the wordmark
+     2.5px lower and keeps 2.5px more below the body (text row 59→299). */
+  section[data-home-eco="1"] .rich-text h6 img {
+    width: 266px !important;
+  }
+  section[data-home-eco="1"] .rich-text h6 {
+    margin-top: 12.5px !important;
+  }
+  section[data-home-eco="1"] .rich-text {
+    padding-bottom: 2.5px;
+  }
 }
 
 /* Gate-0 cond 3 / item 4 — home-scoped authored-span mobile downscale, scoped to

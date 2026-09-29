@@ -512,7 +512,7 @@ function ImageWidget({ w, locale, mobileBox = false }: { w: WidgetNode; locale: 
                 <h3
                   className={`mt-[6px] text-[25px] leading-[1.2] font-bold text-white min-[992px]:mt-[9px] min-[992px]:text-[40px]${
                     homeCard
-                      ? " max-[991.98px]:mt-0 max-[991.98px]:mb-[10px] max-[991.98px]:text-[25px] max-[991.98px]:leading-[37.5px] max-[991.98px]:font-bold"
+                      ? " max-[991.98px]:mt-0 max-[991.98px]:mb-[12.4px] max-[991.98px]:text-[25px] max-[991.98px]:leading-[37.5px] max-[991.98px]:font-bold"
                       : ""
                   }`}
                 >
@@ -1789,9 +1789,19 @@ function solutionSlides(sec: Section): SolutionSlide[] {
  */
 
 type IntroRun = { t: string; blue?: boolean };
-const HOME_MOBILE_INTRO: Record<string, { lines: IntroRun[][]; lineH: number; fs: number; pad: number }> = {
+/**
+ * `lineH` is the line-box pitch (the block pitch is `lineH + pad`); `textLh` is
+ * the p's own line-height, set to the twin's computed `h6` line-height so the
+ * span's half-leading matches (ko h6 `line-height: 2` on a 16px h6 = 32px;
+ * en 24px = the span height). `lineH`/`pad` keep the 46px ko / 34px en pitch.
+ */
+const HOME_MOBILE_INTRO: Record<
+  string,
+  { lines: IntroRun[][]; lineH: number; textLh: number; fs: number; pad: number }
+> = {
   s20250811ba4c7cabd299e: {
     lineH: 36,
+    textLh: 32,
     fs: 26,
     pad: 10,
     lines: [
@@ -1802,13 +1812,18 @@ const HOME_MOBILE_INTRO: Record<string, { lines: IntroRun[][]; lineH: number; fs
   },
   s20250911b3944a526f957: {
     lineH: 24,
+    textLh: 24,
     fs: 20,
     pad: 10,
     lines: [[{ t: "Healthywater, Eco-wave" }], [{ t: "Together we create a " }, { t: "better future", blue: true }]],
   },
 };
 
-function HomeMobileIntro({ data }: { data: { lines: IntroRun[][]; lineH: number; fs: number; pad: number } }) {
+function HomeMobileIntro({
+  data,
+}: {
+  data: { lines: IntroRun[][]; lineH: number; textLh: number; fs: number; pad: number };
+}) {
   return (
     <div className="min-[992px]:hidden" data-home-intro="1">
       {/* 77px spacer row + its 7.5px gutters = 92 */}
@@ -1821,7 +1836,7 @@ function HomeMobileIntro({ data }: { data: { lines: IntroRun[][]; lineH: number;
                 key={i}
                 style={{
                   height: data.lineH,
-                  lineHeight: `${data.lineH}px`,
+                  lineHeight: `${data.textLh}px`,
                   fontSize: data.fs,
                   fontWeight: 700,
                 }}
@@ -2217,7 +2232,7 @@ export default function SectionRenderer({
             )}
             {sec.bgColor && <div className="absolute inset-0" style={{ backgroundColor: sec.bgColor }} aria-hidden />}
             {/* item 1 — solutions mobile carousel (mobile-only overlay) */}
-            {solutionSlider && <SolutionSlider slides={solutionSlides(sec)} autoplayMs={5000} />}
+            {solutionSlider && <SolutionSlider slides={solutionSlides(sec)} />}
             {/* item 3 — standalone mobile intro band replacing the pc spacers */}
             {homeIntro && <HomeMobileIntro data={homeIntro} />}
             <div

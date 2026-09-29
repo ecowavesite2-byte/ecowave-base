@@ -118,7 +118,7 @@ export default function NoticeTicker({
             pulled up 7px (net 291) inside a 291px row; at >=1024 the cards
             are 327 and the block keeps min-height 310 with a 15px pull-up. */}
         <div className="min-[1024px]:min-h-[310px]">
-        <div className="-mx-[22.5px] -mt-[7px] flex flex-wrap min-[1024px]:-mt-[15px] lg:-mx-[15px] lg:flex-row">
+        <div className="-mx-[22.5px] -mt-[7px] max-[991.98px]:-mt-[8px] flex flex-wrap min-[1024px]:-mt-[15px] lg:-mx-[15px] lg:flex-row">
           {/* No entrance animation: the original `newest` board widget is
               `data-widget-anim="none"` with no per-card `wg_animated` class
               (probe: first `._post_item_wrap` computes opacity 1,
@@ -132,15 +132,18 @@ export default function NoticeTicker({
             // min-w-0 lets flex-1 equalize all cards on one row (KO titles
             // are short enough that the auto minimum never bit).
             <div key={p.idx} className={`w-1/2 min-w-0 p-[7.5px] lg:w-auto lg:flex-1 lg:p-[15px] ${i >= 2 ? " hidden lg:block" : ""}`}>
-              <Link href={localeHref(locale, `/${section.picks?.board ?? "news"}/${p.idx}`)} className="group block h-[283px] overflow-hidden bg-white lg:h-auto lg:overflow-visible">
+              <Link href={localeHref(locale, `/${section.picks?.board ?? "news"}/${p.idx}`)} className="group block h-[283px] max-[991.98px]:m-[1px] max-[991.98px]:h-auto overflow-hidden bg-white lg:h-auto lg:overflow-visible">
                 <div className="relative h-[142px] w-full overflow-hidden lg:h-[179px]">
                   {p.thumb && (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img src={p.thumb} alt={p.title} className="h-full w-full object-cover" loading="lazy" />
                   )}
                 </div>
-                <div className="h-[141px] bg-white px-[15px] pt-[15px] pb-[23px] lg:h-auto">
-                  <h3 className="truncate text-[19px] font-normal text-black">{p.title}</h3>
+                <div className="h-[141px] max-[991.98px]:h-auto bg-white px-[15px] max-[991.98px]:px-[20px] pt-[15px] max-[991.98px]:pt-[20px] pb-[23px] max-[991.98px]:pb-[20px] lg:h-auto">
+                  {/* mobile: the twin's `.card_body` pads 20px and wraps the
+                      19px title to two lines at lh 24.7 (w 145.5); ours was
+                      `truncate` (nowrap → one line) at lh 30.4 with 15/23 pad. */}
+                  <h3 className="truncate text-[19px] font-normal text-black max-[991.98px]:whitespace-normal max-[991.98px]:line-clamp-2 max-[991.98px]:leading-[24.7px]">{p.title}</h3>
                   {p.excerpt && <p className="mt-[5px] line-clamp-2 text-[16px] leading-[1.4] text-black">{p.excerpt}</p>}
                 </div>
               </Link>

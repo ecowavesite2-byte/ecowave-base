@@ -25,10 +25,14 @@ export type SolutionSlide = { img: string; title: string; lines: string[] };
  */
 export default function SolutionSlider({
   slides,
-  autoplayMs = 5000,
+  autoplayMs = 5200,
 }: {
   slides: SolutionSlide[];
-  /** owl `auto_change` interval (the original twin autoplays one slide / 5s) */
+  /**
+   * owl `auto_change` period on the original twin: measured live at 390 the
+   * active dot advances every ~5.16–5.29s, i.e. the authored `effect_wait: 5`
+   * wait plus the `effect_time: 0.2` transition (5.2s).
+   */
   autoplayMs?: number;
 }) {
   const [active, setActive] = useState(0);
