@@ -52,6 +52,7 @@ export default function Header({ locale, nav, logo, logoScrolled, langLabelKo, l
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false); // mobile drawer
   const [expanded, setExpanded] = useState<string | null>(null); // mobile accordion
+  const [langOpen, setLangOpen] = useState(false); // drawer language picker
   const isHome = pathname === "/";
   const overlay = isHome && !scrolled;
 
@@ -65,6 +66,7 @@ export default function Header({ locale, nav, logo, logoScrolled, langLabelKo, l
   useEffect(() => {
     setOpen(false);
     setExpanded(null);
+    setLangOpen(false);
   }, [rawPathname]);
 
   /**
@@ -408,53 +410,75 @@ export default function Header({ locale, nav, logo, logoScrolled, langLabelKo, l
           })}
         </div>
       </nav>
+      </header>
 
-      {/* mobile drawer — z-998 keeps it above the z-997 nav strip (both live in
-          the header's z-999 stacking context) */}
-      <div className={`fixed inset-0 z-[998] min-[992px]:hidden ${open ? "" : "pointer-events-none"}`} aria-hidden={!open}>
-        {/* Original backdrop is injected on open with a constant opacity of 0.6
-            and NO fade (state-probe: opacity 0.6 across all 48 frames). Use a
-            constant `bg-black` + element opacity 0.6, and no transition. */}
+      {/* mobile drawer — full-screen fixed layer ABOVE the header (z-1000, the
+          header is z-999) so the backdrop dims the whole page including the 58px
+          white header and the white close X reads on the dark backdrop, matching
+          the original (its container is z9999 / backdrop z1100 over a z1000
+          header). Layering inside this layer: backdrop (z-0) < panel (z-1) <
+          close X (z-2). Original geometry (live @390): panel slides in from the
+          LEFT, 300px of 390, base left -300 + `transform 0.3s ease`; the backdrop
+          is a constant 60% black with NO fade (transition-duration 0s). */}
+      <div
+        data-drawer
+        className={`fixed inset-0 z-[1000] min-[992px]:hidden ${open ? "" : "pointer-events-none"}`}
+        aria-hidden={!open}
+      >
         <div
-          className={`absolute inset-0 bg-black ${open ? "opacity-60" : "opacity-0"}`}
+          data-drawer-backdrop
+          className={`absolute inset-0 z-0 bg-black ${open ? "opacity-60" : "opacity-0"}`}
           onClick={() => setOpen(false)}
         />
-        {/* Original drawer panel transition is exactly `transform 0.3s ease`
-            (state-probe easing: property=transform, timing=ease). Tailwind's
-            `transition-transform` expands to `transform, translate, scale,
-            rotate` + cubic-bezier, and `translate-x-*` animates the `translate`
-            property — so drive the slide with `transform` and an explicit
-            inline transition to match property/duration/timing. */}
-        <div
-          style={{ transition: "transform 0.3s ease" }}
-          className={`absolute inset-y-0 right-0 flex w-[320px] max-w-[85vw] flex-col bg-white shadow-xl ${
-            open ? "[transform:translateX(0)]" : "[transform:translateX(100%)]"
+        {/* close X — OUTSIDE the panel, white on the backdrop (original
+            `.navbar-toggle.close.slide-close`: 32x32 fixed at right 48 / top 17,
+            white 16px glyph; opacity toggles 0 -> 1 with no transition). It stays
+            tappable above the backdrop and keeps the same close behaviour. */}
+        <button
+          type="button"
+          data-drawer-close
+          onClick={() => setOpen(false)}
+          aria-label="메뉴 닫기"
+          className={`absolute right-[48px] top-[17px] z-[2] flex h-8 w-8 items-center justify-center text-white ${
+            open ? "opacity-100" : "opacity-0"
           }`}
         >
-          <div className="flex h-[58px] items-center justify-between border-b border-line px-5">
-            <Image src={logoScrolled} alt="ECOWAVE" width={150} height={40} className="h-9 w-auto" />
-            {/* Original close button toggles opacity 0 (closed) -> 1 (open)
-                instantaneously (transition-duration 0s); ours was static at 1. */}
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+            <path d="M18 6L6 18M6 6l12 12" />
+          </svg>
+        </button>
+        {/* panel — slides in from the LEFT at the original width/motion and the
+            original box shadow (`0 2px 5px rgba(0,0,0,.16), 0 2px 10px
+            rgba(0,0,0,.12)`). */}
+        <div
+          data-drawer-panel
+          style={{ transition: "transform 0.3s ease" }}
+          className={`absolute inset-y-0 left-0 z-[1] flex w-[300px] max-w-[85vw] flex-col bg-white shadow-[0_2px_5px_rgba(0,0,0,0.16),0_2px_10px_rgba(0,0,0,0.12)] ${
+            open ? "[transform:translateX(0)]" : "[transform:translateX(-100%)]"
+          }`}
+        >
+          {/* Login bar — VISUAL PARITY ONLY. This rebuild has no member/auth
+              system, so `로그인` is a non-navigating affordance styled like the
+              original's guest profile bar (68px, #2b2b2b, white 14px text). */}
+          <div data-drawer-login className="flex h-[68px] shrink-0 items-center justify-between bg-[#2b2b2b] px-5">
+            <span className="text-[14px] font-normal leading-[26px] text-white">로그인이 필요합니다.</span>
             <button
               type="button"
-              onClick={() => setOpen(false)}
-              aria-label="메뉴 닫기"
-              className={`p-2 ${open ? "opacity-100" : "opacity-0"}`}
+              aria-disabled="true"
+              className="cursor-default px-3 py-[6px] text-[12px] font-normal leading-[12px] text-white"
             >
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#212121" strokeWidth="2">
-                <path d="M18 6L6 18M6 6l12 12" />
-              </svg>
+              로그인
             </button>
           </div>
-          <nav className="flex-1 overflow-y-auto px-5 py-4" aria-label="모바일 전체 메뉴">
-            <ul className="divide-y divide-line">
+          <nav className="flex-1 overflow-y-auto pb-4" aria-label="모바일 전체 메뉴">
+            <ul>
               {nav.map((item) => {
                 const isOpen = expanded === item.url;
                 return (
-                  <li key={item.url} className="py-1">
+                  <li key={item.url} className="border-t border-[#f3f3f3] last:border-b">
                     <button
                       type="button"
-                      className="flex w-full items-center justify-between py-3 text-left text-[16px] font-semibold text-ink"
+                      className="flex w-full items-center justify-between px-5 pt-[13px] pb-[14px] text-left text-[14px] font-normal leading-[14px] text-[rgba(33,33,33,0.89)]"
                       onClick={() => setExpanded(isOpen ? null : item.url)}
                     >
                       {item.name}
@@ -493,18 +517,57 @@ export default function Header({ locale, nav, logo, logoScrolled, langLabelKo, l
               })}
             </ul>
           </nav>
-          <div className="flex items-center gap-2 border-t border-line px-5 py-4 text-[14px] text-muted">
-            <Link href={langTarget("ko")} className={`transition duration-300 hover:text-accent ${locale === "ko" ? "font-semibold text-ink" : ""}`}>
-              {langLabelKo}
-            </Link>
-            <span className="opacity-40">|</span>
-            <Link href={langTarget("en")} className={`transition duration-300 hover:text-accent ${locale === "en" ? "font-semibold text-ink" : ""}`}>
-              {langLabelEn}
-            </Link>
+          {/* Language control — bottom-left, matching the original
+              `.im-mobile-slide-footer` (white 48px row; 18px globe + 12px
+              current label + caret). The original opens a dropup
+              `.dropdown-menu` with 한국어 / English; ours opens the same list and
+              switches locale in-app through `langTarget`. */}
+          <div data-drawer-lang className="relative shrink-0">
+            <button
+              type="button"
+              onClick={() => setLangOpen((v) => !v)}
+              aria-expanded={langOpen}
+              className="flex h-[48px] w-full items-center gap-[6px] px-5 text-[12px] font-normal text-[rgba(33,33,33,0.89)]"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden>
+                <circle cx="12" cy="12" r="9" />
+                <path d="M3 12h18M12 3c2.5 2.7 3.9 5.7 3.9 9s-1.4 6.3-3.9 9c-2.5-2.7-3.9-5.7-3.9-9S9.5 5.7 12 3z" />
+              </svg>
+              <span>{locale === "ko" ? langLabelKo : langLabelEn}</span>
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                className={langOpen ? "rotate-180" : ""}
+                aria-hidden
+              >
+                <path d="M7 10l5 5 5-5z" />
+              </svg>
+            </button>
+            {langOpen && (
+              <ul className="absolute bottom-[48px] left-0 w-full border border-black/15 bg-white py-2 text-[14px] shadow-md">
+                <li>
+                  <Link
+                    href={langTarget("ko")}
+                    className={`block px-5 py-1.5 hover:text-accent ${locale === "ko" ? "font-semibold text-ink" : "text-body"}`}
+                  >
+                    {langLabelKo}
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href={langTarget("en")}
+                    className={`block px-5 py-1.5 hover:text-accent ${locale === "en" ? "font-semibold text-ink" : "text-body"}`}
+                  >
+                    {langLabelEn}
+                  </Link>
+                </li>
+              </ul>
+            )}
           </div>
         </div>
       </div>
-      </header>
     </>
   );
 }
