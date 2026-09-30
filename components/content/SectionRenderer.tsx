@@ -2235,18 +2235,41 @@ export default function SectionRenderer({
             {(sec.bg || urlFromStyle(sec.bgStyle)) && (
               <div
                 // imweb `.section_bg.fixed_bg_wrap` heroes pin the image to the
-                // viewport (computed background-attachment: fixed); the visible
-                // crop is ~79.6% vs ~50% when scrolled, so match the original.
-                // Gate-0/item 5: that is a desktop measurement — `fixed` inside a
-                // short, stacked mobile section pins a viewport-sized slice and
-                // reads as a broken band. Keep fixed at >=992 via `min-[992px]:bg-fixed`
-                // and let mobile scroll normally.
-                className={`absolute inset-0 bg-cover bg-center${sec.bgFixed ? " min-[992px]:bg-fixed" : ""}`}
+                // viewport. At >=992 that is the computed `background-attachment:
+                // fixed` (the visible crop is ~79.6% vs ~50% when scrolled). Below
+                // 992 the original swaps in a viewport-anchored `img.fixed_bg` —
+                // `position: fixed; width: 100vw; height: 100vh; object-fit:
+                // cover` — clipped to the section by the wrapper's `clip-path:
+                // inset(0)` + `overflow: hidden`. Measured live at 390 on
+                // company.ceo/company.about: the img computes 390x844 `fixed`
+                // with its viewport top held at 0 while the section scrolls.
+                // `overflow` alone cannot clip a fixed descendant; the clip-path
+                // confines the viewport-sized image to the section band (both are
+                // mobile-gated so desktop stays byte-identical).
+                className={`absolute inset-0 bg-cover bg-center${
+                  sec.bgFixed
+                    ? " max-[991.98px]:overflow-hidden max-[991.98px]:[clip-path:inset(0)] min-[992px]:bg-fixed"
+                    : ""
+                }`}
                 style={{
                   backgroundImage: `url(${sec.bg || urlFromStyle(sec.bgStyle)})`,
                 }}
                 aria-hidden
-              />
+              >
+                {sec.bgFixed && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={sec.bg || urlFromStyle(sec.bgStyle) || ""}
+                    alt=""
+                    aria-hidden
+                    // Replaced element: `inset-0` alone would not stretch it (auto
+                    // sizes resolve to the intrinsic image), so the 100% width/
+                    // height is explicit — the fixed containing block is the
+                    // viewport, exactly like the original's 390x844 img.
+                    className="pointer-events-none fixed inset-0 h-full w-full object-cover object-center min-[992px]:hidden"
+                  />
+                )}
+              </div>
             )}
             {sec.bgColor && <div className="absolute inset-0" style={{ backgroundColor: sec.bgColor }} aria-hidden />}
             {/* item 1 — solutions mobile carousel (mobile-only overlay) */}

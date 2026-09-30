@@ -178,8 +178,10 @@ export default function Header({ locale, nav, logo, logoScrolled, langLabelKo, l
        * position:relative, height 105px on `/`). Only the DESKTOP home header is
        * a 0px overlay over the hero (orig desktop `#doz_header_wrap` h=0 with an
        * absolute 88px inner bar). This in-flow spacer reproduces that per
-       * breakpoint: mobile 105px = the 58px top bar + the 46px section-nav
-       * strip; desktop 88px on subpages / 0px on home.
+       * breakpoint: mobile 105px = the 59px top bar + the 46px section-nav
+       * strip; desktop 88px on subpages / 0px on home. The bar must be exactly
+       * 59px so it meets the strip (top 59) with no uncovered sliver — at 58px
+       * page content flashed through the 58–59px gap while scrolling.
        */}
       <div
         aria-hidden
@@ -193,7 +195,7 @@ export default function Header({ locale, nav, logo, logoScrolled, langLabelKo, l
             : "bg-white"
         }`}
       >
-      <div className="relative flex h-[58px] items-center px-[15px] min-[992px]:h-[88px] min-[992px]:px-[30px]">
+      <div className="relative flex h-[59px] items-center px-[15px] min-[992px]:h-[88px] min-[992px]:px-[30px]">
         {/* mobile hamburger — left */}
         <button
           type="button"
@@ -379,7 +381,7 @@ export default function Header({ locale, nav, logo, logoScrolled, langLabelKo, l
 
       {/* mobile carousel nav — scrollable top-level links under the top row.
           Original stacking: bar z-999, nav strip z-997 at top:59 with a 46px
-          row (the 58px bar + this strip = the in-flow 105px spacer above).
+          row (the 59px bar + this strip = the in-flow 105px spacer above).
           Restored per client approval (KO+EN, ≤991): the original shows the
           five inline links under the header. Hidden at ≥992. */}
       <nav className="absolute inset-x-0 top-[59px] z-[997] min-[992px]:hidden" aria-label="모바일 섹션 메뉴">
@@ -413,7 +415,7 @@ export default function Header({ locale, nav, logo, logoScrolled, langLabelKo, l
       </header>
 
       {/* mobile drawer — full-screen fixed layer ABOVE the header (z-1000, the
-          header is z-999) so the backdrop dims the whole page including the 58px
+          header is z-999) so the backdrop dims the whole page including the 59px
           white header and the white close X reads on the dark backdrop, matching
           the original (its container is z9999 / backdrop z1100 over a z1000
           header). Layering inside this layer: backdrop (z-0) < panel (z-1) <
