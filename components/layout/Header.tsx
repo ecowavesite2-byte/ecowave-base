@@ -51,7 +51,7 @@ export default function Header({ locale, nav, logo, logoScrolled, langLabelKo, l
   const pathname = normalizePath(rawPathname);
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false); // mobile drawer
-  const [expanded, setExpanded] = useState<string | null>(null); // mobile accordion
+  const [expanded, setExpanded] = useState<string[]>([]); // mobile accordion (multi-open, like the original)
   const [langOpen, setLangOpen] = useState(false); // drawer language picker
   const isHome = pathname === "/";
   const overlay = isHome && !scrolled;
@@ -65,7 +65,7 @@ export default function Header({ locale, nav, logo, logoScrolled, langLabelKo, l
 
   useEffect(() => {
     setOpen(false);
-    setExpanded(null);
+    setExpanded([]);
     setLangOpen(false);
   }, [rawPathname]);
 
@@ -473,13 +473,18 @@ export default function Header({ locale, nav, logo, logoScrolled, langLabelKo, l
           <nav className="flex-1 overflow-y-auto pb-4" aria-label="모바일 전체 메뉴">
             <ul>
               {nav.map((item) => {
-                const isOpen = expanded === item.url;
+                const isOpen = expanded.includes(item.url);
                 return (
                   <li key={item.url} className="border-t border-[#f3f3f3] last:border-b">
                     <button
                       type="button"
+                      aria-expanded={isOpen}
                       className="flex w-full items-center justify-between px-5 pt-[13px] pb-[14px] text-left text-[14px] font-normal leading-[14px] text-[rgba(33,33,33,0.89)]"
-                      onClick={() => setExpanded(isOpen ? null : item.url)}
+                      onClick={() =>
+                        setExpanded((prev) =>
+                          prev.includes(item.url) ? prev.filter((u) => u !== item.url) : [...prev, item.url],
+                        )
+                      }
                     >
                       {item.name}
                       <svg
@@ -499,12 +504,12 @@ export default function Header({ locale, nav, logo, logoScrolled, langLabelKo, l
                         isOpen ? "grid-rows-[minmax(0,1fr)]" : "grid-rows-[minmax(0,0fr)]"
                       }`}
                     >
-                      <ul className="min-h-0 pb-3 pl-1">
+                      <ul className="min-h-0">
                         {item.children.map((c) => (
                           <li key={c.url}>
                             <Link
                               href={localeHref(locale, routeForSource(c.url, locale))}
-                              className="block py-2.5 pl-3 text-[15px] text-body hover:text-accent"
+                              className="block py-2 pl-[30px] pr-[50px] text-[13px] font-normal leading-[13px] text-body hover:text-accent"
                             >
                               {c.name}
                             </Link>
@@ -519,9 +524,11 @@ export default function Header({ locale, nav, logo, logoScrolled, langLabelKo, l
           </nav>
           {/* Language control — bottom-left, matching the original
               `.im-mobile-slide-footer` (white 48px row; 18px globe + 12px
-              current label + caret). The original opens a dropup
-              `.dropdown-menu` with 한국어 / English; ours opens the same list and
-              switches locale in-app through `langTarget`. */}
+              current label + caret). The original opens a compact dropup
+              `.dropdown-menu` (160px card at left 20 / bottom 48, radius 4,
+              border rgba(0,0,0,.15), shadow 0 6px 12px rgba(0,0,0,.176), 8px 0
+              padding; 158x36 items, 14px/20px, 8px 16px). Ours opens the same
+              card and switches locale in-app through `langTarget`. */}
           <div data-drawer-lang className="relative shrink-0">
             <button
               type="button"
@@ -533,7 +540,7 @@ export default function Header({ locale, nav, logo, logoScrolled, langLabelKo, l
                 <circle cx="12" cy="12" r="9" />
                 <path d="M3 12h18M12 3c2.5 2.7 3.9 5.7 3.9 9s-1.4 6.3-3.9 9c-2.5-2.7-3.9-5.7-3.9-9S9.5 5.7 12 3z" />
               </svg>
-              <span>{locale === "ko" ? langLabelKo : langLabelEn}</span>
+              <span className="leading-[14px]">{locale === "ko" ? langLabelKo : langLabelEn}</span>
               <svg
                 width="12"
                 height="12"
@@ -546,11 +553,11 @@ export default function Header({ locale, nav, logo, logoScrolled, langLabelKo, l
               </svg>
             </button>
             {langOpen && (
-              <ul className="absolute bottom-[48px] left-0 w-full border border-black/15 bg-white py-2 text-[14px] shadow-md">
+              <ul className="absolute bottom-[48px] left-5 my-[2px] w-[160px] rounded-[4px] border border-black/15 bg-white py-2 text-[14px] shadow-[0_6px_12px_rgba(0,0,0,0.176)]">
                 <li>
                   <Link
                     href={langTarget("ko")}
-                    className={`block px-5 py-1.5 hover:text-accent ${locale === "ko" ? "font-semibold text-ink" : "text-body"}`}
+                    className="block px-4 py-2 leading-[20px] text-[#212121] hover:text-accent"
                   >
                     {langLabelKo}
                   </Link>
@@ -558,7 +565,7 @@ export default function Header({ locale, nav, logo, logoScrolled, langLabelKo, l
                 <li>
                   <Link
                     href={langTarget("en")}
-                    className={`block px-5 py-1.5 hover:text-accent ${locale === "en" ? "font-semibold text-ink" : "text-body"}`}
+                    className="block px-4 py-2 leading-[20px] text-[#212121] hover:text-accent"
                   >
                     {langLabelEn}
                   </Link>
