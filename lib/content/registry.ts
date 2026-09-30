@@ -1166,6 +1166,69 @@ export const CONTENT_DEFS: ContentDef[] = [
     ]
   },
   {
+    "key": "company.about#s202509191b81eb54a6991/w202509191cf358c2625d5/src",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s202509191b81eb54a6991",
+    "widgetId": "w202509191cf358c2625d5",
+    "field": "src",
+    "kind": "image",
+    "section": {
+      "ko": "깨끗한 물, 건강한 삶을 만드는 에코웨이브 (2)",
+      "en": "Clean water, making a healthy… (2)"
+    },
+    "label": {
+      "ko": "이미지 경로 · 196f5234277f5.jpg",
+      "en": "Image source · 196f5234277f5.jpg"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s202509191b81eb54a6991/w20250919f67f88afd25af/html",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s202509191b81eb54a6991",
+    "widgetId": "w20250919f67f88afd25af",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "깨끗한 물, 건강한 삶을 만드는 에코웨이브 (2)",
+      "en": "Clean water, making a healthy… (2)"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 깨끗한 물,",
+      "en": "Text block · Clean water,"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
+    "key": "company.about#s202509191b81eb54a6991/w20250919473898f523ab7/html",
+    "group": "company",
+    "pageKey": "company.about",
+    "sectionId": "s202509191b81eb54a6991",
+    "widgetId": "w20250919473898f523ab7",
+    "field": "html",
+    "kind": "lines",
+    "section": {
+      "ko": "깨끗한 물, 건강한 삶을 만드는 에코웨이브 (2)",
+      "en": "Clean water, making a healthy… (2)"
+    },
+    "label": {
+      "ko": "텍스트 블록 · 맑고 깨끗한 물이 생활의 기본이자 건강의 근원이라는 믿음을 바탕으로,",
+      "en": "Text block · Based on the belief that clear and…"
+    },
+    "revalidate": [
+      "/company/about",
+      "/en/company/about"
+    ]
+  },
+  {
     "key": "company.about#s20250918e40b7f78d4437/w20250918f607bbed181f6/html",
     "group": "company",
     "pageKey": "company.about",
@@ -3081,6 +3144,18 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "ko": "맑고 깨끗한 물이 생활의 기본이자 건강의 근원이라는 믿음을 바탕으로,\n우리는 혁신적인 정수기와 고성능 필터 솔루션을 연구·개발하여 가정과 기업에 공급하고 있습니다.\n작은 한 방울의 물까지도 안전하게 지켜내는 기술력과 지속 가능한 친환경 철학을 바탕으로,\n고객의 삶의 질을 높이고 미래 세대에게 더욱 깨끗한 환경을 물려주기 위해 노력하고 있습니다.",
     "en": "Based on the belief that clear and clean water is the basis of life and the source of health,\nWe research and develop innovative water purifiers and high-performance filter solutions and supply them to homes and businesses.\nBased on technology and sustainable eco-friendly philosophy that keeps even a tiny drop of water safe, We strive to improve the quality of life of our customers and pass on a cleaner environment to future generations."
   },
+  "company.about#s202509191b81eb54a6991/w202509191cf358c2625d5/src": {
+    "ko": "/images/thumbnail/20250919/196f5234277f5.jpg",
+    "en": "/images/thumbnail/20250919/196f5234277f5.jpg"
+  },
+  "company.about#s202509191b81eb54a6991/w20250919f67f88afd25af/html": {
+    "ko": "깨끗한 물,\n건강한 삶을 만드는\n에코웨이브",
+    "en": "Clean water,\nmaking a healthy life\nEco-wave"
+  },
+  "company.about#s202509191b81eb54a6991/w20250919473898f523ab7/html": {
+    "ko": "맑고 깨끗한 물이 생활의 기본이자 건강의 근원이라는 믿음을 바탕으로,\n우리는 혁신적인 정수기와 고성능 필터 솔루션을 연구·개발하여 가정과 기업에 공급하고 있습니다.\n작은 한 방울의 물까지도 안전하게 지켜내는 기술력과 지속 가능한 친환경 철학을 바탕으로,\n고객의 삶의 질을 높이고 미래 세대에게 더욱 깨끗한 환경을 물려주기 위해 노력하고 있습니다.",
+    "en": "Based on the belief that clear and clean water is the basis of life and the source of health,\nWe research and develop innovative water purifiers and high-performance filter solutions and supply them to homes and businesses.\nBased on technology and sustainable eco-friendly philosophy that keeps even a tiny drop of water safe,\nWe strive to improve the quality of life of our customers and pass on a cleaner environment to future generations."
+  },
   "company.about#s20250918e40b7f78d4437/w20250918f607bbed181f6/html": {
     "ko": "에코웨이브\n기술력",
     "en": "Eco-wave technology"
@@ -3687,6 +3762,9 @@ export const CONTENT_KEYS_BY_GROUP: Record<ContentGroup, string[]> = {
     "company.about#s20250811457daf6e58a2c/w2025091840bd06b2a6c1d/src",
     "company.about#s20250811457daf6e58a2c/w202509187c7529a0c38c3/html",
     "company.about#s20250811457daf6e58a2c/w20250918684332dc780e7/html",
+    "company.about#s202509191b81eb54a6991/w202509191cf358c2625d5/src",
+    "company.about#s202509191b81eb54a6991/w20250919f67f88afd25af/html",
+    "company.about#s202509191b81eb54a6991/w20250919473898f523ab7/html",
     "company.about#s20250918e40b7f78d4437/w20250918f607bbed181f6/html",
     "company.about#s20250918e40b7f78d4437/w20250918907bfdecbaebd/html",
     "company.about#s20250918e40b7f78d4437/w2025091834b55c4354127/html",

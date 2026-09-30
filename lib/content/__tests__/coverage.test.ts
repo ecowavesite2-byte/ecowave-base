@@ -222,7 +222,7 @@ describe("override coverage (every CONTENT_DEFS key, both locales)", () => {
     }
 
     expect(failures).toEqual([]);
-    // 141 defs × 2 locales − 9 allowlisted applications (4 allowlisted keys
+    // 144 defs × 2 locales − 9 allowlisted applications (4 allowlisted keys
     // count once per locale: 3 productPage keys + facilityTabs; plus the KO-only
     // support intro band, allowlisted for the EN locale only).
     // Dead sections are excluded from the registry by the generator: the footer
@@ -248,7 +248,7 @@ describe("override coverage (every CONTENT_DEFS key, both locales)", () => {
     // through `getResolvedProductPage`, not `applyPageOverrides`.
     expect(allowlisted.length).toBe(9);
     expect(applied).toBe(CONTENT_DEFS.length * LOCALES.length - 9);
-    expect(applied).toBe(273);
+    expect(applied).toBe(279);
     expect(applied).toBe(expectedApplied);
   });
 

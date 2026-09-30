@@ -918,7 +918,7 @@ function SlideCard({
   titleBar: boolean;
   className?: string;
 }) {
-  const src = item.org || item.thumb || "";
+  const src = item.thumb || item.org || "";
   const padCls = pad >= 10 ? "min-[992px]:p-[10px]" : "min-[992px]:p-[5px]";
   const box = titleBar ? "" : "min-[992px]:border min-[992px]:border-[#eee]";
   return (
@@ -1565,6 +1565,52 @@ const PH48_SECTION_IDS = new Set([
 ]);
 
 /**
+ * company.about mobile type scale (about-audit REPORT.md §3; re-measured live
+ * on /17 at 390). imweb's pc-at-mobile runtime downscales the §2 intro heading
+ * (60->24px/1.2) and body (18->16px, h6 line-height 2 -> 32px) and the §6
+ * 정수기 body (18->15px/1.2, replacing the span's inline line-height:2).
+ *
+ * The §2 intro is actually a dedicated `mobile_section` twin
+ * (`s202509191b81eb54a6991`, authored in the KO content JSON); its 24px heading
+ * spans sit in an `h6[line-height:2]`, and the original's runtime gives them the
+ * size-keyed 1.2 (28.8px), so the twin is listed here for the 24px rule. The pc
+ * §2 (which the EN channel still renders pc-at-mobile at 390) keeps the 60->24
+ * rule. Scoped to the section ids (globals.css `data-about-intro` /
+ * `data-about-sec6`) so every other page/section is 0-change; desktop (>=992)
+ * is untouched.
+ */
+const ABOUT_INTRO_SECTION_IDS = new Set([
+  "s20250811457daf6e58a2c", // company.about §2 intro (pc, hidden at mobile via mobile_hide)
+  "s202509191b81eb54a6991", // company.about §2 intro (mobile twin)
+]);
+// The original `mobile_section` twin's top-level widgets all carry imweb's
+// `.inside .widget { margin: 15px 0 }` band (7.5px each side): measured rows
+// 45/333/111/301/45 vs our 30/333/96/286/30. The pc-section band lives in
+// Widget's `mobileBox` image branch + NESTED_TEXT_BAND; the mobile text/padding
+// band is scoped to this one section via globals.css `data-about-sec2`.
+const ABOUT_SEC2_SECTION_IDS = new Set([
+  "s202509191b81eb54a6991", // company.about §2 intro (mobile twin)
+]);
+// company.about pc sections whose top-level-row text widgets miss imweb's
+// `.inside .widget { margin: 15px 0 }` band (the SectionRenderer `nested`
+// requirement only bands widgets inside nested rows). Measured live: §POINT 01
+// cells, §정수기 cards, §기준은 높게 / §HQ / §토탈 / §기능성 headings all carry the
+// 7.5px band at 390. The §1 promise band and §R&D already compute their target
+// heights without it (the band overshoots them +15), so they are excluded.
+// globals.css `data-about-band`, mobile only.
+const ABOUT_TEXT_BAND_SECTION_IDS = new Set([
+  "s20250918e40b7f78d4437", // §POINT 01
+  "s202508119a2e8fe21b47a", // §기능성 필터
+  "s20250918c54b2950e2f1a", // §토탈 솔루션
+  "s20250918c5a18b62c8acd", // §정수기
+  "s20250918ab81858502f9e", // §기준은 높게
+  "s202509180d5f2b5ede2b3", // §Headquarters
+]);
+const ABOUT_SEC6_SECTION_IDS = new Set([
+  "s20250918c5a18b62c8acd", // company.about §6 정수기 / 우리 일상
+]);
+
+/**
  * imweb "fixed side" editor option — company.history year bands pin their
  * aside content below the 88px desktop header while the timeline column
  * scrolls past (measured live: original writes inline
@@ -2166,6 +2212,12 @@ export default function SectionRenderer({
         // P6: philosophy §1 promise band mobile 48px-span line-height
         // (globals.css `data-ph48`)
         const ph48 = PH48_SECTION_IDS.has(sec.id);
+        // company.about §2 intro / §6 정수기 mobile type scale (globals.css
+        // `data-about-intro` / `data-about-sec6`)
+        const aboutIntro = ABOUT_INTRO_SECTION_IDS.has(sec.id);
+        const aboutSec2 = ABOUT_SEC2_SECTION_IDS.has(sec.id);
+        const aboutTextBand = ABOUT_TEXT_BAND_SECTION_IDS.has(sec.id);
+        const aboutSec6 = ABOUT_SEC6_SECTION_IDS.has(sec.id);
         // item 2: home §7 holder box model (globals.css `data-mapholder`)
         const mapHolder = MAP_HOLDER_SECTION_IDS.has(sec.id);
         // item 4: home-scoped authored-span downscale (globals.css `data-home-type`)
@@ -2207,6 +2259,19 @@ export default function SectionRenderer({
             // promise band's `span[style*="font-size: 48px"]` (measured
             // trigger: an h6 with no inline line-height).
             data-ph48={ph48 ? "1" : undefined}
+            // company.about §2 intro mobile type scale (globals.css): heading
+            // 60->24/1.2, body 18->16 (h6 line-height 2 -> 32).
+            data-about-intro={aboutIntro ? "1" : undefined}
+            // company.about §2 mobile twin: the original `mobile_section`'s
+            // top-level widgets carry imweb's 7.5px top/bottom `.inside .widget`
+            // band (globals.css).
+            data-about-sec2={aboutSec2 ? "1" : undefined}
+            // company.about pc sections: top-level-row text widget band
+            // (globals.css `data-about-band`).
+            data-about-band={aboutTextBand ? "1" : undefined}
+            // company.about §6 정수기 mobile type scale (globals.css): body
+            // 18->15/1.2, row titles 22px line-height 1.2.
+            data-about-sec6={aboutSec6 ? "1" : undefined}
             // item 2 hook (globals.css): home §7 holder box model
             // (wrapper 0 15px + holder 20px 50px + mobile span 1.2).
             data-mapholder={mapHolder ? "1" : undefined}

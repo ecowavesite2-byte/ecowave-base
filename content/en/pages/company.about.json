@@ -302,7 +302,7 @@
     },
     {
       "id": "s202509115ee580869796e",
-      "cls": "section_wrap  pc_section   side_     ",
+      "cls": "section_wrap  pc_section mobile_hide   side_     ",
       "bg": null,
       "bgStyle": "   background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
       "bgColor": null,
@@ -429,6 +429,126 @@
                   "type": "padding",
                   "html": "<div class=\"widget padding\" data-height=\"77\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w20250919a36493d4f9933\" style=\"width:100%; min-height:1px; height:77px; \"></div>\n</div>\n",
                   "_h": 77
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s202509191b81eb54a6991",
+      "cls": "section_wrap  mobile_section       side_basic     ",
+      "bg": null,
+      "bgStyle": "   background-size:cover; background-repeat: no-repeat; position: absolute;left: 0;top: 0;right: 0; bottom: 0;",
+      "bgColor": null,
+      "secStyle": "; ; ;",
+      "rows": [
+        {
+          "kind": "row",
+          "grid": "12",
+          "pad": 0,
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w2025091989846ec4b146a",
+                  "type": "padding",
+                  "html": "<div class=\"widget padding\" data-height=\"30\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w2025091989846ec4b146a\" style=\"width:100%; min-height:1px; height:30px; \"></div>\n</div>\n",
+                  "_h": 30
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "pad": 0,
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w202509191cf358c2625d5",
+                  "type": "image",
+                  "src": "/images/thumbnail/20250919/196f5234277f5.jpg",
+                  "alt": "",
+                  "hoverBg": "/images/thumbnail/20250919/196f5234277f5.jpg",
+                  "boxStyle": "height: 318px;",
+                  "imgStyle": "visibility: inherit; image-rendering: -webkit-optimize-contrast; display: block; width: 100%; height: auto; margin-top: -57px; margin-left: 0px;",
+                  "anim": "fadeInUp",
+                  "animDur": "1.2",
+                  "animDelay": "0.3"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "pad": 0,
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w20250919f67f88afd25af",
+                  "type": "text",
+                  "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"text-align: left; line-height: 2;\"><span style=\"font-size: 24px;\"><strong><span style=\"color: rgb(18, 18, 18);\">Clean water,&nbsp;</span></strong><strong><span style=\"color: rgb(18, 18, 18);\">making a healthy life&nbsp;</span></strong></span></h6><h6 style=\"text-align: left; line-height: 2;\"><span style=\"font-size: 24px;\"><strong><span style=\"color: rgb(57, 112, 235);\">Eco-wave&nbsp;</span></strong></span></h6></div></div>\n\t",
+                  "anim": "none",
+                  "animDur": "0.7",
+                  "animDelay": "0"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "pad": 0,
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w20250919473898f523ab7",
+                  "type": "text",
+                  "html": "\n\t\t<div class=\"text-table \"><div><h6 style=\"line-height: 2;\"><span style=\"font-size: 16px;\">Based on the belief that clear and clean water is the basis of life and the source of health,&nbsp;</span><span style=\"font-size: 16px;\">We research and develop innovative water purifiers and high-performance filter solutions and supply them to homes and businesses.</span></h6><h6 style=\"line-height: 2;\"><span style=\"font-size: 16px;\">Based on technology and sustainable eco-friendly philosophy that keeps even a tiny drop of water safe,&nbsp;</span><span style=\"font-size: 16px;\">We strive to improve the quality of life of our customers and pass on a cleaner environment to future generations.</span></h6></div></div>\n\t",
+                  "anim": "none",
+                  "animDur": "0.7",
+                  "animDelay": "0"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "row",
+          "grid": "12",
+          "pad": 0,
+          "cols": [
+            {
+              "kind": "col",
+              "grid": "12",
+              "children": [
+                {
+                  "kind": "widget",
+                  "id": "w20250919df8c7a1387f70",
+                  "type": "padding",
+                  "html": "<div class=\"widget padding\" data-height=\"30\" style=\"margin-top:px; margin-bottom:px;\">\n\t<div id=\"padding_w20250919df8c7a1387f70\" style=\"width:100%; min-height:1px; height:30px; \"></div>\n</div>\n",
+                  "_h": 30
                 }
               ]
             }

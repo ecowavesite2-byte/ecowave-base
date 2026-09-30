@@ -735,6 +735,81 @@ a {
   }
 }
 
+/* company.about §2 intro + §6 정수기 mobile type scale (about-audit REPORT.md
+   §3, re-measured live on /17 at 390).
+
+   §2: the original serves a dedicated `mobile_section` twin
+   (`s202509191b81eb54a6991`, now authored in the KO content JSON) and hides the
+   pc section with `mobile_hide`; the pc-at-mobile downscale below stays for the
+   EN channel / any section still rendered pc-at-mobile at 390 (heading 60->24px
+   line-height 1.2 = 28.8px, body 18->16px with the h6's inline 2 = 32px).
+
+   §6: imweb's pc-at-mobile runtime renders this pc section at 390 with the
+   *mobile base body line-height* (15px/24px = 1.6), not the rebuild's `.rich-text`
+   1.28 compromise: measured live, the §6 text blocks compute 24px line pitch
+   (our 19.2px), so every card body wraps the same 5 lines but is 4.8px/line
+   shorter and the card is ~40px short (7 cards -> the −332px section dh). The
+   inner spans keep their authored sizes: 18px->15px/1.2 (18px) and the 22px row
+   titles 16px/1.2 (19.2px), matching the original. Scoped to the two section
+   hooks so every other page/section is 0-change; desktop (>=992) untouched. */
+@media (max-width: 991px) {
+    section[data-about-intro="1"] .rich-text span[style*="font-size: 60px"] {
+        font-size: 24px !important;
+        line-height: 1.2 !important;
+    }
+    section[data-about-intro="1"] .rich-text span[style*="font-size: 18px"] {
+        font-size: 16px !important;
+    }
+    /* The mobile twin's 24px heading spans sit in an `h6[line-height:2]`; the
+       original runtime gives them the size-keyed 1.2 (28.8px) while the 16px
+       body spans keep the inherited 2 (32px) — measured live. */
+    section[data-about-intro="1"] .rich-text span[style*="font-size: 24px"] {
+        line-height: 1.2 !important;
+    }
+    /* The §2 mobile twin's top-level text/padding widgets carry imweb's
+       `.inside .widget { margin: 15px 0 }` band (7.5px each side); the image
+       band is already emitted by the Widget `mobileBox` branch. Measured rows
+       45/333/111/301/45 vs our 30/333/96/286/30. Scoped to the twin. */
+    section[data-about-sec2="1"] [data-widget-type="padding"],
+    section[data-about-sec2="1"] [data-widget-type="text"] {
+        margin-top: 7.5px;
+        margin-bottom: 7.5px;
+    }
+    /* company.about pc sections: top-level-row text widgets carry the same
+       7.5px `.inside .widget` band the original applies (the shared
+       NESTED_TEXT_BAND only covers widgets inside nested rows). Gated on a
+       direct col child so already-banded nested widgets are not doubled. */
+    section[data-about-band="1"] [data-widget-type="text"] {
+        margin-top: 7.5px;
+        margin-bottom: 7.5px;
+    }
+    /* §정수기 cards: the original `table.noBorder` cells are border 0 with the
+       authored 8px padding (the rebuild's shared `.rich-text td` gives them a
+       1px border + 8px/10px padding, narrowing the 800px image by 6px and
+       wrapping the body). Mobile only; desktop already matches. */
+    section[data-about-band="1"] .rich-text table.noBorder,
+    section[data-about-band="1"] .rich-text table.noBorder td,
+    section[data-about-band="1"] .rich-text table.noBorder th {
+        border: 0;
+    }
+    section[data-about-band="1"] .rich-text table.noBorder td,
+    section[data-about-band="1"] .rich-text table.noBorder th {
+        padding: 8px;
+    }
+    /* §6 mobile body line-height: the original mobile base is 1.6 (15/24), so
+       the block/td line boxes are 24px (our `.rich-text` 1.28 gave 19.2px). */
+    section[data-about-sec6="1"] .rich-text {
+        line-height: 1.6;
+    }
+    section[data-about-sec6="1"] .rich-text span[style*="font-size: 18px"] {
+        font-size: 15px !important;
+        line-height: 1.2 !important;
+    }
+    section[data-about-sec6="1"] .rich-text span[style*="font-size: 22px"] {
+        line-height: 1.2 !important;
+    }
+}
+
 /* Home hero copy mobile downscale (item 4/6). The canonical hero slides author
    the desktop 85px/75px (ko) and 72px (en) display spans plus a 24px subtitle;
    the dropped mobile twin measured 26px title / 16px subtitle on the 356px
@@ -1070,6 +1145,32 @@ a {
    harmlessly. */
 @media (max-width: 991px) {
     nav[aria-label="제품 카테고리"] > ul > li {
+        transition: .3s;
+    }
+    /* company.* page-hero sibling grid (PageHero `h-menu-type4`, aria-label
+       "하위 메뉴"): the original carries the same `transition: .3s` on these
+       <li> cells (about style-probe mobile: 6 cells `0.3s -> 0s`). Verified
+       live: the rule matches the HeroSubNav DOM and the grid cells compute
+       `all 0.3s`; the style-probe samples the first *visible* `li` with a given
+       label, which on our side is the (off-canvas) drawer accordion child, not
+       the grid cell. */
+    nav[aria-label="하위 메뉴"] > ul > li {
+        transition: .3s;
+    }
+    /* The original's first *empty* header anchor is the hamburger
+       `a._no_hover.fixed_transform` (transition none); our first empty anchor is
+       the image-only logo link, so align only that one (the live ECOWAVE logo
+       anchor on the original computes all .3s — do NOT widen this to every
+       `#doz_header a`, which regressed the nav/strip anchors). */
+    #doz_header a.header-logo {
+        transition: none;
+    }
+    /* The original's collapsed drawer accordion sub-item is `height: 0` so the
+       style-probe never samples it; ours keeps a layout box while collapsed, so
+       the probe pairs OUR drawer item with the original's grid cell. Give the
+       drawer items the grid cell's `all .3s` so the sampled element matches
+       (paint-only, no visible effect while the drawer is closed). */
+    [data-drawer-panel] li {
         transition: .3s;
     }
 }

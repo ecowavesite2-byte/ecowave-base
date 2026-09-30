@@ -131,13 +131,78 @@ export default function GallerySlider({
     return () => ro.disconnect();
   }, [count, fixedItems]);
 
+  // timestamp of the last viewport resize (used to suppress the clone-wrap
+  // recentre while a resize is settling; see the park effect below)
+  const resizeAt = useRef(0);
+
   // Park the track on the first REAL item (one clone-page in from the left) so
-  // the leading clones sit hidden to the left and the loop can recentre.
+  // the leading clones sit hidden to the left and the loop can recentre. The
+  // write is deferred to the next frame (layout/perView measurement settle) with
+  // scroll-snap temporarily disabled: with snap active a programmatic
+  // scrollLeft could be re-snapped, leaving the strip parked on the leading
+  // clones — measured on the 21-item certificate gallery, whose leading clones
+  // are the *end* items and produced the wrong first frame.
+  //
+  // The strip is only scrollable once its item widths/pitches are laid out; for
+  // lazy galleries that can be a few frames (or an image `load`) later, and a
+  // park attempted while `scrollWidth === clientWidth` is a silent no-op (the
+  // 21-item gallery stayed parked on its leading clones at 390 while the
+  // caption gallery — whose caption text gives it width immediately — parked
+  // fine). Retry until the strip can scroll, and re-park on the track's image
+  // `load` events while it is still at the origin; never fight a user.
   useEffect(() => {
     const el = track.current;
     if (!el) return;
-    const firstReal = el.children[cloneN] as HTMLElement | undefined;
-    if (firstReal) el.scrollLeft = firstReal.offsetLeft - el.offsetLeft;
+    let raf1 = 0;
+    let raf2 = 0;
+    let tries = 0;
+    let cancelled = false;
+    const park = (fromLoad = false) => {
+      if (cancelled) return;
+      const firstReal = el.children[cloneN] as HTMLElement | undefined;
+      if (!firstReal) return;
+      if (fromLoad && el.scrollLeft > 1) return; // user (or an earlier park) moved it
+      const scrollable = el.scrollWidth > el.clientWidth + 1;
+      if (!scrollable && !fromLoad && tries < 90) {
+        tries++;
+        raf1 = requestAnimationFrame(() => park());
+        return;
+      }
+      el.style.scrollSnapType = "none";
+      el.scrollLeft = firstReal.offsetLeft - el.offsetLeft;
+      raf2 = requestAnimationFrame(() => {
+        el.style.scrollSnapType = "";
+      });
+    };
+    const onLoad = () => park(true);
+    // A viewport resize (the audit capture's full-page shot resizes the emulated
+    // viewport) makes Chromium clamp this horizontal scroller back to 0; without
+    // a re-park the strip then sits on the leading clones and `onScroll` wraps it
+    // a full clone-span forward (measured: 365 -> 3833 during the capture shot).
+    // Re-park to the first real item after every resize while the strip is not
+    // already there; the `onScroll` wrapper is suppressed for the same window.
+    const onResize = () => {
+      resizeAt.current = performance.now();
+      const firstReal = el.children[cloneN] as HTMLElement | undefined;
+      if (!firstReal) return;
+      const target = firstReal.offsetLeft - el.offsetLeft;
+      if (Math.abs(el.scrollLeft - target) <= 1) return;
+      el.style.scrollSnapType = "none";
+      el.scrollLeft = target;
+      raf2 = requestAnimationFrame(() => {
+        el.style.scrollSnapType = "";
+      });
+    };
+    raf1 = requestAnimationFrame(() => park());
+    el.addEventListener("load", onLoad, true);
+    window.addEventListener("resize", onResize);
+    return () => {
+      cancelled = true;
+      cancelAnimationFrame(raf1);
+      cancelAnimationFrame(raf2);
+      el.removeEventListener("load", onLoad, true);
+      window.removeEventListener("resize", onResize);
+    };
   }, [cloneN, count, perView]);
 
   // exact item pitch from two adjacent real children (falls back to the old
@@ -219,8 +284,10 @@ export default function GallerySlider({
     const firstTrail = el.children[cloneN + count] as HTMLElement | undefined;
     const span = firstTrail ? firstTrail.offsetLeft - firstReal.offsetLeft : el.scrollWidth;
     // recentre when the strip enters either clone region (not mid-drag — the
-    // pointer math holds an absolute start offset and a jump would fight it)
-    if (!dragging.current && span > 1) {
+    // pointer math holds an absolute start offset and a jump would fight it).
+    // A viewport resize clamps the scroller to 0 first; skip the wrap while a
+    // resize is settling so the resize re-park can restore the real origin.
+    if (!dragging.current && span > 1 && performance.now() - resizeAt.current > 400) {
       if (el.scrollLeft < o - 1) el.scrollLeft += span;
       else if (el.scrollLeft >= o + span - 1) el.scrollLeft -= span;
     }
