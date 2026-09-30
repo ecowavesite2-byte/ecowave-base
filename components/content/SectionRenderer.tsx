@@ -496,7 +496,16 @@ function ImageWidget({ w, locale, mobileBox = false }: { w: WidgetNode; locale: 
                 // item 2 — home cards: korean name first, small english label
                 // below, hiding the desktop "+"; alignment set per card via the
                 // `data-mobile-align` hook in globals.css.
-                homeCard ? "flex flex-col items-start max-[991.98px]:flex-col-reverse overlay-mobile-text" : ""
+                homeCard
+                  ? `flex flex-col items-start max-[991.98px]:flex-col-reverse overlay-mobile-text${
+                      // ko/en card parity: the en twin's cards have no label line
+                      // (authored `<div class="top-t"></div>`), so reserve the
+                      // label's 21.6px line box to keep the title's bottom-anchored
+                      // top offset identical to the ko / original composition
+                      // (title dy 87.5, not 109.1).
+                      title && !label ? " max-[991.98px]:mb-[21.6px]" : ""
+                    }`
+                  : ""
               }`}
             >
               {label && (
@@ -573,15 +582,16 @@ function ImageWidget({ w, locale, mobileBox = false }: { w: WidgetNode; locale: 
  *   `._widget_data.fadeInUp.Right { animation-name: fadeInLeft }`,
  *   `.Left → fadeInRight`, `.Down → fadeInDown`.
  * The current crawl JSON has no direction field (verified: 0 matches), so the
- * measured stop-gap below is an id → animation-name map for the two affected
- * home sections:
- *   - desktop §7 `s20250811004ea868d7376` — Company / R&D / Products / PR Center
- *     cards (all authored `Right` on the live original).
- *   - mobile §회사소개 `s20250911281117781b494` — the four cards alternate
- *     `Right` / `Left` (measured at 390).
- *   - desktop §7 HQ `s202508112787439deffdb` — the three address holder cards
- *     (KOR/CHN/KHM) and the §8 ticker "+" button (`s2025081139ff276cae8d6`) are
- *     authored `Left` → `fadeInRight`.
+ * measured stop-gap below is an id → animation-name map for the affected home
+ * sections:
+ *   - home §3 nav cards `s20250811004ea868d7376` (ko) / `s2025091164c3a6af77cff`
+ *     (en) — Company / R&D / Products / PR Center: the four cards alternate
+ *     `Right` / `Left` / `Right` / `Left` on the original (desktop pc section and
+ *     the 390 mobile twin alike), i.e. fadeInLeft/fadeInRight/fadeInLeft/
+ *     fadeInRight in card order. Both locales are mapped (distinct crawl ids).
+ *   - home §7 HQ `s202508112787439deffdb` (ko) / `s20250911049658b2b95c4` (en) —
+ *     the three address holder cards (KOR/CHN/KHM) and the §8 ticker "+" button
+ *     (`s2025081139ff276cae8d6`) are authored `Left` → `fadeInRight`.
  *   - non-home pages (company.about feature/HQ cards, company.philosophy
  *     §3단계 서비스, company.history year bands) — same dropped direction
  *     classes, measured live 2026-09-24.
@@ -591,16 +601,18 @@ function ImageWidget({ w, locale, mobileBox = false }: { w: WidgetNode; locale: 
  * original's injected rule and the id map can be deleted.
  */
 const ANIM_DIR_OVERRIDES: Record<string, string> = {
-  // home §7 desktop pillar cards (all `Right`)
+  // home §3 nav cards (`s20250811004ea868d7376` ko / `s2025091164c3a6af77cff` en):
+  // the four cards alternate Right/Left/Right/Left on the original, which imweb
+  // remaps to fadeInLeft/fadeInRight/fadeInLeft/fadeInRight in card order. The
+  // crawl dropped the direction class, so both locales' ids are listed here.
   w20250811c8b38b2e2cde9: "fadeInLeft",
-  w20250811d66d9ca495dfe: "fadeInLeft",
+  w20250811d66d9ca495dfe: "fadeInRight",
   w202508114adeb9816c562: "fadeInLeft",
-  w20250811dc0392f259c1d: "fadeInLeft",
-  // home §회사소개 mobile cards (alternating Right/Left)
-  w202509119ecb84eb6e940: "fadeInLeft",
-  w2025091149bbbec8e797d: "fadeInRight",
-  w20250911cb710bccd6323: "fadeInLeft",
-  w20250911edd80efa0562b: "fadeInRight",
+  w20250811dc0392f259c1d: "fadeInRight",
+  w20250911bf7c2442bf380: "fadeInLeft",
+  w20250911cd728a1e85003: "fadeInRight",
+  w20250911fc2bd89200cd0: "fadeInLeft",
+  w202509110d5ee06cb6b53: "fadeInRight",
   // home §7 (Headquarters & Factory Locations) holder cards — the three
   // address cards (KOR / CHN / KHM) are authored `fadeInUp` but carry the
   // dropped `.Left` class, so the original remaps them to `fadeInRight`
@@ -609,11 +621,17 @@ const ANIM_DIR_OVERRIDES: Record<string, string> = {
   w202508128d2c07927c2ff: "fadeInRight",
   w2025081223442f1bcc005: "fadeInRight",
   w20250812061e68ea9a22d: "fadeInRight",
+  // en §7 HQ holders (same design/remap, distinct crawl ids)
+  w20250911aac3a7a86e6c7: "fadeInRight",
+  w20250911151a9167a2d61: "fadeInRight",
+  w20250911b8cb2d96530e1: "fadeInRight",
   // home §8 Notice ticker round "+" button — authored `fadeInUp` with the
   // dropped `.Left` class on its inner `.inline-blocked` wrap; the original
   // remaps it to `fadeInRight` (0.7s ease, delay 0). Desktop-only in practice
   // (the local mobile ticker hides the button column).
   w2025081232232779d83d2: "fadeInRight",
+  // en §8 ticker round "+" button (same remap, distinct crawl id)
+  w202509116ec51187e8ca2: "fadeInRight",
 
   /* ---- non-home pages (pages-motion audit, 2026-09-24) -------------------
    * Same root cause: authored `fadeInUp` + a direction class the crawler
