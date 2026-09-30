@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import PageHero from "@/components/ui/PageHero";
 import { PostDetail } from "@/components/ui/Boards";
-import { ProductTabs, productSiblingNav } from "@/components/products/ProductBoard";
+import { ProductTabs } from "@/components/products/ProductBoard";
 import { buildProductTabs } from "@/components/products/product-tabs";
 import { getBoard, PRODUCT_BOARDS } from "@/lib/content";
 import { boardPostByIdx } from "@/lib/content/boards";
@@ -61,8 +61,6 @@ export default async function ProductDetailPage({
     p ? { idx: p.idx, title: p.title, date: p.date } : null;
   // the detail hero matches the category LIST hero: EN label + KR subtitle
   const meta = await getResolvedProductPage(l, slug);
-  // original mobile hero: same title + subtitle + sibling category nav
-  const mobileNav = productSiblingNav(l, slug);
   // category filter tab row (`전체` + categories) links back to the list page;
   // the detail page keeps the original `전체`-active tab row.
   const base = localeHref(l, `/products/${category}`);
@@ -74,7 +72,6 @@ export default async function ProductDetailPage({
         subtitle={meta.subtitle}
         tabs={hero.tabs}
         big
-        mobileNav={mobileNav}
       />
       <section className="mx-auto max-w-[1280px] px-[15px]">
         {/* measured original detail: tab row (67) + 31px spacer + 15px widget

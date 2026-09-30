@@ -2,7 +2,6 @@ import PageHero from "@/components/ui/PageHero";
 import {
   ProductBoard,
   PRODUCT_PAGE_SIZE,
-  productSiblingNav,
 } from "@/components/products/ProductBoard";
 import {
   buildProductTabs,
@@ -36,8 +35,6 @@ export default async function ProductsPage({
   const board = await getResolvedBoard(l, slug);
   // landing shares the eco-wave board payload (original /32 == /37 boards)
   const meta = await getResolvedProductPage(l, slug);
-  // original mobile hero: same title + subtitle + sibling category nav
-  const mobileNav = productSiblingNav(l, slug);
   const activeId = resolveActiveFilterId(meta.filters, cat);
   const filtered = filterPostsByCategory(board.posts, activeId);
   const page = Math.max(1, Number(pageParam || "1"));
@@ -58,7 +55,6 @@ export default async function ProductsPage({
         subtitle={meta.subtitle}
         tabs={hero.tabs}
         big
-        mobileNav={mobileNav}
       />
       <section className="mx-auto max-w-[1280px] px-[15px]">
         <ProductBoard

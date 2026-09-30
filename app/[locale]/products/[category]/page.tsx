@@ -3,7 +3,6 @@ import PageHero from "@/components/ui/PageHero";
 import {
   ProductBoard,
   PRODUCT_PAGE_SIZE,
-  productSiblingNav,
 } from "@/components/products/ProductBoard";
 import {
   buildProductTabs,
@@ -42,8 +41,6 @@ export default async function ProductBoardPage({
   const board = await getResolvedBoard(l, slug);
   const hero = await heroFor(`/products/${category}`, l);
   const meta = await getResolvedProductPage(l, slug);
-  // original mobile hero: same title + subtitle + sibling category nav
-  const mobileNav = productSiblingNav(l, slug);
   const activeId = resolveActiveFilterId(meta.filters, cat);
   const filtered = filterPostsByCategory(board.posts, activeId);
   const page = Math.max(1, Number(pageParam || "1"));
@@ -64,7 +61,6 @@ export default async function ProductBoardPage({
         subtitle={meta.subtitle}
         tabs={hero.tabs}
         big
-        mobileNav={mobileNav}
       />
       <section className="mx-auto max-w-[1280px] px-[15px]">
         <ProductBoard
