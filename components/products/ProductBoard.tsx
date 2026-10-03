@@ -40,7 +40,10 @@ const PRODUCT_SIBLINGS: { key: string; ko: string; en: string }[] = [
  * board slug (`products/eco-wave`, …) or `products` for the landing, which is
  * the eco-wave board on the original.
  */
-export function productSiblingNav(locale: Locale, activeSlug: string): MobileNavItem[] {
+export function productSiblingNav(
+  locale: Locale,
+  activeSlug: string,
+): MobileNavItem[] {
   const activeKey = activeSlug.replace(/^products\/?/, "") || "eco-wave";
   return PRODUCT_SIBLINGS.map((s) => ({
     label: locale === "ko" ? `${s.ko}(${s.en})` : s.en,
@@ -89,7 +92,9 @@ export function ProductCardGrid({
   emptyLabel: string;
 }) {
   if (posts.length === 0) {
-    return <p className="py-16 text-center text-[15px] text-muted">{emptyLabel}</p>;
+    return (
+      <p className="py-16 text-center text-[15px] text-muted">{emptyLabel}</p>
+    );
   }
   return (
     <div className="-mx-[15px] flex flex-wrap px-[5px] lg:-mx-5 lg:-mt-[5px] lg:px-0">
@@ -113,7 +118,10 @@ export function ProductCardGrid({
               )}
             </div>
             <div className="flex h-[84px] items-start justify-center bg-[#f7f7f7] px-5 pt-5 lg:h-[65px]">
-              <h3 className="w-full truncate text-center text-[15px] font-normal leading-[20px] text-black">
+              {/* Desktop keeps the authored single centred line (`truncate`); the
+                  original's mobile caption is `white-space: normal` and wraps to
+                  2-3 lines. */}
+              <h3 className="w-full truncate text-center text-[15px] font-normal leading-[20px] text-black max-lg:whitespace-normal">
                 {p.title}
               </h3>
             </div>
@@ -126,8 +134,20 @@ export function ProductCardGrid({
 
 function Arrow({ dir }: { dir: "left" | "right" }) {
   return (
-    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
-      {dir === "left" ? <path d="M15 18l-6-6 6-6" /> : <path d="M9 18l6-6-6-6" />}
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      aria-hidden
+    >
+      {dir === "left" ? (
+        <path d="M15 18l-6-6 6-6" />
+      ) : (
+        <path d="M9 18l6-6-6-6" />
+      )}
     </svg>
   );
 }
@@ -148,11 +168,19 @@ export function ProductPagination({
   const dim = "text-[rgba(54,54,54,0.4)] hover:text-[#363636]";
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
   const sep = basePath.includes("?") ? "&" : "?";
-  const hrefFor = (p: number) => (p === 1 ? basePath : `${basePath}${sep}page=${p}`);
+  const hrefFor = (p: number) =>
+    p === 1 ? basePath : `${basePath}${sep}page=${p}`;
   return (
-    <nav className="mt-[20px] mb-0 flex items-center justify-center gap-[3px] lg:mt-[58px] lg:mb-0" aria-label="페이지네이션">
+    <nav
+      className="mt-[20px] mb-0 flex items-center justify-center gap-[3px] lg:mt-[58px] lg:mb-0"
+      aria-label="페이지네이션"
+    >
       {page > 1 ? (
-        <Link href={hrefFor(page - 1)} className={`${item} ${dim}`} aria-label="이전 페이지">
+        <Link
+          href={hrefFor(page - 1)}
+          className={`${item} ${dim}`}
+          aria-label="이전 페이지"
+        >
           <Arrow dir="left" />
         </Link>
       ) : (
@@ -162,7 +190,11 @@ export function ProductPagination({
       )}
       {pages.map((p) =>
         p === page ? (
-          <span key={p} className={`${item} font-bold text-[#363636]`} aria-current="page">
+          <span
+            key={p}
+            className={`${item} font-bold text-[#363636]`}
+            aria-current="page"
+          >
             {p}
           </span>
         ) : (
@@ -172,7 +204,11 @@ export function ProductPagination({
         ),
       )}
       {page < totalPages ? (
-        <Link href={hrefFor(page + 1)} className={`${item} ${dim}`} aria-label="다음 페이지">
+        <Link
+          href={hrefFor(page + 1)}
+          className={`${item} ${dim}`}
+          aria-label="다음 페이지"
+        >
           <Arrow dir="right" />
         </Link>
       ) : (
@@ -214,18 +250,31 @@ export function ProductBoard({
           (8px spacer + 16px divider row + 10px cell padding on the original);
           desktop keeps its measured 31px spacer */}
       <div aria-hidden className="h-[21px] min-[992px]:h-[31px]" />
-      <ProductCardGrid posts={posts} boardHref={boardHref} emptyLabel={emptyLabel} />
+      <ProductCardGrid
+        posts={posts}
+        boardHref={boardHref}
+        emptyLabel={emptyLabel}
+      />
       {/* original `.li_footer` carries a 10px top margin under the grid on
           mobile (measured); desktop has no such row */}
-      <div aria-hidden className="h-[10px] min-[992px]:h-0" />
-      <ProductPagination page={page} totalPages={totalPages} basePath={paginationBase} />
-      {/* original board section tail (measured rows, mobile): paginated =
-          10px + 20px + 24px nav + 0px + 30px = 84px; unpaginated =
-          10px + 73px = 83px. The mobile paginated tail was 20px + 80px = 100px
-          after the nav (wave-2: reduced to 0 + 30px so the board lands in the
-          site's ~150-190px trailing token instead of ~249px). Desktop keeps
-          its measured 181/200px. */}
-      <div aria-hidden className={paginated ? "h-[30px] lg:h-[181px]" : "h-[73px] lg:h-[200px]"} />
+      <div aria-hidden className="h-[25px] min-[992px]:h-0" />
+      <ProductPagination
+        page={page}
+        totalPages={totalPages}
+        basePath={paginationBase}
+      />
+      {/* original board section tail (mobile). Re-measured for parity: the
+          paginated board needs 88px after the pager and the unpaginated one
+          78px so the section height matches the original (the earlier wave-2
+          reduction to 30/73 landed the board in a ~150-190px trailing token but
+          left every product page ~20-70px short, pushing the footer up). Desktop
+          keeps its measured 181/200px. */}
+      <div
+        aria-hidden
+        className={
+          paginated ? "h-[88px] lg:h-[181px]" : "h-[78px] lg:h-[200px]"
+        }
+      />
     </>
   );
 }
