@@ -41,7 +41,7 @@ export default function FacilitiesTabs({ tabs }: { tabs: FacilitiesTab[] }) {
               type="button"
               onClick={() => setActive(i)}
               aria-pressed={isActive}
-              className={`h-[51px] w-[250px] rounded-full border border-accent text-[18px] transition-all duration-300 ease-[ease] max-md:h-auto max-md:min-h-[31px] max-md:w-auto max-md:max-w-full max-md:whitespace-normal max-md:px-3 max-md:text-[12px] max-md:leading-[15px] ${
+              className={`h-[51px] w-[250px] rounded-full border border-accent text-[18px] transition-all duration-300 ease-[ease] max-md:h-auto max-md:min-h-[31px] max-md:w-[150px] max-md:max-w-full max-md:whitespace-normal max-md:px-[5px] max-md:py-[5px] max-md:text-[12px] max-md:leading-[19.2px] ${
                 isActive
                   ? "bg-accent text-white max-md:font-bold"
                   : "bg-[#F9F9F9] text-accent"
@@ -53,7 +53,13 @@ export default function FacilitiesTabs({ tabs }: { tabs: FacilitiesTab[] }) {
         })}
       </div>
 
-      <div className="mx-auto mb-[16px] mt-[69px] grid max-w-[1250px] grid-cols-2 gap-5 px-5 py-[10px] min-[992px]:grid-cols-5 min-[992px]:px-0">
+      {/* globals.css hook `data-facility-grid`: the mobile cell pitch (the
+          original's `.item_gallary` is 185 wide with a 5px inner pad and no
+          gap, i.e. images 175 wide at x15/x200). */}
+      <div
+        data-facility-grid="1"
+        className="mx-auto mb-[16px] mt-[69px] grid max-w-[1250px] grid-cols-2 gap-5 px-5 py-[10px] min-[992px]:grid-cols-5 min-[992px]:px-0"
+      >
         {current.images.map((src, i) => (
           // eslint-disable-next-line @next/next/no-img-element
           <img

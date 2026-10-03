@@ -249,6 +249,15 @@ a {
         border: 0;
         border-bottom: 1px solid #ececec;
     }
+    /* rnd.facilities counter tables (`tableHover`, a facilities-only class): the
+       mobile original keeps the authored 8px padding and 1.6 leading (15/24);
+       ours fell back to the base `.rich-text td { padding: 8px 10px;
+       line-height: 1.28 }`. */
+    .rich-text table.tableHover td,
+    .rich-text table.tableHover th {
+        padding: 8px;
+        line-height: 1.6;
+    }
 }
 /* Desktop (>=992) counterpart of the corrections above — measured on the live
    rnd / rnd.technology / rnd.facilities originals at 1440: every
@@ -810,6 +819,20 @@ section[data-era="1"] [data-aside-pt] img {
    company.global ko/en carry this widget. */
 .widget.line._hide {
     display: none;
+}
+
+/* rnd.facilities tab-pane gallery (component hook `data-facility-grid`). The
+   original's `.item_gallary` is 185 wide with a 5px inner pad and NO grid gap,
+   so its visible 175px images sit at x15 / x200. Our Tailwind `px-5 gap-5`
+   resolved to px10 / col-gap20 (images at x10 / x205), shifting every detailed
+   photo sideways. Pin the mobile pitch to the original's; desktop (>=992) keeps
+   the authored 5-column / 20px-gap grid. */
+@media (max-width: 991px) {
+    .grid[data-facility-grid="1"] {
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+        column-gap: 10px !important;
+    }
 }
 
 /* mobile-spacing wave 1, item C — home §4 친환경 band (globals.css hook
