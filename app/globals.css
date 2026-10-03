@@ -221,6 +221,15 @@ a {
     border: 1px solid #ddd;
     padding: 8px 10px;
 }
+/* `table.noBorder` means exactly that — the original renders it borderless at
+   every width (company.global's HQ contact block and company.about's §정수기
+   table, the only two users). Our shared `.rich-text td/th { border: 1px #ddd }`
+   was drawing a grey grid the original does not have. */
+.rich-text table.noBorder,
+.rich-text table.noBorder td,
+.rich-text table.noBorder th {
+    border: 0;
+}
 /* imweb table cell borders at mobile — measured on the live rnd/rnd.technology/
    rnd.facilities originals at 390: cells carry a single 1px #ECECEC hairline
    under each row (no side/top rules), where our 1px #DDD box showed vertical
@@ -550,6 +559,18 @@ section[data-era="1"] [data-aside-pt] img {
     }
 }
 
+/* Same band at desktop: the original applies imweb's `.inside .widget`
+   `margin: 15px 0` to each top-level widget, so its first heading sits 15px
+   lower than ours (measured at 1440: off-in-section 149 vs our 134). The rows
+   carry authored min-heights (124/175/124) at >=1024, which absorb the margin,
+   so the band height is unchanged (423). */
+@media (min-width: 992px) {
+    section[data-intro-band="1"] .imweb-col > div:first-child {
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+}
+
 /* ── company.philosophy per-widget skins + box model ────────────────────────
    design/audit/company-philosophy-audit.md §2D/§3. The crawler dropped the
    generated per-widget skins; these reproduce them. P1 (radii) is paint-only;
@@ -715,13 +736,59 @@ section[data-era="1"] [data-aside-pt] img {
         height: 450px !important;
     }
     /* The original renders the TEL/FAX/EMAIL block as its own mobile section
-       (208px: the 3 stacked rows + the section's top/bottom band) placed AFTER the
-       map; our single-source tree keeps the pc table inside the HQ section. The
-       rows match (pitch 46.8 vs the original's 45); restore the section band so the
-       HQ+contact block measures 826 like the original (measured −47). */
+       (the 3 stacked rows + the section's top/bottom band); our single-source
+       tree keeps the pc table inside the HQ section, now *after* the map (see
+       the order block below). Re-calibrated after that swap: the rows match the
+       original exactly (h45, pitch 45) but sat 13px low, and the next branch
+       24px high. `10px/60px` lands TEL/EMAIL on the original (1267/1357) and
+       the China branch at 1501 (orig 1502). */
     section[data-global-contact="1"] .rich-text:has(table.noBorder) {
-        padding-top: 23.5px;
-        padding-bottom: 23.5px;
+        padding-top: 10px;
+        padding-bottom: 60px;
+    }
+    /* Order — the original's mobile HQ twin stacks heading/address -> MAP ->
+       TEL/FAX/EMAIL, while its pc layout (and our desktop) keeps the table
+       before the map. Our single source follows the pc order, so swap the two
+       rows at mobile only (the remaining rows keep their relative order). */
+    section[data-global-contact="1"] > div > div:has(> .imweb-row) {
+        display: flex;
+        flex-direction: column;
+    }
+    section[data-global-contact="1"]
+        > div
+        > div:has(> .imweb-row)
+        > .imweb-row:nth-child(1) {
+        order: 1; /* top spacer */
+    }
+    section[data-global-contact="1"]
+        > div
+        > div:has(> .imweb-row)
+        > .imweb-row:nth-child(2) {
+        order: 2; /* 에코웨이브 본사 label + address */
+    }
+    section[data-global-contact="1"]
+        > div
+        > div:has(> .imweb-row)
+        > .imweb-row:nth-child(3) {
+        order: 4; /* TEL/FAX/EMAIL -> after the map */
+    }
+    section[data-global-contact="1"]
+        > div
+        > div:has(> .imweb-row)
+        > .imweb-row:nth-child(4) {
+        order: 3; /* Google map -> before the contact table */
+    }
+    section[data-global-contact="1"]
+        > div
+        > div:has(> .imweb-row)
+        > .imweb-row:nth-child(5) {
+        order: 5;
+    }
+    section[data-global-contact="1"]
+        > div
+        > div:has(> .imweb-row)
+        > .imweb-row:nth-child(6) {
+        order: 6;
     }
 }
 
@@ -735,6 +802,14 @@ section[data-era="1"] [data-aside-pt] img {
     section[data-branch="1"] .rich-text p:has(> iframe) {
         margin-top: 16px;
     }
+}
+
+/* imweb `_hide` line widgets render 0-height in the original (the inner `<hr>`
+   carries no border). Tailwind's preflight gives ours a 1px `hr`, which showed
+   as a stray divider after the company.global HQ contact block. Only
+   company.global ko/en carry this widget. */
+.widget.line._hide {
+    display: none;
 }
 
 /* mobile-spacing wave 1, item C — home §4 친환경 band (globals.css hook
