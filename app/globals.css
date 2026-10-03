@@ -436,12 +436,29 @@ a {
     }
 }
 
-/* H2 — company.history timeline type scale (globals.css hook `data-era`; see
+/* H2/H4 — company.history timeline (globals.css hook `data-era`; see
    MOBILE_ASIDE_SECTION_IDS / isHistoryEra in SectionRenderer.tsx). Measured live
-   at 390: the original downscales the authored `font-size: 18px; line-height: 2`
-   bullets to 15px/18px (1.2) and runs the 20px (30px-authored) year heads at 1.2
-   (24px) where we inherit `.rich-text h6 { 1.4 }`. The authored VALUES are
-   unchanged; the structured `eras` backend only needs this style scoping. */
+   at 390 against /19:
+   - the authored `font-size: 18px; line-height: 2` bullets render 15px/18px
+     (1.2) and the 30px-authored year heads run 1.2 (24px) where the inherited
+     `.rich-text h6 { 1.4 }` would give 28px;
+   - the range label (authored 24px) renders 16px/19.2px — our `.rich-text h6`
+     left it at 24px/48px, visibly larger than the original;
+   - every year row opens with an `<hr>` the original styles `margin: 20px 0`
+     (Tailwind preflight zeroes it, so our year rows sat ~30px closer — the
+     main reason our timeline read tighter than the original);
+   - the era's stacked photo belongs 61px below the section top for era1 but
+     only 7px for era2/3 (the original puts its extra ~58px pre-photo spacer row
+     on the FIRST era only), and the original's mobile timeline has no 45px top
+     spacer where our reused pc layout keeps one (renders 15px).
+   Together these reproduce the original's era pitch (photo tops 707/1955/3101)
+   and the 73px inter-era gap, and hold the page height. */
+/* The year separator margin is the same at every width (verified at 1440 too:
+   the original's `<hr>` computes 20px/20px, while Tailwind preflight zeroes it). */
+section[data-era="1"] .rich-text hr {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
 @media (max-width: 991px) {
     section[data-era="1"] .rich-text span[style*="font-size: 18px"] {
         font-size: 15px !important;
@@ -450,14 +467,32 @@ a {
     section[data-era="1"] .rich-text h6 span[style*="font-size: 30px"] {
         line-height: 1.2 !important;
     }
-    /* Coordinated height: the corrected type shortens each era block; the
-       original additionally renders the deleted mobile timeline variants (a
-       separate photo section + its padding) which measured ~68px more per era
-       (orig era blocks 1254/1094/1160 vs ours 1152/1041/1112). Restore the
-       measured band so the history page height matches and the tail aligns. */
-    section[data-era="1"] {
-        padding-bottom: 68px;
+    /* range label: authored 24px -> the original's mobile 16px / 1.2 */
+    section[data-era="1"] .rich-text h6 span[style*="font-size: 24px"] {
+        font-size: 16px !important;
+        line-height: 1.2 !important;
     }
+    /* era2/3 stack their photo directly under the section top (era1 keeps the
+       crawled pre-photo band). `!important` beats the `-60px` aside-pt cut above. */
+    section[data-era="1"] ~ section[data-era="1"] [data-aside-pt] {
+        padding-top: 7px !important;
+    }
+    /* the reused pc layout's 45px top spacer has no mobile counterpart */
+    section[data-era="1"] .spacer {
+        height: 15px;
+    }
+}
+
+/* H5 — company.history era photos carry the original's per-widget 7px radius
+   (imweb emits `#w<id> .widget.image .img_wrap, ... .widget.image img {
+   border-radius: 7px }` per widget). Verified at 390 AND 1440. A survey of all
+   20 original pages found only the era photos (7px) and one philosophy vision
+   image (10px, already covered by the P1 rule above) rounded — every other
+   image widget is 0px, so this stays scoped to `data-era`. The wrapper is
+   `overflow:hidden`, so both it and the `<img>` need the radius. */
+section[data-era="1"] [data-aside-pt] div:has(> img),
+section[data-era="1"] [data-aside-pt] img {
+    border-radius: 7px;
 }
 
 /* C1 — footer info lines. The footer text widget authors `font-size: 14px;
