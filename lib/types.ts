@@ -45,14 +45,37 @@ export type WidgetNode = {
   mobileSrc?: string | null | false;
   /**
    * Carousel auto-advance in ms, consumed by the renderer (gallery `slide`
-   * layouts). Crawl-emitted; 0/undefined = no autoplay.
+   * layouts). Crawl-emitted; 0/undefined = no autoplay. This is the owl
+   * `autoplayTimeout` (the WAIT between transitions).
    */
   autoplayMs?: number;
+  /**
+   * Carousel transition duration in ms (owl `smartSpeed`). With
+   * `continuousAutoplay` it becomes the per-page scroll period; for a discrete
+   * carousel it is the slide animation length. Crawl-emitted on `slide` layouts.
+   */
+  transitionMs?: number;
+  /**
+   * Items advanced per autoplay step (owl `slideBy`).
+   */
+  slideBy?: number;
+  /**
+   * True when the original's gallery has no meaningful wait between transitions
+   * (owl `autoplayTimeout` ≈ 0 with a long `smartSpeed`) — i.e. a continuous,
+   * slow auto-scroll (company.about §4). The renderer then scrolls continuously
+   * at one page per `transitionMs` instead of a discrete `autoplayMs` jump.
+   */
+  continuousAutoplay?: boolean;
   /** Renderer variant for a structured gallery block. */
   galleryVariant?: "caption" | "plain";
 };
 
-export type ColNode = { kind: "col"; grid: string; children: Node[]; _h?: number };
+export type ColNode = {
+  kind: "col";
+  grid: string;
+  children: Node[];
+  _h?: number;
+};
 export type RowNode = {
   kind: "row";
   grid: string;
@@ -79,7 +102,12 @@ export type LocationCard = { lines: string[] };
 /** One year block of a company.history era (item text WITHOUT the leading "· "). */
 export type EraYear = { year: string; items: string[] };
 /** One timeline era of the company.history page (structured `eras` kind). */
-export type EraEntry = { range: string; tagline: string; image: string; years: EraYear[] };
+export type EraEntry = {
+  range: string;
+  tagline: string;
+  image: string;
+  years: EraYear[];
+};
 /**
  * One entry of the company.global page (structured `locations` kind): item 0 is
  * the HQ slot, items 1+ are branch offices. One uniform field set.
@@ -97,7 +125,11 @@ export type GlobalLocation = {
 /** Per-item fields a structured media block can expose. */
 export type GalleryFieldName = "image" | "title" | "desc";
 /** One item of a structured `gallery` / `aboutCards` block (`org = thumb = image`). */
-export type StructuredMediaItem = { image: string; title: string; desc: string };
+export type StructuredMediaItem = {
+  image: string;
+  title: string;
+  desc: string;
+};
 /** Which fields are editable for one structured media block (+ optional cap). */
 export interface GalleryBlockConfig {
   fields: GalleryFieldName[];
@@ -129,7 +161,11 @@ export type FacilityTabs = { id: string; name: string; images: string[] };
 /** One label/body line of a `techFeatures` item's text table. */
 export type TechFeatureRow = { label: string; body: string };
 /** One image + text-table block of a `techFeatures` item group. */
-export type TechFeatureItem = { image: string; heading: string; rows: TechFeatureRow[] };
+export type TechFeatureItem = {
+  image: string;
+  heading: string;
+  rows: TechFeatureRow[];
+};
 /** One fixed item group of a `techFeatures` payload (1..12 items). */
 export type TechFeatureBlock = { items: TechFeatureItem[] };
 /**

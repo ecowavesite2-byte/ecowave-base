@@ -837,7 +837,10 @@
                   "gridN": null,
                   "itemW": 315,
                   "itemH": 282,
-                  "autoplayMs": 4500,
+                  "autoplayMs": 31,
+                  "transitionMs": 10000,
+                  "slideBy": 2,
+                  "continuousAutoplay": true,
                   "galleryVariant": "caption",
                   "items": [
                     {
@@ -1345,6 +1348,9 @@
                   "itemW": 252,
                   "itemH": 332,
                   "autoplayMs": 5000,
+                  "transitionMs": 200,
+                  "slideBy": 2,
+                  "continuousAutoplay": false,
                   "galleryVariant": "plain",
                   "items": [
                     {

@@ -70,6 +70,7 @@ export default function GallerySlider({
   pad = 5,
   arrows = true,
   autoplayMs = 0,
+  continuousMs = 0,
 }: {
   count: number;
   children: ReactNode;
@@ -87,6 +88,14 @@ export default function GallerySlider({
    * `prefers-reduced-motion: reduce` (render at rest, no timer).
    */
   autoplayMs?: number;
+  /**
+   * Continuous slow auto-scroll: advance one page per `continuousMs`, without a
+   * discrete pause (owl `smartSpeed` with a ≈0 `autoplayTimeout`). The about §4
+   * filter gallery autoplays this way on the original (`autoplayTimeout:"31"`,
+   * `smartSpeed:10000`, `slideBy:2`), which is a smooth continuous drift rather
+   * than a page-by-page jump. Opt-in; 0/undefined = off.
+   */
+  continuousMs?: number;
 }) {
   const track = useRef<HTMLDivElement>(null);
   const [perView, setPerView] = useState(1);
@@ -102,7 +111,9 @@ export default function GallerySlider({
    * the fixed-width pair gets the owl 2-up mobile layout.
    */
   const fixedItems = arrows === false || pad >= 10;
-  const scope = (useId().replace(/[^a-zA-Z0-9_-]/g, "") || "gs") + (fixedItems ? "-fx" : "");
+  const scope =
+    (useId().replace(/[^a-zA-Z0-9_-]/g, "") || "gs") +
+    (fixedItems ? "-fx" : "");
 
   // clone one page of items at each end for the owl loop wrap
   const kids = Children.toArray(children);
@@ -232,7 +243,11 @@ export default function GallerySlider({
     const p = wrap(page, dotCount);
     const idx = Math.min(count - 1, p * perView);
     const target = el.children[cloneN + idx] as HTMLElement | undefined;
-    if (target) el.scrollTo({ left: target.offsetLeft - el.offsetLeft, behavior: "smooth" });
+    if (target)
+      el.scrollTo({
+        left: target.offsetLeft - el.offsetLeft,
+        behavior: "smooth",
+      });
     activeRef.current = p;
     setActive(p);
   };
@@ -241,9 +256,16 @@ export default function GallerySlider({
   const nudge = (dir: -1 | 1) => {
     const el = track.current;
     if (!el) return;
-    const idx = wrap(Math.round((el.scrollLeft - origin()) / unit()) + dir, count);
+    const idx = wrap(
+      Math.round((el.scrollLeft - origin()) / unit()) + dir,
+      count,
+    );
     const target = el.children[cloneN + idx] as HTMLElement | undefined;
-    if (target) el.scrollTo({ left: target.offsetLeft - el.offsetLeft, behavior: "smooth" });
+    if (target)
+      el.scrollTo({
+        left: target.offsetLeft - el.offsetLeft,
+        behavior: "smooth",
+      });
   };
 
   // owl `auto_change` (home §5 mobile gallery): advance one page per interval,
@@ -266,6 +288,7 @@ export default function GallerySlider({
   // when the interaction ends. Kept below the drag refs so the guard can read
   // `dragging.current`.
   useEffect(() => {
+    if (continuousMs) return;
     if (!autoplayMs || dotCount <= 1) return;
     if (paused || dragging.current) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -273,7 +296,35 @@ export default function GallerySlider({
       goToRef.current(activeRef.current + 1);
     }, autoplayMs);
     return () => clearInterval(t);
-  }, [autoplayMs, dotCount, paused]);
+  }, [autoplayMs, continuousMs, dotCount, paused]);
+
+  // Continuous slow auto-scroll (owl `smartSpeed` with a ≈0 wait): drift one
+  // page per `continuousMs`, looping through the clone recentre in `onScroll`.
+  // Opt-in per widget (company.about §4). Off under reduced motion; pauses on
+  // hover/focus (and while a drag is in flight) exactly like the discrete path.
+  useEffect(() => {
+    if (!continuousMs || dotCount <= 1) return;
+    if (paused) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const el = track.current;
+    if (!el) return;
+    let raf = 0;
+    let last = performance.now();
+    const tick = (now: number) => {
+      const dt = Math.min(64, now - last);
+      last = now;
+      if (!dragging.current) {
+        const first = el.firstElementChild as HTMLElement | null;
+        const pitch = first ? first.offsetWidth + GAP : el.clientWidth;
+        const pagePx = perView * pitch;
+        const speed = pagePx / (continuousMs / 1000); // px/s: one page per continuousMs
+        el.scrollLeft += (speed * dt) / 1000;
+      }
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [continuousMs, dotCount, paused, perView]);
 
   const onScroll = () => {
     const el = track.current;
@@ -282,12 +333,18 @@ export default function GallerySlider({
     if (!firstReal) return;
     const o = firstReal.offsetLeft - el.offsetLeft;
     const firstTrail = el.children[cloneN + count] as HTMLElement | undefined;
-    const span = firstTrail ? firstTrail.offsetLeft - firstReal.offsetLeft : el.scrollWidth;
+    const span = firstTrail
+      ? firstTrail.offsetLeft - firstReal.offsetLeft
+      : el.scrollWidth;
     // recentre when the strip enters either clone region (not mid-drag — the
     // pointer math holds an absolute start offset and a jump would fight it).
     // A viewport resize clamps the scroller to 0 first; skip the wrap while a
     // resize is settling so the resize re-park can restore the real origin.
-    if (!dragging.current && span > 1 && performance.now() - resizeAt.current > 400) {
+    if (
+      !dragging.current &&
+      span > 1 &&
+      performance.now() - resizeAt.current > 400
+    ) {
       if (el.scrollLeft < o - 1) el.scrollLeft += span;
       else if (el.scrollLeft >= o + span - 1) el.scrollLeft -= span;
     }
@@ -322,7 +379,11 @@ export default function GallerySlider({
     const o = origin();
     const idx = wrap(Math.round((el.scrollLeft - o) / unit()), count);
     const target = el.children[cloneN + idx] as HTMLElement | undefined;
-    if (target) el.scrollTo({ left: target.offsetLeft - el.offsetLeft, behavior: "smooth" });
+    if (target)
+      el.scrollTo({
+        left: target.offsetLeft - el.offsetLeft,
+        behavior: "smooth",
+      });
     if (moved.current) {
       // swallow the click the browser fires after this drag (same task)
       window.setTimeout(() => {
@@ -379,7 +440,8 @@ export default function GallerySlider({
     }
     el.scrollLeft = d.left - dx;
   };
-  const endDrag = (e: ReactPointerEvent<HTMLDivElement>) => finishDrag(e.pointerId);
+  const endDrag = (e: ReactPointerEvent<HTMLDivElement>) =>
+    finishDrag(e.pointerId);
   const onClickCapture = (e: ReactMouseEvent<HTMLDivElement>) => {
     if (!moved.current) return;
     e.preventDefault();
@@ -420,7 +482,7 @@ export default function GallerySlider({
         onPointerCancel={endDrag}
         onDragStart={(e) => e.preventDefault()}
         onClickCapture={onClickCapture}
-        className={`flex snap-x gap-[5px] overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden min-[992px]:gap-0 ${bleed}`}
+        className={`flex ${continuousMs ? "" : "snap-x"} gap-[5px] overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden min-[992px]:gap-0 ${bleed}`}
       >
         {cloneN > 0 &&
           kids.slice(kids.length - cloneN).map((c, i) => (
@@ -474,7 +536,14 @@ export default function GallerySlider({
             onClick={() => nudge(-1)}
             className={`${arrowDesktop} min-[992px]:left-[15px]`}
           >
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg
+              width="12"
+              height="12"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
               <path d="M15 18l-6-6 6-6" />
             </svg>
           </button>
@@ -484,7 +553,14 @@ export default function GallerySlider({
             onClick={() => nudge(1)}
             className={`${arrowDesktop} min-[992px]:right-[15px]`}
           >
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg
+              width="12"
+              height="12"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
               <path d="M9 18l6-6-6-6" />
             </svg>
           </button>

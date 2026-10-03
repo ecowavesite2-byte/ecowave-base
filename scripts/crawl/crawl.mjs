@@ -101,13 +101,13 @@ function EXTRACT_PAGE() {
       c.querySelectorAll("script,style,noscript").forEach((e) => e.remove());
       return c;
     };
-          // imweb widget animation attrs: name + duration + delay
-          const animAttrs = () => ({
-            anim: meta.getAttribute("data-widget-anim") || "none",
-            animDur: meta.getAttribute("data-widget-anim-duration") || null,
-            animDelay: meta.getAttribute("data-widget-anim-delay") || null,
-          });
-          switch (type) {
+    // imweb widget animation attrs: name + duration + delay
+    const animAttrs = () => ({
+      anim: meta.getAttribute("data-widget-anim") || "none",
+      animDur: meta.getAttribute("data-widget-anim-duration") || null,
+      animDelay: meta.getAttribute("data-widget-anim-delay") || null,
+    });
+    switch (type) {
       case "menu_title": {
         const h = meta.querySelector("h1,h2,h3,h4,.widget_menu_title");
         return {
@@ -132,9 +132,7 @@ function EXTRACT_PAGE() {
         const hoverEl = meta.querySelector("._hover_image");
         const linkEl = meta.querySelector("a[href]");
         const hoverMatch = hoverEl
-          ? hoverEl.style.backgroundImage.match(
-              /url\(["']?([^"')]+)["']?\)/,
-            )
+          ? hoverEl.style.backgroundImage.match(/url\(["']?([^"')]+)["']?\)/)
           : null;
         return {
           type: "image",
@@ -168,14 +166,20 @@ function EXTRACT_PAGE() {
         const itemBox = owlItem
           ? owlItem.querySelector(".item_gallary, ._item") || owlItem
           : meta.querySelector("._item, .item_gallary, .gallery_item");
-        const itemW = itemBox ? Math.round(itemBox.getBoundingClientRect().width) : null;
-        const itemH = itemBox ? Math.round(itemBox.getBoundingClientRect().height) : null;
+        const itemW = itemBox
+          ? Math.round(itemBox.getBoundingClientRect().width)
+          : null;
+        const itemH = itemBox
+          ? Math.round(itemBox.getBoundingClientRect().height)
+          : null;
         // Durable autoplay: read the owl carousel options the runtime armed
         // (`autoplay ? autoplayTimeout : 0`). The renderer consumes
         // `widget.autoplayMs` (SectionRenderer: `autoplayMs={w.autoplayMs ?? 0}`);
         // absent options mean a manual gallery. Only slide layouts emit the key
         // so grid JSON stays byte-identical.
         let autoplayMs = 0;
+        let transitionMs = 0;
+        let slideBy = 0;
         if (layout === "slide") {
           try {
             const jq = window.jQuery || window.$;
@@ -189,7 +193,11 @@ function EXTRACT_PAGE() {
                 const owl = jq(el).data("owlCarousel");
                 const opts = owl && owl.options;
                 if (opts && "autoplay" in opts) {
-                  autoplayMs = opts.autoplay ? Number(opts.autoplayTimeout) || 0 : 0;
+                  autoplayMs = opts.autoplay
+                    ? Number(opts.autoplayTimeout) || 0
+                    : 0;
+                  transitionMs = Number(opts.smartSpeed) || 0;
+                  slideBy = Number(opts.slideBy) || 0;
                   break;
                 }
               }
@@ -198,6 +206,12 @@ function EXTRACT_PAGE() {
             /* owl options unavailable (non-owl gallery / jQuery missing) — manual */
           }
         }
+        // A "continuous" gallery has no meaningful wait between transitions
+        // (owl `autoplayTimeout` ≈ 0) while a long `smartSpeed` drives a slow,
+        // uninterrupted auto-scroll (company.about §4: timeout 31ms, smartSpeed
+        // 10000). The renderer then scrolls one page per `transitionMs`.
+        const continuousAutoplay =
+          transitionMs >= 1000 && autoplayMs < transitionMs / 10;
         const items = [];
         const seen = new Set();
         meta
@@ -232,12 +246,18 @@ function EXTRACT_PAGE() {
           gridN,
           itemW,
           itemH,
-          ...(layout === "slide" ? { autoplayMs } : {}),
+          ...(layout === "slide"
+            ? { autoplayMs, transitionMs, slideBy, continuousAutoplay }
+            : {}),
           items,
         };
       }
       case "code": {
-        return { type: "code", html: cleanClone(meta).innerHTML, anim: meta.getAttribute("data-widget-anim") || "none" };
+        return {
+          type: "code",
+          html: cleanClone(meta).innerHTML,
+          anim: meta.getAttribute("data-widget-anim") || "none",
+        };
       }
       case "video": {
         const ifr = meta.querySelector("iframe");
@@ -303,8 +323,15 @@ function EXTRACT_PAGE() {
         const firstWidget = el.querySelector("[data-widget-type]");
         let pad;
         if (firstWidget) {
-          const holder = firstWidget.closest('[doz_type="widget"]') || firstWidget;
-          pad = Math.max(0, Math.min(30, Math.round(holder.getBoundingClientRect().x - rowRect.x)));
+          const holder =
+            firstWidget.closest('[doz_type="widget"]') || firstWidget;
+          pad = Math.max(
+            0,
+            Math.min(
+              30,
+              Math.round(holder.getBoundingClientRect().x - rowRect.x),
+            ),
+          );
         }
         out.push({
           kind: "row",

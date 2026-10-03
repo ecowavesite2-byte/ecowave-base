@@ -8,6 +8,10 @@ import type { ColNode, Node, RowNode, Section, WidgetNode } from "@/lib/types";
 import { defaultLocale, localeHref, type Locale } from "@/lib/i18n";
 import { routeForSource } from "@/lib/routes";
 import { parseOverlayAlt } from "@/lib/content/overlay-alt";
+import {
+  SHARED_INTROS,
+  isSharedIntroSection,
+} from "@/lib/content/shared-intro";
 
 /* ---------------- helpers ---------------- */
 
@@ -109,7 +113,9 @@ function fixResponsiveTables(html: string): string {
   // whole block is behind `max-width:991px`). Verified live before editing:
   // rnd §3 1270 -> 1378 (orig 1371), §4 1239 -> 1323 (orig 1316) and the §2
   // table 221 -> 281 = the original exactly (rows 94/93/93).
-  return /class="[^"]*\btableHorizontal\b/.test(out) ? TABLE_HORIZONTAL_MOBILE_CSS + out : out;
+  return /class="[^"]*\btableHorizontal\b/.test(out)
+    ? TABLE_HORIZONTAL_MOBILE_CSS + out
+    : out;
 }
 
 /* ---------------- widgets ---------------- */
@@ -122,7 +128,12 @@ export function GalleryCard({
   captionBand = false,
   className = "",
 }: {
-  item: { org?: string | null; thumb?: string | null; title?: string; desc?: string };
+  item: {
+    org?: string | null;
+    thumb?: string | null;
+    title?: string;
+    desc?: string;
+  };
   /** measured slide-item box from the crawl (px) */
   w?: number | null;
   h?: number | null;
@@ -150,20 +161,34 @@ export function GalleryCard({
 }) {
   const src = item.org || item.thumb;
   if (!src) return null;
-  const boxStyle = !fill && (w || h) ? { width: w ? `${w}px` : undefined, height: h ? `${h}px` : undefined } : undefined;
+  const boxStyle =
+    !fill && (w || h)
+      ? { width: w ? `${w}px` : undefined, height: h ? `${h}px` : undefined }
+      : undefined;
   if (captionBand === "icon") {
     return (
       <figure
-        className={`flex flex-col bg-white p-[5px] max-[991.98px]:p-[2.5px] ${
+        className={`flex flex-col p-[5px] max-[991.98px]:p-[2.5px] ${
           fill ? "h-full" : "shrink-0"
         } ${className}`}
         style={boxStyle}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={src} alt={item.title || ""} className="aspect-square w-full object-contain" loading="lazy" />
-        <figcaption className="flex flex-col items-center justify-center bg-white py-[10px] text-center">
-          {item.title && <p className="text-[16px] leading-[1.6] text-[#212121]">{item.title}</p>}
-          {item.desc && <p className="text-[14px] leading-[1.6] text-[#999]">{item.desc}</p>}
+        <img
+          src={src}
+          alt={item.title || ""}
+          className="aspect-square w-full object-contain"
+          loading="lazy"
+        />
+        <figcaption className="flex flex-col items-center justify-center py-[10px] text-center">
+          {item.title && (
+            <p className="text-[16px] leading-[1.6] text-[#212121]">
+              {item.title}
+            </p>
+          )}
+          {item.desc && (
+            <p className="text-[14px] leading-[1.6] text-[#999]">{item.desc}</p>
+          )}
         </figcaption>
       </figure>
     );
@@ -184,8 +209,16 @@ export function GalleryCard({
           loading="lazy"
         />
         <figcaption className="flex min-h-[66px] shrink-0 flex-col items-center justify-center px-[20px] py-[20px] text-center">
-          {item.title && <p className="text-[16px] font-normal leading-[1.6] text-[#212121]">{item.title}</p>}
-          {item.desc && <p className="text-[14px] leading-[1.6] text-[#212121]">{item.desc}</p>}
+          {item.title && (
+            <p className="text-[16px] font-normal leading-[1.6] text-[#212121]">
+              {item.title}
+            </p>
+          )}
+          {item.desc && (
+            <p className="text-[14px] leading-[1.6] text-[#212121]">
+              {item.desc}
+            </p>
+          )}
         </figcaption>
       </figure>
     );
@@ -199,7 +232,11 @@ export function GalleryCard({
       <img
         src={src}
         alt={item.title || ""}
-        className={fill || (w && h) ? "h-full w-full object-cover" : "aspect-square w-full object-cover"}
+        className={
+          fill || (w && h)
+            ? "h-full w-full object-cover"
+            : "aspect-square w-full object-cover"
+        }
         loading="lazy"
       />
       {/* D9b: original `show_over` widget keeps `.text_wrap` at opacity 0 and
@@ -207,15 +244,29 @@ export function GalleryCard({
           scrim/zoom — measured on /17. */}
       {(item.title || item.desc) && (
         <figcaption className="absolute inset-x-0 bottom-0 p-3 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-          {item.title && <h4 className="text-[14px] font-semibold text-white">{item.title}</h4>}
-          {item.desc && <p className="text-[12px] text-white/85">{item.desc}</p>}
+          {item.title && (
+            <h4 className="text-[14px] font-semibold text-white">
+              {item.title}
+            </h4>
+          )}
+          {item.desc && (
+            <p className="text-[12px] text-white/85">{item.desc}</p>
+          )}
         </figcaption>
       )}
     </figure>
   );
 }
 
-function ImageWidget({ w, locale, mobileBox = false }: { w: WidgetNode; locale: Locale; mobileBox?: boolean }) {
+function ImageWidget({
+  w,
+  locale,
+  mobileBox = false,
+}: {
+  w: WidgetNode;
+  locale: Locale;
+  mobileBox?: boolean;
+}) {
   const h = num(w.boxStyle, "height");
   const { label, title, plus, layout, hasOverlay } = parseOverlayAlt(w.alt);
   // opt-in `hover_scale` widgets (see HOVER_SCALE_WIDGET_IDS). The effect itself
@@ -244,7 +295,8 @@ function ImageWidget({ w, locale, mobileBox = false }: { w: WidgetNode; locale: 
   // category cards) carry `margin-left/right:auto` with no `#doz_header` link,
   // so they keep the zero-size drop.
   const isScrollTop =
-    (w.href || "").includes("#doz_header") && /margin\s*:\s*21px\s+auto/i.test(w.imgStyle || "");
+    (w.href || "").includes("#doz_header") &&
+    /margin\s*:\s*21px\s+auto/i.test(w.imgStyle || "");
 
   // apply the original img inline styles verbatim (crop margins, sizes);
   // neutralize Tailwind preflight's img{max-width:100%} when the source crops
@@ -262,7 +314,8 @@ function ImageWidget({ w, locale, mobileBox = false }: { w: WidgetNode; locale: 
       const p = val.split(/\s+/).filter(Boolean);
       const [t, r = t, b = t, l = r] = p;
       const set = (prop: string, nv?: string) => {
-        if (nv && nv !== "auto" && !nv.includes("inherit")) inlineStyle[prop] = nv;
+        if (nv && nv !== "auto" && !nv.includes("inherit"))
+          inlineStyle[prop] = nv;
       };
       set("margin-top", t);
       set("margin-right", r);
@@ -271,7 +324,15 @@ function ImageWidget({ w, locale, mobileBox = false }: { w: WidgetNode; locale: 
       return;
     }
     if (
-      ["width", "height", "margin-top", "margin-left", "margin-right", "margin-bottom", "display"].includes(key) &&
+      [
+        "width",
+        "height",
+        "margin-top",
+        "margin-left",
+        "margin-right",
+        "margin-bottom",
+        "display",
+      ].includes(key) &&
       val &&
       !val.includes("inherit") &&
       !val.includes("visibility") &&
@@ -304,7 +365,8 @@ function ImageWidget({ w, locale, mobileBox = false }: { w: WidgetNode; locale: 
   // box (local card x15-146 vs the original x15-374). Drop the crop
   // offsets/height and fill the box, exactly like the original mobile runtime.
   const isMobileCrop =
-    /margin(?:-left|-right)?\s*:\s*-/.test(w.imgStyle || "") || /width\s*:\s*auto/i.test(w.imgStyle || "");
+    /margin(?:-left|-right)?\s*:\s*-/.test(w.imgStyle || "") ||
+    /width\s*:\s*auto/i.test(w.imgStyle || "");
   if (mobileBox && isMobileCrop) {
     inlineStyle.width = "100%";
     delete inlineStyle.height;
@@ -344,8 +406,12 @@ function ImageWidget({ w, locale, mobileBox = false }: { w: WidgetNode; locale: 
   // `#3` (a `mobile_section`, already neutralized by the pre-existing
   // `mobileBox && isMobileCrop` branch) and `#4` (`mobile_hide`, never rendered
   // below 992), so this branch is effectively home-scoped today.
-  const cropML = /(?:^|;)\s*margin-left\s*:\s*(-[\d.]+)px/.exec(w.imgStyle || "")?.[1];
-  const cropMR = /(?:^|;)\s*margin-right\s*:\s*(-[\d.]+)px/.exec(w.imgStyle || "")?.[1];
+  const cropML = /(?:^|;)\s*margin-left\s*:\s*(-[\d.]+)px/.exec(
+    w.imgStyle || "",
+  )?.[1];
+  const cropMR = /(?:^|;)\s*margin-right\s*:\s*(-[\d.]+)px/.exec(
+    w.imgStyle || "",
+  )?.[1];
   const cropWidthAuto = /(?:^|;)\s*width\s*:\s*auto/.test(w.imgStyle || "");
   const cropHeightFull = /(?:^|;)\s*height\s*:\s*100%/.test(w.imgStyle || "");
   const isFillCrop = cropWidthAuto && (cropHeightFull || !!cropML || !!cropMR);
@@ -374,7 +440,8 @@ function ImageWidget({ w, locale, mobileBox = false }: { w: WidgetNode; locale: 
   // height moves into a CSS var so it does not pin the mobile box.
   // SC4: a `width/height: 0px` pair must not count as a desktop crop either.
   const desktopSized =
-    !!w.imgStyle && /(width|height)\s*:\s*(?!100%)(?!0(?:px|%)?\s*(?:;|$))/.test(w.imgStyle);
+    !!w.imgStyle &&
+    /(width|height)\s*:\s*(?!100%)(?!0(?:px|%)?\s*(?:;|$))/.test(w.imgStyle);
   let desktopHeight: string | null = null;
   if (desktopSized) {
     const hm = w.imgStyle?.match(/(?:^|;)\s*height\s*:\s*(-?[\d.]+)px/);
@@ -392,9 +459,13 @@ function ImageWidget({ w, locale, mobileBox = false }: { w: WidgetNode; locale: 
   // below 992; the authored width is restored at >=992 through `--fit-w` (height
   // already restored through `--img-h` above). Site-wide image-shape census: an
   // authored px width < 500 occurs only on this widget.
-  const authoredWidth = /(?:^|;)\s*width\s*:\s*([\d.]+)px/.exec(w.imgStyle || "")?.[1];
+  const authoredWidth = /(?:^|;)\s*width\s*:\s*([\d.]+)px/.exec(
+    w.imgStyle || "",
+  )?.[1];
   const fitSmallCard =
-    desktopSized && authoredWidth !== undefined && parseFloat(authoredWidth) < 500;
+    desktopSized &&
+    authoredWidth !== undefined &&
+    parseFloat(authoredWidth) < 500;
   if (fitSmallCard) {
     delete inlineStyle.width;
     cropVars["--fit-w"] = `${parseFloat(authoredWidth)}px`;
@@ -410,7 +481,11 @@ function ImageWidget({ w, locale, mobileBox = false }: { w: WidgetNode; locale: 
   }${desktopHeight ? " " + IMG_DESKTOP_HEIGHT : ""}${cropClass.length ? " " + cropClass.join(" ") : ""}`;
   const imgStyle: React.CSSProperties =
     desktopHeight || Object.keys(cropVars).length
-      ? ({ ...inlineStyle, ...(desktopHeight ? { ["--img-h"]: desktopHeight } : {}), ...cropVars } as React.CSSProperties)
+      ? ({
+          ...inlineStyle,
+          ...(desktopHeight ? { ["--img-h"]: desktopHeight } : {}),
+          ...cropVars,
+        } as React.CSSProperties)
       : inlineStyle;
 
   const img = (
@@ -511,7 +586,9 @@ function ImageWidget({ w, locale, mobileBox = false }: { w: WidgetNode; locale: 
               {label && (
                 <p
                   className={`text-[15px] leading-[1.2] text-white min-[992px]:text-[18px]${
-                    homeCard ? " max-[991.98px]:text-[18px] max-[991.98px]:leading-[21.6px]" : ""
+                    homeCard
+                      ? " max-[991.98px]:text-[18px] max-[991.98px]:leading-[21.6px]"
+                      : ""
                   }`}
                 >
                   {label}
@@ -530,7 +607,14 @@ function ImageWidget({ w, locale, mobileBox = false }: { w: WidgetNode; locale: 
               )}
               {plus && (
                 <span className="mt-[12px] hidden text-[30px] leading-none text-white min-[992px]:block">
-                  <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <svg
+                    width="30"
+                    height="30"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                  >
                     <path d="M12 5v14M5 12h14" />
                   </svg>
                 </span>
@@ -539,8 +623,16 @@ function ImageWidget({ w, locale, mobileBox = false }: { w: WidgetNode; locale: 
           </div>
         ) : (
           <div className="absolute inset-0 flex flex-col items-start justify-end p-5">
-            {title && <h3 className="text-[25px] leading-[1.5] font-bold text-white">{title}</h3>}
-            {label && <p className="mt-[12px] text-[18px] leading-[1.2] text-white">{label}</p>}
+            {title && (
+              <h3 className="text-[25px] leading-[1.5] font-bold text-white">
+                {title}
+              </h3>
+            )}
+            {label && (
+              <p className="mt-[12px] text-[18px] leading-[1.2] text-white">
+                {label}
+              </p>
+            )}
           </div>
         )}
       </div>
@@ -550,13 +642,28 @@ function ImageWidget({ w, locale, mobileBox = false }: { w: WidgetNode; locale: 
           mobileBox && isMobileCrop ? " flex items-center" : ""
         }${h ? " " + (mobileBox ? BOX_MOBILE_HEIGHT : BOX_DESKTOP_HEIGHT) : ""}`}
         data-hover-scale={hoverScale ? "1" : undefined}
-        style={h ? ({ ["--box-h" as string]: `${h}px` } as React.CSSProperties) : undefined}
+        style={
+          h
+            ? ({ ["--box-h" as string]: `${h}px` } as React.CSSProperties)
+            : undefined
+        }
       >
-        {w.src && (mobileImg ? <>{mobileImg}{img}</> : img)}
+        {w.src &&
+          (mobileImg ? (
+            <>
+              {mobileImg}
+              {img}
+            </>
+          ) : (
+            img
+          ))}
       </div>
     );
 
-  const internalHref = w.href && !/^https?:/i.test(w.href) && !w.href.startsWith("#") ? routeForSource(w.href, locale) : null;
+  const internalHref =
+    w.href && !/^https?:/i.test(w.href) && !w.href.startsWith("#")
+      ? routeForSource(w.href, locale)
+      : null;
   if (internalHref) {
     return (
       <Link href={localeHref(locale, internalHref)} className="group block">
@@ -566,7 +673,12 @@ function ImageWidget({ w, locale, mobileBox = false }: { w: WidgetNode; locale: 
   }
   if (w.href) {
     return (
-      <a href={w.href} className="group block" target={/^https?:/i.test(w.href) ? "_blank" : undefined} rel="noreferrer">
+      <a
+        href={w.href}
+        className="group block"
+        target={/^https?:/i.test(w.href) ? "_blank" : undefined}
+        rel="noreferrer"
+      >
         {body}
       </a>
     );
@@ -675,7 +787,11 @@ function effectiveAnim(w: WidgetNode): string | undefined {
   }
   // stop-gap id map for the sections whose direction the crawl dropped; a cloned
   // era widget (`<id>__era<i>`) reuses its authored base id's direction.
-  return ANIM_DIR_OVERRIDES[w.id] ?? ANIM_DIR_OVERRIDES[w.id.replace(/__era\d+$/, "")] ?? w.anim;
+  return (
+    ANIM_DIR_OVERRIDES[w.id] ??
+    ANIM_DIR_OVERRIDES[w.id.replace(/__era\d+$/, "")] ??
+    w.anim
+  );
 }
 
 /**
@@ -727,7 +843,8 @@ const HOVER_SCALE_WIDGET_IDS = new Set([
 
 function hoverScaleFor(w: WidgetNode): boolean {
   // durable path — inert until the crawler writes `hoverScale`
-  if ((w as unknown as { hoverScale?: boolean }).hoverScale === true) return true;
+  if ((w as unknown as { hoverScale?: boolean }).hoverScale === true)
+    return true;
   // stop-gap id list for the widgets whose `hover_scale` class the crawl dropped
   return HOVER_SCALE_WIDGET_IDS.has(w.id);
 }
@@ -735,8 +852,10 @@ function hoverScaleFor(w: WidgetNode): boolean {
 /** imweb `_image_widget_lightbox` — the only image wired to the original lightgallery;
  *  the viewer loads the full-size upload, not the thumbnail (src differs per locale). */
 const LIGHTBOX_IMAGE_SRC: Record<string, string> = {
-  w202509117eecb693b3fc9: "/images/upload/S20250811e0bd2f7c414df/5f5d2323340f1.png",
-  w2025082844061a0c9a3b2: "/images/upload/S20250811e0bd2f7c414df/81722d7e2a42a.png",
+  w202509117eecb693b3fc9:
+    "/images/upload/S20250811e0bd2f7c414df/5f5d2323340f1.png",
+  w2025082844061a0c9a3b2:
+    "/images/upload/S20250811e0bd2f7c414df/81722d7e2a42a.png",
 };
 
 /**
@@ -799,7 +918,9 @@ function isHistoryEra(sec: Section): boolean {
  */
 function mobileImageSrc(w: WidgetNode): string | undefined {
   if (w.mobileSrc === false) return undefined;
-  return MOBILE_IMAGE_SRC[w.id] ?? MOBILE_IMAGE_SRC[w.id.replace(/__era\d+$/, "")];
+  return (
+    MOBILE_IMAGE_SRC[w.id] ?? MOBILE_IMAGE_SRC[w.id.replace(/__era\d+$/, "")]
+  );
 }
 
 export function Widget({
@@ -819,7 +940,10 @@ export function Widget({
   /** this widget's section is in TOP_BAND_SECTION_IDS; band its top-level widgets at mobile */
   topBand?: boolean;
 }) {
-  const content = w.type === "padding" ? renderPadding(w) : WidgetContent({ w, locale, mobileBox });
+  const content =
+    w.type === "padding"
+      ? renderPadding(w)
+      : WidgetContent({ w, locale, mobileBox });
   if (!content) return null;
   // imweb `.doz_sys .inside .widget { margin: 15px 0 }`, cancelled for sections
   // carrying `grid_v_gutter_0`. Scoped to image widgets only: applying it to
@@ -851,13 +975,21 @@ export function Widget({
           : topBand
             ? WIDGET_TOP_BAND
             : ""
-      : !mobileBox && vGutter && nested && w.type === "text" && !/text_bg_color/.test(w.html || "")
+      : !mobileBox &&
+          vGutter &&
+          nested &&
+          w.type === "text" &&
+          !/text_bg_color/.test(w.html || "")
         ? NESTED_TEXT_BAND
         : !mobileBox && vGutter && topBand && !nested && w.type !== "padding"
           ? WIDGET_TOP_BAND
           : "";
   const tagged = (
-    <div data-widget-type={w.type} data-widget-id={w.id} className={margin || undefined}>
+    <div
+      data-widget-type={w.type}
+      data-widget-id={w.id}
+      className={margin || undefined}
+    >
       {content}
     </div>
   );
@@ -880,7 +1012,9 @@ function renderPadding(w: WidgetNode) {
     typeof (w as unknown as { _h?: number })._h === "number"
       ? (w as unknown as { _h: number })._h
       : (() => {
-          const m = (w.html || "").match(/data-height="(-?[\d.]+)"/) || (w.html || "").match(/[^-]height:\s*(-?[\d.]+)px/);
+          const m =
+            (w.html || "").match(/data-height="(-?[\d.]+)"/) ||
+            (w.html || "").match(/[^-]height:\s*(-?[\d.]+)px/);
           return m ? parseFloat(m[1]) : 0;
         })();
   if (!fromData) return null;
@@ -923,7 +1057,7 @@ function SlideCard({
   const box = titleBar ? "" : "min-[992px]:border min-[992px]:border-[#eee]";
   return (
     <figure
-      className={`group relative shrink-0 overflow-hidden bg-soft ${padCls} min-[992px]:flex min-[992px]:flex-col min-[992px]:bg-white ${box} ${className}`}
+      className={`group relative shrink-0 overflow-hidden bg-white ${padCls} min-[992px]:flex min-[992px]:flex-col min-[992px]:bg-white ${box} ${className}`}
       style={{ width: w, height: h ?? undefined }}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -936,7 +1070,9 @@ function SlideCard({
       {item.title && (
         <figcaption className="absolute inset-x-0 bottom-0 p-3 opacity-0 transition-opacity duration-300 group-hover:opacity-100 min-[992px]:hidden">
           <h4 className="text-[14px] font-semibold text-white">{item.title}</h4>
-          {item.desc && <p className="text-[12px] text-white/85">{item.desc}</p>}
+          {item.desc && (
+            <p className="text-[12px] text-white/85">{item.desc}</p>
+          )}
         </figcaption>
       )}
       {titleBar && item.title && (
@@ -955,19 +1091,36 @@ function SlideCard({
   );
 }
 
-function WidgetContent({ w, locale, mobileBox = false }: { w: WidgetNode; locale: Locale; mobileBox?: boolean }) {
+function WidgetContent({
+  w,
+  locale,
+  mobileBox = false,
+}: {
+  w: WidgetNode;
+  locale: Locale;
+  mobileBox?: boolean;
+}) {
   switch (w.type) {
     case "text":
       // `text-widget` mirrors imweb's `div[doz_type="text"]` scope: the original
       // applies an !important size-keyed line-height only inside text widgets,
       // so html/code widgets must not receive it (see app/globals.css).
-      return <RichText html={fixResponsiveTables(w.html || "")} className="text-widget" />;
+      return (
+        <RichText
+          html={fixResponsiveTables(w.html || "")}
+          className="text-widget"
+        />
+      );
     case "image":
       return <ImageWidget w={w} locale={locale} mobileBox={mobileBox} />;
     case "gallery2": {
       const items = (w.items || []).filter((it) => it.org || it.thumb);
       if (items.length === 0) return null;
-      const meta2 = w as unknown as { itemW?: number; itemH?: number; gridN?: string };
+      const meta2 = w as unknown as {
+        itemW?: number;
+        itemH?: number;
+        gridN?: string;
+      };
       if (w.layout === "slide") {
         // MB6: a mobile-authored slider shows one full-width slide with the
         // caption in flow below the image (measured on the live original, home
@@ -988,9 +1141,15 @@ function WidgetContent({ w, locale, mobileBox = false }: { w: WidgetNode; locale
                   />
                   <figcaption className="px-[15px] pt-[13px] pb-[15px]">
                     {it.title && (
-                      <p className="text-[19px] font-bold leading-[30.4px] text-black">{it.title}</p>
+                      <p className="text-[19px] font-bold leading-[30.4px] text-black">
+                        {it.title}
+                      </p>
                     )}
-                    {it.desc && <p className="text-[15px] leading-[24px] text-body">{it.desc}</p>}
+                    {it.desc && (
+                      <p className="text-[15px] leading-[24px] text-body">
+                        {it.desc}
+                      </p>
+                    )}
                   </figcaption>
                 </figure>
               ))}
@@ -1009,15 +1168,21 @@ function WidgetContent({ w, locale, mobileBox = false }: { w: WidgetNode; locale
         const hasTitles = items.some((it) => (it.title || "").trim() !== "");
         // The crawl/admin may pin the variant explicitly (`galleryVariant`);
         // otherwise fall back to the data-driven discriminator (titles present).
-        const captioned = w.galleryVariant ? w.galleryVariant === "caption" : hasTitles;
+        const captioned = w.galleryVariant
+          ? w.galleryVariant === "caption"
+          : hasTitles;
         const slidePad = captioned ? 5 : 10;
+        // continuous slow auto-scroll (owl smartSpeed with ≈0 wait): one page per
+        // `transitionMs`. Suppresses the discrete `autoplayMs` path.
+        const continuousMs = w.continuousAutoplay ? (w.transitionMs ?? 0) : 0;
         return (
           <div className="min-[992px]:mt-[15px]">
             <GallerySlider
               count={items.length}
               pad={slidePad}
               arrows={!captioned}
-              autoplayMs={w.autoplayMs ?? 0}
+              autoplayMs={continuousMs ? 0 : (w.autoplayMs ?? 0)}
+              continuousMs={continuousMs}
             >
               {items.map((it, i) => (
                 <SlideCard
@@ -1043,7 +1208,10 @@ function WidgetContent({ w, locale, mobileBox = false }: { w: WidgetNode; locale
         gridCols?: number;
         captionBand?: boolean | "icon";
       };
-      const cols = Math.max(1, Math.min(6, measured.gridCols ?? GRID_N_COLS[meta2.gridN ?? ""] ?? 4));
+      const cols = Math.max(
+        1,
+        Math.min(6, measured.gridCols ?? GRID_N_COLS[meta2.gridN ?? ""] ?? 4),
+      );
       // imweb's `grid_03` renders 4 columns at desktop, where each item is a
       // 320px cell with 15px padding (290px card + 30px gutters). The measured
       // override pins that card height so the grid holds its shape before the
@@ -1094,24 +1262,33 @@ function WidgetContent({ w, locale, mobileBox = false }: { w: WidgetNode; locale
             }}
           >
             {items.map((it, i) => (
-              <GalleryCard key={i} item={it} fill captionBand={measured.captionBand} />
+              <GalleryCard
+                key={i}
+                item={it}
+                fill
+                captionBand={measured.captionBand}
+              />
             ))}
           </div>
         );
       }
       return (
-        <div
-          className="gallery-grid"
-          style={{ ["--gcols" as string]: cols }}
-        >
+        <div className="gallery-grid" style={{ ["--gcols" as string]: cols }}>
           {items.map((it, i) => (
-            <GalleryCard key={i} item={it} fill captionBand={measured.captionBand} />
+            <GalleryCard
+              key={i}
+              item={it}
+              fill
+              captionBand={measured.captionBand}
+            />
           ))}
         </div>
       );
     }
     case "code": {
-      const clean = fixResponsiveTables((w.html || "").replace(/<link[^>]*>/g, "").trim());
+      const clean = fixResponsiveTables(
+        (w.html || "").replace(/<link[^>]*>/g, "").trim(),
+      );
       return clean ? <div dangerouslySetInnerHTML={{ __html: clean }} /> : null;
     }
     case "video": {
@@ -1122,7 +1299,14 @@ function WidgetContent({ w, locale, mobileBox = false }: { w: WidgetNode; locale
       // untouched.
       const videoSrc = w.src || "";
       if (/\.(mp4|webm|ogv|mov)(?:[?#]|$)/i.test(videoSrc)) {
-        return <video src={videoSrc} controls playsInline className="aspect-video w-full object-cover" />;
+        return (
+          <video
+            src={videoSrc}
+            controls
+            playsInline
+            className="aspect-video w-full object-cover"
+          />
+        );
       }
       // Below 992 the crawled desktop holder (pinned to a 703px height) is
       // re-fit to 16:9 by the `.video-fit` rule in globals.css, so ONE iframe
@@ -1130,17 +1314,32 @@ function WidgetContent({ w, locale, mobileBox = false }: { w: WidgetNode; locale
       // iframe that still fetched the same YouTube embed at every width.)
       if (!w.html) {
         return w.src ? (
-          <iframe src={w.src} className="aspect-video w-full" allowFullScreen title="video" />
+          <iframe
+            src={w.src}
+            className="aspect-video w-full"
+            allowFullScreen
+            title="video"
+          />
         ) : null;
       }
-      return <div className="video-fit" dangerouslySetInnerHTML={{ __html: w.html }} />;
+      return (
+        <div
+          className="video-fit"
+          dangerouslySetInnerHTML={{ __html: w.html }}
+        />
+      );
     }
     case "button": {
       const html = w.html || "";
       const isTop = w.href === "#doz_header" || /icon-arrow-up/.test(html);
       const isPlus = /bt-plus|icon-plus|plus/.test(html);
-      const internalHref = w.href && !/^https?:/i.test(w.href) && !w.href.startsWith("#") ? routeForSource(w.href, locale) : null;
-      const dest = internalHref ? localeHref(locale, internalHref) : w.href || "#";
+      const internalHref =
+        w.href && !/^https?:/i.test(w.href) && !w.href.startsWith("#")
+          ? routeForSource(w.href, locale)
+          : null;
+      const dest = internalHref
+        ? localeHref(locale, internalHref)
+        : w.href || "#";
       return (
         <div className="text-right">
           <Link
@@ -1151,12 +1350,26 @@ function WidgetContent({ w, locale, mobileBox = false }: { w: WidgetNode; locale
             }`}
           >
             {isTop && (
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
                 <path d="M18 15l-6-6-6 6" />
               </svg>
             )}
             {!isTop && isPlus && (
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
                 <path d="M12 5v14M5 12h14" />
               </svg>
             )}
@@ -1173,7 +1386,9 @@ function WidgetContent({ w, locale, mobileBox = false }: { w: WidgetNode; locale
     case "sitemap-links": {
       // footer sitemap sub-links injected from the nav tree (the crawl
       // missed them): 14px #959595, matching the live original
-      const links = (w as unknown as { links?: { name: string; href: string }[] }).links || [];
+      const links =
+        (w as unknown as { links?: { name: string; href: string }[] }).links ||
+        [];
       if (links.length === 0) return null;
       return (
         <ul>
@@ -1220,17 +1435,43 @@ export function Rows({
   const out: React.ReactNode[] = [];
   rows.forEach((n, i) => {
     if (isRow(n)) {
-      out.push(<Row key={i} r={n} locale={locale} nested={nested} wdepth={wdepth + 1} vGutter={vGutter} mobileBox={mobileBox} topBand={topBand} />);
+      out.push(
+        <Row
+          key={i}
+          r={n}
+          locale={locale}
+          nested={nested}
+          wdepth={wdepth + 1}
+          vGutter={vGutter}
+          mobileBox={mobileBox}
+          topBand={topBand}
+        />,
+      );
     } else if (isWidget(n)) {
       out.push(
         <div key={i}>
-          <Widget w={n} locale={locale} nested={wdepth > 0} vGutter={vGutter} mobileBox={mobileBox} topBand={topBand} />
+          <Widget
+            w={n}
+            locale={locale}
+            nested={wdepth > 0}
+            vGutter={vGutter}
+            mobileBox={mobileBox}
+            topBand={topBand}
+          />
         </div>,
       );
     } else if (n.kind === "col") {
       out.push(
         <div key={i} className={colClass(n.grid)}>
-          <Rows rows={n.children} locale={locale} nested={nested} wdepth={wdepth} vGutter={vGutter} mobileBox={mobileBox} topBand={topBand} />
+          <Rows
+            rows={n.children}
+            locale={locale}
+            nested={nested}
+            wdepth={wdepth}
+            vGutter={vGutter}
+            mobileBox={mobileBox}
+            topBand={topBand}
+          />
         </div>,
       );
     }
@@ -1271,7 +1512,8 @@ export function Row({
   mobileHidden?: boolean;
 }) {
   const rowVars: React.CSSProperties = {};
-  if (!nested && r.w) (rowVars as Record<string, string>)["--row-w"] = `${r.w}px`;
+  if (!nested && r.w)
+    (rowVars as Record<string, string>)["--row-w"] = `${r.w}px`;
   if (r.h) (rowVars as Record<string, string>)["--row-h"] = `${r.h}px`;
   // item 6 — home §4 친환경: the crawled third row is imweb's `hidden-xs` strip
   // (an authored 82px padding) which the original renders `display:none` at
@@ -1282,20 +1524,47 @@ export function Row({
   const hiddenXs = (r as unknown as { _hiddenXs?: boolean })._hiddenXs === true;
   // only top-level rows add the gutter inset — nested rows sit inside an
   // already-padded ancestor col, so re-applying would double the inset
-  const pad = nested ? 0 : mobileInset ? Math.max(r.pad ?? 0, 15) : r.pad ?? 0;
+  const pad = nested
+    ? 0
+    : mobileInset
+      ? Math.max(r.pad ?? 0, 15)
+      : (r.pad ?? 0);
   (rowVars as Record<string, string>)["--row-pad"] = `${pad}px`;
   // nested imweb rows scale to their parent col's grid (doz_grid), not 12
   const cols = r.cols.map((c) => ({
     ...c,
-    span: Math.max(1, Math.min(12, Math.round(((parseInt(c.grid, 10) || 12) / (parseInt(r.grid, 10) || 12)) * 12))),
+    span: Math.max(
+      1,
+      Math.min(
+        12,
+        Math.round(
+          ((parseInt(c.grid, 10) || 12) / (parseInt(r.grid, 10) || 12)) * 12,
+        ),
+      ),
+    ),
   }));
   // five equal cols (footer sitemap) can't split a 12-grid evenly — use grid-cols-5
-  const fiveCol = cols.length === 5 && cols.every((c) => (parseInt(c.grid, 10) || 0) === 1);
+  const fiveCol =
+    cols.length === 5 && cols.every((c) => (parseInt(c.grid, 10) || 0) === 1);
   return (
-    <div className={`imweb-row grid grid-cols-1 ${fiveCol ? "lg:grid-cols-5" : "lg:grid-cols-12"}${hiddenXs ? " hidden-xs" : ""}${mobileHidden ? " max-[991.98px]:hidden" : ""}`} style={rowVars}>
+    <div
+      className={`imweb-row grid grid-cols-1 ${fiveCol ? "lg:grid-cols-5" : "lg:grid-cols-12"}${hiddenXs ? " hidden-xs" : ""}${mobileHidden ? " max-[991.98px]:hidden" : ""}`}
+      style={rowVars}
+    >
       {cols.map((c, i) => (
-        <div key={i} className={`imweb-col ${fiveCol ? "" : SPAN_CLASS[c.span] || colClass(c.grid)}`}>
-          <Rows rows={c.children} locale={locale} nested wdepth={wdepth} vGutter={vGutter} mobileBox={mobileBox} topBand={topBand} />
+        <div
+          key={i}
+          className={`imweb-col ${fiveCol ? "" : SPAN_CLASS[c.span] || colClass(c.grid)}`}
+        >
+          <Rows
+            rows={c.children}
+            locale={locale}
+            nested
+            wdepth={wdepth}
+            vGutter={vGutter}
+            mobileBox={mobileBox}
+            topBand={topBand}
+          />
         </div>
       ))}
     </div>
@@ -1323,7 +1592,9 @@ function sectionHasContent(sec: Section): boolean {
             typeof (r as unknown as { _h?: number })._h === "number"
               ? (r as unknown as { _h: number })._h
               : (() => {
-                  const m = (r.html || "").match(/data-height="(-?[\d.]+)"/) || (r.html || "").match(/[^-]height:\s*(-?[\d.]+)px/);
+                  const m =
+                    (r.html || "").match(/data-height="(-?[\d.]+)"/) ||
+                    (r.html || "").match(/[^-]height:\s*(-?[\d.]+)px/);
                   return m ? parseFloat(m[1]) : 0;
                 })();
           if (h > 1) ok = true; // spacer rhythm counts as content
@@ -1337,7 +1608,12 @@ function sectionHasContent(sec: Section): boolean {
           if (clean.length > 30) ok = true;
           return;
         }
-        if (r.type === "text" && !(r.html || "").replace(/<[^>]+>/g, "").replace(/\s|&nbsp;/g, "").length) return;
+        if (
+          r.type === "text" &&
+          !(r.html || "").replace(/<[^>]+>/g, "").replace(/\s|&nbsp;/g, "")
+            .length
+        )
+          return;
         if (r.type === "gallery2" && !(r.items || []).length) return;
         ok = true;
         return;
@@ -1389,7 +1665,8 @@ const IMG_FIT_DESKTOP_W = "min-[992px]:w-[var(--fit-w)]";
  * full-width 2:1 band (the old mobile twin measured a 179px band at 360 wide);
  * at >=992 the authored 319px height is restored via `--overlay-h`.
  */
-const OVERLAY_DESKTOP_SIZE = "aspect-[2/1] min-[992px]:aspect-auto min-[992px]:h-[var(--overlay-h)]";
+const OVERLAY_DESKTOP_SIZE =
+  "aspect-[2/1] min-[992px]:aspect-auto min-[992px]:h-[var(--overlay-h)]";
 const OVERLAY_MOBILE_GAP = "max-[991.98px]:mb-[10px]";
 /**
  * RC5: the crawl's fixed `boxStyle` height is a desktop measurement. Keep it at
@@ -1474,6 +1751,11 @@ const TOP_BAND_SECTION_IDS = new Set([
   "s20250828fe85691f33b65", // company.history §6 2015 - 2019
   "s2025082848202431448dd", // company.history §9 2010 - 2014
   "s20250811fd0a82675a6bc", // company / company.ceo §2
+  "s202508280e68f158799c2", // company.philosophy §환경 디자인관리 (measured −50 at 390;
+  // the original bands its 3 top-level widgets 7.5px each side → the 15px
+  // inter-widget gaps we were missing; band lands it at ~−5)
+  "s20250828182272ec01906", // company.global §에코웨이브 본사 (measured at 390 the
+  // original bands its label/map/contact widgets; +15 per widget)
   // EN channel equivalent. Verified live at 390 against the EN original:
   // rnd / rnd.technology §2 (en) local 516 / orig 546 — same structure and the
   // same deficit as ko (−26), and the band lands it at 546. The other EN band
@@ -1483,6 +1765,13 @@ const TOP_BAND_SECTION_IDS = new Set([
   // §2 (local −27, band → +63), company.history §3/§6/§9 and company §2
   // (opposite-sign deficits). See design/audit/DEEP-UI-AUDIT.md §10.
   "s20250911b2b3771c0a0cd", // rnd / rnd.technology §2 (en)
+  // company.philosophy §환경 디자인관리 (en) — same widget config as ko
+  // (identical 920×329 image + holder paddings). Not separately measured here
+  // (the EN original is outside the current 20-page KO protocol); verify before
+  // relying on it.
+  "s20250911cb7190d1e0e78",
+  // company.global §Ecowave Headquarters (en) — same widget config as ko.
+  "s2025091124e3ca4a39fd4",
 ]);
 
 /**
@@ -1620,9 +1909,13 @@ const ABOUT_SEC6_SECTION_IDS = new Set([
  */
 const STICKY_ASIDE_SECTION_IDS = new Set([
   // en /company/history §4/§7/§10
-  "s20250911bad9c985a650f", "s202509119a200517d0b1e", "s2025091127b399e6585cd",
+  "s20250911bad9c985a650f",
+  "s202509119a200517d0b1e",
+  "s2025091127b399e6585cd",
   // ko /company/history §4/§7/§10
-  "s20250811d0a0980d730fb", "s20250828fe85691f33b65", "s2025082848202431448dd",
+  "s20250811d0a0980d730fb",
+  "s20250828fe85691f33b65",
+  "s2025082848202431448dd",
 ]);
 
 /**
@@ -1641,9 +1934,13 @@ const STICKY_ASIDE_SECTION_IDS = new Set([
  */
 const MOBILE_ASIDE_SECTION_IDS = new Set([
   // en /company/history §4/§7/§10
-  "s20250911bad9c985a650f", "s202509119a200517d0b1e", "s2025091127b399e6585cd",
+  "s20250911bad9c985a650f",
+  "s202509119a200517d0b1e",
+  "s2025091127b399e6585cd",
   // ko /company/history §4/§7/§10
-  "s20250811d0a0980d730fb", "s20250828fe85691f33b65", "s2025082848202431448dd",
+  "s20250811d0a0980d730fb",
+  "s20250828fe85691f33b65",
+  "s2025082848202431448dd",
 ]);
 
 /**
@@ -1821,7 +2118,8 @@ function solutionSlides(sec: Section): SolutionSlide[] {
     const walk = (nodes: Node[]) => {
       for (const n of nodes) {
         if (isWidget(n)) {
-          if (n.type === "image" && !img) img = SOLUTION_MOBILE_IMAGE[n.id] || n.src || "";
+          if (n.type === "image" && !img)
+            img = SOLUTION_MOBILE_IMAGE[n.id] || n.src || "";
           else if (n.type === "text") {
             const html = n.html || "";
             const hm = html.match(/<h6[^>]*>([\s\S]*?)<\/h6>/i);
@@ -1861,7 +2159,13 @@ type IntroRun = { t: string; blue?: boolean };
  */
 const HOME_MOBILE_INTRO: Record<
   string,
-  { lines: IntroRun[][]; lineH: number; textLh: number; fs: number; pad: number }
+  {
+    lines: IntroRun[][];
+    lineH: number;
+    textLh: number;
+    fs: number;
+    pad: number;
+  }
 > = {
   s20250811ba4c7cabd299e: {
     lineH: 36,
@@ -1879,14 +2183,23 @@ const HOME_MOBILE_INTRO: Record<
     textLh: 24,
     fs: 20,
     pad: 10,
-    lines: [[{ t: "Healthywater, Eco-wave" }], [{ t: "Together we create a " }, { t: "better future", blue: true }]],
+    lines: [
+      [{ t: "Healthywater, Eco-wave" }],
+      [{ t: "Together we create a " }, { t: "better future", blue: true }],
+    ],
   },
 };
 
 function HomeMobileIntro({
   data,
 }: {
-  data: { lines: IntroRun[][]; lineH: number; textLh: number; fs: number; pad: number };
+  data: {
+    lines: IntroRun[][];
+    lineH: number;
+    textLh: number;
+    fs: number;
+    pad: number;
+  };
 }) {
   return (
     <div className="min-[992px]:hidden" data-home-intro="1">
@@ -1894,7 +2207,14 @@ function HomeMobileIntro({
       <div className="h-[92px]" />
       <div className="py-[7.5px]">
         <div className="px-[15px]">
-          <div className="flex flex-col" style={{ paddingTop: data.pad, paddingBottom: data.pad, gap: data.pad }}>
+          <div
+            className="flex flex-col"
+            style={{
+              paddingTop: data.pad,
+              paddingBottom: data.pad,
+              gap: data.pad,
+            }}
+          >
             {data.lines.map((runs, i) => (
               <p
                 key={i}
@@ -1906,7 +2226,10 @@ function HomeMobileIntro({
                 }}
               >
                 {runs.map((r, j) => (
-                  <span key={j} style={{ color: r.blue ? "rgb(52, 101, 222)" : "#000" }}>
+                  <span
+                    key={j}
+                    style={{ color: r.blue ? "rgb(52, 101, 222)" : "#000" }}
+                  >
                     {r.t}
                   </span>
                 ))}
@@ -1997,7 +2320,8 @@ const HOME_WATER_SECTIONS = new Set([
  * elements, not inside the h6, and already compute 1.2 locally via the base
  * `p span` rule — they are correctly NOT hooked.
  */
-const H6_LINE_HEIGHT_2 = /<h6\b[^>]*\bstyle="[^"]*line-height:\s*2[^"]*"[^>]*>([\s\S]*?)<\/h6>/gi;
+const H6_LINE_HEIGHT_2 =
+  /<h6\b[^>]*\bstyle="[^"]*line-height:\s*2[^"]*"[^>]*>([\s\S]*?)<\/h6>/gi;
 
 export function sectionHasMh6Spans(sec: Section): boolean {
   let found = false;
@@ -2143,7 +2467,12 @@ function AsideColumn({
           <div className="flex flex-col gap-[var(--aside-gap)]">
             {items.map((n, i) => (
               <div key={i}>
-                <Widget w={n} locale={locale} nested={false} vGutter={vGutter} />
+                <Widget
+                  w={n}
+                  locale={locale}
+                  nested={false}
+                  vGutter={vGutter}
+                />
               </div>
             ))}
           </div>
@@ -2181,7 +2510,13 @@ export default function SectionRenderer({
         // T4: the mobile back-to-top widget is an out-of-flow fixed overlay, not
         // an ordinary mobile section (it must not contribute flow height).
         const backToTop = isBackToTopSection(sec);
-        const visibility = backToTop ? "" : mobileOnly ? MOBILE_ONLY_CLASS : desktopOnly ? DESKTOP_ONLY_CLASS : "";
+        const visibility = backToTop
+          ? ""
+          : mobileOnly
+            ? MOBILE_ONLY_CLASS
+            : desktopOnly
+              ? DESKTOP_ONLY_CLASS
+              : "";
         const side = /\bside_(left|right)\b/.exec(cls)?.[1] ?? null;
         // imweb shows *pc-authored* sections at 390 with a reduced typographic
         // scale (measured on the live original: 48->28, 36->24, 30->20, 24->16,
@@ -2230,6 +2565,20 @@ export default function SectionRenderer({
         const homeInset = HOME_INSET_SECTION_IDS.has(sec.id);
         // batch A item 6: company.global branch label→map spacing (globals.css `data-branch`)
         const branch = BRANCH_SECTION_IDS.has(sec.id);
+        // C2 hook (globals.css `data-intro-band`): the channel-wide shared intro
+        // band (company/rnd), matched structurally by its unique background image
+        // (see lib/content/shared-intro.ts). Its 48px `<h6>` headings carry NO
+        // inline line-height, so at ≤991px they inherit `.rich-text h6 { 1.4 }`
+        // and compute 28/39.2 where the original computes 28/33.6 (1.2).
+        const introBand = SHARED_INTROS.some((cfg) =>
+          isSharedIntroSection(sec, cfg),
+        );
+        // H1/H2 hook (globals.css `data-era`): company.history era sections
+        // (pc `side_left` + aside, incl. the structurally-cloned `era_section`s).
+        // Drives the mobile era-photo inset (15px gutters) and the timeline type
+        // scale (bullets 18→15/1.2, year heads line-height 1.2).
+        const eraAside =
+          MOBILE_ASIDE_SECTION_IDS.has(sec.id) || isHistoryEra(sec);
         // home mobile reconstructions (≤991 only)
         const solutionSlider = SOLUTION_SLIDER_SECTIONS.has(sec.id);
         const homeIntro = HOME_MOBILE_INTRO[sec.id];
@@ -2247,6 +2596,10 @@ export default function SectionRenderer({
             // Same `vGutter` const the Widget margins use. Home §4 spacers
             // measured 75/56 -> 60/41 against the original 60/41.
             data-vgutter={vGutter ? undefined : "0"}
+            // Lightbox hook (globals.css): the mobile back-to-top overlay is
+            // `z-[9999]`, above the `.lg-outer` viewer (1050) — hide it while the
+            // viewer is open (`body.lg-on`) so it does not float over the image.
+            data-back-to-top={backToTop ? "1" : undefined}
             // item 1 hook (globals.css): mobile-only 1.2 line-height on the
             // `h6[style*="line-height: 2"] span[style*="font-size: 48px"]`
             // headings this section authors (measured trigger).
@@ -2287,6 +2640,12 @@ export default function SectionRenderer({
             // batch A item 6 hook (globals.css): company.global branch label→map
             // gap (map paragraph top margin) at <=991px.
             data-branch={branch ? "1" : undefined}
+            // C2 hook (globals.css): shared channel intro band — mobile 1.2
+            // line-height on its 48px h6 headings (measured: orig 28/33.6).
+            data-intro-band={introBand ? "1" : undefined}
+            // H1/H2 hook (globals.css): company.history era section — mobile
+            // era-photo inset + timeline type scale.
+            data-era={eraAside ? "1" : undefined}
             // wave 1 item C hook (globals.css): home §4 15px inline inset at
             // <=991px (the two headline rows author pad: 0).
             data-home-inset={homeInset ? "1" : undefined}
@@ -2336,7 +2695,13 @@ export default function SectionRenderer({
                 )}
               </div>
             )}
-            {sec.bgColor && <div className="absolute inset-0" style={{ backgroundColor: sec.bgColor }} aria-hidden />}
+            {sec.bgColor && (
+              <div
+                className="absolute inset-0"
+                style={{ backgroundColor: sec.bgColor }}
+                aria-hidden
+              />
+            )}
             {/* item 1 — solutions mobile carousel (mobile-only overlay) */}
             {solutionSlider && <SolutionSlider slides={solutionSlides(sec)} />}
             {/* item 3 — standalone mobile intro band replacing the pc spacers */}
@@ -2354,13 +2719,27 @@ export default function SectionRenderer({
                   aside={aside}
                   locale={locale}
                   vGutter={vGutter}
-                  sticky={STICKY_ASIDE_SECTION_IDS.has(sec.id) || isHistoryEra(sec)}
-                  mobileVisible={MOBILE_ASIDE_SECTION_IDS.has(sec.id) || isHistoryEra(sec)}
+                  sticky={
+                    STICKY_ASIDE_SECTION_IDS.has(sec.id) || isHistoryEra(sec)
+                  }
+                  mobileVisible={
+                    MOBILE_ASIDE_SECTION_IDS.has(sec.id) || isHistoryEra(sec)
+                  }
                 />
               )}
               <div
-                className={isSide ? "min-[1280px]:w-[var(--content-w)] min-[1280px]:shrink-0" : undefined}
-                style={isSide ? ({ ["--content-w" as string]: `${contentW}px` } as React.CSSProperties) : undefined}
+                className={
+                  isSide
+                    ? "min-[1280px]:w-[var(--content-w)] min-[1280px]:shrink-0"
+                    : undefined
+                }
+                style={
+                  isSide
+                    ? ({
+                        ["--content-w" as string]: `${contentW}px`,
+                      } as React.CSSProperties)
+                    : undefined
+                }
               >
                 {sec.rows
                   .filter((r) => r.kind === "row")
@@ -2386,8 +2765,12 @@ export default function SectionRenderer({
                   aside={aside}
                   locale={locale}
                   vGutter={vGutter}
-                  sticky={STICKY_ASIDE_SECTION_IDS.has(sec.id) || isHistoryEra(sec)}
-                  mobileVisible={MOBILE_ASIDE_SECTION_IDS.has(sec.id) || isHistoryEra(sec)}
+                  sticky={
+                    STICKY_ASIDE_SECTION_IDS.has(sec.id) || isHistoryEra(sec)
+                  }
+                  mobileVisible={
+                    MOBILE_ASIDE_SECTION_IDS.has(sec.id) || isHistoryEra(sec)
+                  }
                 />
               )}
             </div>

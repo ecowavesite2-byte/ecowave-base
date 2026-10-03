@@ -32,7 +32,8 @@ const MIN_SCALE = 1;
 const MAX_SCALE = 4;
 const WHEEL_FACTOR = 1.2;
 const DRAG_THRESHOLD = 5;
-const FOCUSABLE = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+const FOCUSABLE =
+  'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
 
 type ViewerItem = { src: string; alt: string };
 type Pan = { x: number; y: number };
@@ -73,6 +74,16 @@ export default function LightboxHost() {
   } | null>(null);
   const movedRef = useRef(false);
   const suppressClickUntilRef = useRef(0);
+  // fit-scale swipe navigation (mobile + mouse): a horizontal drag at scale 1
+  // goes to the next/previous image instead of doing nothing. `touch-action:
+  // none` on the wrap means the browser never scrolls/overscrolls it, so the pan
+  // and swipe gestures are entirely pointer-driven.
+  const swipeRef = useRef<{
+    pointerId: number;
+    startX: number;
+    startY: number;
+  } | null>(null);
+  const SWIPE_MIN_PX = 60;
 
   // image layout box (transform-independent) + wrap viewport box
   const getMetrics = useCallback(() => {
@@ -141,7 +152,10 @@ export default function LightboxHost() {
       const s = scaleRef.current;
       const p = panRef.current;
       const ns = Math.max(MIN_SCALE, Math.min(MAX_SCALE, nextScale));
-      commit(ns, { x: c.x - (c.x - p.x) * (ns / s), y: c.y - (c.y - p.y) * (ns / s) });
+      commit(ns, {
+        x: c.x - (c.x - p.x) * (ns / s),
+        y: c.y - (c.y - p.y) * (ns / s),
+      });
     },
     [commit],
   );
@@ -152,7 +166,10 @@ export default function LightboxHost() {
     const el = outerRef.current;
     if (!el) return { x: 0, y: 0 };
     const rect = el.getBoundingClientRect();
-    return { x: clientX - (rect.left + rect.width / 2), y: clientY - (rect.top + rect.height / 2) };
+    return {
+      x: clientX - (rect.left + rect.width / 2),
+      y: clientY - (rect.top + rect.height / 2),
+    };
   }, []);
 
   const open = useCallback(
@@ -193,7 +210,9 @@ export default function LightboxHost() {
       const target = e.target as Element | null;
       const clicked = target?.closest("img");
       if (!clicked || !isEligible(clicked)) return;
-      const els = Array.from(document.querySelectorAll("img")).filter(isEligible);
+      const els = Array.from(document.querySelectorAll("img")).filter(
+        isEligible,
+      );
       const start = els.indexOf(clicked);
       if (start < 0) return;
       const nextItems = els.map((img) => ({
@@ -219,8 +238,17 @@ export default function LightboxHost() {
     const inerted: HTMLElement[] = [];
     for (const child of Array.from(document.body.children)) {
       if (!(child instanceof HTMLElement)) continue;
-      if (child.classList.contains("lg-backdrop") || child.classList.contains("lg-outer")) continue;
-      if (["SCRIPT", "STYLE", "LINK", "TEMPLATE", "NEXTJS-PORTAL"].includes(child.tagName)) continue;
+      if (
+        child.classList.contains("lg-backdrop") ||
+        child.classList.contains("lg-outer")
+      )
+        continue;
+      if (
+        ["SCRIPT", "STYLE", "LINK", "TEMPLATE", "NEXTJS-PORTAL"].includes(
+          child.tagName,
+        )
+      )
+        continue;
       child.setAttribute("inert", "");
       inerted.push(child);
     }
@@ -230,13 +258,19 @@ export default function LightboxHost() {
       for (const el of inerted) el.removeAttribute("inert");
       // prefer the opener (or its focusable wrapper); fall back to the prior focus
       const opener = openerRef.current;
-      const target = opener?.closest?.("a, button, [tabindex]") as HTMLElement | null;
+      const target = opener?.closest?.(
+        "a, button, [tabindex]",
+      ) as HTMLElement | null;
       if (target?.isConnected) {
         target.focus();
       } else if (opener?.isConnected) {
         opener.setAttribute("tabindex", "-1");
         opener.focus();
-        opener.addEventListener("blur", () => opener.removeAttribute("tabindex"), { once: true });
+        opener.addEventListener(
+          "blur",
+          () => opener.removeAttribute("tabindex"),
+          { once: true },
+        );
       } else {
         const prev = prevFocusRef.current;
         if (prev && prev.isConnected) prev.focus();
@@ -271,7 +305,10 @@ export default function LightboxHost() {
           : e.deltaMode === 2
             ? e.deltaY * (outerRef.current?.clientHeight ?? 800)
             : e.deltaY;
-      const factor = Math.min(1.5, Math.max(1 / 1.5, Math.pow(WHEEL_FACTOR, -px / 100)));
+      const factor = Math.min(
+        1.5,
+        Math.max(1 / 1.5, Math.pow(WHEEL_FACTOR, -px / 100)),
+      );
       zoomAt(scaleRef.current * factor, cursorOffset(e.clientX, e.clientY));
     },
     [zoomAt, cursorOffset],
@@ -305,9 +342,9 @@ export default function LightboxHost() {
       if (e.key === "Tab") {
         const root = outerRef.current;
         if (!root) return;
-        const nodes = Array.from(root.querySelectorAll<HTMLElement>(FOCUSABLE)).filter(
-          (n) => !n.hasAttribute("disabled"),
-        );
+        const nodes = Array.from(
+          root.querySelectorAll<HTMLElement>(FOCUSABLE),
+        ).filter((n) => !n.hasAttribute("disabled"));
         if (nodes.length === 0) {
           e.preventDefault();
           outerRef.current?.focus();
@@ -333,9 +370,20 @@ export default function LightboxHost() {
   }, [items.length, close, next, prev]);
 
   const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (scaleRef.current <= 1 || e.button !== 0) return;
+    if (e.button !== 0) return;
     const wrap = wrapRef.current;
     if (!wrap) return;
+    // fit scale: arm a swipe (next/prev). zoomed: arm a pan.
+    if (scaleRef.current <= 1) {
+      swipeRef.current = {
+        pointerId: e.pointerId,
+        startX: e.clientX,
+        startY: e.clientY,
+      };
+      movedRef.current = false;
+      wrap.setPointerCapture(e.pointerId);
+      return;
+    }
     dragRef.current = {
       pointerId: e.pointerId,
       startX: e.clientX,
@@ -349,15 +397,40 @@ export default function LightboxHost() {
   };
 
   const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    const sw = swipeRef.current;
+    if (sw && sw.pointerId === e.pointerId) {
+      const dx = e.clientX - sw.startX;
+      const dy = e.clientY - sw.startY;
+      if (Math.abs(dx) > DRAG_THRESHOLD || Math.abs(dy) > DRAG_THRESHOLD)
+        movedRef.current = true;
+      return;
+    }
     const d = dragRef.current;
     if (!d || d.pointerId !== e.pointerId) return;
     const dx = e.clientX - d.startX;
     const dy = e.clientY - d.startY;
-    if (Math.abs(dx) > DRAG_THRESHOLD || Math.abs(dy) > DRAG_THRESHOLD) movedRef.current = true;
+    if (Math.abs(dx) > DRAG_THRESHOLD || Math.abs(dy) > DRAG_THRESHOLD)
+      movedRef.current = true;
     commit(scaleRef.current, { x: d.panX + dx, y: d.panY + dy });
   };
 
   const endDrag = (e: React.PointerEvent<HTMLDivElement>) => {
+    const sw = swipeRef.current;
+    if (sw && sw.pointerId === e.pointerId) {
+      const dx = e.clientX - sw.startX;
+      const dy = e.clientY - sw.startY;
+      swipeRef.current = null;
+      const wrap = wrapRef.current;
+      if (wrap?.hasPointerCapture(e.pointerId))
+        wrap.releasePointerCapture(e.pointerId);
+      // suppress the trailing click so it cannot fall through to the zoom toggle
+      if (movedRef.current) suppressClickUntilRef.current = Date.now() + 250;
+      if (Math.abs(dx) >= SWIPE_MIN_PX && Math.abs(dx) > Math.abs(dy) * 1.5) {
+        if (dx < 0) next();
+        else prev();
+      }
+      return;
+    }
     const d = dragRef.current;
     if (!d || d.pointerId !== e.pointerId) return;
     // a real drag also fires a trailing click; suppress it by timestamp so a
@@ -366,7 +439,8 @@ export default function LightboxHost() {
     dragRef.current = null;
     setDragging(false);
     const wrap = wrapRef.current;
-    if (wrap?.hasPointerCapture(e.pointerId)) wrap.releasePointerCapture(e.pointerId);
+    if (wrap?.hasPointerCapture(e.pointerId))
+      wrap.releasePointerCapture(e.pointerId);
   };
 
   // click-to-zoom at scale 1, click-to-reset at scale > 1; suppressed after a pan.
@@ -379,7 +453,10 @@ export default function LightboxHost() {
     if (!img) return;
     const r = img.getBoundingClientRect();
     const insideImg =
-      e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom;
+      e.clientX >= r.left &&
+      e.clientX <= r.right &&
+      e.clientY >= r.top &&
+      e.clientY <= r.bottom;
     if (!insideImg) return;
     if (scaleRef.current <= 1) zoomAt(2, cursorOffset(e.clientX, e.clientY));
     else commit(1, { x: 0, y: 0 });
@@ -436,12 +513,27 @@ export default function LightboxHost() {
         </div>
         {items.length > 1 && (
           <div className="lg-actions">
-            <button type="button" className="lg-next lg-icon" aria-label="Next image" onClick={next} />
-            <button type="button" className="lg-prev lg-icon" aria-label="Previous image" onClick={prev} />
+            <button
+              type="button"
+              className="lg-next lg-icon"
+              aria-label="Next image"
+              onClick={next}
+            />
+            <button
+              type="button"
+              className="lg-prev lg-icon"
+              aria-label="Previous image"
+              onClick={prev}
+            />
           </div>
         )}
         <div className="lg-toolbar">
-          <button type="button" className="lg-close lg-icon" aria-label="Close" onClick={close} />
+          <button
+            type="button"
+            className="lg-close lg-icon"
+            aria-label="Close"
+            onClick={close}
+          />
           <button
             type="button"
             id="lg-zoom-in"

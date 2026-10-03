@@ -9,7 +9,9 @@
        "Nanum Gothic"/"Noto Sans" and left sans-serif unquoted, producing the
        single largest TYPE signature (1003 desktop + 685 mobile). Neither
        family is installed here, so the added entries are inert visually. */
-    --font-sans: Pretendard, "Apple SD Gothic Neo", "Malgun Gothic", "Nanum Gothic", "Noto Sans", "sans-serif";
+    --font-sans:
+        Pretendard, "Apple SD Gothic Neo", "Malgun Gothic", "Nanum Gothic",
+        "Noto Sans", "sans-serif";
 
     --color-accent: #3465de;
     --color-ink: #212121;
@@ -44,7 +46,7 @@ body {
    base rule doubles as that proxy and is kept global; only the mobile logo
    link, which the original leaves at `none`, is neutralised below. */
 a {
-    transition: .3s;
+    transition: 0.3s;
 }
 
 /* mobile header logo link: the original computes `all .3s ease` on the live
@@ -54,59 +56,59 @@ a {
    above now supplies `all 0.3s ease` at every breakpoint. */
 
 .imweb-row {
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
 }
 .imweb-col {
-  padding-left: var(--row-pad, 0px);
-  padding-right: var(--row-pad, 0px);
+    padding-left: var(--row-pad, 0px);
+    padding-right: var(--row-pad, 0px);
 }
 @media (min-width: 1024px) {
-  .imweb-row {
-    max-width: var(--row-w, none);
-    min-height: var(--row-h, none);
-  }
+    .imweb-row {
+        max-width: var(--row-w, none);
+        min-height: var(--row-h, none);
+    }
 }
 
 /* crawled galleries: grid_0N column count from the source */
 .gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
 }
 @media (min-width: 640px) {
-  .gallery-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
+    .gallery-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
 }
 @media (min-width: 1024px) {
-  .gallery-grid {
-    grid-template-columns: repeat(var(--gcols, 4), minmax(0, 1fr));
-  }
+    .gallery-grid {
+        grid-template-columns: repeat(var(--gcols, 4), minmax(0, 1fr));
+    }
 }
 
 /* crawled rich-text widgets (imweb fr-view fragments with inline styles) */
 .rich-text {
-  position: relative;
-  display: flow-root;
-  /* Mobile stays 1.28: the "inherit body 1.6" factor was measured to regress
+    position: relative;
+    display: flow-root;
+    /* Mobile stays 1.28: the "inherit body 1.6" factor was measured to regress
      mobile page heights (company.global +55, rnd.facilities +30, philosophy
      +21 vs the original), so the base value is unchanged below 992.
      Desktop overrides to 1.6 in the `(a)+(b)` media block below. */
-  line-height: 1.28;
+    line-height: 1.28;
 }
 /* imweb renders every text widget's `.text-table` as a flex column
    (`#text_w<id> .text-table{display:flex;flex-direction:column;justify-content:
    flex-start}`), which keeps child margins inside the box instead of letting
    them collapse out. Match that so measured holder boxes line up. */
 .rich-text .text-table {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 .rich-text .text-table.holder {
-  padding: 20px 0;
+    padding: 20px 0;
 }
 /* imweb spaces every text widget with `margin: 15px 0` on `.widget_text_wrap`
    (CDP-measured on company.philosophy: holder pad 0 + 15/15 margins). Our
@@ -115,9 +117,9 @@ a {
    MISSION 280->290, VISION 162.63->172.63). Desktop-only; the verified mobile
    parity keeps 20px. */
 @media (min-width: 992px) {
-  .rich-text .text-table.holder {
-    padding: 15px 0;
-  }
+    .rich-text .text-table.holder {
+        padding: 15px 0;
+    }
 }
 /* cover layers (`text_bg_img` + `text_bg_color`) are imweb-absolute inside
    `.widget_text_wrap`; our equivalent wrapper is `.rich-text`. Without this the
@@ -125,30 +127,33 @@ a {
    text table above them. */
 .rich-text > .text_bg_img,
 .rich-text > .text_bg_color {
-  position: absolute;
-  inset: 0;
+    position: absolute;
+    inset: 0;
 }
 .rich-text > .text-table {
-  position: relative;
-  z-index: 1;
+    position: relative;
+    z-index: 1;
 }
 /* philosophy "3단계 서비스" cover cards: imweb stretches `.widget_text_wrap` to
    the measured row (609px) minus its 15px vertical margins → card 579px; the
    holder padding is 60px 50px for the outer widgets and 60px 40px for the
    middle one (live-measured). */
 .rich-text:has(> .text_bg_img) {
-  margin: 15px 0;
+    margin: 15px 0;
 }
 .rich-text:has(> .text_bg_img) > .text-table.holder {
-  padding: 60px 50px;
+    padding: 60px 50px;
 }
-.imweb-row > .imweb-col:nth-child(2) .rich-text:has(> .text_bg_img) > .text-table.holder {
-  padding: 60px 40px;
+.imweb-row
+    > .imweb-col:nth-child(2)
+    .rich-text:has(> .text_bg_img)
+    > .text-table.holder {
+    padding: 60px 40px;
 }
 @media (min-width: 1024px) {
-  .rich-text:has(> .text_bg_img) {
-    min-height: calc(var(--row-h, 0px) - 30px);
-  }
+    .rich-text:has(> .text_bg_img) {
+        min-height: calc(var(--row-h, 0px) - 30px);
+    }
 }
 .rich-text h1,
 .rich-text h2,
@@ -156,16 +161,16 @@ a {
 .rich-text h4,
 .rich-text h5,
 .rich-text h6 {
-  margin: 10px 0;
+    margin: 10px 0;
 }
 .rich-text p {
-  margin: 0;
+    margin: 0;
 }
 /* Mobile-only: the crawl keeps the `.rich-text p span/strong` 1.2 lock (see
    the desktop override below). */
 .rich-text p span,
 .rich-text p strong {
-  line-height: 1.2;
+    line-height: 1.2;
 }
 /* (a)+(b) desktop re-application (2026-09-24). The set of three was reverted as
    a unit because (c) — the size-keyed mobile line-height rule — caused the big
@@ -183,38 +188,38 @@ a {
    anything with an authored parent line-height (e.g. the 85px hero span whose
    parent computes 1.5) keeps inheriting it — measured 102 -> 127.5 = original. */
 @media (min-width: 992px) {
-  .rich-text {
-    line-height: 1.6;
-  }
-  .rich-text p span,
-  .rich-text p strong {
-    line-height: inherit;
-  }
+    .rich-text {
+        line-height: 1.6;
+    }
+    .rich-text p span,
+    .rich-text p strong {
+        line-height: inherit;
+    }
 }
 /* h6 base in the crawled doc sections: original computed 16px/1.4 on mobile,
    19.29px/1.4 at desktop (strong inherits, e.g. 27.006 = 19.29 x 1.4).
    Inline `line-height` on the h6 still wins (1.5/2 -> 28.9/38.58). */
 .rich-text h6 {
-  font-size: 16px;
-  line-height: 1.4;
+    font-size: 16px;
+    line-height: 1.4;
 }
 @media (min-width: 992px) {
-  .rich-text h6 {
-    font-size: 19.29px;
-  }
+    .rich-text h6 {
+        font-size: 19.29px;
+    }
 }
 .rich-text img {
-  max-width: 100%;
-  height: auto;
+    max-width: 100%;
+    height: auto;
 }
 .rich-text table {
-  width: 100%;
-  border-collapse: collapse;
+    width: 100%;
+    border-collapse: collapse;
 }
 .rich-text td,
 .rich-text th {
-  border: 1px solid #ddd;
-  padding: 8px 10px;
+    border: 1px solid #ddd;
+    padding: 8px 10px;
 }
 /* imweb table cell borders at mobile — measured on the live rnd/rnd.technology/
    rnd.facilities originals at 390: cells carry a single 1px #ECECEC hairline
@@ -230,11 +235,11 @@ a {
    Desktop (>=992) carries the same measured values via the counterpart block
    below. */
 @media (max-width: 991px) {
-  .rich-text table.tableHorizontal td,
-  .rich-text table.tableHorizontal th {
-    border: 0;
-    border-bottom: 1px solid #ececec;
-  }
+    .rich-text table.tableHorizontal td,
+    .rich-text table.tableHorizontal th {
+        border: 0;
+        border-bottom: 1px solid #ececec;
+    }
 }
 /* Desktop (>=992) counterpart of the corrections above — measured on the live
    rnd / rnd.technology / rnd.facilities originals at 1440: every
@@ -248,24 +253,24 @@ a {
    which must not leak into desktop cell layout (it stays correct at <=991,
    where the nowrap matches the original). */
 @media (min-width: 992px) {
-  .rich-text table.tableHorizontal td,
-  .rich-text table.tableHorizontal th {
-    border: 0;
-    border-bottom: 1px solid #ececec;
-  }
-  .rich-text .table-responsive td,
-  .rich-text .table-responsive th {
-    white-space: normal;
-  }
-  .pc-at-mobile .rich-text table.tableHorizontal:not(.tableHover) td,
-  .pc-at-mobile .rich-text table.tableHorizontal:not(.tableHover) th {
-    padding: 20px;
-    line-height: 24px;
-  }
-  .pc-at-mobile .rich-text table.tableHorizontal.tableHover td,
-  .pc-at-mobile .rich-text table.tableHorizontal.tableHover th {
-    padding: 8px;
-  }
+    .rich-text table.tableHorizontal td,
+    .rich-text table.tableHorizontal th {
+        border: 0;
+        border-bottom: 1px solid #ececec;
+    }
+    .rich-text .table-responsive td,
+    .rich-text .table-responsive th {
+        white-space: normal;
+    }
+    .pc-at-mobile .rich-text table.tableHorizontal:not(.tableHover) td,
+    .pc-at-mobile .rich-text table.tableHorizontal:not(.tableHover) th {
+        padding: 20px;
+        line-height: 24px;
+    }
+    .pc-at-mobile .rich-text table.tableHorizontal.tableHover td,
+    .pc-at-mobile .rich-text table.tableHorizontal.tableHover th {
+        padding: 8px;
+    }
 }
 
 /* SC2 — imweb's mobile runtime reduces the inline display font sizes of
@@ -281,21 +286,21 @@ a {
    reverted — it over-shrank pc-section text on company.about, company.history,
    company.philosophy, rnd/rnd.technology and rnd.facilities. */
 @media (max-width: 991px) {
-  .pc-at-mobile .rich-text span[style*="font-size: 48px"] {
-    font-size: 28px !important;
-  }
-  .pc-at-mobile .rich-text span[style*="font-size: 36px"] {
-    font-size: 24px !important;
-  }
-  .pc-at-mobile .rich-text span[style*="font-size: 30px"] {
-    font-size: 20px !important;
-  }
-  .pc-at-mobile .rich-text span[style*="font-size: 22px"] {
-    font-size: 16px !important;
-  }
-  .pc-at-mobile .rich-text span[style*="font-size: 20px"] {
-    font-size: 15px !important;
-  }
+    .pc-at-mobile .rich-text span[style*="font-size: 48px"] {
+        font-size: 28px !important;
+    }
+    .pc-at-mobile .rich-text span[style*="font-size: 36px"] {
+        font-size: 24px !important;
+    }
+    .pc-at-mobile .rich-text span[style*="font-size: 30px"] {
+        font-size: 20px !important;
+    }
+    .pc-at-mobile .rich-text span[style*="font-size: 22px"] {
+        font-size: 16px !important;
+    }
+    .pc-at-mobile .rich-text span[style*="font-size: 20px"] {
+        font-size: 15px !important;
+    }
 }
 
 /* REVERTED to desktop-only (2026-09-23, final round): imweb gives inline-sized
@@ -304,22 +309,22 @@ a {
    but regressed most mobile pages' aggregate pixel diff, so the rule is
    min-width:992px again. A section-aware re-attempt is queued. */
 @media (min-width: 992px) {
-  .rich-text.text-widget span[style*="font-size: 18px"],
-  .rich-text.text-widget span[style*="font-size: 20px"],
-  .rich-text.text-widget span[style*="font-size: 22px"],
-  .rich-text.text-widget span[style*="font-size: 24px"],
-  .rich-text.text-widget span[style*="font-size: 26px"],
-  .rich-text.text-widget span[style*="font-size: 30px"],
-  .rich-text.text-widget span[style*="font-size: 36px"],
-  .rich-text.text-widget span[style*="font-size: 48px"] {
-    line-height: 1.2 !important;
-  }
-  .rich-text.text-widget span[style*="font-size: 60px"],
-  .rich-text.text-widget span[style*="font-size: 64px"],
-  .rich-text.text-widget span[style*="font-size: 72px"],
-  .rich-text.text-widget span[style*="font-size: 96px"] {
-    line-height: 1.1 !important;
-  }
+    .rich-text.text-widget span[style*="font-size: 18px"],
+    .rich-text.text-widget span[style*="font-size: 20px"],
+    .rich-text.text-widget span[style*="font-size: 22px"],
+    .rich-text.text-widget span[style*="font-size: 24px"],
+    .rich-text.text-widget span[style*="font-size: 26px"],
+    .rich-text.text-widget span[style*="font-size: 30px"],
+    .rich-text.text-widget span[style*="font-size: 36px"],
+    .rich-text.text-widget span[style*="font-size: 48px"] {
+        line-height: 1.2 !important;
+    }
+    .rich-text.text-widget span[style*="font-size: 60px"],
+    .rich-text.text-widget span[style*="font-size: 64px"],
+    .rich-text.text-widget span[style*="font-size: 72px"],
+    .rich-text.text-widget span[style*="font-size: 96px"] {
+        line-height: 1.1 !important;
+    }
 }
 
 /* item 1 — mobile 48px-span line-height inside `h6[line-height: 2]` headings,
@@ -335,9 +340,12 @@ a {
    home §2/§3, company.about, philosophy, organization, company/global 0 change.
    Desktop (>=992) keeps the rule above unchanged. */
 @media (max-width: 991px) {
-  section[data-mh6="1"] .rich-text.text-widget h6[style*="line-height: 2"] span[style*="font-size: 48px"] {
-    line-height: 1.2 !important;
-  }
+    section[data-mh6="1"]
+        .rich-text.text-widget
+        h6[style*="line-height: 2"]
+        span[style*="font-size: 48px"] {
+        line-height: 1.2 !important;
+    }
 }
 
 /* P6 — company.philosophy §1 promise band mobile 48px-span line-height, scoped
@@ -349,9 +357,9 @@ a {
    Measured live at 390 on the /18 original: promise span lh 33.6. Desktop is
    untouched. */
 @media (max-width: 991px) {
-  section[data-ph48="1"] .rich-text span[style*="font-size: 48px"] {
-    line-height: 1.2 !important;
-  }
+    section[data-ph48="1"] .rich-text span[style*="font-size: 48px"] {
+        line-height: 1.2 !important;
+    }
 }
 
 /* item 1 — company.philosophy mobile rich-text downscale (coordinated set),
@@ -369,47 +377,47 @@ a {
    (orig 4308, +49 -> +34; 경영이념 1026->1011, 비전 487->494, 3단계 1911->1903)
    with 0 change on the other 19 mobile pages and 0 desktop change. */
 @media (max-width: 991px) {
-  section[data-rtm="1"] .rich-text span[style*="font-size: 18px"] {
-    font-size: 15px !important;
-    line-height: 1.2 !important;
-  }
-  section[data-rtm="1"] .rich-text span[style*="font-size: 16px"] {
-    font-size: 14px !important;
-  }
-  /* P3 — the missing 24px -> 16px pc-at-mobile downscale (SC2 lists it:
+    section[data-rtm="1"] .rich-text span[style*="font-size: 18px"] {
+        font-size: 15px !important;
+        line-height: 1.2 !important;
+    }
+    section[data-rtm="1"] .rich-text span[style*="font-size: 16px"] {
+        font-size: 14px !important;
+    }
+    /* P3 — the missing 24px -> 16px pc-at-mobile downscale (SC2 lists it:
      `48->28, 36->24, 30->20, 24->16, 22->16, 20->15`, but the rtm hook carried
      only 18/16). Only the §비전 banner authors the *spaced* `font-size: 24px`
      form inside the three rtm sections, so this turns the local 2-line 24px
      banner into the original's single 16px line (banner 117 -> ~74, §비전
      27.82 %). The unspaced `font-size:24px` circle spans are untouched. */
-  section[data-rtm="1"] .rich-text span[style*="font-size: 24px"] {
-    font-size: 16px !important;
-  }
-  /* P3 follow-up — the §비전 caption / §경영이념 body 20px spans sit inside an
+    section[data-rtm="1"] .rich-text span[style*="font-size: 24px"] {
+        font-size: 16px !important;
+    }
+    /* P3 follow-up — the §비전 caption / §경영이념 body 20px spans sit inside an
      `h6[style*="line-height: 2"]`, so the h6's inline 2 beats the size-keyed
      1.2 and the 15px span runs 30px tall; the original computes 1.2 (18px). */
-  section[data-rtm="1"] .rich-text h6[style*="line-height: 2"] span[style*="font-size: 20px"] {
-    line-height: 1.2 !important;
-  }
+    section[data-rtm="1"]
+        .rich-text
+        h6[style*="line-height: 2"]
+        span[style*="font-size: 20px"] {
+        line-height: 1.2 !important;
+    }
 }
 
-/* mobile-spacing wave 1, item D — company.philosophy §3단계 서비스 cover cards
-   (globals.css hook `data-philcard`; see PHIL_CARD_SECTION_IDS in
-   components/content/SectionRenderer.tsx). At 390 the un-gated holder padding
-   (`60px 50px`, and `60px 40px` for the middle column) plus each card's
-   trailing empty `<p><br></p>` lines leave a ~115px band above and ~200px below
-   the overlay text in a ~140-200px column. Reduce the padding and collapse the
-   trailing empties — mobile only; desktop keeps the measured card box. A
-   dedicated hook (not `data-rtm`) so the EN channel gets the card fix without
-   the ko-only 18/16px font downscale, and so the two other philosophy
-   cover-card sections (§경영이념 / §비전) stay put. */
+/* philosophy §3단계 서비스 cover cards (hook `data-philcard`; see
+   PHIL_CARD_SECTION_IDS in components/content/SectionRenderer.tsx).
+   Re-measured live at 390 (2026-09-30): the section is a `pc_section` with
+   `doz_change_mobile="N"`, so the original keeps the FULL pc holder box on
+   mobile — padding 60px/50px (60px/40px for the middle column), the trailing
+   empty `<p>` lines intact, and the 1.6 body base (the 88px icon line's `<p>`
+   computes 24px). The earlier wave-1 mobile cut (padding 30px/20px + collapsing
+   the trailing empties) left each card 135px short — 3 cards = 405px, the whole
+   405px page deficit — so those overrides are removed and only the body base is
+   set. Desktop already matches. */
 @media (max-width: 991px) {
-  section[data-philcard="1"] .rich-text:has(> .text_bg_img) > .text-table.holder {
-    padding: 30px 20px !important;
-  }
-  section[data-philcard="1"] .rich-text:has(> .text_bg_img) > .text-table.holder p:has(> br:only-child) {
-    display: none;
-  }
+    section[data-philcard="1"] .rich-text {
+        line-height: 1.6;
+    }
 }
 
 /* mobile-spacing wave 1, item B — company.history era asides (globals.css hook
@@ -419,9 +427,92 @@ a {
    authored pt is kept. Chosen as a moderate cut (not to zero) because the
    original mobile lead measures 187px — the local band is already tighter. */
 @media (max-width: 991px) {
-  [data-aside-pt="1"] {
-    padding-top: max(0px, calc(var(--aside-pt) - 60px)) !important;
-  }
+    [data-aside-pt="1"] {
+        padding-top: max(0px, calc(var(--aside-pt) - 60px)) !important;
+        /* H1 — the original insets the stacked era photo 15px each side at 390
+           (390 -> 360 wide); our aside is `w-full`, so it rendered full-bleed. */
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}
+
+/* H2 — company.history timeline type scale (globals.css hook `data-era`; see
+   MOBILE_ASIDE_SECTION_IDS / isHistoryEra in SectionRenderer.tsx). Measured live
+   at 390: the original downscales the authored `font-size: 18px; line-height: 2`
+   bullets to 15px/18px (1.2) and runs the 20px (30px-authored) year heads at 1.2
+   (24px) where we inherit `.rich-text h6 { 1.4 }`. The authored VALUES are
+   unchanged; the structured `eras` backend only needs this style scoping. */
+@media (max-width: 991px) {
+    section[data-era="1"] .rich-text span[style*="font-size: 18px"] {
+        font-size: 15px !important;
+        line-height: 1.2 !important;
+    }
+    section[data-era="1"] .rich-text h6 span[style*="font-size: 30px"] {
+        line-height: 1.2 !important;
+    }
+    /* Coordinated height: the corrected type shortens each era block; the
+       original additionally renders the deleted mobile timeline variants (a
+       separate photo section + its padding) which measured ~68px more per era
+       (orig era blocks 1254/1094/1160 vs ours 1152/1041/1112). Restore the
+       measured band so the history page height matches and the tail aligns. */
+    section[data-era="1"] {
+        padding-bottom: 68px;
+    }
+}
+
+/* C1 — footer info lines. The footer text widget authors `font-size: 14px;
+   line-height: 2`; the original computes 13px / 26px at 390 (its pc-at-mobile
+   runtime downscales 14->13 and keeps the 2x leading). Our missing 14px step +
+   the `.rich-text p span` 1.2 base gave 14/16.8, so every page's baseline diff
+   carried it. `[data-footer]` scopes it to the public footer + admin preview.
+   The `:has(...)` form also catches the NESTED value spans (e.g. the address
+   line wraps its 14px span around a coloured span, whose own `p span` 1.2 rule
+   would otherwise win). */
+@media (max-width: 991px) {
+    [data-footer] .rich-text p:has(> span[style*="font-size: 14px"]) span {
+        font-size: 13px !important;
+        line-height: 2 !important;
+    }
+}
+
+/* C1b — footer info box model. Measured live at 390 under reduced motion: the
+   original's info widget carries imweb's 7.5px `.widget` top margin and its row
+   sits ~25px lower, so its first line starts +113px below the band top (ours
+   +80) and the band measures 300.5 (ours 260.5). Restore the gap + the trailing
+   space so the footer band height and the info position match. The `:has(...)`
+   target is the only visible footer widget authoring a 14px span in a <p> (the
+   sitemap column headers also match but are `display:none` below 992). */
+@media (max-width: 991.98px) {
+    [data-footer] .rich-text:has(p > span[style*="font-size: 14px"]) {
+        margin-top: 33px;
+    }
+    [data-footer] {
+        padding-bottom: 7px;
+    }
+}
+
+/* C2 — shared channel intro band (company + rnd), hook `data-intro-band` (matched
+   by the band's unique background image; see lib/content/shared-intro.ts). Its
+   48px `<h6>` headings carry NO inline line-height, so at <=991px they inherit
+   `.rich-text h6 { 1.4 }` and compute 28/39.2 where the original computes
+   28/33.6 (1.2) — measured live at 390 on every company sub-page and the rnd
+   sub-hero. The existing `data-mh6` covers h6[line-height:2] and `data-ph48`
+   covers philosophy §1; this extends the same rule to the shared band. */
+@media (max-width: 991px) {
+    section[data-intro-band="1"] .rich-text h6 span[style*="font-size: 48px"] {
+        line-height: 1.2 !important;
+    }
+    /* Coordinated height: the corrected 1.2 leading shortens the two heading
+       lines by 11.2px; the original band additionally carries imweb's
+       `.inside .widget` 7.5px top/bottom band (measured at 390: the original
+       band is 270px and its first heading sits 7.5px lower than ours did after
+       the leading fix, where our band measured 255px). Restore that band so the
+       section height and the heading's vertical offset match — the band's top
+       edge stays put, so every later section realigns. */
+    section[data-intro-band="1"] {
+        padding-top: 7.5px;
+        padding-bottom: 7.5px;
+    }
 }
 
 /* ── company.philosophy per-widget skins + box model ────────────────────────
@@ -439,7 +530,7 @@ a {
 [data-widget-id="w2025082996725d2a2d20e"],
 [data-widget-id="w202508291aa62a1ed03bb"],
 [data-widget-id="w202508297535663fbc7e0"] {
-  border-radius: 10px;
+    border-radius: 10px;
 }
 /* P1 — cover layers (`text_bg_img`/`text_bg_color`) radius 9px (banner 10px). */
 [data-widget-id="w2025082880e9f1cd594e5"] .text_bg_img,
@@ -454,18 +545,18 @@ a {
 [data-widget-id="w202508291aa62a1ed03bb"] .text_bg_color,
 [data-widget-id="w202508297535663fbc7e0"] .text_bg_img,
 [data-widget-id="w202508297535663fbc7e0"] .text_bg_color {
-  border-radius: 9px;
+    border-radius: 9px;
 }
 [data-widget-id="w202508280d2f1669e2789"] .text_bg_img,
 [data-widget-id="w202508280d2f1669e2789"] .text_bg_color {
-  border-radius: 10px;
+    border-radius: 10px;
 }
 /* P1 — vision image (original `#w… .img_wrap { border-radius:10px }`). The
    local wrapper is the `overflow:hidden` div inside the widget, so both it and
    the `<img>` need the radius for the clip to show it. */
 [data-widget-id="w202508289fc0c0165c025"] > div,
 [data-widget-id="w202508289fc0c0165c025"] img {
-  border-radius: 10px;
+    border-radius: 10px;
 }
 /* P2 — desktop vision alignment: `margin:15px 0` on the three vision widgets.
    The `.imweb-row { min-height: var(--row-h) }` rule only exists at >=1024, so
@@ -473,18 +564,18 @@ a {
    15+329+15=359, 15+133+15=163) and the section height is unchanged. Below 1024
    there is no row min-height, so this must stay out of the mobile range. */
 @media (min-width: 1024px) {
-  [data-widget-id="w202508280d2f1669e2789"],
-  [data-widget-id="w202508281ce9cfb92c9a4"],
-  [data-widget-id="w202508289fc0c0165c025"] {
-    margin: 15px 0;
-  }
+    [data-widget-id="w202508280d2f1669e2789"],
+    [data-widget-id="w202508281ce9cfb92c9a4"],
+    [data-widget-id="w202508289fc0c0165c025"] {
+        margin: 15px 0;
+    }
 }
 /* P2 — original measured holder paddings (both viewports). */
 [data-widget-id="w202508280d2f1669e2789"] .text-table.holder {
-  padding: 25px 20px;
+    padding: 25px 20px;
 }
 [data-widget-id="w202508281ce9cfb92c9a4"] .text-table.holder {
-  padding: 0 20px;
+    padding: 0 20px;
 }
 /* P4 — center the §3단계 card icons (original `img.fr-dib { margin:5px auto }`;
    locally `margin:0` and the `p[text-align:center]` cannot center a block
@@ -493,8 +584,8 @@ a {
 [data-widget-id="w2025082996725d2a2d20e"] img,
 [data-widget-id="w202508291aa62a1ed03bb"] img,
 [data-widget-id="w202508297535663fbc7e0"] img {
-  margin-left: auto;
-  margin-right: auto;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* item 2 — home §7 (Headquarters & Factory Locations) holder box model, scoped
@@ -509,17 +600,17 @@ a {
    Mobile-only (desktop already matches) and allowlisted to the one home §7
    section, so every other page/section is 0-change. */
 @media (max-width: 991px) {
-  section[data-mapholder="1"] .rich-text {
-    padding: 0 15px;
-  }
-  section[data-mapholder="1"] .rich-text .text-table.holder {
-    padding: 20px 50px;
-  }
-  section[data-mapholder="1"] .rich-text span[style*="font-size: 36px"],
-  section[data-mapholder="1"] .rich-text span[style*="font-size: 30px"],
-  section[data-mapholder="1"] .rich-text span[style*="font-size: 20px"] {
-    line-height: 1.2 !important;
-  }
+    section[data-mapholder="1"] .rich-text {
+        padding: 0 15px;
+    }
+    section[data-mapholder="1"] .rich-text .text-table.holder {
+        padding: 20px 50px;
+    }
+    section[data-mapholder="1"] .rich-text span[style*="font-size: 36px"],
+    section[data-mapholder="1"] .rich-text span[style*="font-size: 30px"],
+    section[data-mapholder="1"] .rich-text span[style*="font-size: 20px"] {
+        line-height: 1.2 !important;
+    }
 }
 
 /* Desktop half of the same home §7 holder box model. The shared
@@ -536,40 +627,67 @@ a {
    original, section stays 898. Mobile (<=991) is untouched — it already computes
    `20px 50px` from the block above. */
 @media (min-width: 992px) {
-  section[data-mapholder="1"] .rich-text .text-table.holder {
-    padding: 20px 50px;
-  }
+    section[data-mapholder="1"] .rich-text .text-table.holder {
+        padding: 20px 50px;
+    }
 }
 
 /* mobile-spacing wave 1, item A — company.global §에코웨이브 본사 contact table +
    map (globals.css hook `data-global-contact`; see GLOBAL_CONTACT_SECTION_IDS in
    components/content/SectionRenderer.tsx). At 390 the 3-col `table.noBorder`
-   squeezes TEL/FAX/EMAIL into ~120px cells (the phone number wraps mid-digit)
-   and the Google-Maps `<iframe height="450">` is a 450px block. Stack the cells
-   and cap the map height. Mobile only; desktop already matches. */
+   squeezes TEL/FAX/EMAIL into ~120px cells (the phone number wraps mid-digit),
+   so the cells stack. Re-measured against the live original at 390 (2026-09-30):
+   the original keeps the authored 18px on the value spans with a 1.6 leading
+   (18/28.8), keeps the HQ map at its authored 450px, and gives the address / body
+   base a 1.6 leading (15/24); the earlier 15px value-span drop and the 240px map
+   cap were deviations that also collapsed the HQ→branch spacing. */
 @media (max-width: 991px) {
-  section[data-global-contact="1"] .rich-text table.noBorder,
-  section[data-global-contact="1"] .rich-text table.noBorder tbody,
-  section[data-global-contact="1"] .rich-text table.noBorder tr,
-  section[data-global-contact="1"] .rich-text table.noBorder td {
-    display: block;
-    width: auto !important;
-  }
-  section[data-global-contact="1"] .rich-text table.noBorder td {
-    padding: 8px 0;
-  }
-  /* batch A item 6 — the TEL/FAX/EMAIL value spans are too large in the stacked
-     rows; drop them to 15px (the site's mobile body size). The crawled inline
-     style is the UNSPACED `font-size:18px` (unlike the 18px spans elsewhere on
-     the site), so both forms are matched; scoped to the contact section's
-     noBorder table. */
-  section[data-global-contact="1"] .rich-text table.noBorder span[style*="font-size:18px"],
-  section[data-global-contact="1"] .rich-text table.noBorder span[style*="font-size: 18px"] {
-    font-size: 15px !important;
-  }
-  section[data-global-contact="1"] .rich-text iframe[src*="google.com/maps"] {
-    height: 240px !important;
-  }
+    section[data-global-contact="1"] .rich-text table.noBorder,
+    section[data-global-contact="1"] .rich-text table.noBorder tbody,
+    section[data-global-contact="1"] .rich-text table.noBorder tr,
+    section[data-global-contact="1"] .rich-text table.noBorder td {
+        display: block;
+        width: auto !important;
+    }
+    section[data-global-contact="1"] .rich-text table.noBorder td {
+        padding: 8px 0;
+    }
+    /* body base leading: the original's mobile base is 1.6 (the address line
+     computes 15/24) where our `.rich-text` base gives 19.2. */
+    section[data-global-contact="1"] .rich-text {
+        line-height: 1.6;
+    }
+    /* TEL/FAX/EMAIL value spans: keep the authored 18px (orig 18/28.8). The
+     unspaced `font-size:18px` form is the crawled markup. */
+    section[data-global-contact="1"]
+        .rich-text
+        table.noBorder
+        span[style*="font-size:18px"],
+    section[data-global-contact="1"]
+        .rich-text
+        table.noBorder
+        span[style*="font-size: 18px"] {
+        font-size: 18px !important;
+        line-height: 1.6 !important;
+    }
+    /* the HQ label pill (`에코웨이브 본사`, authored 22px -> 16px) keeps the
+     size-keyed 1.2 the original computes (16/19.2). */
+    section[data-global-contact="1"] .rich-text h6 {
+        line-height: 1.2;
+    }
+    /* HQ map: match the original's authored 450px height (was capped at 240). */
+    section[data-global-contact="1"] .rich-text iframe[src*="google.com/maps"] {
+        height: 450px !important;
+    }
+    /* The original renders the TEL/FAX/EMAIL block as its own mobile section
+       (208px: the 3 stacked rows + the section's top/bottom band) placed AFTER the
+       map; our single-source tree keeps the pc table inside the HQ section. The
+       rows match (pitch 46.8 vs the original's 45); restore the section band so the
+       HQ+contact block measures 826 like the original (measured −47). */
+    section[data-global-contact="1"] .rich-text:has(table.noBorder) {
+        padding-top: 23.5px;
+        padding-bottom: 23.5px;
+    }
 }
 
 /* batch A item 6 — company.global §중국 지사 / 캄보디아 지사 branch cards
@@ -579,9 +697,9 @@ a {
    paragraph a small top margin. Map heights are deliberately untouched.
    Mobile only; desktop already matches. */
 @media (max-width: 991px) {
-  section[data-branch="1"] .rich-text p:has(> iframe) {
-    margin-top: 16px;
-  }
+    section[data-branch="1"] .rich-text p:has(> iframe) {
+        margin-top: 16px;
+    }
 }
 
 /* mobile-spacing wave 1, item C — home §4 친환경 band (globals.css hook
@@ -593,10 +711,10 @@ a {
    full-bleed image rows are unaffected. Font-size / line-height are untouched.
    Mobile only; desktop already matches. */
 @media (max-width: 991px) {
-  section[data-home-inset="1"] .rich-text {
-    padding-left: 15px;
-    padding-right: 15px;
-  }
+    section[data-home-inset="1"] .rich-text {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
 }
 
 /* item 2 — home nav-cards mobile twin: korean name above the small english
@@ -605,10 +723,10 @@ a {
    overlay card site is untouched. Mobile only; desktop uses the authored
    centred label/title. */
 @media (max-width: 991px) {
-  [data-mobile-align="right"] .overlay-mobile-text {
-    align-items: flex-end;
-    text-align: right;
-  }
+    [data-mobile-align="right"] .overlay-mobile-text {
+        align-items: flex-end;
+        text-align: right;
+    }
 }
 
 /* item 2 (follow-up) — home nav-cards mobile vertical offset. Measured live at
@@ -619,12 +737,12 @@ a {
    spacer becomes the card's 7.5px top band and the trailing 168px spacer is
    retimed to 98.5 so the section stays 882. Desktop (>=992) untouched. */
 @media (max-width: 991px) {
-  section[data-home-cards="1"] .imweb-row:nth-of-type(2) .spacer {
-    height: 7.5px;
-  }
-  section[data-home-cards="1"] .imweb-row:nth-of-type(5) .spacer {
-    height: 98.5px;
-  }
+    section[data-home-cards="1"] .imweb-row:nth-of-type(2) .spacer {
+        height: 7.5px;
+    }
+    section[data-home-cards="1"] .imweb-row:nth-of-type(5) .spacer {
+        height: 98.5px;
+    }
 }
 
 /* item 4a — home §에코웨이브 band mobile re-timing (hook `data-home-eco`; see
@@ -635,20 +753,20 @@ a {
    regains its 7.5px band and the text block drops the authored 15px `text-table`
    margins to 5px. Desktop (>=992) untouched. */
 @media (max-width: 991px) {
-  section[data-home-eco="1"] .imweb-row:nth-of-type(1) .spacer {
-    height: 59px;
-  }
-  section[data-home-eco="1"] .imweb-row:nth-of-type(2) .text-table {
-    margin-top: 5px !important;
-    margin-bottom: 5px !important;
-  }
-  section[data-home-eco="1"] .imweb-row:nth-of-type(3) {
-    padding-top: 7.5px;
-    padding-bottom: 7.5px;
-  }
-  section[data-home-eco="1"] .imweb-row:nth-of-type(4) .spacer {
-    height: 45px;
-  }
+    section[data-home-eco="1"] .imweb-row:nth-of-type(1) .spacer {
+        height: 59px;
+    }
+    section[data-home-eco="1"] .imweb-row:nth-of-type(2) .text-table {
+        margin-top: 5px !important;
+        margin-bottom: 5px !important;
+    }
+    section[data-home-eco="1"] .imweb-row:nth-of-type(3) {
+        padding-top: 7.5px;
+        padding-bottom: 7.5px;
+    }
+    section[data-home-eco="1"] .imweb-row:nth-of-type(4) .spacer {
+        height: 45px;
+    }
 }
 
 /* acceptance — home Clean-Water video band mobile re-timing (hook
@@ -658,32 +776,32 @@ a {
    become 60/116, the twin-absent 7px spacer collapses, and the video row gains
    its 7.5px band. Desktop (>=992) untouched. */
 @media (max-width: 991px) {
-  section[data-home-water="1"] .imweb-row:nth-of-type(1) .spacer {
-    height: 60px;
-  }
-  section[data-home-water="1"] .imweb-row:nth-of-type(3) .spacer {
-    height: 0;
-  }
-  section[data-home-water="1"] .imweb-row:nth-of-type(4) {
-    padding-top: 7.5px;
-    padding-bottom: 7.5px;
-  }
-  section[data-home-water="1"] .imweb-row:nth-of-type(5) .spacer {
-    height: 116px;
-  }
-  /* item A — the twin's two heading lines sit on a 32px pitch with no widget
+    section[data-home-water="1"] .imweb-row:nth-of-type(1) .spacer {
+        height: 60px;
+    }
+    section[data-home-water="1"] .imweb-row:nth-of-type(3) .spacer {
+        height: 0;
+    }
+    section[data-home-water="1"] .imweb-row:nth-of-type(4) {
+        padding-top: 7.5px;
+        padding-bottom: 7.5px;
+    }
+    section[data-home-water="1"] .imweb-row:nth-of-type(5) .spacer {
+        height: 116px;
+    }
+    /* item A — the twin's two heading lines sit on a 32px pitch with no widget
      gap (ko line1 top 67.5, en line 99.5); ours carried the `.rich-text h6`
      10px bottom margin, pushing the latin line 11.9px down. Zero the margins
      and add the twin's 7.5/9.5 row band so the section stays 472.5. */
-  section[data-home-water="1"] .rich-text {
-    padding-top: 7.5px;
-    padding-bottom: 9.5px;
-  }
-  section[data-home-water="1"] .rich-text h6,
-  section[data-home-water="1"] .rich-text p {
-    margin-top: 0;
-    margin-bottom: 0;
-  }
+    section[data-home-water="1"] .rich-text {
+        padding-top: 7.5px;
+        padding-bottom: 9.5px;
+    }
+    section[data-home-water="1"] .rich-text h6,
+    section[data-home-water="1"] .rich-text p {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
 }
 
 /* item A — home §에코웨이브 body. The original mobile twin authors the body at
@@ -692,23 +810,23 @@ a {
    "…친환경 가치" vs the twin's "…가치 실현을") and widens every glyph. Restore
    the twin's 14px + inherited ×2 line-height for this section only. */
 @media (max-width: 991px) {
-  section[data-home-eco="1"] .rich-text p span[style*="font-size: 18px"] {
-    font-size: 14px !important;
-    line-height: 2 !important;
-  }
-  /* the ECOWAVE wordmark: the twin renders the logo at its 266×55 natural
+    section[data-home-eco="1"] .rich-text p span[style*="font-size: 18px"] {
+        font-size: 14px !important;
+        line-height: 2 !important;
+    }
+    /* the ECOWAVE wordmark: the twin renders the logo at its 266×55 natural
      aspect (764×158); the pc fragment authors 296px → 61.2px tall, which is
      both wider and pushes the body down. The twin also starts the wordmark
      2.5px lower and keeps 2.5px more below the body (text row 59→299). */
-  section[data-home-eco="1"] .rich-text h6 img {
-    width: 266px !important;
-  }
-  section[data-home-eco="1"] .rich-text h6 {
-    margin-top: 12.5px !important;
-  }
-  section[data-home-eco="1"] .rich-text {
-    padding-bottom: 2.5px;
-  }
+    section[data-home-eco="1"] .rich-text h6 img {
+        width: 266px !important;
+    }
+    section[data-home-eco="1"] .rich-text h6 {
+        margin-top: 12.5px !important;
+    }
+    section[data-home-eco="1"] .rich-text {
+        padding-bottom: 2.5px;
+    }
 }
 
 /* Gate-0 cond 3 / item 4 — home-scoped authored-span mobile downscale, scoped to
@@ -722,17 +840,17 @@ a {
    mobile twins. Allowlisted so every other page/section is 0-change; desktop
    (>=992) untouched. */
 @media (max-width: 991px) {
-  section[data-home-type="1"] .rich-text span[style*="font-size: 18px"] {
-    font-size: 15px !important;
-  }
-  section[data-home-type="1"] .rich-text span[style*="font-size: 16px"] {
-    font-size: 14px !important;
-  }
-  section[data-home-type="1"] .rich-text span[style*="font-size: 60px"],
-  section[data-home-type="1"] .rich-text span[style*="font-size: 52px"] {
-    font-size: 26px !important;
-    line-height: 1.2 !important;
-  }
+    section[data-home-type="1"] .rich-text span[style*="font-size: 18px"] {
+        font-size: 15px !important;
+    }
+    section[data-home-type="1"] .rich-text span[style*="font-size: 16px"] {
+        font-size: 14px !important;
+    }
+    section[data-home-type="1"] .rich-text span[style*="font-size: 60px"],
+    section[data-home-type="1"] .rich-text span[style*="font-size: 52px"] {
+        font-size: 26px !important;
+        line-height: 1.2 !important;
+    }
 }
 
 /* company.about §2 intro + §6 정수기 mobile type scale (about-audit REPORT.md
@@ -783,6 +901,23 @@ a {
         margin-top: 7.5px;
         margin-bottom: 7.5px;
     }
+    /* company.about §토탈 솔루션 5-icon grid: the original renders the gallery
+       cells transparent — the authored PNGs are white/blue circles on a
+       transparent ground, so the shared `bg-soft` card showed as a visible grey
+       box behind each. Covers both grid branches: the measured `.grid` (direct
+       figure children) and the `gallery-grid` fallback (no `gridRowH`). Scoped to
+       the `data-about-band` sections. */
+    section[data-about-band="1"] .grid:has(> figure) > figure,
+    section[data-about-band="1"] .grid:has(> figure) > figure > figcaption,
+    section[data-about-band="1"] .gallery-grid > figure,
+    section[data-about-band="1"] .gallery-grid > figure > figcaption {
+        background: transparent !important;
+    }
+    /* A2 (company.about mobile type scale) is deliberately NOT applied: measured
+       at 390 the pc-at-mobile font downscale (`18px`->15px, `16px`->14px)
+       collapses each §POINT card by ~27px (one wrapped line fewer) and the page
+       by −153, because the original's per-section card boxes/columns differ.
+       Needs a coordinated pass — see design/audit/COMPANY-SUBPAGES-PLAN.md §A2. */
     /* §정수기 cards: the original `table.noBorder` cells are border 0 with the
        authored 8px padding (the rebuild's shared `.rich-text td` gives them a
        1px border + 8px/10px padding, narrowing the 800px image by 6px and
@@ -808,6 +943,14 @@ a {
     section[data-about-sec6="1"] .rich-text span[style*="font-size: 22px"] {
         line-height: 1.2 !important;
     }
+    /* A3 — the six §정수기 gallery cards measure 10px short against the original
+       (486/462 vs 496/472): the original's card `<p>`s carry imweb's 5px top
+       margin (the img `<p>` measures mt:5px) which our `.rich-text` margin reset
+       drops. Restore the measured band per card (6 × 10 = 60 = the section
+       deficit). */
+    section[data-about-sec6="1"] .rich-text:has(.text-table img) {
+        padding-bottom: 10px;
+    }
 }
 
 /* Home hero copy mobile downscale (item 4/6). The canonical hero slides author
@@ -816,27 +959,27 @@ a {
    band. Scoped to `.hero-carousel` (this component owns the CSS hook) so no
    other page's display type moves. Desktop (>=992) untouched. */
 @media (max-width: 991px) {
-  .hero-carousel .rich-text span[style*="font-size: 85px"],
-  .hero-carousel .rich-text span[style*="font-size: 75px"],
-  .hero-carousel .rich-text span[style*="font-size: 72px"] {
-    font-size: 26px !important;
-    line-height: 1.2 !important;
-  }
-  .hero-carousel .rich-text span[style*="font-size: 24px"] {
-    font-size: 16px !important;
-    line-height: 1.5 !important;
-  }
-  /* The pc composition keeps imweb's authored empty paragraphs in the hero
+    .hero-carousel .rich-text span[style*="font-size: 85px"],
+    .hero-carousel .rich-text span[style*="font-size: 75px"],
+    .hero-carousel .rich-text span[style*="font-size: 72px"] {
+        font-size: 26px !important;
+        line-height: 1.2 !important;
+    }
+    .hero-carousel .rich-text span[style*="font-size: 24px"] {
+        font-size: 16px !important;
+        line-height: 1.5 !important;
+    }
+    /* The pc composition keeps imweb's authored empty paragraphs in the hero
      fragment — the `<p style="line-height:2"><br></p>` between the subtitle and
      the body (30px) and a second blank title line on slide 1 (15px). The mobile
      twin omits them, so the body paragraph starts 32.8px lower than the
      original (measured at 390: orig body line 1 top 169, ours 201.8). Drop the
      empty paragraphs below 992; the 356px hero band is fixed, so this only
      tightens the text block. */
-  .hero-carousel .rich-text p:has(> br:only-child) {
-    display: none;
-  }
-  /* twin metrics (measured 390, section-relative): title strong tops 87/122,
+    .hero-carousel .rich-text p:has(> br:only-child) {
+        display: none;
+    }
+    /* twin metrics (measured 390, section-relative): title strong tops 87/122,
      body line tops 169/203/237. Title: a 35px block whose 26px/31.2 strong sits
      flush at the top (min-height so a wrapping EN title is not clipped). Body:
      the twin authors three separate 24px lines at a 34px pitch, so the body h6
@@ -845,18 +988,20 @@ a {
      matched by the 24px span they hold (the EN slide 1 twin drops the `font2`
      class), and only the first is width-constrained to re-wrap at the twin's
      "…번성하고" break. */
-  .hero-carousel .rich-text p.font1 {
-    min-height: 35px;
-    line-height: 1.2 !important;
-  }
-  .hero-carousel .rich-text h6:has(span[style*="font-size: 24px"]) {
-    margin: 0 auto !important;
-    line-height: 34px !important;
-  }
-  .hero-carousel .rich-text h6:has(span[style*="font-size: 24px"]):first-of-type {
-    max-width: 280px;
-    margin-top: 4.5px !important;
-  }
+    .hero-carousel .rich-text p.font1 {
+        min-height: 35px;
+        line-height: 1.2 !important;
+    }
+    .hero-carousel .rich-text h6:has(span[style*="font-size: 24px"]) {
+        margin: 0 auto !important;
+        line-height: 34px !important;
+    }
+    .hero-carousel
+        .rich-text
+        h6:has(span[style*="font-size: 24px"]):first-of-type {
+        max-width: 280px;
+        margin-top: 4.5px !important;
+    }
 }
 
 /* video widget: the crawled desktop video holder pins a 703.125px height; at
@@ -864,14 +1009,14 @@ a {
    (replaces the earlier hidden duplicate embed that fetched the same YouTube
    source twice). Desktop (>=992) keeps the authored height byte-identically. */
 @media (max-width: 991px) {
-  .video-fit .img_box {
-    height: auto !important;
-    aspect-ratio: 16 / 9;
-  }
-  .video-fit iframe {
-    width: 100% !important;
-    height: 100% !important;
-  }
+    .video-fit .img_box {
+        height: auto !important;
+        aspect-ratio: 16 / 9;
+    }
+    .video-fit iframe {
+        width: 100% !important;
+        height: 100% !important;
+    }
 }
 
 /* vertical spacers extracted from imweb padding widgets; scale down on mobile.
@@ -1034,38 +1179,38 @@ a {
    Desktop-only: the original rule is scoped to the desktop hero section id, and
    the mobile hero (390) measures `animation-name:none` on `.font1`/`.font2`. */
 @keyframes visualAnimation {
-  0% {
-    opacity: 0;
-    top: 50px;
-  }
-  100% {
-    opacity: 1;
-    top: 0px;
-  }
+    0% {
+        opacity: 0;
+        top: 50px;
+    }
+    100% {
+        opacity: 1;
+        top: 0px;
+    }
 }
 @media (min-width: 992px) and (prefers-reduced-motion: no-preference) {
-  .hero-carousel .hero-slide.is-active .font1 {
-    position: relative;
-    top: 50px;
-    opacity: 0;
-    animation: visualAnimation 1.5s ease-in-out 0.5s forwards;
-  }
-  .hero-carousel .hero-slide.is-active .font2 {
-    position: relative;
-    top: 50px;
-    opacity: 0;
-    animation: visualAnimation 1.5s ease-in-out 0.8s forwards;
-  }
+    .hero-carousel .hero-slide.is-active .font1 {
+        position: relative;
+        top: 50px;
+        opacity: 0;
+        animation: visualAnimation 1.5s ease-in-out 0.5s forwards;
+    }
+    .hero-carousel .hero-slide.is-active .font2 {
+        position: relative;
+        top: 50px;
+        opacity: 0;
+        animation: visualAnimation 1.5s ease-in-out 0.8s forwards;
+    }
 }
 /* reduced motion: keep the hero text fully visible with no offset/animation */
 @media (min-width: 992px) and (prefers-reduced-motion: reduce) {
-  .hero-carousel .hero-slide .font1,
-  .hero-carousel .hero-slide .font2 {
-    position: static;
-    top: auto;
-    opacity: 1;
-    animation: none;
-  }
+    .hero-carousel .hero-slide .font1,
+    .hero-carousel .hero-slide .font2 {
+        position: static;
+        top: auto;
+        opacity: 1;
+        animation: none;
+    }
 }
 
 /* Subpage page-title entrance (every non-home page whose first <main> child is
@@ -1085,26 +1230,26 @@ a {
    mobile h1 is not rendered at >=992). Opacity/transform only — zero layout
    change. */
 @keyframes subpageHeroFadeDown {
-  0% {
-    opacity: 0;
-    transform: translate3d(0, -60%, 0);
-  }
-  100% {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
+    0% {
+        opacity: 0;
+        transform: translate3d(0, -60%, 0);
+    }
+    100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
 }
 @media (min-width: 992px) and (prefers-reduced-motion: no-preference) {
-  main > section.bg-white:first-child h1 {
-    animation: subpageHeroFadeDown 1.2s ease 0.3s both;
-  }
+    main > section.bg-white:first-child h1 {
+        animation: subpageHeroFadeDown 1.2s ease 0.3s both;
+    }
 }
 @media (min-width: 992px) and (prefers-reduced-motion: reduce) {
-  main > section.bg-white:first-child h1 {
-    animation: none;
-    opacity: 1;
-    transform: none;
-  }
+    main > section.bg-white:first-child h1 {
+        animation: none;
+        opacity: 1;
+        transform: none;
+    }
 }
 
 /* Home overlay header (transparent header over the homepage hero). The original
@@ -1117,7 +1262,10 @@ a {
 @media (min-width: 992px) {
     #doz_header.header-overlay > div > nav > ul > li > a,
     #doz_header.header-overlay > div > nav > div > a {
-        transition: color 0.3s ease-out, background 0.3s ease-out, border-color 0.3s ease-out;
+        transition:
+            color 0.3s ease-out,
+            background 0.3s ease-out,
+            border-color 0.3s ease-out;
     }
 }
 
@@ -1127,7 +1275,10 @@ a {
    cubic-bezier(0.4, 0, 0.2, 1); this scoped rule (unlayered, so it beats the
    utility layer) replaces it. Inert on subpages where the bg never changes. */
 #doz_header {
-    transition: color 0.3s ease-out, background 0.3s ease-out, border-color 0.3s ease-out;
+    transition:
+        color 0.3s ease-out,
+        background 0.3s ease-out,
+        border-color 0.3s ease-out;
 }
 
 /* Header submenu open/close box: the original dropdown-menu is
@@ -1145,7 +1296,7 @@ a {
    harmlessly. */
 @media (max-width: 991px) {
     nav[aria-label="제품 카테고리"] > ul > li {
-        transition: .3s;
+        transition: 0.3s;
     }
     /* company.* page-hero sibling grid (PageHero `h-menu-type4`, aria-label
        "하위 메뉴"): the original carries the same `transition: .3s` on these
@@ -1155,7 +1306,7 @@ a {
        label, which on our side is the (off-canvas) drawer accordion child, not
        the grid cell. */
     nav[aria-label="하위 메뉴"] > ul > li {
-        transition: .3s;
+        transition: 0.3s;
     }
     /* The original's first *empty* header anchor is the hamburger
        `a._no_hover.fixed_transform` (transition none); our first empty anchor is
@@ -1171,7 +1322,7 @@ a {
        drawer items the grid cell's `all .3s` so the sampled element matches
        (paint-only, no visible effect while the drawer is closed). */
     [data-drawer-panel] li {
-        transition: .3s;
+        transition: 0.3s;
     }
 }
 
@@ -1236,8 +1387,10 @@ a {
 [data-widget-id="w2025091967935ff9055c1"] {
     border-radius: 80px;
     overflow: hidden;
-    transition: box-shadow .3s ease, transform .2s ease;
-    box-shadow: 0 12px 24px rgba(37, 99, 235, .08);
+    transition:
+        box-shadow 0.3s ease,
+        transform 0.2s ease;
+    box-shadow: 0 12px 24px rgba(37, 99, 235, 0.08);
 }
 [data-widget-id="w2025091886eece88ff0c0"]:hover,
 [data-widget-id="w20250919ad2bb4e856fba"]:hover,
@@ -1245,7 +1398,7 @@ a {
 [data-widget-id="w20250919acb2363841cb2"]:hover,
 [data-widget-id="w2025091918fef070d2137"]:hover,
 [data-widget-id="w2025091967935ff9055c1"]:hover {
-    box-shadow: 0 12px 24px rgba(37, 99, 235, .18);
+    box-shadow: 0 12px 24px rgba(37, 99, 235, 0.18);
     transform: translateY(-2px);
 }
 @media (min-width: 992px) {
@@ -1273,7 +1426,10 @@ a {
     [data-widget-id="w20250919acb2363841cb2"] .text-table.holder,
     [data-widget-id="w2025091918fef070d2137"] .text-table.holder,
     [data-widget-id="w2025091967935ff9055c1"] .text-table.holder {
-        padding: 12px 20px;
+        /* re-measured live at 390: the original keeps the pc holder box
+           (padding 20px 30px), matching the desktop rule; the earlier 12px 20px
+           cut narrowed the text column (320 vs the original's 300). */
+        padding: 20px 30px;
     }
     [data-widget-id="w2025091886eece88ff0c0"] h6,
     [data-widget-id="w20250919ad2bb4e856fba"] h6,
@@ -1304,12 +1460,24 @@ a {
     [data-widget-id="w2025091967935ff9055c1"] span[style*="font-size: 18px"] {
         font-size: 15px !important;
     }
-    [data-widget-id="w2025091886eece88ff0c0"] .text-table.holder p:has(> br:only-child),
-    [data-widget-id="w20250919ad2bb4e856fba"] .text-table.holder p:has(> br:only-child),
-    [data-widget-id="w20250919aa8199dc628c3"] .text-table.holder p:has(> br:only-child),
-    [data-widget-id="w20250919acb2363841cb2"] .text-table.holder p:has(> br:only-child),
-    [data-widget-id="w2025091918fef070d2137"] .text-table.holder p:has(> br:only-child),
-    [data-widget-id="w2025091967935ff9055c1"] .text-table.holder p:has(> br:only-child) {
+    [data-widget-id="w2025091886eece88ff0c0"]
+        .text-table.holder
+        p:has(> br:only-child),
+    [data-widget-id="w20250919ad2bb4e856fba"]
+        .text-table.holder
+        p:has(> br:only-child),
+    [data-widget-id="w20250919aa8199dc628c3"]
+        .text-table.holder
+        p:has(> br:only-child),
+    [data-widget-id="w20250919acb2363841cb2"]
+        .text-table.holder
+        p:has(> br:only-child),
+    [data-widget-id="w2025091918fef070d2137"]
+        .text-table.holder
+        p:has(> br:only-child),
+    [data-widget-id="w2025091967935ff9055c1"]
+        .text-table.holder
+        p:has(> br:only-child) {
         display: none;
     }
 }
@@ -1361,9 +1529,10 @@ a {
    text-align left, `.lg-backdrop` background rgba(0,0,0,.9) and z-index 1041,
    `.lg-outer` z-index 1050. */
 @font-face {
-    font-family: 'lg';
-    src: url('/fonts/lg/lg.woff') format('woff'),
-         url('/fonts/lg/lg.ttf') format('truetype');
+    font-family: "lg";
+    src:
+        url("/fonts/lg/lg.woff") format("woff"),
+        url("/fonts/lg/lg.ttf") format("truetype");
     font-weight: normal;
     font-style: normal;
 }
@@ -1372,9 +1541,9 @@ a {
     position: fixed;
     inset: 0;
     z-index: 1041;
-    background: rgba(0, 0, 0, .9);
+    background: rgba(0, 0, 0, 0.9);
     opacity: 0;
-    transition: opacity .15s ease;
+    transition: opacity 0.15s ease;
 }
 .lg-backdrop.in {
     opacity: 1;
@@ -1385,7 +1554,7 @@ a {
     inset: 0;
     z-index: 1050;
     opacity: 0;
-    transition: opacity .15s ease;
+    transition: opacity 0.15s ease;
 }
 .lg-outer * {
     box-sizing: border-box;
@@ -1439,7 +1608,7 @@ a {
     padding: 0 5px;
     text-align: center;
     /* programmatic pan moves animate; drag kills the transition below */
-    transition: transform .3s cubic-bezier(0, 0, .25, 1);
+    transition: transform 0.3s cubic-bezier(0, 0, 0.25, 1);
     /* the page is scroll-locked while open, so touch drags pan (never scroll) */
     touch-action: none;
 }
@@ -1453,16 +1622,20 @@ a {
     width: auto !important;
     height: auto !important;
     transform: scale3d(1, 1, 1);
-    transition: transform .3s cubic-bezier(0, 0, .25, 1);
+    transition: transform 0.3s cubic-bezier(0, 0, 0.25, 1);
 }
 /* each gallery swap remounts the <img> (React key) and fades it in — imweb's
    lightgallery fade transition for the single current item */
 @keyframes lg-item-fade {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 .lg-image {
-    animation: lg-item-fade .15s ease;
+    animation: lg-item-fade 0.15s ease;
 }
 
 .lg-toolbar {
@@ -1483,14 +1656,14 @@ a {
     padding: 10px 0;
     text-align: center;
     width: 50px;
-    transition: color .2s linear;
+    transition: color 0.2s linear;
 }
 .lg-toolbar .lg-icon:hover {
-    color: #FFF;
+    color: #fff;
 }
 
 .lg-icon {
-    font-family: 'lg';
+    font-family: "lg";
     speak: none;
     font-style: normal;
     font-weight: 400;
@@ -1503,7 +1676,7 @@ a {
    asymmetry. The `.lg-icon` base above supplies the font family. */
 .lg-actions .lg-next,
 .lg-actions .lg-prev {
-    background-color: rgba(0, 0, 0, .45);
+    background-color: rgba(0, 0, 0, 0.45);
     border-radius: 2px;
     color: #999;
     cursor: pointer;
@@ -1556,7 +1729,7 @@ button.lg-icon:disabled {
     cursor: default;
 }
 button.lg-icon:focus-visible {
-    outline: 2px solid rgba(255, 255, 255, .6);
+    outline: 2px solid rgba(255, 255, 255, 0.6);
     outline-offset: -2px;
 }
 
@@ -1578,7 +1751,7 @@ button.lg-icon:focus-visible {
 
 /* zoom-out is inert until the image is zoomed (`.lg-zoomed` is on `.lg-outer`) */
 #lg-zoom-out {
-    opacity: .5;
+    opacity: 0.5;
     pointer-events: none;
 }
 .lg-zoomed #lg-zoom-out {
@@ -1601,7 +1774,7 @@ button.lg-icon:focus-visible {
     left: 0;
     right: 0;
     z-index: 1080;
-    color: #EEE;
+    color: #eee;
     font-size: 16px;
     padding: 20px;
     background: transparent;
@@ -1615,6 +1788,11 @@ button.lg-icon:focus-visible {
 
 body.lg-on {
     overflow: hidden;
+}
+/* the mobile back-to-top overlay is `z-[9999]` — above the viewer (`.lg-outer`
+   z-1050) — so hide it while the lightbox is open or it floats over the image. */
+body.lg-on [data-back-to-top="1"] {
+    display: none !important;
 }
 
 /* reduced motion: no viewer fades / slide-in animation / pan easing */

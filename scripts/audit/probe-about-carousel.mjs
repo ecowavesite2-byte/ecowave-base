@@ -4,9 +4,10 @@
  * Boots `next dev` on a dedicated port (3129) and drives a real Chromium page
  * at 1440x900 with default content (NO reduced-motion emulation):
  *
- *   - block 3 (`w20250918692bb854e97af`, captioned, autoplay 4500ms): record the
- *     track `scrollLeft`, wait ~5.5s, assert it advanced (retry window in case
- *     hydration/measure delayed the first tick).
+ *   - block 3 (`w20250918692bb854e97af`, captioned): CONTINUOUS slow auto-scroll
+ *     (owl `autoplayTimeout: 31` + `smartSpeed: 10000` -> `continuousAutoplay`,
+ *     one page per 10s). Record the track `scrollLeft`, wait ~5.5s, assert it
+ *     advanced (retry window in case hydration/measure delayed the first tick).
  *   - hover the slider (root `onPointerEnter` pauses autoplay): record
  *     `scrollLeft`, wait ~5.5s, assert it did NOT advance.
  *   - block 6 (`w20250918b0ab58de4000e`, plain, autoplay 5000ms): same
@@ -32,7 +33,9 @@ const ROUTE = "/company/about";
 
 const BLOCK3 = "w20250918692bb854e97af";
 const BLOCK6 = "w20250918b0ab58de4000e";
-const AUTOPLAY3_MS = 4500;
+// block 3 is continuous (autoplayTimeout 31ms + smartSpeed 10000ms)
+const AUTOPLAY3_MS = 31;
+const CONTINUOUS3_MS = 10000;
 const AUTOPLAY6_MS = 5000;
 
 // How long a single window waits for a tick (interval + hydration slack).
@@ -55,14 +58,21 @@ if (MANAGED) {
 }
 const killDev = () => {
   if (dev) {
-    try { spawnSync("taskkill", ["/pid", String(dev.pid), "/T", "/F"], { stdio: "ignore" }); } catch {}
+    try {
+      spawnSync("taskkill", ["/pid", String(dev.pid), "/T", "/F"], {
+        stdio: "ignore",
+      });
+    } catch {}
   }
 };
 
 async function waitReady() {
   const deadline = Date.now() + 180000;
   while (Date.now() < deadline) {
-    try { const r = await fetch(`${BASE}/`); if (r.ok) return true; } catch {}
+    try {
+      const r = await fetch(`${BASE}/`);
+      if (r.ok) return true;
+    } catch {}
     await sleep(2500);
   }
   return false;
@@ -100,14 +110,23 @@ async function probePause(page, selector) {
     // Count the real pointerenter/leave on the slider root (the track's parent)
     // and the track's scroll events, so a synthetic-hover mismatch is visible.
     await page.evaluate((id) => {
-      const track = document.querySelector(`[data-widget-id="${id}"] [data-gs]`);
+      const track = document.querySelector(
+        `[data-widget-id="${id}"] [data-gs]`,
+      );
       const root = track ? track.parentElement : null;
       window.__gsProbe = { enter: 0, leave: 0, scroll: 0, target: null };
       if (root) {
-        root.addEventListener("pointerenter", () => (window.__gsProbe.enter += 1));
-        root.addEventListener("pointerleave", () => (window.__gsProbe.leave += 1));
+        root.addEventListener(
+          "pointerenter",
+          () => (window.__gsProbe.enter += 1),
+        );
+        root.addEventListener(
+          "pointerleave",
+          () => (window.__gsProbe.leave += 1),
+        );
       }
-      if (track) track.addEventListener("scroll", () => (window.__gsProbe.scroll += 1));
+      if (track)
+        track.addEventListener("scroll", () => (window.__gsProbe.scroll += 1));
     }, widgetId);
   }
 
@@ -128,14 +147,19 @@ async function probePause(page, selector) {
   if (DEBUG) {
     for (let i = 0; i < Math.ceil(WINDOW_MS / 250); i += 1) {
       await page.waitForTimeout(250);
-      samples.push({ t: (i + 1) * 250, x: Math.round(await readScrollLeft(page, selector)) });
+      samples.push({
+        t: (i + 1) * 250,
+        x: Math.round(await readScrollLeft(page, selector)),
+      });
     }
   } else {
     await page.waitForTimeout(WINDOW_MS);
   }
   const after = await readScrollLeft(page, selector);
   const pointer = DEBUG
-    ? await page.evaluate(() => (window.__gsProbe ? { ...window.__gsProbe } : null))
+    ? await page.evaluate(() =>
+        window.__gsProbe ? { ...window.__gsProbe } : null,
+      )
     : undefined;
   await page.mouse.move(0, 0);
   return {
@@ -152,7 +176,11 @@ const report = {
   route: ROUTE,
   viewport: "1440x900",
   reducedMotionEmulated: false,
-  expected: { block3AutoplayMs: AUTOPLAY3_MS, block6AutoplayMs: AUTOPLAY6_MS },
+  expected: {
+    block3AutoplayMs: AUTOPLAY3_MS,
+    block3ContinuousMs: CONTINUOUS3_MS,
+    block6AutoplayMs: AUTOPLAY6_MS,
+  },
   block3: null,
   block6: null,
   pass: false,
@@ -162,13 +190,21 @@ const report = {
 let browser;
 try {
   if (!(await waitReady())) {
-    console.log(JSON.stringify({ ...report, devReady: false, devLog: devLog.slice(-1200) }, null, 1));
+    console.log(
+      JSON.stringify(
+        { ...report, devReady: false, devLog: devLog.slice(-1200) },
+        null,
+        1,
+      ),
+    );
     killDev();
     process.exit(1);
   }
 
   browser = await chromium.launch();
-  const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+  const page = await browser.newPage({
+    viewport: { width: 1440, height: 900 },
+  });
   // Explicitly opt OUT of reduced-motion: the autoplay timer is disabled under
   // `prefers-reduced-motion: reduce`.
   await page.emulateMedia({ reducedMotion: "no-preference" });
@@ -188,7 +224,8 @@ try {
     const present = (await page.locator(selector).count()) > 0;
     if (!present) {
       report[name] = { present: false, pass: false };
-      if (name === "block3") report.failures.push(`${name}: slider track not found (${selector})`);
+      if (name === "block3")
+        report.failures.push(`${name}: slider track not found (${selector})`);
       continue;
     }
     const advance = await probeAdvance(page, selector);
@@ -230,7 +267,9 @@ try {
   report.pass = false;
   report.failures.push(`script error: ${report.error}`);
 } finally {
-  try { if (browser) await browser.close(); } catch {}
+  try {
+    if (browser) await browser.close();
+  } catch {}
   killDev();
   report.devLogTail = report.pass ? undefined : devLog.slice(-1200);
   console.log(JSON.stringify(report, null, 1));
