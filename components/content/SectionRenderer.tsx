@@ -1380,9 +1380,25 @@ function WidgetContent({
     case "board":
       // board widgets are handled explicitly by their page components
       return <div data-board-ref={w.ref} data-board-cls={w.listCls} />;
-    case "form":
-      // the imweb POST form has no live backend — static rebuild instead
-      return <InquiryForm locale={locale} />;
+    case "form": {
+      // the imweb POST form has no live backend — static rebuild instead. The
+      // /support form lives on a bespoke page (the original /28 is empty), so it
+      // uses a uniform mobile group rhythm; /notices' form keeps the original
+      // /27's measured, non-uniform gaps.
+      const supportForm = UNIFORM_SPACING_FORM_IDS.has(String(w.id ?? ""));
+      return (
+        <>
+          {/* /support only: the live original keeps ~77px (mobile) / ~125px
+              (desktop) between its intro band and the content below it (measured
+              on /27: band bottom -> first content row). Without this the
+              /support form renders flush against the band's bottom image edge. */}
+          {supportForm && (
+            <div aria-hidden className="h-[77px] min-[992px]:h-[125px]" />
+          )}
+          <InquiryForm locale={locale} uniformSpacing={supportForm} />
+        </>
+      );
+    }
     case "sitemap-links": {
       // footer sitemap sub-links injected from the nav tree (the crawl
       // missed them): 14px #959595, matching the live original
@@ -1999,6 +2015,17 @@ const GLOBAL_CONTACT_SECTION_IDS = new Set([
 const BRANCH_SECTION_IDS = new Set([
   "s202508286e01c87027ecf", // company.global §중국/캄보디아 지사 (ko)
   "s202509118a893f48f23e6", // company.global China/Cambodia branch (en)
+]);
+
+/**
+ * Inquiry form widgets that use the uniform mobile group rhythm plus the
+ * measured intro-band -> form gap. Only /support's form: the original /28 page
+ * is empty (no parity target), so a clean 30px rhythm is preferred and the
+ * form is inset from the band above it. /notices' form keeps the original /27's
+ * measured, non-uniform gaps.
+ */
+const UNIFORM_SPACING_FORM_IDS = new Set([
+  "w20250928k0su9p1f0rm0w1", // support form
 ]);
 
 /**

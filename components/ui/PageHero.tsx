@@ -81,7 +81,9 @@ function HeroSubNav({
  * (e.g. /support) apart from a child route under it (e.g. /notices).
  */
 function isSupportLanding(tabs: HeroTab[]): boolean {
-  return tabs[0]?.active === true && /\/support(\/|$)/.test(tabs[0]?.href ?? "");
+  return (
+    tabs[0]?.active === true && /\/support(\/|$)/.test(tabs[0]?.href ?? "")
+  );
 }
 
 function heroHeight(tabs: HeroTab[]): number {
@@ -98,14 +100,21 @@ function activeRoute(tabs: HeroTab[]): string {
 
 /**
  * Original mobile (`mobile_section_first`) heights measured at 390px:
- * news/notices 127, support 145, products.flowell/clean-b 222, rnd* 227,
+ * news/notices 127, products.flowell/clean-b 222, rnd* 227,
  * company/ceo/about/philosophy/history/organization/global 267,
  * products landing + eco-wave 297. Desktop heights (310/290/353) unchanged.
+ *
+ * `/support` (the blank landing) is the exception: the live /28 authors TWO
+ * stacked empty sections (145 + 145 at 390, 290 + 290 at 1440) and our page
+ * replaces the *second* one with its intro band + form, so the single hero band
+ * has to carry the whole 290px of empty rhythm the original leaves before its
+ * content — otherwise the band starts 145px higher than every sibling subpage's
+ * first block (products 297 / company 267 / rnd 227) and the /28 parity is lost.
  */
 function mobileHeroHeight(tabs: HeroTab[]): number {
   const href = activeRoute(tabs);
   if (/^\/(news|notices)(\/|$)/.test(href)) return 127;
-  if (/^\/support(\/|$)/.test(href)) return 145;
+  if (/^\/support(\/|$)/.test(href)) return 290;
   if (/^\/products\/(flowell|clean-b)(\/|$)/.test(href)) return 222;
   if (/^\/products(\/|$)/.test(href)) return 297;
   if (/^\/rnd(\/|$)/.test(href)) return 227;
@@ -154,12 +163,12 @@ export default function PageHero({
   const mobileHeightClass =
     mh === 127
       ? "min-h-[127px]"
-      : mh === 145
-        ? "min-h-[145px]"
-        : mh === 222
-          ? "min-h-[222px]"
-          : mh === 227
-            ? "min-h-[227px]"
+      : mh === 222
+        ? "min-h-[222px]"
+        : mh === 227
+          ? "min-h-[227px]"
+          : mh === 290
+            ? "min-h-[290px]"
             : mh === 297
               ? "min-h-[297px]"
               : "min-h-[267px]";
@@ -177,7 +186,8 @@ export default function PageHero({
   // root is excluded); the active cell is the current child, or the first child
   // on a group landing (which the original renders as that child's page).
   const groupRoute = (tabs[0]?.href ?? "").replace(/^\/en(?=\/|$)/, "");
-  const hasSubNav = /^\/(company|rnd|products)(\/|$)/.test(groupRoute) && tabs.length > 1;
+  const hasSubNav =
+    /^\/(company|rnd|products)(\/|$)/.test(groupRoute) && tabs.length > 1;
   const subNavItems: MobileNavItem[] = hasSubNav ? tabs.slice(1) : [];
   const subNavCols: 2 | 3 = /^\/products(\/|$)/.test(groupRoute) ? 2 : 3;
   const subNavActive = (() => {
@@ -191,20 +201,32 @@ export default function PageHero({
   const mobileTitle = hasSubtitle ? `${subtitle}(${title})` : title;
   // bottom inset below the title: 73px puts the 65px H1 box at 247..325
   // (hero top 88) exactly like the original; the 72px product title sits higher
-  const padBottom = hasSubtitle ? "lg:pb-[88px]" : big ? "lg:pb-[117px]" : "lg:pb-[73px]";
+  const padBottom = hasSubtitle
+    ? "lg:pb-[88px]"
+    : big
+      ? "lg:pb-[117px]"
+      : "lg:pb-[73px]";
   // static classes so Tailwind always emits them (the three measured heights)
   const heightClass =
-    h === 290 ? "lg:min-h-[290px]" : h === 353 ? "lg:min-h-[353px]" : "lg:min-h-[310px]";
+    h === 290
+      ? "lg:min-h-[290px]"
+      : h === 353
+        ? "lg:min-h-[353px]"
+        : "lg:min-h-[310px]";
 
   return (
     <section className="bg-white">
-      <div className={`mx-auto flex max-w-[1280px] flex-col justify-start px-[15px] pb-0 pt-[65px] lg:flex-row lg:items-end lg:justify-between lg:pt-0 ${mobileHeightClass} ${heightClass} ${padBottom}`}>
+      <div
+        className={`mx-auto flex max-w-[1280px] flex-col justify-start px-[15px] pb-0 pt-[65px] lg:flex-row lg:items-end lg:justify-between lg:pt-0 ${mobileHeightClass} ${heightClass} ${padBottom}`}
+      >
         {!blank && title && (hasSubtitle || hasSubNav) ? (
           hasSubNav ? (
             <>
               {/* desktop: page title (+ product subtitle) and the breadcrumb */}
               <div className="hidden min-[992px]:block">
-                <h1 className={`font-bold text-black text-[30px] leading-[1.2] ${big ? "lg:text-[72px] lg:leading-[1.1]" : "lg:text-[65px]"}`}>
+                <h1
+                  className={`font-bold text-black text-[30px] leading-[1.2] ${big ? "lg:text-[72px] lg:leading-[1.1]" : "lg:text-[65px]"}`}
+                >
                   {title}
                 </h1>
                 {hasSubtitle && (
@@ -216,8 +238,14 @@ export default function PageHero({
               {/* mobile: single title (products combine KR(EN) like the original
                   mobile twin) + the `h-menu-type4` sibling grid at y134.5 */}
               <div className="w-full min-[992px]:hidden">
-                <h1 className="text-[30px] font-bold leading-[1.2] text-black">{mobileTitle}</h1>
-                <HeroSubNav items={subNavItems} cols={subNavCols} activeIndex={subNavActive} />
+                <h1 className="text-[30px] font-bold leading-[1.2] text-black">
+                  {mobileTitle}
+                </h1>
+                <HeroSubNav
+                  items={subNavItems}
+                  cols={subNavCols}
+                  activeIndex={subNavActive}
+                />
               </div>
             </>
           ) : (
@@ -237,17 +265,25 @@ export default function PageHero({
             </div>
           )
         ) : !blank && title ? (
-          <h1 className={`font-bold leading-[1.2] text-black ${big ? "text-[30px] lg:text-[72px]" : "text-[30px] lg:text-[65px]"}`}>
+          <h1
+            className={`font-bold leading-[1.2] text-black ${big ? "text-[30px] lg:text-[72px]" : "text-[30px] lg:text-[65px]"}`}
+          >
             {title}
           </h1>
         ) : null}
         {!blank && crumbs.length > 0 && (
-          <nav className={`mt-4 hidden min-[992px]:block lg:mt-0 ${hasSubtitle ? "lg:mb-[9px]" : ""}`} aria-label="현재 위치">
+          <nav
+            className={`mt-4 hidden min-[992px]:block lg:mt-0 ${hasSubtitle ? "lg:mb-[9px]" : ""}`}
+            aria-label="현재 위치"
+          >
             <ul className="flex flex-wrap items-center gap-y-2">
               {crumbs.map((t, i) => (
                 <li key={t.href + t.label} className="flex items-center">
                   {i > 0 && (
-                    <span aria-hidden className="mx-2.5 text-[16px] text-[rgba(54,54,54,0.4)] lg:text-[18px]">
+                    <span
+                      aria-hidden
+                      className="mx-2.5 text-[16px] text-[rgba(54,54,54,0.4)] lg:text-[18px]"
+                    >
                       ›
                     </span>
                   )}

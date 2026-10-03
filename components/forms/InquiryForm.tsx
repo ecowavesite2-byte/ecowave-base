@@ -10,8 +10,17 @@ import type { Locale } from "@/lib/i18n";
  * with 1px rgba(0,0,0,.1) borders, 40px row gaps, 2-col grid for the
  * first four fields, 195x51 #363636 submit button.
  */
-export default function InquiryForm({ locale }: { locale: Locale }) {
+export default function InquiryForm({
+  locale,
+  uniformSpacing = false,
+}: {
+  locale: Locale;
+  /** /support (bespoke page, no original): use a uniform mobile group rhythm
+   *  instead of the /27 form's measured, non-uniform gaps. */
+  uniformSpacing?: boolean;
+}) {
   const t = labels[locale];
+  const gap = (measured: string) => (uniformSpacing ? "mt-[30px]" : measured);
   const [fileName, setFileName] = useState("");
   const [done, setDone] = useState(false);
   const [pending, setPending] = useState(false);
@@ -38,10 +47,14 @@ export default function InquiryForm({ locale }: { locale: Locale }) {
     "h-[82px] w-full resize-none border border-black/10 bg-white px-4 py-3 text-[15px] text-ink outline-none transition-colors placeholder:text-muted focus:border-accent min-[992px]:h-[50px]";
 
   const req = (
-    <span aria-hidden className="ml-1 inline-block h-[6px] w-[6px] rounded-full bg-[#ee3a3a] align-middle" />
+    <span
+      aria-hidden
+      className="ml-1 inline-block h-[6px] w-[6px] rounded-full bg-[#ee3a3a] align-middle"
+    />
   );
 
-  const labelCls = "flex h-[22px] items-center text-[15px] font-bold text-ink min-[992px]:h-[29px] min-[992px]:text-[18px]";
+  const labelCls =
+    "flex h-[22px] items-center text-[15px] font-bold text-ink min-[992px]:h-[29px] min-[992px]:text-[18px]";
 
   return (
     <>
@@ -73,8 +86,11 @@ export default function InquiryForm({ locale }: { locale: Locale }) {
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify(payload),
             });
-            const data: { ok?: boolean; error?: string } = await res.json().catch(() => ({}));
-            if (!res.ok || !data.ok) throw new Error(data.error || `HTTP ${res.status}`);
+            const data: { ok?: boolean; error?: string } = await res
+              .json()
+              .catch(() => ({}));
+            if (!res.ok || !data.ok)
+              throw new Error(data.error || `HTTP ${res.status}`);
             setDone(true);
             formRef.current?.reset();
             setFileName("");
@@ -86,27 +102,49 @@ export default function InquiryForm({ locale }: { locale: Locale }) {
         }}
       >
         {/* 2-col grid: company/contact, phone/email */}
-        <div className="grid grid-cols-1 gap-x-[30px] gap-y-[20px] lg:grid-cols-2 min-[992px]:gap-y-10">
+        <div
+          className={`grid grid-cols-1 gap-x-[30px] ${
+            uniformSpacing ? "gap-y-[30px]" : "gap-y-[20px]"
+          } lg:grid-cols-2 min-[992px]:gap-y-10`}
+        >
           <div>
             <label className={labelCls} htmlFor="inq-company">
               {t.company}
               {req}
             </label>
-            <input id="inq-company" name="company" required placeholder={t.companyPh} className={`${inputCls} mt-[5px]`} />
+            <input
+              id="inq-company"
+              name="company"
+              required
+              placeholder={t.companyPh}
+              className={`${inputCls} mt-[5px]`}
+            />
           </div>
           <div>
             <label className={labelCls} htmlFor="inq-contact">
               {t.contact}
               {req}
             </label>
-            <input id="inq-contact" name="contact" required placeholder={t.contactPh} className={`${inputCls} mt-[5px]`} />
+            <input
+              id="inq-contact"
+              name="contact"
+              required
+              placeholder={t.contactPh}
+              className={`${inputCls} mt-[5px]`}
+            />
           </div>
           <div>
             <label className={labelCls} htmlFor="inq-phone">
               {t.phone}
               {req}
             </label>
-            <input id="inq-phone" name="phone" required placeholder={t.phonePh} className={`${inputCls} mt-[5px]`} />
+            <input
+              id="inq-phone"
+              name="phone"
+              required
+              placeholder={t.phonePh}
+              className={`${inputCls} mt-[5px]`}
+            />
           </div>
           <div>
             <label className={labelCls} htmlFor="inq-email">
@@ -125,7 +163,7 @@ export default function InquiryForm({ locale }: { locale: Locale }) {
         </div>
 
         {/* address */}
-        <div className="mt-[20px] min-[992px]:mt-10">
+        <div className={`${gap("mt-[20px]")} min-[992px]:mt-10`}>
           <label className={labelCls} htmlFor="inq-address">
             {t.address}
           </label>
@@ -139,18 +177,31 @@ export default function InquiryForm({ locale }: { locale: Locale }) {
         </div>
 
         {/* products checkboxes */}
-        <fieldset className="mt-[20px] min-[992px]:mt-10">
+        <fieldset className={`${gap("mt-[20px]")} min-[992px]:mt-10`}>
           <legend className={labelCls}>{t.products}</legend>
           <div className="mt-[5px] space-y-0 text-[15px] text-ink">
             {t.productOptions.map((opt) => (
-              <label key={opt} className="flex h-[38px] cursor-pointer items-center gap-2">
-                <input type="checkbox" name="products" value={opt} className="h-4 w-4 accent-[#3465de]" />
+              <label
+                key={opt}
+                className="flex h-[38px] cursor-pointer items-center gap-2"
+              >
+                <input
+                  type="checkbox"
+                  name="products"
+                  value={opt}
+                  className="h-4 w-4 accent-[#3465de]"
+                />
                 {opt}
               </label>
             ))}
             <div className="flex h-[38px] items-center gap-2">
               <label className="flex cursor-pointer items-center gap-2">
-                <input type="checkbox" name="products" value="etc" className="h-4 w-4 accent-[#3465de]" />
+                <input
+                  type="checkbox"
+                  name="products"
+                  value="etc"
+                  className="h-4 w-4 accent-[#3465de]"
+                />
                 {t.etcPrefix}:
               </label>
               <input
@@ -164,12 +215,20 @@ export default function InquiryForm({ locale }: { locale: Locale }) {
         </fieldset>
 
         {/* oem/odm checkboxes */}
-        <fieldset className="mt-[40px] min-[992px]:mt-10">
+        <fieldset className={`${gap("mt-[40px]")} min-[992px]:mt-10`}>
           <legend className={labelCls}>{t.oem}</legend>
           <div className="mt-[5px] text-[15px] text-ink">
             {t.oemOptions.map((opt) => (
-              <label key={opt} className="flex h-[38px] cursor-pointer items-center gap-2">
-                <input type="checkbox" name="oem" value={opt} className="h-4 w-4 accent-[#3465de]" />
+              <label
+                key={opt}
+                className="flex h-[38px] cursor-pointer items-center gap-2"
+              >
+                <input
+                  type="checkbox"
+                  name="oem"
+                  value={opt}
+                  className="h-4 w-4 accent-[#3465de]"
+                />
                 {opt}
               </label>
             ))}
@@ -177,7 +236,7 @@ export default function InquiryForm({ locale }: { locale: Locale }) {
         </fieldset>
 
         {/* inquiry */}
-        <div className="mt-[34px] min-[992px]:mt-10">
+        <div className={`${gap("mt-[34px]")} min-[992px]:mt-10`}>
           <label className={labelCls} htmlFor="inq-body">
             {t.inquiry}
           </label>
@@ -191,7 +250,7 @@ export default function InquiryForm({ locale }: { locale: Locale }) {
         </div>
 
         {/* file */}
-        <div className="mt-[21px] min-[992px]:mt-10">
+        <div className={`${gap("mt-[21px]")} min-[992px]:mt-10`}>
           <span className={labelCls}>{t.file}</span>
           <div className="mt-[5px]">
             <input
@@ -206,7 +265,14 @@ export default function InquiryForm({ locale }: { locale: Locale }) {
               onClick={() => fileRef.current?.click()}
               className="inline-flex h-10 items-center gap-2 border border-black/10 bg-white px-5 text-[15px] text-ink transition-colors hover:border-accent hover:text-accent"
             >
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg
+                width="15"
+                height="15"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
                 <path d="M12 16V4m0 0l-4 4m4-4l4 4M4 16v3a1 1 0 001 1h14a1 1 0 001-1v-3" />
               </svg>
               {fileName || t.fileBtn}
@@ -215,7 +281,7 @@ export default function InquiryForm({ locale }: { locale: Locale }) {
         </div>
 
         {/* consent */}
-        <div className="mt-[36px] min-[992px]:mt-10">
+        <div className={`${gap("mt-[36px]")} min-[992px]:mt-10`}>
           <span className={labelCls}>
             {t.consentTitle}
             {req}
@@ -228,13 +294,19 @@ export default function InquiryForm({ locale }: { locale: Locale }) {
             ))}
           </div>
           <label className="mt-[19px] flex cursor-pointer items-center gap-2 text-[15px] text-ink min-[992px]:mt-3">
-            <input type="checkbox" name="consent" value="true" required className="h-4 w-4 accent-[#3465de]" />
+            <input
+              type="checkbox"
+              name="consent"
+              value="true"
+              required
+              className="h-4 w-4 accent-[#3465de]"
+            />
             {t.agree}
           </label>
         </div>
 
         {/* submit */}
-        <div className="mt-[35px] text-center min-[992px]:mt-10">
+        <div className={`${gap("mt-[35px]")} text-center min-[992px]:mt-10`}>
           <button
             type="submit"
             disabled={pending}
