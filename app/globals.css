@@ -612,6 +612,17 @@ section[data-era="1"] [data-aside-pt] img {
     }
 }
 
+/* /rnd + /rnd.technology §2 (s202509091799d895b62ea) author a hand-added
+   `w20250909spacer15px01` padding widget above the "더 깨끗하고" photo. The
+   original does not render it at 390 (its photo row measures 133 = photo 118 +
+   row padding, no spacer), so our copy pushed the photo 23px low — the biggest
+   band on the rnd diff. Hide it at mobile; desktop keeps the authored 15px. */
+@media (max-width: 991px) {
+    [data-widget-id="w20250909spacer15px01"] {
+        display: none;
+    }
+}
+
 /* ── company.philosophy per-widget skins + box model ────────────────────────
    design/audit/company-philosophy-audit.md §2D/§3. The crawler dropped the
    generated per-widget skins; these reproduce them. P1 (radii) is paint-only;
