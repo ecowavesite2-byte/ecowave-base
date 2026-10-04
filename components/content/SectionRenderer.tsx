@@ -1915,6 +1915,42 @@ const ABOUT_SEC6_SECTION_IDS = new Set([
   "s20250918c5a18b62c8acd", // company.about §6 정수기 / 우리 일상
 ]);
 
+// company.about pc-content mobile type scale (globals.css `data-about-type`).
+// The original's pc-at-mobile runtime downscales the authored rich-text sizes:
+// 18px -> 15px and 16px -> 14px, both with the size-keyed 1.2 leading, and the
+// 36px headlines keep their 24px mobile size but drop to the 1.2 line box
+// (24 -> 28.8). Measured live at 390 (textcheck): §POINT 01 labels 16->14,
+// card body 18->15, §R&D / §HQ eyebrows 18->15, headline line box 48 -> 28.8.
+// The shrink is absorbed by the `ABOUT_MIN_H` floors below so the section
+// boundaries stay put.
+const ABOUT_TYPE_SECTION_IDS = new Set([
+  "s20250918e40b7f78d4437", // §POINT 01
+  "s202508119a2e8fe21b47a", // §기능성 필터
+  "s20250918c54b2950e2f1a", // §토탈 솔루션
+  "s20250918c5a18b62c8acd", // §정수기
+  "s20250918ab81858502f9e", // §기준은 높게
+  "s20250918ffd77075d76ea", // §R&D & Manufacturing
+  "s202509180d5f2b5ede2b3", // §Headquarters
+]);
+
+// company.about pc sections that render SHORTER than the original at 390, so
+// every following section drifts upward (measured live on /17: §기능성 580 vs
+// 547, §토탈 851 vs 836, §기준은 432 vs 403, §R&D 998 vs 989 — the cumulative
+// -34px lands §정수기, the 3150px gallery, 34px high). The deficit is internal
+// (imweb's 7.5px widget band on rows our pc-at-mobile render drops + a smaller
+// gallery pitch) and spread across rows, so restore it as a mobile min-height
+// per section (globals.css `data-about-min-h`). Values are the original's
+// measured section heights; §POINT01/§정수기/§HQ already meet or exceed them.
+const ABOUT_MIN_H: Record<string, number> = {
+  s20250918e40b7f78d4437: 1269, // §POINT 01
+  s202508119a2e8fe21b47a: 580, // §기능성 필터
+  s20250918c54b2950e2f1a: 851, // §토탈 솔루션
+  s20250918c5a18b62c8acd: 3150, // §정수기 / 우리 일상
+  s20250918ab81858502f9e: 432, // §기준은 높게
+  s20250918ffd77075d76ea: 998, // §R&D & Manufacturing
+  s202509180d5f2b5ede2b3: 908, // §Headquarters
+};
+
 /**
  * imweb "fixed side" editor option — company.history year bands pin their
  * aside content below the 88px desktop header while the timeline column
@@ -2580,6 +2616,8 @@ export default function SectionRenderer({
         const aboutSec2 = ABOUT_SEC2_SECTION_IDS.has(sec.id);
         const aboutTextBand = ABOUT_TEXT_BAND_SECTION_IDS.has(sec.id);
         const aboutSec6 = ABOUT_SEC6_SECTION_IDS.has(sec.id);
+        const aboutType = ABOUT_TYPE_SECTION_IDS.has(sec.id);
+        const aboutMinH = ABOUT_MIN_H[sec.id];
         // item 2: home §7 holder box model (globals.css `data-mapholder`)
         const mapHolder = MAP_HOLDER_SECTION_IDS.has(sec.id);
         // item 4: home-scoped authored-span downscale (globals.css `data-home-type`)
@@ -2652,6 +2690,17 @@ export default function SectionRenderer({
             // company.about §6 정수기 mobile type scale (globals.css): body
             // 18->15/1.2, row titles 22px line-height 1.2.
             data-about-sec6={aboutSec6 ? "1" : undefined}
+            // company.about pc-content mobile type scale (globals.css): 18->15,
+            // 16->14 (both 1.2 leading), the 36px headline 1.2 and card
+            // `<strong>` 1.2 on the POINT / filters / solutions / 정수기 /
+            // 기준은 높게 / R&D / HQ sections.
+            data-about-type={aboutType ? "1" : undefined}
+            // company.about pc-section mobile height floor (globals.css): the
+            // mobile render is shorter than the original's measured section, so
+            // restore it and stop the following sections drifting upward.
+            data-about-min-h={
+              aboutMinH !== undefined ? String(aboutMinH) : undefined
+            }
             // item 2 hook (globals.css): home §7 holder box model
             // (wrapper 0 15px + holder 20px 50px + mobile span 1.2).
             data-mapholder={mapHolder ? "1" : undefined}

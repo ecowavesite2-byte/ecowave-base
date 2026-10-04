@@ -1099,6 +1099,62 @@ section[data-era="1"] [data-aside-pt] img {
     }
 }
 
+/* company.about pc section mobile height floors (SectionRenderer `ABOUT_MIN_H`).
+   The original's pc-at-mobile sections each measure a specific height on /17;
+   ours render 33/15/29/9px shorter because imweb's 7.5px widget band on some
+   rows is not reproduced, which accumulates into a -34px drift that lands the
+   3150px §정수기 gallery 34px high. Flooring each section at the measured height
+   realigns every following section. Values are the live 390px measurements. */
+@media (max-width: 991px) {
+    section[data-about-min-h="1269"] {
+        min-height: 1269px;
+    }
+    section[data-about-min-h="580"] {
+        min-height: 580px;
+    }
+    section[data-about-min-h="851"] {
+        min-height: 851px;
+    }
+    section[data-about-min-h="3150"] {
+        min-height: 3150px;
+    }
+    section[data-about-min-h="432"] {
+        min-height: 432px;
+    }
+    section[data-about-min-h="998"] {
+        min-height: 998px;
+    }
+    section[data-about-min-h="908"] {
+        min-height: 908px;
+    }
+}
+
+/* company.about pc-content mobile type scale (SectionRenderer hook
+   `data-about-type`; see ABOUT_TYPE_SECTION_IDS). The original's pc-at-mobile
+   runtime downscales the authored rich-text sizes on every about section:
+   - 18px -> 15px and 16px -> 14px, both with the size-keyed 1.2 leading;
+   - the 36px section headlines keep 24px but drop to the 1.2 line box
+     (our inherited 2 on the `h6` gave 48px);
+   - the card `<strong>` titles run 1.2 (orig 18) where our 1.4 gave 21.
+   The resulting shrink is absorbed by the `data-about-min-h` floors above, so
+   the section boundaries stay put while the text matches the original. */
+@media (max-width: 991px) {
+    section[data-about-type="1"] .rich-text span[style*="font-size: 18px"] {
+        font-size: 15px !important;
+        line-height: 1.2 !important;
+    }
+    section[data-about-type="1"] .rich-text span[style*="font-size: 16px"] {
+        font-size: 14px !important;
+        line-height: 1.2 !important;
+    }
+    section[data-about-type="1"] .rich-text span[style*="font-size: 36px"] {
+        line-height: 1.2 !important;
+    }
+    section[data-about-type="1"] .rich-text strong {
+        line-height: 1.2 !important;
+    }
+}
+
 /* Home hero copy mobile downscale (item 4/6). The canonical hero slides author
    the desktop 85px/75px (ko) and 72px (en) display spans plus a 24px subtitle;
    the dropped mobile twin measured 26px title / 16px subtitle on the 356px
