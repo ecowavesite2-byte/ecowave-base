@@ -73,6 +73,48 @@ function HeroSubNav({
 }
 
 /**
+ * Product pages only (`/products` and `/products/eco-wave` — the same eco-wave
+ * board on the original): the hero's `mobile_section_first` carries a SECOND
+ * nav widget, imweb's `h-menu-type2` pill row, below the 2-col `h-menu-type4`
+ * grid. Measured live at 390 on /32 + /37:
+ *  - the row sits 15px under the grid (y335), is 60px tall and centred;
+ *  - each pill is `padding:4px 15px`, `border-radius:50px`, 13px/20.8px;
+ *  - the active pill is #3970EB with a 1px #3970EB border (31px tall) and the
+ *    others are 29px, borderless, rgba(54,54,54,.7).
+ * `/products/flowell` + `/products/clean-b` (the flowell / clean-b boards)
+ * render the grid only — hence the route gate, not just `hasSubNav`.
+ */
+function ProductPillNav({
+  items,
+  activeIndex,
+}: {
+  items: MobileNavItem[];
+  activeIndex: number;
+}) {
+  return (
+    <div className="mt-[15px] text-center leading-none min-[992px]:hidden">
+      <ul className="w-full text-center">
+        {items.map((n, i) => (
+          <li key={n.href} className="inline-block">
+            <Link
+              href={n.href}
+              aria-current={i === activeIndex ? "page" : undefined}
+              className={`inline-flex items-center rounded-full px-[15px] py-[4px] text-[13px] leading-[1.6] transition duration-300 ${
+                i === activeIndex
+                  ? "border border-[#3970eb] bg-[#3970eb] text-white"
+                  : "text-[rgba(54,54,54,0.7)] hover:text-[#d6d6d6]"
+              }`}
+            >
+              {n.label}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+/**
  * Original imweb page-hero (`section_first`) heights measured at 1440px:
  * 310px on most subpages, 290px on the support landing (an empty spacer band)
  * and 353px on the products section. The first desktop section of every page
@@ -105,16 +147,14 @@ function activeRoute(tabs: HeroTab[]): string {
  * products landing + eco-wave 297. Desktop heights (310/290/353) unchanged.
  *
  * `/support` (the blank landing) is the exception: the live /28 authors TWO
- * stacked empty sections (145 + 145 at 390, 290 + 290 at 1440) and our page
- * replaces the *second* one with its intro band + form, so the single hero band
- * has to carry the whole 290px of empty rhythm the original leaves before its
- * content — otherwise the band starts 145px higher than every sibling subpage's
- * first block (products 297 / company 267 / rnd 227) and the /28 parity is lost.
+ * stacked empty sections (145 + 145 at 390, 290 + 290 at 1440). Our page
+ * replaces the second one with its intro band + form, but the client wants the
+ * remaining first block to read like the other title-less board pages
+ * (news/notices 127) rather than the original's 145/290 rhythm.
  */
 function mobileHeroHeight(tabs: HeroTab[]): number {
   const href = activeRoute(tabs);
-  if (/^\/(news|notices)(\/|$)/.test(href)) return 127;
-  if (/^\/support(\/|$)/.test(href)) return 290;
+  if (/^\/(news|notices|support)(\/|$)/.test(href)) return 127;
   if (/^\/products\/(flowell|clean-b)(\/|$)/.test(href)) return 222;
   if (/^\/products(\/|$)/.test(href)) return 297;
   if (/^\/rnd(\/|$)/.test(href)) return 227;
@@ -167,11 +207,9 @@ export default function PageHero({
         ? "min-h-[222px]"
         : mh === 227
           ? "min-h-[227px]"
-          : mh === 290
-            ? "min-h-[290px]"
-            : mh === 297
-              ? "min-h-[297px]"
-              : "min-h-[267px]";
+          : mh === 297
+            ? "min-h-[297px]"
+            : "min-h-[267px]";
   // Restored to the original's authored mobile band (see mobileHeroHeight):
   // pt 65 puts the 30px/36px title at y65 and the sub-menu (when present) at
   // y134.5, exactly like the original `mobile_section_first`. The earlier
@@ -195,6 +233,10 @@ export default function PageHero({
     if (i >= 0) return i;
     return tabs[0]?.active && subNavItems.length > 0 ? 0 : -1;
   })();
+  // the `h-menu-type2` pill row only exists on the eco-wave board (the products
+  // landing and /products/eco-wave); flowell / clean-b render the grid only.
+  const productPills =
+    hasSubNav && /^\/products(\/eco-wave)?\/?$/.test(activeRoute(tabs));
   // mobile title: the original mobile products hero combines the desktop
   // title + subtitle into "<KR>(<EN>)" (e.g. 에코웨이브(Eco wave)); every other
   // group already uses the child label as the page title.
@@ -246,6 +288,12 @@ export default function PageHero({
                   cols={subNavCols}
                   activeIndex={subNavActive}
                 />
+                {productPills && (
+                  <ProductPillNav
+                    items={subNavItems}
+                    activeIndex={subNavActive}
+                  />
+                )}
               </div>
             </>
           ) : (

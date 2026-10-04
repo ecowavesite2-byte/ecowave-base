@@ -38,6 +38,19 @@ body {
     line-height: 1.6;
 }
 
+/* Entrance animations slide a few widgets in from `translateX(100%)`, which
+   transiently widens the document by ~200-234px on /company/about,
+   /company/philosophy and home — letting the page be panned sideways while the
+   reveal plays. The live original has no such overflow (about/philosophy 0px,
+   home a constant 8px). `clip` (not `hidden`) removes the pan without creating
+   a scroll container, so sticky/fixed descendants are unaffected. */
+@media (max-width: 991px) {
+    html,
+    body {
+        overflow-x: clip;
+    }
+}
+
 /* original bundle-16-site.css: `a { transition: .3s }` (all props, 300ms ease).
    The original MOBILE base is `transition: none` on `a`, but its real anchors
    (cards, nav, footer — imweb `.fade_link`) still compute `all .3s ease`
