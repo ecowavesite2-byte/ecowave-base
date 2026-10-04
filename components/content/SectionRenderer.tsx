@@ -1952,6 +1952,17 @@ const ABOUT_MIN_H: Record<string, number> = {
 };
 
 /**
+ * Background images of the news / notices / support intro bands (the same 48px
+ * white heading over a fixed hero). Unlike the company / rnd bands they are not
+ * row-shared channel bands, so they are matched by these images for the mobile
+ * type hook only (`data-intro-48`).
+ */
+const INTRO_48_BGS = [
+  "/images/thumbnail/20250820/5d92141b20894.jpg", // notices / support
+  "/images/thumbnail/20250820/113e5c85da4f1.jpg", // news / newsroom
+];
+
+/**
  * imweb "fixed side" editor option — company.history year bands pin their
  * aside content below the 88px desktop header while the timeline column
  * scrolls past (measured live: original writes inline
@@ -2638,6 +2649,15 @@ export default function SectionRenderer({
         const introBand = SHARED_INTROS.some((cfg) =>
           isSharedIntroSection(sec, cfg),
         );
+        // The news / notices / support intro band is NOT a row-shared channel
+        // band (SHARED_INTROS), but it carries the same 48px white heading over
+        // `/images/thumbnail/20250820/5d92141b20894.jpg` and needs the same
+        // mobile 1.2 leading fix: without it the h6 inherits `.rich-text h6 {1.4}`
+        // and computes 28/39.2 where the original is 28/33.6, making the band
+        // 8px too tall on /26, /27 and /support (every section below drifts).
+        const intro48 = INTRO_48_BGS.some(
+          (b) => sec.bg === b || (sec.bgStyle || "").includes(b),
+        );
         // H1/H2 hook (globals.css `data-era`): company.history era sections
         // (pc `side_left` + aside, incl. the structurally-cloned `era_section`s).
         // Drives the mobile era-photo inset (15px gutters) and the timeline type
@@ -2719,6 +2739,8 @@ export default function SectionRenderer({
             // C2 hook (globals.css): shared channel intro band — mobile 1.2
             // line-height on its 48px h6 headings (measured: orig 28/33.6).
             data-intro-band={introBand ? "1" : undefined}
+            // same 1.2 leading fix for the news / notices / support band.
+            data-intro-48={intro48 ? "1" : undefined}
             // H1/H2 hook (globals.css): company.history era section — mobile
             // era-photo inset + timeline type scale.
             data-era={eraAside ? "1" : undefined}

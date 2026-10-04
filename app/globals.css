@@ -593,6 +593,25 @@ section[data-era="1"] [data-aside-pt] img {
     }
 }
 
+/* The news / notices / support intro band (`data-intro-48`): the same 48px
+   white heading over `/images/thumbnail/20250820/5d92141b20894.jpg`. It is not
+   a row-shared channel band (SHARED_INTROS), so it never received the
+   `data-intro-band` leading fix; without it the h6 inherits `.rich-text h6
+   {1.4}` and computes 28/39.2 where the original is 28/33.6, making the band
+   8px too tall on /26, /27 and /support (and drifting every section below it).
+   The original band also carries imweb's `.inside .widget` 7.5px top/bottom
+   band (measured at 390: 62 + 179 + 62 = 303 vs our 62 + 164 + 62 = 288 once
+   the leading is corrected), so restore that too. Mobile only. */
+@media (max-width: 991px) {
+    section[data-intro-48="1"] .rich-text h6 span[style*="font-size: 48px"] {
+        line-height: 1.2 !important;
+    }
+    section[data-intro-48="1"] {
+        padding-top: 7.5px;
+        padding-bottom: 7.5px;
+    }
+}
+
 /* ── company.philosophy per-widget skins + box model ────────────────────────
    design/audit/company-philosophy-audit.md §2D/§3. The crawler dropped the
    generated per-widget skins; these reproduce them. P1 (radii) is paint-only;

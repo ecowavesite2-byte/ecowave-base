@@ -1,5 +1,8 @@
 import PageHero from "@/components/ui/PageHero";
-import SectionRenderer, { MOBILE_SECTION, isPageHeroSection } from "@/components/content/SectionRenderer";
+import SectionRenderer, {
+  MOBILE_SECTION,
+  isPageHeroSection,
+} from "@/components/content/SectionRenderer";
 import { getResolvedPage } from "@/lib/content/resolved";
 import type { Locale } from "@/lib/i18n";
 import type { Node, Section } from "@/lib/types";
@@ -11,8 +14,9 @@ import {
 } from "@/lib/page-hero";
 import React from "react";
 
-/** imweb board rows carry 15px vertical row padding on each side of the widget */
-const BOARD_ROW_PAD = 15;
+/* imweb board rows carry 15px vertical row padding on each side of the widget,
+ * halved at mobile (measured on /26: the board widget starts 8px into its row at
+ * 390, not 15), so the spacer strips below render 7.5px <=991 and 15px >=992. */
 
 /** recursively detect the imweb board widget inside a node tree */
 function hasBoardNode(nodes: Node[]): boolean {
@@ -27,7 +31,7 @@ function hasBoardNode(nodes: Node[]): boolean {
 
 /** sum of the measured desktop row heights of a section's rows */
 function rowsHeight(rows: Node[]): number {
-  return rows.reduce((sum, r) => sum + (r.kind === "row" ? r.h ?? 0 : 0), 0);
+  return rows.reduce((sum, r) => sum + (r.kind === "row" ? (r.h ?? 0) : 0), 0);
 }
 
 /**
@@ -37,12 +41,18 @@ function rowsHeight(rows: Node[]): number {
  * inline padding on mobile — imweb halves the padding widgets at mobile
  * (110 -> 55) and keeps the 15px row padding unscaled. Render the measured
  * height as an exact half on mobile and the full value at >=992px (the shared
- * `.spacer` renders 55%, not 50%) plus a fixed BOARD_ROW_PAD strip, so desktop
+ * `.spacer` renders 55%, not 50%) plus a row-padding strip, so desktop
  * stays `row + 15` and mobile becomes `row/2 + 15`.
  */
-function boardSectionRows(section: Section | undefined): { found: boolean; top: number; bottom: number } {
+function boardSectionRows(section: Section | undefined): {
+  found: boolean;
+  top: number;
+  bottom: number;
+} {
   if (!section) return { found: false, top: 0, bottom: 0 };
-  const boardRow = section.rows.findIndex((r) => r.kind === "row" && hasBoardNode(r.cols));
+  const boardRow = section.rows.findIndex(
+    (r) => r.kind === "row" && hasBoardNode(r.cols),
+  );
   if (boardRow < 0) return { found: false, top: 0, bottom: 0 };
   return {
     found: true,
@@ -72,18 +82,23 @@ export default async function BoardPageShell({
 }) {
   const page = await getResolvedPage(locale, pageKey);
   const hero = await heroFor("/" + pageKey, locale);
-  const all = page.sections.filter((s) => !isFooterSection(s) && s.id !== FOOTER_SECTION_ID);
+  const all = page.sections.filter(
+    (s) => !isFooterSection(s) && s.id !== FOOTER_SECTION_ID,
+  );
   const isMobile = (s: Section) => MOBILE_SECTION.test(s.cls || "");
   const dropped = new Set<string>();
   const firstPc = all.find((s) => !isMobile(s));
   const firstMobile = all.find(isMobile);
   if (firstPc && isPageHeroSection(firstPc)) dropped.add(firstPc.id);
-  if (firstMobile && isPageHeroSection(firstMobile)) dropped.add(firstMobile.id);
+  if (firstMobile && isPageHeroSection(firstMobile))
+    dropped.add(firstMobile.id);
   const content = all.filter((s) => !dropped.has(s.id));
   const boardIdx = content.findIndex(isBoardSection);
   const before = boardIdx === -1 ? content : content.slice(0, boardIdx);
   const after = boardIdx === -1 ? [] : content.slice(boardIdx + 1);
-  const boardPad = boardSectionRows(boardIdx === -1 ? undefined : content[boardIdx]);
+  const boardPad = boardSectionRows(
+    boardIdx === -1 ? undefined : content[boardIdx],
+  );
   return (
     <main>
       <PageHero title={hero.title} tabs={hero.tabs} big={big} />
@@ -95,21 +110,37 @@ export default async function BoardPageShell({
               <>
                 {/* imweb halves padding widgets at mobile (110 -> 55); the shared
                     .spacer renders 55% (globals.css), so use the exact half here */}
-                <div aria-hidden className="min-[992px]:hidden" style={{ height: Math.round(boardPad.top / 2) }} />
-                <div aria-hidden className="hidden min-[992px]:block" style={{ height: boardPad.top }} />
+                <div
+                  aria-hidden
+                  className="min-[992px]:hidden"
+                  style={{ height: Math.round(boardPad.top / 2) }}
+                />
+                <div
+                  aria-hidden
+                  className="hidden min-[992px]:block"
+                  style={{ height: boardPad.top }}
+                />
               </>
             )}
-            <div aria-hidden style={{ height: BOARD_ROW_PAD }} />
+            <div aria-hidden className="h-[7.5px] min-[992px]:h-[15px]" />
           </>
         )}
         {renderBoard()}
         {boardPad.found && (
           <>
-            <div aria-hidden style={{ height: BOARD_ROW_PAD }} />
+            <div aria-hidden className="h-[7.5px] min-[992px]:h-[15px]" />
             {boardPad.bottom > 0 && (
               <>
-                <div aria-hidden className="min-[992px]:hidden" style={{ height: Math.round(boardPad.bottom / 2) }} />
-                <div aria-hidden className="hidden min-[992px]:block" style={{ height: boardPad.bottom }} />
+                <div
+                  aria-hidden
+                  className="min-[992px]:hidden"
+                  style={{ height: Math.round(boardPad.bottom / 2) }}
+                />
+                <div
+                  aria-hidden
+                  className="hidden min-[992px]:block"
+                  style={{ height: boardPad.bottom }}
+                />
               </>
             )}
           </>
