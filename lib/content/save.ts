@@ -85,8 +85,13 @@ function isValidSlidesPayload(value: string): boolean {
     const parsed: unknown = JSON.parse(value);
     if (!Array.isArray(parsed) || parsed.length === 0) return false;
     return parsed.every((entry) => {
-      if (!entry || typeof entry !== "object" || Array.isArray(entry)) return false;
-      const slide = entry as { bg?: unknown; title?: unknown; subtitle?: unknown };
+      if (!entry || typeof entry !== "object" || Array.isArray(entry))
+        return false;
+      const slide = entry as {
+        bg?: unknown;
+        title?: unknown;
+        subtitle?: unknown;
+      };
       const bgOk = slide.bg === null || typeof slide.bg === "string";
       const titleOk = typeof slide.title === "string";
       const subtitleOk = slide.subtitle === undefined || typeof slide.subtitle === "string";
@@ -105,7 +110,9 @@ function isValidCardsPayload(value: string): boolean {
     return parsed.every((entry) => {
       if (!entry || typeof entry !== "object" || Array.isArray(entry)) return false;
       const lines = (entry as { lines?: unknown }).lines;
-      return Array.isArray(lines) && lines.every((line) => typeof line === "string");
+      return (
+        Array.isArray(lines) && lines.every((line) => typeof line === "string")
+      );
     });
   } catch {
     return false;
@@ -153,7 +160,10 @@ function isValidErasPayload(value: string): boolean {
         if (!yearEntry || typeof yearEntry !== "object" || Array.isArray(yearEntry)) return false;
         const year = yearEntry as { year?: unknown; items?: unknown };
         if (typeof year.year !== "string") return false;
-        return Array.isArray(year.items) && year.items.every((item) => typeof item === "string");
+        return (
+          Array.isArray(year.items) &&
+          year.items.every((item) => typeof item === "string")
+        );
       });
     });
   } catch {
@@ -237,6 +247,7 @@ function normalizeMediaPayload(
     if (!Array.isArray(parsed) || parsed.length === 0) return null;
 
     const fields = cfg?.fields;
+    const allowImage = !fields || fields.includes("image");
     const allowTitle = !fields || fields.includes("title");
     const allowDesc = !fields || fields.includes("desc");
     const max = cfg?.maxItems;
@@ -244,14 +255,26 @@ function normalizeMediaPayload(
 
     const out: Array<{ image: string; title: string; desc: string }> = [];
     for (const entry of parsed) {
-      if (!entry || typeof entry !== "object" || Array.isArray(entry)) return null;
-      const item = entry as { image?: unknown; title?: unknown; desc?: unknown };
-      if (typeof item.image !== "string" || item.image.trim().length === 0) return null;
-      if (!isValidMediaValue(item.image)) return null;
+      if (!entry || typeof entry !== "object" || Array.isArray(entry))
+        return null;
+      const item = entry as {
+        image?: unknown;
+        title?: unknown;
+        desc?: unknown;
+      };
+      const image = typeof item.image === "string" ? item.image : "";
+      // Blocks that expose only text (`fields` without `image`, e.g. the
+      // company.about "Total solution" circles) may store an empty image; the
+      // generic media blocks still require a valid one.
+      if (allowImage) {
+        if (image.trim().length === 0 || !isValidMediaValue(image)) return null;
+      } else if (image.trim().length > 0 && !isValidMediaValue(image)) {
+        return null;
+      }
       if (typeof item.title !== "string") return null;
       if (typeof item.desc !== "string") return null;
       out.push({
-        image: item.image,
+        image,
         title: allowTitle ? item.title : "",
         desc: allowDesc ? item.desc : "",
       });
@@ -322,8 +345,13 @@ export function normalizeTechFeaturesPayload(value: string): string | null {
 
       const itemsOut: TechFeatureItem[] = [];
       for (const entry of items) {
-        if (!entry || typeof entry !== "object" || Array.isArray(entry)) return null;
-        const item = entry as { image?: unknown; heading?: unknown; rows?: unknown };
+        if (!entry || typeof entry !== "object" || Array.isArray(entry))
+          return null;
+        const item = entry as {
+          image?: unknown;
+          heading?: unknown;
+          rows?: unknown;
+        };
         if (typeof item.image !== "string") return null;
         const image = item.image.trim();
         if (image.length === 0 || !isValidMediaValue(image)) return null;

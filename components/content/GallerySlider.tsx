@@ -100,8 +100,9 @@ export default function GallerySlider({
   const track = useRef<HTMLDivElement>(null);
   const [perView, setPerView] = useState(1);
   const [active, setActive] = useState(0);
-  // Autoplay pauses while the user interacts (hover, press, focus, drag) and
-  // resumes once the pointer/focus leaves.
+  // The auto-advance keeps running while the pointer is over / a control is
+  // focused (matching the original owl carousel, which does NOT set
+  // `autoplayHoverPause`), and only pauses while a manual drag is in flight.
   const [paused, setPaused] = useState(false);
 
   /**
@@ -457,10 +458,8 @@ export default function GallerySlider({
   return (
     <div
       className="relative min-[992px]:pb-[20px]"
-      onPointerEnter={() => setPaused(true)}
-      onPointerLeave={() => setPaused(false)}
-      onFocus={() => setPaused(true)}
-      onBlur={() => setPaused(false)}
+      // No hover/focus pause: the original keeps auto-advancing while the
+      // pointer is over the strip (client feedback: "slider should not stop").
     >
       {fixedItems && (
         // Mobile-only 2-up override. The track's `figure` children carry an

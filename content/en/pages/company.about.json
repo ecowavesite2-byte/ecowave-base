@@ -838,7 +838,7 @@
                   "itemW": 315,
                   "itemH": 282,
                   "autoplayMs": 31,
-                  "transitionMs": 10000,
+                  "transitionMs": 15000,
                   "slideBy": 2,
                   "continuousAutoplay": true,
                   "galleryVariant": "caption",
@@ -1019,32 +1019,32 @@
                     {
                       "org": "/images/upload/S20250811e0bd2f7c414df/c798df4385130.png",
                       "thumb": "/images/thumbnail/20250919/44b50acf631e4.png",
-                      "title": "",
-                      "desc": ""
+                      "title": "Water Purifier",
+                      "desc": "clean water supply,\nStrengthening\nhygiene in daily life"
                     },
                     {
                       "org": "/images/upload/S20250811e0bd2f7c414df/d69e16cad888c.png",
                       "thumb": "/images/thumbnail/20250919/d231d63afb0ff.png",
-                      "title": "",
-                      "desc": ""
+                      "title": "Filter Solutions",
+                      "desc": "High-performance\nmulti-step filtration,\nRemove impurities and\nthe provision of\nhealthy water"
                     },
                     {
                       "org": "/images/upload/S20250811e0bd2f7c414df/941e13ebf8647.png",
                       "thumb": "/images/thumbnail/20250919/57347e5413270.png",
-                      "title": "",
-                      "desc": ""
+                      "title": "Sterilization Modules",
+                      "desc": "Electrolysis\nproduces chlorine,\nMaintain water tank\nand hose cleanliness"
                     },
                     {
                       "org": "/images/upload/S20250811e0bd2f7c414df/f0ec521b79f7b.png",
                       "thumb": "/images/thumbnail/20250919/c9e7f12eb3608.png",
-                      "title": "",
-                      "desc": ""
+                      "title": "Bidet & Shower Filters",
+                      "desc": "Skin protection,\nantibacterial, and\nRemaining\nchlorine removal"
                     },
                     {
                       "org": "/images/upload/S20250811e0bd2f7c414df/730678990350e.png",
                       "thumb": "/images/thumbnail/20250919/12fcc0fa3899a.png",
-                      "title": "",
-                      "desc": ""
+                      "title": "Parts & Accessories",
+                      "desc": "Stable water pressure\ncontrol and\nProvides ease\nof installation"
                     }
                   ]
                 }

@@ -884,7 +884,7 @@
                   "itemW": 315,
                   "itemH": 302,
                   "autoplayMs": 31,
-                  "transitionMs": 10000,
+                  "transitionMs": 15000,
                   "slideBy": 2,
                   "continuousAutoplay": true,
                   "galleryVariant": "caption",
@@ -1065,32 +1065,32 @@
                     {
                       "org": "/images/upload/S20250811e0bd2f7c414df/416a2b81583bf.png",
                       "thumb": "/images/thumbnail/20250918/881fc3b930c03.png",
-                      "title": "",
-                      "desc": ""
+                      "title": "Water Purifier\n정수기",
+                      "desc": "깨끗한 물 공급,\n생활 속 위생 강화"
                     },
                     {
                       "org": "/images/upload/S20250811e0bd2f7c414df/859265f4b0cb7.png",
                       "thumb": "/images/thumbnail/20250918/b792dd91e01e2.png",
-                      "title": "",
-                      "desc": ""
+                      "title": "Filter Solutions\n정수필터",
+                      "desc": "고성능 다단계 여과,\n불순물 제거 및\n건강한 물 제공"
                     },
                     {
                       "org": "/images/upload/S20250811e0bd2f7c414df/8b657e9949db3.png",
                       "thumb": "/images/thumbnail/20250918/05763a3e17f34.png",
-                      "title": "",
-                      "desc": ""
+                      "title": "Sterilization Modules\n살균 모듈",
+                      "desc": "전기분해로 염소 발생,\n물탱크 및 호스 청결 유지"
                     },
                     {
                       "org": "/images/upload/S20250811e0bd2f7c414df/51f85bef4c1fe.png",
                       "thumb": "/images/thumbnail/20250918/06056650a1d79.png",
-                      "title": "",
-                      "desc": ""
+                      "title": "Bidet & Shower Filters\n비데 & 샤워 필터",
+                      "desc": "피부 보호, 항균 및\n잔류 염소 제거"
                     },
                     {
                       "org": "/images/upload/S20250811e0bd2f7c414df/250c37f0a02db.png",
                       "thumb": "/images/thumbnail/20250918/fe00e6210425a.png",
-                      "title": "",
-                      "desc": ""
+                      "title": "Parts & Accessories\n부품 & 액세서리",
+                      "desc": "안정적인 수압 제어 및\n설치 편의성 제공"
                     }
                   ]
                 }

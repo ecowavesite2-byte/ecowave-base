@@ -185,8 +185,13 @@ function parseSlides(value: string): SlideInput[] | null {
     if (!Array.isArray(parsed)) return null;
     const slides: SlideInput[] = [];
     for (const entry of parsed) {
-      if (!entry || typeof entry !== "object" || Array.isArray(entry)) return null;
-      const slide = entry as { bg?: unknown; title?: unknown; subtitle?: unknown };
+      if (!entry || typeof entry !== "object" || Array.isArray(entry))
+        return null;
+      const slide = entry as {
+        bg?: unknown;
+        title?: unknown;
+        subtitle?: unknown;
+      };
       // A slide without a string title is garbage (only reachable by direct DB
       // inserts — the API validator requires one); no-op rather than blank copy.
       if (typeof slide.title !== "string") return null;
@@ -348,7 +353,9 @@ function isPaddingOnly(node: Node | undefined): boolean {
   if (node.kind !== "row") return false;
   const widgets: WidgetNode[] = [];
   forEachWidget(node, (widget) => widgets.push(widget));
-  return widgets.length > 0 && widgets.every((widget) => widget.type === "padding");
+  return (
+    widgets.length > 0 && widgets.every((widget) => widget.type === "padding")
+  );
 }
 
 /**
@@ -640,7 +647,10 @@ function isEraSection(section: Section): boolean {
 function isSpacerSection(section: Section | undefined): boolean {
   if (!section || section.aside) return false;
   const widgets = sectionWidgetList(section);
-  return widgets.length > 0 && widgets.every((w) => w.type === "padding" || w.type === "hr");
+  return (
+    widgets.length > 0 &&
+    widgets.every((w) => w.type === "padding" || w.type === "hr")
+  );
 }
 
 /** Give every widget inside a cloned node a unique id (`<id><suffix>`). */
@@ -951,12 +961,24 @@ function parseMediaItems(value: string): StructuredMediaItem[] | null {
     if (!Array.isArray(parsed) || parsed.length === 0) return null;
     const items: StructuredMediaItem[] = [];
     for (const entry of parsed) {
-      if (!entry || typeof entry !== "object" || Array.isArray(entry)) return null;
-      const item = entry as { image?: unknown; title?: unknown; desc?: unknown };
-      if (typeof item.image !== "string" || item.image.length === 0) return null;
+      if (!entry || typeof entry !== "object" || Array.isArray(entry))
+        return null;
+      const item = entry as {
+        image?: unknown;
+        title?: unknown;
+        desc?: unknown;
+      };
+      // `image` may be empty/absent: the gallery block config can expose text-only
+      // items (the company.about "Total solution" circles render from title/desc).
+      if (item.image !== undefined && typeof item.image !== "string")
+        return null;
       if (typeof item.title !== "string") return null;
       if (typeof item.desc !== "string") return null;
-      items.push({ image: item.image, title: item.title, desc: item.desc });
+      items.push({
+        image: typeof item.image === "string" ? item.image : "",
+        title: item.title,
+        desc: item.desc,
+      });
     }
     return items;
   } catch {
@@ -1165,7 +1187,11 @@ function spliceTableRows(source: string, builtRows: string[]): string {
   const start = source.search(/<tr\b/i);
   const end = source.lastIndexOf("</tr>");
   if (start < 0 || end < 0) return source;
-  return source.slice(0, start) + builtRows.join("") + source.slice(end + "</tr>".length);
+  return (
+    source.slice(0, start) +
+    builtRows.join("") +
+    source.slice(end + "</tr>".length)
+  );
 }
 
 /**
@@ -1293,9 +1319,15 @@ function parseTechFeatures(value: string): TechFeaturesPayload | null {
       if (!Array.isArray(items) || items.length === 0) return null;
       const itemsOut: TechFeatureItem[] = [];
       for (const entry of items) {
-        if (!entry || typeof entry !== "object" || Array.isArray(entry)) return null;
-        const item = entry as { image?: unknown; heading?: unknown; rows?: unknown };
-        if (typeof item.image !== "string" || item.image.length === 0) return null;
+        if (!entry || typeof entry !== "object" || Array.isArray(entry))
+          return null;
+        const item = entry as {
+          image?: unknown;
+          heading?: unknown;
+          rows?: unknown;
+        };
+        if (typeof item.image !== "string" || item.image.length === 0)
+          return null;
         if (typeof item.heading !== "string") return null;
         if (!Array.isArray(item.rows) || item.rows.length === 0) return null;
         const rows: TechFeatureItem["rows"] = [];
@@ -1368,7 +1400,10 @@ function parseFacilitiesTablePayload(value: string): FacilitiesTablePayload | nu
 }
 
 /** An authored techFeatures item col's image + text widgets. */
-function techItemWidgets(col: ColNode): { image: WidgetNode | null; text: WidgetNode | null } {
+function techItemWidgets(col: ColNode): {
+  image: WidgetNode | null;
+  text: WidgetNode | null;
+} {
   const widgets = nodeWidgets(col);
   return {
     image: widgets.find((w) => w.type === "image") ?? null,

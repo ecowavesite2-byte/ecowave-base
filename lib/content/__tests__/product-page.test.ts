@@ -44,7 +44,7 @@ const EXPECTED: Record<string, { ko: ProductPagePayload; en: ProductPagePayload 
     },
     en: {
       title: "Eco wave",
-      subtitle: "",
+      subtitle: "에코웨이브",
       filters: [
         { id: "Filter", name: "Filter" },
         { id: "Service check/self-care kit", name: "Service check/self-care kit" },
@@ -63,7 +63,7 @@ const EXPECTED: Record<string, { ko: ProductPagePayload; en: ProductPagePayload 
     },
     en: {
       title: "clean B",
-      subtitle: "",
+      subtitle: "에코웨이브",
       filters: [
         { id: "Shower", name: "Shower" },
         { id: "Filter", name: "Filter" },
@@ -81,7 +81,7 @@ const EXPECTED: Record<string, { ko: ProductPagePayload; en: ProductPagePayload 
     },
     en: {
       title: "Flowell",
-      subtitle: "",
+      subtitle: "플로웰",
       filters: [
         { id: "Water purifier", name: "Water purifier" },
         { id: "Filter", name: "Filter" },
@@ -97,7 +97,12 @@ const BASE: ProductPagePayload = {
 };
 
 type UpsertArgs = {
-  create: { key: string; locale: string; value: string; updatedBy: string | null };
+  create: {
+    key: string;
+    locale: string;
+    value: string;
+    updatedBy: string | null;
+  };
 };
 function makeFakePrisma() {
   const upsert = vi.fn(async (_args: UpsertArgs) => ({}));

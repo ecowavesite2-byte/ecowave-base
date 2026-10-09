@@ -84,6 +84,30 @@ a {
     }
 }
 
+/* item 2 — fluid container for imweb `extend_section` sections (home +
+   company.organization only). The original fills `100vw - 400px` (main
+   padding 200px per side at >=1350px) with NO upper cap — measured 1520 @1920,
+   2160 @2560 — while everything else stays capped at 1280. The crawl measured
+   at 1440, so an extend section's top-level `--row-w` IS its 1440 width; at
+   >=1350 the row tracks the viewport by that same delta (row = row-w + (100vw -
+   1440px), exact for the 400px-gutter sections and for the home §7 section whose
+   gutter is 280px). Below 1350 the original is back on its 15px gutter, so the
+   row fills the viewport minus the column padding. `[data-row-top]` keeps nested
+   rows (which inherit `--row-w`) out of this.
+   NOTE: overriding the authored `--row-w` cap means an extend section's height
+   must also grow with its width; the home nav cards therefore carry an
+   aspect-ratio (HOME_CARD_DESKTOP_SIZE in SectionRenderer.tsx). */
+@media (min-width: 1350px) {
+    section[data-extend="1"] .imweb-row[data-row-top="1"] {
+        max-width: calc(var(--row-w, 100%) + (100vw - 1440px));
+    }
+}
+@media (min-width: 1024px) and (max-width: 1349.98px) {
+    section[data-extend="1"] .imweb-row[data-row-top="1"] {
+        max-width: calc(100vw - 30px + 2 * var(--row-pad, 0px));
+    }
+}
+
 /* crawled galleries: grid_0N column count from the source */
 .gallery-grid {
     display: grid;
@@ -302,6 +326,16 @@ a {
     .pc-at-mobile .rich-text table.tableHorizontal.tableHover th {
         padding: 8px;
     }
+}
+
+/* rnd.facilities counter tables (`tableHover`) — the original highlights a row
+   on hover (imweb `site.css`: `table.tableHover > tbody > tr:hover {
+   background-color: rgba(128,128,128,0.1) }`). Client feedback item 8: "the
+   area that changes color when you hover the mouse cursor over it". Width-
+   agnostic (the original rule has no media gate); the facilities tables are the
+   only place `tableHover` occurs site-wide. */
+.rich-text table.tableHover > tbody > tr:hover {
+    background-color: rgba(128, 128, 128, 0.1);
 }
 
 /* SC2 — imweb's mobile runtime reduces the inline display font sizes of
@@ -634,10 +668,16 @@ section[data-era="1"] [data-aside-pt] img {
 [data-widget-id="w2025082880e9f1cd594e5"],
 [data-widget-id="w202508285a7385a21e446"],
 [data-widget-id="w202508280d2f1669e2789"],
-[data-widget-id="w202508281ce9cfb92c9a4"],
-[data-widget-id="w2025082996725d2a2d20e"],
-[data-widget-id="w202508291aa62a1ed03bb"],
-[data-widget-id="w202508297535663fbc7e0"] {
+[data-widget-id="w202508281ce9cfb92c9a4"] {
+    border-radius: 10px;
+}
+/* P1 — §3단계 서비스 cards, locale-agnostic (client: "all UI elements should behave
+   the same, only values change"). The three cover cards use different widget ids
+   per locale (ko `w2025082996725d2a2d20e`/`…91aa62a1ed03bb`/`…97535663fbc7e0`,
+   en `w20250911111ef4720deaf`/`…e5cccd4cdcccc`/`…051cb8ec53ba9`), so scoping by
+   `data-philcard` (already emitted for both) instead of ids fixes the EN cards
+too. */
+section[data-philcard="1"] [data-widget-id] {
     border-radius: 10px;
 }
 /* P1 — cover layers (`text_bg_img`/`text_bg_color`) radius 9px (banner 10px). */
@@ -646,13 +686,11 @@ section[data-era="1"] [data-aside-pt] img {
 [data-widget-id="w202508285a7385a21e446"] .text_bg_img,
 [data-widget-id="w202508285a7385a21e446"] .text_bg_color,
 [data-widget-id="w202508281ce9cfb92c9a4"] .text_bg_img,
-[data-widget-id="w202508281ce9cfb92c9a4"] .text_bg_color,
-[data-widget-id="w2025082996725d2a2d20e"] .text_bg_img,
-[data-widget-id="w2025082996725d2a2d20e"] .text_bg_color,
-[data-widget-id="w202508291aa62a1ed03bb"] .text_bg_img,
-[data-widget-id="w202508291aa62a1ed03bb"] .text_bg_color,
-[data-widget-id="w202508297535663fbc7e0"] .text_bg_img,
-[data-widget-id="w202508297535663fbc7e0"] .text_bg_color {
+[data-widget-id="w202508281ce9cfb92c9a4"] .text_bg_color {
+    border-radius: 9px;
+}
+section[data-philcard="1"] .text_bg_img,
+section[data-philcard="1"] .text_bg_color {
     border-radius: 9px;
 }
 [data-widget-id="w202508280d2f1669e2789"] .text_bg_img,
@@ -687,11 +725,10 @@ section[data-era="1"] [data-aside-pt] img {
 }
 /* P4 — center the §3단계 card icons (original `img.fr-dib { margin:5px auto }`;
    locally `margin:0` and the `p[text-align:center]` cannot center a block
-   image). Scoped to the three card widgets so generic `img.fr-dib` is not
-   touched. Expected desktop x249/676/1103, mobile x151. */
-[data-widget-id="w2025082996725d2a2d20e"] img,
-[data-widget-id="w202508291aa62a1ed03bb"] img,
-[data-widget-id="w202508297535663fbc7e0"] img {
+   image). Scoped to the §3단계 section (both locales) via `data-philcard`; the
+   EN cards' earlier id-only selectors left their icons left-aligned. Expected
+   desktop x249/676/1103, mobile x151. */
+section[data-philcard="1"] .rich-text .text-table.holder img {
     margin-left: auto;
     margin-right: auto;
 }

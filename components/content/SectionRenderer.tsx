@@ -267,7 +267,10 @@ function ImageWidget({
   locale: Locale;
   mobileBox?: boolean;
 }) {
-  const h = num(w.boxStyle, "height");
+  // item 1: the equalised home §solutions card 3 keeps the sibling 548px box
+  // height so all three cards line up (see EQUAL_CARD_FIX).
+  const equalCard = EQUAL_CARD_FIX[w.id];
+  const h = equalCard ? EQUAL_CARD_BOX_H : num(w.boxStyle, "height");
   const { label, title, plus, layout, hasOverlay } = parseOverlayAlt(w.alt);
   // opt-in `hover_scale` widgets (see HOVER_SCALE_WIDGET_IDS). The effect itself
   // lives in globals.css, hooked on this attribute; only the plain `img` branch
@@ -439,9 +442,12 @@ function ImageWidget({
   // preflight (`img { max-width:100%; height:auto }`) scale them down. The fixed
   // height moves into a CSS var so it does not pin the mobile box.
   // SC4: a `width/height: 0px` pair must not count as a desktop crop either.
-  const desktopSized =
+  let desktopSized =
     !!w.imgStyle &&
     /(width|height)\s*:\s*(?!100%)(?!0(?:px|%)?\s*(?:;|$))/.test(w.imgStyle);
+  // item 1: the equalised card uses the sibling fill-crop shape, not its own
+  // authored fixed size (see EQUAL_CARD_FIX).
+  if (equalCard) desktopSized = false;
   let desktopHeight: string | null = null;
   if (desktopSized) {
     const hm = w.imgStyle?.match(/(?:^|;)\s*height\s*:\s*(-?[\d.]+)px/);
@@ -470,6 +476,29 @@ function ImageWidget({
     delete inlineStyle.width;
     cropVars["--fit-w"] = `${parseFloat(authoredWidth)}px`;
     cropClass.push("w-full", IMG_FIT_DESKTOP_W);
+  }
+  // item 1 — normalize card 3 onto the sibling fill-crop shape (drop the
+  // authored small size + all four margins, fill the box height, centre-crop the
+  // width). The authored `margin: 86px auto` shorthand expands to margin-top/
+  // -bottom 86px (auto is skipped), which offsets the image 86px down inside the
+  // 548px box and clips it to ~462px — the "not full height" the client reported.
+  if (equalCard) {
+    delete inlineStyle.width;
+    delete inlineStyle.height;
+    delete inlineStyle["margin-top"];
+    delete inlineStyle["margin-bottom"];
+    delete inlineStyle["margin-left"];
+    delete inlineStyle["margin-right"];
+    cropClass.length = 0;
+    cropVars["--crop-ml"] = `${equalCard.cropML}px`;
+    cropClass.push(
+      "w-full",
+      "h-auto",
+      IMG_DESKTOP_MAX_NONE,
+      IMG_CROP_DESKTOP_W,
+      IMG_CROP_DESKTOP_H,
+      IMG_CROP_DESKTOP_ML,
+    );
   }
   // Below 992 the authored band is swapped for the portrait mobile rendition
   // (see MOBILE_IMAGE_SRC). The authored inline `display` (here `inline-block`,
@@ -523,9 +552,15 @@ function ImageWidget({
       // reproduces the original mobile crop (a 480x644 source vertically
       // centred in the 179px band).
       <div
-        className={`group relative w-full overflow-hidden bg-soft ${
+        className={`group relative w-full overflow-hidden bg-soft${
+          homeCard
+            ? " transition-transform duration-300 ease-[ease] hover:-translate-y-[8px]"
+            : ""
+        } ${
           layout === "desktop"
-            ? `rounded-[7px] min-[992px]:rounded-[20px] ${OVERLAY_DESKTOP_SIZE} ${
+            ? `rounded-[7px] min-[992px]:rounded-[20px] ${
+                homeCard ? HOME_CARD_DESKTOP_SIZE : OVERLAY_DESKTOP_SIZE
+              } ${
                 // item 2 — home cards: the mobile twin's card is a 179px band
                 // (not the 2:1 180px), pitched at 194px (mb 15). All other
                 // desktop-layout overlay cards keep the 2:1 + 10px gap.
@@ -537,9 +572,9 @@ function ImageWidget({
         }`}
         data-mobile-align={mobileCardAlign}
         style={
-          layout === "desktop" && h
+          layout === "desktop" && h && !homeCard
             ? ({ ["--overlay-h" as string]: `${h}px` } as React.CSSProperties)
-            : h
+            : !homeCard && h
               ? { height: h }
               : undefined
         }
@@ -560,12 +595,19 @@ function ImageWidget({
         )}
         {/* measured `.overlay` layer, visible at rest */}
         <div className="absolute inset-0 bg-[rgba(0,0,0,0.3)]" aria-hidden />
+        {/* client feedback — hover veil: the original's
+            `:hover .hover_overlay { background: #274DAC80 }` translucent blue
+            plus a soft blur (the card itself lifts via `hover:-translate-y-[8px]`). */}
+        <div
+          className="pointer-events-none absolute inset-0 z-[1] bg-[#274DAC80] opacity-0 backdrop-blur-[3px] transition-opacity duration-300 group-hover:opacity-100"
+          aria-hidden
+        />
         {layout === "desktop" ? (
           // item 2 — responsive overlay: below 992 the label/title sit bottom-left
           // on the 2:1 band with a 15/25px scale (the old mobile twin's 179px band
           // used a 25px title + no "+"); at >=992 the authored 18/40px centred
           // 114px block and the 30px "+" are restored unchanged.
-          <div className="absolute inset-0 flex flex-col items-start justify-end px-5 pb-5 min-[992px]:items-center min-[992px]:justify-center min-[992px]:pb-0 min-[992px]:px-5">
+          <div className="absolute inset-0 z-[2] flex flex-col items-start justify-end px-5 pb-5 min-[992px]:items-center min-[992px]:justify-center min-[992px]:pb-0 min-[992px]:px-5">
             <div
               className={`w-full text-left min-[992px]:w-[114px] ${
                 // item 2 — home cards: korean name first, small english label
@@ -622,7 +664,7 @@ function ImageWidget({
             </div>
           </div>
         ) : (
-          <div className="absolute inset-0 flex flex-col items-start justify-end p-5">
+          <div className="absolute inset-0 z-[2] flex flex-col items-start justify-end p-5">
             {title && (
               <h3 className="text-[25px] leading-[1.5] font-bold text-white">
                 {title}
@@ -714,17 +756,17 @@ function ImageWidget({
  */
 const ANIM_DIR_OVERRIDES: Record<string, string> = {
   // home §3 nav cards (`s20250811004ea868d7376` ko / `s2025091164c3a6af77cff` en):
-  // the four cards alternate Right/Left/Right/Left on the original, which imweb
-  // remaps to fadeInLeft/fadeInRight/fadeInLeft/fadeInRight in card order. The
-  // crawl dropped the direction class, so both locales' ids are listed here.
+  // client feedback — all four cards now enter from the LEFT (the original
+  // alternates Right/Left/Right/Left, but the client wants a uniform left
+  // entrance). Both locales' ids are listed here.
   w20250811c8b38b2e2cde9: "fadeInLeft",
-  w20250811d66d9ca495dfe: "fadeInRight",
+  w20250811d66d9ca495dfe: "fadeInLeft",
   w202508114adeb9816c562: "fadeInLeft",
-  w20250811dc0392f259c1d: "fadeInRight",
+  w20250811dc0392f259c1d: "fadeInLeft",
   w20250911bf7c2442bf380: "fadeInLeft",
-  w20250911cd728a1e85003: "fadeInRight",
+  w20250911cd728a1e85003: "fadeInLeft",
   w20250911fc2bd89200cd0: "fadeInLeft",
-  w202509110d5ee06cb6b53: "fadeInRight",
+  w202509110d5ee06cb6b53: "fadeInLeft",
   // home §7 (Headquarters & Factory Locations) holder cards — the three
   // address cards (KOR / CHN / KHM) are authored `fadeInUp` but carry the
   // dropped `.Left` class, so the original remaps them to `fadeInRight`
@@ -839,7 +881,58 @@ const HOVER_SCALE_WIDGET_IDS = new Set([
   "w2025090999ac3275406dc",
   "w20250909dbdd88bc19258",
   "w2025090910fe01238de32",
+  // 2026-10-09 — extended from a fresh full-site scan of the original's page
+  // custom CSS (`#w… .widget.image.hover_scale`, all 20 pages, curl). These
+  // widgets carry `hover_scale` on the original but were missing here:
+  //   home ECOWAVE band (1250x348) + 773x427 band
+  "w20250811ce94af53086e1",
+  "w202508125d42dfa5c6d8a",
+  //   company.about feature photo (196f5234277f5) + 9bc64982daf80 band
+  "w202509191cf358c2625d5",
+  "w20250918c7cf1698ddcc4",
+  //   company.organization org chart
+  "w2025082844061a0c9a3b2",
+  //   company.history era photos (KO + EN)
+  "w20250828e2f457614fd1a",
+  "w202508289a08701d84b65",
+  "w202508280039b649ce648",
+  // EN twins — the EN crawl assigns DIFFERENT widget ids to the same images,
+  // so the KO ids above never matched the EN pages (the R&D hover the client
+  // reported missing). Mapped by image basename across content/{ko,en}:
+  "w202509119d0bbb2a3fc59", // en company.philosophy §비전
+  "w202509115c51a5fbf5bc4", // en rnd.technology §2 diagram
+  "w20250911cd16735079844", // en rnd.technology §3
+  "w2025091126042f895982c", // en rnd.technology §3
+  "w2025091199c97b681ee74", // en rnd.technology §4
+  "w20250911e83733c88e1bb", // en rnd.technology §4
+  // 2026-10-10 — remaining EN twins of the KO hover_scale widgets above,
+  // matched by content parity (the EN images differ, so basenames do not match):
+  "w20250911fbd73e60e36d9", // en home §ECOWAVE band (ko w20250811ce94af53086e1)
+  "w202509117e134e0facf8b", // en home §7 HQ band (ko w202508125d42dfa5c6d8a)
+  "w202509192792fa883e8d1", // en company.about §2 intro photo (ko w2025091840bd06b2a6c1d)
+  "w20250919f9c29f25f30f6", // en company.about §HQ band (ko w20250918c7cf1698ddcc4)
+  "w202509117eecb693b3fc9", // en company.organization org chart (ko w2025082844061a0c9a3b2)
 ]);
+
+/**
+ * Item 1 (client feedback) — home §solutions card 3 equal sizing.
+ *
+ * The first two cards are authored as `width:auto; height:100%` fill-crops in a
+ * shared 548px box, but card 3 is authored as a small fixed-size image
+ * (`display:inline-block; width:327px; height:376px; margin:86px auto`), so it
+ * rendered visibly smaller than its siblings on BOTH locales. The client asked
+ * for all three cards to be the same size with the image shown properly, so
+ * these two widgets are normalized onto the sibling fill-crop shape (fill the
+ * 548px box height, centre-crop the width). All three source images share the
+ * 728x837 aspect, so the siblings' `-74.8178px` left crop centres card 3
+ * identically. Below 992 the fill-crop path already fits the column (`w-full
+ * h-auto`); only the box height and the >=992 crop are normalized here.
+ */
+const EQUAL_CARD_FIX: Record<string, { cropML: number }> = {
+  w20250812aea22580e7e86: { cropML: -74.8178 }, // ko home §solutions card 3
+  w20250911f580662be2ff1: { cropML: -74.8178 }, // en home §solutions card 3
+};
+const EQUAL_CARD_BOX_H = 548;
 
 function hoverScaleFor(w: WidgetNode): boolean {
   // durable path — inert until the crawler writes `hoverScale`
@@ -1091,6 +1184,61 @@ function SlideCard({
   );
 }
 
+/* ---------------- item 4 — company.about §토탈 솔루션 circles ---------------- */
+
+/**
+ * The 5 gallery2 widgets painting the "Total solution" circles (one widget per
+ * locale; the KO/EN crawls use different ids). The client asked for a real TSX
+ * component instead of the authored JPGs: the original circles are light grey
+ * and blend into the `#eef1f5` section band, and the local build wrapped them in
+ * the gallery's white item boxes. Rendered from `title` + `desc` (text, edited
+ * in the admin) on a slightly darker fill so the circles read as shapes.
+ */
+const SOLUTION_CIRCLE_WIDGET_IDS = new Set([
+  "w2025091858b5ee5de7c2a", // company.about §토탈 솔루션 (ko)
+  "w20250919eb73988f69f29", // company.about §Total solution (en)
+]);
+
+function TotalSolutionCircles({
+  items,
+}: {
+  items: { title?: string | null; desc?: string | null }[];
+}) {
+  return (
+    <div className="grid grid-cols-2 justify-items-center gap-x-[15px] gap-y-[30px] min-[992px]:grid-cols-5">
+      {items.map((it, i) => (
+        <div
+          key={i}
+          className="flex aspect-square w-full max-w-[251px] flex-col items-center justify-center rounded-full bg-[#d9e0ea] px-[16px] text-center"
+        >
+          {(it.title || "")
+            .split("\n")
+            .filter((line) => line.trim() !== "")
+            .map((line, li) => (
+              <p
+                key={li}
+                className="text-[15px] font-bold leading-[1.25] text-[#3970eb] min-[992px]:text-[18px]"
+              >
+                {line}
+              </p>
+            ))}
+          {(it.desc || "")
+            .split("\n")
+            .filter((line) => line.trim() !== "")
+            .map((line, li) => (
+              <p
+                key={li}
+                className="mt-[6px] text-[13px] leading-[1.4] text-[#51596b] min-[992px]:text-[15px]"
+              >
+                {line}
+              </p>
+            ))}
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function WidgetContent({
   w,
   locale,
@@ -1114,6 +1262,11 @@ function WidgetContent({
     case "image":
       return <ImageWidget w={w} locale={locale} mobileBox={mobileBox} />;
     case "gallery2": {
+      // item 4 — the company.about "Total solution" circles are a real component
+      // (text from the admin), not the authored JPG gallery.
+      if (w.id && SOLUTION_CIRCLE_WIDGET_IDS.has(w.id)) {
+        return <TotalSolutionCircles items={w.items || []} />;
+      }
       const items = (w.items || []).filter((it) => it.org || it.thumb);
       if (items.length === 0) return null;
       const meta2 = w as unknown as {
@@ -1565,6 +1718,10 @@ export function Row({
   return (
     <div
       className={`imweb-row grid grid-cols-1 ${fiveCol ? "lg:grid-cols-5" : "lg:grid-cols-12"}${hiddenXs ? " hidden-xs" : ""}${mobileHidden ? " max-[991.98px]:hidden" : ""}`}
+      // item 2 — fluid container: mark top-level rows so globals.css can widen
+      // them on the original's `extend_section` sections without touching the
+      // nested rows (which inherit `--row-w` and are already inside a padded col).
+      data-row-top={nested ? undefined : "1"}
       style={rowVars}
     >
       {cols.map((c, i) => (
@@ -1683,6 +1840,15 @@ const IMG_FIT_DESKTOP_W = "min-[992px]:w-[var(--fit-w)]";
  */
 const OVERLAY_DESKTOP_SIZE =
   "aspect-[2/1] min-[992px]:aspect-auto min-[992px]:h-[var(--overlay-h)]";
+/**
+ * item 2 — home §2 nav cards. The original's card box is the image's natural
+ * aspect (measured 238x319 at 1440; 358x480 at 1920 = same 0.746 ratio), so on
+ * the wide/fluid `extend_section` container the card must grow with the column.
+ * The authored `height: 319px` is the 1440 measurement; at >=992 the height is
+ * driven by this aspect ratio instead, and the section/row grow with it exactly
+ * like the original. The <=991 branch keeps the authored 179px band.
+ */
+const HOME_CARD_DESKTOP_SIZE = "aspect-[2/1] min-[992px]:aspect-[238/319]";
 const OVERLAY_MOBILE_GAP = "max-[991.98px]:mb-[10px]";
 /**
  * RC5: the crawl's fixed `boxStyle` height is a desktop measurement. Keep it at
@@ -2578,6 +2744,13 @@ export default function SectionRenderer({
     <div>
       {list.map((sec) => {
         const cls = sec.cls || "";
+        // item 2 — fluid container. imweb sections authored `extend_section` fill
+        // the viewport minus a 200px gutter (`main { padding: 0 200px }` at
+        // >=1350px), i.e. content = 100vw - 400px (1520 @1920, growing without an
+        // upper cap); the rest stay capped at 1280. The crawl measured at 1440, so
+        // an extend row's `--row-w` is its 1440 width and globals.css widens it by
+        // `100vw - 1440px`. Only home + company.organization carry the class.
+        const isExtend = /(^|\s)extend_section(\s|$)/.test(cls);
         // mobile_section → mobile only; pc + mobile_hide → desktop only
         const mobileOnly = MOBILE_SECTION.test(cls);
         const desktopOnly = !mobileOnly && MOBILE_HIDE.test(cls);
@@ -2675,6 +2848,9 @@ export default function SectionRenderer({
           <section
             key={sec.id}
             className={`${backToTop ? BACK_TO_TOP_CLASS : "relative"}${visibility ? " " + visibility : ""}${pcAtMobile ? " pc-at-mobile" : ""}`}
+            // item 2 hook (globals.css): `extend_section` fluid container — the
+            // section's top-level rows widen past the 1280 cap on screens >=1350.
+            data-extend={isExtend ? "1" : undefined}
             // globals.css hook (globals lane): `section[data-vgutter="0"] .spacer`
             // at <=1023px halves the spacer height, which imweb does for
             // `grid_v_gutter_0` sections (no `.inside .widget` gutter to fold in).

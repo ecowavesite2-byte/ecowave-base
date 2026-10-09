@@ -76,6 +76,7 @@ export default function GalleryField({
   const invalid = !isDefault && parsed === null;
   const items = parsed ?? defaultList;
 
+  const allowImage = !config || config.fields.includes("image");
   const allowTitle = !config || config.fields.includes("title");
   const allowDesc = !config || config.fields.includes("desc");
   const max = config?.maxItems;
@@ -105,7 +106,9 @@ export default function GalleryField({
 
   return (
     <div className="space-y-2" data-testid="gallery-editor">
-      {invalid ? <p className="text-[11px] text-amber-600">{t.slidesInvalid}</p> : null}
+      {invalid ? (
+        <p className="text-[11px] text-amber-600">{t.slidesInvalid}</p>
+      ) : null}
 
       {items.map((item, index) => (
         <div key={index} data-testid="gallery-item" className={CARD}>
@@ -144,17 +147,21 @@ export default function GalleryField({
           </div>
 
           <div className="mt-2 space-y-2">
-            <div>
-              <span className="mb-1 block text-[11px] text-muted">{t.galleryImage}</span>
-              <ImageControl
-                draft={item.image}
-                fallback=""
-                locale={lang}
-                t={t}
-                disabled={disabled}
-                onChange={(next) => update(index, { image: next })}
-              />
-            </div>
+            {allowImage ? (
+              <div>
+                <span className="mb-1 block text-[11px] text-muted">
+                  {t.galleryImage}
+                </span>
+                <ImageControl
+                  draft={item.image}
+                  fallback=""
+                  locale={lang}
+                  t={t}
+                  disabled={disabled}
+                  onChange={(next) => update(index, { image: next })}
+                />
+              </div>
+            ) : null}
             {allowTitle ? (
               <label className="block min-w-0">
                 <span className="mb-1 block text-[11px] text-muted">{t.galleryTitle}</span>

@@ -1478,8 +1478,8 @@ export const CONTENT_DEFS: ContentDef[] = [
       "en": "EcoWave's Total Solution for…"
     },
     "label": {
-      "ko": "갤러리",
-      "en": "Gallery"
+      "ko": "토탈 솔루션",
+      "en": "Total solution"
     },
     "revalidate": [
       "/company/about",
@@ -1487,7 +1487,8 @@ export const CONTENT_DEFS: ContentDef[] = [
     ],
     "gallery": {
       "fields": [
-        "image"
+        "title",
+        "desc"
       ],
       "maxItems": 5
     }
@@ -3201,8 +3202,8 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "en": "From water purifiers to filters to sterilization technologies and parts,\nEcoWave provides a comprehensive water management solution for a healthy and safe life."
   },
   "company.about#s20250918c54b2950e2f1a/w2025091858b5ee5de7c2a/gallery": {
-    "ko": "[{\"image\":\"/images/upload/S20250811e0bd2f7c414df/416a2b81583bf.png\",\"title\":\"\",\"desc\":\"\"},{\"image\":\"/images/upload/S20250811e0bd2f7c414df/859265f4b0cb7.png\",\"title\":\"\",\"desc\":\"\"},{\"image\":\"/images/upload/S20250811e0bd2f7c414df/8b657e9949db3.png\",\"title\":\"\",\"desc\":\"\"},{\"image\":\"/images/upload/S20250811e0bd2f7c414df/51f85bef4c1fe.png\",\"title\":\"\",\"desc\":\"\"},{\"image\":\"/images/upload/S20250811e0bd2f7c414df/250c37f0a02db.png\",\"title\":\"\",\"desc\":\"\"}]",
-    "en": "[{\"image\":\"/images/upload/S20250811e0bd2f7c414df/c798df4385130.png\",\"title\":\"\",\"desc\":\"\"},{\"image\":\"/images/upload/S20250811e0bd2f7c414df/d69e16cad888c.png\",\"title\":\"\",\"desc\":\"\"},{\"image\":\"/images/upload/S20250811e0bd2f7c414df/941e13ebf8647.png\",\"title\":\"\",\"desc\":\"\"},{\"image\":\"/images/upload/S20250811e0bd2f7c414df/f0ec521b79f7b.png\",\"title\":\"\",\"desc\":\"\"},{\"image\":\"/images/upload/S20250811e0bd2f7c414df/730678990350e.png\",\"title\":\"\",\"desc\":\"\"}]"
+    "ko": "[{\"image\":\"/images/upload/S20250811e0bd2f7c414df/416a2b81583bf.png\",\"title\":\"Water Purifier\\n정수기\",\"desc\":\"깨끗한 물 공급,\\n생활 속 위생 강화\"},{\"image\":\"/images/upload/S20250811e0bd2f7c414df/859265f4b0cb7.png\",\"title\":\"Filter Solutions\\n정수필터\",\"desc\":\"고성능 다단계 여과,\\n불순물 제거 및\\n건강한 물 제공\"},{\"image\":\"/images/upload/S20250811e0bd2f7c414df/8b657e9949db3.png\",\"title\":\"Sterilization Modules\\n살균 모듈\",\"desc\":\"전기분해로 염소 발생,\\n물탱크 및 호스 청결 유지\"},{\"image\":\"/images/upload/S20250811e0bd2f7c414df/51f85bef4c1fe.png\",\"title\":\"Bidet & Shower Filters\\n비데 & 샤워 필터\",\"desc\":\"피부 보호, 항균 및\\n잔류 염소 제거\"},{\"image\":\"/images/upload/S20250811e0bd2f7c414df/250c37f0a02db.png\",\"title\":\"Parts & Accessories\\n부품 & 액세서리\",\"desc\":\"안정적인 수압 제어 및\\n설치 편의성 제공\"}]",
+    "en": "[{\"image\":\"/images/upload/S20250811e0bd2f7c414df/c798df4385130.png\",\"title\":\"Water Purifier\",\"desc\":\"clean water supply,\\nStrengthening\\nhygiene in daily life\"},{\"image\":\"/images/upload/S20250811e0bd2f7c414df/d69e16cad888c.png\",\"title\":\"Filter Solutions\",\"desc\":\"High-performance\\nmulti-step filtration,\\nRemove impurities and\\nthe provision of\\nhealthy water\"},{\"image\":\"/images/upload/S20250811e0bd2f7c414df/941e13ebf8647.png\",\"title\":\"Sterilization Modules\",\"desc\":\"Electrolysis\\nproduces chlorine,\\nMaintain water tank\\nand hose cleanliness\"},{\"image\":\"/images/upload/S20250811e0bd2f7c414df/f0ec521b79f7b.png\",\"title\":\"Bidet & Shower Filters\",\"desc\":\"Skin protection,\\nantibacterial, and\\nRemaining\\nchlorine removal\"},{\"image\":\"/images/upload/S20250811e0bd2f7c414df/730678990350e.png\",\"title\":\"Parts & Accessories\",\"desc\":\"Stable water pressure\\ncontrol and\\nProvides ease\\nof installation\"}]"
   },
   "company.about#s20250918c5a18b62c8acd/w20250919d3f58a52c151b/html": {
     "ko": "우리 일상 속에서 만나는 에코웨이브",
@@ -3269,8 +3270,8 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "en": "Representative of EcoWave,\nChoi Tae-guk"
   },
   "company.global#s202508286e01c87027ecf/locations/locations": {
-    "ko": "[{\"badge\":\"에코웨이브 본사\",\"city\":\"\",\"address\":\"인천광역시 남동구 은봉로 14 영도빌딩 2동\",\"phone\":\"+82-32-812-1800\",\"fax\":\"+82-32-812-1804\",\"email\":\"abc@naver.com\",\"mapSrc\":\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d792.2574458919692!2d126.69277282647334!3d37.412770917172814!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357b79f653a08a39%3A0xeb2783864a797da5!2z7J247LKc6rSR7Jet7IucIOuCqOuPmeq1rCDsnYDrtInroZwgMTQ!5e0!3m2!1sko!2skr!4v1756358491614!5m2!1sko!2skr\"},{\"badge\":\"중국 지사\",\"city\":\"상하이 옌타이 시티\",\"address\":\"Hongfuiie NO.90 Yantai. Shandong. P.R.China\",\"phone\":\"\",\"fax\":\"\",\"email\":\"\",\"mapSrc\":\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3191.921646376016!2d120.51968507627214!3d36.86829426385741!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3596b8ab88fb5af1%3A0xa4ae422919dd9f02!2s90%20Yan%20Tai%20Lu%2C%20Lai%20Xi%20Shi%2C%20Qing%20Dao%20Shi%2C%20Shan%20Dong%20Sheng%2C%20%EC%A4%91%EA%B5%AD%20266600!5e0!3m2!1sko!2skr!4v1756359503622!5m2!1sko!2skr\"},{\"badge\":\"캄보디아 지사\",\"city\":\"캄보디아 프놈펜\",\"address\":\"Tuol Kork Phnom Penh City\",\"phone\":\"\",\"fax\":\"\",\"email\":\"\",\"mapSrc\":\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d18592.98576115093!2d104.88517323644685!3d11.573796848921877!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3109517485ad1295%3A0xb2bbda109bd51b1a!2zS2hhbiBUdW9sIEtvcmssIO2UhOuGiO2OnCDsuoTrs7TrlJTslYQ!5e0!3m2!1sko!2skr!4v1756358557816!5m2!1sko!2skr\"}]",
-    "en": "[{\"badge\":\"EcoWave Headquarters\",\"city\":\"\",\"address\":\"2-dong, Yeongdo Building, 14, Eunbong-ro, Namdong-gu, Incheon, Republic of Korea\",\"phone\":\"+82-32-812-1800\",\"fax\":\"+82-32-812-1804\",\"email\":\"abc@naver.com\",\"mapSrc\":\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d792.2574458919692!2d126.69277282647334!3d37.412770917172814!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357b79f653a08a39%3A0xeb2783864a797da5!2z7J247LKc6rSR7Jet7IucIOuCqOuPmeq1rCDsnYDrtInroZwgMTQ!5e0!3m2!1sko!2skr!4v1756358491614!5m2!1sko!2skr\"},{\"badge\":\"China branch\",\"city\":\"Yantai City, Shanghai\",\"address\":\"Hongfuiie NO.90 Yantai. Shandong. P.R.China\",\"phone\":\"\",\"fax\":\"\",\"email\":\"\",\"mapSrc\":\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3191.921646376016!2d120.51968507627214!3d36.86829426385741!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3596b8ab88fb5af1%3A0xa4ae422919dd9f02!2s90%20Yan%20Tai%20Lu%2C%20Lai%20Xi%20Shi%2C%20Qing%20Dao%20Shi%2C%20Shan%20Dong%20Sheng%2C%20%EC%A4%91%EA%B5%AD%20266600!5e0!3m2!1sko!2skr!4v1756359503622!5m2!1sko!2skr\"},{\"badge\":\"Cambodian branch\",\"city\":\"Cambodia Phnom Penh\",\"address\":\"Tuol Kork Phnom Penh City\",\"phone\":\"\",\"fax\":\"\",\"email\":\"\",\"mapSrc\":\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d18592.98576115093!2d104.88517323644685!3d11.573796848921877!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3109517485ad1295%3A0xb2bbda109bd51b1a!2zS2hhbiBUdW9sIEtvcmssIO2UhOuGiO2OnCDsuoTrs7TrlJTslYQ!5e0!3m2!1sko!2skr!4v1756358557816!5m2!1sko!2skr\"}]"
+    "ko": "[{\"badge\":\"에코웨이브 본사\",\"city\":\"\",\"address\":\"인천광역시 남동구 은봉로 14 영도빌딩 2동\",\"phone\":\"+82-32-812-1800\",\"fax\":\"+82-32-812-1804\",\"email\":\"abc@naver.com\",\"mapSrc\":\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d396.128723!2d126.69277282647334!3d37.412770917172814!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357b79f653a08a39%3A0xeb2783864a797da5!2z7J247LKc6rSR7Jet7IucIOuCqOuPmeq1rCDsnYDrtInroZwgMTQ!5e0!3m2!1sko!2skr!4v1756358491614!5m2!1sko!2skr\"},{\"badge\":\"중국 지사\",\"city\":\"상하이 옌타이 시티\",\"address\":\"Hongfuiie NO.90 Yantai. Shandong. P.R.China\",\"phone\":\"\",\"fax\":\"\",\"email\":\"\",\"mapSrc\":\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1595.960823!2d120.51968507627214!3d36.86829426385741!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3596b8ab88fb5af1%3A0xa4ae422919dd9f02!2s90%20Yan%20Tai%20Lu%2C%20Lai%20Xi%20Shi%2C%20Qing%20Dao%20Shi%2C%20Shan%20Dong%20Sheng%2C%20%EC%A4%91%EA%B5%AD%20266600!5e0!3m2!1sko!2skr!4v1756359503622!5m2!1sko!2skr\"},{\"badge\":\"캄보디아 지사\",\"city\":\"캄보디아 프놈펜\",\"address\":\"Tuol Kork Phnom Penh City\",\"phone\":\"\",\"fax\":\"\",\"email\":\"\",\"mapSrc\":\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d9296.492881!2d104.88517323644685!3d11.573796848921877!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3109517485ad1295%3A0xb2bbda109bd51b1a!2zS2hhbiBUdW9sIEtvcmssIO2UhOuGiO2OnCDsuoTrs7TrlJTslYQ!5e0!3m2!1sko!2skr!4v1756358557816!5m2!1sko!2skr\"}]",
+    "en": "[{\"badge\":\"EcoWave Headquarters\",\"city\":\"\",\"address\":\"2-dong, Yeongdo Building, 14, Eunbong-ro, Namdong-gu, Incheon, Republic of Korea\",\"phone\":\"+82-32-812-1800\",\"fax\":\"+82-32-812-1804\",\"email\":\"abc@naver.com\",\"mapSrc\":\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d396.128723!2d126.69277282647334!3d37.412770917172814!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357b79f653a08a39%3A0xeb2783864a797da5!2z7J247LKc6rSR7Jet7IucIOuCqOuPmeq1rCDsnYDrtInroZwgMTQ!5e0!3m2!1sen!2sus!4v1756358491614!5m2!1sen!2sus\"},{\"badge\":\"China branch\",\"city\":\"Yantai City, Shanghai\",\"address\":\"Hongfuiie NO.90 Yantai. Shandong. P.R.China\",\"phone\":\"\",\"fax\":\"\",\"email\":\"\",\"mapSrc\":\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1595.960823!2d120.51968507627214!3d36.86829426385741!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3596b8ab88fb5af1%3A0xa4ae422919dd9f02!2s90%20Yan%20Tai%20Lu%2C%20Lai%20Xi%20Shi%2C%20Qing%20Dao%20Shi%2C%20Shan%20Dong%20Sheng%2C%20%EC%A4%91%EA%B5%AD%20266600!5e0!3m2!1sen!2sus!4v1756359503622!5m2!1sen!2sus\"},{\"badge\":\"Cambodian branch\",\"city\":\"Cambodia Phnom Penh\",\"address\":\"Tuol Kork Phnom Penh City\",\"phone\":\"\",\"fax\":\"\",\"email\":\"\",\"mapSrc\":\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d9296.492881!2d104.88517323644685!3d11.573796848921877!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3109517485ad1295%3A0xb2bbda109bd51b1a!2zS2hhbiBUdW9sIEtvcmssIO2UhOuGiO2OnCDsuoTrs7TrlJTslYQ!5e0!3m2!1sen!2sus!4v1756358557816!5m2!1sen!2sus\"}]"
   },
   "company.history#s20250811d0a0980d730fb/eras/eras": {
     "ko": "[{\"range\":\"2020 - 2023\",\"tagline\":\"에코웨이브의\\n지속적\\n인 혁\\n신\\n과\\n성장\",\"image\":\"/images/thumbnail/20250828/6b14cd3e03e4b.jpg\",\"years\":[{\"year\":\"2025\",\"items\":[\"LS대원 비데 필터 및 아답터 공급\",\"쿠쿠 홈시스 마그네틱 5종 공급\"]},{\"year\":\"2024\",\"items\":[\"LS대원 비데 필터 및 아답터 공급\",\"쿠쿠 홈시스 마그네틱 5종 공급\"]},{\"year\":\"2023\",\"items\":[\"캄보디아 판매회사 설립\"]},{\"year\":\"2021\",\"items\":[\"에코웨이브 2공장 설립\",\"LG전자 서비스 점검키트 개발\"]},{\"year\":\"2020\",\"items\":[\"쿠쿠 홈시스 정수기 설치 아답터 개발\",\"쿠쿠 홈시스 POE정수 필터 개발\"]}]},{\"range\":\"2015 - 2019\",\"tagline\":\"에코웨이브의\\n기술\\n과 서비스의 융합\",\"image\":\"/images/thumbnail/20250828/a183e714076fb.jpg\",\"years\":[{\"year\":\"2019\",\"items\":[\"LG전자 정수기 아답터 개발\"]},{\"year\":\"2018\",\"items\":[\"쿠쿠 홈시스 정수기 필터 개발\",\"SK Magic 신규 비데 필터 개발\"]},{\"year\":\"2017\",\"items\":[\"자사 비타민 샤워기 모듈 및 필터 개발\"]},{\"year\":\"2016\",\"items\":[\"SK Magic 비데 필터 공급\"]},{\"year\":\"2015\",\"items\":[\"나노 필터 개발\"]}]},{\"range\":\"2010 - 2014\",\"tagline\":\"에코웨이브의\\n고객과 함께한 신뢰의 역사\",\"image\":\"/images/thumbnail/20250828/d7b2a8a54d3e2.jpg\",\"years\":[{\"year\":\"2014\",\"items\":[\"기업 부설 연구소 설립\"]},{\"year\":\"2013\",\"items\":[\"자사 언더 싱크 정수기 개발\"]},{\"year\":\"2012\",\"items\":[\"LG 살균 모듈 개발(ESD)개발\",\"LG전자 스위치 아세이(LPS)개발\"]},{\"year\":\"2011\",\"items\":[\"에코웨이브 설립\",\"LG 정수기 필터 공급\"]},{\"year\":\"2010\",\"items\":[\"정수기 필터 개발(LG)\",\"RO 시스템 및 UF 시스템\"]}]}]",
@@ -3354,7 +3355,7 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
   },
   "home#s20250811004ea868d7376/w20250811c8b38b2e2cde9/alt": {
     "ko": "<div class=\"img-title\"><div class=\"t-wrap\"><div class=\"top-t\"><P>Company</P></div><h5>회사소개</h5></div><span class=\"material-symbols-outlined\">add</span></div>",
-    "en": "<div class=\"img-title\"><div class=\"t-wrap\"><div class=\"top-t\"></div><h5>Company</h5></div><span class=\"material-symbols-outlined\">add</span></div>"
+    "en": "<div class=\"img-title\"><div class=\"t-wrap\"><div class=\"top-t\"><P>Company</P></div><h5>Company</h5></div><span class=\"material-symbols-outlined\">add</span></div>"
   },
   "home#s20250811004ea868d7376/w20250811d66d9ca495dfe/src": {
     "ko": "/images/thumbnail/20250811/e67827527be17.jpg",
@@ -3362,7 +3363,7 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
   },
   "home#s20250811004ea868d7376/w20250811d66d9ca495dfe/alt": {
     "ko": "<div class=\"img-title\"><div class=\"t-wrap\"><div class=\"top-t\"><P>R&D</P></div><h5>연구개발</h5></div><span class=\"material-symbols-outlined\">add</span></div>",
-    "en": "<div class=\"img-title\"><div class=\"t-wrap\"><div class=\"top-t\"></div><h5>R&D</h5></div><span class=\"material-symbols-outlined\">add</span></div>"
+    "en": "<div class=\"img-title\"><div class=\"t-wrap\"><div class=\"top-t\"><P>R&D</P></div><h5>R&D</h5></div><span class=\"material-symbols-outlined\">add</span></div>"
   },
   "home#s20250811004ea868d7376/w202508114adeb9816c562/src": {
     "ko": "/images/thumbnail/20250811/49a097a7d0ffc.jpg",
@@ -3370,7 +3371,7 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
   },
   "home#s20250811004ea868d7376/w202508114adeb9816c562/alt": {
     "ko": "<div class=\"img-title\"><div class=\"t-wrap\"><div class=\"top-t\"><P>Products</P></div><h5>제품소개</h5></div><span class=\"material-symbols-outlined\">add</span></div>",
-    "en": "<div class=\"img-title\"><div class=\"t-wrap\"><div class=\"top-t\"></div><h5>Products</h5></div><span class=\"material-symbols-outlined\">add</span></div>"
+    "en": "<div class=\"img-title\"><div class=\"t-wrap\"><div class=\"top-t\"><P>Products</P></div><h5>Products</h5></div><span class=\"material-symbols-outlined\">add</span></div>"
   },
   "home#s20250811004ea868d7376/w20250811dc0392f259c1d/src": {
     "ko": "/images/thumbnail/20250811/bd400cb7e2ba9.jpg",
@@ -3378,7 +3379,7 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
   },
   "home#s20250811004ea868d7376/w20250811dc0392f259c1d/alt": {
     "ko": "<div class=\"img-title\"><div class=\"t-wrap\"><div class=\"top-t\"><P>PR Center</P></div><h5>홍보센터</h5></div><span class=\"material-symbols-outlined\">add</span></div>",
-    "en": "<div class=\"img-title\"><div class=\"t-wrap\"><div class=\"top-t\"></div><h5>News</h5></div><span class=\"material-symbols-outlined\">add</span></div>"
+    "en": "<div class=\"img-title\"><div class=\"t-wrap\"><div class=\"top-t\"><P>PR Center</P></div><h5>News</h5></div><span class=\"material-symbols-outlined\">add</span></div>"
   },
   "home#s202508116d15f8202cd82/w20250811b716fff52cc61/img[0].src": {
     "ko": "/images/upload/S20250811e0bd2f7c414df/48fbd16b3a070.png",
@@ -3613,7 +3614,7 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
   },
   "products.clean-b#productPage/productPage": {
     "ko": "{\"title\":\"clean B\",\"subtitle\":\"에코웨이브\",\"filters\":[{\"id\":\"샤워기\",\"name\":\"샤워기\"},{\"id\":\"필터\",\"name\":\"필터\"}]}",
-    "en": "{\"title\":\"clean B\",\"subtitle\":\"\",\"filters\":[{\"id\":\"Shower\",\"name\":\"Shower\"},{\"id\":\"Filter\",\"name\":\"Filter\"}]}"
+    "en": "{\"title\":\"clean B\",\"subtitle\":\"에코웨이브\",\"filters\":[{\"id\":\"Shower\",\"name\":\"Shower\"},{\"id\":\"Filter\",\"name\":\"Filter\"}]}"
   },
   "products.eco-wave#board/products.eco-wave/name": {
     "ko": "",
@@ -3621,7 +3622,7 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
   },
   "products.eco-wave#productPage/productPage": {
     "ko": "{\"title\":\"Eco wave\",\"subtitle\":\"에코웨이브\",\"filters\":[{\"id\":\"필터\",\"name\":\"필터\"},{\"id\":\"서비스 점검/자가관리 키트\",\"name\":\"서비스 점검/자가관리 키트\"},{\"id\":\"살균모듈\",\"name\":\"살균모듈\"}]}",
-    "en": "{\"title\":\"Eco wave\",\"subtitle\":\"\",\"filters\":[{\"id\":\"Filter\",\"name\":\"Filter\"},{\"id\":\"Service check/self-care kit\",\"name\":\"Service check/self-care kit\"},{\"id\":\"Sterilization module\",\"name\":\"Sterilization module\"}]}"
+    "en": "{\"title\":\"Eco wave\",\"subtitle\":\"에코웨이브\",\"filters\":[{\"id\":\"Filter\",\"name\":\"Filter\"},{\"id\":\"Service check/self-care kit\",\"name\":\"Service check/self-care kit\"},{\"id\":\"Sterilization module\",\"name\":\"Sterilization module\"}]}"
   },
   "products.flowell#board/products.flowell/name": {
     "ko": "",
@@ -3629,7 +3630,7 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
   },
   "products.flowell#productPage/productPage": {
     "ko": "{\"title\":\"Flowell\",\"subtitle\":\"플로웰\",\"filters\":[{\"id\":\"정수기\",\"name\":\"정수기\"},{\"id\":\"필터\",\"name\":\"필터\"}]}",
-    "en": "{\"title\":\"Flowell\",\"subtitle\":\"\",\"filters\":[{\"id\":\"Water purifier\",\"name\":\"Water purifier\"},{\"id\":\"Filter\",\"name\":\"Filter\"}]}"
+    "en": "{\"title\":\"Flowell\",\"subtitle\":\"플로웰\",\"filters\":[{\"id\":\"Water purifier\",\"name\":\"Water purifier\"},{\"id\":\"Filter\",\"name\":\"Filter\"}]}"
   },
   "site#nav/nav[0]/name": {
     "ko": "에코웨이브",

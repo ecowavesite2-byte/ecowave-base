@@ -260,7 +260,15 @@ const FOOTER_FIELD_LABELS = {
  */
 export const ABOUT_MEDIA_BLOCKS = {
   s202508119a2e8fe21b47a: { fields: ["image", "title"] }, // block 3
-  s20250918c54b2950e2f1a: { fields: ["image"], maxItems: 5 }, // block 4
+  // block 4 — "Total solution" circles. TEXT ONLY (no image field): the section
+  // renders a TSX component (SectionRenderer `TotalSolutionCircles`) that draws
+  // 5 circles from each item's `title` (blue) + `desc` (body); the authored JPGs
+  // are no longer painted, so the circle text must be admin-editable.
+  s20250918c54b2950e2f1a: {
+    fields: ["title", "desc"],
+    maxItems: 5,
+    label: { ko: "토탈 솔루션", en: "Total solution" },
+  },
   s20250918ab81858502f9e: { fields: ["image"] }, // block 6
   s20250918ffd77075d76ea: { fields: ["image", "title", "desc"], maxItems: 6 }, // block 7
 };
@@ -549,24 +557,29 @@ const ZERO_WIDTH = /[\u200B\u200C\u200D\uFEFF]/g;
 
 /** Strip zero-width characters and collapse whitespace (mirrors the tokenizer). */
 function stripZeroWidth(value) {
-  return String(value ?? "").replace(ZERO_WIDTH, "").replace(/\s+/g, " ").trim();
-}
-
-function stripTags(html) {
-  return String(html ?? "")
-    // The crawler's hidden editor markers (`display:none`) hold only a
-    // zero-width char; drop them entirely so they don't become stray spaces.
-    .replace(/<span\b[^>]*fr-marker[^>]*>[\s\S]*?<\/span>/gi, "")
-    .replace(/<[^>]*>/g, " ")
-    .replace(/&nbsp;/g, " ")
-    .replace(/&amp;/g, "&")
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">")
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'")
+  return String(value ?? "")
     .replace(ZERO_WIDTH, "")
     .replace(/\s+/g, " ")
     .trim();
+}
+
+function stripTags(html) {
+  return (
+    String(html ?? "")
+      // The crawler's hidden editor markers (`display:none`) hold only a
+      // zero-width char; drop them entirely so they don't become stray spaces.
+      .replace(/<span\b[^>]*fr-marker[^>]*>[\s\S]*?<\/span>/gi, "")
+      .replace(/<[^>]*>/g, " ")
+      .replace(/&nbsp;/g, " ")
+      .replace(/&amp;/g, "&")
+      .replace(/&lt;/g, "<")
+      .replace(/&gt;/g, ">")
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;/g, "'")
+      .replace(ZERO_WIDTH, "")
+      .replace(/\s+/g, " ")
+      .trim()
+  );
 }
 
 /**
@@ -738,7 +751,8 @@ export function buildTechFeaturePayload(koPage, enPage) {
   for (const sectionId of sections) {
     const index = (koPage?.sections ?? []).findIndex((s) => s.id === sectionId);
     const koSection = index >= 0 ? koPage.sections[index] : null;
-    const enSection = index >= 0 ? (enPage?.sections ?? [])[index] ?? null : null;
+    const enSection =
+      index >= 0 ? ((enPage?.sections ?? [])[index] ?? null) : null;
     const cfg = TECH_FEATURE_BLOCKS.bySection[sectionId];
     const koWidgets = koSection ? sectionWidgets(koSection) : [];
     koBlocks.push({ items: parseTechFeatureSection(cfg, (id) => koWidgets.find((w) => w.id === id) ?? null) });
@@ -1629,7 +1643,11 @@ function mapWidget({
             prefix: LABELS.embedSrc, section,
             koValue: embed.src, enValue: enEmbed?.src },
           img ? basename(embed.src) : truncate(embed.src, 40),
-          enEmbed ? (img ? enBase(enEmbed.src) : enSnippet(enEmbed.src)) : undefined,
+          enEmbed
+            ? img
+              ? enBase(enEmbed.src)
+              : enSnippet(enEmbed.src)
+            : undefined,
         );
       }
 
@@ -2409,13 +2427,17 @@ function main() {
     (def) => Object.keys(defaults[def.key] ?? {}).length === 0,
   ).length;
   const missingEnValues = sorted.filter(
-    (def) => typeof defaults[def.key]?.ko === "string" && defaults[def.key]?.en === undefined,
+    (def) =>
+      typeof defaults[def.key]?.ko === "string" &&
+      defaults[def.key]?.en === undefined,
   ).length;
-  const mirroredLabels = sorted.filter((def) => def.label.en === def.label.ko).length;
+  const mirroredLabels = sorted.filter(
+    (def) => def.label.en === def.label.ko,
+  ).length;
   const maxList = sorted.reduce((max, def) => {
     if (def.kind !== "list") return max;
     const value = defaults[def.key];
-    return Math.max(max, (value?.ko?.length ?? 0), (value?.en?.length ?? 0));
+    return Math.max(max, value?.ko?.length ?? 0, value?.en?.length ?? 0);
   }, 0);
 
   console.log(`  CONTENT_DEFS: ${sorted.length}`);

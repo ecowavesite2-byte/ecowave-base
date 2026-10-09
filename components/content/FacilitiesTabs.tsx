@@ -41,7 +41,7 @@ export default function FacilitiesTabs({ tabs }: { tabs: FacilitiesTab[] }) {
               type="button"
               onClick={() => setActive(i)}
               aria-pressed={isActive}
-              className={`h-[51px] w-[250px] rounded-full border border-accent text-[18px] transition-all duration-300 ease-[ease] max-md:h-auto max-md:min-h-[31px] max-md:w-[150px] max-md:max-w-full max-md:whitespace-normal max-md:px-[5px] max-md:py-[5px] max-md:text-[12px] max-md:leading-[19.2px] ${
+              className={`h-[51px] min-w-[250px] w-auto whitespace-nowrap rounded-full border border-accent px-[20px] text-[18px] transition-all duration-300 ease-[ease] max-md:h-auto max-md:min-h-[31px] max-md:w-[150px] max-md:max-w-full max-md:whitespace-normal max-md:px-[5px] max-md:py-[5px] max-md:text-[12px] max-md:leading-[19.2px] ${
                 isActive
                   ? "bg-accent text-white max-md:font-bold"
                   : "bg-[#F9F9F9] text-accent"

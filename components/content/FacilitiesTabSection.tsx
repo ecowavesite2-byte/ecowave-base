@@ -1,5 +1,7 @@
 import { Rows } from "@/components/content/SectionRenderer";
-import FacilitiesTabs, { type FacilitiesTab } from "@/components/content/FacilitiesTabs";
+import FacilitiesTabs, {
+  type FacilitiesTab,
+} from "@/components/content/FacilitiesTabs";
 import type { Locale } from "@/lib/i18n";
 import type { Node, Section, WidgetNode } from "@/lib/types";
 
@@ -39,26 +41,12 @@ export function isTabSection(section: Section): boolean {
 }
 
 /**
- * The imweb heading text widget is `visibility:hidden` on the live original but
- * still occupies its 88px band. Keep the space, hide the glyphs.
+ * The section heading text widget was previously wrapped in `visibility:hidden`
+ * because the crawl captured the original's PRE-animation state. The client
+ * confirmed the original DOES show the heading (it appears via an entrance
+ * animation), so the band keeps its height and the glyphs stay visible. Deep
+ * comparisons must settle the entrance animation before capturing.
  */
-function hideFirstText(rows: Node[]): Node[] {
-  let done = false;
-  const walk = (nodes: Node[]): Node[] =>
-    nodes.map((n) => {
-      if (done) return n;
-      if (n.kind === "widget") {
-        if (n.type !== "text") return n;
-        done = true;
-        return { ...n, html: `<div style="visibility:hidden">${n.html || ""}</div>` };
-      }
-      if (n.kind === "row")
-        return { ...n, cols: n.cols.map((c) => ({ ...c, children: walk(c.children) })) };
-      if (n.kind === "col") return { ...n, children: walk(n.children) };
-      return n;
-    });
-  return walk(rows);
-}
 
 /**
  * imweb renders a zero-height padding widget at `min-height:1px` PLUS the 15px
@@ -87,7 +75,10 @@ function materializeZeroPaddings(rows: Node[]): Node[] {
         return n;
       }
       if (n.kind === "row")
-        return { ...n, cols: n.cols.map((c) => ({ ...c, children: walk(c.children) })) };
+        return {
+          ...n,
+          cols: n.cols.map((c) => ({ ...c, children: walk(c.children) })),
+        };
       if (n.kind === "col") return { ...n, children: walk(n.children) };
       return n;
     });
@@ -107,7 +98,7 @@ export default function FacilitiesTabSection({
   const rows = materializeZeroPaddings(section.rows);
   const menuIdx = rows.findIndex((r) => hasCodeMarkup(r, "tab-menu"));
   const bodyIdx = rows.findIndex((r) => hasCodeMarkup(r, "tab-content"));
-  const head = hideFirstText(menuIdx === -1 ? rows : rows.slice(0, menuIdx));
+  const head = menuIdx === -1 ? rows : rows.slice(0, menuIdx);
   const tail = bodyIdx === -1 ? [] : rows.slice(bodyIdx + 1);
   return (
     <section
