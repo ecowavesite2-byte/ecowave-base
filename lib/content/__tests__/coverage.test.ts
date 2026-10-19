@@ -1,7 +1,11 @@
 import { describe, expect, it } from "vitest";
 import type { PageContent } from "../../types";
 import { CONTENT_DEFS, CONTENT_DEF_MAP } from "../registry";
-import { applyBoardOverrides, applyPageOverrides, applySiteOverrides } from "../merge";
+import {
+  applyBoardOverrides,
+  applyPageOverrides,
+  applySiteOverrides,
+} from "../merge";
 import { sectionWidgets } from "../pair";
 import { getBoard, getPage, getSite } from "../read";
 
@@ -26,11 +30,12 @@ const KINDS: Record<string, string> = Object.fromEntries(
 );
 
 /** key → techFeatures block config, so the one def applies all three blocks. */
-const TECH_BLOCK_CONFIGS: Record<string, { sections: string[] }> = Object.fromEntries(
-  Object.values(CONTENT_DEF_MAP)
-    .filter((def) => def.techBlocks)
-    .map((def) => [def.key, def.techBlocks as { sections: string[] }]),
-);
+const TECH_BLOCK_CONFIGS: Record<string, { sections: string[] }> =
+  Object.fromEntries(
+    Object.values(CONTENT_DEF_MAP)
+      .filter((def) => def.techBlocks)
+      .map((def) => [def.key, def.techBlocks as { sections: string[] }]),
+  );
 
 /**
  * key (all locales) or `key@locale` → reason.
@@ -102,81 +107,102 @@ describe("override coverage (every CONTENT_DEFS key, both locales)", () => {
 
         const kind = kindOf(def);
         const marker = `__COV_${index}_${locale}__`;
+        // `size` is numeric (percent), so it cannot carry the string marker.
+        // Keep the value inside the applier's 40–100 clamp and verify it below.
+        const sizeValue = String(40 + (index % 61));
         // Each kind has its own value contract:
         //  - `slides`: JSON array, marker in both bg and text;
         //  - `textarea`: raw HTML (code blocks are applied verbatim);
         //  - everything else (`lines`, text, image, url, list, gallery): plain.
         const value =
-          def.kind === "slides"
-            ? JSON.stringify([{ bg: `/${marker}.png`, title: marker, subtitle: "" }])
-            : def.kind === "cards"
-              ? JSON.stringify([{ lines: [marker] }])
-              : def.kind === "picks"
-                ? JSON.stringify({ board: "news", idxs: [marker] })
-                : def.kind === "eras"
-                  ? JSON.stringify([
-                      {
-                        range: marker,
-                        tagline: marker,
-                        image: `/${marker}.png`,
-                        years: [{ year: marker, items: [marker] }],
-                      },
-                    ])
-                  : def.kind === "locations"
+          def.kind === "size"
+            ? sizeValue
+            : def.kind === "slides"
+              ? JSON.stringify([
+                  { bg: `/${marker}.png`, title: marker, subtitle: "" },
+                ])
+              : def.kind === "cards"
+                ? JSON.stringify([{ lines: [marker] }])
+                : def.kind === "picks"
+                  ? JSON.stringify({ board: "news", idxs: [marker] })
+                  : def.kind === "eras"
                     ? JSON.stringify([
                         {
-                          badge: marker,
-                          city: marker,
-                          address: marker,
-                          phone: marker,
-                          fax: marker,
-                          email: marker,
-                          mapSrc: `https://example.com/${marker}`,
+                          range: marker,
+                          tagline: marker,
+                          image: `/${marker}.png`,
+                          years: [{ year: marker, items: [marker] }],
                         },
                       ])
-                    : def.kind === "gallery" || def.kind === "aboutCards"
-                      ? JSON.stringify([{ image: `/${marker}.png`, title: marker, desc: marker }])
-                      : def.kind === "techFeatures"
-                        ? JSON.stringify({
-                            blocks: [0, 1, 2].map(() => ({
-                              items: [
-                                {
-                                  image: `/${marker}.png`,
-                                  heading: marker,
-                                  rows: [{ label: marker, body: marker }],
-                                },
-                              ],
-                            })),
-                          })
-                        : def.kind === "patentSections"
+                    : def.kind === "locations"
+                      ? JSON.stringify([
+                          {
+                            badge: marker,
+                            city: marker,
+                            address: marker,
+                            phone: marker,
+                            fax: marker,
+                            email: marker,
+                            mapSrc: `https://example.com/${marker}`,
+                          },
+                        ])
+                      : def.kind === "gallery" || def.kind === "aboutCards"
+                        ? JSON.stringify([
+                            {
+                              image: `/${marker}.png`,
+                              title: marker,
+                              desc: marker,
+                            },
+                          ])
+                        : def.kind === "techFeatures"
                           ? JSON.stringify({
-                              sections: [
-                                {
-                                  title: marker,
-                                  items: [{ image: `/${marker}.png`, caption: marker }],
-                                },
-                              ],
+                              blocks: [0, 1, 2].map(() => ({
+                                items: [
+                                  {
+                                    image: `/${marker}.png`,
+                                    heading: marker,
+                                    rows: [{ label: marker, body: marker }],
+                                  },
+                                ],
+                              })),
                             })
-                          : def.kind === "facilitiesTable"
+                          : def.kind === "patentSections"
                             ? JSON.stringify({
-                                header: [marker, marker],
-                                rows: [[marker, marker]],
+                                sections: [
+                                  {
+                                    title: marker,
+                                    items: [
+                                      {
+                                        image: `/${marker}.png`,
+                                        caption: marker,
+                                      },
+                                    ],
+                                  },
+                                ],
                               })
-                            : def.kind === "productPage"
+                            : def.kind === "facilitiesTable"
                               ? JSON.stringify({
-                                  title: marker,
-                                  subtitle: marker,
-                                  filters: [{ id: marker, name: marker }],
+                                  header: [marker, marker],
+                                  rows: [[marker, marker]],
                                 })
-                              : def.kind === "overlay" || def.kind === "textarea"
-                                ? `<p>${marker}</p>`
-                                : marker;
+                              : def.kind === "productPage"
+                                ? JSON.stringify({
+                                    title: marker,
+                                    subtitle: marker,
+                                    filters: [{ id: marker, name: marker }],
+                                  })
+                                : def.kind === "overlay" ||
+                                    def.kind === "textarea"
+                                  ? `<p>${marker}</p>`
+                                  : marker;
         let merged: unknown;
 
         try {
           if (kind === "board") {
             if (def.field !== "name") {
-              failures.push(`${tag}: unexpected board field (${def.field}) not allowlisted`);
+              failures.push(
+                `${tag}: unexpected board field (${def.field}) not allowlisted`,
+              );
               continue;
             }
             merged = applyBoardOverrides(
@@ -186,10 +212,15 @@ describe("override coverage (every CONTENT_DEFS key, both locales)", () => {
               { fallbackName: "COV_FALLBACK" },
             );
           } else if (kind === "site") {
-            merged = applySiteOverrides(getSite(locale), { [def.key]: value }, locale);
+            merged = applySiteOverrides(
+              getSite(locale),
+              { [def.key]: value },
+              locale,
+            );
           } else {
             const base = cachedPage(locale, def.pageKey);
-            const primary = locale === "ko" ? null : cachedPage("ko", def.pageKey);
+            const primary =
+              locale === "ko" ? null : cachedPage("ko", def.pageKey);
             merged = applyPageOverrides(base, { [def.key]: value }, locale, {
               primaryPage: primary,
               kinds: KINDS,
@@ -203,15 +234,22 @@ describe("override coverage (every CONTENT_DEFS key, both locales)", () => {
           continue;
         }
 
-        if (JSON.stringify(merged).includes(marker)) {
+        const landed =
+          def.kind === "size"
+            ? JSON.stringify(merged).includes(`"size":${sizeValue}`)
+            : JSON.stringify(merged).includes(marker);
+        if (landed) {
           applied += 1;
         } else {
-          failures.push(`${tag}: field=${def.field} kind=${def.kind} group=${def.group}`);
+          failures.push(
+            `${tag}: field=${def.field} kind=${def.kind} group=${def.group}`,
+          );
         }
       }
     });
 
-    const expectedApplied = CONTENT_DEFS.length * LOCALES.length - allowlisted.length;
+    const expectedApplied =
+      CONTENT_DEFS.length * LOCALES.length - allowlisted.length;
     console.log(
       `[coverage] defs=${CONTENT_DEFS.length} · applied=${applied} · ` +
         `allowlisted=${allowlisted.length} · expected-applied=${expectedApplied} · ` +
@@ -248,7 +286,9 @@ describe("override coverage (every CONTENT_DEFS key, both locales)", () => {
     // through `getResolvedProductPage`, not `applyPageOverrides`.
     expect(allowlisted.length).toBe(9);
     expect(applied).toBe(CONTENT_DEFS.length * LOCALES.length - 9);
-    expect(applied).toBe(279);
+    // 145 defs × 2 locales − 9 allowlisted applications (the map image `size`
+    // controller adds one def; it applies in both locales).
+    expect(applied).toBe(281);
     expect(applied).toBe(expectedApplied);
   });
 
@@ -262,7 +302,9 @@ describe("override coverage (every CONTENT_DEFS key, both locales)", () => {
     expect(JSON.stringify(ko)).toContain("w20250811b716fff52cc61");
     expect(JSON.stringify(en)).not.toContain("w20250811b716fff52cc61");
 
-    const mergedEn = applyPageOverrides(en, { [key]: marker }, "en", { primaryPage: ko });
+    const mergedEn = applyPageOverrides(en, { [key]: marker }, "en", {
+      primaryPage: ko,
+    });
     expect(JSON.stringify(mergedEn)).toContain(marker);
 
     // ko fast path still resolves by id with no primary tree.
@@ -281,7 +323,11 @@ describe("override coverage (every CONTENT_DEFS key, both locales)", () => {
 
     const merged = applyPageOverrides(ko, { [key]: payload }, "ko");
     const hero = merged.sections.find((s) => s.id === "s20250811b5ffbb4730f67");
-    expect(hero?.visual?.map((s) => s.bg)).toEqual(["/a.jpg", "/b.jpg", "/c.jpg"]);
+    expect(hero?.visual?.map((s) => s.bg)).toEqual([
+      "/a.jpg",
+      "/b.jpg",
+      "/c.jpg",
+    ]);
     expect(hero?.visual?.length).toBe(3);
     expect(hero?.visual?.[0].html).toContain("first title");
     expect(hero?.visual?.[0].html).toContain("first sub");
@@ -314,7 +360,10 @@ describe("override coverage (every CONTENT_DEFS key, both locales)", () => {
 
     ko.sections.forEach((koSection, index) => {
       const enSection = en.sections[index];
-      expect(enSection, `home sections diverge at index ${index}`).toBeDefined();
+      expect(
+        enSection,
+        `home sections diverge at index ${index}`,
+      ).toBeDefined();
 
       // same section index → same widget kind/type sequence
       const koTypes = sectionWidgets(koSection).map((w) => w.type);
@@ -324,7 +373,9 @@ describe("override coverage (every CONTENT_DEFS key, both locales)", () => {
       // hero slides are not widget nodes; they pair by index too
       const koSlides = koSection.visual?.length ?? 0;
       const enSlides = enSection.visual?.length ?? 0;
-      expect(enSlides, `home section ${index} visual slide count`).toBe(koSlides);
+      expect(enSlides, `home section ${index} visual slide count`).toBe(
+        koSlides,
+      );
     });
   });
 });

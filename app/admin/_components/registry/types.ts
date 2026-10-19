@@ -32,7 +32,8 @@ export type RegistryKind =
   | "techFeatures"
   | "patentSections"
   | "facilitiesTable"
-  | "productPage";
+  | "productPage"
+  | "size";
 
 export type SaveStatus = "idle" | "saving" | "saved" | "error";
 
@@ -115,4 +116,7 @@ export interface ProductPostOption {
 }
 
 /** Per content-locale product posts, keyed by the def's `pageKey` (dot slug). */
-export type ProductPostsMap = Record<RegistryLocale, Record<string, ProductPostOption[]>>;
+export type ProductPostsMap = Record<
+  RegistryLocale,
+  Record<string, ProductPostOption[]>
+>;

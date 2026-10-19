@@ -68,6 +68,13 @@ export type WidgetNode = {
   continuousAutoplay?: boolean;
   /** Renderer variant for a structured gallery block. */
   galleryVariant?: "caption" | "plain";
+  /**
+   * Admin-controlled width percentage (40–100). Set by the `size` override
+   * kind; on the home §6 world map it sizes the map's 8/12 column so the
+   * location cards stay beside it, elsewhere it sizes the image itself.
+   * Undefined keeps the authored/default geometry.
+   */
+  size?: number;
 };
 
 export type ColNode = {

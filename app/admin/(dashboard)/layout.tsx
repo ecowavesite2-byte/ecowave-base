@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { requireAdmin } from "@/lib/auth/guard";
 import AdminShell from "../_components/AdminShell";
+import TrimOnBlur from "../_components/TrimOnBlur";
 
 export const metadata: Metadata = {
   title: "Admin",
@@ -18,5 +19,11 @@ export default async function AdminDashboardLayout({
   children: React.ReactNode;
 }) {
   const session = await requireAdmin();
-  return <AdminShell email={session.admin.email}>{children}</AdminShell>;
+  return (
+    <>
+      {/* Normalize admin text fields when focus leaves them, never mid-typing. */}
+      <TrimOnBlur />
+      <AdminShell email={session.admin.email}>{children}</AdminShell>
+    </>
+  );
 }

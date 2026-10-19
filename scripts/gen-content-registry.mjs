@@ -59,6 +59,7 @@ export const PAGE_ALIASES = { company: "company.ceo", rnd: "rnd.technology" };
 const LABELS = {
   text: { ko: "텍스트 블록", en: "Text block" },
   imageSrc: { ko: "이미지 경로", en: "Image source" },
+  imageSize: { ko: "지도 이미지 너비", en: "Map image width" },
   imageAlt: { ko: "이미지 대체 텍스트", en: "Image alt text" },
   imageOverlay: { ko: "카드 제목/라벨", en: "Card title/label" },
   locationCards: { ko: "위치 카드 목록", en: "Location cards" },
@@ -126,10 +127,33 @@ const MAX_LENGTH = {
   patentSections: 60000,
   facilitiesTable: 20000,
   productPage: 20000,
+  size: 3,
 };
 
 /** Kinds emitted into `lib/content/registry.ts` (order = CONTENT_KINDS). */
-const KINDS = ["text", "textarea", "lines", "image", "url", "list", "slides", "overlay", "cards", "picks", "embed", "eras", "locations", "gallery", "aboutCards", "facilityTabs", "techFeatures", "patentSections", "facilitiesTable", "productPage"];
+const KINDS = [
+  "text",
+  "textarea",
+  "lines",
+  "image",
+  "url",
+  "list",
+  "slides",
+  "overlay",
+  "cards",
+  "picks",
+  "embed",
+  "eras",
+  "locations",
+  "gallery",
+  "aboutCards",
+  "facilityTabs",
+  "techFeatures",
+  "patentSections",
+  "facilitiesTable",
+  "productPage",
+  "size",
+];
 
 /**
  * Sections the public renderers strip, so the admin must not expose their
@@ -193,7 +217,12 @@ function isFooterSection(section) {
   let found = false;
   (function walk(rows) {
     for (const r of rows ?? []) {
-      if (r.kind === "widget" && r.type === "text" && /Copyright/i.test(r.html || "")) found = true;
+      if (
+        r.kind === "widget" &&
+        r.type === "text" &&
+        /Copyright/i.test(r.html || "")
+      )
+        found = true;
       if (r.kind === "row") for (const c of r.cols ?? []) walk(c.children);
     }
   })(section.rows);
@@ -304,7 +333,10 @@ export const RND_MEDIA_WIDGET_BLOCKS = {
   },
   w20250820d0424c97beb80: {
     fields: ["image", "title"],
-    label: { ko: "기업 인증 및 특허", en: "Corporate certifications & patents" },
+    label: {
+      ko: "기업 인증 및 특허",
+      en: "Corporate certifications & patents",
+    },
   },
   w2025082013eb8cbe71ecd: {
     fields: ["image", "title"],
@@ -333,20 +365,37 @@ export const TECH_FEATURE_BLOCKS = {
   bySection: {
     // §4 — one block with a rowspan heading cell + label/body rows.
     s202509091799d895b62ea: {
-      items: [{ imageWidget: "w202509092bb83d593e678", textWidget: "w20250909a6322fa870d46" }],
+      items: [
+        {
+          imageWidget: "w202509092bb83d593e678",
+          textWidget: "w20250909a6322fa870d46",
+        },
+      ],
     },
     // §5 — two blocks (each a colspan heading + label/body rows).
     s2025090972e449f7846e1: {
       items: [
-        { imageWidget: "w20250909743cf5b3c0201", textWidget: "w20250909f986ae33491f9" },
-        { imageWidget: "w2025090999ac3275406dc", textWidget: "w20250909cabf29c2126d9" },
+        {
+          imageWidget: "w20250909743cf5b3c0201",
+          textWidget: "w20250909f986ae33491f9",
+        },
+        {
+          imageWidget: "w2025090999ac3275406dc",
+          textWidget: "w20250909cabf29c2126d9",
+        },
       ],
     },
     // §6 — two blocks (same shape).
     s20250909b12fa8000068e: {
       items: [
-        { imageWidget: "w20250909dbdd88bc19258", textWidget: "w202509093403364594dce" },
-        { imageWidget: "w2025090910fe01238de32", textWidget: "w20250909aaff6976da0b4" },
+        {
+          imageWidget: "w20250909dbdd88bc19258",
+          textWidget: "w202509093403364594dce",
+        },
+        {
+          imageWidget: "w2025090910fe01238de32",
+          textWidget: "w20250909aaff6976da0b4",
+        },
       ],
     },
   },
@@ -360,9 +409,18 @@ export const TECH_FEATURE_BLOCKS = {
 export const PATENT_SECTIONS = {
   sectionId: "s202508114d9bc90ceb876",
   blocks: [
-    { headingWidget: "w20250820275c6573162a6", galleryWidget: "w20250820eeffb853be62c" },
-    { headingWidget: "w2025082061b08b8c142c7", galleryWidget: "w20250820d0424c97beb80" },
-    { headingWidget: "w202508201caaa295b789a", galleryWidget: "w2025082013eb8cbe71ecd" },
+    {
+      headingWidget: "w20250820275c6573162a6",
+      galleryWidget: "w20250820eeffb853be62c",
+    },
+    {
+      headingWidget: "w2025082061b08b8c142c7",
+      galleryWidget: "w20250820d0424c97beb80",
+    },
+    {
+      headingWidget: "w202508201caaa295b789a",
+      galleryWidget: "w2025082013eb8cbe71ecd",
+    },
   ],
 };
 
@@ -387,7 +445,10 @@ const RND_FACILITIES_TABS_SECTION_ID = "s20250829c25afe324e195";
  * section label is never empty.
  */
 function humanizePageKey(key) {
-  const tail = String(key ?? "").split(".").pop() ?? "";
+  const tail =
+    String(key ?? "")
+      .split(".")
+      .pop() ?? "";
   return tail
     .replace(/[-_]+/g, " ")
     .replace(/([a-z0-9])([A-Z])/g, "$1 $2")
@@ -431,7 +492,8 @@ function autoSectionName(section, locale) {
   const types = new Set(widgets.map((w) => w.type));
   if (types.has("gallery2")) return locale === "en" ? "Gallery" : "갤러리";
   if (types.has("video")) return locale === "en" ? "Video" : "동영상";
-  if (types.has("newest")) return locale === "en" ? "Latest posts" : "게시판 최신글";
+  if (types.has("newest"))
+    return locale === "en" ? "Latest posts" : "게시판 최신글";
   if (types.has("code")) return locale === "en" ? "Code block" : "코드 블록";
   if (types.has("form")) return locale === "en" ? "Inquiry form" : "문의 폼";
   if (types.has("board")) return locale === "en" ? "Board" : "게시판";
@@ -495,7 +557,10 @@ function disambiguateSectionNames(list) {
         if (index === 0) return;
         const suffix = ` (${index + 1})`;
         for (const def of group.defs) {
-          def.section = { ko: def.section.ko + suffix, en: def.section.en + suffix };
+          def.section = {
+            ko: def.section.ko + suffix,
+            en: def.section.en + suffix,
+          };
         }
       });
     }
@@ -540,7 +605,8 @@ function collectWidgets(nodes, out) {
     } else if (node.kind === "col") {
       collectWidgets(node.children ?? [], out);
     } else if (node.kind === "row") {
-      for (const col of node.cols ?? []) collectWidgets(col.children ?? [], out);
+      for (const col of node.cols ?? [])
+        collectWidgets(col.children ?? [], out);
     }
   }
 }
@@ -602,7 +668,10 @@ export function textRuns(html) {
   const out = [];
   const parts = String(html ?? "").split(/(<[^>]*>)/g);
   for (let i = 0; i < parts.length; i += 2) {
-    const text = decodeEntities(parts[i]).replace(ZERO_WIDTH, "").replace(/\s+/g, " ").trim();
+    const text = decodeEntities(parts[i])
+      .replace(ZERO_WIDTH, "")
+      .replace(/\s+/g, " ")
+      .trim();
     if (text) out.push(text);
   }
   return out;
@@ -622,7 +691,12 @@ export function extractRunSizes(html) {
     if (i % 2 === 1) {
       const match = /font-size\s*:\s*([\d.]+)px/i.exec(parts[i]);
       if (match) current = parseFloat(match[1]);
-    } else if (decodeEntities(parts[i]).replace(ZERO_WIDTH, "").replace(/\s+/g, " ").trim().length > 0) {
+    } else if (
+      decodeEntities(parts[i])
+        .replace(ZERO_WIDTH, "")
+        .replace(/\s+/g, " ")
+        .trim().length > 0
+    ) {
       sizes.push(current);
     }
   }
@@ -635,7 +709,8 @@ export function extractRunSizes(html) {
  * `iframe[n].src` field shape applied by `replaceNthSrc` in lib/content/merge.ts.
  */
 function embedSrcs(html) {
-  const out = []; const seen = { img: 0, iframe: 0 };
+  const out = [];
+  const seen = { img: 0, iframe: 0 };
   for (const m of String(html ?? "").matchAll(/<(img|iframe)\b[^>]*>/gi)) {
     const tag = m[1].toLowerCase();
     const s = /\ssrc\s*=\s*("([^"]*)"|'([^']*)')/i.exec(m[0]);
@@ -709,10 +784,15 @@ export function parseTechTable(html) {
   // §4: [rowspan heading, label, body] — its own label/body is a data row too.
   const rowspanHeading = first.length >= 3;
   const heading = cellText(first[0]);
-  const dataCells = rowspanHeading ? [first.slice(1), ...rows.slice(1)] : rows.slice(1);
+  const dataCells = rowspanHeading
+    ? [first.slice(1), ...rows.slice(1)]
+    : rows.slice(1);
   return {
     heading,
-    rows: dataCells.map((cells) => ({ label: cellText(cells[0]), body: cellText(cells[1]) })),
+    rows: dataCells.map((cells) => ({
+      label: cellText(cells[0]),
+      body: cellText(cells[1]),
+    })),
   };
 }
 
@@ -755,7 +835,12 @@ export function buildTechFeaturePayload(koPage, enPage) {
       index >= 0 ? ((enPage?.sections ?? [])[index] ?? null) : null;
     const cfg = TECH_FEATURE_BLOCKS.bySection[sectionId];
     const koWidgets = koSection ? sectionWidgets(koSection) : [];
-    koBlocks.push({ items: parseTechFeatureSection(cfg, (id) => koWidgets.find((w) => w.id === id) ?? null) });
+    koBlocks.push({
+      items: parseTechFeatureSection(
+        cfg,
+        (id) => koWidgets.find((w) => w.id === id) ?? null,
+      ),
+    });
     if (!enSection) {
       enBlocks.push(null);
       continue;
@@ -763,8 +848,12 @@ export function buildTechFeaturePayload(koPage, enPage) {
     const enWidgets = sectionWidgets(enSection);
     const koPaired = koWidgets.filter((w) => !PAIR_IGNORED_TYPES.has(w.type));
     const enPaired = enWidgets.filter((w) => !PAIR_IGNORED_TYPES.has(w.type));
-    const pairMap = new Map(koPaired.map((w, i) => [w.id, enPaired[i] ?? null]));
-    enBlocks.push({ items: parseTechFeatureSection(cfg, (id) => pairMap.get(id) ?? null) });
+    const pairMap = new Map(
+      koPaired.map((w, i) => [w.id, enPaired[i] ?? null]),
+    );
+    enBlocks.push({
+      items: parseTechFeatureSection(cfg, (id) => pairMap.get(id) ?? null),
+    });
   }
   return { sections, koBlocks, enBlocks };
 }
@@ -773,7 +862,10 @@ export function buildTechFeaturePayload(koPage, enPage) {
 export function parsePatentSectionBlock(headingWidget, galleryWidget) {
   const title = textRuns(headingWidget?.html).join("\n");
   const items = (galleryWidget?.items ?? [])
-    .map((item) => ({ image: item?.org || item?.thumb || "", caption: item?.title || "" }))
+    .map((item) => ({
+      image: item?.org || item?.thumb || "",
+      caption: item?.title || "",
+    }))
     // The authored trailing placeholder (empty org+thumb) is dropped.
     .filter((item) => item.image !== "");
   return { title, items };
@@ -848,9 +940,11 @@ export function parseEraYears(html) {
     }
   }
   for (const year of years) {
-    if (year.items.length === 0) warnings.push(`era year ${year.year} has no items`);
+    if (year.items.length === 0)
+      warnings.push(`era year ${year.year} has no items`);
   }
-  if (years.length !== 5) warnings.push(`era has ${years.length} year heads (expected 5)`);
+  if (years.length !== 5)
+    warnings.push(`era has ${years.length} year heads (expected 5)`);
   return years;
 }
 
@@ -858,7 +952,12 @@ export function parseEraYears(html) {
 export function parseEraSection(section) {
   const widgets = sectionWidgets(section);
   const yearsWidget =
-    widgets.find((w) => w.type === "text" && typeof w.html === "string" && /<hr\b/i.test(w.html)) ?? null;
+    widgets.find(
+      (w) =>
+        w.type === "text" &&
+        typeof w.html === "string" &&
+        /<hr\b/i.test(w.html),
+    ) ?? null;
   const labelWidget =
     widgets.find(
       (w) =>
@@ -894,7 +993,10 @@ export function findBranchRow(section) {
     if (!node || node.kind !== "row") continue;
     const iframeCols = (node.cols ?? []).filter((col) =>
       widgetsInNode(col).some(
-        (w) => w.type === "text" && typeof w.html === "string" && /<iframe\b/i.test(w.html),
+        (w) =>
+          w.type === "text" &&
+          typeof w.html === "string" &&
+          /<iframe\b/i.test(w.html),
       ),
     );
     if (iframeCols.length >= 2) return node;
@@ -911,16 +1013,24 @@ export function parseBranchCol(col) {
   const widgets = widgetsInNode(col);
   const nameWidget =
     widgets.find(
-      (w) => w.type === "text" && typeof w.html === "string" && !/<iframe\b/i.test(w.html),
+      (w) =>
+        w.type === "text" &&
+        typeof w.html === "string" &&
+        !/<iframe\b/i.test(w.html),
     ) ?? null;
   const mapWidget =
     widgets.find(
-      (w) => w.type === "text" && typeof w.html === "string" && /<iframe\b/i.test(w.html),
+      (w) =>
+        w.type === "text" &&
+        typeof w.html === "string" &&
+        /<iframe\b/i.test(w.html),
     ) ?? null;
   const runs = nameWidget ? textRuns(nameWidget.html) : [];
-  if (runs.length !== 3) warnings.push(`branch col has ${runs.length} name runs (expected 3)`);
+  if (runs.length !== 3)
+    warnings.push(`branch col has ${runs.length} name runs (expected 3)`);
   const mapSrc = mapWidget
-    ? (embedSrcs(mapWidget.html).find((embed) => embed.tag === "iframe")?.src ?? "")
+    ? (embedSrcs(mapWidget.html).find((embed) => embed.tag === "iframe")?.src ??
+      "")
     : "";
   return {
     nameWidget,
@@ -950,16 +1060,22 @@ const HQ_SECTION_ID = "s20250828182272ec01906";
  */
 export function parseHqSection(sections, branchesSectionId) {
   const list = Array.isArray(sections) ? sections : [];
-  const branchIndex = list.findIndex((section) => section && section.id === branchesSectionId);
+  const branchIndex = list.findIndex(
+    (section) => section && section.id === branchesSectionId,
+  );
   let hq = branchIndex > 0 ? list[branchIndex - 1] : null;
   // Guard the positional pick: the HQ section is the one carrying a contacts
   // table. Fall back to the KO id when the neighbour is not the HQ.
   const hasContacts = (section) =>
     sectionWidgets(section).some(
-      (w) => w.type === "text" && typeof w.html === "string" && /<table\b/i.test(w.html),
+      (w) =>
+        w.type === "text" &&
+        typeof w.html === "string" &&
+        /<table\b/i.test(w.html),
     );
   if (!hq || !hasContacts(hq)) {
-    hq = list.find((section) => section && section.id === HQ_SECTION_ID) ?? null;
+    hq =
+      list.find((section) => section && section.id === HQ_SECTION_ID) ?? null;
   }
   if (!hq) return null;
 
@@ -974,11 +1090,17 @@ export function parseHqSection(sections, branchesSectionId) {
     ) ?? null;
   const contactsWidget =
     widgets.find(
-      (w) => w.type === "text" && typeof w.html === "string" && /<table\b/i.test(w.html),
+      (w) =>
+        w.type === "text" &&
+        typeof w.html === "string" &&
+        /<table\b/i.test(w.html),
     ) ?? null;
   const mapWidget =
     widgets.find(
-      (w) => w.type === "text" && typeof w.html === "string" && /<iframe\b/i.test(w.html),
+      (w) =>
+        w.type === "text" &&
+        typeof w.html === "string" &&
+        /<iframe\b/i.test(w.html),
     ) ?? null;
 
   // Authored name runs are `[chip, address]` (2) or `[badge, city, address]` (3+).
@@ -1000,7 +1122,8 @@ export function parseHqSection(sections, branchesSectionId) {
   const email = contactRuns[5] ?? "";
 
   const mapSrc = mapWidget
-    ? (embedSrcs(mapWidget.html).find((embed) => embed.tag === "iframe")?.src ?? "")
+    ? (embedSrcs(mapWidget.html).find((embed) => embed.tag === "iframe")?.src ??
+      "")
     : "";
 
   return {
@@ -1038,7 +1161,8 @@ function basename(src) {
  */
 function isOverlayAlt(alt) {
   return (
-    typeof alt === "string" && (alt.includes("img-title") || /<h5[\s>]/i.test(alt))
+    typeof alt === "string" &&
+    (alt.includes("img-title") || /<h5[\s>]/i.test(alt))
   );
 }
 
@@ -1076,7 +1200,8 @@ function splitSlideRuns(html) {
 function isSkippedSection(widgets) {
   if (widgets.length === 0) return false;
   return widgets.every(
-    (w) => w.type === "code" || (w.type === "image" && w.href === BACK_TO_TOP_HREF),
+    (w) =>
+      w.type === "code" || (w.type === "image" && w.href === BACK_TO_TOP_HREF),
   );
 }
 
@@ -1119,10 +1244,12 @@ function aliasRoutesFor(key) {
 }
 
 function revalidateForPage(key) {
-  return dedupe([routeForPageKey(key), ...aliasRoutesFor(key)].flatMap((route) => [
-    localeHref("ko", route),
-    localeHref("en", route),
-  ]));
+  return dedupe(
+    [routeForPageKey(key), ...aliasRoutesFor(key)].flatMap((route) => [
+      localeHref("ko", route),
+      localeHref("en", route),
+    ]),
+  );
 }
 
 /**
@@ -1133,7 +1260,12 @@ function revalidateForSharedIntro(cfg) {
   const routes = Object.keys(PAGE_KEY_TO_ROUTE)
     .filter((key) => channelOf(key) === cfg.channel)
     .map((key) => routeForPageKey(key));
-  return dedupe(routes.flatMap((route) => [localeHref("ko", route), localeHref("en", route)]));
+  return dedupe(
+    routes.flatMap((route) => [
+      localeHref("ko", route),
+      localeHref("en", route),
+    ]),
+  );
 }
 
 function revalidateForBoard(slug) {
@@ -1201,7 +1333,9 @@ function addDef(entry) {
 
   const key = keyOverride ?? `${pageKey}#${sectionId}/${widgetId}/${field}`;
   if (seen.has(key)) {
-    warnings.push(`duplicate key skipped: ${key} (first from ${seen.get(key)})`);
+    warnings.push(
+      `duplicate key skipped: ${key} (first from ${seen.get(key)})`,
+    );
     return;
   }
   seen.set(key, `${pageKey}/${sectionId}/${widgetId}`);
@@ -1239,9 +1373,10 @@ function addWidgetDef(entry, koSuffix, enSuffix) {
   const label = footerLabel ?? {
     ko: fmt(entry.prefix.ko, koSuffix),
     // Mirror the KO label when the EN slot is absent (its value is omitted too).
-    en: enSuffix !== undefined && enSuffix !== null
-      ? fmt(entry.prefix.en, enSuffix)
-      : fmt(entry.prefix.ko, koSuffix),
+    en:
+      enSuffix !== undefined && enSuffix !== null
+        ? fmt(entry.prefix.en, enSuffix)
+        : fmt(entry.prefix.ko, koSuffix),
   };
   addDef({ ...entry, label });
 }
@@ -1281,7 +1416,8 @@ function walkPages() {
 
     // home keeps its own footer section (SiteFooter renders it site-wide) and
     // has no page-title hero band; every other page drops the sections below.
-    const dead = pageKey === "home" ? new Set() : deadSectionIds(koPage, pageKey);
+    const dead =
+      pageKey === "home" ? new Set() : deadSectionIds(koPage, pageKey);
 
     const pageSection = {
       ko: stripZeroWidth(koPage.title) || humanizePageKey(pageKey),
@@ -1302,8 +1438,12 @@ function walkPages() {
     // widget ids up front.
     const locationHqWidgetIds = new Set();
     if (pageKey === "company.global") {
-      const branchesSection = (koPage.sections ?? []).find((s) => findBranchRow(s));
-      const hq = branchesSection ? parseHqSection(koPage.sections, branchesSection.id) : null;
+      const branchesSection = (koPage.sections ?? []).find((s) =>
+        findBranchRow(s),
+      );
+      const hq = branchesSection
+        ? parseHqSection(koPage.sections, branchesSection.id)
+        : null;
       if (hq) {
         for (const widget of [hq.nameWidget, hq.contactsWidget, hq.mapWidget]) {
           if (widget) locationHqWidgetIds.add(widget.id);
@@ -1318,7 +1458,9 @@ function walkPages() {
     const techWidgetIds = new Set();
     if (pageKey === "rnd.technology") {
       for (const sectionId of TECH_FEATURE_BLOCKS.sections) {
-        for (const { imageWidget, textWidget } of TECH_FEATURE_BLOCKS.bySection[sectionId].items) {
+        for (const { imageWidget, textWidget } of TECH_FEATURE_BLOCKS.bySection[
+          sectionId
+        ].items) {
           techWidgetIds.add(imageWidget);
           techWidgetIds.add(textWidget);
         }
@@ -1330,7 +1472,12 @@ function walkPages() {
       // keep the EN index alignment: skip by position, not by filtering
       if (dead.has(koSection.id)) continue;
       const enSection = enPage?.sections?.[si];
-      const section = sectionNameFor(koSection, enSection, pageSection, pageKey);
+      const section = sectionNameFor(
+        koSection,
+        enSection,
+        pageSection,
+        pageKey,
+      );
       // The shared intro band: only the canonical page's def is emitted, and it
       // revalidates every route in the channel (the renderer serves it on all).
       const sharedCfg = sharedIntroFor(pageKey);
@@ -1338,11 +1485,15 @@ function walkPages() {
         !!sharedCfg &&
         pageKey === sharedCfg.canonicalPageKey &&
         isSharedIntroSection(koSection, sharedCfg);
-      const sectionRevalidate = sharedBand ? revalidateForSharedIntro(sharedCfg) : revalidate;
+      const sectionRevalidate = sharedBand
+        ? revalidateForSharedIntro(sharedCfg)
+        : revalidate;
       // the footer is shared chrome (SiteFooter renders it on every route), so
       // its defs live in their own `common` group instead of bloating `home`
       const sectionGroup =
-        isFooterSection(koSection) || koSection.id === FOOTER_SECTION_ID ? "common" : group;
+        isFooterSection(koSection) || koSection.id === FOOTER_SECTION_ID
+          ? "common"
+          : group;
       const koWidgets = sectionWidgets(koSection);
       const enWidgets = enSection ? sectionWidgets(enSection) : [];
 
@@ -1408,8 +1559,10 @@ function walkPages() {
 
       // Home locations: the text widgets AFTER the first are the holder cards,
       // emitted as ONE `cards` list def further down instead of per-widget defs.
-      const isHomeLocations = pageKey === "home" && koSection.id === LOCATIONS_SECTION_ID;
-      const isHomeTicker = pageKey === "home" && koSection.id === TICKER_SECTION_ID;
+      const isHomeLocations =
+        pageKey === "home" && koSection.id === LOCATIONS_SECTION_ID;
+      const isHomeTicker =
+        pageKey === "home" && koSection.id === TICKER_SECTION_ID;
       const cardWidgetIds = new Set();
       if (isHomeLocations) {
         // Mirror `applyCards` (lib/content/merge.ts): the heading is the FIRST
@@ -1427,7 +1580,8 @@ function walkPages() {
 
       // Block 5: the 6 card text widgets after the heading are covered by ONE
       // `aboutCards` def; their per-widget html + embedded img defs are skipped.
-      const isAboutCards = pageKey === "company.about" && koSection.id === ABOUT_CARDS_SECTION;
+      const isAboutCards =
+        pageKey === "company.about" && koSection.id === ABOUT_CARDS_SECTION;
       const aboutCardWidgetIds = new Set();
       if (isAboutCards) {
         const textWidgets = koWidgets.filter(
@@ -1436,7 +1590,8 @@ function walkPages() {
             typeof w.html === "string" &&
             w.html.trim().length > 0,
         );
-        for (const widget of textWidgets.slice(1)) aboutCardWidgetIds.add(widget.id);
+        for (const widget of textWidgets.slice(1))
+          aboutCardWidgetIds.add(widget.id);
       }
 
       // Structured `techFeatures` (rnd.technology §4/§5/§6): ONE page-anchored
@@ -1446,7 +1601,10 @@ function walkPages() {
       // walking §4 (block 0), so it keeps that section's document position and
       // revalidation; EN widget ids differ, so each EN block is parsed from the
       // section's positionally paired widgets.
-      if (pageKey === "rnd.technology" && koSection.id === TECH_FEATURE_BLOCKS.sections[0]) {
+      if (
+        pageKey === "rnd.technology" &&
+        koSection.id === TECH_FEATURE_BLOCKS.sections[0]
+      ) {
         const tech = buildTechFeaturePayload(koPage, enPage);
         mapTechFeatures({
           pageKey,
@@ -1473,9 +1631,15 @@ function walkPages() {
           sectionId: koSection.id,
           section,
           revalidate: sectionRevalidate,
-          koValue: parsePatentSections(PATENT_SECTIONS, (id) => koWidgets.find((w) => w.id === id) ?? null),
+          koValue: parsePatentSections(
+            PATENT_SECTIONS,
+            (id) => koWidgets.find((w) => w.id === id) ?? null,
+          ),
           enValue: enSection
-            ? parsePatentSections(PATENT_SECTIONS, (id) => pairMap.get(id) ?? null)
+            ? parsePatentSections(
+                PATENT_SECTIONS,
+                (id) => pairMap.get(id) ?? null,
+              )
             : null,
         });
         for (const { headingWidget, galleryWidget } of PATENT_SECTIONS.blocks) {
@@ -1508,7 +1672,10 @@ function walkPages() {
             widgetId: koWidget.id,
             field: "facilitiesTable",
             kind: "facilitiesTable",
-            label: { ko: LABELS.facilitiesTable.ko, en: LABELS.facilitiesTable.en },
+            label: {
+              ko: LABELS.facilitiesTable.ko,
+              en: LABELS.facilitiesTable.en,
+            },
             section,
             revalidate: sectionRevalidate,
             koValue: JSON.stringify(parseFacilitiesTable(koWidget)),
@@ -1578,8 +1745,15 @@ function walkPages() {
 
       // rnd.facilities: ONE section-less `facilityTabs` def, emitted while
       // walking the tab block so it keeps that block's document position.
-      if (pageKey === "rnd.facilities" && koSection.id === RND_FACILITIES_TABS_SECTION_ID) {
-        mapFacilityTabs({ pageKey, group: sectionGroup, revalidate: sectionRevalidate });
+      if (
+        pageKey === "rnd.facilities" &&
+        koSection.id === RND_FACILITIES_TABS_SECTION_ID
+      ) {
+        mapFacilityTabs({
+          pageKey,
+          group: sectionGroup,
+          revalidate: sectionRevalidate,
+        });
       }
 
       // hero slides (`section.visual`) are not widget nodes: one `slides` def
@@ -1621,8 +1795,12 @@ function mapWidget({
 
   switch (type) {
     case "text": {
-      const koHtml = typeof koWidget.html === "string" ? koWidget.html : undefined;
-      const enHtml = enWidget && typeof enWidget.html === "string" ? enWidget.html : undefined;
+      const koHtml =
+        typeof koWidget.html === "string" ? koWidget.html : undefined;
+      const enHtml =
+        enWidget && typeof enWidget.html === "string"
+          ? enWidget.html
+          : undefined;
 
       // Embedded media (<img>/<iframe> inside the widget html) comes FIRST so
       // its defs keep their document position; it is emitted even for
@@ -1632,16 +1810,23 @@ function mapWidget({
       for (const embed of koEmbeds) {
         // Block 8's fixed location pins are tiny inline <img>s (16px) — chrome,
         // not content — so they get no def. A larger inline image stays editable.
-        if (embed.tag === "img" && embed.width != null && embed.width < 32) continue;
+        if (embed.tag === "img" && embed.width != null && embed.width < 32)
+          continue;
         const enEmbed = enEmbeds.find(
-          (candidate) => candidate.tag === embed.tag && candidate.index === embed.index,
+          (candidate) =>
+            candidate.tag === embed.tag && candidate.index === embed.index,
         );
         const img = embed.tag === "img";
         addWidgetDef(
-          { ...base, field: `${embed.tag}[${embed.index}].src`,
+          {
+            ...base,
+            field: `${embed.tag}[${embed.index}].src`,
             kind: img ? "image" : "embed",
-            prefix: LABELS.embedSrc, section,
-            koValue: embed.src, enValue: enEmbed?.src },
+            prefix: LABELS.embedSrc,
+            section,
+            koValue: embed.src,
+            enValue: enEmbed?.src,
+          },
           img ? basename(embed.src) : truncate(embed.src, 40),
           enEmbed
             ? img
@@ -1658,7 +1843,11 @@ function mapWidget({
       // would replace the markup with plain text (Gate-2 F2). A widget that did
       // expose embedded media above is covered by those `img[n].src` /
       // `iframe[n].src` defs, so it is not reported as unmapped.
-      if (koRuns.length === 0 && typeof koHtml === "string" && koHtml.includes("<")) {
+      if (
+        koRuns.length === 0 &&
+        typeof koHtml === "string" &&
+        koHtml.includes("<")
+      ) {
         if (koEmbeds.length === 0) {
           const key = `${type}:markup-only`;
           unmappedWidgets[key] = (unmappedWidgets[key] ?? 0) + 1;
@@ -1674,15 +1863,28 @@ function mapWidget({
       // layout runs, not a title/description pair).
       if (pageKey === "home" && group !== "common" && koRuns.length >= 2) {
         addWidgetDef(
-          { ...base, field: "title", kind: "lines", prefix: LABELS.itemTitle, section,
-            koValue: koRuns[0], enValue: enRuns ? enRuns[0] : undefined },
+          {
+            ...base,
+            field: "title",
+            kind: "lines",
+            prefix: LABELS.itemTitle,
+            section,
+            koValue: koRuns[0],
+            enValue: enRuns ? enRuns[0] : undefined,
+          },
           truncate(koRuns[0], 40),
           enRuns ? truncate(enRuns[0], 40) || "" : undefined,
         );
         addWidgetDef(
-          { ...base, field: "desc", kind: "lines", prefix: LABELS.itemDesc, section,
+          {
+            ...base,
+            field: "desc",
+            kind: "lines",
+            prefix: LABELS.itemDesc,
+            section,
             koValue: koRuns.slice(1).join("\n"),
-            enValue: enRuns ? enRuns.slice(1).join("\n") : undefined },
+            enValue: enRuns ? enRuns.slice(1).join("\n") : undefined,
+          },
           truncate(koRuns[1], 40),
           enRuns ? truncate(enRuns[1], 40) || "" : undefined,
         );
@@ -1690,8 +1892,15 @@ function mapWidget({
       }
 
       addWidgetDef(
-        { ...base, field: "html", kind: "lines", prefix: LABELS.text, section,
-          koValue: koRuns.join("\n"), enValue: enRuns ? enRuns.join("\n") : undefined },
+        {
+          ...base,
+          field: "html",
+          kind: "lines",
+          prefix: LABELS.text,
+          section,
+          koValue: koRuns.join("\n"),
+          enValue: enRuns ? enRuns.join("\n") : undefined,
+        },
         truncate(koRuns[0], 40) || undefined,
         enRuns ? truncate(enRuns[0], 40) || "" : undefined,
       );
@@ -1699,8 +1908,15 @@ function mapWidget({
     }
     case "menu_title": {
       addWidgetDef(
-        { ...base, field: "text", kind: "text", prefix: LABELS.menuTitle, section,
-          koValue: koWidget.text, enValue: enWidget?.text },
+        {
+          ...base,
+          field: "text",
+          kind: "text",
+          prefix: LABELS.menuTitle,
+          section,
+          koValue: koWidget.text,
+          enValue: enWidget?.text,
+        },
         truncate(koWidget.text, 40),
         enSnippet(enWidget?.text),
       );
@@ -1708,11 +1924,36 @@ function mapWidget({
     }
     case "image": {
       addWidgetDef(
-        { ...base, field: "src", kind: "image", prefix: LABELS.imageSrc, section,
-          koValue: koWidget.src, enValue: enWidget?.src },
+        {
+          ...base,
+          field: "src",
+          kind: "image",
+          prefix: LABELS.imageSrc,
+          section,
+          koValue: koWidget.src,
+          enValue: enWidget?.src,
+        },
         basename(koWidget.src),
         enBase(enWidget?.src),
       );
+      // Home §6 world map: expose the admin width controller (percent of its
+      // column, 40–100). Hand-tuned in registry.ts today; this keeps it across
+      // regeneration. The EN twin is paired positionally by the runtime.
+      if (pageKey === "home" && koWidget.id === "w202508125d42dfa5c6d8a") {
+        addWidgetDef(
+          {
+            ...base,
+            field: "size",
+            kind: "size",
+            prefix: LABELS.imageSize,
+            section,
+            koValue: "80",
+            enValue: "80",
+          },
+          "80%",
+          "80%",
+        );
+      }
       // Vision cards store their overlay markup in `alt`; only then is it an
       // editable field (assigned verbatim via the `overlay` kind). Plain image
       // alt text and image links stay hard-coded.
@@ -1723,8 +1964,15 @@ function mapWidget({
             ? overlayTitle(enWidget.alt) || basename(enWidget.src)
             : undefined;
         addWidgetDef(
-          { ...base, field: "alt", kind: "overlay", prefix: LABELS.imageOverlay, section,
-            koValue: koWidget.alt, enValue: enWidget?.alt },
+          {
+            ...base,
+            field: "alt",
+            kind: "overlay",
+            prefix: LABELS.imageOverlay,
+            section,
+            koValue: koWidget.alt,
+            enValue: enWidget?.alt,
+          },
           koTitle,
           enTitle,
         );
@@ -1733,8 +1981,15 @@ function mapWidget({
     }
     case "button": {
       addWidgetDef(
-        { ...base, field: "text", kind: "text", prefix: LABELS.buttonText, section,
-          koValue: koWidget.text, enValue: enWidget?.text },
+        {
+          ...base,
+          field: "text",
+          kind: "text",
+          prefix: LABELS.buttonText,
+          section,
+          koValue: koWidget.text,
+          enValue: enWidget?.text,
+        },
         truncate(koWidget.text, 40),
         enSnippet(enWidget?.text),
       );
@@ -1749,21 +2004,27 @@ function mapWidget({
         RND_MEDIA_BLOCKS[sectionId] ??
         RND_MEDIA_WIDGET_BLOCKS[koWidget.id];
       if (galleryCfg) {
-        const koValue = JSON.stringify(parseGalleryWidget(koWidget, galleryCfg));
+        const koValue = JSON.stringify(
+          parseGalleryWidget(koWidget, galleryCfg),
+        );
         const enValue = enWidget
           ? JSON.stringify(parseGalleryWidget(enWidget, galleryCfg))
           : undefined;
         // The emitted config carries ONLY the runtime contract ({ fields,
         // maxItems }); generator-only keys (`label`, `skipEmpty`) are stripped.
         const emittedCfg = { fields: galleryCfg.fields };
-        if (galleryCfg.maxItems !== undefined) emittedCfg.maxItems = galleryCfg.maxItems;
+        if (galleryCfg.maxItems !== undefined)
+          emittedCfg.maxItems = galleryCfg.maxItems;
         addDef({
           ...base,
           widgetId: koWidget.id,
           field: "gallery",
           kind: "gallery",
           gallery: emittedCfg,
-          label: galleryCfg.label ?? { ko: LABELS.galleryAbout.ko, en: LABELS.galleryAbout.en },
+          label: galleryCfg.label ?? {
+            ko: LABELS.galleryAbout.ko,
+            en: LABELS.galleryAbout.en,
+          },
           section,
           koValue,
           enValue,
@@ -1786,26 +2047,54 @@ function mapWidget({
         const titleEn = enSnippet(enItem?.title);
 
         addWidgetDef(
-          { ...itemBase, field: `items[${i}].title`, kind: "text", prefix: itemPrefix,
-            section, koValue: koItem.title, enValue: enItem?.title },
+          {
+            ...itemBase,
+            field: `items[${i}].title`,
+            kind: "text",
+            prefix: itemPrefix,
+            section,
+            koValue: koItem.title,
+            enValue: enItem?.title,
+          },
           titleKo,
           titleEn,
         );
         addWidgetDef(
-          { ...itemBase, field: `items[${i}].desc`, kind: "text", prefix: LABELS.itemDesc,
-            section, koValue: koItem.desc, enValue: enItem?.desc },
+          {
+            ...itemBase,
+            field: `items[${i}].desc`,
+            kind: "text",
+            prefix: LABELS.itemDesc,
+            section,
+            koValue: koItem.desc,
+            enValue: enItem?.desc,
+          },
           truncate(koItem.desc, 40),
           enSnippet(enItem?.desc),
         );
         addWidgetDef(
-          { ...itemBase, field: `items[${i}].org`, kind: "image", prefix: LABELS.itemOrg,
-            section, koValue: koItem.org, enValue: enItem?.org },
+          {
+            ...itemBase,
+            field: `items[${i}].org`,
+            kind: "image",
+            prefix: LABELS.itemOrg,
+            section,
+            koValue: koItem.org,
+            enValue: enItem?.org,
+          },
           basename(koItem.org),
           enBase(enItem?.org),
         );
         addWidgetDef(
-          { ...itemBase, field: `items[${i}].thumb`, kind: "image", prefix: LABELS.itemThumb,
-            section, koValue: koItem.thumb, enValue: enItem?.thumb },
+          {
+            ...itemBase,
+            field: `items[${i}].thumb`,
+            kind: "image",
+            prefix: LABELS.itemThumb,
+            section,
+            koValue: koItem.thumb,
+            enValue: enItem?.thumb,
+          },
           basename(koItem.thumb),
           enBase(enItem?.thumb),
         );
@@ -1814,8 +2103,15 @@ function mapWidget({
     }
     case "video": {
       addWidgetDef(
-        { ...base, field: "src", kind: "url", prefix: LABELS.videoSrc, section,
-          koValue: koWidget.src, enValue: enWidget?.src },
+        {
+          ...base,
+          field: "src",
+          kind: "url",
+          prefix: LABELS.videoSrc,
+          section,
+          koValue: koWidget.src,
+          enValue: enWidget?.src,
+        },
         truncate(koWidget.src, 40),
         enSnippet(enWidget?.src),
       );
@@ -1823,7 +2119,8 @@ function mapWidget({
     }
     case "code": {
       // Code embeds are not admin content: never emit a def (they are chrome).
-      unmappedWidgets[`${type}:skipped`] = (unmappedWidgets[`${type}:skipped`] ?? 0) + 1;
+      unmappedWidgets[`${type}:skipped`] =
+        (unmappedWidgets[`${type}:skipped`] ?? 0) + 1;
       return;
     }
     default: {
@@ -1838,7 +2135,14 @@ function mapWidget({
  * runtime splices era sections (see `applyEras` in lib/content/merge.ts). EN
  * mirrors the EN era sections at the same indices.
  */
-function mapEras({ pageKey, group, section, revalidate, koSections, enSections }) {
+function mapEras({
+  pageKey,
+  group,
+  section,
+  revalidate,
+  koSections,
+  enSections,
+}) {
   if (koSections.length === 0) return;
   addDef({
     pageKey,
@@ -1851,7 +2155,10 @@ function mapEras({ pageKey, group, section, revalidate, koSections, enSections }
     section,
     revalidate,
     koValue: JSON.stringify(koSections.map(parseEraEntry)),
-    enValue: enSections.length > 0 ? JSON.stringify(enSections.map(parseEraEntry)) : undefined,
+    enValue:
+      enSections.length > 0
+        ? JSON.stringify(enSections.map(parseEraEntry))
+        : undefined,
   });
 }
 
@@ -1861,7 +2168,17 @@ function mapEras({ pageKey, group, section, revalidate, koSections, enSections }
  * items 1+ are the branch columns (see `applyLocations` in lib/content/merge.ts).
  * EN mirrors the EN HQ + branch columns at the same indices.
  */
-function mapLocations({ pageKey, group, sectionId, section, revalidate, row, enSection, koSections, enSections }) {
+function mapLocations({
+  pageKey,
+  group,
+  sectionId,
+  section,
+  revalidate,
+  row,
+  enSection,
+  koSections,
+  enSections,
+}) {
   const koHq = parseHqSection(koSections, sectionId);
   const koLocations = [
     ...(koHq ? [koHq.location] : []),
@@ -1887,7 +2204,9 @@ function mapLocations({ pageKey, group, sectionId, section, revalidate, row, enS
     revalidate,
     koValue: JSON.stringify(koLocations),
     enValue:
-      enLocations && enLocations.length > 0 ? JSON.stringify(enLocations) : undefined,
+      enLocations && enLocations.length > 0
+        ? JSON.stringify(enLocations)
+        : undefined,
   });
 }
 
@@ -1898,11 +2217,23 @@ function mapLocations({ pageKey, group, sectionId, section, revalidate, row, enS
  * the runtime injects them back into the authored slide markup (see
  * `applySlides` in lib/content/merge.ts).
  */
-function mapSlides({ pageKey, group, sectionId, section, revalidate, koSlides, enSlides }) {
+function mapSlides({
+  pageKey,
+  group,
+  sectionId,
+  section,
+  revalidate,
+  koSlides,
+  enSlides,
+}) {
   const base = { pageKey, group, sectionId, widgetId: "visual", revalidate };
   const toSlide = (slide) => {
     const { title, subtitle } = splitSlideRuns(slide?.html);
-    return { bg: typeof slide?.bg === "string" ? slide.bg : null, title, subtitle };
+    return {
+      bg: typeof slide?.bg === "string" ? slide.bg : null,
+      title,
+      subtitle,
+    };
   };
   addDef({
     ...base,
@@ -1911,7 +2242,9 @@ function mapSlides({ pageKey, group, sectionId, section, revalidate, koSlides, e
     label: { ko: LABELS.heroSlides.ko, en: LABELS.heroSlides.en },
     section,
     koValue: JSON.stringify((koSlides ?? []).map(toSlide)),
-    enValue: Array.isArray(enSlides) ? JSON.stringify(enSlides.map(toSlide)) : undefined,
+    enValue: Array.isArray(enSlides)
+      ? JSON.stringify(enSlides.map(toSlide))
+      : undefined,
   });
 }
 
@@ -1921,7 +2254,16 @@ function mapSlides({ pageKey, group, sectionId, section, revalidate, koSlides, e
  * value mirrors the EN section's widgets at the same indices (positional
  * pairing — see `resolvePairedSection` in lib/content/pair.ts).
  */
-function mapLocationCards({ pageKey, group, sectionId, section, revalidate, koWidgets, enWidgets, pairMap }) {
+function mapLocationCards({
+  pageKey,
+  group,
+  sectionId,
+  section,
+  revalidate,
+  koWidgets,
+  enWidgets,
+  pairMap,
+}) {
   // Same rule as `applyCards`: heading = first text widget with non-empty html,
   // cards = the remaining non-empty text widgets (positional pairing with EN).
   const textEntries = koWidgets
@@ -1943,7 +2285,8 @@ function mapLocationCards({ pageKey, group, sectionId, section, revalidate, koWi
     const enCards = cardEntries.map((entry) => {
       const enWidget = pairMap.get(entry.widget.id) ?? null;
       return {
-        lines: enWidget && enWidget.type === "text" ? textRuns(enWidget.html) : [],
+        lines:
+          enWidget && enWidget.type === "text" ? textRuns(enWidget.html) : [],
       };
     });
     enValue = JSON.stringify(enCards);
@@ -1970,7 +2313,16 @@ function mapLocationCards({ pageKey, group, sectionId, section, revalidate, koWi
  * rest, image = the embedded <img> src). The EN value mirrors the EN section's
  * widgets at the same indices (positional pairing).
  */
-function mapAboutCards({ pageKey, group, sectionId, section, revalidate, koWidgets, enWidgets, pairMap }) {
+function mapAboutCards({
+  pageKey,
+  group,
+  sectionId,
+  section,
+  revalidate,
+  koWidgets,
+  enWidgets,
+  pairMap,
+}) {
   const textEntries = koWidgets.filter(
     (widget) =>
       widget.type === "text" &&
@@ -1980,7 +2332,9 @@ function mapAboutCards({ pageKey, group, sectionId, section, revalidate, koWidge
   const cardEntries = textEntries.slice(1); // first non-empty text = heading
   if (cardEntries.length === 0) return;
 
-  const koValue = JSON.stringify(cardEntries.map((widget) => parseAboutCard(widget.html)));
+  const koValue = JSON.stringify(
+    cardEntries.map((widget) => parseAboutCard(widget.html)),
+  );
   let enValue;
   if (enWidgets.length > 0) {
     const enCards = cardEntries.map((widget) => {
@@ -2068,11 +2422,22 @@ function mapFacilityTabs({ pageKey, group, revalidate }) {
  * mapping (`techBlocks.sections`) so the applier never hardcodes crawl ids. The
  * key has no single widget segment, so it is passed explicitly.
  */
-function mapTechFeatures({ pageKey, group, sectionId, section, revalidate, sections, koBlocks, enBlocks }) {
+function mapTechFeatures({
+  pageKey,
+  group,
+  sectionId,
+  section,
+  revalidate,
+  sections,
+  koBlocks,
+  enBlocks,
+}) {
   const enComplete =
     Array.isArray(enBlocks) &&
     enBlocks.length === sections.length &&
-    enBlocks.every((block) => block && Array.isArray(block.items) && block.items.length > 0);
+    enBlocks.every(
+      (block) => block && Array.isArray(block.items) && block.items.length > 0,
+    );
   addDef({
     key: `${pageKey}#${sectionId}/techFeatures/techFeatures`,
     pageKey,
@@ -2095,7 +2460,15 @@ function mapTechFeatures({ pageKey, group, sectionId, section, revalidate, secti
  * `{ sections: [{ title, items: [{ image, caption }] }] }`; the key has no single
  * widget segment, so it is passed explicitly.
  */
-function mapPatentSections({ pageKey, group, sectionId, section, revalidate, koValue, enValue }) {
+function mapPatentSections({
+  pageKey,
+  group,
+  sectionId,
+  section,
+  revalidate,
+  koValue,
+  enValue,
+}) {
   addDef({
     key: `${pageKey}#${sectionId}/patentSections/patentSections`,
     pageKey,
@@ -2174,8 +2547,15 @@ function walkBoards() {
     };
 
     addWidgetDef(
-      { ...base, field: "name", kind: "text", prefix: LABELS.boardName, section,
-        koValue: koBoard.name, enValue: enBoard?.name },
+      {
+        ...base,
+        field: "name",
+        kind: "text",
+        prefix: LABELS.boardName,
+        section,
+        koValue: koBoard.name,
+        enValue: enBoard?.name,
+      },
       truncate(koBoard.name, 40),
       enSnippet(enBoard?.name),
     );
@@ -2229,7 +2609,9 @@ function walkBoards() {
  */
 function buildProductPageValue(board) {
   const page =
-    board && typeof board.page === "object" && board.page !== null ? board.page : {};
+    board && typeof board.page === "object" && board.page !== null
+      ? board.page
+      : {};
   const filters = Array.isArray(board?.filters) ? board.filters : [];
   return JSON.stringify({
     title: typeof page.title === "string" ? page.title : "",
@@ -2237,7 +2619,9 @@ function buildProductPageValue(board) {
     filters: filters
       .filter(
         (filter) =>
-          filter && typeof filter.id === "string" && typeof filter.name === "string",
+          filter &&
+          typeof filter.id === "string" &&
+          typeof filter.name === "string",
       )
       .map((filter) => ({ id: filter.id, name: filter.name })),
   });
@@ -2272,8 +2656,16 @@ function walkSite() {
     };
 
     addWidgetDef(
-      { ...base, widgetId: `nav[${i}]`, field: "name", kind: "text",
-        prefix: LABELS.navLabel, section, koValue: item.name, enValue: enItem?.name },
+      {
+        ...base,
+        widgetId: `nav[${i}]`,
+        field: "name",
+        kind: "text",
+        prefix: LABELS.navLabel,
+        section,
+        koValue: item.name,
+        enValue: enItem?.name,
+      },
       truncate(item.name, 40),
       enSnippet(enItem?.name),
     );
@@ -2284,8 +2676,16 @@ function walkSite() {
       const child = children[j];
       const enChild = enChildren[j];
       addWidgetDef(
-        { ...base, widgetId: `nav[${i}].children[${j}]`, field: "name", kind: "text",
-          prefix: LABELS.navSubLabel, section, koValue: child.name, enValue: enChild?.name },
+        {
+          ...base,
+          widgetId: `nav[${i}].children[${j}]`,
+          field: "name",
+          kind: "text",
+          prefix: LABELS.navSubLabel,
+          section,
+          koValue: child.name,
+          enValue: enChild?.name,
+        },
         truncate(child.name, 40),
         enSnippet(enChild?.name),
       );
@@ -2304,7 +2704,11 @@ function walkSite() {
  * The old lexicographic `pageKey` sort produced hash-ordered admin accordions
  * (e.g. company.global before company.history) unrelated to the rendered nav.
  */
-const BOARD_ONLY_SLUGS = ["products.eco-wave", "products.clean-b", "products.flowell"];
+const BOARD_ONLY_SLUGS = [
+  "products.eco-wave",
+  "products.clean-b",
+  "products.flowell",
+];
 const PAGE_ORDER = [...Object.keys(PAGE_KEY_TO_ROUTE), ...BOARD_ONLY_SLUGS];
 const PAGE_RANK = new Map(PAGE_ORDER.map((key, index) => [key, index]));
 
@@ -2322,7 +2726,15 @@ function sortDefs(list) {
   });
 }
 
-const GROUPS = ["home", "company", "rnd", "products", "boards", "site", "common"];
+const GROUPS = [
+  "home",
+  "company",
+  "rnd",
+  "products",
+  "boards",
+  "site",
+  "common",
+];
 
 function buildOutput(sorted) {
   const byGroup = Object.fromEntries(GROUPS.map((g) => [g, []]));
@@ -2364,8 +2776,7 @@ export interface ContentDef {
 
 `;
 
-  const defsLiteral =
-    `export const CONTENT_DEFS: ContentDef[] = ${JSON.stringify(sorted, null, 2)};\n\n`;
+  const defsLiteral = `export const CONTENT_DEFS: ContentDef[] = ${JSON.stringify(sorted, null, 2)};\n\n`;
 
   const defaultsLiteral =
     `/** Code-side defaults, seeded from content/*.json (DB values override these). */\n` +
@@ -2404,7 +2815,9 @@ function main() {
 
   // `--check` reports drift without writing (safe before/after crawl imports).
   if (process.argv.includes("--check")) {
-    const current = fs.existsSync(OUT_FILE) ? fs.readFileSync(OUT_FILE, "utf8") : "";
+    const current = fs.existsSync(OUT_FILE)
+      ? fs.readFileSync(OUT_FILE, "utf8")
+      : "";
     if (current === output) {
       console.log("registry is up to date (no diff)");
     } else {
@@ -2446,7 +2859,9 @@ function main() {
   console.log(`  defs without any default value: ${missingDefaults}`);
   console.log(`  defs with KO value but no EN value: ${missingEnValues}`);
   console.log(`  labels mirrored from KO: ${mirroredLabels}`);
-  console.log(`  longest list default: ${maxList} chars (MAX_LENGTH.list=${MAX_LENGTH.list})`);
+  console.log(
+    `  longest list default: ${maxList} chars (MAX_LENGTH.list=${MAX_LENGTH.list})`,
+  );
   console.log(`  unmapped widget types: ${JSON.stringify(unmappedWidgets)}`);
   if (warnings.length > 0) {
     console.log(`  warnings (${warnings.length}):`);

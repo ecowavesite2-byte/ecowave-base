@@ -27,6 +27,29 @@ export function resolveActiveFilterId(
 }
 
 /**
+ * Resolve a requested `?cat=` value across locales.
+ *
+ * Filter ids are authored per locale (`필터` in KO, `Filter` in EN), so a
+ * language switch preserves the query string but the id no longer matches the
+ * target locale. When it matches neither list, pair by position against the
+ * other locale's filter row: the same category sits at the same index in both
+ * (KO/EN boards are authored in parallel order). The returned id is always from
+ * `filters`, so filtering, tab highlighting and pagination all use the current
+ * locale's category string.
+ */
+export function resolveFilterIdAcrossLocales(
+  filters: readonly ProductFilter[],
+  otherFilters: readonly ProductFilter[],
+  requested?: string | null,
+): string | null {
+  const direct = resolveActiveFilterId(filters, requested);
+  if (direct !== null || !requested) return direct;
+  const index = otherFilters.findIndex((filter) => filter.id === requested);
+  if (index < 0) return null;
+  return filters[index]?.id ?? null;
+}
+
+/**
  * Build the category tab row: `전체` first, then the resolved filters in their
  * stored order (a filter with zero posts still yields a tab). Filter hrefs are
  * `<baseHref>?cat=<id>`; `전체` keeps the bare `baseHref`.

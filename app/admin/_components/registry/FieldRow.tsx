@@ -65,11 +65,16 @@ const EMPTY_OPTIONS: ProductPostOption[] = [];
  * filters stay exactly as they were.
  */
 function mergeProductPageCopy(json: string, targetSource: string): string {
-  const target = parseProductPage(targetSource) ?? { title: "", subtitle: "", filters: [] };
+  const target = parseProductPage(targetSource) ?? {
+    title: "",
+    subtitle: "",
+    filters: [],
+  };
   const copy = JSON.parse(json) as { title?: string; subtitle?: string };
   return JSON.stringify({
     title: typeof copy.title === "string" ? copy.title : target.title,
-    subtitle: typeof copy.subtitle === "string" ? copy.subtitle : target.subtitle,
+    subtitle:
+      typeof copy.subtitle === "string" ? copy.subtitle : target.subtitle,
     filters: target.filters,
   });
 }
@@ -98,8 +103,13 @@ function VideoUploadButton({
     try {
       const form = new FormData();
       form.append("file", file);
-      const response = await fetch("/api/admin/registry/upload", { method: "POST", body: form });
-      const data = (await response.json().catch(() => ({}))) as { url?: unknown };
+      const response = await fetch("/api/admin/registry/upload", {
+        method: "POST",
+        body: form,
+      });
+      const data = (await response.json().catch(() => ({}))) as {
+        url?: unknown;
+      };
       if (!response.ok || typeof data.url !== "string") {
         setUploadError(true);
         return;
@@ -131,7 +141,9 @@ function VideoUploadButton({
           }}
         />
       </label>
-      {uploadError ? <p className="mt-1 text-[11px] text-red-600">{t.videoUploadFailed}</p> : null}
+      {uploadError ? (
+        <p className="mt-1 text-[11px] text-red-600">{t.videoUploadFailed}</p>
+      ) : null}
     </div>
   );
 }
@@ -162,8 +174,13 @@ export function ImageControl({
     try {
       const form = new FormData();
       form.append("file", file);
-      const response = await fetch("/api/admin/registry/upload", { method: "POST", body: form });
-      const data = (await response.json().catch(() => ({}))) as { url?: unknown };
+      const response = await fetch("/api/admin/registry/upload", {
+        method: "POST",
+        body: form,
+      });
+      const data = (await response.json().catch(() => ({}))) as {
+        url?: unknown;
+      };
       if (!response.ok || typeof data.url !== "string") {
         setUploadError(true);
         return;
@@ -190,7 +207,9 @@ export function ImageControl({
             className={`${INPUT} font-mono text-[12px]`}
           />
         </div>
-        <label className={`${UPLOAD_BUTTON} ${disabled || uploading ? "pointer-events-none opacity-50" : ""}`}>
+        <label
+          className={`${UPLOAD_BUTTON} ${disabled || uploading ? "pointer-events-none opacity-50" : ""}`}
+        >
           {uploading ? t.imageUploading : t.imageUpload}
           <input
             ref={fileRef}
@@ -204,12 +223,18 @@ export function ImageControl({
           />
         </label>
       </div>
-      {uploadError ? <p className="mt-1 text-[11px] text-red-600">{t.imageUploadFailed}</p> : null}
+      {uploadError ? (
+        <p className="mt-1 text-[11px] text-red-600">{t.imageUploadFailed}</p>
+      ) : null}
       {shown ? (
         <div className="mt-2 flex items-center gap-2">
           <div className="flex h-[64px] w-[96px] items-center justify-center overflow-hidden rounded-[3px] border border-black/10 bg-soft">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={shown} alt="" className="max-h-[64px] w-full object-contain" />
+            <img
+              src={shown}
+              alt=""
+              className="max-h-[64px] w-full object-contain"
+            />
           </div>
           <span className="text-[11px] text-muted">{t.imagePreview}</span>
         </div>
@@ -279,11 +304,13 @@ export default function FieldRow({
   onSave: () => void;
 }) {
   const label = def.label[locale] || def.label.ko;
-  const sharedUrl = def.kind === "url";
-  const dirty = sharedUrl
+  // `url` and `size` edits are shared by both locales: one control writes both
+  // drafts, and only the KO slot is compared/saved.
+  const sharedValue = def.kind === "url" || def.kind === "size";
+  const dirty = sharedValue
     ? drafts.ko !== baseline.ko
     : drafts.ko !== baseline.ko || drafts.en !== baseline.en;
-  const isDefault = drafts.ko === "" && (sharedUrl || drafts.en === "");
+  const isDefault = drafts.ko === "" && (sharedValue || drafts.en === "");
 
   const statusText = error
     ? error
@@ -374,6 +401,37 @@ export default function FieldRow({
         </div>
       );
       break;
+    case "size": {
+      // Shared numeric controller (percent of the image's column). An empty
+      // draft means "use the code default", so fall back through the pair.
+      const raw = drafts.ko || drafts.en || codeDefaults.ko || "80";
+      const parsed = Number(raw);
+      const current = Number.isFinite(parsed)
+        ? Math.min(100, Math.max(40, Math.round(parsed)))
+        : 80;
+      body = (
+        <div className="flex items-center gap-3">
+          <input
+            type="range"
+            min={40}
+            max={100}
+            step={1}
+            value={current}
+            disabled={disabled}
+            aria-label={label}
+            onChange={(event) => {
+              onDraft("ko", event.target.value);
+              onDraft("en", event.target.value);
+            }}
+            className="h-1.5 w-full min-w-0 cursor-pointer accent-[#3465DE] disabled:cursor-not-allowed disabled:opacity-50"
+          />
+          <span className="w-12 shrink-0 text-right text-[13px] font-medium tabular-nums text-ink">
+            {current}%
+          </span>
+        </div>
+      );
+      break;
+    }
     case "textarea":
       body = (
         <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
@@ -686,10 +744,13 @@ export default function FieldRow({
                 boardsT={boardsT}
                 boardSlug={def.pageKey}
                 posts={productPosts[lang]?.[def.pageKey] ?? EMPTY_OPTIONS}
-                onPostsChange={(next) => onProductPostsChange?.(lang, def.pageKey, next)}
+                onPostsChange={(next) =>
+                  onProductPostsChange?.(lang, def.pageKey, next)
+                }
                 onCopyToOther={(json) => {
                   const target: RegistryLocale = lang === "ko" ? "en" : "ko";
-                  const targetSource = drafts[target].trim() || codeDefaults[target];
+                  const targetSource =
+                    drafts[target].trim() || codeDefaults[target];
                   onDraft(target, mergeProductPageCopy(json, targetSource));
                 }}
                 onChange={(json) => onDraft(lang, json)}
@@ -739,7 +800,9 @@ export default function FieldRow({
             {t.defaultBadge}
           </span>
         ) : null}
-        <span className="ml-auto font-mono text-[11px] text-muted">{def.key}</span>
+        <span className="ml-auto font-mono text-[11px] text-muted">
+          {def.key}
+        </span>
       </div>
 
       <div className="mt-3">{body}</div>

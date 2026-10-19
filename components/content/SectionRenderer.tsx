@@ -268,9 +268,17 @@ function ImageWidget({
   mobileBox?: boolean;
 }) {
   // item 1: the equalised home §solutions card 3 keeps the sibling 548px box
-  // height so all three cards line up (see EQUAL_CARD_FIX).
+  // height so all three cards line up (see EQUAL_CARD_FIX). All three cards use
+  // the same `object-fit: cover` fill so the photo stays centred under its text
+  // on the fluid wide-screen container.
   const equalCard = EQUAL_CARD_FIX[w.id];
-  const h = equalCard ? EQUAL_CARD_BOX_H : num(w.boxStyle, "height");
+  const solutionCard = !!equalCard || HOME_SOLUTION_CARD_WIDGET_IDS.has(w.id);
+  const h = solutionCard ? EQUAL_CARD_BOX_H : num(w.boxStyle, "height");
+  // admin-controlled width (home §6 world map); undefined everywhere else.
+  const imageSize = imageSizeFor(w);
+  // §6 map: the `size` override drives its COLUMN width (see the section hook
+  // and `data-home-map` CSS), so the image itself always fills that column.
+  const mapImage = HOME_MAP_IMAGE_WIDGET_IDS.has(w.id);
   const { label, title, plus, layout, hasOverlay } = parseOverlayAlt(w.alt);
   // opt-in `hover_scale` widgets (see HOVER_SCALE_WIDGET_IDS). The effect itself
   // lives in globals.css, hooked on this attribute; only the plain `img` branch
@@ -445,9 +453,11 @@ function ImageWidget({
   let desktopSized =
     !!w.imgStyle &&
     /(width|height)\s*:\s*(?!100%)(?!0(?:px|%)?\s*(?:;|$))/.test(w.imgStyle);
-  // item 1: the equalised card uses the sibling fill-crop shape, not its own
-  // authored fixed size (see EQUAL_CARD_FIX).
-  if (equalCard) desktopSized = false;
+  // item 1: the solution cards use the sibling fill-crop shape, not their own
+  // authored fixed size (see EQUAL_CARD_FIX / HOME_SOLUTION_CARD_WIDGET_IDS).
+  // The admin-sized map also replaces its authored 773x427 pair with a
+  // percentage width, so its fixed-size branch must stay off too.
+  if (solutionCard || imageSize !== undefined) desktopSized = false;
   let desktopHeight: string | null = null;
   if (desktopSized) {
     const hm = w.imgStyle?.match(/(?:^|;)\s*height\s*:\s*(-?[\d.]+)px/);
@@ -477,28 +487,54 @@ function ImageWidget({
     cropVars["--fit-w"] = `${parseFloat(authoredWidth)}px`;
     cropClass.push("w-full", IMG_FIT_DESKTOP_W);
   }
-  // item 1 — normalize card 3 onto the sibling fill-crop shape (drop the
-  // authored small size + all four margins, fill the box height, centre-crop the
-  // width). The authored `margin: 86px auto` shorthand expands to margin-top/
-  // -bottom 86px (auto is skipped), which offsets the image 86px down inside the
-  // 548px box and clips it to ~462px — the "not full height" the client reported.
-  if (equalCard) {
-    delete inlineStyle.width;
-    delete inlineStyle.height;
-    delete inlineStyle["margin-top"];
-    delete inlineStyle["margin-bottom"];
-    delete inlineStyle["margin-left"];
-    delete inlineStyle["margin-right"];
+  // item 1 — normalize every solution card onto one fill shape: drop the
+  // authored crop/size and fill the 548px box with a centred cover crop. The
+  // authored `margin: 86px auto` shorthand expands to margin-top/-bottom 86px
+  // (auto is skipped), which offset card 3 86px down inside the box and clipped
+  // it to ~462px — the "not full height" the client reported. At ≥992 the image
+  // fills the box (`object-cover`); below 992 it stays `w-full h-auto` so the
+  // mobile column keeps the original fit.
+  if (solutionCard) {
+    for (const key of [
+      "width",
+      "height",
+      "margin-top",
+      "margin-bottom",
+      "margin-left",
+      "margin-right",
+    ]) {
+      delete inlineStyle[key];
+    }
     cropClass.length = 0;
-    cropVars["--crop-ml"] = `${equalCard.cropML}px`;
+    for (const key of Object.keys(cropVars)) delete cropVars[key];
     cropClass.push(
       "w-full",
       "h-auto",
       IMG_DESKTOP_MAX_NONE,
-      IMG_CROP_DESKTOP_W,
-      IMG_CROP_DESKTOP_H,
-      IMG_CROP_DESKTOP_ML,
+      "min-[992px]:h-full",
+      "min-[992px]:object-cover",
+      "min-[992px]:object-center",
     );
+    inlineStyle.width = "100%";
+  }
+  // Admin width controller (home §6 map): the crawl stores a fixed `width:773px;
+  // height:427px` pair. Drop it so the image fills the map column (whose width
+  // the `--map-size` CSS var controls) and scales down with it.
+  if (imageSize !== undefined) {
+    for (const key of [
+      "width",
+      "height",
+      "margin-top",
+      "margin-bottom",
+      "margin-left",
+      "margin-right",
+    ]) {
+      delete inlineStyle[key];
+    }
+    cropClass.length = 0;
+    for (const key of Object.keys(cropVars)) delete cropVars[key];
+    cropClass.push("w-full", "h-auto", "min-[992px]:max-w-none");
+    inlineStyle.width = "100%";
   }
   // Below 992 the authored band is swapped for the portrait mobile rendition
   // (see MOBILE_IMAGE_SRC). The authored inline `display` (here `inline-block`,
@@ -683,10 +719,20 @@ function ImageWidget({
         className={`relative w-full overflow-hidden${mobileBox ? " rounded-[6px]" : ""}${
           mobileBox && isMobileCrop ? " flex items-center" : ""
         }${h ? " " + (mobileBox ? BOX_MOBILE_HEIGHT : BOX_DESKTOP_HEIGHT) : ""}`}
-        data-hover-scale={hoverScale ? "1" : undefined}
+        data-hover-scale={hoverScale ?? undefined}
         style={
-          h
-            ? ({ ["--box-h" as string]: `${h}px` } as React.CSSProperties)
+          h || (imageSize !== undefined && !mapImage)
+            ? ({
+                ...(h ? { ["--box-h" as string]: `${h}px` } : {}),
+                ...(imageSize !== undefined && !mapImage
+                  ? {
+                      width: `${imageSize}%`,
+                      maxWidth: "100%",
+                      marginLeft: "auto",
+                      marginRight: "auto",
+                    }
+                  : {}),
+              } as React.CSSProperties)
             : undefined
         }
       >
@@ -934,12 +980,106 @@ const EQUAL_CARD_FIX: Record<string, { cropML: number }> = {
 };
 const EQUAL_CARD_BOX_H = 548;
 
-function hoverScaleFor(w: WidgetNode): boolean {
+/**
+ * All three home §solutions card photos (both locales). Their fill-crop is now
+ * implemented with `object-fit: cover` instead of the crawl's fixed
+ * `-74.8178px` left margin. The authored crop is a 1440px measurement: the
+ * image is 477px wide inside a 327px box, so `-74.8178` centres it exactly at
+ * 1440. The section container is fluid above 1440 (`data-extend`), the box grows
+ * with the column while the image width stays 477 — the fixed crop then pushed
+ * the photo left of the text block (client feedback: §4 text no longer centred
+ * under its image on wide screens). `object-fit: cover` + `object-position:
+ * center` reproduces the same 1440 crop and keeps the photo centred at every
+ * width.
+ */
+const HOME_SOLUTION_CARD_WIDGET_IDS = new Set([
+  "w2025081110a9d2744f9fb", // ko home §solutions card 1
+  "w20250811b881aa576382c", // ko home §solutions card 2
+  "w20250812aea22580e7e86", // ko home §solutions card 3
+  "w2025091104fe925608dd7", // en home §solutions card 1
+  "w20250911159dea4c214d7", // en home §solutions card 2
+  "w20250911f580662be2ff1", // en home §solutions card 3
+]);
+
+/**
+ * Hover-scale widgets that need a gentler zoom. The home §ECOWAVE mission band
+ * is a 1920x535 bitmap whose five badge captions run almost edge to edge (27px
+ * of padding); the standard `scale(1.1)` clipped the outer badges on hover
+ * (client feedback). `scale(1.02)` keeps the zoom while the 1% crop each side
+ * stays inside the authored padding.
+ */
+const SUBTLE_HOVER_SCALE_WIDGET_IDS = new Set([
+  "w20250811ce94af53086e1", // ko home §ECOWAVE mission band
+  "w20250911fbd73e60e36d9", // en home §ECOWAVE mission band
+]);
+
+/**
+ * Home §6 (“Eco Wave in the World”) world map. The admin can resize this image
+ * from Content → Home (`size` override, 40–100%); the 80% default is visibly
+ * smaller than the authored 773px fill while keeping the pin labels readable.
+ * Only the map is keyed here: everything else keeps its authored geometry.
+ */
+const HOME_MAP_IMAGE_WIDGET_IDS = new Set([
+  "w202508125d42dfa5c6d8a", // ko home §6 map
+  "w202509117e134e0facf8b", // en home §6 map
+]);
+const HOME_MAP_IMAGE_DEFAULT_SIZE = 80;
+
+function hoverScaleFor(w: WidgetNode): "1" | "subtle" | null {
   // durable path — inert until the crawler writes `hoverScale`
-  if ((w as unknown as { hoverScale?: boolean }).hoverScale === true)
-    return true;
-  // stop-gap id list for the widgets whose `hover_scale` class the crawl dropped
-  return HOVER_SCALE_WIDGET_IDS.has(w.id);
+  const enabled =
+    (w as unknown as { hoverScale?: boolean }).hoverScale === true ||
+    HOVER_SCALE_WIDGET_IDS.has(w.id);
+  if (!enabled) return null;
+  return SUBTLE_HOVER_SCALE_WIDGET_IDS.has(w.id) ? "subtle" : "1";
+}
+
+/**
+ * Admin width override, clamped to 40–100. The home §6 map applies it to its
+ * whole 8/12 column (the location cards travel with it); any other sized image
+ * widget uses it directly as a percentage of its own column.
+ */
+function imageSizeFor(w: WidgetNode): number | undefined {
+  const fallback = HOME_MAP_IMAGE_WIDGET_IDS.has(w.id)
+    ? HOME_MAP_IMAGE_DEFAULT_SIZE
+    : undefined;
+  const raw = w.size;
+  if (typeof raw !== "number" || !Number.isFinite(raw)) return fallback;
+  return Math.min(100, Math.max(40, raw));
+}
+
+/** First widget in a node list whose id is in `ids` (section-level hooks). */
+function findWidgetInNodes(
+  nodes: Node[],
+  ids: Set<string>,
+): WidgetNode | null {
+  let found: WidgetNode | null = null;
+  const walk = (list: Node[]) => {
+    for (const n of list) {
+      if (found) return;
+      if (n.kind === "widget") {
+        if (ids.has(n.id)) found = n;
+      } else if (n.kind === "row") {
+        n.cols.forEach((c) => walk(c.children));
+      } else if (n.kind === "col") {
+        walk(n.children);
+      }
+    }
+  };
+  walk(nodes);
+  return found;
+}
+
+function findSectionWidget(
+  sec: Section,
+  ids: Set<string>,
+): WidgetNode | null {
+  return findWidgetInNodes(sec.rows, ids);
+}
+
+/** True when this row contains one of the widgets (map-column hook). */
+function rowHasWidget(row: RowNode, ids: Set<string>): boolean {
+  return row.cols.some((col) => findWidgetInNodes(col.children, ids) !== null);
 }
 
 /** imweb `_image_widget_lightbox` — the only image wired to the original lightgallery;
@@ -1658,6 +1798,7 @@ export function Row({
   mobileBox = false,
   topBand = false,
   mobileHidden = false,
+  homeMapRow = false,
 }: {
   r: RowNode;
   locale?: Locale;
@@ -1679,6 +1820,8 @@ export function Row({
   topBand?: boolean;
   /** item 2: drop this row below 992 (home nav-cards pc lead-in) */
   mobileHidden?: boolean;
+  /** home §6: map + location-card row, flexed as one centred pair at lg */
+  homeMapRow?: boolean;
 }) {
   const rowVars: React.CSSProperties = {};
   if (!nested && r.w)
@@ -1722,6 +1865,7 @@ export function Row({
       // them on the original's `extend_section` sections without touching the
       // nested rows (which inherit `--row-w` and are already inside a padded col).
       data-row-top={nested ? undefined : "1"}
+      data-home-map-row={homeMapRow ? "1" : undefined}
       style={rowVars}
     >
       {cols.map((c, i) => (
@@ -2804,6 +2948,17 @@ export default function SectionRenderer({
         const aboutMinH = ABOUT_MIN_H[sec.id];
         // item 2: home §7 holder box model (globals.css `data-mapholder`)
         const mapHolder = MAP_HOLDER_SECTION_IDS.has(sec.id);
+        // Home §6 world map: the admin width override is applied to the map's
+        // whole 8/12 column (globals.css `data-home-map`), so the 4/12 location
+        // cards stay beside it and the pair re-centres as the size changes.
+        const homeMapWidget = findSectionWidget(
+          sec,
+          HOME_MAP_IMAGE_WIDGET_IDS,
+        );
+        const homeMapSize =
+          homeMapWidget !== null
+            ? (imageSizeFor(homeMapWidget) ?? HOME_MAP_IMAGE_DEFAULT_SIZE)
+            : null;
         // item 4: home-scoped authored-span downscale (globals.css `data-home-type`)
         const homeType = HOME_TYPE_SECTION_IDS.has(sec.id);
         // wave 1, item D: philosophy §3단계 cover-card padding (globals.css `data-philcard`)
@@ -2929,6 +3084,16 @@ export default function SectionRenderer({
             data-home-cards={homeCards ? "1" : undefined}
             // acceptance hook (globals.css): home Clean-Water video band mobile re-timing.
             data-home-water={homeWater ? "1" : undefined}
+            // home §6 hook (globals.css): map + location cards behave as one
+            // centred pair; `--map-size` shrinks the map's 8/12 column.
+            data-home-map={homeMapSize !== null ? "1" : undefined}
+            style={
+              homeMapSize !== null
+                ? ({
+                    ["--map-size" as string]: String(homeMapSize / 100),
+                  } as React.CSSProperties)
+                : undefined
+            }
           >
             {(sec.bg || urlFromStyle(sec.bgStyle)) && (
               <div
@@ -3030,6 +3195,11 @@ export default function SectionRenderer({
                       topBand={topBand}
                       // item 2 — the pc lead-in row becomes the standalone intro
                       mobileHidden={homeCards && i === 0}
+                      // home §6 — the map + location-card row (see globals.css)
+                      homeMapRow={
+                        homeMapSize !== null &&
+                        rowHasWidget(r as RowNode, HOME_MAP_IMAGE_WIDGET_IDS)
+                      }
                     />
                   ))}
               </div>

@@ -8,8 +8,12 @@ import {
   catQueryFor,
   filterPostsByCategory,
   resolveActiveFilterId,
+  resolveFilterIdAcrossLocales,
 } from "@/components/products/product-tabs";
-import { getResolvedBoard, getResolvedProductPage } from "@/lib/content/resolved";
+import {
+  getResolvedBoard,
+  getResolvedProductPage,
+} from "@/lib/content/resolved";
 import { defaultLocale, isLocale, localeHref } from "@/lib/i18n";
 import { heroFor } from "@/lib/page-hero";
 import { ui } from "@/lib/ui-strings";
@@ -35,18 +39,38 @@ export default async function ProductsPage({
   const board = await getResolvedBoard(l, slug);
   // landing shares the eco-wave board payload (original /32 == /37 boards)
   const meta = await getResolvedProductPage(l, slug);
-  const activeId = resolveActiveFilterId(meta.filters, cat);
+  // The language switch preserves `?cat=`; filter ids are localized, so map a
+  // foreign-locale id onto this locale's filter at the same position. Without
+  // this the EN→KO switch silently reset the board to "all".
+  let activeId = resolveActiveFilterId(meta.filters, cat);
+  if (activeId === null && cat) {
+    const other = await getResolvedProductPage(l === "ko" ? "en" : "ko", slug);
+    activeId = resolveFilterIdAcrossLocales(meta.filters, other.filters, cat);
+  }
   const filtered = filterPostsByCategory(board.posts, activeId);
-  const page = Math.max(1, Number(pageParam || "1"));
-  const totalPages = Math.max(1, Math.ceil(filtered.length / PRODUCT_PAGE_SIZE));
-  const slice = filtered.slice((page - 1) * PRODUCT_PAGE_SIZE, page * PRODUCT_PAGE_SIZE);
+  const totalPages = Math.max(
+    1,
+    Math.ceil(filtered.length / PRODUCT_PAGE_SIZE),
+  );
+  const page = Math.min(totalPages, Math.max(1, Number(pageParam || "1")));
+  const slice = filtered.slice(
+    (page - 1) * PRODUCT_PAGE_SIZE,
+    page * PRODUCT_PAGE_SIZE,
+  );
 
   const listingBase = localeHref(l, "/products");
   const cardBase = localeHref(l, slug);
   // Pagination keeps only the RESOLVED filter id, so an unknown `?cat=` never
   // leaks into the pager links.
   const catQuery = catQueryFor(activeId);
-  const tabs = buildProductTabs(meta.filters, t.board.all, listingBase, cat);
+  // Use the RESOLVED id (not the raw request) so the matching tab stays
+  // highlighted after a language switch mapped a foreign category id.
+  const tabs = buildProductTabs(
+    meta.filters,
+    t.board.all,
+    listingBase,
+    activeId,
+  );
 
   return (
     <main>

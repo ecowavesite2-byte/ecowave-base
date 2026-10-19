@@ -5,7 +5,7 @@
 // table stores only overrides keyed by (key, locale); `DEFAULT_VALUES` below is
 // what the app falls back to when no override exists.
 
-export type ContentKind = "text" | "textarea" | "lines" | "image" | "url" | "list" | "slides" | "overlay" | "cards" | "picks" | "embed" | "eras" | "locations" | "gallery" | "aboutCards" | "facilityTabs" | "techFeatures" | "patentSections" | "facilitiesTable" | "productPage";
+export type ContentKind = "text" | "textarea" | "lines" | "image" | "url" | "list" | "slides" | "overlay" | "cards" | "picks" | "embed" | "eras" | "locations" | "gallery" | "aboutCards" | "facilityTabs" | "techFeatures" | "patentSections" | "facilitiesTable" | "productPage" | "size";
 
 export type ContentGroup = "home" | "company" | "rnd" | "products" | "boards" | "site" | "common";
 
@@ -697,6 +697,27 @@ export const CONTENT_DEFS: ContentDef[] = [
     "label": {
       "ko": "이미지 경로 · 9bc64982daf80.jpg",
       "en": "Image source · bc018ecaa7de6.png"
+    },
+    "revalidate": [
+      "/",
+      "/en"
+    ]
+  },
+  {
+    "key": "home#s202508112787439deffdb/w202508125d42dfa5c6d8a/size",
+    "group": "home",
+    "pageKey": "home",
+    "sectionId": "s202508112787439deffdb",
+    "widgetId": "w202508125d42dfa5c6d8a",
+    "field": "size",
+    "kind": "size",
+    "section": {
+      "ko": "Headquarters & Factory Locations…",
+      "en": "Headquarters & Factory Locations…"
+    },
+    "label": {
+      "ko": "지도 이미지 너비 · 80%",
+      "en": "Map image width · 80%"
     },
     "revalidate": [
       "/",
@@ -3465,6 +3486,10 @@ export const DEFAULT_VALUES: Record<string, { ko?: string; en?: string }> = {
     "ko": "/images/thumbnail/20250828/9bc64982daf80.jpg",
     "en": "/images/thumbnail/20250912/bc018ecaa7de6.png"
   },
+  "home#s202508112787439deffdb/w202508125d42dfa5c6d8a/size": {
+    "ko": "80",
+    "en": "80"
+  },
   "home#s202508112787439deffdb/cards/cards": {
     "ko": "[{\"lines\":[\"KOR\",\"[KOREA]\",\"인천광역시 남동구 은봉로 14 영도빌딩 2동\",\"TEL: +82-32-812-1800 / Fax: +82-32-812-1804\"]},{\"lines\":[\"CHN\",\"[CHINA]\",\"Hongfuiie NO.90 Yantai, Shandong, PR. China\"]},{\"lines\":[\"KHM\",\"[CAMBODIA]\",\"Tuol Kork Phnom Penh City\"]}]",
     "en": "[{\"lines\":[\"KOR\",\"[KOREA]\",\"2-dong, Yeongdo Building, 14, Eunbong-ro, Namdong-gu, Incheon, Republic of Korea\",\"TEL: +82-32-812-1800 / Fax: +82-32-812-1804\"]},{\"lines\":[\"CHN\",\"[CHINA]\",\"Hongfuiie NO.90 Yantai, Shandong, PR. China\"]},{\"lines\":[\"KHM\",\"[CAMBODIA]\",\"Tuol Kork Phnom Penh City\"]}]"
@@ -3748,6 +3773,7 @@ export const CONTENT_KEYS_BY_GROUP: Record<ContentGroup, string[]> = {
     "home#s202508112787439deffdb/w2025081255820418f5e3f/title",
     "home#s202508112787439deffdb/w2025081255820418f5e3f/desc",
     "home#s202508112787439deffdb/w202508125d42dfa5c6d8a/src",
+    "home#s202508112787439deffdb/w202508125d42dfa5c6d8a/size",
     "home#s202508112787439deffdb/cards/cards",
     "home#s2025081139ff276cae8d6/w202508119c5dc9cae67eb/title",
     "home#s2025081139ff276cae8d6/w202508119c5dc9cae67eb/desc",
@@ -3895,9 +3921,10 @@ export const MAX_LENGTH: Record<ContentKind, number> = {
   "techFeatures": 40000,
   "patentSections": 60000,
   "facilitiesTable": 20000,
-  "productPage": 20000
+  "productPage": 20000,
+  "size": 3
 };
 
-export const CONTENT_KINDS: ContentKind[] = ["text","textarea","lines","image","url","list","slides","overlay","cards","picks","embed","eras","locations","gallery","aboutCards","facilityTabs","techFeatures","patentSections","facilitiesTable","productPage"];
+export const CONTENT_KINDS: ContentKind[] = ["text","textarea","lines","image","url","list","slides","overlay","cards","picks","embed","eras","locations","gallery","aboutCards","facilityTabs","techFeatures","patentSections","facilitiesTable","productPage","size"];
 
 export const CONTENT_GROUPS: ContentGroup[] = ["home","company","rnd","products","boards","site","common"];

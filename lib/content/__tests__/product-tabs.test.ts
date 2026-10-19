@@ -5,6 +5,7 @@ import {
   catQueryFor,
   filterPostsByCategory,
   resolveActiveFilterId,
+  resolveFilterIdAcrossLocales,
 } from "../../../components/products/product-tabs";
 
 /**
@@ -37,7 +38,12 @@ describe("buildProductTabs", () => {
   });
 
   it("keeps a post-less filter as a tab (KO 살균모듈)", () => {
-    const tabs = buildProductTabs(KO_ECO_WAVE, "전체", "/products/eco-wave", null);
+    const tabs = buildProductTabs(
+      KO_ECO_WAVE,
+      "전체",
+      "/products/eco-wave",
+      null,
+    );
     expect(tabs.map((t) => t.label)).toEqual([
       "전체",
       "필터",
@@ -64,7 +70,9 @@ describe("buildProductTabs", () => {
     const unknown = buildProductTabs(FILTERS, "전체", "/p", "does-not-exist");
     expect(unknown.some((t) => t.active)).toBe(false);
     expect(buildProductTabs(FILTERS, "전체", "/p", null)[0].active).toBe(true);
-    expect(buildProductTabs(FILTERS, "전체", "/p", undefined)[0].active).toBe(true);
+    expect(buildProductTabs(FILTERS, "전체", "/p", undefined)[0].active).toBe(
+      true,
+    );
   });
 });
 
@@ -86,6 +94,51 @@ describe("resolveActiveFilterId", () => {
   });
 });
 
+describe("resolveFilterIdAcrossLocales", () => {
+  const EN_ECO_WAVE: ProductFilter[] = [
+    { id: "Filter", name: "Filter" },
+    { id: "Service check/self-care kit", name: "Service check/self-care kit" },
+    { id: "Sterilization module", name: "Sterilization module" },
+  ];
+
+  it("maps a foreign-locale id onto the local filter at the same position", () => {
+    // Switching EN → KO with ?cat=Filter keeps the filter active.
+    expect(
+      resolveFilterIdAcrossLocales(KO_ECO_WAVE, EN_ECO_WAVE, "Filter"),
+    ).toBe("필터");
+    // And KO → EN with the Korean id.
+    expect(
+      resolveFilterIdAcrossLocales(
+        EN_ECO_WAVE,
+        KO_ECO_WAVE,
+        "서비스 점검/자가관리 키트",
+      ),
+    ).toBe("Service check/self-care kit");
+  });
+
+  it("prefers a direct local id and leaves absent/unknown values in the all state", () => {
+    expect(
+      resolveFilterIdAcrossLocales(KO_ECO_WAVE, EN_ECO_WAVE, "살균모듈"),
+    ).toBe("살균모듈");
+    expect(
+      resolveFilterIdAcrossLocales(KO_ECO_WAVE, EN_ECO_WAVE, undefined),
+    ).toBeNull();
+    expect(
+      resolveFilterIdAcrossLocales(KO_ECO_WAVE, EN_ECO_WAVE, ""),
+    ).toBeNull();
+    expect(
+      resolveFilterIdAcrossLocales(KO_ECO_WAVE, EN_ECO_WAVE, "nope"),
+    ).toBeNull();
+  });
+
+  it("does not invent a filter when the other locale has fewer filters", () => {
+    const short: ProductFilter[] = [{ id: "only", name: "Only" }];
+    expect(
+      resolveFilterIdAcrossLocales(short, KO_ECO_WAVE, "살균모듈"),
+    ).toBeNull();
+  });
+});
+
 describe("catQueryFor", () => {
   it("returns an empty string for the all state (null)", () => {
     expect(catQueryFor(null)).toBe("");
@@ -99,7 +152,9 @@ describe("catQueryFor", () => {
     expect(catQueryFor("서비스 점검/자가관리 키트")).toBe(
       `?cat=${encodeURIComponent("서비스 점검/자가관리 키트")}`,
     );
-    expect(catQueryFor("a b/c?d")).toBe(`?cat=${encodeURIComponent("a b/c?d")}`);
+    expect(catQueryFor("a b/c?d")).toBe(
+      `?cat=${encodeURIComponent("a b/c?d")}`,
+    );
   });
 });
 
@@ -113,13 +168,15 @@ describe("filterPostsByCategory", () => {
   it("returns every post when the id is null (unknown/absent → all)", () => {
     expect(filterPostsByCategory(posts, null)).toEqual(posts);
     // composition: unknown ?cat= resolves to null → all posts
-    expect(filterPostsByCategory(posts, resolveActiveFilterId(FILTERS, "nope"))).toEqual(
-      posts,
-    );
+    expect(
+      filterPostsByCategory(posts, resolveActiveFilterId(FILTERS, "nope")),
+    ).toEqual(posts);
   });
 
   it("matches post.category against the filter id", () => {
-    expect(filterPostsByCategory(posts, "a")).toEqual([{ category: "a", title: "one" }]);
+    expect(filterPostsByCategory(posts, "a")).toEqual([
+      { category: "a", title: "one" },
+    ]);
     expect(filterPostsByCategory(posts, "missing")).toEqual([]);
   });
 });

@@ -777,6 +777,37 @@ section[data-philcard="1"] .rich-text .text-table.holder img {
     }
 }
 
+/* home §6 (Headquarters & Factory Locations) - admin map width controller.
+   SectionRenderer tags the section `data-home-map` (setting `--map-size`,
+   0.4-1) and the map's row `data-home-map-row`. At >=1024 (the row's lg 12-col
+   breakpoint) the map's 8/12 column shrinks to `--map-size * 66.667%` while
+   the location cards keep their 4/12 width, so the two columns become ONE
+   centred pair instead of leaving a growing hole between them: as the map
+   shrinks, its left edge moves right and the cards move left with its right
+   edge. Below 1024 the row stacks exactly as before (the 12-col split only
+   exists from `lg`). */
+@media (min-width: 1024px) {
+    section[data-home-map="1"] .imweb-row[data-home-map-row="1"] {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+    }
+    section[data-home-map="1"]
+        .imweb-row[data-home-map-row="1"]
+        > .imweb-col:first-child {
+        flex: 0 0 auto;
+        width: calc(var(--map-size, 0.8) * 66.6667%);
+        max-width: calc(var(--map-size, 0.8) * 66.6667%);
+    }
+    section[data-home-map="1"]
+        .imweb-row[data-home-map-row="1"]
+        > .imweb-col:last-child {
+        flex: 0 0 33.3333%;
+        width: 33.3333%;
+        max-width: 33.3333%;
+    }
+}
+
 /* mobile-spacing wave 1, item A — company.global §에코웨이브 본사 contact table +
    map (globals.css hook `data-global-contact`; see GLOBAL_CONTACT_SECTION_IDS in
    components/content/SectionRenderer.tsx). At 390 the 3-col `table.noBorder`
@@ -1778,13 +1809,22 @@ section[data-philcard="1"] .rich-text .text-table.holder img {
    `prefers-reduced-motion: no-preference` keeps the scale inert for reduced
    motion (the original has no such guard; this is a safety addition). The
    wrapper already carries Tailwind `overflow-hidden`, so no clipping rule is
-   needed. Paint-only — zero layout change. */
-[data-hover-scale="1"] img {
+   needed. Paint-only — zero layout change.
+
+   `data-hover-scale="subtle"` is the gentler variant used by the home §ECOWAVE
+   mission band (SectionRenderer `SUBTLE_HOVER_SCALE_WIDGET_IDS`): the authored
+   1920x535 bitmap has only ~1.4% horizontal padding around its five badges, so
+   the standard 1.1 zoom clipped them. 1.02 stays inside that padding. */
+[data-hover-scale="1"] img,
+[data-hover-scale="subtle"] img {
     transition: transform 0.4s ease-out;
 }
 @media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
     [data-hover-scale="1"]:hover img {
         transform: scale(1.1);
+    }
+    [data-hover-scale="subtle"]:hover img {
+        transform: scale(1.02);
     }
 }
 

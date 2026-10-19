@@ -94,7 +94,12 @@ function deepClone<T>(value: T): T {
  * a missing nth tag leaves the html untouched. Mirrors the `img[n].src` /
  * `iframe[n].src` field shape emitted by scripts/gen-content-registry.mjs.
  */
-function replaceNthSrc(html: string | null | undefined, tag: string, n: number, value: string): string {
+function replaceNthSrc(
+  html: string | null | undefined,
+  tag: string,
+  n: number,
+  value: string,
+): string {
   const source = String(html ?? "");
   if (!value) return source; // empty = no-op, never blank a src
   const re = new RegExp(`<${tag}\\b[^>]*>`, "gi");
@@ -102,7 +107,10 @@ function replaceNthSrc(html: string | null | undefined, tag: string, n: number, 
   return source.replace(re, (m) => {
     i += 1;
     if (i !== n) return m;
-    return m.replace(/\ssrc\s*=\s*("[^"]*"|'[^']*'|[^\s>]+)/i, ` src="${value}"`);
+    return m.replace(
+      /\ssrc\s*=\s*("[^"]*"|'[^']*'|[^\s>]+)/i,
+      ` src="${value}"`,
+    );
   });
 }
 
@@ -112,7 +120,12 @@ function replaceNthSrc(html: string | null | undefined, tag: string, n: number, 
  * `target` is a widget node or a hero slide (`visual[i]`); fields not valid for
  * the resolved target are ignored.
  */
-function applyWidgetField(widget: WidgetNode, field: string, value: string, rawHtml: boolean): void {
+function applyWidgetField(
+  widget: WidgetNode,
+  field: string,
+  value: string,
+  rawHtml: boolean,
+): void {
   switch (field) {
     case "html":
       // `lines` fields are PLAIN TEXT: inject the value into the widget's
@@ -133,6 +146,14 @@ function applyWidgetField(widget: WidgetNode, field: string, value: string, rawH
     case "href":
       widget.href = value;
       return;
+    case "size": {
+      // Admin image-width controller (percent of the column). Clamp to the
+      // editor's range so a direct API write cannot blow up the layout.
+      const n = Number.parseFloat(value);
+      if (!Number.isFinite(n)) return;
+      widget.size = Math.min(100, Math.max(40, n));
+      return;
+    }
     case "title":
       // First styled run (e.g. a solutions card heading) — see `desc` below.
       widget.html = injectTextRuns(widget.html, value, { start: 0, end: 0 });
@@ -195,8 +216,14 @@ function parseSlides(value: string): SlideInput[] | null {
       // A slide without a string title is garbage (only reachable by direct DB
       // inserts — the API validator requires one); no-op rather than blank copy.
       if (typeof slide.title !== "string") return null;
-      if (slide.bg !== undefined && slide.bg !== null && typeof slide.bg !== "string") return null;
-      if (slide.subtitle !== undefined && typeof slide.subtitle !== "string") return null;
+      if (
+        slide.bg !== undefined &&
+        slide.bg !== null &&
+        typeof slide.bg !== "string"
+      )
+        return null;
+      if (slide.subtitle !== undefined && typeof slide.subtitle !== "string")
+        return null;
       slides.push({
         bg: typeof slide.bg === "string" ? slide.bg : null,
         title: slide.title,
@@ -216,11 +243,16 @@ function parseCards(value: string): LocationCard[] | null {
     if (!Array.isArray(parsed) || parsed.length === 0) return null;
     const cards: LocationCard[] = [];
     for (const entry of parsed) {
-      if (!entry || typeof entry !== "object" || Array.isArray(entry)) return null;
+      if (!entry || typeof entry !== "object" || Array.isArray(entry))
+        return null;
       const lines = (entry as { lines?: unknown }).lines;
       // Require the real shape: a missing/non-string `lines` must not silently
       // clear a card (direct-DB inserts only; the API validator requires it).
-      if (!Array.isArray(lines) || !lines.every((line) => typeof line === "string")) return null;
+      if (
+        !Array.isArray(lines) ||
+        !lines.every((line) => typeof line === "string")
+      )
+        return null;
       cards.push({ lines });
     }
     return cards;
@@ -233,9 +265,19 @@ function parseCards(value: string): LocationCard[] | null {
 function parsePicks(value: string): TickerPicks | null {
   try {
     const parsed = JSON.parse(value) as { board?: unknown; idxs?: unknown };
-    const board = parsed?.board === "notices" ? "notices" : parsed?.board === "news" ? "news" : null;
+    const board =
+      parsed?.board === "notices"
+        ? "notices"
+        : parsed?.board === "news"
+          ? "news"
+          : null;
     const idxs = Array.isArray(parsed?.idxs)
-      ? parsed.idxs.filter((idx): idx is string => typeof idx === "string" || typeof idx === "number").map(String)
+      ? parsed.idxs
+          .filter(
+            (idx): idx is string =>
+              typeof idx === "string" || typeof idx === "number",
+          )
+          .map(String)
       : [];
     if (!board || idxs.length === 0) return null;
     return { board, idxs };
@@ -253,13 +295,20 @@ function parsePicks(value: string): TickerPicks | null {
  * subtitle into the intact template (then the title, whose range ends before
  * the subtitle runs) keeps both placements stable.
  */
-function applySlideText(template: string, title: string, subtitle: string): string {
+function applySlideText(
+  template: string,
+  title: string,
+  subtitle: string,
+): string {
   const sizes = extractRunSizes(template);
   let split = sizes.findIndex((size) => size < 40);
   if (split === -1) split = Math.max(1, sizes.length);
   if (split === 0) split = 1;
   const withSubtitle = injectTextRuns(template, subtitle, { start: split });
-  return injectTextRuns(withSubtitle, title, { start: 0, end: Math.max(0, split - 1) });
+  return injectTextRuns(withSubtitle, title, {
+    start: 0,
+    end: Math.max(0, split - 1),
+  });
 }
 
 /**
@@ -279,7 +328,8 @@ function applySlides(section: Section, slides: SlideInput[]): void {
   if (slides.length === 0) return;
   const original = Array.isArray(section.visual) ? section.visual : [];
   section.visual = slides.map((slide, index) => {
-    const template = original[index]?.html ?? original[original.length - 1]?.html ?? "";
+    const template =
+      original[index]?.html ?? original[original.length - 1]?.html ?? "";
     return {
       bg: slide.bg ?? null,
       bgColor: original[index]?.bgColor ?? null,
@@ -302,7 +352,10 @@ interface LocatedWidget {
 }
 
 /** Collect every widget in document order (rows → cols → children) with ancestors. */
-function collectLocatedWidgets(nodes: Node[] | undefined, out: LocatedWidget[]): void {
+function collectLocatedWidgets(
+  nodes: Node[] | undefined,
+  out: LocatedWidget[],
+): void {
   const walk = (list: Node[] | undefined, path: NodePlace[]): void => {
     if (!Array.isArray(list)) return;
     for (let index = 0; index < list.length; index += 1) {
@@ -367,7 +420,8 @@ function isPaddingOnly(node: Node | undefined): boolean {
 function findCardBlock(entry: LocatedWidget): NodePlace | null {
   for (let i = entry.path.length - 1; i >= 0; i -= 1) {
     const place = entry.path[i];
-    if (place.node.kind === "row" && countWidgets(place.node) === 1) return place;
+    if (place.node.kind === "row" && countWidgets(place.node) === 1)
+      return place;
   }
   return null;
 }
@@ -375,7 +429,10 @@ function findCardBlock(entry: LocatedWidget): NodePlace | null {
 /** Give every widget inside a cloned block a unique id (`<id>__card<i>`). */
 function rewriteWidgetIds(node: Node, index: number): void {
   forEachWidget(node, (widget) => {
-    const base = typeof widget.id === "string" && widget.id.length > 0 ? widget.id : "card";
+    const base =
+      typeof widget.id === "string" && widget.id.length > 0
+        ? widget.id
+        : "card";
     widget.id = `${base}__card${index}`;
   });
 }
@@ -414,7 +471,9 @@ export function applyCards(section: Section, cards: LocationCard[]): void {
 
     const textWidgets = located.filter((entry) => entry.widget.type === "text");
     const heading = textWidgets.findIndex(
-      (entry) => typeof entry.widget.html === "string" && entry.widget.html.trim().length > 0,
+      (entry) =>
+        typeof entry.widget.html === "string" &&
+        entry.widget.html.trim().length > 0,
     );
     if (heading < 0) return;
 
@@ -472,7 +531,8 @@ function parseEras(value: string): EraEntry[] | null {
     if (!Array.isArray(parsed) || parsed.length === 0) return null;
     const eras: EraEntry[] = [];
     for (const entry of parsed) {
-      if (!entry || typeof entry !== "object" || Array.isArray(entry)) return null;
+      if (!entry || typeof entry !== "object" || Array.isArray(entry))
+        return null;
       const era = entry as {
         range?: unknown;
         tagline?: unknown;
@@ -485,15 +545,28 @@ function parseEras(value: string): EraEntry[] | null {
       if (!Array.isArray(era.years)) return null;
       const years: EraYear[] = [];
       for (const yearEntry of era.years) {
-        if (!yearEntry || typeof yearEntry !== "object" || Array.isArray(yearEntry)) return null;
+        if (
+          !yearEntry ||
+          typeof yearEntry !== "object" ||
+          Array.isArray(yearEntry)
+        )
+          return null;
         const year = yearEntry as { year?: unknown; items?: unknown };
         if (typeof year.year !== "string") return null;
-        if (!Array.isArray(year.items) || !year.items.every((item) => typeof item === "string")) {
+        if (
+          !Array.isArray(year.items) ||
+          !year.items.every((item) => typeof item === "string")
+        ) {
           return null;
         }
         years.push({ year: year.year, items: year.items as string[] });
       }
-      eras.push({ range: era.range, tagline: era.tagline, image: era.image, years });
+      eras.push({
+        range: era.range,
+        tagline: era.tagline,
+        image: era.image,
+        years,
+      });
     }
     return eras;
   } catch {
@@ -508,7 +581,8 @@ function parseLocations(value: string): GlobalLocation[] | null {
     if (!Array.isArray(parsed) || parsed.length === 0) return null;
     const locations: GlobalLocation[] = [];
     for (const entry of parsed) {
-      if (!entry || typeof entry !== "object" || Array.isArray(entry)) return null;
+      if (!entry || typeof entry !== "object" || Array.isArray(entry))
+        return null;
       const location = entry as {
         badge?: unknown;
         city?: unknown;
@@ -526,7 +600,11 @@ function parseLocations(value: string): GlobalLocation[] | null {
       const phone = location.phone === undefined ? "" : location.phone;
       const fax = location.fax === undefined ? "" : location.fax;
       const email = location.email === undefined ? "" : location.email;
-      if (typeof phone !== "string" || typeof fax !== "string" || typeof email !== "string") {
+      if (
+        typeof phone !== "string" ||
+        typeof fax !== "string" ||
+        typeof email !== "string"
+      ) {
         return null;
       }
       locations.push({
@@ -548,9 +626,11 @@ function parseLocations(value: string): GlobalLocation[] | null {
 /** Every widget of a section (rows → cols, then aside) in document order. */
 function sectionWidgetList(section: Section): WidgetNode[] {
   const out: WidgetNode[] = [];
-  for (const node of section.rows ?? []) forEachWidget(node, (widget) => out.push(widget));
+  for (const node of section.rows ?? [])
+    forEachWidget(node, (widget) => out.push(widget));
   if (section.aside) {
-    for (const node of section.aside.items ?? []) forEachWidget(node, (widget) => out.push(widget));
+    for (const node of section.aside.items ?? [])
+      forEachWidget(node, (widget) => out.push(widget));
   }
   return out;
 }
@@ -564,11 +644,15 @@ function nodeWidgets(node: Node): WidgetNode[] {
 
 /** Escape `&`, `<`, `>` for the rebuilt years markup (text nodes only). */
 function escapeEraText(value: string): string {
-  return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
 }
 
 /** Wrapper of the authored years html: prefix before the content div + suffix. */
-const YEARS_WRAPPER = /^([\s\S]*?<div class="text-table\s*"><div>)([\s\S]*)(<\/div><\/div>[\s\S]*)$/;
+const YEARS_WRAPPER =
+  /^([\s\S]*?<div class="text-table\s*"><div>)([\s\S]*)(<\/div><\/div>[\s\S]*)$/;
 
 /**
  * Rebuild a years widget's html from a fixed template (the authored 30px year
@@ -585,7 +669,9 @@ function buildYearsHtml(templateHtml: string, years: EraYear[]): string | null {
   const item = (text: string) =>
     `<p style="line-height: 2;"><span style="font-size: 18px; line-height: 2;">· ${escapeEraText(text)}</span></p>`;
   const gap = `<p style="line-height: 2;"><br></p>`;
-  const body = years.map((year) => head(year.year) + year.items.map(item).join("") + gap).join("");
+  const body = years
+    .map((year) => head(year.year) + year.items.map(item).join("") + gap)
+    .join("");
   return prefix + body + suffix;
 }
 
@@ -594,14 +680,22 @@ function applyEraOne(section: Section, entry: EraEntry): void {
   const widgets = sectionWidgetList(section);
   const label =
     widgets.find(
-      (w) => w.type === "text" && typeof w.html === "string" && !/<hr\b/i.test(w.html),
+      (w) =>
+        w.type === "text" &&
+        typeof w.html === "string" &&
+        !/<hr\b/i.test(w.html),
     ) ?? null;
   const years =
-    widgets.find((w) => w.type === "text" && typeof w.html === "string" && /<hr\b/i.test(w.html)) ??
-    null;
+    widgets.find(
+      (w) =>
+        w.type === "text" &&
+        typeof w.html === "string" &&
+        /<hr\b/i.test(w.html),
+    ) ?? null;
   const asideWidgets: WidgetNode[] = [];
   if (section.aside) {
-    for (const node of section.aside.items ?? []) forEachWidget(node, (w) => asideWidgets.push(w));
+    for (const node of section.aside.items ?? [])
+      forEachWidget(node, (w) => asideWidgets.push(w));
   }
   const image = asideWidgets.find((w) => w.type === "image") ?? null;
 
@@ -656,7 +750,8 @@ function isSpacerSection(section: Section | undefined): boolean {
 /** Give every widget inside a cloned node a unique id (`<id><suffix>`). */
 function rewriteNodeIds(node: Node, suffix: string): void {
   forEachWidget(node, (widget) => {
-    const base = typeof widget.id === "string" && widget.id.length > 0 ? widget.id : "w";
+    const base =
+      typeof widget.id === "string" && widget.id.length > 0 ? widget.id : "w";
     widget.id = `${base}${suffix}`;
   });
 }
@@ -676,9 +771,19 @@ function rewriteSectionWidgetIds(section: Section, suffix: string): void {
  * Applied LAST (after the widget loop) so section splicing never shifts the
  * positional pairing of other keys. Never throws.
  */
-export function applyEras(sections: Section[], anchor: Section, eras: EraEntry[]): void {
+export function applyEras(
+  sections: Section[],
+  anchor: Section,
+  eras: EraEntry[],
+): void {
   try {
-    if (!Array.isArray(sections) || !anchor || !Array.isArray(eras) || eras.length === 0) return;
+    if (
+      !Array.isArray(sections) ||
+      !anchor ||
+      !Array.isArray(eras) ||
+      eras.length === 0
+    )
+      return;
     const eraSections = sections.filter(isEraSection);
     if (eraSections.length === 0 || !eraSections.includes(anchor)) return;
 
@@ -714,7 +819,9 @@ export function applyEras(sections: Section[], anchor: Section, eras: EraEntry[]
       const templateIndex = sections.indexOf(template);
       if (templateIndex < 0) return;
       let insertAt = templateIndex + 1;
-      const spacerTemplate = isSpacerSection(sections[insertAt]) ? sections[insertAt] : null;
+      const spacerTemplate = isSpacerSection(sections[insertAt])
+        ? sections[insertAt]
+        : null;
       if (spacerTemplate) insertAt += 1;
       for (let i = n; i < m; i += 1) {
         const eraClone = deepClone(template);
@@ -749,7 +856,10 @@ function containerRowsOf(section: Section): RowNode[] {
     if (node.kind !== "row") continue;
     const hasIframe = node.cols.some((col) =>
       nodeWidgets(col).some(
-        (w) => w.type === "text" && typeof w.html === "string" && /<iframe\b/i.test(w.html),
+        (w) =>
+          w.type === "text" &&
+          typeof w.html === "string" &&
+          /<iframe\b/i.test(w.html),
       ),
     );
     if (hasIframe) rows.push(node);
@@ -793,7 +903,8 @@ function applyContactBlock(html: string, location: GlobalLocation): string {
   const block = contactBlock(location);
   if (!block) return stripped;
   const close = stripped.lastIndexOf("</div></div>");
-  if (close >= 0) return stripped.slice(0, close) + block + stripped.slice(close);
+  if (close >= 0)
+    return stripped.slice(0, close) + block + stripped.slice(close);
   return stripped + block;
 }
 
@@ -802,17 +913,26 @@ function applyBranch(col: ColNode, location: GlobalLocation): void {
   const widgets = nodeWidgets(col);
   const name =
     widgets.find(
-      (w) => w.type === "text" && typeof w.html === "string" && !/<iframe\b/i.test(w.html),
+      (w) =>
+        w.type === "text" &&
+        typeof w.html === "string" &&
+        !/<iframe\b/i.test(w.html),
     ) ?? null;
   const map =
-    widgets.find((w) => w.type === "text" && typeof w.html === "string" && /<iframe\b/i.test(w.html)) ??
-    null;
+    widgets.find(
+      (w) =>
+        w.type === "text" &&
+        typeof w.html === "string" &&
+        /<iframe\b/i.test(w.html),
+    ) ?? null;
 
   if (name) {
     // Strip the contact block BEFORE comparing runs so a previous apply cannot
     // inflate the run count and break the 3-run badge/city/address injection.
     const stripped = String(name.html ?? "").replace(LOC_CONTACTS_RE, "");
-    const desired = [location.badge, location.city, location.address].join("\n");
+    const desired = [location.badge, location.city, location.address].join(
+      "\n",
+    );
     const injected =
       desired !== extractTextRuns(stripped).join("\n")
         ? injectTextRuns(stripped, desired)
@@ -838,11 +958,18 @@ function applyHq(section: Section, location: GlobalLocation): void {
     ) ?? null;
   const contacts =
     widgets.find(
-      (w) => w.type === "text" && typeof w.html === "string" && /<table\b/i.test(w.html),
+      (w) =>
+        w.type === "text" &&
+        typeof w.html === "string" &&
+        /<table\b/i.test(w.html),
     ) ?? null;
   const map =
-    widgets.find((w) => w.type === "text" && typeof w.html === "string" && /<iframe\b/i.test(w.html)) ??
-    null;
+    widgets.find(
+      (w) =>
+        w.type === "text" &&
+        typeof w.html === "string" &&
+        /<iframe\b/i.test(w.html),
+    ) ?? null;
 
   if (name) {
     // The authored HQ name is 2 runs (chip + address); `city` folds into the
@@ -857,7 +984,14 @@ function applyHq(section: Section, location: GlobalLocation): void {
   }
 
   if (contacts) {
-    const desired = ["TEL", location.phone, "FAX", location.fax, "EMAIL", location.email].join("\n");
+    const desired = [
+      "TEL",
+      location.phone,
+      "FAX",
+      location.fax,
+      "EMAIL",
+      location.email,
+    ].join("\n");
     if (desired !== extractTextRuns(contacts.html).join("\n")) {
       contacts.html = injectTextRuns(contacts.html, desired);
     }
@@ -880,7 +1014,12 @@ export function applyLocations(
   locations: GlobalLocation[],
 ): void {
   try {
-    if (!Array.isArray(sections) || !anchor || !Array.isArray(locations) || locations.length === 0) {
+    if (
+      !Array.isArray(sections) ||
+      !anchor ||
+      !Array.isArray(locations) ||
+      locations.length === 0
+    ) {
       return;
     }
 
@@ -894,7 +1033,8 @@ export function applyLocations(
     if (!templateRow) return;
 
     const existingCols = containerRows.flatMap((row) => row.cols);
-    const templateCol = existingCols[existingCols.length - 1] ?? templateRow.cols[0] ?? null;
+    const templateCol =
+      existingCols[existingCols.length - 1] ?? templateRow.cols[0] ?? null;
     if (!templateCol) return;
 
     // Target cols in item order: reuse the authored cols first, then clone the
@@ -941,7 +1081,9 @@ export function applyLocations(
     // back at the first container row's position (contiguous, before the trailing
     // pad). Authored pad rows and their order are untouched.
     const rows = anchor.rows ?? [];
-    const firstIndex = rows.findIndex((node) => containerRows.includes(node as RowNode));
+    const firstIndex = rows.findIndex((node) =>
+      containerRows.includes(node as RowNode),
+    );
     if (firstIndex < 0) return;
     for (let i = rows.length - 1; i >= 0; i -= 1) {
       if (containerRows.includes(rows[i] as RowNode)) rows.splice(i, 1);
@@ -1035,7 +1177,8 @@ export function applyGallery(
 function nearestCardColPlace(entry: LocatedWidget): NodePlace | null {
   for (let i = entry.path.length - 1; i >= 0; i -= 1) {
     const place = entry.path[i];
-    if (place.node.kind === "col" && countWidgets(place.node) === 1) return place;
+    if (place.node.kind === "col" && countWidgets(place.node) === 1)
+      return place;
   }
   return null;
 }
@@ -1049,7 +1192,10 @@ function nearestRowPlace(entry: LocatedWidget): NodePlace | null {
 }
 
 /** Inject one media item into a block-5 card text widget (title / image / desc). */
-function injectAboutCardWidget(widget: WidgetNode, item: StructuredMediaItem): void {
+function injectAboutCardWidget(
+  widget: WidgetNode,
+  item: StructuredMediaItem,
+): void {
   let html = injectTextRuns(widget.html, item.title, { start: 0, end: 0 });
   html = replaceNthSrc(html, "img", 0, item.image);
   html = injectTextRuns(html, item.desc, { start: 1 });
@@ -1091,7 +1237,9 @@ export function applyAboutCards(
     collectLocatedWidgets(section.rows, located);
     const textEntries = located.filter((entry) => entry.widget.type === "text");
     const heading = textEntries.findIndex(
-      (entry) => typeof entry.widget.html === "string" && entry.widget.html.trim().length > 0,
+      (entry) =>
+        typeof entry.widget.html === "string" &&
+        entry.widget.html.trim().length > 0,
     );
     if (heading < 0) return;
     const cardEntries = textEntries.slice(heading + 1);
@@ -1173,13 +1321,17 @@ function rowOpenTag(rowHtml: string): string {
  * so a cell holding `<br>`/`&nbsp;` still compares equal to the payload text.
  */
 function injectCellText(cellHtml: string, text: string): string {
-  if (extractTextRuns(cellHtml).join("\n") === String(text ?? "")) return cellHtml;
+  if (extractTextRuns(cellHtml).join("\n") === String(text ?? ""))
+    return cellHtml;
   return injectTextRuns(cellHtml, String(text ?? ""));
 }
 
 /** Set a heading cell's `rowspan` to `count`, leaving the rest of the tag intact. */
 function setRowspan(cellHtml: string, count: number): string {
-  return cellHtml.replace(/(<t[dh]\b[^>]*\browspan\s*=\s*")[^"]*(")/i, `$1${count}$2`);
+  return cellHtml.replace(
+    /(<t[dh]\b[^>]*\browspan\s*=\s*")[^"]*(")/i,
+    `$1${count}$2`,
+  );
 }
 
 /** Replace a table's `<tr>…</tr>` span with freshly built rows (prefix/suffix kept). */
@@ -1243,7 +1395,10 @@ function rebuildTechTable(
 
   const built: string[] = [];
   if (rowspanVariant) {
-    const headingCell = setRowspan(injectCellText(firstCells[0], heading), rows.length);
+    const headingCell = setRowspan(
+      injectCellText(firstCells[0], heading),
+      rows.length,
+    );
     built.push(
       rowOpenTag(trs[0]) +
         headingCell +
@@ -1253,7 +1408,9 @@ function rebuildTechTable(
     );
     for (let i = 1; i < rows.length; i += 1) built.push(dataRow(i));
   } else {
-    built.push(rowOpenTag(trs[0]) + injectCellText(firstCells[0], heading) + "</tr>");
+    built.push(
+      rowOpenTag(trs[0]) + injectCellText(firstCells[0], heading) + "</tr>",
+    );
     for (let i = 0; i < rows.length; i += 1) built.push(dataRow(i));
   }
   return spliceTableRows(html, built);
@@ -1309,12 +1466,18 @@ function rebuildFacilitiesTable(
 function parseTechFeatures(value: string): TechFeaturesPayload | null {
   try {
     const parsed: unknown = JSON.parse(value);
-    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) return null;
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed))
+      return null;
     const blocks = (parsed as { blocks?: unknown }).blocks;
     if (!Array.isArray(blocks) || blocks.length !== 3) return null;
     const out: TechFeaturesPayload["blocks"] = [];
     for (const blockEntry of blocks) {
-      if (!blockEntry || typeof blockEntry !== "object" || Array.isArray(blockEntry)) return null;
+      if (
+        !blockEntry ||
+        typeof blockEntry !== "object" ||
+        Array.isArray(blockEntry)
+      )
+        return null;
       const items = (blockEntry as { items?: unknown }).items;
       if (!Array.isArray(items) || items.length === 0) return null;
       const itemsOut: TechFeatureItem[] = [];
@@ -1332,7 +1495,12 @@ function parseTechFeatures(value: string): TechFeaturesPayload | null {
         if (!Array.isArray(item.rows) || item.rows.length === 0) return null;
         const rows: TechFeatureItem["rows"] = [];
         for (const rowEntry of item.rows) {
-          if (!rowEntry || typeof rowEntry !== "object" || Array.isArray(rowEntry)) return null;
+          if (
+            !rowEntry ||
+            typeof rowEntry !== "object" ||
+            Array.isArray(rowEntry)
+          )
+            return null;
           const row = rowEntry as { label?: unknown; body?: unknown };
           if (typeof row.label !== "string") return null;
           if (typeof row.body !== "string") return null;
@@ -1349,23 +1517,34 @@ function parseTechFeatures(value: string): TechFeaturesPayload | null {
 }
 
 /** Parse a `patentSections` payload; `null` when malformed/empty. */
-function parsePatentSectionsPayload(value: string): PatentSectionsPayload | null {
+function parsePatentSectionsPayload(
+  value: string,
+): PatentSectionsPayload | null {
   try {
     const parsed: unknown = JSON.parse(value);
-    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) return null;
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed))
+      return null;
     const sections = (parsed as { sections?: unknown }).sections;
     if (!Array.isArray(sections) || sections.length === 0) return null;
     const out: PatentSection[] = [];
     for (const entry of sections) {
-      if (!entry || typeof entry !== "object" || Array.isArray(entry)) return null;
+      if (!entry || typeof entry !== "object" || Array.isArray(entry))
+        return null;
       const section = entry as { title?: unknown; items?: unknown };
       if (typeof section.title !== "string") return null;
-      if (!Array.isArray(section.items) || section.items.length === 0) return null;
+      if (!Array.isArray(section.items) || section.items.length === 0)
+        return null;
       const items: PatentSection["items"] = [];
       for (const itemEntry of section.items) {
-        if (!itemEntry || typeof itemEntry !== "object" || Array.isArray(itemEntry)) return null;
+        if (
+          !itemEntry ||
+          typeof itemEntry !== "object" ||
+          Array.isArray(itemEntry)
+        )
+          return null;
         const item = itemEntry as { image?: unknown; caption?: unknown };
-        if (typeof item.image !== "string" || item.image.length === 0) return null;
+        if (typeof item.image !== "string" || item.image.length === 0)
+          return null;
         if (typeof item.caption !== "string") return null;
         items.push({ image: item.image, caption: item.caption });
       }
@@ -1378,19 +1557,24 @@ function parsePatentSectionsPayload(value: string): PatentSectionsPayload | null
 }
 
 /** Parse a `facilitiesTable` payload; `null` when malformed/empty. */
-function parseFacilitiesTablePayload(value: string): FacilitiesTablePayload | null {
+function parseFacilitiesTablePayload(
+  value: string,
+): FacilitiesTablePayload | null {
   try {
     const parsed: unknown = JSON.parse(value);
-    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) return null;
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed))
+      return null;
     const header = (parsed as { header?: unknown }).header;
     if (!Array.isArray(header) || header.length !== 2) return null;
-    if (typeof header[0] !== "string" || typeof header[1] !== "string") return null;
+    if (typeof header[0] !== "string" || typeof header[1] !== "string")
+      return null;
     const rowsRaw = (parsed as { rows?: unknown }).rows;
     if (!Array.isArray(rowsRaw) || rowsRaw.length === 0) return null;
     const rows: Array<[string, string]> = [];
     for (const rowEntry of rowsRaw) {
       if (!Array.isArray(rowEntry) || rowEntry.length !== 2) return null;
-      if (typeof rowEntry[0] !== "string" || typeof rowEntry[1] !== "string") return null;
+      if (typeof rowEntry[0] !== "string" || typeof rowEntry[1] !== "string")
+        return null;
       rows.push([rowEntry[0], rowEntry[1]]);
     }
     return { header: [header[0], header[1]], rows };
@@ -1414,14 +1598,20 @@ function techItemWidgets(col: ColNode): {
 /** Apply one techFeatures item to one item col in place (image src + text table). */
 function applyTechItem(col: ColNode, item: TechFeatureItem): void {
   const { image, text } = techItemWidgets(col);
-  if (image && item.image.length > 0 && image.src !== item.image) image.src = item.image;
+  if (image && item.image.length > 0 && image.src !== item.image)
+    image.src = item.image;
   if (text) text.html = rebuildTechTable(text.html, item.heading, item.rows);
 }
 
 /** Apply one techFeatures item to an authored §4 image row + text row pair. */
-function applyTechItemRows(imageRow: RowNode, textRow: RowNode, item: TechFeatureItem): void {
+function applyTechItemRows(
+  imageRow: RowNode,
+  textRow: RowNode,
+  item: TechFeatureItem,
+): void {
   const image = nodeWidgets(imageRow).find((w) => w.type === "image");
-  if (image && item.image.length > 0 && image.src !== item.image) image.src = item.image;
+  if (image && item.image.length > 0 && image.src !== item.image)
+    image.src = item.image;
   const text = nodeWidgets(textRow).find((w) => w.type === "text");
   if (text) text.html = rebuildTechTable(text.html, item.heading, item.rows);
 }
@@ -1429,7 +1619,9 @@ function applyTechItemRows(imageRow: RowNode, textRow: RowNode, item: TechFeatur
 /** True for a top-level row whose cols each wrap nested rows (the §5/§6 layout). */
 function isItemColsRow(node: Node | undefined): node is RowNode {
   if (!node || node.kind !== "row" || node.cols.length === 0) return false;
-  return node.cols.every((col) => (col.children ?? []).some((child) => child.kind === "row"));
+  return node.cols.every((col) =>
+    (col.children ?? []).some((child) => child.kind === "row"),
+  );
 }
 
 /** True for a top-level row whose widgets are all padding spacers. */
@@ -1462,7 +1654,8 @@ function applyTechFeaturesCols(
   });
 
   const groups: ColNode[][] = [];
-  for (let i = 0; i < targetCols.length; i += 2) groups.push(targetCols.slice(i, i + 2));
+  for (let i = 0; i < targetCols.length; i += 2)
+    groups.push(targetCols.slice(i, i + 2));
 
   const containerRows = section.rows.filter(isItemColsRow);
   const firstIndex = section.rows.indexOf(containerRows[0] ?? containerRow);
@@ -1483,20 +1676,26 @@ function applyTechFeaturesCols(
 
   if (firstIndex < 0) return;
   for (let i = section.rows.length - 1; i >= 0; i -= 1) {
-    if (containerRows.includes(section.rows[i] as RowNode)) section.rows.splice(i, 1);
+    if (containerRows.includes(section.rows[i] as RowNode))
+      section.rows.splice(i, 1);
   }
   section.rows.splice(firstIndex, 0, ...newRows);
 }
 
 /** §4: rebuild the top-level image/text row pairs as item cols (max two per row). */
-function applyTechFeaturesRows(section: Section, items: TechFeatureItem[]): void {
+function applyTechFeaturesRows(
+  section: Section,
+  items: TechFeatureItem[],
+): void {
   const imageRows: RowNode[] = [];
   const textRows: RowNode[] = [];
   for (const node of section.rows) {
     if (node.kind !== "row") continue;
     const widgets = nodeWidgets(node);
     if (widgets.some((w) => w.type === "image")) imageRows.push(node);
-    else if (widgets.some((w) => w.type === "text" && /<table\b/i.test(w.html ?? ""))) {
+    else if (
+      widgets.some((w) => w.type === "text" && /<table\b/i.test(w.html ?? ""))
+    ) {
       textRows.push(node);
     }
   }
@@ -1533,7 +1732,8 @@ function applyTechFeaturesRows(section: Section, items: TechFeatureItem[]): void
   });
 
   const groups: ColNode[][] = [];
-  for (let i = 0; i < targetCols.length; i += 2) groups.push(targetCols.slice(i, i + 2));
+  for (let i = 0; i < targetCols.length; i += 2)
+    groups.push(targetCols.slice(i, i + 2));
 
   const newRows: RowNode[] = groups.map((group) => {
     const grid = group.length === 1 ? "12" : "6";
@@ -1555,7 +1755,8 @@ function applyTechFeaturesRows(section: Section, items: TechFeatureItem[]): void
  */
 function applyTechSection(section: Section, items: TechFeatureItem[]): void {
   try {
-    if (!section || !Array.isArray(section.rows) || !Array.isArray(items)) return;
+    if (!section || !Array.isArray(section.rows) || !Array.isArray(items))
+      return;
     if (items.length === 0) return;
 
     const containerRow = section.rows.find(isItemColsRow);
@@ -1581,9 +1782,16 @@ function patentGroupsOf(section: Section): PatentGroup[] {
   const rows = section.rows;
   for (let i = 0; i < rows.length; i += 1) {
     const node = rows[i];
-    if (node.kind !== "row" || !nodeWidgets(node).some((w) => w.type === "gallery2")) continue;
+    if (
+      node.kind !== "row" ||
+      !nodeWidgets(node).some((w) => w.type === "gallery2")
+    )
+      continue;
     const prev = rows[i - 1];
-    if (prev?.kind === "row" && nodeWidgets(prev).some((w) => w.type === "text")) {
+    if (
+      prev?.kind === "row" &&
+      nodeWidgets(prev).some((w) => w.type === "text")
+    ) {
       groups.push({ headingRow: prev, galleryRow: node });
     }
   }
@@ -1603,13 +1811,20 @@ function applyPatentGroup(group: PatentGroup, section: PatentSection): void {
   const heading = nodeWidgets(group.headingRow).find((w) => w.type === "text");
   if (heading) {
     const current = extractTextRuns(heading.html).join("\n");
-    if (current !== section.title) heading.html = injectTextRuns(heading.html, section.title);
+    if (current !== section.title)
+      heading.html = injectTextRuns(heading.html, section.title);
   }
-  const gallery = nodeWidgets(group.galleryRow).find((w) => w.type === "gallery2");
+  const gallery = nodeWidgets(group.galleryRow).find(
+    (w) => w.type === "gallery2",
+  );
   if (gallery) {
     applyGallery(
       gallery,
-      section.items.map((item) => ({ image: item.image, title: item.caption, desc: "" })),
+      section.items.map((item) => ({
+        image: item.image,
+        title: item.caption,
+        desc: "",
+      })),
     );
   }
 }
@@ -1620,9 +1835,17 @@ function applyPatentGroup(group: PatentGroup, section: PatentSection): void {
  * (with a padding separator) before the trailing spacer, and a shorter payload
  * removes trailing groups plus their preceding separators. Never throws.
  */
-export function applyPatentSections(section: Section, payload: PatentSectionsPayload): void {
+export function applyPatentSections(
+  section: Section,
+  payload: PatentSectionsPayload,
+): void {
   try {
-    if (!section || !Array.isArray(section.rows) || !payload || !Array.isArray(payload.sections)) {
+    if (
+      !section ||
+      !Array.isArray(section.rows) ||
+      !payload ||
+      !Array.isArray(payload.sections)
+    ) {
       return;
     }
     const sections = payload.sections;
@@ -1633,7 +1856,8 @@ export function applyPatentSections(section: Section, payload: PatentSectionsPay
     const n = groups.length;
     const m = sections.length;
     const common = Math.min(m, n);
-    for (let i = 0; i < common; i += 1) applyPatentGroup(groups[i], sections[i]);
+    for (let i = 0; i < common; i += 1)
+      applyPatentGroup(groups[i], sections[i]);
 
     if (m > n) {
       const template = groups[0];
@@ -1687,7 +1911,10 @@ export function applyPatentSections(section: Section, payload: PatentSectionsPay
  * Rebuild one `rnd.facilities` table widget from a `facilitiesTable` payload,
  * preserving the authored header/data row templates. Never throws.
  */
-export function applyFacilitiesTable(widget: WidgetNode, payload: FacilitiesTablePayload): void {
+export function applyFacilitiesTable(
+  widget: WidgetNode,
+  payload: FacilitiesTablePayload,
+): void {
   try {
     if (!widget || widget.type !== "text" || !payload) return;
     widget.html = rebuildFacilitiesTable(widget.html, payload);
@@ -1800,7 +2027,10 @@ export function applyPageOverrides<T extends PageContent>(
 
     // Patent groups (`<page>#<sectionId>/patentSections/patentSections`):
     // rebuilds §4's interleaved heading + gallery rows, applied after the loop.
-    if (parsed.field === "patentSections" && parsed.widgetId === "patentSections") {
+    if (
+      parsed.field === "patentSections" &&
+      parsed.widgetId === "patentSections"
+    ) {
       deferred.push({ key, ref: parsed, value, kind: "patentSections" });
       continue;
     }
@@ -1823,7 +2053,11 @@ export function applyPageOverrides<T extends PageContent>(
     // Hero slide list (`<page>#<sectionId>/visual/slides`): replaces the whole
     // `section.visual` array instead of one widget field.
     if (parsed.field === "slides" && parsed.widgetId === "visual") {
-      const section = resolvePairedSection(clone, parsed, options.primaryPage ?? null);
+      const section = resolvePairedSection(
+        clone,
+        parsed,
+        options.primaryPage ?? null,
+      );
       const slides = section ? parseSlides(value) : null;
       if (section && slides) applySlides(section, slides);
       continue;
@@ -1832,7 +2066,11 @@ export function applyPageOverrides<T extends PageContent>(
     // Location card list (`<page>#<sectionId>/cards/cards`): restructures the
     // cloned card nodes (add/remove/reorder) instead of one widget field.
     if (parsed.field === "cards" && parsed.widgetId === "cards") {
-      const section = resolvePairedSection(clone, parsed, options.primaryPage ?? null);
+      const section = resolvePairedSection(
+        clone,
+        parsed,
+        options.primaryPage ?? null,
+      );
       const cards = section ? parseCards(value) : null;
       if (section && cards) applyCards(section, cards);
       continue;
@@ -1840,13 +2078,21 @@ export function applyPageOverrides<T extends PageContent>(
 
     // Ticker post picks (`<page>#<sectionId>/picks/picks`): board + post ids.
     if (parsed.field === "picks" && parsed.widgetId === "picks") {
-      const section = resolvePairedSection(clone, parsed, options.primaryPage ?? null);
+      const section = resolvePairedSection(
+        clone,
+        parsed,
+        options.primaryPage ?? null,
+      );
       const picks = section ? parsePicks(value) : null;
       if (section && picks) section.picks = picks;
       continue;
     }
 
-    const widget = resolvePairedWidget(clone, parsed, options.primaryPage ?? null);
+    const widget = resolvePairedWidget(
+      clone,
+      parsed,
+      options.primaryPage ?? null,
+    );
     if (!widget) continue;
 
     // Kind-aware `html` contract (Gate-2 F4): a `lines` value is always plain
@@ -1861,7 +2107,8 @@ export function applyPageOverrides<T extends PageContent>(
           ? false
           : value.includes("<");
 
-    applyWidgetField(widget, parsed.field, value, rawHtml);  }
+    applyWidgetField(widget, parsed.field, value, rawHtml);
+  }
 
   // Deferred structured keys: apply only after every per-widget override has
   // landed, so the section structure is still the authored one while the loop's
@@ -1869,22 +2116,35 @@ export function applyPageOverrides<T extends PageContent>(
   for (const { key, ref, value, kind } of deferred) {
     const cfg = options.galleryConfigs?.[key];
     if (kind === "eras") {
-      const anchor = resolvePairedSection(clone, ref, options.primaryPage ?? null);
+      const anchor = resolvePairedSection(
+        clone,
+        ref,
+        options.primaryPage ?? null,
+      );
       const eras = anchor ? parseEras(value) : null;
       if (anchor && eras) applyEras(clone.sections, anchor, eras);
       continue;
     }
     if (kind === "gallery") {
-      const widget = resolvePairedWidget(clone, ref, options.primaryPage ?? null);
+      const widget = resolvePairedWidget(
+        clone,
+        ref,
+        options.primaryPage ?? null,
+      );
       if (!widget || widget.type !== "gallery2") continue;
       const items = parseMediaItems(value);
       if (items) applyGallery(widget, items, cfg);
       continue;
     }
     if (kind === "locations") {
-      const anchor = resolvePairedSection(clone, ref, options.primaryPage ?? null);
+      const anchor = resolvePairedSection(
+        clone,
+        ref,
+        options.primaryPage ?? null,
+      );
       const locations = anchor ? parseLocations(value) : null;
-      if (anchor && locations) applyLocations(clone.sections, anchor, locations);
+      if (anchor && locations)
+        applyLocations(clone.sections, anchor, locations);
       continue;
     }
     if (kind === "techFeatures") {
@@ -1896,30 +2156,49 @@ export function applyPageOverrides<T extends PageContent>(
       if (parsed) {
         // With the emitted config, block k targets `sections[k]`; without it
         // only the anchor block (block 0) is applied, never stacked onto it.
-        const sectionIds = options.techBlockConfigs?.[key]?.sections ?? [ref.sectionId];
+        const sectionIds = options.techBlockConfigs?.[key]?.sections ?? [
+          ref.sectionId,
+        ];
         const count = Math.min(parsed.blocks.length, sectionIds.length);
         for (let k = 0; k < count; k += 1) {
           const sectionId = sectionIds[k];
-          const blockRef = sectionId === ref.sectionId ? ref : { ...ref, sectionId };
-          const section = resolvePairedSection(clone, blockRef, options.primaryPage ?? null);
+          const blockRef =
+            sectionId === ref.sectionId ? ref : { ...ref, sectionId };
+          const section = resolvePairedSection(
+            clone,
+            blockRef,
+            options.primaryPage ?? null,
+          );
           if (section) applyTechSection(section, parsed.blocks[k].items);
         }
       }
       continue;
     }
     if (kind === "patentSections") {
-      const section = resolvePairedSection(clone, ref, options.primaryPage ?? null);
+      const section = resolvePairedSection(
+        clone,
+        ref,
+        options.primaryPage ?? null,
+      );
       const parsed = section ? parsePatentSectionsPayload(value) : null;
       if (section && parsed) applyPatentSections(section, parsed);
       continue;
     }
     if (kind === "facilitiesTable") {
-      const widget = resolvePairedWidget(clone, ref, options.primaryPage ?? null);
+      const widget = resolvePairedWidget(
+        clone,
+        ref,
+        options.primaryPage ?? null,
+      );
       const parsed = widget ? parseFacilitiesTablePayload(value) : null;
       if (widget && parsed) applyFacilitiesTable(widget, parsed);
       continue;
     }
-    const section = resolvePairedSection(clone, ref, options.primaryPage ?? null);
+    const section = resolvePairedSection(
+      clone,
+      ref,
+      options.primaryPage ?? null,
+    );
     const items = section ? parseMediaItems(value) : null;
     if (section && items) applyAboutCards(section, items, cfg);
   }
@@ -1946,7 +2225,11 @@ export function applySiteOverrides<T extends SiteData>(
 
     const parsed = parseRegistryKey(key);
     if (!parsed) continue;
-    if (parsed.pageKey !== "site" || parsed.sectionId !== "nav" || parsed.field !== "name") {
+    if (
+      parsed.pageKey !== "site" ||
+      parsed.sectionId !== "nav" ||
+      parsed.field !== "name"
+    ) {
       continue;
     }
 

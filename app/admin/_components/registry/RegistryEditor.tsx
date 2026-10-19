@@ -8,7 +8,13 @@ import { MOBILE_SECTION } from "@/components/content/SectionRenderer";
 import type { FacilitiesTab } from "@/components/content/FacilitiesTabs";
 import { isNoticeTickerSection } from "@/components/sections/home/NoticeTicker";
 import { adminDict, type AdminLocale } from "@/lib/admin/i18n";
-import type { BoardPost, NavItem, PageContent, ProductPagePayload, Section } from "@/lib/types";
+import type {
+  BoardPost,
+  NavItem,
+  PageContent,
+  ProductPagePayload,
+  Section,
+} from "@/lib/types";
 import BoardEditor from "../boards/BoardEditor";
 import FieldRow from "./FieldRow";
 import { buildFooterRows, FooterFrame } from "@/components/layout/FooterBody";
@@ -99,7 +105,10 @@ function fieldLabelHead(def: RegistryDef, locale: RegistryLocale): string {
  * The field-label head ("텍스트 블록" etc.) is far less specific than the
  * generated section name, so it is only the fallback.
  */
-function sectionPrimaryLabel(defs: RegistryDef[], locale: RegistryLocale): string {
+function sectionPrimaryLabel(
+  defs: RegistryDef[],
+  locale: RegistryLocale,
+): string {
   const def = defs[0];
   if (!def) return "";
   const name = sectionName(def, locale);
@@ -119,7 +128,10 @@ const DECORATIVE_WIDGET_TYPES = new Set(["padding", "hr"]);
  * which is not part of the rows/cols/aside widget walk). Decorative types are
  * excluded; order follows the walk (rows → cols → children → aside).
  */
-function uneditableWidgetTypes(section: Section | undefined, defs: RegistryDef[]): string[] {
+function uneditableWidgetTypes(
+  section: Section | undefined,
+  defs: RegistryDef[],
+): string[] {
   if (!section) return [];
   // A section-scoped `eras`/`locations`/`aboutCards`/`techFeatures`/
   // `patentSections` def covers every widget it rewrites, so nothing in that
@@ -154,7 +166,10 @@ function uneditableWidgetTypes(section: Section | undefined, defs: RegistryDef[]
  * widget id in the walked tree; `visual[i]` defs address the slide array.
  * Returns `false` when there is no crawled section (unknown ≠ missing).
  */
-function defTargetMissing(section: Section | undefined, def: RegistryDef): boolean {
+function defTargetMissing(
+  section: Section | undefined,
+  def: RegistryDef,
+): boolean {
   if (!section) return false;
   // Section-level synthetic defs never match the widget walk: `cards`/`picks`/
   // `eras`/`locations`/`aboutCards`/`techFeatures`/`patentSections` rewrite the
@@ -175,7 +190,11 @@ function defTargetMissing(section: Section | undefined, def: RegistryDef): boole
   const visual = VISUAL_WIDGET.exec(def.widgetId);
   if (visual) {
     const index = Number(visual[1]);
-    return !(Array.isArray(section.visual) && index >= 0 && index < section.visual.length);
+    return !(
+      Array.isArray(section.visual) &&
+      index >= 0 &&
+      index < section.visual.length
+    );
   }
   return !sectionWidgets(section).some((widget) => widget.id === def.widgetId);
 }
@@ -186,14 +205,20 @@ function truncateSectionId(id: string): string {
 }
 
 /** Parse a `picks` draft/effective payload (`{ board, idxs }`); always usable. */
-function parsePicksDraft(json: string): { board: "news" | "notices"; idxs: string[] } {
+function parsePicksDraft(json: string): {
+  board: "news" | "notices";
+  idxs: string[];
+} {
   try {
     const raw = JSON.parse(json) as { board?: unknown; idxs?: unknown };
     return {
       board: raw?.board === "notices" ? "notices" : "news",
       idxs: Array.isArray(raw?.idxs)
         ? raw.idxs
-            .filter((idx): idx is string | number => typeof idx === "string" || typeof idx === "number")
+            .filter(
+              (idx): idx is string | number =>
+                typeof idx === "string" || typeof idx === "number",
+            )
             .map(String)
         : [],
     };
@@ -232,12 +257,16 @@ function parseFacilityTabs(json: string): FacilitiesTab[] | null {
     if (!Array.isArray(raw)) return null;
     return raw.map((entry, i) => {
       const record =
-        typeof entry === "object" && entry !== null ? (entry as Record<string, unknown>) : {};
+        typeof entry === "object" && entry !== null
+          ? (entry as Record<string, unknown>)
+          : {};
       return {
         id: `tab${i + 1}`,
         name: typeof record.name === "string" ? record.name : "",
         images: Array.isArray(record.images)
-          ? record.images.filter((image): image is string => typeof image === "string")
+          ? record.images.filter(
+              (image): image is string => typeof image === "string",
+            )
           : [],
       };
     });
@@ -303,7 +332,8 @@ export default function RegistryEditor({
    * kept in sync by the inline product manager (`ProductPageField`) after each
    * successful mutation, so the preview always reflects the current posts.
    */
-  const [productPosts, setProductPosts] = useState<ProductPostsMap>(initialProductPosts);
+  const [productPosts, setProductPosts] =
+    useState<ProductPostsMap>(initialProductPosts);
 
   /** Replace one board's compact post list (called by the inline manager). */
   const handleProductPostsChange = useCallback(
@@ -325,7 +355,9 @@ export default function RegistryEditor({
       try {
         const responses = await Promise.all(
           LOCALES.map((lang) =>
-            fetch(`/api/admin/registry?group=${encodeURIComponent(initialGroup)}&locale=${lang}`),
+            fetch(
+              `/api/admin/registry?group=${encodeURIComponent(initialGroup)}&locale=${lang}`,
+            ),
           ),
         );
         if (responses.some((response) => !response.ok)) {
@@ -385,7 +417,11 @@ export default function RegistryEditor({
     const out: AccordionItem[] = [];
     for (const def of defs) {
       const last = out[out.length - 1];
-      if (last && last.pageKey === def.pageKey && last.sectionId === def.sectionId) {
+      if (
+        last &&
+        last.pageKey === def.pageKey &&
+        last.sectionId === def.sectionId
+      ) {
         last.defs.push(def);
       } else {
         out.push({
@@ -404,7 +440,8 @@ export default function RegistryEditor({
   /** Sub-tabs of the boards group: one per distinct page (news, notices). */
   const boardSlugs = useMemo(() => {
     const seen: string[] = [];
-    for (const item of items) if (!seen.includes(item.pageKey)) seen.push(item.pageKey);
+    for (const item of items)
+      if (!seen.includes(item.pageKey)) seen.push(item.pageKey);
     return seen;
   }, [items]);
   const activeBoardSlug = boardSlugs.includes(activeBoard)
@@ -416,7 +453,8 @@ export default function RegistryEditor({
     ? items.filter((item) => item.pageKey === activeBoardSlug)
     : items;
 
-  const openItem = visibleItems.find((item) => item.key === openSection) ?? null;
+  const openItem =
+    visibleItems.find((item) => item.key === openSection) ?? null;
 
   /** Override key → kind, so the preview applies the same `html` contract as the runtime. */
   const overrideKinds = useMemo(
@@ -451,10 +489,11 @@ export default function RegistryEditor({
 
   async function save(def: RegistryDef) {
     const draft = pairFor(def.key);
-    const target: { lang: RegistryLocale; value: string }[] =
-      def.kind === "url"
-        ? [{ lang: "ko", value: draft.ko }]
-        : LOCALES.map((lang) => ({ lang, value: draft[lang] }));
+    // Shared kinds (`url`, `size`) save once; the API writes both locales.
+    const shared = def.kind === "url" || def.kind === "size";
+    const target: { lang: RegistryLocale; value: string }[] = shared
+      ? [{ lang: "ko", value: draft.ko }]
+      : LOCALES.map((lang) => ({ lang, value: draft[lang] }));
 
     setStatus((prev) => ({ ...prev, [def.key]: "saving" }));
     setErrors((prev) => {
@@ -481,14 +520,18 @@ export default function RegistryEditor({
           body: JSON.stringify({ key: def.key, locale: lang, value }),
         });
         if (!response.ok) {
-          const data = (await response.json().catch(() => ({}))) as { error?: unknown };
+          const data = (await response.json().catch(() => ({}))) as {
+            error?: unknown;
+          };
           if (response.status === 503) setDbConfigured(false);
           mergeSucceeded();
           setStatus((prev) => ({ ...prev, [def.key]: "error" }));
           setErrors((prev) => ({
             ...prev,
             [def.key]:
-              typeof data.error === "string" ? data.error : `${t.failed} (HTTP ${response.status})`,
+              typeof data.error === "string"
+                ? data.error
+                : `${t.failed} (HTTP ${response.status})`,
           }));
           return;
         }
@@ -512,7 +555,8 @@ export default function RegistryEditor({
       if (def.pageKey !== openItem.pageKey) continue;
       const pair = drafts[def.key];
       if (!pair) continue;
-      const value = def.kind === "url" ? pair.ko : pair[previewLang];
+      const value =
+        def.kind === "url" || def.kind === "size" ? pair.ko : pair[previewLang];
       if (value.trim()) overrides[def.key] = value;
     }
     return overrides;
@@ -569,7 +613,12 @@ export default function RegistryEditor({
         };
         const primaryPage: PageContent | null =
           previewLang === "en"
-            ? { key: openItem.pageKey, sourceUrl: "", title: "", sections: koTree }
+            ? {
+                key: openItem.pageKey,
+                sourceUrl: "",
+                title: "",
+                sections: koTree,
+              }
             : null;
         const merged = applyPageOverrides(page, draftOverrides, previewLang, {
           primaryPage,
@@ -581,7 +630,9 @@ export default function RegistryEditor({
       }
     }
 
-    const koSection = koTree.find((section) => section.id === openItem.sectionId);
+    const koSection = koTree.find(
+      (section) => section.id === openItem.sectionId,
+    );
     if (!koSection) return { kind: "unavailable" };
     // Desktop-only preview: a mobile_section is hidden at >=992 by design. This
     // includes the MOBILE hero (visual) section, which keeps the "mobile"
@@ -591,18 +642,45 @@ export default function RegistryEditor({
     if (MOBILE_SECTION.test(koSection.cls || "")) return { kind: "mobile" };
 
     /** Resolve one crawled section to its draft-applied preview (ko/en). */
-    const resolveSection = (ko: Section, en: Section[] | null): Section | null => {
+    const resolveSection = (
+      ko: Section,
+      en: Section[] | null,
+    ): Section | null => {
       if (previewLang === "ko") {
-        const page: PageContent = { key: openItem.pageKey, sourceUrl: "", title: "", sections: [ko] };
-        return applyPageOverrides(page, draftOverrides, "ko", { kinds: overrideKinds }).sections[0] ?? null;
+        const page: PageContent = {
+          key: openItem.pageKey,
+          sourceUrl: "",
+          title: "",
+          sections: [ko],
+        };
+        return (
+          applyPageOverrides(page, draftOverrides, "ko", {
+            kinds: overrideKinds,
+          }).sections[0] ?? null
+        );
       }
       if (!en) return null;
       const index = koTree.indexOf(ko);
       const enSection = en[index];
       if (!enSection) return null;
-      const primary: PageContent = { key: openItem.pageKey, sourceUrl: "", title: "", sections: [ko] };
-      const page: PageContent = { key: openItem.pageKey, sourceUrl: "", title: "", sections: [enSection] };
-      return applyPageOverrides(page, draftOverrides, "en", { primaryPage: primary, kinds: overrideKinds }).sections[0] ?? null;
+      const primary: PageContent = {
+        key: openItem.pageKey,
+        sourceUrl: "",
+        title: "",
+        sections: [ko],
+      };
+      const page: PageContent = {
+        key: openItem.pageKey,
+        sourceUrl: "",
+        title: "",
+        sections: [enSection],
+      };
+      return (
+        applyPageOverrides(page, draftOverrides, "en", {
+          primaryPage: primary,
+          kinds: overrideKinds,
+        }).sections[0] ?? null
+      );
     };
 
     try {
@@ -622,12 +700,17 @@ export default function RegistryEditor({
       if (isNoticeTickerSection(section)) {
         const options = boardPosts[previewLang] ?? { news: [], notices: [] };
         const picksDef = defs.find((def) => def.kind === "picks");
-        const draft = picksDef ? drafts[picksDef.key]?.[previewLang]?.trim() ?? "" : "";
-        const effective = picksDef ? values[picksDef.key]?.[previewLang] ?? "" : "";
+        const draft = picksDef
+          ? (drafts[picksDef.key]?.[previewLang]?.trim() ?? "")
+          : "";
+        const effective = picksDef
+          ? (values[picksDef.key]?.[previewLang] ?? "")
+          : "";
         const picks = parsePicksDraft(draft || effective);
         let posts: BoardPost[] = [];
         if (picks.idxs.length > 0) {
-          const pool = picks.board === "notices" ? options.notices : options.news;
+          const pool =
+            picks.board === "notices" ? options.notices : options.news;
           const byIdx = new Map(pool.map((post) => [post.idx, post]));
           posts = picks.idxs
             .map((idx) => byIdx.get(idx))
@@ -635,7 +718,8 @@ export default function RegistryEditor({
             .map(toBoardPost);
         }
         // Unset/empty/stale selection: keep the runtime default (first 4 news).
-        if (posts.length === 0) posts = options.news.slice(0, 4).map(toBoardPost);
+        if (posts.length === 0)
+          posts = options.news.slice(0, 4).map(toBoardPost);
         return { kind: "ticker", section, posts };
       }
       return { kind: "ok", section };
@@ -707,7 +791,10 @@ export default function RegistryEditor({
   }, [isSiteGroup, defs, locale]);
 
   /** One registry field card (shared by the accordion and the site-nav groups). */
-  const renderField = (def: RegistryDef, koTreeSection: Section | undefined) => (
+  const renderField = (
+    def: RegistryDef,
+    koTreeSection: Section | undefined,
+  ) => (
     <FieldRow
       key={def.key}
       def={def}
@@ -734,10 +821,24 @@ export default function RegistryEditor({
 
   return (
     <>
-      <div className={isSiteGroup ? "" : "min-[992px]:flex min-[992px]:items-start min-[992px]:gap-6"}>
-        <div className={isSiteGroup ? "min-w-0" : "min-w-0 min-[992px]:w-[54%] min-[992px]:shrink-0"}>
+      <div
+        className={
+          isSiteGroup
+            ? ""
+            : "min-[992px]:flex min-[992px]:items-start min-[992px]:gap-6"
+        }
+      >
+        <div
+          className={
+            isSiteGroup
+              ? "min-w-0"
+              : "min-w-0 min-[992px]:w-[54%] min-[992px]:shrink-0"
+          }
+        >
           <div className="min-w-0">
-            <h1 className="text-[22px] font-bold tracking-tight text-ink">{t.title}</h1>
+            <h1 className="text-[22px] font-bold tracking-tight text-ink">
+              {t.title}
+            </h1>
             <p className="mt-0.5 text-[13px] text-muted">{t.blurb}</p>
           </div>
 
@@ -762,7 +863,9 @@ export default function RegistryEditor({
                       setOpenSection(null);
                     }}
                     className={`rounded-[3px] px-3 py-1.5 text-[12px] font-medium transition-colors ${
-                      active ? "bg-accent text-white" : "text-muted hover:text-accent"
+                      active
+                        ? "bg-accent text-white"
+                        : "text-muted hover:text-accent"
                     }`}
                   >
                     {pageLabels[slug] ?? slug}
@@ -772,7 +875,11 @@ export default function RegistryEditor({
             </nav>
           ) : null}
 
-          {isSiteGroup ? <p className="mt-4 text-[12px] leading-5 text-muted">{t.siteNavHint}</p> : null}
+          {isSiteGroup ? (
+            <p className="mt-4 text-[12px] leading-5 text-muted">
+              {t.siteNavHint}
+            </p>
+          ) : null}
 
           {!dbConfigured ? (
             <div
@@ -796,7 +903,9 @@ export default function RegistryEditor({
             </div>
           ) : null}
 
-          {loading ? <p className="mt-5 text-[13px] text-muted">{t.loading}</p> : null}
+          {loading ? (
+            <p className="mt-5 text-[13px] text-muted">{t.loading}</p>
+          ) : null}
 
           {!loading && !loadError && defs.length === 0 ? (
             <p className="mt-5 text-[13px] text-muted">{t.empty}</p>
@@ -809,7 +918,9 @@ export default function RegistryEditor({
                   <h2 className="border-b border-black/10 px-1 pb-2 text-[12px] font-bold tracking-wide text-ink uppercase">
                     {group.heading}
                   </h2>
-                  <div className="mt-2 space-y-3">{group.defs.map((def) => renderField(def, undefined))}</div>
+                  <div className="mt-2 space-y-3">
+                    {group.defs.map((def) => renderField(def, undefined))}
+                  </div>
                 </section>
               ))}
             </div>
@@ -819,15 +930,21 @@ export default function RegistryEditor({
             <div className="mt-4">
               {visibleItems.map((item, index) => {
                 const previous = visibleItems[index - 1];
-                const showDivider = !previous || previous.pageKey !== item.pageKey;
+                const showDivider =
+                  !previous || previous.pageKey !== item.pageKey;
                 const open = openSection === item.key;
                 const route = item.defs[0]?.revalidate[0] ?? "";
                 // The crawled KO section backs the open-body hints/badges (it is
                 // the tree the registry keys were generated from).
                 const koTreeSection = open
-                  ? trees[item.pageKey]?.ko?.find((section) => section.id === item.sectionId)
+                  ? trees[item.pageKey]?.ko?.find(
+                      (section) => section.id === item.sectionId,
+                    )
                   : undefined;
-                const uneditable = uneditableWidgetTypes(koTreeSection, item.defs);
+                const uneditable = uneditableWidgetTypes(
+                  koTreeSection,
+                  item.defs,
+                );
                 return (
                   <div key={item.key}>
                     {showDivider ? (
@@ -835,7 +952,11 @@ export default function RegistryEditor({
                         <span className="text-[11px] font-bold tracking-wide text-muted uppercase">
                           {pageLabels[item.pageKey] ?? item.pageKey}
                         </span>
-                        {route ? <span className="font-mono text-[11px] text-muted">{route}</span> : null}
+                        {route ? (
+                          <span className="font-mono text-[11px] text-muted">
+                            {route}
+                          </span>
+                        ) : null}
                       </div>
                     ) : null}
 
@@ -860,7 +981,9 @@ export default function RegistryEditor({
                           </span>
                           <span className="mt-0.5 block truncate font-mono text-[11px] text-muted">
                             {[
-                              item.siteName && item.siteName !== item.label ? item.siteName : null,
+                              item.siteName && item.siteName !== item.label
+                                ? item.siteName
+                                : null,
                               truncateSectionId(item.sectionId),
                               t.fieldCount(item.defs.length),
                             ]
@@ -884,9 +1007,13 @@ export default function RegistryEditor({
 
                       {open ? (
                         <div className="space-y-3 border-t border-black/10 p-4">
-                          {item.defs.map((def) => renderField(def, koTreeSection))}
+                          {item.defs.map((def) =>
+                            renderField(def, koTreeSection),
+                          )}
                           {uneditable.length > 0 ? (
-                            <p className="text-[11px] text-muted">{t.uneditableHint(uneditable.join(", "))}</p>
+                            <p className="text-[11px] text-muted">
+                              {t.uneditableHint(uneditable.join(", "))}
+                            </p>
                           ) : null}
                         </div>
                       ) : null}
@@ -897,14 +1024,25 @@ export default function RegistryEditor({
             </div>
           ) : null}
 
-          {!loading && !loadError ? <p className="mt-3 text-[12px] text-muted">{t.defaultHint}</p> : null}
+          {!loading && !loadError ? (
+            <p className="mt-3 text-[12px] text-muted">{t.defaultHint}</p>
+          ) : null}
         </div>
 
         {!isSiteGroup && openItem ? (
           <aside className="mt-6 min-w-0 min-[992px]:sticky min-[992px]:top-6 min-[992px]:mt-0 min-[992px]:flex-1">
             <div className="overflow-hidden rounded-[4px] border border-black/10 bg-white">
               <div className="flex items-center justify-between gap-3 border-b border-black/10 px-3 py-2">
-                <span className="text-[12px] font-bold text-ink">{t.previewTitle}</span>
+                <span className="min-w-0">
+                  <span className="block text-[12px] font-bold text-ink">
+                    {t.previewTitle}
+                  </span>
+                  {/* Name the whole section being previewed, so a field deep in
+                      a long accordion (e.g. the home §6 map width) is unambiguous. */}
+                  <span className="block truncate text-[11px] text-muted">
+                    {openItem.label || t.unnamedSection}
+                  </span>
+                </span>
                 <div
                   role="group"
                   aria-label={t.previewLang}
@@ -917,7 +1055,9 @@ export default function RegistryEditor({
                       aria-pressed={previewLang === lang}
                       onClick={() => setPreviewLang(lang)}
                       className={`rounded-full px-2.5 py-1 transition-colors ${
-                        previewLang === lang ? "bg-accent font-bold text-white" : "text-muted hover:text-ink"
+                        previewLang === lang
+                          ? "bg-accent font-bold text-white"
+                          : "text-muted hover:text-ink"
                       }`}
                     >
                       {lang === "ko" ? t.ko : t.en}
@@ -958,7 +1098,11 @@ export default function RegistryEditor({
                   <ScaledDesktop>
                     <FooterFrame
                       section={preview.section}
-                      rows={buildFooterRows(preview.section, nav[previewLang] ?? [], previewLang)}
+                      rows={buildFooterRows(
+                        preview.section,
+                        nav[previewLang] ?? [],
+                        previewLang,
+                      )}
                       locale={previewLang}
                     />
                   </ScaledDesktop>
@@ -975,7 +1119,9 @@ export default function RegistryEditor({
                 )}
               </div>
             </div>
-            <p className="mt-2 text-[11px] leading-5 text-muted">{t.previewFootnote}</p>
+            <p className="mt-2 text-[11px] leading-5 text-muted">
+              {t.previewFootnote}
+            </p>
           </aside>
         ) : null}
       </div>
@@ -983,7 +1129,9 @@ export default function RegistryEditor({
       {isBoardsGroup && activeBoardSlug ? (
         <div className="mt-8">
           <div className="min-w-0">
-            <h2 className="text-[16px] font-bold tracking-tight text-ink">{t.boardsPostsHeading}</h2>
+            <h2 className="text-[16px] font-bold tracking-tight text-ink">
+              {t.boardsPostsHeading}
+            </h2>
             <p className="mt-0.5 text-[13px] text-muted">{t.boardsPostsHint}</p>
           </div>
           <div className="mt-4">

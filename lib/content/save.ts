@@ -94,7 +94,8 @@ function isValidSlidesPayload(value: string): boolean {
       };
       const bgOk = slide.bg === null || typeof slide.bg === "string";
       const titleOk = typeof slide.title === "string";
-      const subtitleOk = slide.subtitle === undefined || typeof slide.subtitle === "string";
+      const subtitleOk =
+        slide.subtitle === undefined || typeof slide.subtitle === "string";
       return bgOk && titleOk && subtitleOk;
     });
   } catch {
@@ -108,7 +109,8 @@ function isValidCardsPayload(value: string): boolean {
     const parsed: unknown = JSON.parse(value);
     if (!Array.isArray(parsed) || parsed.length === 0) return false;
     return parsed.every((entry) => {
-      if (!entry || typeof entry !== "object" || Array.isArray(entry)) return false;
+      if (!entry || typeof entry !== "object" || Array.isArray(entry))
+        return false;
       const lines = (entry as { lines?: unknown }).lines;
       return (
         Array.isArray(lines) && lines.every((line) => typeof line === "string")
@@ -127,7 +129,9 @@ function isValidPicksPayload(value: string): boolean {
     return (
       Array.isArray(parsed.idxs) &&
       parsed.idxs.length > 0 &&
-      parsed.idxs.every((idx) => typeof idx === "string" || typeof idx === "number")
+      parsed.idxs.every(
+        (idx) => typeof idx === "string" || typeof idx === "number",
+      )
     );
   } catch {
     return false;
@@ -145,7 +149,8 @@ function isValidErasPayload(value: string): boolean {
     const parsed: unknown = JSON.parse(value);
     if (!Array.isArray(parsed) || parsed.length === 0) return false;
     return parsed.every((entry) => {
-      if (!entry || typeof entry !== "object" || Array.isArray(entry)) return false;
+      if (!entry || typeof entry !== "object" || Array.isArray(entry))
+        return false;
       const era = entry as {
         range?: unknown;
         tagline?: unknown;
@@ -157,7 +162,12 @@ function isValidErasPayload(value: string): boolean {
       if (typeof era.image !== "string") return false;
       if (!Array.isArray(era.years)) return false;
       return era.years.every((yearEntry) => {
-        if (!yearEntry || typeof yearEntry !== "object" || Array.isArray(yearEntry)) return false;
+        if (
+          !yearEntry ||
+          typeof yearEntry !== "object" ||
+          Array.isArray(yearEntry)
+        )
+          return false;
         const year = yearEntry as { year?: unknown; items?: unknown };
         if (typeof year.year !== "string") return false;
         return (
@@ -193,7 +203,8 @@ function normalizeLocationsPayload(value: string): string | null {
       mapSrc: string;
     }> = [];
     for (const entry of parsed) {
-      if (!entry || typeof entry !== "object" || Array.isArray(entry)) return null;
+      if (!entry || typeof entry !== "object" || Array.isArray(entry))
+        return null;
       const location = entry as {
         badge?: unknown;
         city?: unknown;
@@ -207,12 +218,20 @@ function normalizeLocationsPayload(value: string): string | null {
       if (typeof location.city !== "string") return null;
       if (typeof location.address !== "string") return null;
       if (typeof location.mapSrc !== "string") return null;
-      if (location.mapSrc.trim().length > 0 && !isValidMediaValue(location.mapSrc)) return null;
+      if (
+        location.mapSrc.trim().length > 0 &&
+        !isValidMediaValue(location.mapSrc)
+      )
+        return null;
       // Absent contact fields are the pre-upgrade shape: normalize to "".
       const phone = location.phone === undefined ? "" : location.phone;
       const fax = location.fax === undefined ? "" : location.fax;
       const email = location.email === undefined ? "" : location.email;
-      if (typeof phone !== "string" || typeof fax !== "string" || typeof email !== "string") {
+      if (
+        typeof phone !== "string" ||
+        typeof fax !== "string" ||
+        typeof email !== "string"
+      ) {
         return null;
       }
       out.push({
@@ -240,7 +259,8 @@ function normalizeLocationsPayload(value: string): string | null {
  */
 function normalizeMediaPayload(
   value: string,
-  cfg: { fields: ("image" | "title" | "desc")[]; maxItems?: number } | undefined,
+  cfg:
+    { fields: ("image" | "title" | "desc")[]; maxItems?: number } | undefined,
 ): string | null {
   try {
     const parsed: unknown = JSON.parse(value);
@@ -297,10 +317,12 @@ function normalizeMediaPayload(
 export function normalizeFacilityTabsPayload(value: string): string | null {
   try {
     const parsed: unknown = JSON.parse(value);
-    if (!Array.isArray(parsed) || parsed.length === 0 || parsed.length > 3) return null;
+    if (!Array.isArray(parsed) || parsed.length === 0 || parsed.length > 3)
+      return null;
     const out: Array<{ name: string; images: string[] }> = [];
     for (const entry of parsed) {
-      if (!entry || typeof entry !== "object" || Array.isArray(entry)) return null;
+      if (!entry || typeof entry !== "object" || Array.isArray(entry))
+        return null;
       const tab = entry as { name?: unknown; images?: unknown };
       if (typeof tab.name !== "string") return null;
       const name = tab.name.trim();
@@ -333,15 +355,22 @@ export function normalizeFacilityTabsPayload(value: string): string | null {
 export function normalizeTechFeaturesPayload(value: string): string | null {
   try {
     const parsed: unknown = JSON.parse(value);
-    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) return null;
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed))
+      return null;
     const blocks = (parsed as { blocks?: unknown }).blocks;
     if (!Array.isArray(blocks) || blocks.length !== 3) return null;
 
     const out: TechFeaturesPayload["blocks"] = [];
     for (const blockEntry of blocks) {
-      if (!blockEntry || typeof blockEntry !== "object" || Array.isArray(blockEntry)) return null;
+      if (
+        !blockEntry ||
+        typeof blockEntry !== "object" ||
+        Array.isArray(blockEntry)
+      )
+        return null;
       const items = (blockEntry as { items?: unknown }).items;
-      if (!Array.isArray(items) || items.length === 0 || items.length > 12) return null;
+      if (!Array.isArray(items) || items.length === 0 || items.length > 12)
+        return null;
 
       const itemsOut: TechFeatureItem[] = [];
       for (const entry of items) {
@@ -358,11 +387,21 @@ export function normalizeTechFeaturesPayload(value: string): string | null {
         if (typeof item.heading !== "string") return null;
         const heading = item.heading.trim();
         if (heading.length === 0) return null;
-        if (!Array.isArray(item.rows) || item.rows.length === 0 || item.rows.length > 30) return null;
+        if (
+          !Array.isArray(item.rows) ||
+          item.rows.length === 0 ||
+          item.rows.length > 30
+        )
+          return null;
 
         const rows: TechFeatureRow[] = [];
         for (const rowEntry of item.rows) {
-          if (!rowEntry || typeof rowEntry !== "object" || Array.isArray(rowEntry)) return null;
+          if (
+            !rowEntry ||
+            typeof rowEntry !== "object" ||
+            Array.isArray(rowEntry)
+          )
+            return null;
           const row = rowEntry as { label?: unknown; body?: unknown };
           if (typeof row.label !== "string") return null;
           const label = row.label.trim();
@@ -389,23 +428,39 @@ export function normalizeTechFeaturesPayload(value: string): string | null {
 export function normalizePatentSectionsPayload(value: string): string | null {
   try {
     const parsed: unknown = JSON.parse(value);
-    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) return null;
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed))
+      return null;
     const sections = (parsed as { sections?: unknown }).sections;
-    if (!Array.isArray(sections) || sections.length === 0 || sections.length > 12) return null;
+    if (
+      !Array.isArray(sections) ||
+      sections.length === 0 ||
+      sections.length > 12
+    )
+      return null;
 
     const out: PatentSectionsPayload["sections"] = [];
     for (const entry of sections) {
-      if (!entry || typeof entry !== "object" || Array.isArray(entry)) return null;
+      if (!entry || typeof entry !== "object" || Array.isArray(entry))
+        return null;
       const section = entry as { title?: unknown; items?: unknown };
       if (typeof section.title !== "string") return null;
       const title = section.title.trim();
       if (title.length === 0) return null;
-      if (!Array.isArray(section.items) || section.items.length === 0 || section.items.length > 60) {
+      if (
+        !Array.isArray(section.items) ||
+        section.items.length === 0 ||
+        section.items.length > 60
+      ) {
         return null;
       }
       const items: PatentSectionsPayload["sections"][number]["items"] = [];
       for (const itemEntry of section.items) {
-        if (!itemEntry || typeof itemEntry !== "object" || Array.isArray(itemEntry)) return null;
+        if (
+          !itemEntry ||
+          typeof itemEntry !== "object" ||
+          Array.isArray(itemEntry)
+        )
+          return null;
         const item = itemEntry as { image?: unknown; caption?: unknown };
         if (typeof item.image !== "string") return null;
         const image = item.image.trim();
@@ -430,7 +485,8 @@ export function normalizePatentSectionsPayload(value: string): string | null {
 export function normalizeFacilitiesTablePayload(value: string): string | null {
   try {
     const parsed: unknown = JSON.parse(value);
-    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) return null;
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed))
+      return null;
     const header = (parsed as { header?: unknown }).header;
     if (!Array.isArray(header) || header.length !== 2) return null;
     const headerOut: FacilitiesTablePayload["header"] = ["", ""];
@@ -442,7 +498,8 @@ export function normalizeFacilitiesTablePayload(value: string): string | null {
       headerOut[i] = trimmed;
     }
     const rows = (parsed as { rows?: unknown }).rows;
-    if (!Array.isArray(rows) || rows.length === 0 || rows.length > 100) return null;
+    if (!Array.isArray(rows) || rows.length === 0 || rows.length > 100)
+      return null;
     const rowsOut: FacilitiesTablePayload["rows"] = [];
     for (const rowEntry of rows) {
       if (!Array.isArray(rowEntry) || rowEntry.length !== 2) return null;
@@ -471,7 +528,8 @@ export function normalizeProductPagePayload(value: string): string | null {
   const MAX_FILTER = 60;
   try {
     const parsed: unknown = JSON.parse(value);
-    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) return null;
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed))
+      return null;
     const record = parsed as {
       title?: unknown;
       subtitle?: unknown;
@@ -497,9 +555,11 @@ export function normalizeProductPagePayload(value: string): string | null {
     const ids = new Set<string>();
     const names = new Set<string>();
     for (const entry of record.filters) {
-      if (!entry || typeof entry !== "object" || Array.isArray(entry)) return null;
+      if (!entry || typeof entry !== "object" || Array.isArray(entry))
+        return null;
       const filter = entry as { id?: unknown; name?: unknown };
-      if (typeof filter.id !== "string" || typeof filter.name !== "string") return null;
+      if (typeof filter.id !== "string" || typeof filter.name !== "string")
+        return null;
       const id = filter.id.trim();
       const name = filter.name.trim();
       if (id.length === 0 || id.length > MAX_FILTER) return null;
@@ -584,7 +644,10 @@ export async function saveContent({
     };
   }
 
-  if ((def.kind === "image" || def.kind === "url" || def.kind === "embed") && trimmedLength > 0) {
+  if (
+    (def.kind === "image" || def.kind === "url" || def.kind === "embed") &&
+    trimmedLength > 0
+  ) {
     if (!isValidMediaValue(value)) {
       return {
         ok: false,
@@ -593,7 +656,11 @@ export async function saveContent({
     }
   }
 
-  if (def.kind === "image" && trimmedLength > 0 && !isAllowedImageValue(value)) {
+  if (
+    def.kind === "image" &&
+    trimmedLength > 0 &&
+    !isAllowedImageValue(value)
+  ) {
     return {
       ok: false,
       message:
@@ -601,21 +668,47 @@ export async function saveContent({
     };
   }
 
-  if (def.kind === "slides" && trimmedLength > 0 && !isValidSlidesPayload(value)) {
+  if (def.kind === "size" && trimmedLength > 0) {
+    const n = Number(value);
+    if (!Number.isFinite(n) || n < 40 || n > 100) {
+      return {
+        ok: false,
+        message: "Invalid size value: expected a percentage between 40 and 100",
+      };
+    }
+    // Store an integer so the slider and the renderer agree.
+    value = String(Math.round(n));
+  }
+
+  if (
+    def.kind === "slides" &&
+    trimmedLength > 0 &&
+    !isValidSlidesPayload(value)
+  ) {
     return {
       ok: false,
-      message: "Invalid slides payload: expected a non-empty JSON array of { bg, title, subtitle }",
+      message:
+        "Invalid slides payload: expected a non-empty JSON array of { bg, title, subtitle }",
     };
   }
 
-  if (def.kind === "cards" && trimmedLength > 0 && !isValidCardsPayload(value)) {
+  if (
+    def.kind === "cards" &&
+    trimmedLength > 0 &&
+    !isValidCardsPayload(value)
+  ) {
     return {
       ok: false,
-      message: "Invalid cards payload: expected a non-empty JSON array of { lines }",
+      message:
+        "Invalid cards payload: expected a non-empty JSON array of { lines }",
     };
   }
 
-  if (def.kind === "picks" && trimmedLength > 0 && !isValidPicksPayload(value)) {
+  if (
+    def.kind === "picks" &&
+    trimmedLength > 0 &&
+    !isValidPicksPayload(value)
+  ) {
     return {
       ok: false,
       message: "Invalid picks payload: expected { board, idxs }",
@@ -643,7 +736,10 @@ export async function saveContent({
     value = normalized;
   }
 
-  if ((def.kind === "gallery" || def.kind === "aboutCards") && trimmedLength > 0) {
+  if (
+    (def.kind === "gallery" || def.kind === "aboutCards") &&
+    trimmedLength > 0
+  ) {
     const normalized = normalizeMediaPayload(value, def.gallery);
     if (normalized === null) {
       return {
@@ -722,9 +818,10 @@ export async function saveContent({
     return { ok: false, message: DB_NOT_CONFIGURED_MESSAGE };
   }
 
-  // `url` fields are shared across locales (a link is the same in ko/en).
+  // `url` and `size` fields are shared across locales (a link / layout width is
+  // the same in ko/en).
   const locales: Array<"ko" | "en"> =
-    def.kind === "url" ? ["ko", "en"] : [locale];
+    def.kind === "url" || def.kind === "size" ? ["ko", "en"] : [locale];
 
   try {
     if (trimmedLength === 0) {
