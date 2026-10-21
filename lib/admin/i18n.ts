@@ -347,12 +347,20 @@ export interface AdminDict {
     productPageProductsLoading: string;
     productPageProductsError: string;
     productPageAddProduct: string;
-    /** Copy this locale panel's payload into the other locale draft. */
-    productPageCopyOther: string;
-    /** Hint under the copy button (mentions the page must be saved). */
-    productPageCopyOtherHint: string;
-    /** Feedback after a copy (mentions the page must be saved). */
-    productPageCopyOtherDone: string;
+    /** Label for the cross-locale product-list copy (`lang` = source language). */
+    productPageCopyProducts: (lang: "ko" | "en") => string;
+    /** Hint under the product-list copy button. */
+    productPageCopyProductsHint: string;
+    /** Confirm replacing this locale's list (`count` = source product count). */
+    productPageCopyProductsConfirm: (count: number) => string;
+    /** Success feedback (`count` = copied product count). */
+    productPageCopyProductsDone: (count: number) => string;
+    /** Feedback when the other language has no products. */
+    productPageCopyProductsEmpty: string;
+    /** Blocking error: `count` source products have no target filter tab. */
+    productPageCopyProductsFilterMismatch: (count: number) => string;
+    /** Busy label while the cross-locale copy runs. */
+    productPageCopyProductsBusy: string;
   };
   /**
    * The board editor + post form, embedded in Content → News & Notices (the
@@ -838,10 +846,18 @@ const ko: AdminDict = {
     productPageProductsLoading: "제품 목록을 불러오는 중…",
     productPageProductsError: "제품 목록을 불러오지 못했습니다.",
     productPageAddProduct: "제품 추가",
-    productPageCopyOther: "다른 언어로 복사",
-    productPageCopyOtherHint:
-      "제목과 부제목만 반대편 언어 초안으로 복사합니다. 필터 탭은 언어별 게시판 분류이므로 그대로 유지됩니다. 페이지를 저장해야 반영됩니다.",
-    productPageCopyOtherDone: "복사됨 — 저장하면 반영됩니다.",
+    productPageCopyProducts: (lang) =>
+      lang === "ko" ? "한국어 제품 목록 복사" : "영어 제품 목록 복사",
+    productPageCopyProductsHint:
+      "반대편 언어의 제품 목록 전체를 이 언어로 복사합니다. 기존 제품은 확인 후 교체되며, 복사한 뒤 이름과 내용을 수정할 수 있습니다.",
+    productPageCopyProductsConfirm: (count) =>
+      `이 언어의 제품 목록을 반대편 언어의 제품 ${count}개로 교체할까요? 복사 후 이름과 내용을 수정할 수 있습니다.`,
+    productPageCopyProductsDone: (count) =>
+      `제품 ${count}개를 복사했습니다 — 이름과 내용을 수정하세요.`,
+    productPageCopyProductsEmpty: "반대편 언어에 복사할 제품이 없습니다.",
+    productPageCopyProductsFilterMismatch: (count) =>
+      `복사할 수 없습니다: 제품 ${count}개가 이 언어에 아직 없는 필터 탭에 속해 있습니다. 먼저 필터 탭을 추가하거나 순서를 맞춰 주세요.`,
+    productPageCopyProductsBusy: "복사 중…",
   },
   boards: {
     title: "게시판",
@@ -1294,10 +1310,18 @@ const en: AdminDict = {
     productPageProductsLoading: "Loading products…",
     productPageProductsError: "Could not load products.",
     productPageAddProduct: "Add product",
-    productPageCopyOther: "Copy to other language",
-    productPageCopyOtherHint:
-      "Copies only the title and subtitle into the other language draft. Filter tabs keep their own ids because they map to language-specific post categories. Save the page to apply it.",
-    productPageCopyOtherDone: "Copied — save to apply.",
+    productPageCopyProducts: (lang) =>
+      lang === "ko" ? "Copy products from Korean" : "Copy products from English",
+    productPageCopyProductsHint:
+      "Copies the other language's entire product list into this language. Existing products here are replaced after confirmation; edit names and text afterwards.",
+    productPageCopyProductsConfirm: (count) =>
+      `Replace this language's product list with ${count} ${count === 1 ? "product" : "products"} from the other language? You can edit names and text afterwards.`,
+    productPageCopyProductsDone: (count) =>
+      `Copied ${count} ${count === 1 ? "product" : "products"} — edit names and text below.`,
+    productPageCopyProductsEmpty: "The other language has no products to copy.",
+    productPageCopyProductsFilterMismatch: (count) =>
+      `Cannot copy: ${count} ${count === 1 ? "product uses" : "products use"} a filter tab this language does not have yet. Add or reorder the filter tabs first.`,
+    productPageCopyProductsBusy: "Copying…",
   },
   boards: {
     title: "Boards",

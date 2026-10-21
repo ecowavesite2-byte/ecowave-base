@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import type { AdminDict } from "@/lib/admin/i18n";
 import { blankPost, generatePostIdx } from "@/lib/content/board-form";
+import { copyProductPosts, countUnmappedProductPosts } from "@/lib/content/product-copy";
 import type { BoardPost, ProductFilter, ProductPagePayload } from "@/lib/types";
 import PostEditDialog from "../boards/PostEditDialog";
 import type { RowStatus } from "../boards/PostRow";
@@ -254,7 +255,6 @@ export default function ProductPageField({
   boardSlug,
   posts,
   onPostsChange,
-  onCopyToOther,
   onChange,
 }: {
   value: string;
@@ -270,13 +270,6 @@ export default function ProductPageField({
   posts: ProductPostOption[];
   /** Called with the refreshed compact post list after each successful mutation. */
   onPostsChange: (posts: ProductPostOption[]) => void;
-  /**
-   * Write this panel's copyable payload (`{ title, subtitle }` only) into the
-   * OTHER locale draft (copy button). When omitted the button is hidden — the
-   * Boards lane never uses it. Filter ids are locale-specific, so the caller
-   * merges the target's OWN filters on top (see `FieldRow`).
-   */
-  onCopyToOther?: (json: string) => void;
   onChange: (json: string) => void;
 }) {
   const isDefault = value.trim() === "";
@@ -299,8 +292,11 @@ export default function ProductPageField({
   /** Filter id pre-selected when adding from a filter row. */
   const [newCategory, setNewCategory] = useState<string | undefined>(undefined);
   const [rowStatus, setRowStatus] = useState<Record<string, RowStatus>>({});
-  /** Transient "copied to the other language" feedback for this panel. */
-  const [copied, setCopied] = useState(false);
+  /** Cross-locale product-list copy status (transient feedback). */
+  const [copying, setCopying] = useState(false);
+  const [copyStatus, setCopyStatus] = useState<
+    { kind: "done"; count: number } | { kind: "empty" } | null
+  >(null);
   /**
    * Stable idx for the post being added, fixed when the dialog opens. The
    * dialog is keyed by `new-<category>` (not the idx) so a re-render cannot
@@ -376,16 +372,62 @@ export default function ProductPageField({
   };
 
   /**
-   * Copy only this panel's title/subtitle into the other locale's draft. Filter
-   * ids name locale-specific post categories (KO `필터` vs EN `Filter`), so
-   * they must NEVER cross locales — the target keeps its own filters untouched.
+   * Copy the OTHER language's whole product list into THIS page's board. The
+   * copy is an immediate board write (posts are not part of the page draft), so
+   * the admin translates titles/text afterwards through the same inline editor.
+   * Filter categories are mapped by tab order — see `copyProductPosts`.
    */
-  const handleCopyToOther = () => {
-    if (!onCopyToOther) return;
-    onCopyToOther(JSON.stringify({ title: page.title, subtitle: page.subtitle }));
-    setCopied(true);
-    window.setTimeout(() => setCopied(false), SAVED_FEEDBACK_MS);
-  };
+  async function copyProductsFromOther() {
+    if (copying) return;
+    const other: RegistryLocale = lang === "ko" ? "en" : "ko";
+    setCopying(true);
+    setActionError(null);
+    setCopyStatus(null);
+    try {
+      const response = await fetch(
+        `/api/admin/boards?locale=${other}&slug=${encodeURIComponent(boardSlug)}`,
+      );
+      if (!response.ok) {
+        setActionError(boardsT.requestFailed(response.status));
+        return;
+      }
+      const source = (await response.json()) as BoardDetail;
+      if (source.posts.length === 0) {
+        setCopyStatus({ kind: "empty" });
+        return;
+      }
+      const unmapped = countUnmappedProductPosts(
+        source.posts,
+        source.filters,
+        page.filters,
+      );
+      if (unmapped > 0) {
+        setActionError(t.productPageCopyProductsFilterMismatch(unmapped));
+        return;
+      }
+      if (
+        displayPosts.length > 0 &&
+        !window.confirm(t.productPageCopyProductsConfirm(source.posts.length))
+      ) {
+        return;
+      }
+      const copied = copyProductPosts(source.posts, source.filters, page.filters);
+      const ok = await put({
+        action: "replace",
+        slug: boardSlug,
+        locale: lang,
+        posts: copied,
+      });
+      if (!ok) return;
+      await loadPosts();
+      setCopyStatus({ kind: "done", count: copied.length });
+      window.setTimeout(() => setCopyStatus(null), SAVED_FEEDBACK_MS);
+    } catch {
+      setActionError(boardsT.networkError);
+    } finally {
+      setCopying(false);
+    }
+  }
 
   /** Run one boards-lane mutation, then refetch and re-sync the preview. */
   async function put(body: unknown): Promise<boolean> {
@@ -490,22 +532,29 @@ export default function ProductPageField({
       {invalid ? <p className="text-[11px] text-amber-600">{t.productPageInvalid}</p> : null}
 
       <div className={CARD}>
-        {onCopyToOther ? (
-          <div className="mb-2 flex flex-wrap items-center gap-2 rounded-[4px] border border-black/10 bg-white/70 px-2.5 py-2">
-            <button
-              type="button"
-              data-testid="product-page-copy-other"
-              disabled={disabled}
-              onClick={handleCopyToOther}
-              className={COPY_BUTTON}
-            >
-              {t.productPageCopyOther}
-            </button>
-            <span className="min-w-0 flex-1 text-[11px] text-muted">
-              {copied ? t.productPageCopyOtherDone : t.productPageCopyOtherHint}
-            </span>
-          </div>
-        ) : null}
+        <div className="mb-2 flex flex-wrap items-center gap-2 rounded-[4px] border border-black/10 bg-white/70 px-2.5 py-2">
+          <button
+            type="button"
+            data-testid="product-page-copy-products"
+            disabled={disabled || busy || copying}
+            onClick={() => void copyProductsFromOther()}
+            className={COPY_BUTTON}
+          >
+            {copying
+              ? t.productPageCopyProductsBusy
+              : t.productPageCopyProducts(lang === "ko" ? "en" : "ko")}
+          </button>
+          <span
+            className="min-w-0 flex-1 text-[11px] text-muted"
+            data-testid="product-page-copy-products-status"
+          >
+            {copyStatus?.kind === "done"
+              ? t.productPageCopyProductsDone(copyStatus.count)
+              : copyStatus?.kind === "empty"
+                ? t.productPageCopyProductsEmpty
+                : t.productPageCopyProductsHint}
+          </span>
+        </div>
 
         <div className="space-y-2">
           <label className="block min-w-0">

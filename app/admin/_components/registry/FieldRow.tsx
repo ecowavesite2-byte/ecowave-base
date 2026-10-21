@@ -13,7 +13,7 @@ import LocationsField from "./LocationsField";
 import OverlayField from "./OverlayField";
 import PatentSectionsField from "./PatentSectionsField";
 import PicksField from "./PicksField";
-import ProductPageField, { parseProductPage } from "./ProductPageField";
+import ProductPageField from "./ProductPageField";
 import SlidesField from "./SlidesField";
 import TechFeaturesField from "./TechFeaturesField";
 import type {
@@ -56,28 +56,6 @@ const EMPTY_BOARD_OPTIONS: BoardPostsMap = {
 };
 const EMPTY_PRODUCT_POSTS: ProductPostsMap = { ko: {}, en: {} };
 const EMPTY_OPTIONS: ProductPostOption[] = [];
-
-/**
- * Merge a copied `productPage` payload (`{ title, subtitle }`) onto the TARGET
- * locale's OWN filter tabs. Filter ids name language-specific post categories
- * (KO `필터` vs EN `Filter`), so copying them across locales would leave the
- * target selecting zero posts; only the hero copy crosses and the target's
- * filters stay exactly as they were.
- */
-function mergeProductPageCopy(json: string, targetSource: string): string {
-  const target = parseProductPage(targetSource) ?? {
-    title: "",
-    subtitle: "",
-    filters: [],
-  };
-  const copy = JSON.parse(json) as { title?: string; subtitle?: string };
-  return JSON.stringify({
-    title: typeof copy.title === "string" ? copy.title : target.title,
-    subtitle:
-      typeof copy.subtitle === "string" ? copy.subtitle : target.subtitle,
-    filters: target.filters,
-  });
-}
 
 /**
  * Upload control for the video-source `url` def: posts the file to the shared
@@ -747,12 +725,6 @@ export default function FieldRow({
                 onPostsChange={(next) =>
                   onProductPostsChange?.(lang, def.pageKey, next)
                 }
-                onCopyToOther={(json) => {
-                  const target: RegistryLocale = lang === "ko" ? "en" : "ko";
-                  const targetSource =
-                    drafts[target].trim() || codeDefaults[target];
-                  onDraft(target, mergeProductPageCopy(json, targetSource));
-                }}
                 onChange={(json) => onDraft(lang, json)}
               />
             </div>
