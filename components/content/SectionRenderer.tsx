@@ -309,6 +309,34 @@ function ImageWidget({
     (w.href || "").includes("#doz_header") &&
     /margin\s*:\s*21px\s+auto/i.test(w.imgStyle || "");
 
+  // imweb centres an image widget by putting `text-align:center` on its
+  // `._img_box`; the crawled `margin: ... auto` is the signal that it did.
+  // Our wrapper is a plain block, so an inline-block image (company.organization
+  // org chart, authored `margin:0 auto`) would otherwise pin to the left edge of
+  // its fluid `extend_section` row — at 1920 the 1380px chart sat at x=7.5 where
+  // the original centres it at x=262.3. The back-to-top icon is excluded: imweb
+  // shrink-wraps its 41px box and right-aligns it, so centring our full-width
+  // band would move it. Auto margins with concrete crop offsets are unaffected.
+  const marginAuto = (() => {
+    const m = /(?:^|;)\s*margin\s*:\s*([^;]+)/.exec(w.imgStyle || "")?.[1];
+    if (m) {
+      const v = m.trim().split(/\s+/);
+      const horiz =
+        v.length === 1
+          ? [v[0]]
+          : v.length === 2
+            ? [v[1]]
+            : v.length === 3
+              ? [v[1]]
+              : [v[1], v[3]];
+      if (horiz.some((x) => x.toLowerCase() === "auto")) return true;
+    }
+    return /(?:^|;)\s*margin-(?:left|right)\s*:\s*auto\b/i.test(
+      w.imgStyle || "",
+    );
+  })();
+  const autoCenter = marginAuto && !isScrollTop;
+
   // apply the original img inline styles verbatim (crop margins, sizes);
   // neutralize Tailwind preflight's img{max-width:100%} when the source crops
   const inlineStyle: Record<string, string> = {};
@@ -721,7 +749,7 @@ function ImageWidget({
         }${h ? " " + (mobileBox ? BOX_MOBILE_HEIGHT : BOX_DESKTOP_HEIGHT) : ""}`}
         data-hover-scale={hoverScale ?? undefined}
         style={
-          h || (imageSize !== undefined && !mapImage)
+          h || (imageSize !== undefined && !mapImage) || autoCenter
             ? ({
                 ...(h ? { ["--box-h" as string]: `${h}px` } : {}),
                 ...(imageSize !== undefined && !mapImage
@@ -732,6 +760,7 @@ function ImageWidget({
                       marginRight: "auto",
                     }
                   : {}),
+                ...(autoCenter ? { textAlign: "center" as const } : {}),
               } as React.CSSProperties)
             : undefined
         }
