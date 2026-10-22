@@ -484,7 +484,7 @@ export default function ProductPageField({
    * groups first, unassigned last) before submitting it via `replace`, exactly
    * like the Boards grouped view. Requires the full board array (no fallback).
    */
-  function move(filterId: string, index: number, direction: "up" | "down") {
+  function move(filterId: string | null, index: number, direction: "up" | "down") {
     if (!boardPosts) return;
     const group = groups.find((candidate) => candidate.filterId === filterId);
     if (!group) return;
@@ -507,8 +507,43 @@ export default function ProductPageField({
     () => groupPostsByFilter(displayPosts, page.filters),
     [displayPosts, page.filters],
   );
+  // `groupPostsByFilter` appends the unassigned bucket last. Those posts are
+  // real board rows (and appear under `All` on the public page), so the editor
+  // must surface them: otherwise the admin's per-filter totals disagree with
+  // the public board and there is no way to assign them a filter.
+  const unassignedPosts = groups[page.filters.length]?.posts ?? [];
 
   const rowsDisabled = disabled || busy || boardPosts === null;
+
+  /** Product rows for one filter group, or the unassigned bucket (`null`). */
+  function productRows(groupPosts: BoardPost[], filterId: string | null) {
+    return groupPosts.map((post, postIndex) => (
+      <ProductRow
+        key={post.idx}
+        t={boardsT}
+        post={post}
+        status={rowStatus[post.idx] ?? "idle"}
+        disabled={rowsDisabled}
+        canMoveUp={postIndex > 0}
+        canMoveDown={postIndex < groupPosts.length - 1}
+        onMoveUp={() => move(filterId, postIndex, "up")}
+        onMoveDown={() => move(filterId, postIndex, "down")}
+        onEdit={() => {
+          setActionError(null);
+          setNewCategory(undefined);
+          setEditing(post);
+        }}
+        onDelete={() => {
+          if (window.confirm(boardsT.deleteConfirm(post.title || post.idx))) {
+            void run(
+              { action: "delete", slug: boardSlug, locale: lang, idx: post.idx },
+              post.idx,
+            );
+          }
+        }}
+      />
+    ));
+  }
 
   // The post the dialog edits: the selected one, or a fresh blank post carrying
   // the pre-selected filter and the idx fixed when the dialog opened.
@@ -605,6 +640,15 @@ export default function ProductPageField({
             {t.productPageFilters}
           </span>
           <p className="mb-2 text-[11px] text-muted">{t.productPageFilterHint}</p>
+
+          {unassignedPosts.length > 0 ? (
+            <p
+              data-testid="product-page-unassigned-warning"
+              className="mb-2 rounded-[3px] border border-amber-300 bg-amber-50 px-2.5 py-2 text-[11px] leading-[1.5] text-amber-900"
+            >
+              {t.productPageUnassignedWarning(unassignedPosts.length)}
+            </p>
+          ) : null}
 
           {/* Built-in `전체`/`All` tab: not part of the payload, always first. */}
           <div
@@ -742,32 +786,7 @@ export default function ProductPageField({
                       </p>
                     ) : (
                       <ul className="mt-1 space-y-1" data-testid="product-page-product-list">
-                        {groupPosts.map((post, postIndex) => (
-                          <ProductRow
-                            key={post.idx}
-                            t={boardsT}
-                            post={post}
-                            status={rowStatus[post.idx] ?? "idle"}
-                            disabled={rowsDisabled}
-                            canMoveUp={postIndex > 0}
-                            canMoveDown={postIndex < groupPosts.length - 1}
-                            onMoveUp={() => move(filter.id, postIndex, "up")}
-                            onMoveDown={() => move(filter.id, postIndex, "down")}
-                            onEdit={() => {
-                              setActionError(null);
-                              setNewCategory(undefined);
-                              setEditing(post);
-                            }}
-                            onDelete={() => {
-                              if (window.confirm(boardsT.deleteConfirm(post.title || post.idx))) {
-                                void run(
-                                  { action: "delete", slug: boardSlug, locale: lang, idx: post.idx },
-                                  post.idx,
-                                );
-                              }
-                            }}
-                          />
-                        ))}
+                        {productRows(groupPosts, filter.id)}
                       </ul>
                     )}
                   </div>
@@ -775,6 +794,43 @@ export default function ProductPageField({
               );
             })}
           </div>
+
+          {unassignedPosts.length > 0 ? (
+            <div
+              data-testid="product-page-unassigned"
+              className="mt-2 rounded-[4px] border border-amber-300 bg-amber-50/60 p-2.5"
+            >
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="text-[12px] font-medium text-amber-900">
+                  {boardsT.unassigned}
+                </span>
+                <span
+                  className="text-[11px] text-amber-900/70"
+                  data-testid="product-page-unassigned-count"
+                >
+                  {t.productPageProductCount(unassignedPosts.length)}
+                </span>
+                <button
+                  type="button"
+                  data-testid="product-page-unassigned-add"
+                  disabled={rowsDisabled}
+                  onClick={() => startNew()}
+                  className={`ml-auto ${ADD_PRODUCT_BUTTON}`}
+                >
+                  + {t.productPageAddProduct}
+                </button>
+              </div>
+              <p className="mt-1 text-[11px] leading-[1.5] text-amber-900/80">
+                {t.productPageUnassignedHint}
+              </p>
+              <ul
+                className="mt-1 space-y-1"
+                data-testid="product-page-unassigned-list"
+              >
+                {productRows(unassignedPosts, null)}
+              </ul>
+            </div>
+          ) : null}
 
           <div className="mt-2 flex flex-wrap items-center gap-2">
             <button

@@ -347,6 +347,10 @@ export interface AdminDict {
     productPageProductsLoading: string;
     productPageProductsError: string;
     productPageAddProduct: string;
+    /** Warn that `count` posts match no filter tab (shown above the Unassigned group). */
+    productPageUnassignedWarning: (count: number) => string;
+    /** Explanation under the Unassigned group header. */
+    productPageUnassignedHint: string;
     /** Label for the cross-locale product-list copy (`lang` = source language). */
     productPageCopyProducts: (lang: "ko" | "en") => string;
     /** Hint under the product-list copy button. */
@@ -846,6 +850,10 @@ const ko: AdminDict = {
     productPageProductsLoading: "제품 목록을 불러오는 중…",
     productPageProductsError: "제품 목록을 불러오지 못했습니다.",
     productPageAddProduct: "제품 추가",
+    productPageUnassignedWarning: (count) =>
+      `필터 탭에 지정되지 않은 제품이 ${count}개 있습니다. 아래 "미지정" 목록에 표시되며, 공개 페이지에서는 전체 탭에만 나타납니다. 제품을 수정해 필터를 지정하세요.`,
+    productPageUnassignedHint:
+      "이 제품들은 필터 탭에 속하지 않아 공개 페이지의 전체 탭에만 표시됩니다. 수정에서 필터를 선택하세요.",
     productPageCopyProducts: (lang) =>
       lang === "ko" ? "한국어 제품 목록 복사" : "영어 제품 목록 복사",
     productPageCopyProductsHint:
@@ -1310,6 +1318,10 @@ const en: AdminDict = {
     productPageProductsLoading: "Loading products…",
     productPageProductsError: "Could not load products.",
     productPageAddProduct: "Add product",
+    productPageUnassignedWarning: (count) =>
+      `${count} ${count === 1 ? "product is" : "products are"} not assigned to a filter tab. ${count === 1 ? "It is" : "They are"} listed under "Unassigned" below and only appear under All on the public page. Edit a product to choose its filter.`,
+    productPageUnassignedHint:
+      "These products have no filter tab, so they only appear under All on the public page. Choose a filter when editing.",
     productPageCopyProducts: (lang) =>
       lang === "ko" ? "Copy products from Korean" : "Copy products from English",
     productPageCopyProductsHint:
