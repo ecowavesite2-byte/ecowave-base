@@ -152,7 +152,7 @@ const ADD_PRODUCT_BUTTON =
 const INPUT =
   "h-[36px] w-full rounded-[3px] border border-black/10 bg-white px-3 text-[13px] text-ink outline-none transition-colors placeholder:text-muted focus:border-accent";
 const COPY_BUTTON =
-  "h-[32px] shrink-0 rounded-[3px] border border-black/10 bg-white px-3 text-[12px] text-ink transition-colors hover:border-accent hover:text-accent disabled:opacity-40";
+  "inline-flex h-[36px] items-center gap-2 rounded-[3px] bg-accent px-4 text-[13px] font-medium text-white shadow-sm transition-colors hover:bg-accent/90 disabled:cursor-not-allowed disabled:opacity-40";
 
 /** One inline product row: thumb, title and the Boards-lane row controls. */
 function ProductRow({
@@ -532,7 +532,7 @@ export default function ProductPageField({
       {invalid ? <p className="text-[11px] text-amber-600">{t.productPageInvalid}</p> : null}
 
       <div className={CARD}>
-        <div className="mb-2 flex flex-wrap items-center gap-2 rounded-[4px] border border-black/10 bg-white/70 px-2.5 py-2">
+        <div className="mb-2 flex flex-col items-start gap-2 rounded-[4px] border border-black/10 bg-white/70 px-2.5 py-2">
           <button
             type="button"
             data-testid="product-page-copy-products"
@@ -540,12 +540,26 @@ export default function ProductPageField({
             onClick={() => void copyProductsFromOther()}
             className={COPY_BUTTON}
           >
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden
+            >
+              <rect x="9" y="9" width="13" height="13" rx="2" />
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+            </svg>
             {copying
               ? t.productPageCopyProductsBusy
               : t.productPageCopyProducts(lang === "ko" ? "en" : "ko")}
           </button>
           <span
-            className="min-w-0 flex-1 text-[11px] text-muted"
+            className="w-full text-[11px] leading-[1.6] text-muted"
             data-testid="product-page-copy-products-status"
           >
             {copyStatus?.kind === "done"
